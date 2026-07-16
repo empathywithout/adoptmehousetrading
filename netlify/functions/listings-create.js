@@ -16,6 +16,19 @@ const VALID_CATEGORIES = [
 
 const VALID_LISTING_TYPES = ["house_trade", "looking_for", "commission"];
 
+const VALID_THEMES = [
+  "cottagecore",
+  "cutecore",
+  "gothic",
+  "realism",
+  "nature",
+  "modern",
+  "fantasy",
+  "horror",
+  "holiday_seasonal",
+  "franchise_crossover",
+];
+
 async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
     return json(405, { error: "Method not allowed" });
@@ -45,6 +58,8 @@ async function handlerImpl(event) {
     value_amount,
     value_unit,
     bucks_invested,
+    themes,
+    theme_note,
   } = body;
 
   const cleanType = VALID_LISTING_TYPES.includes(listing_type) ? listing_type : "house_trade";
@@ -86,6 +101,9 @@ async function handlerImpl(event) {
       ? Number(bucks_invested)
       : null;
 
+  const cleanThemes = Array.isArray(themes) ? themes.filter((t) => VALID_THEMES.includes(t)) : [];
+  const cleanThemeNote = theme_note ? String(theme_note).slice(0, 100) : null;
+
   const db = supabaseAdmin();
   const { data, error } = await db
     .from("listings")
@@ -98,6 +116,8 @@ async function handlerImpl(event) {
       value_unit: cleanValueAmount !== null ? cleanValueUnit : null,
       bucks_invested: cleanBucksInvested,
       included_items: cleanIncludedItems,
+      themes: cleanThemes,
+      theme_note: cleanThemeNote,
       title: String(title).slice(0, 120),
       description: description ? String(description).slice(0, 2000) : null,
       photos: cleanPhotos,

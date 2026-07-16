@@ -50,7 +50,7 @@
 </footer>
 
 <script type="module">
-  import { api, getStoredProfile, CATEGORY_LABELS } from "../js/api.js";
+  import { api, getStoredProfile, CATEGORY_LABELS, THEME_LABELS } from "../js/api.js";
   import { mountItemPicker } from "../js/item-picker.js";
 
   const params = new URLSearchParams(location.search);
@@ -116,6 +116,10 @@
       .map((c) => `<span class="pill">${CATEGORY_LABELS[c] || c}</span>`)
       .join("");
 
+    const themeHtml = (listing.themes || [])
+      .map((t) => `<span class="pill">${THEME_LABELS[t] || t}${t === "franchise_crossover" && listing.theme_note ? `: ${escapeHtml(listing.theme_note)}` : ""}</span>`)
+      .join("");
+
     content.innerHTML = `
       <div class="breadcrumb">Browse Houses &nbsp;/&nbsp; <span class="current">${escapeHtml(listing.title)}</span></div>
 
@@ -143,6 +147,7 @@
           <div class="meta-row" style="margin-top:12px;">
             ${house ? `<span class="pill">House: ${escapeHtml(house.name)}</span>` : ""}
             ${lookingForHtml ? `<span class="pill">${listing.listing_type === "looking_for" ? "Offering:" : "Looking for:"}</span>${lookingForHtml}` : ""}
+            ${themeHtml}
           </div>
 
           <div class="detail-tabs" style="margin-top:24px;">

@@ -101,3 +101,22 @@ export const CATEGORY_LABELS = {
   strollers: "Strollers",
   foods: "Food",
 };
+
+// Seed list, not a locked enum — real builds cross aesthetic styles,
+// franchise crossovers, and build technique, and new ones show up
+// constantly (seen in research: cottagecore, cutecore, gothic, realism,
+// franchise crossovers like Animal Crossing/Cookie Run Kingdom). Revisit
+// periodically and add tags that come up often rather than treating this
+// as fixed.
+export const THEME_LABELS = {
+  cottagecore: "Cottagecore",
+  cutecore: "Cutecore",
+  gothic: "Gothic / Dark",
+  realism: "Realism",
+  nature: "Nature",
+  modern: "Modern / Apartment",
+  fantasy: "Fantasy",
+  horror: "Horror",
+  holiday_seasonal: "Holiday / Seasonal",
+  franchise_crossover: "Franchise Crossover",
+};

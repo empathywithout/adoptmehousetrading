@@ -34,6 +34,7 @@
     <a href="../list-a-house.html">+ List your house</a>
   </div>
   <div class="house-filter-row" id="house-filter-row"></div>
+  <div class="filter-pills" id="theme-pills"></div>
   <div class="filter-pills" id="type-pills"></div>
   <div class="listings-toolbar">
     <input type="search" id="search-input" placeholder="Search listings..." style="max-width:260px;">
@@ -54,6 +55,8 @@
 </footer>
 
 <script type="module">
+  import { THEME_LABELS } from "../js/api.js";
+
   const grid = document.getElementById("listings-grid");
   const empty = document.getElementById("empty-state");
 
@@ -76,6 +79,7 @@
   ];
   let activeFilter = "all";
   let activeHouseId = "all";
+  let activeTheme = "all";
   let searchTerm = "";
 
   const pillsEl = document.getElementById("type-pills");
@@ -126,6 +130,28 @@
     });
   }
 
+  function renderThemeFilterRow() {
+    const themesInUse = [...new Set(listings.flatMap((l) => l.themes || []))];
+    const themePillsEl = document.getElementById("theme-pills");
+
+    if (!themesInUse.length) {
+      themePillsEl.hidden = true;
+      return;
+    }
+
+    const entries = [{ key: "all", label: "All Themes" }, ...themesInUse.map((t) => ({ key: t, label: THEME_LABELS[t] || t }))];
+    themePillsEl.innerHTML = entries
+      .map((t) => `<button data-key="${t.key}" class="${t.key === activeTheme ? "active" : ""}">${t.label}</button>`)
+      .join("");
+    themePillsEl.querySelectorAll("button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        activeTheme = btn.dataset.key;
+        themePillsEl.querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
+        renderGrid();
+      });
+    });
+  }
+
   function updateHeading() {
     const heading = document.getElementById("listings-heading");
     if (activeHouseId === "all") {
@@ -142,8 +168,9 @@
     const filtered = listings.filter((listing) => {
       const matchesType = activeFilter === "all" || listing.listing_type === activeFilter;
       const matchesHouse = activeHouseId === "all" || listing.house_id === activeHouseId;
+      const matchesTheme = activeTheme === "all" || (listing.themes || []).includes(activeTheme);
       const matchesSearch = !searchTerm || listing.title.toLowerCase().includes(searchTerm);
-      return matchesType && matchesHouse && matchesSearch;
+      return matchesType && matchesHouse && matchesTheme && matchesSearch;
     });
 
     if (!filtered.length) {
@@ -167,6 +194,10 @@
               ? `<div class="card-value"><span class="amount">${listing.value_amount}</span><span class="unit">${listing.value_unit || ""}</span></div>`
               : `<div class="card-value"><span class="unit">${listing.listing_type === "commission" ? "quote on request" : "value TBD"}</span></div>`;
 
+          const themeLine = listing.themes?.length
+            ? `<p class="lister" style="margin-top:2px;">${listing.themes.map((t) => THEME_LABELS[t] || t).join(", ")}</p>`
+            : "";
+
           return `
           <a class="listing-card" href="listing.html?id=${listing.id}">
             <div class="photo">
@@ -181,6 +212,7 @@
                 <span class="username">${escapeHtml(username)}</span>
               </div>
               ${valueLine}
+              ${themeLine}
               <p class="lister" style="margin-top:6px;">${house ? escapeHtml(house.name) : listing.listing_type === "commission" ? "Custom builds" : "Unknown house"} ${listing.status === "traded" ? "· Traded" : ""}</p>
             </div>
           </a>`;
@@ -189,6 +221,7 @@
     }
   }
   renderHouseFilterRow();
+  renderThemeFilterRow();
 
   renderGrid();
 

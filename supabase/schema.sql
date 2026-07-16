@@ -39,6 +39,14 @@ create table listings (
                                        -- mirrors the community's own "100% original" vs
                                        -- "cloned/70%+ similar" distinction, which matters a
                                        -- lot to how a listing is valued and trusted
+  themes jsonb not null default '[]', -- array of theme tag strings, e.g. ["cottagecore","franchise"].
+                                       -- Real builds cross aesthetic styles (cottagecore, cutecore,
+                                       -- gothic), franchise crossovers (Animal Crossing, Cookie Run
+                                       -- Kingdom), and technique (realism) — deliberately an open
+                                       -- tag list rather than a fixed enum, since new themes show up
+                                       -- constantly and a rigid taxonomy goes stale fast.
+  theme_note text,                    -- optional free text, e.g. which franchise for a
+                                       -- "franchise_crossover" tag ("Animal Crossing")
   value_amount numeric,               -- magnitude in value_unit, e.g. 1.5
   value_unit text check (value_unit in ('shark', 'frost')),
                                        -- Shark (low/mid trades) and Frost (high-tier trades)

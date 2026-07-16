@@ -76,6 +76,15 @@
       <p class="hint">Cloned = 70%+ similar to another existing build, including speedbuilds. Misrepresenting this can get a listing reported.</p>
     </div>
 
+    <div id="themes-field" style="margin-bottom:24px;">
+      <label class="field-label" style="margin-top:0;">Theme (optional)</label>
+      <p class="hint" style="margin-top:-4px;margin-bottom:8px;">Select any that fit — helps traders find your style.</p>
+      <div class="checkbox-grid" id="themes-grid"></div>
+      <div id="franchise-note-field" hidden style="margin-top:10px;">
+        <input type="text" id="theme-note" placeholder="Which franchise? e.g. Animal Crossing, Cookie Run Kingdom" maxlength="100">
+      </div>
+    </div>
+
     <label class="field-label" for="title" style="margin-top:0;">House Title</label>
     <input type="text" id="title" placeholder="e.g. Frost Manor" maxlength="120">
 
@@ -128,7 +137,7 @@
 </footer>
 
 <script type="module">
-  import { api, getStoredProfile, CATEGORY_LABELS } from "./js/api.js";
+  import { api, getStoredProfile, CATEGORY_LABELS, THEME_LABELS } from "./js/api.js";
   import { mountItemPicker } from "./js/item-picker.js";
 
   const profile = getStoredProfile();
@@ -170,6 +179,17 @@
     grid.innerHTML = Object.entries(CATEGORY_LABELS)
       .map(([key, label]) => `<label><input type="checkbox" value="${key}"> ${label}</label>`)
       .join("");
+
+    const themesGrid = document.getElementById("themes-grid");
+    themesGrid.innerHTML = Object.entries(THEME_LABELS)
+      .map(([key, label]) => `<label><input type="checkbox" value="${key}" data-theme-checkbox> ${label}</label>`)
+      .join("");
+    themesGrid.querySelectorAll("[data-theme-checkbox]").forEach((cb) => {
+      cb.addEventListener("change", () => {
+        const franchiseChecked = themesGrid.querySelector('[value="franchise_crossover"]').checked;
+        document.getElementById("franchise-note-field").hidden = !franchiseChecked;
+      });
+    });
 
     includedItemsPicker = mountItemPicker(document.getElementById("included-items-field"), "incl-");
 
@@ -216,6 +236,7 @@
     document.getElementById("cloned-field").hidden = activeType !== "house_trade";
     document.getElementById("photos-field").hidden = activeType === "looking_for";
     document.getElementById("included-items-field").hidden = activeType !== "house_trade";
+    document.getElementById("themes-field").hidden = activeType !== "house_trade";
 
     document.getElementById("house-select-label").textContent = activeType === "looking_for" ? "Which house are you looking for?" : "House Type";
     document.getElementById("looking-for-label").textContent = activeType === "looking_for" ? "What will you pay for it?" : "What are you looking for?";
@@ -324,6 +345,11 @@
     const is_cloned = activeType === "house_trade" ? cloneVal === "true" : null;
     const included_items = activeType === "house_trade" && includedItemsPicker ? includedItemsPicker.getSelected() : [];
     const photos = activeType === "looking_for" ? [] : uploadedPhotos.filter(Boolean);
+    const themes =
+      activeType === "house_trade"
+        ? Array.from(document.querySelectorAll("#themes-grid input:checked")).map((el) => el.value)
+        : [];
+    const theme_note = themes.includes("franchise_crossover") ? document.getElementById("theme-note").value.trim() : "";
 
     if (!title) {
       errorBox.textContent = "Give your listing a title.";
@@ -340,6 +366,8 @@
         photos,
         looking_for,
         included_items,
+        themes,
+        theme_note,
         is_cloned,
         value_amount: valueAmountRaw === "" ? null : valueAmountRaw,
         value_unit: unitVal,
