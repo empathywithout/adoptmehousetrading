@@ -59,15 +59,18 @@ function layout({ title, description, path: routePath, depth, body }) {
       AdoptMeHouseTrading
     </a>
     <nav>
-      <a href="${rootPrefix}index.html">Home</a>
-      <a href="${rootPrefix}houses/index.html" class="${routePath.startsWith("houses") ? "active" : ""}">Browse Houses</a>
-      <a href="${rootPrefix}listings/index.html" class="${routePath.startsWith("listings") ? "active" : ""}">Trade Listings</a>
-      <a href="${rootPrefix}comps.html">Recent Trades</a>
-      <a href="${rootPrefix}list-a-house.html">List a House</a>
-      <a href="${rootPrefix}profile.html">My Profile</a>
+      <a href="${rootPrefix}listings/index.html" class="${routePath.startsWith("listings") ? "active" : ""}">Browse Houses</a>
+      <a href="${rootPrefix}comps.html" class="${routePath === "comps" ? "active" : ""}">Recent Trades</a>
+      <a href="${rootPrefix}houses/index.html" class="${routePath.startsWith("houses") ? "active" : ""}">Values</a>
+      <a href="${rootPrefix}profile.html" class="${routePath === "profile" ? "active" : ""}">Profile</a>
     </nav>
+    <div class="nav-actions">
+      <span id="nav-profile-pill"></span>
+      <a class="btn btn-primary" href="${rootPrefix}list-a-house.html" style="padding:10px 20px;font-size:14px;">Add Listing</a>
+    </div>
   </div>
 </header>
+<script type="module" src="${rootPrefix}js/nav.js"></script>
 ${body}
 <footer class="site-footer">
   <div class="wrap">
@@ -90,7 +93,7 @@ function houseCard(house, context) {
   <div class="info">
     <h3>${escapeHtml(house.name)}</h3>
     <p class="source">from ${escapeHtml(house.source)}</p>
-    <span class="for-trade-tag ${priced ? "" : "unpriced"}">${priced ? `${house.value} ${house.valueUnit}` : "Value TBD"}</span>
+    <div class="card-value">${priced ? `<span class="amount">${house.value}</span><span class="unit">${house.valueUnit}</span>` : `<span class="unit">Value TBD</span>`}</div>
   </div>
 </a>`;
 }
@@ -204,16 +207,18 @@ function buildBrowsePage() {
   const body = `
 <section class="wrap">
   <div class="section-head" style="margin-top:40px;">
-    <h2>All Houses (${houses.length})</h2>
+    <h2>House Values (${houses.length})</h2>
+    <a href="../listings/index.html">Looking to trade? Browse live listings →</a>
   </div>
+  <p class="hint" style="margin-bottom:20px;">Reference values for every house type in Adopt Me. To actually trade, head to <a href="../listings/index.html" style="color:var(--accent);">Browse Houses</a> to see real listings from real players.</p>
   <div class="house-grid">
     ${houses.map((h) => houseCard(h, "houses")).join("\n")}
   </div>
 </section>`;
 
   return layout({
-    title: "Browse All Adopt Me Houses — AdoptMeHouseTrading.com",
-    description: "Every tradeable house in Adopt Me, with values and details.",
+    title: "Adopt Me House Values — AdoptMeHouseTrading.com",
+    description: "Reference values for every tradeable house in Adopt Me.",
     path: "houses/index",
     depth: 1,
     body,

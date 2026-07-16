@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Trade Listings — AdoptMeHouseTrading.com</title>
+<title>Browse Houses — AdoptMeHouseTrading.com</title>
 <meta name="description" content="Browse houses other players have listed for trade.">
 <link rel="stylesheet" href="../css/style.css">
 </head>
@@ -15,19 +15,22 @@
       AdoptMeHouseTrading
     </a>
     <nav>
-      <a href="../index.html">Home</a>
-      <a href="../houses/index.html">Browse Houses</a>
-      <a href="index.html" class="active">Trade Listings</a>
+      <a href="index.html" class="active">Browse Houses</a>
       <a href="../comps.html">Recent Trades</a>
-      <a href="../list-a-house.html">List a House</a>
-      <a href="../profile.html">My Profile</a>
+      <a href="../houses/index.html">Values</a>
+      <a href="../profile.html">Profile</a>
     </nav>
+    <div class="nav-actions">
+      <span id="nav-profile-pill"></span>
+      <a class="btn btn-primary" href="../list-a-house.html" style="padding:10px 20px;font-size:14px;">Add Listing</a>
+    </div>
   </div>
 </header>
+<script type="module" src="../js/nav.js"></script>
 
 <section class="wrap" style="padding: 40px 0 80px;">
   <div class="section-head">
-    <h2 id="listings-heading">Trade Listings</h2>
+    <h2 id="listings-heading">Browse Houses</h2>
     <a href="../list-a-house.html">+ List your house</a>
   </div>
   <div class="house-filter-row" id="house-filter-row"></div>
@@ -126,10 +129,10 @@
   function updateHeading() {
     const heading = document.getElementById("listings-heading");
     if (activeHouseId === "all") {
-      heading.textContent = "Trade Listings";
+      heading.textContent = "Browse Houses";
     } else {
       const house = houseById[activeHouseId];
-      heading.textContent = house ? `${house.name} Listings` : "Trade Listings";
+      heading.textContent = house ? `${house.name} Listings` : "Browse Houses";
     }
   }
 

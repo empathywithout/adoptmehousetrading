@@ -14,15 +14,18 @@
       AdoptMeHouseTrading
     </a>
     <nav>
-      <a href="../index.html">Home</a>
-      <a href="../houses/index.html">Browse Houses</a>
-      <a href="index.html" class="active">Trade Listings</a>
+      <a href="../listings/index.html" class="active">Browse Houses</a>
       <a href="../comps.html">Recent Trades</a>
-      <a href="../list-a-house.html">List a House</a>
-      <a href="../profile.html">My Profile</a>
+      <a href="../houses/index.html">Values</a>
+      <a href="../profile.html">Profile</a>
     </nav>
+    <div class="nav-actions">
+      <span id="nav-profile-pill"></span>
+      <a class="btn btn-primary" href="../list-a-house.html" style="padding:10px 20px;font-size:14px;">Add Listing</a>
+    </div>
   </div>
 </header>
+<script type="module" src="../js/nav.js"></script>
 
 <section class="wrap" id="content" style="padding: 40px 0 80px;"></section>
 
@@ -114,7 +117,7 @@
       .join("");
 
     content.innerHTML = `
-      <div class="breadcrumb">Trade Listings &nbsp;/&nbsp; <span class="current">${escapeHtml(listing.title)}</span></div>
+      <div class="breadcrumb">Browse Houses &nbsp;/&nbsp; <span class="current">${escapeHtml(listing.title)}</span></div>
 
       <div class="detail-grid">
         <div>

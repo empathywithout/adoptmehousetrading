@@ -144,6 +144,8 @@ img { max-width: 100%; display: block; }
   gap: 26px;
   font-weight: 600;
   font-size: 14.5px;
+  flex: 1;
+  justify-content: center;
 }
 
 .site-nav nav a {
@@ -160,6 +162,26 @@ img { max-width: 100%; display: block; }
 .site-nav nav a.active {
   color: var(--accent);
   border-bottom-color: var(--accent);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 13.5px;
+  color: var(--ink);
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 /* ---------- Hero ---------- */

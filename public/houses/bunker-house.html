@@ -15,15 +15,18 @@
       AdoptMeHouseTrading
     </a>
     <nav>
-      <a href="../index.html">Home</a>
-      <a href="../houses/index.html" class="active">Browse Houses</a>
-      <a href="../listings/index.html" class="">Trade Listings</a>
-      <a href="../comps.html">Recent Trades</a>
-      <a href="../list-a-house.html">List a House</a>
-      <a href="../profile.html">My Profile</a>
+      <a href="../listings/index.html" class="">Browse Houses</a>
+      <a href="../comps.html" class="">Recent Trades</a>
+      <a href="../houses/index.html" class="active">Values</a>
+      <a href="../profile.html" class="">Profile</a>
     </nav>
+    <div class="nav-actions">
+      <span id="nav-profile-pill"></span>
+      <a class="btn btn-primary" href="../list-a-house.html" style="padding:10px 20px;font-size:14px;">Add Listing</a>
+    </div>
   </div>
 </header>
+<script type="module" src="../js/nav.js"></script>
 
 <section class="wrap house-detail">
   <div class="photo">
@@ -63,7 +66,7 @@
   <div class="info">
     <h3>Biodome Home</h3>
     <p class="source">from House</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="castle.html">
@@ -71,7 +74,7 @@
   <div class="info">
     <h3>Castle</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="celebrity-mansion.html">
@@ -79,7 +82,7 @@
   <div class="info">
     <h3>Celebrity Mansion</h3>
     <p class="source">from Celebrity Mansion Gamepass (Robux)</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="christmas-pudding-house.html">
@@ -87,7 +90,7 @@
   <div class="info">
     <h3>Christmas Pudding House</h3>
     <p class="source">from Winter 2025</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
   </div>

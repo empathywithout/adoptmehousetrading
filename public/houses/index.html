@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Browse All Adopt Me Houses — AdoptMeHouseTrading.com</title>
-<meta name="description" content="Every tradeable house in Adopt Me, with values and details.">
+<title>Adopt Me House Values — AdoptMeHouseTrading.com</title>
+<meta name="description" content="Reference values for every tradeable house in Adopt Me.">
 <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -15,27 +15,32 @@
       AdoptMeHouseTrading
     </a>
     <nav>
-      <a href="../index.html">Home</a>
-      <a href="../houses/index.html" class="active">Browse Houses</a>
-      <a href="../listings/index.html" class="">Trade Listings</a>
-      <a href="../comps.html">Recent Trades</a>
-      <a href="../list-a-house.html">List a House</a>
-      <a href="../profile.html">My Profile</a>
+      <a href="../listings/index.html" class="">Browse Houses</a>
+      <a href="../comps.html" class="">Recent Trades</a>
+      <a href="../houses/index.html" class="active">Values</a>
+      <a href="../profile.html" class="">Profile</a>
     </nav>
+    <div class="nav-actions">
+      <span id="nav-profile-pill"></span>
+      <a class="btn btn-primary" href="../list-a-house.html" style="padding:10px 20px;font-size:14px;">Add Listing</a>
+    </div>
   </div>
 </header>
+<script type="module" src="../js/nav.js"></script>
 
 <section class="wrap">
   <div class="section-head" style="margin-top:40px;">
-    <h2>All Houses (51)</h2>
+    <h2>House Values (51)</h2>
+    <a href="../listings/index.html">Looking to trade? Browse live listings →</a>
   </div>
+  <p class="hint" style="margin-bottom:20px;">Reference values for every house type in Adopt Me. To actually trade, head to <a href="../listings/index.html" style="color:var(--accent);">Browse Houses</a> to see real listings from real players.</p>
   <div class="house-grid">
     <a class="house-card" href="biodome-home.html">
   <div class="thumb"><img src="../images/houses/Biodome-Home-Common-from-House.png" alt="Biodome Home" loading="lazy"></div>
   <div class="info">
     <h3>Biodome Home</h3>
     <p class="source">from House</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="bunker-house.html">
@@ -43,7 +48,7 @@
   <div class="info">
     <h3>Bunker House</h3>
     <p class="source">from Bunker House Update</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="castle.html">
@@ -51,7 +56,7 @@
   <div class="info">
     <h3>Castle</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="celebrity-mansion.html">
@@ -59,7 +64,7 @@
   <div class="info">
     <h3>Celebrity Mansion</h3>
     <p class="source">from Celebrity Mansion Gamepass (Robux)</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="christmas-pudding-house.html">
@@ -67,7 +72,7 @@
   <div class="info">
     <h3>Christmas Pudding House</h3>
     <p class="source">from Winter 2025</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="container-home.html">
@@ -75,7 +80,7 @@
   <div class="info">
     <h3>Container Home</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="cozy-cabin.html">
@@ -83,7 +88,7 @@
   <div class="info">
     <h3>Cozy Cabin</h3>
     <p class="source">from Cozy Cabin &amp; Snowmobile Gamepass (Robux)</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="crooked-house.html">
@@ -91,7 +96,7 @@
   <div class="info">
     <h3>Crooked House</h3>
     <p class="source">from Artsy Update</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="donut-shop.html">
@@ -99,7 +104,7 @@
   <div class="info">
     <h3>Donut Shop</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="dragon-s-castle.html">
@@ -107,7 +112,7 @@
   <div class="info">
     <h3>Dragon's Castle</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="eco-natural-earth-house.html">
@@ -115,7 +120,7 @@
   <div class="info">
     <h3>Eco Natural Earth House</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="estate.html">
@@ -123,7 +128,7 @@
   <div class="info">
     <h3>Estate</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="expandable-dino-house.html">
@@ -131,7 +136,7 @@
   <div class="info">
     <h3>Expandable Dino House</h3>
     <p class="source">from Fossil Isle 2024</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="expandable-friendly-home.html">
@@ -139,7 +144,7 @@
   <div class="info">
     <h3>Expandable Friendly Home</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="expandable-hillside-mansion.html">
@@ -147,7 +152,7 @@
   <div class="info">
     <h3>Expandable Hillside Mansion</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="expandable-luxury-mansion.html">
@@ -155,7 +160,7 @@
   <div class="info">
     <h3>Expandable Luxury Mansion</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="fairy-house.html">
@@ -163,7 +168,7 @@
   <div class="info">
     <h3>Fairy House</h3>
     <p class="source">from Fairy Update 2019</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="family-home.html">
@@ -171,7 +176,7 @@
   <div class="info">
     <h3>Family Home</h3>
     <p class="source">from Starter Pack</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="futuristic-house.html">
@@ -179,7 +184,7 @@
   <div class="info">
     <h3>Futuristic House</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="gingerbread-house.html">
@@ -187,7 +192,7 @@
   <div class="info">
     <h3>Gingerbread House</h3>
     <p class="source">from Christmas 2019</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="halloween-hotel.html">
@@ -195,7 +200,7 @@
   <div class="info">
     <h3>Halloween Hotel</h3>
     <p class="source">from September 2025</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="haunted-house.html">
@@ -203,7 +208,7 @@
   <div class="info">
     <h3>Haunted House</h3>
     <p class="source">from Halloween 2023</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="hollywood-house.html">
@@ -211,7 +216,7 @@
   <div class="info">
     <h3>Hollywood House</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="hospital-home.html">
@@ -219,7 +224,7 @@
   <div class="info">
     <h3>Hospital Home</h3>
     <p class="source">from School and Hospital Houses (Robux)</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="ice-cream-house.html">
@@ -227,7 +232,7 @@
   <div class="info">
     <h3>Ice Cream House</h3>
     <p class="source">from February 2025</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="igloo-home.html">
@@ -235,7 +240,7 @@
   <div class="info">
     <h3>Igloo Home</h3>
     <p class="source">from Winter 2022</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="korean-house.html">
@@ -243,7 +248,7 @@
   <div class="info">
     <h3>Korean House</h3>
     <p class="source">from Lunar New Year 2024</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="lunar-house.html">
@@ -251,7 +256,7 @@
   <div class="info">
     <h3>Lunar House</h3>
     <p class="source">from Lunar New Year 2021</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="luxury-apartments.html">
@@ -259,7 +264,7 @@
   <div class="info">
     <h3>Luxury Apartments</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="mansion.html">
@@ -267,7 +272,7 @@
   <div class="info">
     <h3>Mansion</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="mermaid-mansion.html">
@@ -275,7 +280,7 @@
   <div class="info">
     <h3>Mermaid Mansion</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="millionaire-mansion.html">
@@ -283,7 +288,7 @@
   <div class="info">
     <h3>Millionaire Mansion</h3>
     <p class="source">from Millionaire Pack (Robux)</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="modern-mansion.html">
@@ -291,7 +296,7 @@
   <div class="info">
     <h3>Modern Mansion</h3>
     <p class="source">from Modern Mansion Gamepass (Robux)</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="mountain-house.html">
@@ -299,7 +304,7 @@
   <div class="info">
     <h3>Mountain House</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="party-house.html">
@@ -307,7 +312,7 @@
   <div class="info">
     <h3>Party House</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="pirate-ship-house.html">
@@ -315,7 +320,7 @@
   <div class="info">
     <h3>Pirate Ship House</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="pizza-place.html">
@@ -323,7 +328,7 @@
   <div class="info">
     <h3>Pizza Place</h3>
     <p class="source">from Own A Shop Update</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="queenslander-house.html">
@@ -331,7 +336,7 @@
   <div class="info">
     <h3>Queenslander House</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="racetrack-house.html">
@@ -339,7 +344,7 @@
   <div class="info">
     <h3>Racetrack House</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="royal-palace.html">
@@ -347,7 +352,7 @@
   <div class="info">
     <h3>Royal Palace</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="ruler-s-castle.html">
@@ -355,7 +360,7 @@
   <div class="info">
     <h3>Ruler's Castle</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="safari-home.html">
@@ -363,7 +368,7 @@
   <div class="info">
     <h3>Safari Home</h3>
     <p class="source">from Safari Update 2023</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="sandbox-island.html">
@@ -371,7 +376,7 @@
   <div class="info">
     <h3>Sandbox Island</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="scary-house.html">
@@ -379,7 +384,7 @@
   <div class="info">
     <h3>Scary House</h3>
     <p class="source">from Halloween 2021</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="schoolhouse-home.html">
@@ -387,7 +392,7 @@
   <div class="info">
     <h3>Schoolhouse Home</h3>
     <p class="source">from School and Hospital Houses (Robux)</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="shop-house.html">
@@ -395,7 +400,7 @@
   <div class="info">
     <h3>Shop House</h3>
     <p class="source">from Build House Menu</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="soccer-stadium.html">
@@ -403,7 +408,7 @@
   <div class="info">
     <h3>Soccer Stadium</h3>
     <p class="source">from Soccer Update 2024</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="space-fleet-house.html">
@@ -411,7 +416,7 @@
   <div class="info">
     <h3>Space Fleet House</h3>
     <p class="source">from Space Bundle Gamepass</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="tiny-home.html">
@@ -419,7 +424,7 @@
   <div class="info">
     <h3>Tiny Home</h3>
     <p class="source">from Default House</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="toyshop-house.html">
@@ -427,7 +432,7 @@
   <div class="info">
     <h3>Toyshop House</h3>
     <p class="source">from September 2023</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
 <a class="house-card" href="treehouse-update.html">
@@ -435,7 +440,7 @@
   <div class="info">
     <h3>Treehouse Update</h3>
     <p class="source">from Treehouse Update</p>
-    <span class="for-trade-tag unpriced">Value TBD</span>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
   </div>
