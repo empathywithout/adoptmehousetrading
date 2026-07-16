@@ -62,9 +62,14 @@
   }
 
   async function load() {
-    let data;
+    let data, registryEntries = [];
     try {
-      data = await fetch(`/.netlify/functions/builder-get?id=${builderId}`).then((r) => r.json());
+      const [builderRes, registryRes] = await Promise.all([
+        fetch(`/.netlify/functions/builder-get?id=${builderId}`).then((r) => r.json()),
+        fetch(`/.netlify/functions/registry-list?profile_id=${builderId}`).then((r) => r.json()),
+      ]);
+      data = builderRes;
+      registryEntries = registryRes.entries || [];
     } catch {
       content.innerHTML = `<div class="form-card"><h1>Couldn't load this builder</h1></div>`;
       return;
@@ -78,9 +83,25 @@
     const isSelf = myProfile && myProfile.id === builder.id;
     const themesLine = (builder.builder_themes || []).map((t) => THEME_LABELS[t] || t).join(", ");
 
-    const portfolioHtml = builder.portfolio_photos?.length
-      ? `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">${builder.portfolio_photos.map((url) => `<img src="${url}" alt="" style="width:100%;border-radius:10px;aspect-ratio:1;object-fit:cover;">`).join("")}</div>`
-      : `<p class="hint">No portfolio photos yet.</p>`;
+    // Portfolio pulls straight from the builder's actual Build Registry
+    // entries — not a separate uploaded-photos field. One less thing to
+    // keep in sync, and it's richer (titles, themes, dispute/verified
+    // status) instead of bare photos with no context.
+    const portfolioHtml = registryEntries.length
+      ? `<div class="house-grid">
+          ${registryEntries
+            .map(
+              (e) => `<a class="listing-card" href="../registry/entry.html?id=${e.id}">
+                <div class="photo"><img src="${e.photos?.[0] || "../images/brand/searchdog.png"}" alt=""></div>
+                <div class="body">
+                  <h3>${escapeHtml(e.title)}</h3>
+                  <p class="lister">${e.is_community_verified ? "Community Verified" : e.status === "confirmed_original" ? "Confirmed Original" : e.status === "confirmed_clone" ? "Confirmed Clone" : "Registered"}</p>
+                </div>
+              </a>`
+            )
+            .join("")}
+        </div>`
+      : `<p class="hint">No builds registered yet. ${isSelf ? `<a href="../registry/submit.html">Register one</a> to fill out your portfolio.` : ""}</p>`;
 
     content.innerHTML = `
       <div class="breadcrumb">Commissions &nbsp;/&nbsp; <span class="current">${escapeHtml(builder.display_name)}</span></div>

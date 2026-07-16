@@ -117,6 +117,8 @@
             ? `<div class="card-tag">Disputed</div>`
             : entry.status === "confirmed_clone"
             ? `<div class="card-tag cloned">Confirmed Clone</div>`
+            : entry.is_community_verified
+            ? `<div class="card-tag">Verified</div>`
             : "";
         return `
         <a class="listing-card" href="entry.html?id=${entry.id}">
