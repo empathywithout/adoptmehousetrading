@@ -5,6 +5,10 @@
 -- before this point don't have an email/password/display_name and will
 -- need to sign up again through the new flow.
 
+-- Drops the legacy NOT NULL constraint from before the sessions table
+-- existed — safe to run even if migration-006 already did this.
+alter table profiles alter column session_token_hash drop not null;
+
 alter table profiles add column if not exists email text;
 alter table profiles add column if not exists password_hash text;
 alter table profiles add column if not exists password_salt text;
