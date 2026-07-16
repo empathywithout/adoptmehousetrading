@@ -104,6 +104,8 @@ export const api = {
   getRegistryEntry: (id) => request(`registry-get?id=${encodeURIComponent(id)}`),
   disputeRegistryEntry: (build_registry_id, claim, claimed_original_entry_id) =>
     request("registry-dispute-create", { method: "POST", body: { build_registry_id, claim, claimed_original_entry_id }, auth: true }),
+  submitDisputeRebuttal: (dispute_id, rebuttal) =>
+    request("registry-dispute-rebuttal", { method: "POST", body: { dispute_id, rebuttal }, auth: true }),
 };
 
 async function uploadPhoto(file) {

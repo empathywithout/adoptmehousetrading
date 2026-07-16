@@ -260,7 +260,10 @@ create table build_registry_disputes (
   disputer_profile_id uuid not null references profiles(id) on delete cascade,
   claim text not null,                          -- the disputer's explanation/evidence
   claimed_original_entry_id uuid references build_registry(id), -- their own earlier entry, if they have one
+  rebuttal text,                                -- the accused builder's one response, if they gave one
+  rebuttal_at timestamptz,
   status text not null default 'pending' check (status in ('pending', 'upheld', 'rejected')),
+  resolved_at timestamptz,
   created_at timestamptz not null default now()
 );
 

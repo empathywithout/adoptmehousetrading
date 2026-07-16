@@ -73,6 +73,16 @@ export async function requireProfile(event) {
   return session.profiles;
 }
 
+// Simple password-gated admin check for the dispute resolution page — not
+// a real roles/permissions system, just enough to keep the resolution
+// action from being public. Set ADMIN_PASSWORD in Netlify's environment
+// variables; the admin page sends it back as a header on every request.
+export function requireAdmin(event) {
+  const provided = event.headers["x-admin-password"] || event.headers["X-Admin-Password"];
+  const expected = process.env.ADMIN_PASSWORD;
+  return Boolean(expected) && provided === expected;
+}
+
 export function json(statusCode, body) {
   return {
     statusCode,

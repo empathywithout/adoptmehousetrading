@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dispute Resolution — Admin</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<section class="wrap" style="padding: 48px 0 80px;">
+
+  <div class="form-card" id="login-card">
+    <h1>Admin: Dispute Resolution</h1>
+    <p class="subtitle">Not linked from anywhere on the site — bookmark this page.</p>
+    <div id="login-error" class="error-box" hidden></div>
+    <label class="field-label" style="margin-top:0;" for="admin-password">Admin password</label>
+    <input type="password" id="admin-password" placeholder="••••••••">
+    <div class="hero-ctas" style="justify-content: flex-start; margin-top: 20px;">
+      <button class="btn btn-primary" id="login-btn">Log In</button>
+    </div>
+  </div>
+
+  <div id="disputes-view" hidden>
+    <div class="section-head"><h2>Pending Disputes</h2></div>
+    <div id="disputes-list"></div>
+    <div id="empty-disputes" class="form-card" hidden>
+      <h1>No pending disputes</h1>
+      <p class="subtitle">Everything's resolved.</p>
+    </div>
+  </div>
+
+</section>
+
+<script type="module">
+  const SESSION_KEY = "amht_admin_password";
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function getAdminPassword() {
+    return sessionStorage.getItem(SESSION_KEY);
+  }
+
+  async function tryLoad() {
+    const pw = getAdminPassword();
+    if (!pw) return;
+    try {
+      const res = await fetch("/.netlify/functions/admin-disputes-list", {
+        headers: { "X-Admin-Password": pw },
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Login failed");
+      document.getElementById("login-card").hidden = true;
+      document.getElementById("disputes-view").hidden = false;
+      renderDisputes(data.disputes);
+    } catch (err) {
+      sessionStorage.removeItem(SESSION_KEY);
+      document.getElementById("login-error").textContent = err.message;
+      document.getElementById("login-error").hidden = false;
+    }
+  }
+
+  function renderDisputes(disputes) {
+    const list = document.getElementById("disputes-list");
+    const empty = document.getElementById("empty-disputes");
+
+    if (!disputes.length) {
+      empty.hidden = false;
+      list.innerHTML = "";
+      return;
+    }
+    empty.hidden = true;
+
+    list.innerHTML = disputes
+      .map((d) => {
+        const entry = d.build_registry;
+        const photo = entry?.photos?.[0] || "../images/brand/searchdog.png";
+        return `
+        <div class="form-card" style="max-width:none;margin-bottom:16px;">
+          <div style="display:flex;gap:16px;">
+            <img src="${photo}" alt="" style="width:80px;height:80px;border-radius:10px;object-fit:cover;flex-shrink:0;">
+            <div style="flex:1;">
+              <h1 style="font-size:18px;">${escapeHtml(entry?.title || "Unknown build")}</h1>
+              <p class="hint" style="margin:2px 0 10px;">Registered by ${escapeHtml(entry?.profiles?.display_name || "unknown")} · <a href="entry.html?id=${entry?.id}" target="_blank">View entry ↗</a></p>
+              <p style="margin:0 0 8px;"><strong>Dispute by ${escapeHtml(d.profiles?.display_name || "unknown")}:</strong><br>${escapeHtml(d.claim)}</p>
+              ${d.rebuttal ? `<p style="margin:0 0 8px;"><strong>Builder's response:</strong><br>${escapeHtml(d.rebuttal)}</p>` : `<p class="hint" style="margin:0 0 8px;">No response from the builder yet.</p>`}
+              <div class="hero-ctas" style="justify-content:flex-start;margin-top:10px;">
+                <button class="btn-sm decline" data-resolve="${d.id}" data-ruling="upheld">Uphold Dispute (mark as clone)</button>
+                <button class="btn-sm accept" data-resolve="${d.id}" data-ruling="rejected">Reject Dispute (confirm original)</button>
+              </div>
+            </div>
+          </div>
+        </div>`;
+      })
+      .join("");
+
+    list.querySelectorAll("[data-resolve]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const label = btn.dataset.ruling === "upheld" ? "mark this as a confirmed clone" : "confirm this as original";
+        if (!confirm(`Are you sure you want to ${label}? This can't be undone from here.`)) return;
+        try {
+          const res = await fetch("/.netlify/functions/admin-disputes-resolve", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "X-Admin-Password": getAdminPassword() },
+            body: JSON.stringify({ dispute_id: btn.dataset.resolve, ruling: btn.dataset.ruling }),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || "Couldn't resolve");
+          await tryLoad();
+        } catch (err) {
+          alert(err.message);
+        }
+      });
+    });
+  }
+
+  document.getElementById("login-btn").addEventListener("click", async () => {
+    const pw = document.getElementById("admin-password").value;
+    sessionStorage.setItem(SESSION_KEY, pw);
+    document.getElementById("login-error").hidden = true;
+    await tryLoad();
+  });
+
+  await tryLoad();
+</script>
+</body>
+</html>

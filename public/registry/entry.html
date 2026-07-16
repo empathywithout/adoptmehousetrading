@@ -44,7 +44,7 @@
 </footer>
 
 <script type="module">
-  import { api, getStoredProfile, THEME_LABELS } from "../js/api.js";
+  import { api, getStoredProfile, getToken, THEME_LABELS } from "../js/api.js";
 
   const params = new URLSearchParams(location.search);
   const entryId = params.get("id");
@@ -81,7 +81,10 @@
   async function load() {
     let data;
     try {
-      data = await fetch(`/.netlify/functions/registry-get?id=${entryId}`).then((r) => r.json());
+      const token = getToken();
+      data = await fetch(`/.netlify/functions/registry-get?id=${entryId}`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      }).then((r) => r.json());
     } catch {
       content.innerHTML = `<div class="form-card"><h1>Couldn't load this build</h1></div>`;
       return;
@@ -91,17 +94,22 @@
       return;
     }
 
-    const { entry, possible_duplicate, dispute_count } = data;
+    const { entry, possible_duplicate, disputes, compare_entries } = data;
     const isSelf = myProfile && myProfile.id === entry.profile_id;
     const themesLine = (entry.themes || []).map((t) => THEME_LABELS[t] || t).join(", ");
+    const pendingDisputeCount = disputes.filter((d) => d.status === "pending").length;
 
     const photosHtml = entry.photos?.length
       ? entry.photos.map((url) => `<img src="${url}" alt="" style="width:100%;border-radius:10px;margin-bottom:10px;">`).join("")
       : `<p class="hint">No photos.</p>`;
 
+    const verifiedBadge = entry.is_community_verified
+      ? `<span class="verified-badge" style="margin-bottom:10px;display:inline-flex;">Community Verified — undisputed 30+ days</span><br>`
+      : "";
+
     const statusBanner =
       entry.status === "disputed"
-        ? `<div class="error-box">This entry is currently disputed (${dispute_count} dispute${dispute_count === 1 ? "" : "s"} filed) — under review.</div>`
+        ? `<div class="error-box">This entry is currently disputed (${pendingDisputeCount} pending) — under review.</div>`
         : entry.status === "confirmed_clone"
         ? `<div class="error-box">This entry has been reviewed and confirmed as a clone of another build.</div>`
         : entry.status === "confirmed_original"
@@ -112,10 +120,58 @@
       ? `<div class="error-box">Possible duplicate of an earlier entry: <a href="entry.html?id=${possible_duplicate.id}" style="color:var(--sign-red-dark);text-decoration:underline;">${escapeHtml(possible_duplicate.title)}</a> by ${escapeHtml(possible_duplicate.profiles?.display_name || "unknown")}, registered ${new Date(possible_duplicate.created_at).toLocaleDateString()}. This is an automatic title match, not a confirmed ruling.</div>`
       : "";
 
+    // Resolved disputes are visible to everyone (transparency after a
+    // ruling); pending ones only appear here at all if the API already
+    // decided this viewer is allowed to see them (the entry's own builder).
+    const resolvedDisputesHtml = disputes
+      .filter((d) => d.status !== "pending")
+      .map(
+        (d) => `
+        <div class="form-card" style="max-width:none;margin-bottom:12px;">
+          <p class="hint" style="margin:0 0 6px;">Dispute by ${escapeHtml(d.profiles?.display_name || "unknown")} — <strong>${d.status === "upheld" ? "Upheld" : "Rejected"}</strong></p>
+          <p style="margin:0 0 8px;">${escapeHtml(d.claim)}</p>
+          ${d.rebuttal ? `<p class="hint" style="margin:0;"><strong>Builder's response:</strong> ${escapeHtml(d.rebuttal)}</p>` : ""}
+        </div>`
+      )
+      .join("");
+
+    const pendingOwnDispute = isSelf ? disputes.find((d) => d.status === "pending" && !d.rebuttal) : null;
+
+    const rebuttalFormHtml = pendingOwnDispute
+      ? `<div class="cta-box" style="background:var(--paper);border:1px solid var(--accent);margin-top:12px;">
+          <h3 style="color:var(--ink);">Someone disputed this build</h3>
+          <p style="color:var(--muted);">Their claim: "${escapeHtml(pendingOwnDispute.claim)}"</p>
+          <p style="color:var(--muted);">You get one response before this is reviewed.</p>
+          <div id="rebuttal-error" class="error-box" hidden></div>
+          <div id="rebuttal-success" class="success-box" hidden></div>
+          <textarea id="rebuttal-text" placeholder="Your response to this claim..."></textarea>
+          <button class="btn btn-primary" id="submit-rebuttal-btn" style="width:100%;margin-top:14px;">Submit Response</button>
+        </div>`
+      : "";
+
+    const compareHtml = compare_entries.length
+      ? `<div class="section-head" style="margin-top:28px;"><h2 style="font-size:18px;">Other Registered Builds on This House</h2></div>
+         <p class="hint" style="margin-bottom:12px;">Compare side by side — this is how clones actually get spotted, since we don't do image matching.</p>
+         <div class="house-grid">
+           ${compare_entries
+             .map(
+               (c) => `<a class="listing-card" href="entry.html?id=${c.id}">
+                 <div class="photo"><img src="${c.photos?.[0] || "../images/brand/searchdog.png"}" alt=""></div>
+                 <div class="body">
+                   <h3>${escapeHtml(c.title)}</h3>
+                   <p class="lister">by ${escapeHtml(c.profiles?.display_name || "unknown")}${c.status !== "active" ? ` · ${c.status.replace("_", " ")}` : ""}</p>
+                 </div>
+               </a>`
+             )
+             .join("")}
+         </div>`
+      : "";
+
     content.innerHTML = `
       <div class="breadcrumb">Build Registry &nbsp;/&nbsp; <span class="current">${escapeHtml(entry.title)}</span></div>
       <div class="detail-grid">
         <div>
+          ${verifiedBadge}
           <h1 style="font-family:var(--font-display);color:var(--ink);margin:0 0 6px;">${escapeHtml(entry.title)}</h1>
           <p class="hint" style="margin-bottom:16px;">Registered ${new Date(entry.created_at).toLocaleDateString()}</p>
           ${statusBanner}
@@ -129,6 +185,8 @@
                  <div class="items-row">${itemsRowHtml(entry.included_items)}</div>`
               : ""
           }
+          ${resolvedDisputesHtml}
+          ${compareHtml}
         </div>
         <div class="sidebar-sticky">
           <div class="trust-card">
@@ -138,9 +196,10 @@
               <div class="trust-sub">Registered builder</div>
             </div>
           </div>
+          ${rebuttalFormHtml}
           ${
             isSelf
-              ? `<div class="form-card"><h1>This is your entry</h1><p class="subtitle">If this is disputed, you'll see a note above once it's under review.</p></div>`
+              ? `<div class="form-card"><h1>This is your entry</h1><p class="subtitle">${pendingOwnDispute ? "Respond to the dispute above." : "No pending disputes right now."}</p></div>`
               : !myProfile
               ? `<div class="form-card"><h1>Think this isn't right?</h1><p class="subtitle"><a href="../profile.html">Set up your profile</a> to file a dispute.</p></div>`
               : `<div class="cta-box" style="background:var(--paper);border:1px solid var(--line);">
@@ -173,6 +232,30 @@
           successBox.textContent = "Dispute filed — a reviewer will take a look.";
           successBox.hidden = false;
           document.getElementById("submit-dispute-btn").disabled = true;
+        } catch (err) {
+          errorBox.textContent = err.message;
+          errorBox.hidden = false;
+        }
+      });
+    }
+
+    if (pendingOwnDispute) {
+      document.getElementById("submit-rebuttal-btn").addEventListener("click", async () => {
+        const errorBox = document.getElementById("rebuttal-error");
+        const successBox = document.getElementById("rebuttal-success");
+        errorBox.hidden = true;
+        successBox.hidden = true;
+        const rebuttal = document.getElementById("rebuttal-text").value.trim();
+        if (!rebuttal) {
+          errorBox.textContent = "Write a response.";
+          errorBox.hidden = false;
+          return;
+        }
+        try {
+          await api.submitDisputeRebuttal(pendingOwnDispute.id, rebuttal);
+          successBox.textContent = "Response submitted.";
+          successBox.hidden = false;
+          document.getElementById("submit-rebuttal-btn").disabled = true;
         } catch (err) {
           errorBox.textContent = err.message;
           errorBox.hidden = false;
