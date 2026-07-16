@@ -25,8 +25,8 @@ const SIGNPOST_SVG = `
 <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="For Trade sign">
   <rect x="46" y="30" width="8" height="60" rx="2" fill="#7A5230"/>
   <g transform="rotate(-6 50 40)">
-    <rect x="20" y="18" width="60" height="34" rx="6" fill="#C0473C"/>
-    <rect x="20" y="18" width="60" height="34" rx="6" fill="none" stroke="#9E3A31" stroke-width="2"/>
+    <rect x="20" y="18" width="60" height="34" rx="6" fill="#E63A63"/>
+    <rect x="20" y="18" width="60" height="34" rx="6" fill="none" stroke="#C2264C" stroke-width="2"/>
     <text x="50" y="34" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="700" font-size="11" fill="#FFFFFF">FOR</text>
     <text x="50" y="47" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="700" font-size="11" fill="#FFFFFF">TRADE</text>
   </g>
