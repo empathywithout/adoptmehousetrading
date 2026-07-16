@@ -65,6 +65,13 @@
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
+  function timeAgo(iso) {
+    const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+    if (days < 1) return "today";
+    if (days === 1) return "yesterday";
+    return `${days} days ago`;
+  }
+
   function itemsRowHtml(items) {
     return (items || [])
       .map((it) => `<div class="item"><img src="${it.image}" alt=""><div>${escapeHtml(it.name)}</div></div>`)
@@ -92,56 +99,119 @@
 
     const TYPE_LABELS = { house_trade: "For Trade", looking_for: "Looking For", commission: "Commission" };
 
-    const photosHtml = (listing.photos?.length ? listing.photos : house ? [house.image] : [])
-      .filter(Boolean)
-      .map((url) => `<img src="${url}" alt="" style="width:100%;border-radius:10px;margin-bottom:10px;">`)
-      .join("");
-
-    const lookingForHtml = (listing.looking_for || [])
-      .map((c) => `<span class="pill">${CATEGORY_LABELS[c] || c}</span>`)
-      .join("");
+    const photos = (listing.photos?.length ? listing.photos : house ? [house.image] : []).filter(Boolean);
+    const photosHtml = photos.length
+      ? photos.map((url) => `<img src="${url}" alt="" style="width:100%;border-radius:10px;margin-bottom:10px;">`).join("")
+      : `<p class="hint">No photos on this listing.</p>`;
 
     const cloneTag =
       listing.listing_type === "house_trade" && listing.is_cloned !== null
         ? `<span class="pill">${listing.is_cloned ? "Cloned / Speedbuild" : "100% Original"}</span>`
         : "";
-    const valueTag =
-      listing.value_amount !== null
-        ? `<span class="pill">${listing.value_amount} ${listing.value_unit || ""}</span>`
-        : "";
-    const bucksTag = listing.bucks_invested ? `<span class="pill">${listing.bucks_invested} Bucks invested</span>` : "";
 
-    const includedItemsHtml = listing.included_items?.length
-      ? `<div class="section-head" style="margin-top:20px;"><h2 style="font-size:18px;">Included with the house</h2></div>
-         <div class="items-row">${itemsRowHtml(listing.included_items)}</div>`
-      : "";
+    const lookingForHtml = (listing.looking_for || [])
+      .map((c) => `<span class="pill">${CATEGORY_LABELS[c] || c}</span>`)
+      .join("");
 
     content.innerHTML = `
-      <div class="house-detail">
-        <div class="photo" style="flex-direction:column;align-items:stretch;">${photosHtml || `<p class="hint">No photos on this listing.</p>`}</div>
+      <div class="breadcrumb">Trade Listings &nbsp;/&nbsp; <span class="current">${escapeHtml(listing.title)}</span></div>
+
+      <div class="detail-grid">
         <div>
-          <span class="status-badge ${listing.status}">${listing.status === "traded" ? "Traded" : TYPE_LABELS[listing.listing_type] || "For Trade"}</span>
-          <h1 style="margin-top:8px;">${escapeHtml(listing.title)}</h1>
-          <div class="profile-chip" style="margin: 10px 0 16px;">
-            <img src="${listing.profiles?.rbx_avatar_url || "../images/brand/searchdog.png"}" alt="">
-            <span class="name">${escapeHtml(listing.profiles?.rbx_username || "unknown")}</span>
+          <div style="margin-bottom:6px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div class="card-badge ${{house_trade:"house-trade",looking_for:"looking-for",commission:"commission"}[listing.listing_type] || "house-trade"}" style="position:static;">
+                <div class="${{house_trade:"icon-sign",looking_for:"icon-loop",commission:"icon-hammer"}[listing.listing_type] || "icon-sign"}"></div>
+              </div>
+              <h1 style="margin:0;">${escapeHtml(listing.title)}</h1>
+              ${cloneTag}
+            </div>
           </div>
-          <p>${escapeHtml(listing.description || "No description provided.")}</p>
-          <div class="meta-row">
+          <div class="hint" style="margin-bottom:20px;">${listing.status === "traded" ? "Traded" : "Listed " + timeAgo(listing.created_at)} · ${TYPE_LABELS[listing.listing_type] || "For Trade"}</div>
+
+          <div>${photosHtml}</div>
+
+          ${
+            listing.description
+              ? `<p style="margin-top:16px;">${escapeHtml(listing.description)}</p>`
+              : ""
+          }
+
+          <div class="meta-row" style="margin-top:12px;">
             ${house ? `<span class="pill">House: ${escapeHtml(house.name)}</span>` : ""}
-            ${cloneTag}${valueTag}${bucksTag}
             ${lookingForHtml ? `<span class="pill">${listing.listing_type === "looking_for" ? "Offering:" : "Looking for:"}</span>${lookingForHtml}` : ""}
           </div>
-          ${includedItemsHtml}
+
+          <div class="detail-tabs" style="margin-top:24px;">
+            <button class="tab active" data-tab="offers">${listing.listing_type === "commission" ? "Requests" : "Offers"} (${offers.length})</button>
+            <button class="tab" data-tab="items">Included Items ${listing.included_items?.length ? `(${listing.included_items.length})` : ""}</button>
+          </div>
+          <div id="tab-offers"></div>
+          <div id="tab-items" hidden>
+            ${
+              listing.included_items?.length
+                ? `<div class="items-row">${itemsRowHtml(listing.included_items)}</div>`
+                : `<p class="hint">Nothing extra included with this listing.</p>`
+            }
+          </div>
+        </div>
+
+        <div class="sidebar-sticky">
+          <div class="trust-card">
+            <img class="avatar-lg" src="${listing.profiles?.rbx_avatar_url || ""}" alt="" onerror="this.removeAttribute('src')">
+            <div>
+              <div class="trust-name-row">
+                <span class="name">${escapeHtml(listing.profiles?.rbx_username || "unknown")}</span>
+                <span style="width:6px;height:6px;border-radius:50%;background:var(--good);"></span>
+              </div>
+              <div class="trust-sub">Lister</div>
+            </div>
+          </div>
+
+          <div class="stat-grid-card">
+            <div>
+              <div class="stat-label">Value</div>
+              <div class="stat-value accent">${
+                listing.value_amount !== null && listing.value_amount !== undefined
+                  ? `${listing.value_amount} <span class="unit">${listing.value_unit || ""}</span>`
+                  : `<span class="unit" style="font-size:15px;">Not yet valued</span>`
+              }</div>
+            </div>
+            <div>
+              <div class="stat-label">Bucks Invested</div>
+              <div class="stat-value">${listing.bucks_invested ? listing.bucks_invested : `<span class="unit" style="font-size:15px;">—</span>`}</div>
+            </div>
+            ${
+              listing.listing_type === "house_trade" && listing.is_cloned !== null
+                ? `<div class="full-row">
+                    <span style="font-size:12.5px;color:var(--ink-soft);font-weight:600;">Clone Status</span>
+                    <span class="pill" style="margin:0;">${listing.is_cloned ? "Cloned" : "Original"}</span>
+                  </div>`
+                : ""
+            }
+          </div>
+
+          ${
+            listing.status === "active" && !isOwner
+              ? `<div class="cta-box" id="offer-cta">
+                  <h3>${listing.listing_type === "commission" ? "Request a Commission" : listing.listing_type === "looking_for" ? "I Have This House" : "Make an Offer"}</h3>
+                  <p>${
+                    listing.listing_type === "commission"
+                      ? "Describe the house you'd like built and what you'll pay for it."
+                      : listing.listing_type === "looking_for"
+                      ? "Let them know you own this house and what you'd want in return."
+                      : "Build an offer from Pets, Vehicles, Toys and more to trade for this house."
+                  }</p>
+                  <button class="btn btn-primary" id="scroll-to-offer-btn">${listing.listing_type === "commission" ? "Send a Request" : "Make an Offer"}</button>
+                </div>`
+              : ""
+          }
         </div>
       </div>
 
-      <div class="section-head"><h2>${listing.listing_type === "commission" ? "Requests" : "Offers"} (${offers.length})</h2></div>
-      <div id="offers-list"></div>
-
       ${
         listing.status === "active" && !isOwner
-          ? `<div class="form-card" id="offer-form-card"><h1>${listing.listing_type === "commission" ? "Request a Commission" : listing.listing_type === "looking_for" ? "I Have This House" : "Make an Offer"}</h1>
+          ? `<div class="form-card" id="offer-form-card" style="margin-top:32px;"><h1>${listing.listing_type === "commission" ? "Request a Commission" : listing.listing_type === "looking_for" ? "I Have This House" : "Make an Offer"}</h1>
               <div id="offer-error" class="error-box" hidden></div>
               <div id="offer-success" class="success-box" hidden></div>
               <div id="need-profile-offer" class="hint" hidden>
@@ -178,6 +248,19 @@
 
     renderOffers(offers, isOwner, listing);
 
+    content.querySelectorAll(".detail-tabs .tab").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        content.querySelectorAll(".detail-tabs .tab").forEach((t) => t.classList.remove("active"));
+        tab.classList.add("active");
+        document.getElementById("tab-offers").hidden = tab.dataset.tab !== "offers";
+        document.getElementById("tab-items").hidden = tab.dataset.tab !== "items";
+      });
+    });
+
+    document.getElementById("scroll-to-offer-btn")?.addEventListener("click", () => {
+      document.getElementById("offer-form-card")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
     if (listing.status === "active" && !isOwner) {
       if (!myProfile) {
         document.getElementById("offer-builder").hidden = true;
@@ -201,7 +284,7 @@
   }
 
   function renderOffers(offers, isOwner, listing) {
-    const list = document.getElementById("offers-list");
+    const list = document.getElementById("tab-offers");
     if (!offers.length) {
       list.innerHTML = `<p class="hint">No offers yet.</p>`;
       return;

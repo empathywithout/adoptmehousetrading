@@ -29,6 +29,7 @@
   <div class="section-head">
     <h2>Recent Completed Trades</h2>
   </div>
+  <div class="filter-pills" id="type-pills"></div>
   <p class="hint" style="margin-bottom:20px;max-width:640px;">
     Real trades, corroborated by both sides — not a value team's opinion. Each one shown here was confirmed independently by both the house lister and the person who offered on it. Thin right now since it grows with actual trade volume, not editorial judgment.
   </p>
@@ -64,15 +65,43 @@
     return new Date(iso).toLocaleDateString();
   }
 
-  if (!trades.length) {
-    document.getElementById("empty-state").hidden = false;
-  } else {
-    list.innerHTML = trades
+  const FILTERS = [
+    { key: "all", label: "All" },
+    { key: "house_trade", label: "House Trade" },
+    { key: "looking_for", label: "Looking For" },
+    { key: "commission", label: "Commission" },
+  ];
+  let activeFilter = "all";
+
+  const pillsEl = document.getElementById("type-pills");
+  pillsEl.innerHTML = FILTERS.map((f) => `<button data-key="${f.key}" class="${f.key === "all" ? "active" : ""}">${f.label}</button>`).join("");
+  pillsEl.querySelectorAll("button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      activeFilter = btn.dataset.key;
+      pillsEl.querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
+      renderTrades();
+    });
+  });
+
+  function renderTrades() {
+    const filtered = trades.filter((t) => activeFilter === "all" || t.listings?.listing_type === activeFilter || (!t.listings?.listing_type && activeFilter === "house_trade"));
+
+    if (!filtered.length) {
+      document.getElementById("empty-state").hidden = trades.length > 0 ? false : false;
+      list.innerHTML = trades.length ? `<p class="hint">No trades match this filter.</p>` : "";
+      if (!trades.length) document.getElementById("empty-state").hidden = false;
+      return;
+    }
+    document.getElementById("empty-state").hidden = true;
+
+    list.innerHTML = filtered
       .map((trade) => {
         const listing = trade.listings;
         const house = houseById[listing?.house_id];
         const items = trade.offers?.items || [];
         const itemsSummary = items.map((it) => it.name).join(", ") || "items";
+        const seller = listing?.profiles?.rbx_username || "unknown";
+        const buyer = trade.offers?.profiles?.rbx_username || "unknown";
 
         return `
         <div class="trade-card">
@@ -91,11 +120,26 @@
               <div class="label">${items.length} item${items.length === 1 ? "" : "s"}</div>
             </div>
           </div>
-          <p class="hint">${escapeHtml(listing?.profiles?.rbx_username || "unknown")} traded with ${escapeHtml(trade.offers?.profiles?.rbx_username || "unknown")}</p>
+          <div style="border-top:1px solid var(--line);padding-top:10px;display:flex;flex-direction:column;gap:8px;">
+            <div class="trust-row" style="margin-bottom:0;">
+              <span class="avatar-initial">${escapeHtml(seller[0]?.toUpperCase() || "?")}</span>
+              <span class="username">${escapeHtml(seller)}</span>
+              <span class="online-dot"></span>
+              <span style="font-size:10.5px;color:var(--muted);">lister</span>
+            </div>
+            <div class="trust-row" style="margin-bottom:0;">
+              <span class="avatar-initial">${escapeHtml(buyer[0]?.toUpperCase() || "?")}</span>
+              <span class="username">${escapeHtml(buyer)}</span>
+              <span class="online-dot"></span>
+              <span style="font-size:10.5px;color:var(--muted);">offerer</span>
+            </div>
+          </div>
         </div>`;
       })
       .join("");
   }
+
+  renderTrades();
 
   function escapeHtml(str) {
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");

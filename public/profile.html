@@ -38,16 +38,30 @@
     </div>
   </div>
 
-  <div class="form-card" id="signed-in-view" hidden>
-    <h1>You're set up</h1>
-    <div class="profile-chip" style="margin: 18px 0 24px;">
-      <img id="avatar-img" src="" alt="">
-      <span class="name" id="username-display"></span>
-    </div>
-    <p class="subtitle">Other players will see this Roblox username on any listing or offer you make.</p>
-    <div class="hero-ctas" style="justify-content: flex-start;">
-      <a class="btn btn-secondary" href="list-a-house.html">List a House</a>
+  <div id="signed-in-view" hidden>
+    <div class="profile-hero">
+      <img class="avatar-big" id="avatar-img" src="" alt="" onerror="this.removeAttribute('src')">
+      <div style="flex:1;">
+        <div class="name-row">
+          <span class="name" id="username-display"></span>
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--good);"></span>
+          <span class="online-label">Online</span>
+        </div>
+        <div class="stat-line">
+          <span class="stat"><span class="num" id="stat-trades">0</span><span class="label">completed trades</span></span>
+          <span class="stat"><span class="num" id="stat-listings">0</span><span class="label">active listings</span></span>
+          <span class="member-since" id="stat-member-since"></span>
+        </div>
+      </div>
       <button class="btn btn-secondary" id="switch-profile-btn">Use a different username</button>
+    </div>
+
+    <div class="section-head"><h2>Active Listings</h2><a href="list-a-house.html">+ List a house</a></div>
+    <div id="my-listings"></div>
+    <div id="no-listings-msg" class="form-card" hidden>
+      <h1>No listings yet</h1>
+      <p class="subtitle">Post a house, request one, or announce you're open for commissions.</p>
+      <a class="btn btn-primary" href="list-a-house.html">List a House</a>
     </div>
   </div>
 </section>
@@ -60,28 +74,136 @@
 </footer>
 
 <script type="module">
-  import { api, getStoredProfile, saveSession, clearSession } from "./js/api.js";
+  import { api, getStoredProfile, saveSession, clearSession, CATEGORY_LABELS } from "./js/api.js";
 
   const signedOutView = document.getElementById("signed-out-view");
   const signedInView = document.getElementById("signed-in-view");
   const errorBox = document.getElementById("error");
+
+  const BADGE_CLASS = { house_trade: "house-trade", looking_for: "looking-for", commission: "commission" };
+  const BADGE_ICON = { house_trade: "icon-sign", looking_for: "icon-loop", commission: "icon-hammer" };
 
   function showError(msg) {
     errorBox.textContent = msg;
     errorBox.hidden = false;
   }
 
-  function render() {
-    const profile = getStoredProfile();
-    if (profile) {
-      signedInView.hidden = false;
-      signedOutView.hidden = true;
-      document.getElementById("username-display").textContent = profile.rbx_username;
-      document.getElementById("avatar-img").src = profile.rbx_avatar_url || "images/brand/searchdog.png";
-    } else {
+  function escapeHtml(str) {
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function timeAgo(iso) {
+    const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+    if (days < 1) return "today";
+    if (days === 1) return "yesterday";
+    return `${days} days ago`;
+  }
+
+  async function render() {
+    const stored = getStoredProfile();
+    if (!stored) {
       signedInView.hidden = true;
       signedOutView.hidden = false;
+      return;
     }
+
+    signedOutView.hidden = true;
+    signedInView.hidden = false;
+
+    let dash;
+    try {
+      dash = await api.dashboard();
+    } catch (err) {
+      // Token might be stale/invalid — fall back to signed-out view.
+      clearSession();
+      signedInView.hidden = true;
+      signedOutView.hidden = false;
+      return;
+    }
+
+    document.getElementById("username-display").textContent = dash.profile.rbx_username;
+    const avatarImg = document.getElementById("avatar-img");
+    if (dash.profile.rbx_avatar_url) avatarImg.src = dash.profile.rbx_avatar_url;
+    else avatarImg.textContent = dash.profile.rbx_username[0]?.toUpperCase() || "?";
+
+    document.getElementById("stat-trades").textContent = dash.stats.completed_trades;
+    document.getElementById("stat-listings").textContent = dash.stats.active_listings;
+    document.getElementById("stat-member-since").textContent =
+      "Member since " + new Date(dash.stats.member_since).getFullYear();
+
+    renderListings(dash.listings, dash.profile.id);
+  }
+
+  function renderListings(listings, myProfileId) {
+    const container = document.getElementById("my-listings");
+    const emptyMsg = document.getElementById("no-listings-msg");
+
+    if (!listings.length) {
+      emptyMsg.hidden = false;
+      container.innerHTML = "";
+      return;
+    }
+    emptyMsg.hidden = true;
+
+    container.innerHTML = listings
+      .map((listing) => {
+        const pendingOffers = (listing.offers || []).filter((o) => o.status === "pending");
+        const photo = listing.photos?.[0] || "../images/brand/searchdog.png";
+
+        const offersHtml = pendingOffers
+          .map(
+            (offer) => `
+          <div class="manage-offer-row">
+            <div class="left">
+              <span class="avatar-initial">${escapeHtml((offer.profiles?.rbx_username || "?")[0].toUpperCase())}</span>
+              <div>
+                <div class="username" style="font-weight:700;">${escapeHtml(offer.profiles?.rbx_username || "unknown")}</div>
+                <div class="items-summary">${escapeHtml((offer.items || []).map((i) => i.name).join(", ") || offer.message || "no items")}</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;flex-shrink:0;">
+              <button class="btn-sm accept" data-offer="${offer.id}" data-action="accept">Accept</button>
+              <button class="btn-sm decline" data-offer="${offer.id}" data-action="decline">Decline</button>
+            </div>
+          </div>`
+          )
+          .join("");
+
+        return `
+        <div class="manage-card">
+          <a class="manage-head" href="listings/listing.html?id=${listing.id}" style="text-decoration:none;color:inherit;">
+            <div class="manage-thumb">
+              <img src="${photo}" alt="">
+              <div class="card-badge ${BADGE_CLASS[listing.listing_type] || "house-trade"}"><div class="${BADGE_ICON[listing.listing_type] || "icon-sign"}"></div></div>
+            </div>
+            <div style="flex:1;">
+              <div class="manage-title">${escapeHtml(listing.title)}</div>
+              <div class="card-value">
+                ${
+                  listing.value_amount !== null && listing.value_amount !== undefined
+                    ? `<span class="amount">${listing.value_amount}</span><span class="unit">${listing.value_unit || ""}</span>`
+                    : `<span class="unit">${listing.status === "traded" ? "Traded" : "value TBD"}</span>`
+                }
+              </div>
+            </div>
+            <span class="offer-count">${pendingOffers.length} offer${pendingOffers.length === 1 ? "" : "s"}</span>
+          </a>
+          ${pendingOffers.length ? `<div class="manage-offers">${offersHtml}</div>` : ""}
+        </div>`;
+      })
+      .join("");
+
+    container.querySelectorAll("button[data-offer]").forEach((btn) => {
+      btn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        try {
+          await api.respondToOffer(btn.dataset.offer, btn.dataset.action);
+          await render();
+        } catch (err) {
+          alert(err.message);
+        }
+      });
+    });
   }
 
   document.getElementById("create-btn").addEventListener("click", async () => {
@@ -93,7 +215,7 @@
       const rbx = await api.lookupRoblox(username);
       const { token, profile } = await api.createProfile(rbx);
       saveSession(token, profile);
-      render();
+      await render();
     } catch (err) {
       showError(err.message);
     }
