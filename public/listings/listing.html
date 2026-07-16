@@ -52,7 +52,7 @@
 </footer>
 
 <script type="module">
-  import { api, getStoredProfile, CATEGORY_LABELS, THEME_LABELS } from "../js/api.js";
+  import { api, getStoredProfile, CATEGORY_LABELS, THEME_LABELS, QUICK_REPLIES } from "../js/api.js";
   import { mountItemPicker } from "../js/item-picker.js";
 
   const params = new URLSearchParams(location.search);
@@ -79,7 +79,7 @@
 
   function itemsRowHtml(items) {
     return (items || [])
-      .map((it) => `<div class="item"><img src="${it.image}" alt=""><div>${escapeHtml(it.name)}</div></div>`)
+      .map((it) => `<div class="item"><img src="${it.image}" alt="">${it.qty > 1 ? `<span class="qty">×${it.qty}</span>` : ""}<div>${escapeHtml(it.name)}</div></div>`)
       .join("");
   }
 
@@ -240,6 +240,7 @@
                 </div>
                 <div class="selected-items" id="selected-items"></div>
                 <label class="field-label" for="offer-message">Message${listing.listing_type === "house_trade" ? " (optional)" : ""}</label>
+                <div class="quick-replies" id="offer-quick-replies"></div>
                 <textarea id="offer-message" placeholder="${
                   listing.listing_type === "commission"
                     ? "Describe the house you want built..."
@@ -368,6 +369,7 @@
             : `<button class="btn-sm accept" data-confirm="${offerId}">Confirm this trade happened</button>
                <p class="hint">Optional: attach a screenshot as proof — helps build a real trade-value history for the community.</p>`
         }
+        <button class="btn-sm decline" data-cancel="${offerId}" style="margin-top:8px;">Cancel Trade</button>
       </div>`;
 
     const btn = el.querySelector("[data-confirm]");
@@ -381,10 +383,30 @@
         }
       });
     }
+
+    el.querySelector("[data-cancel]").addEventListener("click", async () => {
+      if (!confirm("Cancel this trade? The listing reopens and this offer is withdrawn.")) return;
+      try {
+        await api.cancelOffer(offerId);
+        await loadListing();
+      } catch (err) {
+        alert(err.message);
+      }
+    });
   }
 
   function initOfferBuilder(listing) {
     const picker = mountItemPicker(document.getElementById("offer-builder"), "");
+
+    const quickRepliesEl = document.getElementById("offer-quick-replies");
+    const messageBox = document.getElementById("offer-message");
+    quickRepliesEl.innerHTML = QUICK_REPLIES.map((phrase) => `<button type="button">${phrase}</button>`).join("");
+    quickRepliesEl.querySelectorAll("button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        messageBox.value = messageBox.value ? `${messageBox.value} ${btn.textContent}` : btn.textContent;
+        messageBox.focus();
+      });
+    });
 
     document.getElementById("submit-offer-btn").addEventListener("click", async () => {
       const errorBox = document.getElementById("offer-error");

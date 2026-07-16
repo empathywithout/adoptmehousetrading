@@ -4,11 +4,18 @@ import { CATEGORY_LABELS } from "./api.js";
 // `container` must contain these child elements with these exact ids,
 // scoped by the optional `prefix` (so multiple pickers can coexist on one page):
 //   {prefix}category-tabs, {prefix}item-search, {prefix}item-results, {prefix}selected-items
+//
+// Supports quantities: clicking an item already in the selection adds
+// another of it rather than deselecting — real trades often involve
+// multiple of the same pet/item ("3x Golden Egg"). Each entry in
+// getSelected() has a `qty` field; removal/adjustment happens via the
+// stepper on the selected-items chip, not by re-clicking the grid tile.
 export function mountItemPicker(container, prefix = "") {
   const categories = Object.keys(CATEGORY_LABELS);
   const catalogsByCategory = {};
   let activeCategory = categories[0];
-  const selected = [];
+  const selected = []; // [{ category, id, name, image, qty }]
+  const MAX_QTY = 20;
 
   const el = (id) => container.querySelector(`#${prefix}${id}`);
 
@@ -31,6 +38,10 @@ export function mountItemPicker(container, prefix = "") {
     renderResults();
   }
 
+  function findSelected(id, category) {
+    return selected.find((s) => s.id === id && s.category === category);
+  }
+
   function renderResults() {
     const search = el("item-search").value.toLowerCase();
     const items = (catalogsByCategory[activeCategory] || [])
@@ -38,20 +49,25 @@ export function mountItemPicker(container, prefix = "") {
       .slice(0, 60);
 
     el("item-results").innerHTML = items
-      .map(
-        (it) => `<div class="result-item ${selected.some((s) => s.id === it.id && s.category === it.category) ? "selected" : ""}"
+      .map((it) => {
+        const existing = findSelected(it.id, it.category);
+        return `<div class="result-item ${existing ? "selected" : ""}"
                     data-id="${it.id}" data-cat="${it.category}">
+                    ${existing ? `<span class="result-qty-badge">${existing.qty}</span>` : ""}
                     <img src="${it.image}" alt="">${escapeHtml(it.name)}
-                  </div>`
-      )
+                  </div>`;
+      })
       .join("");
 
     el("item-results").querySelectorAll(".result-item").forEach((resultEl) => {
       resultEl.addEventListener("click", () => {
         const item = catalogsByCategory[activeCategory].find((i) => i.id === resultEl.dataset.id);
-        const idx = selected.findIndex((s) => s.id === item.id && s.category === item.category);
-        if (idx === -1) selected.push(item);
-        else selected.splice(idx, 1);
+        const existing = findSelected(item.id, item.category);
+        if (existing) {
+          existing.qty = Math.min(MAX_QTY, existing.qty + 1);
+        } else {
+          selected.push({ ...item, qty: 1 });
+        }
         renderResults();
         renderSelected();
       });
@@ -61,15 +77,33 @@ export function mountItemPicker(container, prefix = "") {
   function renderSelected() {
     el("selected-items").innerHTML = selected
       .map(
-        (it, i) =>
-          `<span class="selected-chip"><img src="${it.image}" alt="">${escapeHtml(it.name)}<button data-i="${i}">×</button></span>`
+        (it, i) => `
+        <span class="selected-chip">
+          <img src="${it.image}" alt="">
+          <span class="chip-name">${escapeHtml(it.name)}</span>
+          <span class="qty-stepper">
+            <button data-i="${i}" data-action="dec">−</button>
+            <span class="qty-num">${it.qty}</span>
+            <button data-i="${i}" data-action="inc">+</button>
+          </span>
+          <button data-i="${i}" data-action="remove" class="chip-remove">×</button>
+        </span>`
       )
       .join("");
+
     el("selected-items")
-      .querySelectorAll(".selected-chip button")
+      .querySelectorAll("button[data-action]")
       .forEach((btn) => {
         btn.addEventListener("click", () => {
-          selected.splice(Number(btn.dataset.i), 1);
+          const i = Number(btn.dataset.i);
+          if (btn.dataset.action === "remove") {
+            selected.splice(i, 1);
+          } else if (btn.dataset.action === "inc") {
+            selected[i].qty = Math.min(MAX_QTY, selected[i].qty + 1);
+          } else if (btn.dataset.action === "dec") {
+            selected[i].qty -= 1;
+            if (selected[i].qty <= 0) selected.splice(i, 1);
+          }
           renderResults();
           renderSelected();
         });

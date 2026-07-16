@@ -448,6 +448,17 @@
         }
       });
     });
+    document.querySelectorAll("[data-commission-cancel]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        if (!confirm("Cancel this commission?")) return;
+        try {
+          await api.cancelCommission(btn.dataset.commissionCancel);
+          await render();
+        } catch (err) {
+          alert(err.message);
+        }
+      });
+    });
   }
 
   function renderBuildRegistry(entries) {
@@ -498,14 +509,18 @@
         <button class="btn-sm accept" data-commission-respond="${req.id}" data-action="accept">Accept</button>
         <button class="btn-sm decline" data-commission-respond="${req.id}" data-action="decline">Decline</button>
       </div>`;
-    } else if (isBuilderView && req.status === "accepted") {
-      actionsHtml = `<button class="btn-sm accept" data-commission-deliver="${req.id}">Mark Delivered</button>`;
+    } else if (req.status === "accepted") {
+      actionsHtml = `
+        ${isBuilderView ? `<button class="btn-sm accept" data-commission-deliver="${req.id}">Mark Delivered</button>` : `<p class="hint">The builder is working on this.</p>`}
+        <button class="btn-sm decline" data-commission-cancel="${req.id}" style="margin-top:8px;">Cancel</button>`;
     } else if (req.status === "delivered" && !myConfirmed) {
       actionsHtml = `<button class="btn-sm accept" data-commission-confirm="${req.id}">Confirm Completed</button>`;
     } else if (req.status === "delivered" && myConfirmed) {
       actionsHtml = `<p class="hint">Waiting on the other side to confirm.</p>`;
     } else if (req.status === "verified") {
       actionsHtml = `<p class="hint">✓ Verified complete.</p>`;
+    } else if (req.status === "cancelled") {
+      actionsHtml = `<p class="hint">Cancelled.</p>`;
     }
 
     return `

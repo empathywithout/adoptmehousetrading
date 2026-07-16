@@ -66,6 +66,7 @@ export const api = {
   createOffer: (offer) => request("offers-create", { method: "POST", body: offer, auth: true }),
   respondToOffer: (offer_id, action) =>
     request("offers-respond", { method: "POST", body: { offer_id, action }, auth: true }),
+  cancelOffer: (offer_id) => request("offers-cancel", { method: "POST", body: { offer_id }, auth: true }),
 
   getTrade: (offer_id) => request(`trades-get?offer_id=${encodeURIComponent(offer_id)}`, { auth: true }),
   confirmTrade: (offer_id, proof_photo) =>
@@ -92,6 +93,8 @@ export const api = {
     request("commission-request-deliver", { method: "POST", body: { request_id, delivery_photos }, auth: true }),
   confirmCommission: (request_id) =>
     request("commission-request-confirm", { method: "POST", body: { request_id }, auth: true }),
+  cancelCommission: (request_id) =>
+    request("commission-request-cancel", { method: "POST", body: { request_id }, auth: true }),
 
   registerBuild: (payload) => request("registry-create", { method: "POST", body: payload, auth: true }),
   listRegistry: (params = {}) => {
@@ -126,6 +129,18 @@ async function uploadPhoto(file) {
 // the exact same placeholder.
 export const HOUSE_PLACEHOLDER_ICON =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M4 11.5L12 4l8 7.5V19a1 1 0 01-1 1h-5v-6H10v6H5a1 1 0 01-1-1v-7.5z' stroke='%237C8F87' stroke-width='1.6' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E";
+
+// Canned quick-reply phrases for offer/commission messages — the same
+// kind of quick-insert chips Elvebredd and similar Adopt Me trading sites
+// offer, so people aren't starting every message from a blank textarea.
+export const QUICK_REPLIES = [
+  "Interested! What's your Roblox username?",
+  "Can you add more to sweeten the deal?",
+  "Deal! Let's trade in-game.",
+  "Still available?",
+  "Can you go higher on value?",
+  "Sorry, that's a lowball for me.",
+];
 
 export const CATEGORY_LABELS = {
   adopt_me_pets: "Pets",

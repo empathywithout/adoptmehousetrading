@@ -39,7 +39,7 @@
 </footer>
 
 <script type="module">
-  import { api, getStoredProfile, THEME_LABELS } from "../js/api.js";
+  import { api, getStoredProfile, THEME_LABELS, QUICK_REPLIES } from "../js/api.js";
   import { mountItemPicker } from "../js/item-picker.js";
 
   const params = new URLSearchParams(location.search);
@@ -107,6 +107,7 @@
                   <div id="request-error" class="error-box" hidden></div>
                   <div id="request-success" class="success-box" hidden></div>
                   <label class="field-label" style="margin-top:0;" for="request-description">Describe what you want built</label>
+                  <div class="quick-replies" id="request-quick-replies"></div>
                   <textarea id="request-description" placeholder="Style, size, rooms, anything specific..."></textarea>
                   <label class="field-label">Offer (optional)</label>
                   <div class="item-picker">
@@ -124,6 +125,17 @@
 
     if (!isSelf && builder.commission_status === "open" && myProfile) {
       const picker = mountItemPicker(document.getElementById("content"), "");
+
+      const quickRepliesEl = document.getElementById("request-quick-replies");
+      const descriptionBox = document.getElementById("request-description");
+      quickRepliesEl.innerHTML = QUICK_REPLIES.map((phrase) => `<button type="button">${phrase}</button>`).join("");
+      quickRepliesEl.querySelectorAll("button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          descriptionBox.value = descriptionBox.value ? `${descriptionBox.value} ${btn.textContent}` : btn.textContent;
+          descriptionBox.focus();
+        });
+      });
+
       document.getElementById("submit-request-btn").addEventListener("click", async () => {
         const errorBox = document.getElementById("request-error");
         const successBox = document.getElementById("request-success");

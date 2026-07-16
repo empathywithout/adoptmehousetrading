@@ -861,11 +861,30 @@ textarea { resize: vertical; min-height: 90px; }
   cursor: pointer;
   font-size: 11.5px;
   transition: border-color 0.1s ease;
+  position: relative;
 }
 
 .item-picker .result-item:hover { border-color: var(--ink); }
 .item-picker .result-item img { width: 100%; aspect-ratio: 1; object-fit: contain; }
 .item-picker .result-item.selected { border-color: var(--accent); background: var(--accent-soft); }
+
+.result-qty-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: var(--accent);
+  color: var(--white);
+  font-size: 10.5px;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  z-index: 1;
+}
 
 .selected-items {
   display: flex;
@@ -881,18 +900,41 @@ textarea { resize: vertical; min-height: 90px; }
   background: var(--accent-soft);
   border: 1px solid var(--accent);
   border-radius: 999px;
-  padding: 4px 10px 4px 4px;
+  padding: 4px 8px 4px 4px;
   font-size: 12.5px;
   color: var(--ink);
 }
 
-.selected-chip img { width: 22px; height: 22px; object-fit: contain; }
-.selected-chip button {
+.selected-chip img { width: 22px; height: 22px; object-fit: contain; flex-shrink: 0; }
+.selected-chip .chip-name { white-space: nowrap; }
+
+.qty-stepper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--paper);
+  border-radius: 999px;
+  padding: 1px 4px;
+}
+.qty-stepper button {
+  border: none;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 13px;
+  width: 16px;
+  line-height: 1;
+}
+.qty-stepper .qty-num { font-weight: 700; font-size: 11.5px; min-width: 14px; text-align: center; }
+
+.chip-remove {
   border: none;
   background: none;
   color: var(--accent-dark);
   cursor: pointer;
   font-weight: 700;
+  flex-shrink: 0;
 }
 
 /* ---------- Listing cards ---------- */
@@ -949,26 +991,34 @@ textarea { resize: vertical; min-height: 90px; }
   background: var(--paper);
 }
 
-.offer-card .items-row {
+.items-row {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin: 8px 0;
 }
 
-.offer-card .items-row .item {
+.items-row .item {
   text-align: center;
   font-size: 11px;
   width: 64px;
   color: var(--muted);
 }
 
-.offer-card .items-row img {
+.items-row .item img {
   width: 56px;
   height: 56px;
   object-fit: contain;
   background: var(--surface);
   border-radius: 8px;
+}
+
+.items-row .item .qty {
+  display: block;
+  font-weight: 700;
+  color: var(--ink);
+  font-size: 12px;
+  margin-top: 2px;
 }
 
 .offer-actions { display: flex; gap: 8px; margin-top: 10px; }
@@ -1423,6 +1473,25 @@ textarea { resize: vertical; min-height: 90px; }
   color: var(--ink);
   white-space: nowrap;
 }
+
+.quick-replies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0 10px;
+}
+.quick-replies button {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+.quick-replies button:hover { border-color: var(--ink); color: var(--ink); }
 
 .filter-pills {
   display: flex;

@@ -62,6 +62,7 @@ async function handlerImpl(event) {
         id: String(it.id || ""),
         name: String(it.name || ""),
         image: String(it.image || ""),
+        qty: Math.min(20, Math.max(1, Number(it.qty) || 1)),
       }))
     : [];
 
