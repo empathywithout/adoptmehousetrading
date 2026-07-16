@@ -55,7 +55,7 @@ function layout({ title, description, path: routePath, depth, body }) {
 <header class="site-nav">
   <div class="wrap">
     <a class="brand" href="${rootPrefix}index.html">
-      <span class="sign-mark">${SIGNPOST_SVG}</span>
+      <span class="signpost-mini"></span>
       AdoptMeHouseTrading
     </a>
     <nav>
