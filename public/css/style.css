@@ -139,6 +139,59 @@ img { max-width: 100%; display: block; }
   border: 1.3px solid var(--ink);
 }
 
+.nav-more {
+  position: relative;
+}
+.nav-more-trigger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  text-decoration: none;
+  color: var(--muted);
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+  font-weight: 600;
+  font-size: 14.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.nav-more-trigger:hover { color: var(--ink); }
+.nav-more-trigger.active { color: var(--accent); border-bottom-color: var(--accent); }
+.nav-more-caret {
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  margin-top: -2px;
+}
+.nav-more-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(22, 51, 43, 0.12);
+  padding: 6px;
+  min-width: 160px;
+  z-index: 30;
+}
+.nav-more-dropdown a {
+  display: block;
+  padding: 8px 10px;
+  border-radius: 7px;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+}
+.nav-more-dropdown a:hover { background: var(--surface); }
+
 .site-nav nav {
   display: flex;
   gap: 26px;

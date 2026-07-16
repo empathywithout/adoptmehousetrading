@@ -62,7 +62,13 @@ function layout({ title, description, path: routePath, depth, body }) {
       <a href="${rootPrefix}listings/index.html" class="${routePath.startsWith("listings") ? "active" : ""}">Browse Houses</a>
       <a href="${rootPrefix}commissions/index.html" class="${routePath.startsWith("commissions") ? "active" : ""}">Commissions</a>
       <a href="${rootPrefix}comps.html" class="${routePath === "comps" ? "active" : ""}">Recent Trades</a>
-      <a href="${rootPrefix}houses/index.html" class="${routePath.startsWith("houses") ? "active" : ""}">Values</a>
+      <div class="nav-more">
+        <button type="button" class="nav-more-trigger ${routePath.startsWith("houses") || routePath.startsWith("registry") ? "active" : ""}">More <span class="nav-more-caret"></span></button>
+        <div class="nav-more-dropdown" hidden>
+          <a href="${rootPrefix}houses/index.html">Values</a>
+          <a href="${rootPrefix}registry/index.html">Build Registry</a>
+        </div>
+      </div>
       <a href="${rootPrefix}profile.html" class="${routePath === "profile" ? "active" : ""}">Profile</a>
     </nav>
     <div class="nav-actions">

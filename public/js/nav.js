@@ -28,3 +28,19 @@ if (raw && pillEl) {
     // malformed stored profile — leave the pill empty rather than break the page
   }
 }
+
+// "More" nav dropdown (Values, Build Registry) — same toggle-and-click-away
+// pattern as the house-picker dropdown elsewhere on the site.
+const moreTrigger = document.querySelector(".nav-more-trigger");
+const moreDropdown = document.querySelector(".nav-more-dropdown");
+if (moreTrigger && moreDropdown) {
+  moreTrigger.addEventListener("click", (e) => {
+    e.stopPropagation();
+    moreDropdown.hidden = !moreDropdown.hidden;
+  });
+  document.addEventListener("click", (e) => {
+    if (!moreDropdown.hidden && !moreDropdown.contains(e.target) && e.target !== moreTrigger) {
+      moreDropdown.hidden = true;
+    }
+  });
+}
