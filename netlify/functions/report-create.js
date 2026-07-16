@@ -7,6 +7,14 @@
 
 import { supabaseAdmin, json } from "./_lib/supabase.js";
 
+const VALID_REASONS = [
+  "crosstrading",
+  "proxy_trading",
+  "misrepresented_clone",
+  "scam_or_no_show",
+  "other",
+];
+
 export async function handler(event) {
   if (event.httpMethod !== "POST") {
     return json(405, { error: "Method not allowed" });
@@ -20,8 +28,8 @@ export async function handler(event) {
   }
 
   const { listing_id, reason, details } = body;
-  if (!listing_id || !reason) {
-    return json(400, { error: "listing_id and reason are required" });
+  if (!listing_id || !VALID_REASONS.includes(reason)) {
+    return json(400, { error: "listing_id and a valid reason are required" });
   }
 
   const db = supabaseAdmin();

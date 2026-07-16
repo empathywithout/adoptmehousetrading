@@ -25,24 +25,45 @@ create table profiles (
 create table listings (
   id uuid primary key default gen_random_uuid(),
   profile_id uuid not null references profiles(id) on delete cascade,
-  house_id text not null,             -- id from data/houses.json
+
+  listing_type text not null default 'house_trade'
+    check (listing_type in ('house_trade', 'looking_for', 'commission')),
+  -- house_trade: "I have this house, offer me items for it" (the original flow)
+  -- looking_for: "I want this house, here's what I'll pay" — a request post,
+  --              not an offer of an existing house
+  -- commission:  "I build houses for hire" — a builder announcing availability,
+  --              not tied to one specific house
+
+  house_id text,                      -- id from data/houses.json; null for 'commission'
+  is_cloned boolean,                  -- true/false for house_trade listings; null when N/A —
+                                       -- mirrors the community's own "100% original" vs
+                                       -- "cloned/70%+ similar" distinction, which matters a
+                                       -- lot to how a listing is valued and trusted
+  value_points numeric,               -- flat point-scale value (community convention), optional
+
   title text not null,
   description text,
   photos jsonb not null default '[]', -- array of Supabase Storage URLs
-  looking_for jsonb not null default '[]', -- array of category keys, e.g. ["adopt_me_pets","toys"]
+  looking_for jsonb not null default '[]', -- array of category keys wanted in return, e.g. ["adopt_me_pets","toys"]
   status text not null default 'active' check (status in ('active', 'traded', 'removed')),
   created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
+  updated_at timestamptz not null default now(),
+
+  constraint house_id_required_for_house_listings
+    check (listing_type = 'commission' or house_id is not null)
 );
 
 create index listings_status_idx on listings(status);
 create index listings_house_id_idx on listings(house_id);
+create index listings_type_idx on listings(listing_type);
 
 create table offers (
   id uuid primary key default gen_random_uuid(),
   listing_id uuid not null references listings(id) on delete cascade,
   offering_profile_id uuid not null references profiles(id) on delete cascade,
-  items jsonb not null default '[]',  -- array of {category, id, name, image}
+  items jsonb not null default '[]',  -- array of {category, id, name, image} — required for
+                                       -- offers on 'house_trade' listings, optional for
+                                       -- 'looking_for'/'commission' (a message may be enough)
   message text,
   status text not null default 'pending' check (status in ('pending', 'accepted', 'declined', 'withdrawn')),
   created_at timestamptz not null default now()
@@ -53,7 +74,13 @@ create index offers_listing_id_idx on offers(listing_id);
 create table reports (
   id uuid primary key default gen_random_uuid(),
   listing_id uuid not null references listings(id) on delete cascade,
-  reason text not null,
+  reason text not null check (reason in (
+    'crosstrading',        -- Robux/real-money/outside-Adopt-Me trades — against Roblox/Adopt Me ToS
+    'proxy_trading',       -- posting/trading on behalf of someone who isn't the account owner
+    'misrepresented_clone',-- claimed original but is a clone, or vice versa
+    'scam_or_no_show',
+    'other'
+  )),
   details text,
   created_at timestamptz not null default now()
 );

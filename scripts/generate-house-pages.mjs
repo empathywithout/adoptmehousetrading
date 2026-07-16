@@ -71,6 +71,7 @@ ${body}
 <footer class="site-footer">
   <div class="wrap">
     AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community. Not affiliated with Adopt Me or Roblox Corporation.
+    <div style="margin-top:8px;"><a href="${rootPrefix}rules.html" style="color:var(--sign-red);">Community Rules</a></div>
   </div>
 </footer>
 </body>

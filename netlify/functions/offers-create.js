@@ -23,15 +23,15 @@ export async function handler(event) {
 
   const { listing_id, items, message } = body;
 
-  if (!listing_id || !Array.isArray(items) || items.length === 0) {
-    return json(400, { error: "listing_id and at least one item are required" });
+  if (!listing_id) {
+    return json(400, { error: "listing_id is required" });
   }
 
   const db = supabaseAdmin();
 
   const { data: listing } = await db
     .from("listings")
-    .select("id, status, profile_id")
+    .select("id, status, profile_id, listing_type")
     .eq("id", listing_id)
     .maybeSingle();
 
@@ -40,15 +40,25 @@ export async function handler(event) {
   }
 
   if (listing.profile_id === profile.id) {
-    return json(400, { error: "You can't offer on your own listing" });
+    return json(400, { error: "You can't respond to your own listing" });
   }
 
-  const cleanItems = items.slice(0, 20).map((it) => ({
-    category: String(it.category || ""),
-    id: String(it.id || ""),
-    name: String(it.name || ""),
-    image: String(it.image || ""),
-  }));
+  const itemsRequired = listing.listing_type === "house_trade";
+  if (itemsRequired && (!Array.isArray(items) || items.length === 0)) {
+    return json(400, { error: "Add at least one item to your offer" });
+  }
+  if (!itemsRequired && (!Array.isArray(items) || items.length === 0) && !message) {
+    return json(400, { error: "Add an item or a message" });
+  }
+
+  const cleanItems = Array.isArray(items)
+    ? items.slice(0, 20).map((it) => ({
+        category: String(it.category || ""),
+        id: String(it.id || ""),
+        name: String(it.name || ""),
+        image: String(it.image || ""),
+      }))
+    : [];
 
   const { data, error } = await db
     .from("offers")

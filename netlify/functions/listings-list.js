@@ -23,6 +23,10 @@ export async function handler(event) {
     query = query.eq("house_id", params.house_id);
   }
 
+  if (params.listing_type) {
+    query = query.eq("listing_type", params.listing_type);
+  }
+
   const { data, error } = await query;
 
   if (error) {

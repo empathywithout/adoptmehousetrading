@@ -16,14 +16,20 @@ A static, pre-rendered site for browsing Adopt Me house values — plus a live p
 ## How the trading marketplace works
 
 - **Profiles** (`public/profile.html`) — just a Roblox username, validated against Roblox's public API for a real user id + avatar. No password. A session token is generated and stored in the browser (`localStorage`); that token is the only thing proving "this browser is that profile" for later actions.
-- **Listings** (`public/list-a-house.html`) — a signed-in profile picks a house, uploads photos (server-validated, uploaded to Supabase Storage), and tags what categories they're looking for. Posts instantly, no moderation queue.
-- **Offers** (`public/listings/listing.html`) — any other profile can build an offer from the full item catalog (pets, vehicles, toys, pet wear, stickers, strollers, food) and submit it. The listing owner can accept or decline; accepting marks the listing "traded" and auto-declines the rest. The site never touches the actual trade — like Traderie, it just gets both Roblox usernames in front of each other so they trade in-game.
-- **Reports** — no photo pre-approval, so there's a "Report this listing" link on every listing page instead, logged to a `reports` table for manual review.
+- **Listings** (`public/list-a-house.html`) — three types, matching how r/adoptmehousetrading's actual traders post:
+  - **House Trade** — you own a house, post it with photos, tag what you want back. Includes an **Original vs. Cloned** declaration (cloned = 70%+ similar to another build, including speedbuilds — a real trust signal in that community) and an optional flat-number **value** (their point-scale convention, not AMTV's fractional "Ride Potions").
+  - **Looking For** — you want a specific house and don't have one yet; describe what you'll pay. No photos required.
+  - **Commission** — you build custom houses for hire; not tied to any one house.
+- **Offers** (`public/listings/listing.html`) — for House Trade listings, an offer needs at least one item from the catalog (pets, vehicles, toys, pet wear, stickers, strollers, food). For Looking For / Commission listings, a message alone is enough — the responder is often the one who owns the house or is answering a commission request, not the one paying in items.
+- **Reports** — no photo pre-approval, so every listing has a "Report this listing" control with reasons that mirror the real subreddit's actual rules: crosstrading, proxy trading, misrepresented original/cloned status, scam/no-show, other.
+- **`public/rules.html`** — a plain-language rules page adapted from that subreddit's moderator posts (no crosstrading, no proxy trading, be honest about clones, commission fairness, the site never holds items).
+
+The site structurally can't be used for crosstrading — the offer picker only ever pulls from the 7 Adopt Me item catalogs, there's no way to attach Robux or real money to an offer.
 
 ## Backend setup (Supabase)
 
 1. Create a free project at [supabase.com](https://supabase.com).
-2. In the SQL editor, run `supabase/schema.sql` — creates `profiles`, `listings`, `offers`, `reports` with RLS enabled (public read-only on active/traded listings and their offers; all writes go through the service-role key in Netlify Functions).
+2. In the SQL editor, run `supabase/schema.sql` — creates `profiles`, `listings`, `offers`, `reports` with RLS enabled (public read-only on active/traded listings and their offers; all writes go through the service-role key in Netlify Functions). If you already ran an earlier version of this schema, run `supabase/migration-001-listing-types.sql` instead to add the new columns without dropping data.
 3. In Storage, create a bucket named `listing-photos`. It can be public-read (uploads only happen server-side through `listings-upload-photo.js`, which validates type/size before anything lands there).
 4. In Netlify's site settings → Environment variables, add:
    - `SUPABASE_URL` — Project Settings → API

@@ -33,13 +33,36 @@
   </div>
 
   <div class="form-card" id="listing-form" hidden>
-    <h1>List Your House</h1>
+    <h1>Post a Listing</h1>
     <p class="subtitle">Post instantly — no approval wait. Be honest about condition and photos; listings can be reported.</p>
     <div id="error" class="error-box" hidden></div>
     <div id="success" class="success-box" hidden></div>
 
-    <label class="field-label" for="house-select">Which house?</label>
-    <select id="house-select"></select>
+    <label class="field-label">Listing type</label>
+    <div class="checkbox-grid" id="listing-type-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <label><input type="radio" name="listing_type" value="house_trade" checked> House Trade</label>
+      <label><input type="radio" name="listing_type" value="looking_for"> Looking For</label>
+      <label><input type="radio" name="listing_type" value="commission"> House Commission</label>
+    </div>
+    <p class="hint" id="type-hint">Trading a house you own for other items.</p>
+
+    <div id="house-field">
+      <label class="field-label" for="house-select" id="house-select-label">Which house?</label>
+      <select id="house-select"></select>
+    </div>
+
+    <div id="cloned-field">
+      <label class="field-label">Is this build original or cloned?</label>
+      <div class="checkbox-grid" style="grid-template-columns: repeat(2, 1fr);">
+        <label><input type="radio" name="is_cloned" value="false" checked> 100% Original</label>
+        <label><input type="radio" name="is_cloned" value="true"> Cloned / Speedbuild</label>
+      </div>
+      <p class="hint">Cloned = 70%+ similar to another existing build, including speedbuilds. Misrepresenting this can get a listing reported.</p>
+    </div>
+
+    <label class="field-label" for="value-points">Value (optional)</label>
+    <input type="text" id="value-points" placeholder="e.g. 30" inputmode="decimal">
+    <p class="hint">Using the community's flat point scale, if you know it. Leave blank if unsure.</p>
 
     <label class="field-label" for="title">Listing title</label>
     <input type="text" id="title" placeholder="e.g. Fully decorated Cozy Cabin, cottagecore theme" maxlength="120">
@@ -47,12 +70,14 @@
     <label class="field-label" for="description">Description</label>
     <textarea id="description" placeholder="Describe the interior, any rare furniture, why you're trading it..."></textarea>
 
-    <label class="field-label">Photos</label>
-    <input type="file" id="photo-input" accept="image/png,image/jpeg,image/webp" multiple>
-    <p class="hint">Up to 8 screenshots of the interior/exterior, 5MB each.</p>
-    <div id="photo-previews" class="selected-items"></div>
+    <div id="photos-field">
+      <label class="field-label">Photos</label>
+      <input type="file" id="photo-input" accept="image/png,image/jpeg,image/webp" multiple>
+      <p class="hint">Up to 8 screenshots of the interior/exterior, 5MB each.</p>
+      <div id="photo-previews" class="selected-items"></div>
+    </div>
 
-    <label class="field-label">What are you looking for?</label>
+    <label class="field-label" id="looking-for-label">What are you looking for?</label>
     <div class="checkbox-grid" id="looking-for-grid"></div>
 
     <div class="hero-ctas" style="justify-content: flex-start; margin-top: 24px;">
@@ -65,6 +90,7 @@
 <footer class="site-footer">
   <div class="wrap">
     AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community. Not affiliated with Adopt Me or Roblox Corporation.
+    <div style="margin-top:8px;"><a href="rules.html" style="color:var(--sign-red);">Community Rules</a></div>
   </div>
 </footer>
 
@@ -80,24 +106,47 @@
   }
 
   const uploadedUrls = [];
+  let houses = [];
+
+  const TYPE_HINTS = {
+    house_trade: "Trading a house you own for other items.",
+    looking_for: "You don't have this house yet — describe what you'll pay for it. No photos needed.",
+    commission: "You build custom houses for other players — announce you're open for commissions.",
+  };
 
   async function init() {
-    const houses = await fetch("data/houses.json").then((r) => r.json());
+    houses = await fetch("data/houses.json").then((r) => r.json());
     const select = document.getElementById("house-select");
-    select.innerHTML = houses
-      .map((h) => `<option value="${h.id}">${h.name}</option>`)
-      .join("");
+    select.innerHTML = houses.map((h) => `<option value="${h.id}">${h.name}</option>`).join("");
 
     const grid = document.getElementById("looking-for-grid");
     grid.innerHTML = Object.entries(CATEGORY_LABELS)
-      .map(
-        ([key, label]) =>
-          `<label><input type="checkbox" value="${key}"> ${label}</label>`
-      )
+      .map(([key, label]) => `<label><input type="checkbox" value="${key}"> ${label}</label>`)
       .join("");
 
     document.getElementById("photo-input").addEventListener("change", handlePhotos);
     document.getElementById("submit-btn").addEventListener("click", submitListing);
+    document
+      .querySelectorAll('input[name="listing_type"]')
+      .forEach((el) => el.addEventListener("change", onTypeChange));
+
+    onTypeChange();
+  }
+
+  function onTypeChange() {
+    const type = document.querySelector('input[name="listing_type"]:checked').value;
+    document.getElementById("type-hint").textContent = TYPE_HINTS[type];
+
+    document.getElementById("house-field").hidden = type === "commission";
+    document.getElementById("cloned-field").hidden = type !== "house_trade";
+    document.getElementById("photos-field").hidden = type === "looking_for";
+
+    const houseLabel = document.getElementById("house-select-label");
+    houseLabel.textContent = type === "looking_for" ? "Which house are you looking for?" : "Which house?";
+
+    const lookingForLabel = document.getElementById("looking-for-label");
+    lookingForLabel.textContent =
+      type === "looking_for" ? "What will you pay for it?" : "What are you looking for?";
   }
 
   async function handlePhotos(e) {
@@ -124,12 +173,18 @@
     errorBox.hidden = true;
     successBox.hidden = true;
 
+    const listing_type = document.querySelector('input[name="listing_type"]:checked').value;
     const house_id = document.getElementById("house-select").value;
     const title = document.getElementById("title").value.trim();
     const description = document.getElementById("description").value.trim();
     const looking_for = Array.from(
       document.querySelectorAll("#looking-for-grid input:checked")
     ).map((el) => el.value);
+    const valueRaw = document.getElementById("value-points").value.trim();
+    const is_cloned =
+      listing_type === "house_trade"
+        ? document.querySelector('input[name="is_cloned"]:checked').value === "true"
+        : null;
 
     if (!title) {
       errorBox.textContent = "Give your listing a title.";
@@ -139,11 +194,14 @@
 
     try {
       const { listing } = await api.createListing({
-        house_id,
+        listing_type,
+        house_id: listing_type === "commission" ? null : house_id,
         title,
         description,
-        photos: uploadedUrls,
+        photos: listing_type === "looking_for" ? [] : uploadedUrls,
         looking_for,
+        is_cloned,
+        value_points: valueRaw === "" ? null : valueRaw,
       });
       successBox.textContent = "Listing posted! Redirecting...";
       successBox.hidden = false;

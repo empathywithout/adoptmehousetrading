@@ -40,6 +40,7 @@
 <footer class="site-footer">
   <div class="wrap">
     AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community. Not affiliated with Adopt Me or Roblox Corporation.
+    <div style="margin-top:8px;"><a href="../rules.html" style="color:var(--sign-red);">Community Rules</a></div>
   </div>
 </footer>
 
@@ -54,6 +55,8 @@
 
   const houseById = Object.fromEntries(houses.map((h) => [h.id, h]));
 
+  const TYPE_LABELS = { house_trade: "For Trade", looking_for: "Looking For", commission: "Commission" };
+
   if (!listings.length) {
     empty.hidden = false;
   } else {
@@ -61,13 +64,21 @@
       .map((listing) => {
         const house = houseById[listing.house_id];
         const photo = listing.photos?.[0] || house?.image || "../images/brand/searchdog.png";
+        const cloneTag =
+          listing.listing_type === "house_trade" && listing.is_cloned !== null
+            ? `<span class="pill" style="margin-left:6px;">${listing.is_cloned ? "Cloned" : "Original"}</span>`
+            : "";
+        const valueTag = listing.value_points
+          ? `<span class="pill" style="margin-left:6px;">${listing.value_points} pts</span>`
+          : "";
         return `
         <a class="listing-card" href="listing.html?id=${listing.id}">
           <div class="photo"><img src="${photo}" alt=""></div>
           <div class="body">
-            <span class="status-badge ${listing.status}">${listing.status === "traded" ? "Traded" : "For Trade"}</span>
+            <span class="status-badge ${listing.status}">${listing.status === "traded" ? "Traded" : TYPE_LABELS[listing.listing_type] || "For Trade"}</span>
+            ${cloneTag}${valueTag}
             <h3>${escapeHtml(listing.title)}</h3>
-            <p class="lister">${house ? escapeHtml(house.name) : "Unknown house"} · by ${escapeHtml(listing.profiles?.rbx_username || "unknown")}</p>
+            <p class="lister">${house ? escapeHtml(house.name) : listing.listing_type === "commission" ? "Custom builds" : "Unknown house"} · by ${escapeHtml(listing.profiles?.rbx_username || "unknown")}</p>
           </div>
         </a>`;
       })

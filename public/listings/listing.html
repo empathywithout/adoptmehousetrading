@@ -28,7 +28,20 @@
 <footer class="site-footer">
   <div class="wrap">
     AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community. Not affiliated with Adopt Me or Roblox Corporation.
-    <div style="margin-top:8px;"><a href="#" id="report-link" style="color:var(--sign-red);">Report this listing</a></div>
+    <div style="margin-top:8px;"><a href="../rules.html" style="color:var(--sign-red);">Community Rules</a></div>
+    <div style="margin-top:8px;">
+      <a href="#" id="report-link" style="color:var(--sign-red);">Report this listing</a>
+      <span id="report-form" hidden>
+        <select id="report-reason" style="width:auto;display:inline-block;margin:0 6px;">
+          <option value="crosstrading">Crosstrading (Robux/real money/outside Adopt Me)</option>
+          <option value="proxy_trading">Proxy trading (not the actual owner)</option>
+          <option value="misrepresented_clone">Misrepresented original/cloned status</option>
+          <option value="scam_or_no_show">Scam or no-show</option>
+          <option value="other">Other</option>
+        </select>
+        <button class="btn-sm decline" id="report-submit">Submit</button>
+      </span>
+    </div>
   </div>
 </footer>
 
@@ -62,10 +75,12 @@
 
     const { listing, offers } = data;
     const houses = await fetch("../data/houses.json").then((r) => r.json());
-    const house = houses.find((h) => h.id === listing.house_id);
+    const house = listing.house_id ? houses.find((h) => h.id === listing.house_id) : null;
     const isOwner = myProfile && myProfile.id === listing.profile_id;
 
-    const photosHtml = (listing.photos?.length ? listing.photos : [house?.image])
+    const TYPE_LABELS = { house_trade: "For Trade", looking_for: "Looking For", commission: "Commission" };
+
+    const photosHtml = (listing.photos?.length ? listing.photos : house ? [house.image] : [])
       .filter(Boolean)
       .map((url) => `<img src="${url}" alt="" style="width:100%;border-radius:10px;margin-bottom:10px;">`)
       .join("");
@@ -74,11 +89,17 @@
       .map((c) => `<span class="pill">${CATEGORY_LABELS[c] || c}</span>`)
       .join("");
 
+    const cloneTag =
+      listing.listing_type === "house_trade" && listing.is_cloned !== null
+        ? `<span class="pill">${listing.is_cloned ? "Cloned / Speedbuild" : "100% Original"}</span>`
+        : "";
+    const valueTag = listing.value_points ? `<span class="pill">${listing.value_points} pts</span>` : "";
+
     content.innerHTML = `
       <div class="house-detail">
-        <div class="photo" style="flex-direction:column;align-items:stretch;">${photosHtml}</div>
+        <div class="photo" style="flex-direction:column;align-items:stretch;">${photosHtml || `<p class="hint">No photos on this listing.</p>`}</div>
         <div>
-          <span class="status-badge ${listing.status}">${listing.status === "traded" ? "Traded" : "For Trade"}</span>
+          <span class="status-badge ${listing.status}">${listing.status === "traded" ? "Traded" : TYPE_LABELS[listing.listing_type] || "For Trade"}</span>
           <h1 style="margin-top:8px;">${escapeHtml(listing.title)}</h1>
           <div class="profile-chip" style="margin: 10px 0 16px;">
             <img src="${listing.profiles?.rbx_avatar_url || "../images/brand/searchdog.png"}" alt="">
@@ -86,35 +107,46 @@
           </div>
           <p>${escapeHtml(listing.description || "No description provided.")}</p>
           <div class="meta-row">
-            <span class="pill">House: ${house ? escapeHtml(house.name) : "Unknown"}</span>
-            ${lookingForHtml ? `<span class="pill">Looking for:</span>${lookingForHtml}` : ""}
+            ${house ? `<span class="pill">House: ${escapeHtml(house.name)}</span>` : ""}
+            ${cloneTag}${valueTag}
+            ${lookingForHtml ? `<span class="pill">${listing.listing_type === "looking_for" ? "Offering:" : "Looking for:"}</span>${lookingForHtml}` : ""}
           </div>
         </div>
       </div>
 
-      <div class="section-head"><h2>Offers (${offers.length})</h2></div>
+      <div class="section-head"><h2>${listing.listing_type === "commission" ? "Requests" : "Offers"} (${offers.length})</h2></div>
       <div id="offers-list"></div>
 
       ${
         listing.status === "active" && !isOwner
-          ? `<div class="form-card" id="offer-form-card"><h1>Make an Offer</h1>
+          ? `<div class="form-card" id="offer-form-card"><h1>${listing.listing_type === "commission" ? "Request a Commission" : listing.listing_type === "looking_for" ? "I Have This House" : "Make an Offer"}</h1>
               <div id="offer-error" class="error-box" hidden></div>
               <div id="offer-success" class="success-box" hidden></div>
               <div id="need-profile-offer" class="hint" hidden>
-                <a href="../profile.html">Set up your profile</a> to make an offer.
+                <a href="../profile.html">Set up your profile</a> to respond.
               </div>
               <div id="offer-builder">
-                <label class="field-label">Add items to your offer</label>
+                ${
+                  listing.listing_type === "house_trade"
+                    ? `<label class="field-label">Add items to your offer</label>`
+                    : `<label class="field-label">Add items (optional)</label>`
+                }
                 <div class="item-picker">
                   <div class="category-tabs" id="category-tabs"></div>
                   <input type="search" id="item-search" placeholder="Search items..." style="margin-bottom:10px;">
                   <div class="results" id="item-results"></div>
                 </div>
                 <div class="selected-items" id="selected-items"></div>
-                <label class="field-label" for="offer-message">Message (optional)</label>
-                <textarea id="offer-message" placeholder="Anything you want the lister to know"></textarea>
+                <label class="field-label" for="offer-message">Message${listing.listing_type === "house_trade" ? " (optional)" : ""}</label>
+                <textarea id="offer-message" placeholder="${
+                  listing.listing_type === "commission"
+                    ? "Describe the house you want built..."
+                    : listing.listing_type === "looking_for"
+                    ? "Let them know you have this house and what you'd want for it"
+                    : "Anything you want the lister to know"
+                }"></textarea>
                 <div class="hero-ctas" style="justify-content:flex-start;margin-top:18px;">
-                  <button class="btn btn-primary" id="submit-offer-btn">Submit Offer</button>
+                  <button class="btn btn-primary" id="submit-offer-btn">${listing.listing_type === "commission" ? "Send Request" : "Submit Offer"}</button>
                 </div>
               </div>
             </div>`
@@ -133,12 +165,16 @@
       }
     }
 
-    document.getElementById("report-link").addEventListener("click", async (e) => {
+    document.getElementById("report-link").addEventListener("click", (e) => {
       e.preventDefault();
-      const reason = prompt("Why are you reporting this listing?");
-      if (!reason) return;
+      document.getElementById("report-form").hidden = false;
+      e.target.hidden = true;
+    });
+
+    document.getElementById("report-submit").addEventListener("click", async () => {
+      const reason = document.getElementById("report-reason").value;
       await api.report(listing.id, reason, "");
-      alert("Thanks — this listing has been flagged for review.");
+      document.getElementById("report-form").outerHTML = "<span class='hint'>Thanks — flagged for review.</span>";
     });
   }
 
@@ -265,8 +301,13 @@
       errorBox.hidden = true;
       successBox.hidden = true;
 
-      if (!selected.length) {
+      if (listing.listing_type === "house_trade" && !selected.length) {
         errorBox.textContent = "Add at least one item to your offer.";
+        errorBox.hidden = false;
+        return;
+      }
+      if (listing.listing_type !== "house_trade" && !selected.length && !document.getElementById("offer-message").value.trim()) {
+        errorBox.textContent = "Add an item or a message.";
         errorBox.hidden = false;
         return;
       }
