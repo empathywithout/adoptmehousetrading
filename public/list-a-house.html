@@ -33,62 +33,70 @@
     <a class="btn btn-primary" href="profile.html">Set Up Profile</a>
   </div>
 
-  <div class="form-card" id="listing-form" hidden>
-    <h1>Post a Listing</h1>
-    <p class="subtitle">Post instantly — no approval wait. Be honest about condition and photos; listings can be reported.</p>
+  <div id="listing-form" hidden style="max-width:760px;margin:0 auto;">
+    <h1 style="font-family:var(--font-display);font-weight:800;font-size:28px;color:var(--ink);letter-spacing:-0.5px;margin-bottom:6px;">List a House</h1>
+    <p class="hint" style="font-size:14px;margin-bottom:28px;">Post your house for trade, looking-for, or commission. Real photos and an accurate value help you get real offers fast.</p>
     <div id="error" class="error-box" hidden></div>
     <div id="success" class="success-box" hidden></div>
 
-    <label class="field-label">Listing type</label>
-    <div class="checkbox-grid" id="listing-type-grid" style="grid-template-columns: repeat(3, 1fr);">
-      <label><input type="radio" name="listing_type" value="house_trade" checked> House Trade</label>
-      <label><input type="radio" name="listing_type" value="looking_for"> Looking For</label>
-      <label><input type="radio" name="listing_type" value="commission"> House Commission</label>
-    </div>
-    <p class="hint" id="type-hint">Trading a house you own for other items.</p>
+    <label class="field-label" style="margin-top:0;">Listing Type</label>
+    <div class="type-card-grid" id="type-card-grid"></div>
+    <p class="hint" id="type-hint" style="margin-bottom:28px;">Trading a house you own for other items.</p>
 
-    <div id="house-field">
-      <label class="field-label" for="house-select" id="house-select-label">Which house?</label>
-      <select id="house-select"></select>
+    <div id="house-field" style="margin-bottom:28px;">
+      <label class="field-label" style="margin-top:0;" id="house-select-label">House Type</label>
+      <div class="house-picker" id="house-picker">
+        <div class="house-picker-trigger" id="house-picker-trigger">
+          <div class="house-picker-thumb"><img id="house-picker-img" src="" alt=""></div>
+          <div class="house-picker-name" id="house-picker-name"></div>
+          <div class="caret"></div>
+        </div>
+        <div class="house-picker-dropdown" id="house-picker-dropdown" hidden>
+          <input type="search" id="house-search" placeholder="Search houses...">
+          <div id="house-picker-list"></div>
+        </div>
+      </div>
     </div>
 
-    <div id="cloned-field">
-      <label class="field-label">Is this build original or cloned?</label>
-      <div class="checkbox-grid" style="grid-template-columns: repeat(2, 1fr);">
-        <label><input type="radio" name="is_cloned" value="false" checked> 100% Original</label>
-        <label><input type="radio" name="is_cloned" value="true"> Cloned / Speedbuild</label>
+    <div id="photos-field" style="margin-bottom:28px;">
+      <label class="field-label" style="margin-top:0;">Photos</label>
+      <p class="hint" style="margin-top:-4px;margin-bottom:12px;">Include the exterior and at least 2 interior shots. Listings with 4+ photos get more offers.</p>
+      <div class="photo-slots" id="photo-slots"></div>
+    </div>
+
+    <div id="cloned-field" style="margin-bottom:24px;">
+      <label class="field-label" style="margin-top:0;">Is this build original or cloned?</label>
+      <div class="segmented" id="clone-toggle">
+        <button data-val="false" class="active ink">100% Original</button>
+        <button data-val="true">Cloned / Speedbuild</button>
       </div>
       <p class="hint">Cloned = 70%+ similar to another existing build, including speedbuilds. Misrepresenting this can get a listing reported.</p>
     </div>
 
-    <label class="field-label" for="value-amount">Value (optional)</label>
-    <div style="display:flex; gap:8px;">
-      <input type="text" id="value-amount" placeholder="e.g. 1.5" inputmode="decimal" style="flex:2;">
-      <select id="value-unit" style="flex:1;">
-        <option value="shark">Shark</option>
-        <option value="frost">Frost</option>
-      </select>
-    </div>
-    <p class="hint">Shark and Frost are the community's real baseline units (Shark = low/mid trades, Frost = high-tier). Leave blank if unsure.</p>
-
-    <label class="field-label" for="bucks-invested">Bucks invested (optional)</label>
-    <input type="text" id="bucks-invested" placeholder="e.g. 12000" inputmode="numeric">
-    <p class="hint">Total Bucks you've put into the house + furniture, if you want to share it.</p>
-
-    <label class="field-label" for="title">Listing title</label>
-    <input type="text" id="title" placeholder="e.g. Fully decorated Cozy Cabin, cottagecore theme" maxlength="120">
+    <label class="field-label" for="title" style="margin-top:0;">House Title</label>
+    <input type="text" id="title" placeholder="e.g. Frost Manor" maxlength="120">
 
     <label class="field-label" for="description">Description</label>
-    <textarea id="description" placeholder="Describe the interior, any rare furniture, why you're trading it..."></textarea>
+    <textarea id="description" placeholder="Describe the build, layout, and anything a trader should know."></textarea>
 
-    <div id="photos-field">
-      <label class="field-label">Photos</label>
-      <input type="file" id="photo-input" accept="image/png,image/jpeg,image/webp" multiple>
-      <p class="hint">Up to 8 screenshots of the interior/exterior, 5MB each.</p>
-      <div id="photo-previews" class="selected-items"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:20px 0;">
+      <div>
+        <label class="field-label" style="margin-top:0;" for="value-amount">Asking Value</label>
+        <div style="display:flex;gap:8px;">
+          <input type="text" id="value-amount" placeholder="1,250" inputmode="decimal" style="flex:1;min-width:0;">
+          <div class="segmented" id="unit-toggle" style="flex:none;width:auto;">
+            <button data-val="shark" class="active accent">Shark</button>
+            <button data-val="frost">Frost</button>
+          </div>
+        </div>
+        <p class="hint">Shark = low/mid trades, Frost = high-tier. Leave blank if unsure.</p>
+      </div>
     </div>
 
-    <div id="included-items-field">
+    <label class="field-label" for="bucks-invested">Bucks Invested <span style="font-weight:600;color:var(--muted);font-size:12px;">(optional)</span></label>
+    <input type="text" id="bucks-invested" placeholder="890,000" inputmode="numeric">
+
+    <div id="included-items-field" style="margin-top:24px;">
       <label class="field-label">Items included with the house (optional)</label>
       <p class="hint" style="margin-top:-2px;margin-bottom:6px;">Bonus pets/items you're throwing in with the house — separate from what you want back below.</p>
       <div class="item-picker">
@@ -102,8 +110,8 @@
     <label class="field-label" id="looking-for-label">What are you looking for?</label>
     <div class="checkbox-grid" id="looking-for-grid"></div>
 
-    <div class="hero-ctas" style="justify-content: flex-start; margin-top: 24px;">
-      <button class="btn btn-primary" id="submit-btn">Post Listing</button>
+    <div class="hero-ctas" style="justify-content: flex-start; margin-top: 28px;">
+      <button class="btn btn-primary" id="submit-btn">Publish Listing</button>
     </div>
   </div>
 
@@ -130,19 +138,30 @@
     init();
   }
 
-  const uploadedUrls = [];
+  const uploadedPhotos = [null, null, null, null]; // [main, interior1, interior2, interior3]
   let houses = [];
+  let selectedHouseId = null;
+  let activeType = "house_trade";
+  let cloneVal = "false";
+  let unitVal = "shark";
 
-  const TYPE_HINTS = {
-    house_trade: "Trading a house you own for other items.",
-    looking_for: "You don't have this house yet — describe what you'll pay for it. No photos needed.",
-    commission: "You build custom houses for other players — announce you're open for commissions.",
-  };
+  const TYPE_DEFS = [
+    { id: "house_trade", label: "House Trade", hint: "Offer for offer", iconClass: "house-trade", icon: "icon-sign", tip: "Trading a house you own for other items." },
+    { id: "looking_for", label: "Looking For", hint: "You want this house", iconClass: "looking-for", icon: "icon-loop", tip: "You don't have this house yet — describe what you'll pay for it. No photos needed." },
+    { id: "commission", label: "Commission", hint: "Build-to-order", iconClass: "commission", icon: "icon-hammer", tip: "You build custom houses for other players — announce you're open for commissions." },
+  ];
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
 
   async function init() {
     houses = await fetch("data/houses.json").then((r) => r.json());
-    const select = document.getElementById("house-select");
-    select.innerHTML = houses.map((h) => `<option value="${h.id}">${h.name}</option>`).join("");
+    selectedHouseId = houses[0]?.id;
+
+    renderTypeCards();
+    renderHousePicker();
+    renderPhotoSlots();
 
     const grid = document.getElementById("looking-for-grid");
     grid.innerHTML = Object.entries(CATEGORY_LABELS)
@@ -151,48 +170,141 @@
 
     includedItemsPicker = mountItemPicker(document.getElementById("included-items-field"), "incl-");
 
-    document.getElementById("photo-input").addEventListener("change", handlePhotos);
+    document.getElementById("clone-toggle").querySelectorAll("button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        cloneVal = btn.dataset.val;
+        document.getElementById("clone-toggle").querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
+      });
+    });
+    document.getElementById("unit-toggle").querySelectorAll("button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        unitVal = btn.dataset.val;
+        document.getElementById("unit-toggle").querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
+      });
+    });
+
     document.getElementById("submit-btn").addEventListener("click", submitListing);
-    document
-      .querySelectorAll('input[name="listing_type"]')
-      .forEach((el) => el.addEventListener("change", onTypeChange));
 
     onTypeChange();
   }
 
-  function onTypeChange() {
-    const type = document.querySelector('input[name="listing_type"]:checked').value;
-    document.getElementById("type-hint").textContent = TYPE_HINTS[type];
-
-    document.getElementById("house-field").hidden = type === "commission";
-    document.getElementById("cloned-field").hidden = type !== "house_trade";
-    document.getElementById("photos-field").hidden = type === "looking_for";
-    document.getElementById("included-items-field").hidden = type !== "house_trade";
-
-    const houseLabel = document.getElementById("house-select-label");
-    houseLabel.textContent = type === "looking_for" ? "Which house are you looking for?" : "Which house?";
-
-    const lookingForLabel = document.getElementById("looking-for-label");
-    lookingForLabel.textContent =
-      type === "looking_for" ? "What will you pay for it?" : "What are you looking for?";
+  function renderTypeCards() {
+    const container = document.getElementById("type-card-grid");
+    container.innerHTML = TYPE_DEFS.map(
+      (t) => `<div class="type-card ${t.id === activeType ? "active" : ""}" data-type="${t.id}">
+        <div class="icon-circle ${t.iconClass}"><div class="${t.icon}"></div></div>
+        <div class="type-label">${t.label}</div>
+        <div class="type-hint">${t.hint}</div>
+      </div>`
+    ).join("");
+    container.querySelectorAll(".type-card").forEach((card) => {
+      card.addEventListener("click", () => {
+        activeType = card.dataset.type;
+        onTypeChange();
+      });
+    });
   }
 
-  async function handlePhotos(e) {
-    const files = Array.from(e.target.files).slice(0, 8);
-    const previews = document.getElementById("photo-previews");
-    for (const file of files) {
-      const chip = document.createElement("span");
-      chip.className = "selected-chip";
-      chip.textContent = "Uploading " + file.name + "...";
-      previews.appendChild(chip);
-      try {
-        const url = await api.uploadPhoto(file);
-        uploadedUrls.push(url);
-        chip.innerHTML = `<img src="${url}" alt=""> ${file.name}`;
-      } catch (err) {
-        chip.textContent = "Failed: " + file.name;
-      }
+  function onTypeChange() {
+    document.querySelectorAll("#type-card-grid .type-card").forEach((c) => c.classList.toggle("active", c.dataset.type === activeType));
+    document.getElementById("type-hint").textContent = TYPE_DEFS.find((t) => t.id === activeType).tip;
+
+    document.getElementById("house-field").hidden = activeType === "commission";
+    document.getElementById("cloned-field").hidden = activeType !== "house_trade";
+    document.getElementById("photos-field").hidden = activeType === "looking_for";
+    document.getElementById("included-items-field").hidden = activeType !== "house_trade";
+
+    document.getElementById("house-select-label").textContent = activeType === "looking_for" ? "Which house are you looking for?" : "House Type";
+    document.getElementById("looking-for-label").textContent = activeType === "looking_for" ? "What will you pay for it?" : "What are you looking for?";
+  }
+
+  function renderHousePicker() {
+    const trigger = document.getElementById("house-picker-trigger");
+    const dropdown = document.getElementById("house-picker-dropdown");
+    const listEl = document.getElementById("house-picker-list");
+    const searchInput = document.getElementById("house-search");
+
+    function updateTrigger() {
+      const house = houses.find((h) => h.id === selectedHouseId);
+      document.getElementById("house-picker-img").src = house?.image || "";
+      document.getElementById("house-picker-name").textContent = house?.name || "Choose a house";
     }
+
+    function renderList(filter = "") {
+      const filtered = houses.filter((h) => h.name.toLowerCase().includes(filter.toLowerCase()));
+      listEl.innerHTML = filtered
+        .map(
+          (h) => `<div class="house-picker-row ${h.id === selectedHouseId ? "selected" : ""}" data-id="${h.id}">
+            <div class="thumb"><img src="${h.image}" alt=""></div>
+            <div class="name">${escapeHtml(h.name)}</div>
+          </div>`
+        )
+        .join("");
+      listEl.querySelectorAll(".house-picker-row").forEach((row) => {
+        row.addEventListener("click", () => {
+          selectedHouseId = row.dataset.id;
+          updateTrigger();
+          dropdown.hidden = true;
+        });
+      });
+    }
+
+    trigger.addEventListener("click", () => {
+      dropdown.hidden = !dropdown.hidden;
+      if (!dropdown.hidden) {
+        renderList(searchInput.value);
+        searchInput.focus();
+      }
+    });
+    document.addEventListener("click", (e) => {
+      if (!document.getElementById("house-picker").contains(e.target)) dropdown.hidden = true;
+    });
+    searchInput.addEventListener("input", () => renderList(searchInput.value));
+    searchInput.addEventListener("click", (e) => e.stopPropagation());
+
+    updateTrigger();
+    renderList();
+  }
+
+  function renderPhotoSlots() {
+    const container = document.getElementById("photo-slots");
+    const slotDefs = [
+      { key: 0, label: "Main Photo", main: true },
+      { key: 1, label: "Interior 1", main: false },
+      { key: 2, label: "Interior 2", main: false },
+      { key: 3, label: "Interior 3", main: false },
+    ];
+
+    container.innerHTML = slotDefs
+      .map(
+        (s) => `<div class="photo-slot ${s.main ? "main" : "interior"}" data-slot="${s.key}">
+          <div class="plus-circle">+</div>
+          <div class="slot-label">${s.label}</div>
+          <input type="file" accept="image/png,image/jpeg,image/webp" data-slot-input="${s.key}" style="display:none;">
+        </div>`
+      )
+      .join("");
+
+    container.querySelectorAll(".photo-slot").forEach((slot) => {
+      const fileInput = slot.querySelector("input[type=file]");
+      slot.addEventListener("click", () => fileInput.click());
+      fileInput.addEventListener("change", async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const slotKey = Number(slot.dataset.slot);
+        try {
+          const url = await api.uploadPhoto(file);
+          uploadedPhotos[slotKey] = url;
+          const img = document.createElement("img");
+          img.src = url;
+          slot.querySelector(".plus-circle").remove();
+          slot.querySelector(".slot-label").remove();
+          slot.prepend(img);
+        } catch (err) {
+          alert("Upload failed: " + err.message);
+        }
+      });
+    });
   }
 
   async function submitListing() {
@@ -201,22 +313,14 @@
     errorBox.hidden = true;
     successBox.hidden = true;
 
-    const listing_type = document.querySelector('input[name="listing_type"]:checked').value;
-    const house_id = document.getElementById("house-select").value;
     const title = document.getElementById("title").value.trim();
     const description = document.getElementById("description").value.trim();
-    const looking_for = Array.from(
-      document.querySelectorAll("#looking-for-grid input:checked")
-    ).map((el) => el.value);
-    const valueAmountRaw = document.getElementById("value-amount").value.trim();
-    const value_unit = document.getElementById("value-unit").value;
-    const bucksRaw = document.getElementById("bucks-invested").value.trim();
-    const is_cloned =
-      listing_type === "house_trade"
-        ? document.querySelector('input[name="is_cloned"]:checked').value === "true"
-        : null;
-    const included_items =
-      listing_type === "house_trade" && includedItemsPicker ? includedItemsPicker.getSelected() : [];
+    const looking_for = Array.from(document.querySelectorAll("#looking-for-grid input:checked")).map((el) => el.value);
+    const valueAmountRaw = document.getElementById("value-amount").value.trim().replace(/,/g, "");
+    const bucksRaw = document.getElementById("bucks-invested").value.trim().replace(/,/g, "");
+    const is_cloned = activeType === "house_trade" ? cloneVal === "true" : null;
+    const included_items = activeType === "house_trade" && includedItemsPicker ? includedItemsPicker.getSelected() : [];
+    const photos = activeType === "looking_for" ? [] : uploadedPhotos.filter(Boolean);
 
     if (!title) {
       errorBox.textContent = "Give your listing a title.";
@@ -226,16 +330,16 @@
 
     try {
       const { listing } = await api.createListing({
-        listing_type,
-        house_id: listing_type === "commission" ? null : house_id,
+        listing_type: activeType,
+        house_id: activeType === "commission" ? null : selectedHouseId,
         title,
         description,
-        photos: listing_type === "looking_for" ? [] : uploadedUrls,
+        photos,
         looking_for,
         included_items,
         is_cloned,
         value_amount: valueAmountRaw === "" ? null : valueAmountRaw,
-        value_unit,
+        value_unit: unitVal,
         bucks_invested: bucksRaw === "" ? null : bucksRaw,
       });
       successBox.textContent = "Listing posted! Redirecting...";
