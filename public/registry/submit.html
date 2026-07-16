@@ -171,7 +171,7 @@
         filtered
           .map(
             (h) => `<div class="house-picker-row ${h.id === selectedHouseId ? "selected" : ""}" data-id="${h.id}">
-              <div class="thumb"><img src="${h.image}" alt=""></div>
+              <div class="thumb"><img src="${h.image}" alt="" loading="lazy"></div>
               <div class="name">${escapeHtml(h.name)}</div>
             </div>`
           )

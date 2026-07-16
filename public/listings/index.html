@@ -126,7 +126,7 @@
     houseFilterEl.innerHTML = entries
       .map(
         (h) => `<div class="house-filter-pill ${h.id === activeHouseId ? "active" : ""}" data-house="${h.id}">
-          ${h.image ? `<div class="thumb"><img src="${h.image}" alt=""></div>` : ""}
+          ${h.image ? `<div class="thumb"><img src="${h.image}" alt="" loading="lazy"></div>` : ""}
           <div class="fname">${escapeHtml(h.name)}</div>
         </div>`
       )
@@ -212,7 +212,7 @@
           return `
           <a class="listing-card" href="listing.html?id=${listing.id}">
             <div class="photo">
-              <img src="${photo}" alt="">
+              <img src="${photo}" alt="" loading="lazy">
               <div class="card-badge ${BADGE_CLASS[listing.listing_type] || "house-trade"}"><div class="${BADGE_ICON[listing.listing_type] || "icon-sign"}"></div></div>
               ${cardTag}
             </div>

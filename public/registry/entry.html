@@ -111,7 +111,7 @@
     const pendingDisputeCount = disputes.filter((d) => d.status === "pending").length;
 
     const photosHtml = entry.photos?.length
-      ? entry.photos.map((url) => `<img src="${url}" alt="" style="width:100%;border-radius:10px;margin-bottom:10px;">`).join("")
+      ? entry.photos.map((url, i) => `<img src="${url}" alt="" ${i > 0 ? 'loading="lazy" ' : ''}style="width:100%;border-radius:10px;margin-bottom:10px;">`).join("")
       : `<p class="hint">No photos.</p>`;
 
     const verifiedBadge = entry.is_community_verified
@@ -167,7 +167,7 @@
            ${compare_entries
              .map(
                (c) => `<a class="listing-card" href="entry.html?id=${c.id}">
-                 <div class="photo"><img src="${c.photos?.[0] || "../images/brand/searchdog.png"}" alt=""></div>
+                 <div class="photo"><img src="${c.photos?.[0] || "../images/brand/searchdog.png"}" alt="" loading="lazy"></div>
                  <div class="body">
                    <h3>${escapeHtml(c.title)}</h3>
                    <p class="lister">by ${escapeHtml(c.profiles?.display_name || "unknown")}${c.status !== "active" ? ` · ${c.status.replace("_", " ")}` : ""}</p>

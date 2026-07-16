@@ -74,7 +74,7 @@ export function mountItemPicker(container, prefix = "") {
                         ? `<span class="result-qty-badge" data-remove-one="${it.id}" data-remove-cat="${it.category}" title="Click to remove one">${existing.qty}<span class="badge-x">×</span></span>`
                         : ""
                     }
-                    <img src="${it.image}" alt="">${escapeHtml(it.name)}
+                    <img src="${it.image}" alt="" loading="lazy">${escapeHtml(it.name)}
                   </div>`;
       })
       .join("");

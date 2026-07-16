@@ -337,8 +337,7 @@
         <div class="manage-card">
           <a class="manage-head" href="listings/listing.html?id=${listing.id}" style="text-decoration:none;color:inherit;">
             <div class="manage-thumb">
-              <img src="${photo}" alt="">
-              <div class="card-badge ${BADGE_CLASS[listing.listing_type] || "house-trade"}"><div class="${BADGE_ICON[listing.listing_type] || "icon-sign"}"></div></div>
+              <img src="${photo}" alt="" loading="lazy"><div class="${BADGE_ICON[listing.listing_type] || "icon-sign"}"></div></div>
             </div>
             <div style="flex:1;">
               <div class="manage-title">${escapeHtml(listing.title)}</div>
@@ -396,7 +395,7 @@
         return `
         <div class="manage-card">
           <a class="manage-head" href="listings/listing.html?id=${listing.id}" style="text-decoration:none;color:inherit;">
-            <div class="manage-thumb"><img src="${photo}" alt=""></div>
+            <div class="manage-thumb"><img src="${photo}" alt="" loading="lazy"></div>
             <div style="flex:1;">
               <div class="manage-title">${escapeHtml(listing.title)}</div>
               <p class="hint" style="margin:2px 0 0;">To ${escapeHtml(listerName)}${listing.status === "traded" && offer.status !== "accepted" ? " · Listing traded to someone else" : ""}</p>
@@ -573,7 +572,7 @@
         return `
         <a class="manage-card" href="registry/entry.html?id=${entry.id}" style="text-decoration:none;color:inherit;display:block;">
           <div class="manage-head">
-            <div class="manage-thumb"><img src="${photo}" alt=""></div>
+            <div class="manage-thumb"><img src="${photo}" alt="" loading="lazy"></div>
             <div style="flex:1;">
               <div class="manage-title">${escapeHtml(entry.title)}</div>
               <p class="hint" style="margin:2px 0 0;">Registered ${new Date(entry.created_at).toLocaleDateString()}</p>

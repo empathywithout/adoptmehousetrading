@@ -103,7 +103,7 @@
           ${registryEntries
             .map(
               (e) => `<a class="listing-card" href="../registry/entry.html?id=${e.id}">
-                <div class="photo"><img src="${e.photos?.[0] || "../images/brand/searchdog.png"}" alt=""></div>
+                <div class="photo"><img src="${e.photos?.[0] || "../images/brand/searchdog.png"}" alt="" loading="lazy"></div>
                 <div class="body">
                   <h3>${escapeHtml(e.title)}</h3>
                   <p class="lister">${e.is_community_verified ? "Community Verified" : e.status === "confirmed_original" ? "Confirmed Original" : e.status === "confirmed_clone" ? "Confirmed Clone" : "Registered"}</p>

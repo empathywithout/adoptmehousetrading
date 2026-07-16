@@ -117,7 +117,7 @@
 
         return `<a class="listing-card" href="listings/listing.html?id=${listing.id}">
           <div class="photo">
-            <img src="${photo}" alt="">
+            <img src="${photo}" alt="" loading="lazy">
             <div class="card-badge ${BADGE_CLASS[listing.listing_type] || "house-trade"}"><div class="${BADGE_ICON[listing.listing_type] || "icon-sign"}"></div></div>
             ${cardTag}
           </div>

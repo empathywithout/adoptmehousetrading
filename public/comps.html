@@ -124,7 +124,7 @@
           </div>
           <div class="trade-swap">
             <div class="side">
-              ${house ? `<img src="${house.image}" alt="">` : `<div class="placeholder">house</div>`}
+              ${house ? `<img src="${house.image}" alt="" loading="lazy">` : `<div class="placeholder">house</div>`}
               <div class="label">${house ? escapeHtml(house.name) : "Unknown house"}</div>
             </div>
             <div class="swap-arrow"></div>

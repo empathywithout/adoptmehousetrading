@@ -130,7 +130,7 @@
           const themesLine = (b.builder_themes || []).map((t) => THEME_LABELS[t] || t).join(", ");
           return `
           <a class="listing-card" href="builder.html?id=${b.id}">
-            <div class="photo"><img src="${photo}" alt=""></div>
+            <div class="photo"><img src="${photo}" alt="" loading="lazy"></div>
             <div class="body">
               <h3>${escapeHtml(b.display_name)}</h3>
               <div class="trust-row">
