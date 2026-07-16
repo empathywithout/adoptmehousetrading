@@ -1,0 +1,1012 @@
+[
+  {
+    "id": "airplane-stroller",
+    "category": "strollers",
+    "name": "Airplane Stroller",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Airplane-Stroller-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "apple-barrel-stroller",
+    "category": "strollers",
+    "name": "Apple Barrel Stroller",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Apple-Barrel-Stroller-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "baby-basket-stroller-ultra",
+    "category": "strollers",
+    "name": "Baby Basket Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Baby-Basket-Stroller-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "balloon-stroller-ultra",
+    "category": "strollers",
+    "name": "Balloon Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Baby Shop",
+    "image": "/images/strollers/Balloon-Stroller-Ultra-Rare-from-Baby-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "banana-stroller",
+    "category": "strollers",
+    "name": "Banana Stroller",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Banana-Stroller-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "big-leaf-stroller",
+    "category": "strollers",
+    "name": "Big Leaf Stroller",
+    "rarity": "Common",
+    "source": "Spring Fest 2023",
+    "image": "/images/strollers/Big-Leaf-Stroller-Common-from-Spring-Fest-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bunny-stroller-ultra",
+    "category": "strollers",
+    "name": "Bunny Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Easter 2019",
+    "image": "/images/strollers/Bunny-Stroller-Ultra-Rare-from-Easter-2019.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "camper-s-wheelbarrow-stroller",
+    "category": "strollers",
+    "name": "Camper's Wheelbarrow Stroller",
+    "rarity": "Uncommon",
+    "source": "Camping Shop Refresh 2023",
+    "image": "/images/strollers/Camper's-Wheelbarrow-Stroller-Uncommon-from-Camping-Shop-Refresh-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cannon-stroller-ultra",
+    "category": "strollers",
+    "name": "Cannon Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Cannon-Stroller-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "car-stroller",
+    "category": "strollers",
+    "name": "Car Stroller",
+    "rarity": "Uncommon",
+    "source": "Baby Shop",
+    "image": "/images/strollers/Car-Stroller-Uncommon-from-Baby-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "catapult-stroller-ultra",
+    "category": "strollers",
+    "name": "Catapult Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Catapult-Stroller-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cauldron-stroller",
+    "category": "strollers",
+    "name": "Cauldron Stroller",
+    "rarity": "Rare",
+    "source": "Halloween 2019",
+    "image": "/images/strollers/Cauldron-Stroller-Rare-from-Halloween-2019.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "claw-machine-stroller-ultra",
+    "category": "strollers",
+    "name": "Claw Machine Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Claw-Machine-Stroller-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "coconut-stroller",
+    "category": "strollers",
+    "name": "Coconut Stroller",
+    "rarity": "Uncommon",
+    "source": "Gifts",
+    "image": "/images/strollers/Coconut-Stroller-Uncommon-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cradle-stroller",
+    "category": "strollers",
+    "name": "Cradle Stroller",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Cradle-Stroller-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "crate-stroller",
+    "category": "strollers",
+    "name": "Crate Stroller",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Crate-Stroller-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "crystal-ball-stroller",
+    "category": "strollers",
+    "name": "Crystal Ball Stroller",
+    "rarity": "Rare",
+    "source": "Halloween 2022",
+    "image": "/images/strollers/Crystal-Ball-Stroller-Rare-from-Halloween-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "default-stroller",
+    "category": "strollers",
+    "name": "Default Stroller",
+    "rarity": "Common",
+    "source": "Starting the Game",
+    "image": "/images/strollers/Default-Stroller-Common-from-Starting-the-Game.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dog-house-stroller",
+    "category": "strollers",
+    "name": "Dog House Stroller",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Dog-House-Stroller-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "donut-stroller-ultra",
+    "category": "strollers",
+    "name": "Donut Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Donut-Stroller-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "double-stroller",
+    "category": "strollers",
+    "name": "Double Stroller",
+    "rarity": "Uncommon",
+    "source": "Baby Shop",
+    "image": "/images/strollers/Double-Stroller-Uncommon-from-Baby-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "drone-stroller-ultra",
+    "category": "strollers",
+    "name": "Drone Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Drone-Stroller-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "droplet-stroller",
+    "category": "strollers",
+    "name": "Droplet Stroller",
+    "rarity": "Uncommon",
+    "source": "Baby Shop",
+    "image": "/images/strollers/Droplet-Stroller-Uncommon-from-Baby-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "duck-stroller-ultra",
+    "category": "strollers",
+    "name": "Duck Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Duck-Stroller-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "easter-egg-stroller-ultra",
+    "category": "strollers",
+    "name": "Easter Egg Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Easter 2019",
+    "image": "/images/strollers/Easter-Egg-Stroller-Ultra-Rare-from-Easter-2019.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "egg-basket-stroller",
+    "category": "strollers",
+    "name": "Egg Basket Stroller",
+    "rarity": "Rare",
+    "source": "Easter 2022",
+    "image": "/images/strollers/Egg-Basket-Stroller-Rare-from-Easter-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "egg-stroller",
+    "category": "strollers",
+    "name": "Egg Stroller",
+    "rarity": "Rare",
+    "source": "Easter 2018",
+    "image": "/images/strollers/Egg-Stroller-Rare-from-Easter-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "egyptian-chariot-stroller-ultra",
+    "category": "strollers",
+    "name": "Egyptian Chariot Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Desert Weather Map",
+    "image": "/images/strollers/Egyptian-Chariot-Stroller-Ultra-Rare-from-Desert-Weather-Map.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "elephant-stroller-ultra",
+    "category": "strollers",
+    "name": "Elephant Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Summer State Fair 2024",
+    "image": "/images/strollers/Elephant-Stroller-Ultra-Rare-from-Summer-State-Fair-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "fall-wheelbarrow-stroller-ultra",
+    "category": "strollers",
+    "name": "Fall Wheelbarrow Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Fall Weather Update",
+    "image": "/images/strollers/Fall-Wheelbarrow-Stroller-Ultra-Rare-from-Fall-Weather-Update.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "flip-phone-stroller",
+    "category": "strollers",
+    "name": "Flip Phone Stroller",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Flip-Phone-Stroller-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "floating-hand-stroller",
+    "category": "strollers",
+    "name": "Floating Hand Stroller",
+    "rarity": "Legendary",
+    "source": "Halloween 2023",
+    "image": "/images/strollers/Floating-Hand-Stroller-Legendary-from-Halloween-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "flower-cart-stroller",
+    "category": "strollers",
+    "name": "Flower Cart Stroller",
+    "rarity": "Rare",
+    "source": "Spring Fest 2023",
+    "image": "/images/strollers/Flower-Cart-Stroller-Rare-from-Spring-Fest-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "flower-stroller-ultra",
+    "category": "strollers",
+    "name": "Flower Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Spring Festival 2020",
+    "image": "/images/strollers/Flower-Stroller-Ultra-Rare-from-Spring-Festival-2020.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "french-fries-stroller-ultra",
+    "category": "strollers",
+    "name": "French Fries Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/French-Fries-Stroller-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "froggy-stroller",
+    "category": "strollers",
+    "name": "Froggy Stroller",
+    "rarity": "Rare",
+    "source": "Star Rewards Refresh",
+    "image": "/images/strollers/Froggy-Stroller-Rare-from-Star-Rewards-Refresh.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "half-egg-stroller-ultra",
+    "category": "strollers",
+    "name": "Half Egg Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Easter 2019",
+    "image": "/images/strollers/Half-Egg-Stroller-Ultra-Rare-from-Easter-2019.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "halloween-black-witch-hat-stroller",
+    "category": "strollers",
+    "name": "Halloween Black Witch Hat Stroller",
+    "rarity": "Rare",
+    "source": "Halloween 2021",
+    "image": "/images/strollers/Halloween-Black-Witch-Hat-Stroller-Rare-from-Halloween-2021.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hatched-egg-stroller",
+    "category": "strollers",
+    "name": "Hatched Egg Stroller",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Hatched-Egg-Stroller-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "heart-stroller",
+    "category": "strollers",
+    "name": "Heart Stroller",
+    "rarity": "Rare",
+    "source": "Valentine's 2019",
+    "image": "/images/strollers/Heart-Stroller-Rare-from-Valentine's-2019.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "high-heel-stroller",
+    "category": "strollers",
+    "name": "High Heel Stroller",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/High-Heel-Stroller-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hot-cocoa-stroller",
+    "category": "strollers",
+    "name": "Hot Cocoa Stroller",
+    "rarity": "Rare",
+    "source": "Winter 2023 (Advent Calendar)",
+    "image": "/images/strollers/Hot-Cocoa-Stroller-Rare-from-Winter-2023-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hover-stroller-ultra",
+    "category": "strollers",
+    "name": "Hover Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Baby Shop",
+    "image": "/images/strollers/Hover-Stroller-Ultra-Rare-from-Baby-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "humbug-stroller",
+    "category": "strollers",
+    "name": "Humbug Stroller",
+    "rarity": "Rare",
+    "source": "Winter",
+    "image": "/images/strollers/Humbug-Stroller-Rare-from-Winter.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ice-cream-stroller",
+    "category": "strollers",
+    "name": "Ice Cream Stroller",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Ice-Cream-Stroller-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ice-skate-stroller",
+    "category": "strollers",
+    "name": "Ice Skate Stroller",
+    "rarity": "Rare",
+    "source": "Winter 2024 (Advent Calendar)",
+    "image": "/images/strollers/Ice-Skate-Stroller-Rare-from-Winter-2024-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "iced-cake-stroller",
+    "category": "strollers",
+    "name": "Iced Cake Stroller",
+    "rarity": "Rare",
+    "source": "Sugar Festival 2026",
+    "image": "/images/strollers/Iced-Cake-Stroller-Rare-from-Sugar-Festival-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "kangaroo-stroller-ultra",
+    "category": "strollers",
+    "name": "Kangaroo Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Kangaroo-Stroller-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "lunar-new-year-rickshaw-stroller-ultra",
+    "category": "strollers",
+    "name": "Lunar New Year Rickshaw Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Lunar New Year 2025",
+    "image": "/images/strollers/Lunar-New-Year-Rickshaw-Stroller-Ultra-Rare-from-Lunar-New-Year-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "lunar-stroller-ultra",
+    "category": "strollers",
+    "name": "Lunar Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Lunar-Stroller-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "magic-carpet-stroller",
+    "category": "strollers",
+    "name": "Magic Carpet Stroller",
+    "rarity": "Uncommon",
+    "source": "Baby Shop",
+    "image": "/images/strollers/Magic-Carpet-Stroller-Uncommon-from-Baby-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "magic-moon-stroller",
+    "category": "strollers",
+    "name": "Magic Moon Stroller",
+    "rarity": "Uncommon",
+    "source": "Baby Shop",
+    "image": "/images/strollers/Magic-Moon-Stroller-Uncommon-from-Baby-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "meadow-barrow-stroller",
+    "category": "strollers",
+    "name": "Meadow Barrow Stroller",
+    "rarity": "Uncommon",
+    "source": "Easter 2024",
+    "image": "/images/strollers/Meadow-Barrow-Stroller-Uncommon-from-Easter-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "old-lump-of-log-stroller",
+    "category": "strollers",
+    "name": "Old Lump of Log Stroller",
+    "rarity": "Uncommon",
+    "source": "Gifts",
+    "image": "/images/strollers/Old-Lump-of-Log-Stroller-Uncommon-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "palanquin-stroller-ultra",
+    "category": "strollers",
+    "name": "Palanquin Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Lunar New Year 2021",
+    "image": "/images/strollers/Palanquin-Stroller-Ultra-Rare-from-Lunar-New-Year-2021.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pea-pod-stroller-ultra",
+    "category": "strollers",
+    "name": "Pea Pod Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Pea-Pod-Stroller-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pelican-stroller",
+    "category": "strollers",
+    "name": "Pelican Stroller",
+    "rarity": "Rare",
+    "source": "Baby Shop",
+    "image": "/images/strollers/Pelican-Stroller-Rare-from-Baby-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pirate-captain-stroller",
+    "category": "strollers",
+    "name": "Pirate Captain Stroller",
+    "rarity": "Rare",
+    "source": "Summer Festival 2025",
+    "image": "/images/strollers/Pirate-Captain-Stroller-Rare-from-Summer-Festival-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pizza-stroller",
+    "category": "strollers",
+    "name": "Pizza Stroller",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Pizza-Stroller-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "plane-stroller",
+    "category": "strollers",
+    "name": "Plane Stroller",
+    "rarity": "Uncommon",
+    "source": "Summer State Fair 2024",
+    "image": "/images/strollers/Plane-Stroller-Uncommon-from-Summer-State-Fair-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "popsicle-stroller-ultra",
+    "category": "strollers",
+    "name": "Popsicle Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Popsicle-Stroller-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "potion-stroller",
+    "category": "strollers",
+    "name": "Potion Stroller",
+    "rarity": "Uncommon",
+    "source": "Halloween 2024",
+    "image": "/images/strollers/Potion-Stroller-Uncommon-from-Halloween-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "princess-stroller",
+    "category": "strollers",
+    "name": "Princess Stroller",
+    "rarity": "Rare",
+    "source": "Baby Shop",
+    "image": "/images/strollers/Princess-Stroller-Rare-from-Baby-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pumpkin-stroller",
+    "category": "strollers",
+    "name": "Pumpkin Stroller",
+    "rarity": "Rare",
+    "source": "Halloween 2020",
+    "image": "/images/strollers/Pumpkin-Stroller-Rare-from-Halloween-2020.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "quad-stroller",
+    "category": "strollers",
+    "name": "Quad Stroller",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Quad-Stroller-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "race-car-stroller-ultra",
+    "category": "strollers",
+    "name": "Race Car Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Race-Car-Stroller-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "rainbow-stroller-ultra",
+    "category": "strollers",
+    "name": "Rainbow Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Baby Shop",
+    "image": "/images/strollers/Rainbow-Stroller-Ultra-Rare-from-Baby-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "red-wagon-stroller-ultra",
+    "category": "strollers",
+    "name": "Red Wagon Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Red-Wagon-Stroller-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "reindeer-stroller-ultra",
+    "category": "strollers",
+    "name": "Reindeer Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Christmas 2019",
+    "image": "/images/strollers/Reindeer-Stroller-Ultra-Rare-from-Christmas-2019.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "rgb-stroller",
+    "category": "strollers",
+    "name": "RGB Stroller",
+    "rarity": "Uncommon",
+    "source": "RGB Reward Box",
+    "image": "/images/strollers/RGB-Stroller-Uncommon-from-RGB-Reward-Box.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "rocket-ship-stroller",
+    "category": "strollers",
+    "name": "Rocket Ship Stroller",
+    "rarity": "Rare",
+    "source": "Baby Shop",
+    "image": "/images/strollers/Rocket-Ship-Stroller-Rare-from-Baby-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "sailboat-stroller",
+    "category": "strollers",
+    "name": "Sailboat Stroller",
+    "rarity": "Uncommon",
+    "source": "Gifts",
+    "image": "/images/strollers/Sailboat-Stroller-Uncommon-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "santa-s-helper-stroller",
+    "category": "strollers",
+    "name": "Santa's Helper Stroller",
+    "rarity": "Rare",
+    "source": "Winter 2025 (Advent Calendar)",
+    "image": "/images/strollers/Santa's-Helper-Stroller-Rare-from-Winter-2025-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "scarebear-stroller-ultra",
+    "category": "strollers",
+    "name": "Scarebear Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Halloween 2025",
+    "image": "/images/strollers/Scarebear-Stroller-Ultra-Rare-from-Halloween-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "shipwreck-stroller",
+    "category": "strollers",
+    "name": "Shipwreck Stroller",
+    "rarity": "Rare",
+    "source": "Rain Weather Update",
+    "image": "/images/strollers/Shipwreck-Stroller-Rare-from-Rain-Weather-Update.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "shopping-cart-stroller",
+    "category": "strollers",
+    "name": "Shopping Cart Stroller",
+    "rarity": "Common",
+    "source": "Supermarket",
+    "image": "/images/strollers/Shopping-Cart-Stroller-Common-from-Supermarket.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "sleigh-stroller",
+    "category": "strollers",
+    "name": "Sleigh Stroller",
+    "rarity": "Uncommon",
+    "source": "Winter 2023",
+    "image": "/images/strollers/Sleigh-Stroller-Uncommon-from-Winter-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "snow-globe-stroller",
+    "category": "strollers",
+    "name": "Snow Globe Stroller",
+    "rarity": "Uncommon",
+    "source": "Winter",
+    "image": "/images/strollers/Snow-Globe-Stroller-Uncommon-from-Winter.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "snow-mobile-stroller-ultra",
+    "category": "strollers",
+    "name": "Snow Mobile Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Snow Weather Update",
+    "image": "/images/strollers/Snow-Mobile-Stroller-Ultra-Rare-from-Snow-Weather-Update.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "snowman-stroller",
+    "category": "strollers",
+    "name": "Snowman Stroller",
+    "rarity": "Rare",
+    "source": "Winter 2024",
+    "image": "/images/strollers/Snowman-Stroller-Rare-from-Winter-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "soy-sauce-stroller",
+    "category": "strollers",
+    "name": "Soy Sauce Stroller",
+    "rarity": "Uncommon",
+    "source": "Cherry Blossom Festival 2025",
+    "image": "/images/strollers/Soy-Sauce-Stroller-Uncommon-from-Cherry-Blossom-Festival-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "spikey-chariot-stroller",
+    "category": "strollers",
+    "name": "Spikey Chariot Stroller",
+    "rarity": "Rare",
+    "source": "Halloween 2023",
+    "image": "/images/strollers/Spikey-Chariot-Stroller-Rare-from-Halloween-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "stocking-stroller",
+    "category": "strollers",
+    "name": "Stocking Stroller",
+    "rarity": "Rare",
+    "source": "Winter 2023",
+    "image": "/images/strollers/Stocking-Stroller-Rare-from-Winter-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "strawberry-stroller",
+    "category": "strollers",
+    "name": "Strawberry Stroller",
+    "rarity": "Rare",
+    "source": "Winter 2022",
+    "image": "/images/strollers/Strawberry-Stroller-Rare-from-Winter-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "stroller",
+    "category": "strollers",
+    "name": "Stroller",
+    "rarity": "Uncommon",
+    "source": "Baby Shop",
+    "image": "/images/strollers/Stroller-Uncommon-from-Baby-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "swan-stroller-ultra",
+    "category": "strollers",
+    "name": "Swan Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Swan-Stroller-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "takoyaki-stroller",
+    "category": "strollers",
+    "name": "Takoyaki Stroller",
+    "rarity": "Rare",
+    "source": "Cherry Blossom Festival 2025",
+    "image": "/images/strollers/Takoyaki-Stroller-Rare-from-Cherry-Blossom-Festival-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "teacup-stroller",
+    "category": "strollers",
+    "name": "Teacup Stroller",
+    "rarity": "Legendary",
+    "source": "Baby Shop",
+    "image": "/images/strollers/Teacup-Stroller-Legendary-from-Baby-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "throne-stroller",
+    "category": "strollers",
+    "name": "Throne Stroller",
+    "rarity": "Rare",
+    "source": "Baby Shop",
+    "image": "/images/strollers/Throne-Stroller-Rare-from-Baby-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "toilet-stroller-ultra",
+    "category": "strollers",
+    "name": "Toilet Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Toilet-Stroller-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "tractor-stroller-ultra",
+    "category": "strollers",
+    "name": "Tractor Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Tractor-Stroller-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "trike-stroller",
+    "category": "strollers",
+    "name": "Trike Stroller",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Trike-Stroller-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "trike-stroller-2022",
+    "category": "strollers",
+    "name": "Trike Stroller 2022",
+    "rarity": "Common",
+    "source": "Gifts",
+    "image": "/images/strollers/Trike-Stroller-2022-Common-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "triple-stroller-ultra",
+    "category": "strollers",
+    "name": "Triple Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Triple-Stroller-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "tulip-stroller-ultra",
+    "category": "strollers",
+    "name": "Tulip Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Spring Fest 2023",
+    "image": "/images/strollers/Tulip-Stroller-Ultra-Rare-from-Spring-Fest-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ufo-stroller-ultra",
+    "category": "strollers",
+    "name": "UFO Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/UFO-Stroller-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "unicorn-stroller-ultra",
+    "category": "strollers",
+    "name": "Unicorn Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Unicorn-Stroller-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "vampire-stroller",
+    "category": "strollers",
+    "name": "Vampire Stroller",
+    "rarity": "Rare",
+    "source": "Halloween 2018",
+    "image": "/images/strollers/Vampire-Stroller-Rare-from-Halloween-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "web-stroller-ultra",
+    "category": "strollers",
+    "name": "Web Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Halloween 2024",
+    "image": "/images/strollers/Web-Stroller-Ultra-Rare-from-Halloween-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "wheelbarrow-stroller-ultra",
+    "category": "strollers",
+    "name": "Wheelbarrow Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Campground",
+    "image": "/images/strollers/Wheelbarrow-Stroller-Ultra-Rare-from-Campground.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "woodland-cradle-stroller-ultra",
+    "category": "strollers",
+    "name": "Woodland Cradle Stroller Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/strollers/Woodland-Cradle-Stroller-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  }
+]

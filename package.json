@@ -4,8 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "parse": "node scripts/parse-houses.mjs",
+    "parse": "node scripts/parse-catalog.mjs",
+    "copy-data": "mkdir -p public/data && cp data/*.json public/data/",
     "generate": "node scripts/generate-house-pages.mjs",
-    "build": "npm run parse && npm run generate"
+    "build": "npm run parse && npm run copy-data && npm run generate"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.110.6"
   }
 }

@@ -1,0 +1,1332 @@
+[
+  {
+    "id": "anti-gravity-potion",
+    "category": "foods",
+    "name": "Anti Gravity Potion",
+    "rarity": "Uncommon",
+    "source": "Sky Castle",
+    "image": "/images/foods/Anti-Gravity-Potion-Uncommon-from-Sky-Castle.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "apple",
+    "category": "foods",
+    "name": "Apple",
+    "rarity": "Common",
+    "source": "Farm Shop",
+    "image": "/images/foods/Apple-Common-from-Farm-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "apple-pie",
+    "category": "foods",
+    "name": "Apple Pie",
+    "rarity": "Common",
+    "source": "Apple Pie Display Furniture",
+    "image": "/images/foods/Apple-Pie-Common-from-Apple-Pie-Display-Furniture.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ash-zebra-bait",
+    "category": "foods",
+    "name": "Ash Zebra Bait",
+    "rarity": "Common",
+    "source": "Campfire Cookie",
+    "image": "/images/foods/Ash-Zebra-Bait-Common-from-Campfire-Cookie.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "baby-bottle",
+    "category": "foods",
+    "name": "Baby Bottle",
+    "rarity": "Common",
+    "source": "Baby Shop",
+    "image": "/images/foods/Baby-Bottle-Common-from-Baby-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "baby-formula",
+    "category": "foods",
+    "name": "Baby Formula",
+    "rarity": "Common",
+    "source": "Baby Shop",
+    "image": "/images/foods/Baby-Formula-Common-from-Baby-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "baked-alaska-bait-ultra",
+    "category": "foods",
+    "name": "Baked Alaska Bait Ultra",
+    "rarity": "Rare",
+    "source": "Fire Dimension 2024 (Robux)",
+    "image": "/images/foods/Baked-Alaska-Bait-Ultra-Rare-from-Fire-Dimension-2024-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "big-brew-potion",
+    "category": "foods",
+    "name": "Big Brew Potion",
+    "rarity": "Rare",
+    "source": "Sky Castle",
+    "image": "/images/foods/Big-Brew-Potion-Rare-from-Sky-Castle.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "big-head-potion",
+    "category": "foods",
+    "name": "Big Head Potion",
+    "rarity": "Common",
+    "source": "Sky Castle",
+    "image": "/images/foods/Big-Head-Potion-Common-from-Sky-Castle.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "birthday-cake",
+    "category": "foods",
+    "name": "Birthday Cake",
+    "rarity": "Common",
+    "source": "Birthday Magic",
+    "image": "/images/foods/Birthday-Cake-Common-from-Birthday-Magic.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bluebell-flower-ultra",
+    "category": "foods",
+    "name": "Bluebell Flower Ultra",
+    "rarity": "Rare",
+    "source": "Butterfly Sanctuary 2025",
+    "image": "/images/foods/Bluebell-Flower-Ultra-Rare-from-Butterfly-Sanctuary-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "blueberry-pie",
+    "category": "foods",
+    "name": "Blueberry Pie",
+    "rarity": "Common",
+    "source": "Green Groceries",
+    "image": "/images/foods/Blueberry-Pie-Common-from-Green-Groceries.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bonus-aging-potion",
+    "category": "foods",
+    "name": "Bonus Aging Potion",
+    "rarity": "Uncommon",
+    "source": "Potions Update 2026",
+    "image": "/images/foods/Bonus-Aging-Potion-Uncommon-from-Potions-Update-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bonus-bucks-potion",
+    "category": "foods",
+    "name": "Bonus Bucks Potion",
+    "rarity": "Rare",
+    "source": "Potions Update 2026",
+    "image": "/images/foods/Bonus-Bucks-Potion-Rare-from-Potions-Update-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "broken-egg",
+    "category": "foods",
+    "name": "Broken Egg",
+    "rarity": "Legendary",
+    "source": "Easter 2019",
+    "image": "/images/foods/Broken-Egg-Legendary-from-Easter-2019.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "burger",
+    "category": "foods",
+    "name": "Burger",
+    "rarity": "Common",
+    "source": "Supermarket",
+    "image": "/images/foods/Burger-Common-from-Supermarket.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "burnt-bites-bait",
+    "category": "foods",
+    "name": "Burnt Bites Bait",
+    "rarity": "Common",
+    "source": "Fire Dimension 2024",
+    "image": "/images/foods/Burnt-Bites-Bait-Common-from-Fire-Dimension-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "busy-body-potion",
+    "category": "foods",
+    "name": "Busy Body Potion",
+    "rarity": "Uncommon",
+    "source": "Potions Update 2026",
+    "image": "/images/foods/Busy-Body-Potion-Uncommon-from-Potions-Update-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cake",
+    "category": "foods",
+    "name": "Cake",
+    "rarity": "Common",
+    "source": "Green Groceries",
+    "image": "/images/foods/Cake-Common-from-Green-Groceries.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "camper-s-s-more-treat",
+    "category": "foods",
+    "name": "Camper's S'more Treat",
+    "rarity": "Uncommon",
+    "source": "Camping Shop Refresh 2023",
+    "image": "/images/foods/Camper's-S'more-Treat-Uncommon-from-Camping-Shop-Refresh-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "candy-cane",
+    "category": "foods",
+    "name": "Candy Cane",
+    "rarity": "Common",
+    "source": "Christmas 2017",
+    "image": "/images/foods/Candy-Cane-Common-from-Christmas-2017.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "candy-cane-cake",
+    "category": "foods",
+    "name": "Candy Cane Cake",
+    "rarity": "Common",
+    "source": "Winter 2023 (Advent Calendar)",
+    "image": "/images/foods/Candy-Cane-Cake-Common-from-Winter-2023-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "candy-corn",
+    "category": "foods",
+    "name": "Candy Corn",
+    "rarity": "Common",
+    "source": "Candy Cannon",
+    "image": "/images/foods/Candy-Corn-Common-from-Candy-Cannon.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cheese",
+    "category": "foods",
+    "name": "Cheese",
+    "rarity": "Common",
+    "source": "Green Groceries",
+    "image": "/images/foods/Cheese-Common-from-Green-Groceries.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "chocolate",
+    "category": "foods",
+    "name": "Chocolate",
+    "rarity": "Common",
+    "source": "Sweet Street 2018",
+    "image": "/images/foods/Chocolate-Common-from-Sweet-Street-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "chocolate-drop",
+    "category": "foods",
+    "name": "Chocolate Drop",
+    "rarity": "Common",
+    "source": "Sweet Street 2018",
+    "image": "/images/foods/Chocolate-Drop-Common-from-Sweet-Street-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "chocolate-egg",
+    "category": "foods",
+    "name": "Chocolate Egg",
+    "rarity": "Common",
+    "source": "Easter 2018",
+    "image": "/images/foods/Chocolate-Egg-Common-from-Easter-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "chocolate-milk",
+    "category": "foods",
+    "name": "Chocolate Milk",
+    "rarity": "Common",
+    "source": "Green Groceries",
+    "image": "/images/foods/Chocolate-Milk-Common-from-Green-Groceries.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "chocolate-twist",
+    "category": "foods",
+    "name": "Chocolate Twist",
+    "rarity": "Common",
+    "source": "Sweet Street 2018",
+    "image": "/images/foods/Chocolate-Twist-Common-from-Sweet-Street-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "choosy-potion",
+    "category": "foods",
+    "name": "Choosy Potion",
+    "rarity": "Rare",
+    "source": "Potions Update 2026",
+    "image": "/images/foods/Choosy-Potion-Rare-from-Potions-Update-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "christmas-pudding-pup-bait-ultra",
+    "category": "foods",
+    "name": "Christmas Pudding Pup Bait Ultra",
+    "rarity": "Rare",
+    "source": "Winter 2023 (Advent Calendar)",
+    "image": "/images/foods/Christmas-Pudding-Pup-Bait-Ultra-Rare-from-Winter-2023-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cinnamon-roasted-almonds",
+    "category": "foods",
+    "name": "Cinnamon Roasted Almonds",
+    "rarity": "Common",
+    "source": "Standard Gibbon Box",
+    "image": "/images/foods/Cinnamon-Roasted-Almonds-Common-from-Standard-Gibbon-Box.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cinnamon-roll",
+    "category": "foods",
+    "name": "Cinnamon Roll",
+    "rarity": "Uncommon",
+    "source": "Fall Weather Update",
+    "image": "/images/foods/Cinnamon-Roll-Uncommon-from-Fall-Weather-Update.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "coconut-drink",
+    "category": "foods",
+    "name": "Coconut Drink",
+    "rarity": "Uncommon",
+    "source": "Rain Weather Update",
+    "image": "/images/foods/Coconut-Drink-Uncommon-from-Rain-Weather-Update.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "coffee",
+    "category": "foods",
+    "name": "Coffee",
+    "rarity": "Common",
+    "source": "Coffee Shop",
+    "image": "/images/foods/Coffee-Common-from-Coffee-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cookie",
+    "category": "foods",
+    "name": "Cookie",
+    "rarity": "Common",
+    "source": "Cookie Jar Furniture",
+    "image": "/images/foods/Cookie-Common-from-Cookie-Jar-Furniture.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cookie-old",
+    "category": "foods",
+    "name": "Cookie old",
+    "rarity": "Common",
+    "source": "Coffee Shop",
+    "image": "/images/foods/Cookie-old-Common-from-Coffee-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cotton-candy",
+    "category": "foods",
+    "name": "Cotton Candy",
+    "rarity": "Common",
+    "source": "Monkey Fairground",
+    "image": "/images/foods/Cotton-Candy-Common-from-Monkey-Fairground.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cotton-candy-stick",
+    "category": "foods",
+    "name": "Cotton Candy Stick",
+    "rarity": "Common",
+    "source": "Cotton Candy Stand",
+    "image": "/images/foods/Cotton-Candy-Stick-Common-from-Cotton-Candy-Stand.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cure-all-potion",
+    "category": "foods",
+    "name": "Cure All Potion",
+    "rarity": "Rare",
+    "source": "Christmas 2019",
+    "image": "/images/foods/Cure-All-Potion-Rare-from-Christmas-2019.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "diamond-lavender",
+    "category": "foods",
+    "name": "Diamond Lavender",
+    "rarity": "Legendary",
+    "source": "Robux",
+    "image": "/images/foods/Diamond-Lavender-Legendary-from-Robux.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dim-sum",
+    "category": "foods",
+    "name": "Dim Sum",
+    "rarity": "Common",
+    "source": "Chinese New Year 2018",
+    "image": "/images/foods/Dim-Sum-Common-from-Chinese-New-Year-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "donut",
+    "category": "foods",
+    "name": "Donut",
+    "rarity": "Common",
+    "source": "Furniture Catalog",
+    "image": "/images/foods/Donut-Common-from-Furniture-Catalog.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "fire-horse-apple",
+    "category": "foods",
+    "name": "Fire Horse Apple",
+    "rarity": "Legendary",
+    "source": "Lunar New Year 2026",
+    "image": "/images/foods/Fire-Horse-Apple-Legendary-from-Lunar-New-Year-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "flaming-zebra-bait",
+    "category": "foods",
+    "name": "Flaming Zebra Bait",
+    "rarity": "Rare",
+    "source": "Campfire Cookie",
+    "image": "/images/foods/Flaming-Zebra-Bait-Rare-from-Campfire-Cookie.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "fly-a-pet-potion",
+    "category": "foods",
+    "name": "Fly A Pet Potion",
+    "rarity": "Legendary",
+    "source": "Robux",
+    "image": "/images/foods/Fly-A-Pet-Potion-Legendary-from-Robux.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "future-sight-potion",
+    "category": "foods",
+    "name": "Future Sight Potion",
+    "rarity": "Uncommon",
+    "source": "Potions Update 2026",
+    "image": "/images/foods/Future-Sight-Potion-Uncommon-from-Potions-Update-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "golden-bone",
+    "category": "foods",
+    "name": "Golden Bone",
+    "rarity": "Legendary",
+    "source": "VIP Update (Robux)",
+    "image": "/images/foods/Golden-Bone-Legendary-from-VIP-Update-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "golden-clam",
+    "category": "foods",
+    "name": "Golden Clam",
+    "rarity": "Legendary",
+    "source": "Snow Weather Update (Robux)",
+    "image": "/images/foods/Golden-Clam-Legendary-from-Snow-Weather-Update-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "golden-corn",
+    "category": "foods",
+    "name": "Golden Corn",
+    "rarity": "Legendary",
+    "source": "Pet Shop (Robux)",
+    "image": "/images/foods/Golden-Corn-Legendary-from-Pet-Shop-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "golden-dandelion",
+    "category": "foods",
+    "name": "Golden Dandelion",
+    "rarity": "Legendary",
+    "source": "Salon (Robux)",
+    "image": "/images/foods/Golden-Dandelion-Legendary-from-Salon-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "golden-goldfish",
+    "category": "foods",
+    "name": "Golden Goldfish",
+    "rarity": "Legendary",
+    "source": "Robux",
+    "image": "/images/foods/Golden-Goldfish-Legendary-from-Robux.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "golden-leaf",
+    "category": "foods",
+    "name": "Golden Leaf",
+    "rarity": "Legendary",
+    "source": "Butterfly Sanctuary (Robux)",
+    "image": "/images/foods/Golden-Leaf-Legendary-from-Butterfly-Sanctuary-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "golden-lettuce",
+    "category": "foods",
+    "name": "Golden Lettuce",
+    "rarity": "Legendary",
+    "source": "Pets Plus Subscription",
+    "image": "/images/foods/Golden-Lettuce-Legendary-from-Pets-Plus-Subscription.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "golden-petunia",
+    "category": "foods",
+    "name": "Golden Petunia",
+    "rarity": "Legendary",
+    "source": "Pets Plus Subscription",
+    "image": "/images/foods/Golden-Petunia-Legendary-from-Pets-Plus-Subscription.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "golden-plantain",
+    "category": "foods",
+    "name": "Golden Plantain",
+    "rarity": "Legendary",
+    "source": "Rain Weather Update (Robux)",
+    "image": "/images/foods/Golden-Plantain-Legendary-from-Rain-Weather-Update-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "golden-seed-ball",
+    "category": "foods",
+    "name": "Golden Seed Ball",
+    "rarity": "Legendary",
+    "source": "Supermarket",
+    "image": "/images/foods/Golden-Seed-Ball-Legendary-from-Supermarket.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "golden-wheat",
+    "category": "foods",
+    "name": "Golden Wheat",
+    "rarity": "Legendary",
+    "source": "Fall Weather Update (Robux)",
+    "image": "/images/foods/Golden-Wheat-Legendary-from-Fall-Weather-Update-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "goldenrod-flower",
+    "category": "foods",
+    "name": "Goldenrod Flower",
+    "rarity": "Legendary",
+    "source": "Butterfly Sanctuary (Robux)",
+    "image": "/images/foods/Goldenrod-Flower-Legendary-from-Butterfly-Sanctuary-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "goofy-potion",
+    "category": "foods",
+    "name": "Goofy Potion",
+    "rarity": "Common",
+    "source": "Potions Update 2026",
+    "image": "/images/foods/Goofy-Potion-Common-from-Potions-Update-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "green-tea-cup",
+    "category": "foods",
+    "name": "Green Tea Cup",
+    "rarity": "Common",
+    "source": "Furniture Catalog",
+    "image": "/images/foods/Green-Tea-Cup-Common-from-Furniture-Catalog.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "grow-potion",
+    "category": "foods",
+    "name": "Grow Potion",
+    "rarity": "Rare",
+    "source": "Sky Castle",
+    "image": "/images/foods/Grow-Potion-Rare-from-Sky-Castle.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ham",
+    "category": "foods",
+    "name": "Ham",
+    "rarity": "Common",
+    "source": "Green Groceries",
+    "image": "/images/foods/Ham-Common-from-Green-Groceries.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "healing-apple",
+    "category": "foods",
+    "name": "Healing Apple",
+    "rarity": "Common",
+    "source": "Hospital",
+    "image": "/images/foods/Healing-Apple-Common-from-Hospital.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "heart-potion",
+    "category": "foods",
+    "name": "Heart Potion",
+    "rarity": "Uncommon",
+    "source": "Valentine's 2019",
+    "image": "/images/foods/Heart-Potion-Uncommon-from-Valentine's-2019.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "home-potion",
+    "category": "foods",
+    "name": "Home Potion",
+    "rarity": "Common",
+    "source": "Potions Update 2026",
+    "image": "/images/foods/Home-Potion-Common-from-Potions-Update-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "honey",
+    "category": "foods",
+    "name": "Honey",
+    "rarity": "Legendary",
+    "source": "Robux",
+    "image": "/images/foods/Honey-Legendary-from-Robux.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "honey-candy",
+    "category": "foods",
+    "name": "Honey Candy",
+    "rarity": "Common",
+    "source": "BEES! Blaster",
+    "image": "/images/foods/Honey-Candy-Common-from-BEES!-Blaster.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hot-cocoa",
+    "category": "foods",
+    "name": "Hot Cocoa",
+    "rarity": "Common",
+    "source": "Hot Cocoa Stand",
+    "image": "/images/foods/Hot-Cocoa-Common-from-Hot-Cocoa-Stand.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hot-dog-and-fries",
+    "category": "foods",
+    "name": "Hot Dog And Fries",
+    "rarity": "Common",
+    "source": "Deep Fryer Furniture",
+    "image": "/images/foods/Hot-Dog-And-Fries-Common-from-Deep-Fryer-Furniture.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hotdog",
+    "category": "foods",
+    "name": "Hotdog",
+    "rarity": "Common",
+    "source": "Farm Shop",
+    "image": "/images/foods/Hotdog-Common-from-Farm-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hyperspeed-potion",
+    "category": "foods",
+    "name": "Hyperspeed Potion",
+    "rarity": "Common",
+    "source": "Sky Castle",
+    "image": "/images/foods/Hyperspeed-Potion-Common-from-Sky-Castle.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ice-cream",
+    "category": "foods",
+    "name": "Ice Cream",
+    "rarity": "Common",
+    "source": "Ice Cream Parlor",
+    "image": "/images/foods/Ice-Cream-Common-from-Ice-Cream-Parlor.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ice-cream-cup",
+    "category": "foods",
+    "name": "Ice Cream Cup",
+    "rarity": "Common",
+    "source": "Ice Cream Shop",
+    "image": "/images/foods/Ice-Cream-Cup-Common-from-Ice-Cream-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ice-lolly",
+    "category": "foods",
+    "name": "Ice Lolly",
+    "rarity": "Rare",
+    "source": "Snow Weather Update",
+    "image": "/images/foods/Ice-Lolly-Rare-from-Snow-Weather-Update.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ice-tub",
+    "category": "foods",
+    "name": "Ice Tub",
+    "rarity": "Common",
+    "source": "Sweet Street 2018",
+    "image": "/images/foods/Ice-Tub-Common-from-Sweet-Street-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "jasmine-tea-cup",
+    "category": "foods",
+    "name": "Jasmine Tea Cup",
+    "rarity": "Common",
+    "source": "Furniture Catalog",
+    "image": "/images/foods/Jasmine-Tea-Cup-Common-from-Furniture-Catalog.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "knafeh",
+    "category": "foods",
+    "name": "Knafeh",
+    "rarity": "Rare",
+    "source": "Desert Weather Map",
+    "image": "/images/foods/Knafeh-Rare-from-Desert-Weather-Map.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "leaf-ultra",
+    "category": "foods",
+    "name": "Leaf Ultra",
+    "rarity": "Rare",
+    "source": "Butterfly Sanctuary",
+    "image": "/images/foods/Leaf-Ultra-Rare-from-Butterfly-Sanctuary.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "lebkuchen-cookie",
+    "category": "foods",
+    "name": "Lebkuchen Cookie",
+    "rarity": "Common",
+    "source": "Winter 2024 (Advent Calendar)",
+    "image": "/images/foods/Lebkuchen-Cookie-Common-from-Winter-2024-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "lemonade",
+    "category": "foods",
+    "name": "Lemonade",
+    "rarity": "Common",
+    "source": "Lemonade Stand",
+    "image": "/images/foods/Lemonade-Common-from-Lemonade-Stand.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "levitation-potion-ultra",
+    "category": "foods",
+    "name": "Levitation Potion Ultra",
+    "rarity": "Rare",
+    "source": "Sky Castle",
+    "image": "/images/foods/Levitation-Potion-Ultra-Rare-from-Sky-Castle.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "lollipop",
+    "category": "foods",
+    "name": "Lollipop",
+    "rarity": "Common",
+    "source": "Candy Cannon",
+    "image": "/images/foods/Lollipop-Common-from-Candy-Cannon.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "mac-and-cheese",
+    "category": "foods",
+    "name": "Mac and Cheese",
+    "rarity": "Common",
+    "source": "Baking Dish Mac and Cheese Furniture",
+    "image": "/images/foods/Mac-and-Cheese-Common-from-Baking-Dish-Mac-and-Cheese-Furniture.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "mahi-spinning-rod",
+    "category": "foods",
+    "name": "Mahi Spinning Rod",
+    "rarity": "Common",
+    "source": "Beach Shop",
+    "image": "/images/foods/Mahi-Spinning-Rod-Common-from-Beach-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "maple-leaf-treat",
+    "category": "foods",
+    "name": "Maple Leaf Treat",
+    "rarity": "Legendary",
+    "source": "Camping Shop",
+    "image": "/images/foods/Maple-Leaf-Treat-Legendary-from-Camping-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "marshmallow-on-a-stick",
+    "category": "foods",
+    "name": "Marshmallow On A Stick",
+    "rarity": "Common",
+    "source": "Campground",
+    "image": "/images/foods/Marshmallow-On-A-Stick-Common-from-Campground.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "milkshake",
+    "category": "foods",
+    "name": "Milkshake",
+    "rarity": "Common",
+    "source": "Milkshake Machine",
+    "image": "/images/foods/Milkshake-Common-from-Milkshake-Machine.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "molten-melon",
+    "category": "foods",
+    "name": "Molten Melon",
+    "rarity": "Rare",
+    "source": "Campfire Cookie",
+    "image": "/images/foods/Molten-Melon-Rare-from-Campfire-Cookie.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "mooncake",
+    "category": "foods",
+    "name": "Mooncake",
+    "rarity": "Common",
+    "source": "Near Bridge",
+    "image": "/images/foods/Mooncake-Common-from-Near-Bridge.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "mud-ball",
+    "category": "foods",
+    "name": "Mud Ball",
+    "rarity": "Legendary",
+    "source": "Desert Weather Map (Robux)",
+    "image": "/images/foods/Mud-Ball-Legendary-from-Desert-Weather-Map-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "oolong-tea-cup",
+    "category": "foods",
+    "name": "Oolong Tea Cup",
+    "rarity": "Common",
+    "source": "Furniture Catalog",
+    "image": "/images/foods/Oolong-Tea-Cup-Common-from-Furniture-Catalog.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pancakes",
+    "category": "foods",
+    "name": "Pancakes",
+    "rarity": "Common",
+    "source": "Pancake Maker Furniture",
+    "image": "/images/foods/Pancakes-Common-from-Pancake-Maker-Furniture.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "patterns-egg",
+    "category": "foods",
+    "name": "Patterns Egg",
+    "rarity": "Uncommon",
+    "source": "Easter 2019",
+    "image": "/images/foods/Patterns-Egg-Uncommon-from-Easter-2019.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pet-food",
+    "category": "foods",
+    "name": "Pet Food",
+    "rarity": "Common",
+    "source": "Pet Shop",
+    "image": "/images/foods/Pet-Food-Common-from-Pet-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pet-treat",
+    "category": "foods",
+    "name": "Pet Treat",
+    "rarity": "Uncommon",
+    "source": "Pet Shop",
+    "image": "/images/foods/Pet-Treat-Uncommon-from-Pet-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pizza",
+    "category": "foods",
+    "name": "Pizza",
+    "rarity": "Common",
+    "source": "Furniture Catalog",
+    "image": "/images/foods/Pizza-Common-from-Furniture-Catalog.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "polymorph-potion-ultra",
+    "category": "foods",
+    "name": "Polymorph Potion Ultra",
+    "rarity": "Rare",
+    "source": "Potions Update 2026",
+    "image": "/images/foods/Polymorph-Potion-Ultra-Rare-from-Potions-Update-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "popcorn",
+    "category": "foods",
+    "name": "Popcorn",
+    "rarity": "Common",
+    "source": "Green Groceries",
+    "image": "/images/foods/Popcorn-Common-from-Green-Groceries.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "preferred-potion-ultra",
+    "category": "foods",
+    "name": "Preferred Potion Ultra",
+    "rarity": "Rare",
+    "source": "Potions Update 2026",
+    "image": "/images/foods/Preferred-Potion-Ultra-Rare-from-Potions-Update-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "raspberry-pie",
+    "category": "foods",
+    "name": "Raspberry Pie",
+    "rarity": "Common",
+    "source": "Green Groceries",
+    "image": "/images/foods/Raspberry-Pie-Common-from-Green-Groceries.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "rice-cake-soup",
+    "category": "foods",
+    "name": "Rice Cake Soup",
+    "rarity": "Common",
+    "source": "Lunar New Year Gift Boxes",
+    "image": "/images/foods/Rice-Cake-Soup-Common-from-Lunar-New-Year-Gift-Boxes.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ride-a-pet-potion",
+    "category": "foods",
+    "name": "Ride A Pet Potion",
+    "rarity": "Legendary",
+    "source": "Robux",
+    "image": "/images/foods/Ride-A-Pet-Potion-Legendary-from-Robux.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "sandwich",
+    "category": "foods",
+    "name": "Sandwich",
+    "rarity": "Common",
+    "source": "Signing In",
+    "image": "/images/foods/Sandwich-Common-from-Signing-In.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "seaweed",
+    "category": "foods",
+    "name": "Seaweed",
+    "rarity": "Common",
+    "source": "World Oceans Day",
+    "image": "/images/foods/Seaweed-Common-from-World-Oceans-Day.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "secret-talent-potion",
+    "category": "foods",
+    "name": "Secret Talent Potion",
+    "rarity": "Common",
+    "source": "Potions Update 2026",
+    "image": "/images/foods/Secret-Talent-Potion-Common-from-Potions-Update-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "shiver-cone-bait",
+    "category": "foods",
+    "name": "Shiver Cone Bait",
+    "rarity": "Rare",
+    "source": "Ice Dimension 2025",
+    "image": "/images/foods/Shiver-Cone-Bait-Rare-from-Ice-Dimension-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "small-sip-potion",
+    "category": "foods",
+    "name": "Small Sip Potion",
+    "rarity": "Rare",
+    "source": "Sky Castle",
+    "image": "/images/foods/Small-Sip-Potion-Rare-from-Sky-Castle.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "smores-cookie",
+    "category": "foods",
+    "name": "Smores Cookie",
+    "rarity": "Common",
+    "source": "Campground",
+    "image": "/images/foods/Smores-Cookie-Common-from-Campground.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "snapdragon-flower",
+    "category": "foods",
+    "name": "Snapdragon Flower",
+    "rarity": "Legendary",
+    "source": "Butterfly Sanctuary 2025",
+    "image": "/images/foods/Snapdragon-Flower-Legendary-from-Butterfly-Sanctuary-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "snow-cone",
+    "category": "foods",
+    "name": "Snow Cone",
+    "rarity": "Common",
+    "source": "Snow Cone Stand",
+    "image": "/images/foods/Snow-Cone-Common-from-Snow-Cone-Stand.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "snowflake-cookie",
+    "category": "foods",
+    "name": "Snowflake Cookie",
+    "rarity": "Uncommon",
+    "source": "Winter 2023 (Advent Calendar)",
+    "image": "/images/foods/Snowflake-Cookie-Uncommon-from-Winter-2023-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "snowflake-potion",
+    "category": "foods",
+    "name": "Snowflake Potion",
+    "rarity": "Uncommon",
+    "source": "Christmas 2018",
+    "image": "/images/foods/Snowflake-Potion-Uncommon-from-Christmas-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "soda",
+    "category": "foods",
+    "name": "Soda",
+    "rarity": "Common",
+    "source": "Green Groceries",
+    "image": "/images/foods/Soda-Common-from-Green-Groceries.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "stars-egg",
+    "category": "foods",
+    "name": "Stars Egg",
+    "rarity": "Uncommon",
+    "source": "Easter 2019",
+    "image": "/images/foods/Stars-Egg-Uncommon-from-Easter-2019.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "strawberry-santa-snack",
+    "category": "foods",
+    "name": "Strawberry Santa Snack",
+    "rarity": "Common",
+    "source": "Winter 2025 (Advent Calendar)",
+    "image": "/images/foods/Strawberry-Santa-Snack-Common-from-Winter-2025-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "strawberry-shortcake",
+    "category": "foods",
+    "name": "Strawberry Shortcake",
+    "rarity": "Common",
+    "source": "Winter 2022",
+    "image": "/images/foods/Strawberry-Shortcake-Common-from-Winter-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "stripes-egg",
+    "category": "foods",
+    "name": "Stripes Egg",
+    "rarity": "Uncommon",
+    "source": "Easter 2019",
+    "image": "/images/foods/Stripes-Egg-Uncommon-from-Easter-2019.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "subzero-popsicle-bait",
+    "category": "foods",
+    "name": "Subzero Popsicle Bait",
+    "rarity": "Rare",
+    "source": "Ice Dimension 2025",
+    "image": "/images/foods/Subzero-Popsicle-Bait-Rare-from-Ice-Dimension-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "sugar-skull-potion-ultra",
+    "category": "foods",
+    "name": "Sugar Skull Potion Ultra",
+    "rarity": "Rare",
+    "source": "Halloween 2024 (Robux)",
+    "image": "/images/foods/Sugar-Skull-Potion-Ultra-Rare-from-Halloween-2024-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "super-age-up-potion",
+    "category": "foods",
+    "name": "Super Age Up Potion",
+    "rarity": "Legendary",
+    "source": "Shop Menu May 2026 (Robux)",
+    "image": "/images/foods/Super-Age-Up-Potion-Legendary-from-Shop-Menu-May-2026-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "sweet-rice-drink",
+    "category": "foods",
+    "name": "Sweet Rice Drink",
+    "rarity": "Common",
+    "source": "Lunar New Year Gift Boxes",
+    "image": "/images/foods/Sweet-Rice-Drink-Common-from-Lunar-New-Year-Gift-Boxes.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "taco",
+    "category": "foods",
+    "name": "Taco",
+    "rarity": "Common",
+    "source": "Green Groceries",
+    "image": "/images/foods/Taco-Common-from-Green-Groceries.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "tea",
+    "category": "foods",
+    "name": "Tea",
+    "rarity": "Common",
+    "source": "Coffee",
+    "image": "/images/foods/Tea-Common-from-Coffee.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "tea-party-scone",
+    "category": "foods",
+    "name": "Tea Party Scone",
+    "rarity": "Common",
+    "source": "Tea Party Set",
+    "image": "/images/foods/Tea-Party-Scone-Common-from-Tea-Party-Set.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "teleportation-potion",
+    "category": "foods",
+    "name": "Teleportation Potion",
+    "rarity": "Uncommon",
+    "source": "Christmas 2018",
+    "image": "/images/foods/Teleportation-Potion-Uncommon-from-Christmas-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "translucent-tea-potion",
+    "category": "foods",
+    "name": "Translucent Tea Potion",
+    "rarity": "Rare",
+    "source": "Sky Castle",
+    "image": "/images/foods/Translucent-Tea-Potion-Rare-from-Sky-Castle.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "water",
+    "category": "foods",
+    "name": "Water",
+    "rarity": "Common",
+    "source": "Farm Shop",
+    "image": "/images/foods/Water-Common-from-Farm-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "water-walking-potion",
+    "category": "foods",
+    "name": "Water Walking Potion",
+    "rarity": "Rare",
+    "source": "Sky Castle",
+    "image": "/images/foods/Water-Walking-Potion-Rare-from-Sky-Castle.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "watermelon",
+    "category": "foods",
+    "name": "Watermelon",
+    "rarity": "Common",
+    "source": "Farm Shop",
+    "image": "/images/foods/Watermelon-Common-from-Farm-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "winter-deer-bait-ultra",
+    "category": "foods",
+    "name": "Winter Deer Bait Ultra",
+    "rarity": "Rare",
+    "source": "Winter 2024",
+    "image": "/images/foods/Winter-Deer-Bait-Ultra-Rare-from-Winter-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "yarn-beanie",
+    "category": "foods",
+    "name": "Yarn Beanie",
+    "rarity": "Rare",
+    "source": "Winter 2025",
+    "image": "/images/foods/Yarn-Beanie-Rare-from-Winter-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "yule-log-treat",
+    "category": "foods",
+    "name": "Yule Log Treat",
+    "rarity": "Common",
+    "source": "Winter 2024 (Advent Calendar)",
+    "image": "/images/foods/Yule-Log-Treat-Common-from-Winter-2024-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  }
+]

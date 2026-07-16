@@ -1,0 +1,3902 @@
+[
+  {
+    "id": "2025-bauble-sticker",
+    "category": "stickers",
+    "name": "2025 Bauble Sticker",
+    "rarity": "Rare",
+    "source": "Winter 2025 Sticker Pack",
+    "image": "/images/stickers/2025-Bauble-Sticker-Rare-from-Winter-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "2d-kitty-sticker",
+    "category": "stickers",
+    "name": "2D Kitty Sticker",
+    "rarity": "Uncommon",
+    "source": "2D Box",
+    "image": "/images/stickers/2D-Kitty-Sticker-Uncommon-from-2D-Box.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "accordion-sticker",
+    "category": "stickers",
+    "name": "Accordion Sticker",
+    "rarity": "Common",
+    "source": "Summer 2025 Sticker Pack",
+    "image": "/images/stickers/Accordion-Sticker-Common-from-Summer-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ace-goose-sticker",
+    "category": "stickers",
+    "name": "Ace Goose Sticker",
+    "rarity": "Rare",
+    "source": "Pride Sticker Pack",
+    "image": "/images/stickers/Ace-Goose-Sticker-Rare-from-Pride-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "aestus-sticker",
+    "category": "stickers",
+    "name": "Aestus Sticker",
+    "rarity": "Legendary",
+    "source": "Summer Camp 2026 Sticker Pack",
+    "image": "/images/stickers/Aestus-Sticker-Legendary-from-Summer-Camp-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "african-painted-dog-sticker",
+    "category": "stickers",
+    "name": "African Painted Dog Sticker",
+    "rarity": "Rare",
+    "source": "Pets Plus Sticker Pack",
+    "image": "/images/stickers/African-Painted-Dog-Sticker-Rare-from-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "agender-rat-sticker",
+    "category": "stickers",
+    "name": "Agender Rat Sticker",
+    "rarity": "Rare",
+    "source": "Pride Sticker Pack",
+    "image": "/images/stickers/Agender-Rat-Sticker-Rare-from-Pride-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "amber-bone-sticker",
+    "category": "stickers",
+    "name": "Amber Bone Sticker",
+    "rarity": "Uncommon",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/Amber-Bone-Sticker-Uncommon-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "angus-calf-sticker",
+    "category": "stickers",
+    "name": "Angus Calf Sticker",
+    "rarity": "Rare",
+    "source": "Winter 2025 Sticker Pack",
+    "image": "/images/stickers/Angus-Calf-Sticker-Rare-from-Winter-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ankylosaurus-sticker",
+    "category": "stickers",
+    "name": "Ankylosaurus Sticker",
+    "rarity": "Rare",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/Ankylosaurus-Sticker-Rare-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "arctic-dusk-dragon-sticker",
+    "category": "stickers",
+    "name": "Arctic Dusk Dragon Sticker",
+    "rarity": "Legendary",
+    "source": "Winter 2025 Sticker Pack",
+    "image": "/images/stickers/Arctic-Dusk-Dragon-Sticker-Legendary-from-Winter-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "arctic-tern-sticker",
+    "category": "stickers",
+    "name": "Arctic Tern Sticker",
+    "rarity": "Common",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Arctic-Tern-Sticker-Common-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "aromantic-t-rex-sticker",
+    "category": "stickers",
+    "name": "Aromantic T Rex Sticker",
+    "rarity": "Rare",
+    "source": "Pride Sticker Pack",
+    "image": "/images/stickers/Aromantic-T-Rex-Sticker-Rare-from-Pride-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ash-zebra-sticker",
+    "category": "stickers",
+    "name": "Ash Zebra Sticker",
+    "rarity": "Common",
+    "source": "Fire Dimension Sticker Pack",
+    "image": "/images/stickers/Ash-Zebra-Sticker-Common-from-Fire-Dimension-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "aurora-fox-sticker",
+    "category": "stickers",
+    "name": "Aurora Fox Sticker",
+    "rarity": "Legendary",
+    "source": "Winter 2024 Sticker Pack",
+    "image": "/images/stickers/Aurora-Fox-Sticker-Legendary-from-Winter-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "axolotl-sticker-ultra",
+    "category": "stickers",
+    "name": "Axolotl Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Pets Plus Sticker Pack",
+    "image": "/images/stickers/Axolotl-Sticker-Ultra-Rare-from-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "aye-aye-sticker",
+    "category": "stickers",
+    "name": "Aye Aye Sticker",
+    "rarity": "Common",
+    "source": "Halloween 2025 Sticker Pack",
+    "image": "/images/stickers/Aye-Aye-Sticker-Common-from-Halloween-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bakeneko-sticker",
+    "category": "stickers",
+    "name": "Bakeneko Sticker",
+    "rarity": "Uncommon",
+    "source": "Cherry Blossom 2025 Sticker Pack",
+    "image": "/images/stickers/Bakeneko-Sticker-Uncommon-from-Cherry-Blossom-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "balloon-unicorn-sticker",
+    "category": "stickers",
+    "name": "Balloon Unicorn Sticker",
+    "rarity": "Legendary",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Balloon-Unicorn-Sticker-Legendary-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "basilisk-sticker",
+    "category": "stickers",
+    "name": "Basilisk Sticker",
+    "rarity": "Rare",
+    "source": "Halloween 2024 Sticker Pack",
+    "image": "/images/stickers/Basilisk-Sticker-Rare-from-Halloween-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bat-dragon-cuddle-animated-sticker",
+    "category": "stickers",
+    "name": "Bat Dragon Cuddle Animated Sticker",
+    "rarity": "Legendary",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Bat-Dragon-Cuddle-Animated-Sticker-Legendary-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bat-dragon-sticker",
+    "category": "stickers",
+    "name": "Bat Dragon Sticker",
+    "rarity": "Legendary",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Bat-Dragon-Sticker-Legendary-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bat-sticker",
+    "category": "stickers",
+    "name": "Bat Sticker",
+    "rarity": "Uncommon",
+    "source": "Halloween 2024 Sticker Pack",
+    "image": "/images/stickers/Bat-Sticker-Uncommon-from-Halloween-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bauble-buddies-sticker-ultra",
+    "category": "stickers",
+    "name": "Bauble Buddies Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Winter 2024 Sticker Pack",
+    "image": "/images/stickers/Bauble-Buddies-Sticker-Ultra-Rare-from-Winter-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "beaver-sticker",
+    "category": "stickers",
+    "name": "Beaver Sticker",
+    "rarity": "Common",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Beaver-Sticker-Common-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bee-sticker-ultra",
+    "category": "stickers",
+    "name": "Bee Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Bee-Sticker-Ultra-Rare-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bi-dodo-sticker",
+    "category": "stickers",
+    "name": "Bi Dodo Sticker",
+    "rarity": "Rare",
+    "source": "Pride Sticker Pack",
+    "image": "/images/stickers/Bi-Dodo-Sticker-Rare-from-Pride-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "blazing-lion-animated-sticker",
+    "category": "stickers",
+    "name": "Blazing Lion Animated Sticker",
+    "rarity": "Legendary",
+    "source": "Fire Dimension Sticker Pack",
+    "image": "/images/stickers/Blazing-Lion-Animated-Sticker-Legendary-from-Fire-Dimension-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "blue-betta-fish-sticker",
+    "category": "stickers",
+    "name": "Blue Betta Fish Sticker",
+    "rarity": "Legendary",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Blue-Betta-Fish-Sticker-Legendary-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "blue-dog-sticker",
+    "category": "stickers",
+    "name": "Blue Dog Sticker",
+    "rarity": "Common",
+    "source": "Task Board",
+    "image": "/images/stickers/Blue-Dog-Sticker-Common-from-Task-Board.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "border-collie-sticker-ultra",
+    "category": "stickers",
+    "name": "Border Collie Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Sugarfest 2026 Sticker Pack",
+    "image": "/images/stickers/Border-Collie-Sticker-Ultra-Rare-from-Sugarfest-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "brachiosaurus-sticker",
+    "category": "stickers",
+    "name": "Brachiosaurus Sticker",
+    "rarity": "Common",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/Brachiosaurus-Sticker-Common-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bullfrog-sticker",
+    "category": "stickers",
+    "name": "Bullfrog Sticker",
+    "rarity": "Common",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Bullfrog-Sticker-Common-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "burning-bunny-sticker",
+    "category": "stickers",
+    "name": "Burning Bunny Sticker",
+    "rarity": "Rare",
+    "source": "Fire Dimension Sticker Pack",
+    "image": "/images/stickers/Burning-Bunny-Sticker-Rare-from-Fire-Dimension-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cabbit-sticker-ultra",
+    "category": "stickers",
+    "name": "Cabbit Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Cherry Blossom 2025 Sticker Pack",
+    "image": "/images/stickers/Cabbit-Sticker-Ultra-Rare-from-Cherry-Blossom-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "campfire-cookies-bait-sticker",
+    "category": "stickers",
+    "name": "Campfire Cookies Bait Sticker",
+    "rarity": "Common",
+    "source": "Fire Dimension Sticker Pack",
+    "image": "/images/stickers/Campfire-Cookies-Bait-Sticker-Common-from-Fire-Dimension-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "campfire-log-sticker",
+    "category": "stickers",
+    "name": "Campfire Log Sticker",
+    "rarity": "Common",
+    "source": "Summer Camp 2026 Sticker Pack",
+    "image": "/images/stickers/Campfire-Log-Sticker-Common-from-Summer-Camp-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "camping-tent-sticker",
+    "category": "stickers",
+    "name": "Camping Tent Sticker",
+    "rarity": "Common",
+    "source": "Summer Camp 2026 Sticker Pack",
+    "image": "/images/stickers/Camping-Tent-Sticker-Common-from-Summer-Camp-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "candicorn-sticker",
+    "category": "stickers",
+    "name": "Candicorn Sticker",
+    "rarity": "Legendary",
+    "source": "Sugarfest 2026 Sticker Pack",
+    "image": "/images/stickers/Candicorn-Sticker-Legendary-from-Sugarfest-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "candy-sticker",
+    "category": "stickers",
+    "name": "Candy Sticker",
+    "rarity": "Common",
+    "source": "Sugarfest 2026 Sticker Pack",
+    "image": "/images/stickers/Candy-Sticker-Common-from-Sugarfest-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "candyfloss-chick-sticker",
+    "category": "stickers",
+    "name": "Candyfloss Chick Sticker",
+    "rarity": "Legendary",
+    "source": "Cherry Blossom 2025 Sticker Pack",
+    "image": "/images/stickers/Candyfloss-Chick-Sticker-Legendary-from-Cherry-Blossom-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "candyfloss-sticker",
+    "category": "stickers",
+    "name": "Candyfloss Sticker",
+    "rarity": "Common",
+    "source": "Sugarfest 2026 Sticker Pack",
+    "image": "/images/stickers/Candyfloss-Sticker-Common-from-Sugarfest-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cannon-sticker",
+    "category": "stickers",
+    "name": "Cannon Sticker",
+    "rarity": "Common",
+    "source": "Summer 2025 Sticker Pack",
+    "image": "/images/stickers/Cannon-Sticker-Common-from-Summer-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "capricorn-sticker-ultra",
+    "category": "stickers",
+    "name": "Capricorn Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Pets Plus Sticker Pack",
+    "image": "/images/stickers/Capricorn-Sticker-Ultra-Rare-from-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "castle-hermit-crab-sticker",
+    "category": "stickers",
+    "name": "Castle Hermit Crab Sticker",
+    "rarity": "Uncommon",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Castle-Hermit-Crab-Sticker-Uncommon-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cerberus-sticker-ultra",
+    "category": "stickers",
+    "name": "Cerberus Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Halloween 2025 Sticker Pack",
+    "image": "/images/stickers/Cerberus-Sticker-Ultra-Rare-from-Halloween-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "chameleon-sticker-ultra",
+    "category": "stickers",
+    "name": "Chameleon Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Pets Plus Sticker Pack",
+    "image": "/images/stickers/Chameleon-Sticker-Ultra-Rare-from-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cheeky-yellow-lipped-sea-krait-sticker",
+    "category": "stickers",
+    "name": "Cheeky Yellow Lipped Sea Krait Sticker",
+    "rarity": "Rare",
+    "source": "Vol 2 Pets Plus Sticker Pack",
+    "image": "/images/stickers/Cheeky-Yellow-Lipped-Sea-Krait-Sticker-Rare-from-Vol-2-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cherry-blossom-2025-sticker-pack",
+    "category": "stickers",
+    "name": "Cherry Blossom 2025 Sticker Pack",
+    "rarity": "Rare",
+    "source": "Cherry Blossom Festival 2025",
+    "image": "/images/stickers/Cherry-Blossom-2025-Sticker-Pack-Rare-from-Cherry-Blossom-Festival-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cherry-blossom-flower-sticker",
+    "category": "stickers",
+    "name": "Cherry Blossom Flower Sticker",
+    "rarity": "Common",
+    "source": "Cherry Blossom 2025 Sticker Pack",
+    "image": "/images/stickers/Cherry-Blossom-Flower-Sticker-Common-from-Cherry-Blossom-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cherry-blossom-tree-sticker",
+    "category": "stickers",
+    "name": "Cherry Blossom Tree Sticker",
+    "rarity": "Common",
+    "source": "Cherry Blossom 2025 Sticker Pack",
+    "image": "/images/stickers/Cherry-Blossom-Tree-Sticker-Common-from-Cherry-Blossom-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "chick-sticker",
+    "category": "stickers",
+    "name": "Chick Sticker",
+    "rarity": "Rare",
+    "source": "Pets Plus Sticker Pack",
+    "image": "/images/stickers/Chick-Sticker-Rare-from-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "chickatrice-sticker",
+    "category": "stickers",
+    "name": "Chickatrice Sticker",
+    "rarity": "Common",
+    "source": "Halloween 2024 Sticker Pack",
+    "image": "/images/stickers/Chickatrice-Sticker-Common-from-Halloween-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "chill-leviathan-sticker",
+    "category": "stickers",
+    "name": "Chill Leviathan Sticker",
+    "rarity": "Rare",
+    "source": "Vol 2 Pets Plus Sticker Pack",
+    "image": "/images/stickers/Chill-Leviathan-Sticker-Rare-from-Vol-2-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "chipmunk-sticker",
+    "category": "stickers",
+    "name": "Chipmunk Sticker",
+    "rarity": "Uncommon",
+    "source": "Summer Camp 2026 Sticker Pack",
+    "image": "/images/stickers/Chipmunk-Sticker-Uncommon-from-Summer-Camp-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "chocolate-sticker",
+    "category": "stickers",
+    "name": "Chocolate Sticker",
+    "rarity": "Common",
+    "source": "Sugarfest 2026 Sticker Pack",
+    "image": "/images/stickers/Chocolate-Sticker-Common-from-Sugarfest-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "christmas-dog-sticker",
+    "category": "stickers",
+    "name": "Christmas Dog Sticker",
+    "rarity": "Legendary",
+    "source": "Winter 2025 Sticker Pack",
+    "image": "/images/stickers/Christmas-Dog-Sticker-Legendary-from-Winter-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "christmas-pudding-pup-sticker-ultra",
+    "category": "stickers",
+    "name": "Christmas Pudding Pup Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Fire Dimension Sticker Pack",
+    "image": "/images/stickers/Christmas-Pudding-Pup-Sticker-Ultra-Rare-from-Fire-Dimension-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "christmas-spirit-sticker-ultra",
+    "category": "stickers",
+    "name": "Christmas Spirit Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Winter 2025 Sticker Pack",
+    "image": "/images/stickers/Christmas-Spirit-Sticker-Ultra-Rare-from-Winter-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "christmas-tree-sticker",
+    "category": "stickers",
+    "name": "Christmas Tree Sticker",
+    "rarity": "Common",
+    "source": "Winter 2024 Sticker Pack",
+    "image": "/images/stickers/Christmas-Tree-Sticker-Common-from-Winter-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "clownfish-sticker-ultra",
+    "category": "stickers",
+    "name": "Clownfish Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Ocean Sticker Pack",
+    "image": "/images/stickers/Clownfish-Sticker-Ultra-Rare-from-Ocean-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "clubtail-dragonfly-sticker",
+    "category": "stickers",
+    "name": "Clubtail Dragonfly Sticker",
+    "rarity": "Uncommon",
+    "source": "Summer Camp 2026 Sticker Pack",
+    "image": "/images/stickers/Clubtail-Dragonfly-Sticker-Uncommon-from-Summer-Camp-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cocoadile-sticker",
+    "category": "stickers",
+    "name": "Cocoadile Sticker",
+    "rarity": "Legendary",
+    "source": "Sugarfest 2026 Sticker Pack",
+    "image": "/images/stickers/Cocoadile-Sticker-Legendary-from-Sugarfest-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "coconut-friend-sticker",
+    "category": "stickers",
+    "name": "Coconut Friend Sticker",
+    "rarity": "Legendary",
+    "source": "Summer 2025 Sticker Pack",
+    "image": "/images/stickers/Coconut-Friend-Sticker-Legendary-from-Summer-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cold-tim-sticker",
+    "category": "stickers",
+    "name": "Cold Tim Sticker",
+    "rarity": "Common",
+    "source": "Ice Dimension Baits",
+    "image": "/images/stickers/Cold-Tim-Sticker-Common-from-Ice-Dimension-Baits.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "copper-pickaxe-sticker",
+    "category": "stickers",
+    "name": "Copper Pickaxe Sticker",
+    "rarity": "Common",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/Copper-Pickaxe-Sticker-Common-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "corn-doggo-sticker-ultra",
+    "category": "stickers",
+    "name": "Corn Doggo Sticker Ultra",
+    "rarity": "Rare",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Corn-Doggo-Sticker-Ultra-Rare-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cow-calf-sticker",
+    "category": "stickers",
+    "name": "Cow Calf Sticker",
+    "rarity": "Rare",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Cow-Calf-Sticker-Rare-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cow-loves-this-sticker",
+    "category": "stickers",
+    "name": "Cow Loves This Sticker",
+    "rarity": "Legendary",
+    "source": "Vol 2 Pets Plus Sticker Pack",
+    "image": "/images/stickers/Cow-Loves-This-Sticker-Legendary-from-Vol-2-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cow-sticker-ultra",
+    "category": "stickers",
+    "name": "Cow Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Cow-Sticker-Ultra-Rare-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cozy-cactus-friend-sticker-ultra",
+    "category": "stickers",
+    "name": "Cozy Cactus Friend Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Winter 2025 Sticker Pack",
+    "image": "/images/stickers/Cozy-Cactus-Friend-Sticker-Ultra-Rare-from-Winter-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "crab-sticker",
+    "category": "stickers",
+    "name": "Crab Sticker",
+    "rarity": "Uncommon",
+    "source": "Ocean Sticker Pack",
+    "image": "/images/stickers/Crab-Sticker-Uncommon-from-Ocean-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cranky-coin-sticker",
+    "category": "stickers",
+    "name": "Cranky Coin Sticker",
+    "rarity": "Common",
+    "source": "Ocean Sticker Pack",
+    "image": "/images/stickers/Cranky-Coin-Sticker-Common-from-Ocean-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cuta-a-cabra-sticker",
+    "category": "stickers",
+    "name": "Cuta A Cabra Sticker",
+    "rarity": "Uncommon",
+    "source": "Halloween 2024 Sticker Pack",
+    "image": "/images/stickers/Cuta-A-Cabra-Sticker-Uncommon-from-Halloween-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dalmatian-sticker-ultra",
+    "category": "stickers",
+    "name": "Dalmatian Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Dalmatian-Sticker-Ultra-Rare-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dango-sticker",
+    "category": "stickers",
+    "name": "Dango Sticker",
+    "rarity": "Uncommon",
+    "source": "Sugarfest 2026 Sticker Pack",
+    "image": "/images/stickers/Dango-Sticker-Uncommon-from-Sugarfest-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "deinonychus-sticker-ultra",
+    "category": "stickers",
+    "name": "Deinonychus Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/Deinonychus-Sticker-Ultra-Rare-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "demisexual-bat-sticker",
+    "category": "stickers",
+    "name": "Demisexual Bat Sticker",
+    "rarity": "Rare",
+    "source": "Pride Sticker Pack",
+    "image": "/images/stickers/Demisexual-Bat-Sticker-Rare-from-Pride-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "diamond-ladybug-sticker",
+    "category": "stickers",
+    "name": "Diamond Ladybug Sticker",
+    "rarity": "Legendary",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Diamond-Ladybug-Sticker-Legendary-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "diamond-pickaxe-sticker",
+    "category": "stickers",
+    "name": "Diamond Pickaxe Sticker",
+    "rarity": "Rare",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/Diamond-Pickaxe-Sticker-Rare-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dilophosaurus-sticker",
+    "category": "stickers",
+    "name": "Dilophosaurus Sticker",
+    "rarity": "Rare",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/Dilophosaurus-Sticker-Rare-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dimorphodon-sticker",
+    "category": "stickers",
+    "name": "Dimorphodon Sticker",
+    "rarity": "Legendary",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/Dimorphodon-Sticker-Legendary-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dinner-discourse-cat-sticker",
+    "category": "stickers",
+    "name": "Dinner Discourse Cat Sticker",
+    "rarity": "Legendary",
+    "source": "Pets Plus Sticker Pack",
+    "image": "/images/stickers/Dinner-Discourse-Cat-Sticker-Legendary-from-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dodo-sticker",
+    "category": "stickers",
+    "name": "Dodo Sticker",
+    "rarity": "Legendary",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/Dodo-Sticker-Legendary-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dog-sticker",
+    "category": "stickers",
+    "name": "Dog Sticker",
+    "rarity": "Common",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Dog-Sticker-Common-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dolphin-sticker",
+    "category": "stickers",
+    "name": "Dolphin Sticker",
+    "rarity": "Uncommon",
+    "source": "Ocean Sticker Pack",
+    "image": "/images/stickers/Dolphin-Sticker-Uncommon-from-Ocean-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "donkey-sticker",
+    "category": "stickers",
+    "name": "Donkey Sticker",
+    "rarity": "Common",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Donkey-Sticker-Common-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dotted-eggy-sticker",
+    "category": "stickers",
+    "name": "Dotted Eggy Sticker",
+    "rarity": "Rare",
+    "source": "Cherry Blossom 2025 Sticker Pack",
+    "image": "/images/stickers/Dotted-Eggy-Sticker-Rare-from-Cherry-Blossom-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dracula-fish-sticker",
+    "category": "stickers",
+    "name": "Dracula Fish Sticker",
+    "rarity": "Uncommon",
+    "source": "Ocean Sticker Pack",
+    "image": "/images/stickers/Dracula-Fish-Sticker-Uncommon-from-Ocean-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dragon-breath-animated-sticker",
+    "category": "stickers",
+    "name": "Dragon Breath Animated Sticker",
+    "rarity": "Legendary",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Dragon-Breath-Animated-Sticker-Legendary-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dragon-sticker",
+    "category": "stickers",
+    "name": "Dragon Sticker",
+    "rarity": "Legendary",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Dragon-Sticker-Legendary-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dragonfly-sticker",
+    "category": "stickers",
+    "name": "Dragonfly Sticker",
+    "rarity": "Legendary",
+    "source": "Summer Camp 2026 Sticker Pack",
+    "image": "/images/stickers/Dragonfly-Sticker-Legendary-from-Summer-Camp-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "drum-sticker",
+    "category": "stickers",
+    "name": "Drum Sticker",
+    "rarity": "Uncommon",
+    "source": "Summer 2025 Sticker Pack",
+    "image": "/images/stickers/Drum-Sticker-Uncommon-from-Summer-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "easter-egg-sticker",
+    "category": "stickers",
+    "name": "Easter Egg Sticker",
+    "rarity": "Common",
+    "source": "Cherry Blossom 2025 Sticker Pack",
+    "image": "/images/stickers/Easter-Egg-Sticker-Common-from-Cherry-Blossom-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "egg-basket-sticker",
+    "category": "stickers",
+    "name": "Egg Basket Sticker",
+    "rarity": "Common",
+    "source": "Cherry Blossom 2025 Sticker Pack",
+    "image": "/images/stickers/Egg-Basket-Sticker-Common-from-Cherry-Blossom-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "elasmosaurus-sticker-ultra",
+    "category": "stickers",
+    "name": "Elasmosaurus Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/Elasmosaurus-Sticker-Ultra-Rare-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "elephant-sticker-ultra",
+    "category": "stickers",
+    "name": "Elephant Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Elephant-Sticker-Ultra-Rare-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "emperor-shrimp-sticker",
+    "category": "stickers",
+    "name": "Emperor Shrimp Sticker",
+    "rarity": "Uncommon",
+    "source": "Summer 2025 Sticker Pack",
+    "image": "/images/stickers/Emperor-Shrimp-Sticker-Uncommon-from-Summer-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "evil-unicorn-sticker",
+    "category": "stickers",
+    "name": "Evil Unicorn Sticker",
+    "rarity": "Legendary",
+    "source": "Halloween 2024 Sticker Pack",
+    "image": "/images/stickers/Evil-Unicorn-Sticker-Legendary-from-Halloween-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "fairy-bat-dragon-sticker",
+    "category": "stickers",
+    "name": "Fairy Bat Dragon Sticker",
+    "rarity": "Legendary",
+    "source": "Winter 2024 Sticker Pack",
+    "image": "/images/stickers/Fairy-Bat-Dragon-Sticker-Legendary-from-Winter-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "fairy-lights-sticker",
+    "category": "stickers",
+    "name": "Fairy Lights Sticker",
+    "rarity": "Common",
+    "source": "Winter 2025 Sticker Pack",
+    "image": "/images/stickers/Fairy-Lights-Sticker-Common-from-Winter-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "fallow-deer-sticker-ultra",
+    "category": "stickers",
+    "name": "Fallow Deer Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Fallow-Deer-Sticker-Ultra-Rare-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "festive-stocking-sticker",
+    "category": "stickers",
+    "name": "Festive Stocking Sticker",
+    "rarity": "Common",
+    "source": "Winter 2025 Sticker Pack",
+    "image": "/images/stickers/Festive-Stocking-Sticker-Common-from-Winter-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "festive-wreath-sticker",
+    "category": "stickers",
+    "name": "Festive Wreath Sticker",
+    "rarity": "Uncommon",
+    "source": "Winter 2025 Sticker Pack",
+    "image": "/images/stickers/Festive-Wreath-Sticker-Uncommon-from-Winter-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "field-mouse-sticker",
+    "category": "stickers",
+    "name": "Field Mouse Sticker",
+    "rarity": "Rare",
+    "source": "Sugarfest 2026 Sticker Pack",
+    "image": "/images/stickers/Field-Mouse-Sticker-Rare-from-Sugarfest-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "fire-dimension-portal-sticker",
+    "category": "stickers",
+    "name": "Fire Dimension Portal Sticker",
+    "rarity": "Uncommon",
+    "source": "Fire Dimension Sticker Pack",
+    "image": "/images/stickers/Fire-Dimension-Portal-Sticker-Uncommon-from-Fire-Dimension-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "fire-dimension-sticker-pack",
+    "category": "stickers",
+    "name": "Fire Dimension Sticker Pack",
+    "rarity": "Rare",
+    "source": "Ice Dimension 2025",
+    "image": "/images/stickers/Fire-Dimension-Sticker-Pack-Rare-from-Ice-Dimension-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "flaming-fox-sticker",
+    "category": "stickers",
+    "name": "Flaming Fox Sticker",
+    "rarity": "Legendary",
+    "source": "Fire Dimension Sticker Pack",
+    "image": "/images/stickers/Flaming-Fox-Sticker-Legendary-from-Fire-Dimension-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "flaming-zebra-sticker",
+    "category": "stickers",
+    "name": "Flaming Zebra Sticker",
+    "rarity": "Rare",
+    "source": "Fire Dimension Sticker Pack",
+    "image": "/images/stickers/Flaming-Zebra-Sticker-Rare-from-Fire-Dimension-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "flamingo-sticker-ultra",
+    "category": "stickers",
+    "name": "Flamingo Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Flamingo-Sticker-Ultra-Rare-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "floating-hippo-sticker-ultra",
+    "category": "stickers",
+    "name": "Floating Hippo Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Vol 2 Pets Plus Sticker Pack",
+    "image": "/images/stickers/Floating-Hippo-Sticker-Ultra-Rare-from-Vol-2-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "flower-power-duckling-sticker",
+    "category": "stickers",
+    "name": "Flower Power Duckling Sticker",
+    "rarity": "Rare",
+    "source": "Cherry Blossom 2025 Sticker Pack",
+    "image": "/images/stickers/Flower-Power-Duckling-Sticker-Rare-from-Cherry-Blossom-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "flying-fish-sticker",
+    "category": "stickers",
+    "name": "Flying Fish Sticker",
+    "rarity": "Common",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Flying-Fish-Sticker-Common-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "fossil-sticker-pack",
+    "category": "stickers",
+    "name": "Fossil Sticker Pack",
+    "rarity": "Rare",
+    "source": "Fossil Isle 2024",
+    "image": "/images/stickers/Fossil-Sticker-Pack-Rare-from-Fossil-Isle-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "fox-sticker",
+    "category": "stickers",
+    "name": "Fox Sticker",
+    "rarity": "Uncommon",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Fox-Sticker-Uncommon-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "frankenfeline-sticker",
+    "category": "stickers",
+    "name": "Frankenfeline Sticker",
+    "rarity": "Common",
+    "source": "Halloween 2024 Sticker Pack",
+    "image": "/images/stickers/Frankenfeline-Sticker-Common-from-Halloween-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "frog-sticker",
+    "category": "stickers",
+    "name": "Frog Sticker",
+    "rarity": "Uncommon",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Frog-Sticker-Uncommon-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "frostbite-bear-and-cub-animated-sticker",
+    "category": "stickers",
+    "name": "Frostbite Bear and Cub Animated Sticker",
+    "rarity": "Legendary",
+    "source": "Ice Soup Bait",
+    "image": "/images/stickers/Frostbite-Bear-and-Cub-Animated-Sticker-Legendary-from-Ice-Soup-Bait.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "frostbite-bear-sticker",
+    "category": "stickers",
+    "name": "Frostbite Bear Sticker",
+    "rarity": "Uncommon",
+    "source": "Ice Soup Bait",
+    "image": "/images/stickers/Frostbite-Bear-Sticker-Uncommon-from-Ice-Soup-Bait.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "frostclaw-animated-sticker",
+    "category": "stickers",
+    "name": "Frostclaw Animated Sticker",
+    "rarity": "Legendary",
+    "source": "Winter 2024 Sticker Pack",
+    "image": "/images/stickers/Frostclaw-Animated-Sticker-Legendary-from-Winter-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "frozen-penguin-sticker",
+    "category": "stickers",
+    "name": "Frozen Penguin Sticker",
+    "rarity": "Uncommon",
+    "source": "Ice Soup Bait",
+    "image": "/images/stickers/Frozen-Penguin-Sticker-Uncommon-from-Ice-Soup-Bait.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "gay-snake-in-a-boot-sticker",
+    "category": "stickers",
+    "name": "Gay Snake in a Boot Sticker",
+    "rarity": "Rare",
+    "source": "Pride Sticker Pack",
+    "image": "/images/stickers/Gay-Snake-in-a-Boot-Sticker-Rare-from-Pride-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "gender-fluid-ghost-dog-sticker",
+    "category": "stickers",
+    "name": "Gender Fluid Ghost Dog Sticker",
+    "rarity": "Rare",
+    "source": "Pride Sticker Pack",
+    "image": "/images/stickers/Gender-Fluid-Ghost-Dog-Sticker-Rare-from-Pride-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "genderqueer-seahorse-sticker",
+    "category": "stickers",
+    "name": "Genderqueer Seahorse Sticker",
+    "rarity": "Rare",
+    "source": "Pride Sticker Pack",
+    "image": "/images/stickers/Genderqueer-Seahorse-Sticker-Rare-from-Pride-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ghost-bunny-sticker",
+    "category": "stickers",
+    "name": "Ghost Bunny Sticker",
+    "rarity": "Rare",
+    "source": "Halloween 2024 Sticker Pack",
+    "image": "/images/stickers/Ghost-Bunny-Sticker-Rare-from-Halloween-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ghost-dog-sticker-ultra",
+    "category": "stickers",
+    "name": "Ghost Dog Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Halloween 2025 Sticker Pack",
+    "image": "/images/stickers/Ghost-Dog-Sticker-Ultra-Rare-from-Halloween-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ghost-sticker-ultra",
+    "category": "stickers",
+    "name": "Ghost Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Halloween 2024 Sticker Pack",
+    "image": "/images/stickers/Ghost-Sticker-Ultra-Rare-from-Halloween-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ginger-cat-sticker",
+    "category": "stickers",
+    "name": "Ginger Cat Sticker",
+    "rarity": "Rare",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Ginger-Cat-Sticker-Rare-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "gingerbread-hare-sticker-ultra",
+    "category": "stickers",
+    "name": "Gingerbread Hare Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Winter 2024 Sticker Pack",
+    "image": "/images/stickers/Gingerbread-Hare-Sticker-Ultra-Rare-from-Winter-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "gingerbread-reindeer-sticker",
+    "category": "stickers",
+    "name": "Gingerbread Reindeer Sticker",
+    "rarity": "Rare",
+    "source": "Winter 2025 (Advent Calendar)",
+    "image": "/images/stickers/Gingerbread-Reindeer-Sticker-Rare-from-Winter-2025-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "glyptodon-sticker",
+    "category": "stickers",
+    "name": "Glyptodon Sticker",
+    "rarity": "Uncommon",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/Glyptodon-Sticker-Uncommon-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "gold-penguin-sticker-ultra",
+    "category": "stickers",
+    "name": "Gold Penguin Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Pets Plus Sticker Pack",
+    "image": "/images/stickers/Gold-Penguin-Sticker-Ultra-Rare-from-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "goldhorn-sticker-ultra",
+    "category": "stickers",
+    "name": "Goldhorn Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Pets Plus Sticker Pack",
+    "image": "/images/stickers/Goldhorn-Sticker-Ultra-Rare-from-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "goose-sticker-ultra",
+    "category": "stickers",
+    "name": "Goose Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Sugarfest 2026 Sticker Pack",
+    "image": "/images/stickers/Goose-Sticker-Ultra-Rare-from-Sugarfest-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "great-pyrenees-sticker",
+    "category": "stickers",
+    "name": "Great Pyrenees Sticker",
+    "rarity": "Rare",
+    "source": "Winter 2024 Sticker Pack",
+    "image": "/images/stickers/Great-Pyrenees-Sticker-Rare-from-Winter-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "grim-dragon-sticker",
+    "category": "stickers",
+    "name": "Grim Dragon Sticker",
+    "rarity": "Legendary",
+    "source": "Halloween 2024 Sticker Pack",
+    "image": "/images/stickers/Grim-Dragon-Sticker-Legendary-from-Halloween-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "groovy-lobster-sticker-ultra",
+    "category": "stickers",
+    "name": "Groovy Lobster Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Vol 2 Pets Plus Sticker Pack",
+    "image": "/images/stickers/Groovy-Lobster-Sticker-Ultra-Rare-from-Vol-2-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ground-sloth-sticker",
+    "category": "stickers",
+    "name": "Ground Sloth Sticker",
+    "rarity": "Common",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/Ground-Sloth-Sticker-Common-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "guitar-sticker",
+    "category": "stickers",
+    "name": "Guitar Sticker",
+    "rarity": "Rare",
+    "source": "Summer 2025 Sticker Pack",
+    "image": "/images/stickers/Guitar-Sticker-Rare-from-Summer-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "gumball-caterpillar-sticker",
+    "category": "stickers",
+    "name": "Gumball Caterpillar Sticker",
+    "rarity": "Legendary",
+    "source": "Sugarfest 2026 Sticker Pack",
+    "image": "/images/stickers/Gumball-Caterpillar-Sticker-Legendary-from-Sugarfest-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "gummy-guana-sticker",
+    "category": "stickers",
+    "name": "Gummy Guana Sticker",
+    "rarity": "Uncommon",
+    "source": "Sugarfest 2026 Sticker Pack",
+    "image": "/images/stickers/Gummy-Guana-Sticker-Uncommon-from-Sugarfest-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "halloween-2024-sticker-pack",
+    "category": "stickers",
+    "name": "Halloween 2024 Sticker Pack",
+    "rarity": "Rare",
+    "source": "Halloween 2024",
+    "image": "/images/stickers/Halloween-2024-Sticker-Pack-Rare-from-Halloween-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "halloween-2025-sticker-pack",
+    "category": "stickers",
+    "name": "Halloween 2025 Sticker Pack",
+    "rarity": "Legendary",
+    "source": "Halloween 2025",
+    "image": "/images/stickers/Halloween-2025-Sticker-Pack-Legendary-from-Halloween-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hammerhead-shark-sticker-ultra",
+    "category": "stickers",
+    "name": "Hammerhead Shark Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Summer 2025 Sticker Pack",
+    "image": "/images/stickers/Hammerhead-Shark-Sticker-Ultra-Rare-from-Summer-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hamster-selfie-sticker",
+    "category": "stickers",
+    "name": "Hamster Selfie Sticker",
+    "rarity": "Legendary",
+    "source": "Pets Plus Sticker Pack",
+    "image": "/images/stickers/Hamster-Selfie-Sticker-Legendary-from-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hang-glider-sticker",
+    "category": "stickers",
+    "name": "Hang Glider Sticker",
+    "rarity": "Uncommon",
+    "source": "Cherry Blossom 2025 Sticker Pack",
+    "image": "/images/stickers/Hang-Glider-Sticker-Uncommon-from-Cherry-Blossom-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "happy-clam-sticker",
+    "category": "stickers",
+    "name": "Happy Clam Sticker",
+    "rarity": "Rare",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Happy-Clam-Sticker-Rare-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "happy-duckling-sticker",
+    "category": "stickers",
+    "name": "Happy Duckling Sticker",
+    "rarity": "Rare",
+    "source": "Sugarfest 2026 Sticker Pack",
+    "image": "/images/stickers/Happy-Duckling-Sticker-Rare-from-Sugarfest-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "happy-guinea-pig-sticker",
+    "category": "stickers",
+    "name": "Happy Guinea Pig Sticker",
+    "rarity": "Rare",
+    "source": "Vol 2 Pets Plus Sticker Pack",
+    "image": "/images/stickers/Happy-Guinea-Pig-Sticker-Rare-from-Vol-2-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "happy-pride-zebra-sticker",
+    "category": "stickers",
+    "name": "Happy Pride Zebra Sticker",
+    "rarity": "Rare",
+    "source": "Pride Sticker Pack",
+    "image": "/images/stickers/Happy-Pride-Zebra-Sticker-Rare-from-Pride-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hare-sticker-ultra",
+    "category": "stickers",
+    "name": "Hare Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Sugarfest 2026 Sticker Pack",
+    "image": "/images/stickers/Hare-Sticker-Ultra-Rare-from-Sugarfest-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hawk-sticker",
+    "category": "stickers",
+    "name": "Hawk Sticker",
+    "rarity": "Uncommon",
+    "source": "Summer Camp 2026 Sticker Pack",
+    "image": "/images/stickers/Hawk-Sticker-Uncommon-from-Summer-Camp-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hermit-crab-sticker",
+    "category": "stickers",
+    "name": "Hermit Crab Sticker",
+    "rarity": "Common",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Hermit-Crab-Sticker-Common-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hot-doggo-sticker-ultra",
+    "category": "stickers",
+    "name": "Hot Doggo Sticker Ultra",
+    "rarity": "Rare",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Hot-Doggo-Sticker-Ultra-Rare-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "humbug-sticker",
+    "category": "stickers",
+    "name": "Humbug Sticker",
+    "rarity": "Common",
+    "source": "Winter 2025 Sticker Pack",
+    "image": "/images/stickers/Humbug-Sticker-Common-from-Winter-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "husky-sticker",
+    "category": "stickers",
+    "name": "Husky Sticker",
+    "rarity": "Rare",
+    "source": "Winter 2024 Sticker Pack",
+    "image": "/images/stickers/Husky-Sticker-Rare-from-Winter-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ice-cream-hermit-crab-sticker",
+    "category": "stickers",
+    "name": "Ice Cream Hermit Crab Sticker",
+    "rarity": "Rare",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Ice-Cream-Hermit-Crab-Sticker-Rare-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ice-cube-sticker",
+    "category": "stickers",
+    "name": "Ice Cube Sticker",
+    "rarity": "Uncommon",
+    "source": "Winter 2025 Sticker Pack",
+    "image": "/images/stickers/Ice-Cube-Sticker-Uncommon-from-Winter-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ice-dimension-portal-sticker",
+    "category": "stickers",
+    "name": "Ice Dimension Portal Sticker",
+    "rarity": "Common",
+    "source": "Ice Dimension Baits",
+    "image": "/images/stickers/Ice-Dimension-Portal-Sticker-Common-from-Ice-Dimension-Baits.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ice-golem-sticker",
+    "category": "stickers",
+    "name": "Ice Golem Sticker",
+    "rarity": "Rare",
+    "source": "Winter 2025 (Advent Calendar)",
+    "image": "/images/stickers/Ice-Golem-Sticker-Rare-from-Winter-2025-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "icy-porcupine-sticker",
+    "category": "stickers",
+    "name": "Icy Porcupine Sticker",
+    "rarity": "Uncommon",
+    "source": "Ice Soup Bait",
+    "image": "/images/stickers/Icy-Porcupine-Sticker-Uncommon-from-Ice-Soup-Bait.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "indian-flying-fox-sticker-ultra",
+    "category": "stickers",
+    "name": "Indian Flying Fox Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Halloween 2024 Sticker Pack",
+    "image": "/images/stickers/Indian-Flying-Fox-Sticker-Ultra-Rare-from-Halloween-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "intersex-ringed-octopus-sticker",
+    "category": "stickers",
+    "name": "Intersex Ringed Octopus Sticker",
+    "rarity": "Rare",
+    "source": "Pride Sticker Pack",
+    "image": "/images/stickers/Intersex-Ringed-Octopus-Sticker-Rare-from-Pride-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "irish-setter-sticker",
+    "category": "stickers",
+    "name": "Irish Setter Sticker",
+    "rarity": "Uncommon",
+    "source": "Summer Camp 2026 Sticker Pack",
+    "image": "/images/stickers/Irish-Setter-Sticker-Uncommon-from-Summer-Camp-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "iron-pickaxe-sticker",
+    "category": "stickers",
+    "name": "Iron Pickaxe Sticker",
+    "rarity": "Uncommon",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/Iron-Pickaxe-Sticker-Uncommon-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "island-tarsier-sticker",
+    "category": "stickers",
+    "name": "Island Tarsier Sticker",
+    "rarity": "Common",
+    "source": "Summer 2025 Sticker Pack",
+    "image": "/images/stickers/Island-Tarsier-Sticker-Common-from-Summer-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "jekyll-hydra-animated-sticker",
+    "category": "stickers",
+    "name": "Jekyll Hydra Animated Sticker",
+    "rarity": "Legendary",
+    "source": "Halloween 2024 Sticker Pack",
+    "image": "/images/stickers/Jekyll-Hydra-Animated-Sticker-Legendary-from-Halloween-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "jellyfish-sticker-ultra",
+    "category": "stickers",
+    "name": "Jellyfish Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Ocean Sticker Pack",
+    "image": "/images/stickers/Jellyfish-Sticker-Ultra-Rare-from-Ocean-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "jewel-sticker",
+    "category": "stickers",
+    "name": "Jewel Sticker",
+    "rarity": "Uncommon",
+    "source": "Summer 2025 Sticker Pack",
+    "image": "/images/stickers/Jewel-Sticker-Uncommon-from-Summer-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "jousting-horse-sticker",
+    "category": "stickers",
+    "name": "Jousting Horse Sticker",
+    "rarity": "Legendary",
+    "source": "Halloween 2024 Sticker Pack",
+    "image": "/images/stickers/Jousting-Horse-Sticker-Legendary-from-Halloween-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "joyful-cactus-friend-sticker-ultra",
+    "category": "stickers",
+    "name": "Joyful Cactus Friend Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Vol 2 Pets Plus Sticker Pack",
+    "image": "/images/stickers/Joyful-Cactus-Friend-Sticker-Ultra-Rare-from-Vol-2-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "juggling-water-moon-bear-sticker-ultra",
+    "category": "stickers",
+    "name": "Juggling Water Moon Bear Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Vol 2 Pets Plus Sticker Pack",
+    "image": "/images/stickers/Juggling-Water-Moon-Bear-Sticker-Ultra-Rare-from-Vol-2-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "jumping-banded-palm-civet-sticker",
+    "category": "stickers",
+    "name": "Jumping Banded Palm Civet Sticker",
+    "rarity": "Rare",
+    "source": "Vol 2 Pets Plus Sticker Pack",
+    "image": "/images/stickers/Jumping-Banded-Palm-Civet-Sticker-Rare-from-Vol-2-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "kage-crow-sticker-ultra",
+    "category": "stickers",
+    "name": "Kage Crow Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Cherry Blossom 2025 Sticker Pack",
+    "image": "/images/stickers/Kage-Crow-Sticker-Ultra-Rare-from-Cherry-Blossom-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "kaijunior-sticker",
+    "category": "stickers",
+    "name": "Kaijunior Sticker",
+    "rarity": "Uncommon",
+    "source": "Cherry Blossom 2025 Sticker Pack",
+    "image": "/images/stickers/Kaijunior-Sticker-Uncommon-from-Cherry-Blossom-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "kappakid-sticker",
+    "category": "stickers",
+    "name": "Kappakid Sticker",
+    "rarity": "Legendary",
+    "source": "Cherry Blossom 2025 Sticker Pack",
+    "image": "/images/stickers/Kappakid-Sticker-Legendary-from-Cherry-Blossom-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "kelp-captain-sticker",
+    "category": "stickers",
+    "name": "Kelp Captain Sticker",
+    "rarity": "Legendary",
+    "source": "Summer 2025 Sticker Pack",
+    "image": "/images/stickers/Kelp-Captain-Sticker-Legendary-from-Summer-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "kelp-crewmate-sticker",
+    "category": "stickers",
+    "name": "Kelp Crewmate Sticker",
+    "rarity": "Uncommon",
+    "source": "Summer 2025 Sticker Pack",
+    "image": "/images/stickers/Kelp-Crewmate-Sticker-Uncommon-from-Summer-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "kelp-hunter-sticker-ultra",
+    "category": "stickers",
+    "name": "Kelp Hunter Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Summer 2025 Sticker Pack",
+    "image": "/images/stickers/Kelp-Hunter-Sticker-Ultra-Rare-from-Summer-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "kelp-raider-sticker",
+    "category": "stickers",
+    "name": "Kelp Raider Sticker",
+    "rarity": "Rare",
+    "source": "Summer 2025 Sticker Pack",
+    "image": "/images/stickers/Kelp-Raider-Sticker-Rare-from-Summer-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "keyboard-warrior-komodo-dragon-sticker-ultra",
+    "category": "stickers",
+    "name": "Keyboard Warrior Komodo Dragon Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Vol 2 Pets Plus Sticker Pack",
+    "image": "/images/stickers/Keyboard-Warrior-Komodo-Dragon-Sticker-Ultra-Rare-from-Vol-2-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "kid-goat-sticker",
+    "category": "stickers",
+    "name": "Kid Goat Sticker",
+    "rarity": "Common",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Kid-Goat-Sticker-Common-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "kirin-sticker",
+    "category": "stickers",
+    "name": "Kirin Sticker",
+    "rarity": "Rare",
+    "source": "Summer Camp 2026 Sticker Pack",
+    "image": "/images/stickers/Kirin-Sticker-Rare-from-Summer-Camp-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "kitsune-sticker",
+    "category": "stickers",
+    "name": "Kitsune Sticker",
+    "rarity": "Legendary",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Kitsune-Sticker-Legendary-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "kitty-bat-sticker-ultra",
+    "category": "stickers",
+    "name": "Kitty Bat Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Halloween 2025 Sticker Pack",
+    "image": "/images/stickers/Kitty-Bat-Sticker-Ultra-Rare-from-Halloween-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "kiwi-sticker",
+    "category": "stickers",
+    "name": "Kiwi Sticker",
+    "rarity": "Uncommon",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Kiwi-Sticker-Uncommon-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "koala-sticker",
+    "category": "stickers",
+    "name": "Koala Sticker",
+    "rarity": "Rare",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Koala-Sticker-Rare-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "koi-sticker",
+    "category": "stickers",
+    "name": "Koi Sticker",
+    "rarity": "Uncommon",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Koi-Sticker-Uncommon-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "kraken-sticker",
+    "category": "stickers",
+    "name": "Kraken Sticker",
+    "rarity": "Legendary",
+    "source": "Ocean Sticker Pack",
+    "image": "/images/stickers/Kraken-Sticker-Legendary-from-Ocean-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ladybug-sticker-ultra",
+    "category": "stickers",
+    "name": "Ladybug Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Ladybug-Sticker-Ultra-Rare-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "lamb-sticker",
+    "category": "stickers",
+    "name": "Lamb Sticker",
+    "rarity": "Rare",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Lamb-Sticker-Rare-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "lava-dragon-sticker",
+    "category": "stickers",
+    "name": "Lava Dragon Sticker",
+    "rarity": "Legendary",
+    "source": "Halloween 2025 Sticker Pack",
+    "image": "/images/stickers/Lava-Dragon-Sticker-Legendary-from-Halloween-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "lavender-dragon-sticker-ultra",
+    "category": "stickers",
+    "name": "Lavender Dragon Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Pets Plus Sticker Pack",
+    "image": "/images/stickers/Lavender-Dragon-Sticker-Ultra-Rare-from-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "leopard-shark-sticker",
+    "category": "stickers",
+    "name": "Leopard Shark Sticker",
+    "rarity": "Common",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Leopard-Shark-Sticker-Common-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "lesbian-cat-snake-alliance-sticker",
+    "category": "stickers",
+    "name": "Lesbian Cat Snake Alliance Sticker",
+    "rarity": "Rare",
+    "source": "Pride Sticker Pack",
+    "image": "/images/stickers/Lesbian-Cat-Snake-Alliance-Sticker-Rare-from-Pride-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "leviathan-sticker",
+    "category": "stickers",
+    "name": "Leviathan Sticker",
+    "rarity": "Legendary",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Leviathan-Sticker-Legendary-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "lighthouse-sticker",
+    "category": "stickers",
+    "name": "Lighthouse Sticker",
+    "rarity": "Common",
+    "source": "Summer Camp 2026 Sticker Pack",
+    "image": "/images/stickers/Lighthouse-Sticker-Common-from-Summer-Camp-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "lionfish-sticker-ultra",
+    "category": "stickers",
+    "name": "Lionfish Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Ocean Sticker Pack",
+    "image": "/images/stickers/Lionfish-Sticker-Ultra-Rare-from-Ocean-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "lobster-sticker",
+    "category": "stickers",
+    "name": "Lobster Sticker",
+    "rarity": "Uncommon",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Lobster-Sticker-Uncommon-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "lollipop-sticker",
+    "category": "stickers",
+    "name": "Lollipop Sticker",
+    "rarity": "Common",
+    "source": "Sugarfest 2026 Sticker Pack",
+    "image": "/images/stickers/Lollipop-Sticker-Common-from-Sugarfest-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "long-ermine-sticker",
+    "category": "stickers",
+    "name": "Long Ermine Sticker",
+    "rarity": "Legendary",
+    "source": "Vol 2 Pets Plus Sticker Pack",
+    "image": "/images/stickers/Long-Ermine-Sticker-Legendary-from-Vol-2-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "long-neck-throw-toy-sticker",
+    "category": "stickers",
+    "name": "Long Neck Throw Toy Sticker",
+    "rarity": "Common",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/Long-Neck-Throw-Toy-Sticker-Common-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "lynx-sticker",
+    "category": "stickers",
+    "name": "Lynx Sticker",
+    "rarity": "Uncommon",
+    "source": "Winter 2025 Sticker Pack",
+    "image": "/images/stickers/Lynx-Sticker-Uncommon-from-Winter-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "magma-moose-sticker-ultra",
+    "category": "stickers",
+    "name": "Magma Moose Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Fire Dimension Sticker Pack",
+    "image": "/images/stickers/Magma-Moose-Sticker-Ultra-Rare-from-Fire-Dimension-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "magma-snail-sticker",
+    "category": "stickers",
+    "name": "Magma Snail Sticker",
+    "rarity": "Uncommon",
+    "source": "Fire Dimension Sticker Pack",
+    "image": "/images/stickers/Magma-Snail-Sticker-Uncommon-from-Fire-Dimension-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "mahi-mahi-sticker",
+    "category": "stickers",
+    "name": "Mahi Mahi Sticker",
+    "rarity": "Uncommon",
+    "source": "Ocean Sticker Pack",
+    "image": "/images/stickers/Mahi-Mahi-Sticker-Uncommon-from-Ocean-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "maine-coon-sticker",
+    "category": "stickers",
+    "name": "Maine Coon Sticker",
+    "rarity": "Rare",
+    "source": "Winter 2025 Sticker Pack",
+    "image": "/images/stickers/Maine-Coon-Sticker-Rare-from-Winter-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "majestic-pony-sticker",
+    "category": "stickers",
+    "name": "Majestic Pony Sticker",
+    "rarity": "Legendary",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Majestic-Pony-Sticker-Legendary-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "malayan-tapir-sticker-ultra",
+    "category": "stickers",
+    "name": "Malayan Tapir Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Vol 2 Pets Plus Sticker Pack",
+    "image": "/images/stickers/Malayan-Tapir-Sticker-Ultra-Rare-from-Vol-2-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "manta-ray-sticker",
+    "category": "stickers",
+    "name": "Manta Ray Sticker",
+    "rarity": "Rare",
+    "source": "Summer 2025 Sticker Pack",
+    "image": "/images/stickers/Manta-Ray-Sticker-Rare-from-Summer-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "many-mackerel-sticker",
+    "category": "stickers",
+    "name": "Many Mackerel Sticker",
+    "rarity": "Uncommon",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Many-Mackerel-Sticker-Uncommon-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "marabou-stork-sticker",
+    "category": "stickers",
+    "name": "Marabou Stork Sticker",
+    "rarity": "Rare",
+    "source": "Halloween 2024 Sticker Pack",
+    "image": "/images/stickers/Marabou-Stork-Sticker-Rare-from-Halloween-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "marimba-sticker",
+    "category": "stickers",
+    "name": "Marimba Sticker",
+    "rarity": "Common",
+    "source": "Summer 2025 Sticker Pack",
+    "image": "/images/stickers/Marimba-Sticker-Common-from-Summer-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "mecha-r4bbit-sticker",
+    "category": "stickers",
+    "name": "Mecha R4BBIT Sticker",
+    "rarity": "Rare",
+    "source": "Cherry Blossom 2025 Sticker Pack",
+    "image": "/images/stickers/Mecha-R4BBIT-Sticker-Rare-from-Cherry-Blossom-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "merhorse-sticker",
+    "category": "stickers",
+    "name": "Merhorse Sticker",
+    "rarity": "Rare",
+    "source": "Summer Camp 2026 Sticker Pack",
+    "image": "/images/stickers/Merhorse-Sticker-Rare-from-Summer-Camp-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "mermicorn-animated-sticker",
+    "category": "stickers",
+    "name": "Mermicorn Animated Sticker",
+    "rarity": "Legendary",
+    "source": "Summer 2025 Sticker Pack",
+    "image": "/images/stickers/Mermicorn-Animated-Sticker-Legendary-from-Summer-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "merry-mistletroll-sticker-ultra",
+    "category": "stickers",
+    "name": "Merry Mistletroll Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Winter",
+    "image": "/images/stickers/Merry-Mistletroll-Sticker-Ultra-Rare-from-Winter.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "mini-pig-sticker",
+    "category": "stickers",
+    "name": "Mini Pig Sticker",
+    "rarity": "Rare",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Mini-Pig-Sticker-Rare-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "mirai-moth-sticker-ultra",
+    "category": "stickers",
+    "name": "Mirai Moth Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Cherry Blossom 2025 Sticker Pack",
+    "image": "/images/stickers/Mirai-Moth-Sticker-Ultra-Rare-from-Cherry-Blossom-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "mochi-meow-tumble-animated-sticker",
+    "category": "stickers",
+    "name": "Mochi Meow Tumble Animated Sticker",
+    "rarity": "Legendary",
+    "source": "Sugarfest 2026 Sticker Pack",
+    "image": "/images/stickers/Mochi-Meow-Tumble-Animated-Sticker-Legendary-from-Sugarfest-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "moon-rabbit-sticker",
+    "category": "stickers",
+    "name": "Moon Rabbit Sticker",
+    "rarity": "Rare",
+    "source": "Sugarfest 2026 Sticker Pack",
+    "image": "/images/stickers/Moon-Rabbit-Sticker-Rare-from-Sugarfest-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "narwhal-sticker",
+    "category": "stickers",
+    "name": "Narwhal Sticker",
+    "rarity": "Rare",
+    "source": "Ocean Sticker Pack",
+    "image": "/images/stickers/Narwhal-Sticker-Rare-from-Ocean-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "naughty-mistletroll-sticker",
+    "category": "stickers",
+    "name": "Naughty Mistletroll Sticker",
+    "rarity": "Legendary",
+    "source": "Winter 2024 Sticker Pack",
+    "image": "/images/stickers/Naughty-Mistletroll-Sticker-Legendary-from-Winter-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "nautilus-sticker",
+    "category": "stickers",
+    "name": "Nautilus Sticker",
+    "rarity": "Legendary",
+    "source": "Ocean Sticker Pack",
+    "image": "/images/stickers/Nautilus-Sticker-Legendary-from-Ocean-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "non-beenary-sticker",
+    "category": "stickers",
+    "name": "Non Beenary Sticker",
+    "rarity": "Rare",
+    "source": "Pride Sticker Pack",
+    "image": "/images/stickers/Non-Beenary-Sticker-Rare-from-Pride-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "nutcracker-squirrel-sticker",
+    "category": "stickers",
+    "name": "Nutcracker Squirrel Sticker",
+    "rarity": "Uncommon",
+    "source": "Winter 2024 Sticker Pack",
+    "image": "/images/stickers/Nutcracker-Squirrel-Sticker-Uncommon-from-Winter-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "nye-2026-sticker",
+    "category": "stickers",
+    "name": "NYE 2026 Sticker",
+    "rarity": "Rare",
+    "source": "Winter 2025",
+    "image": "/images/stickers/NYE-2026-Sticker-Rare-from-Winter-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ocean-sticker-pack",
+    "category": "stickers",
+    "name": "Ocean Sticker Pack",
+    "rarity": "Rare",
+    "source": "Ocean Event 2024",
+    "image": "/images/stickers/Ocean-Sticker-Pack-Rare-from-Ocean-Event-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ocelot-sticker",
+    "category": "stickers",
+    "name": "Ocelot Sticker",
+    "rarity": "Uncommon",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Ocelot-Sticker-Uncommon-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "octopus-sticker",
+    "category": "stickers",
+    "name": "Octopus Sticker",
+    "rarity": "Legendary",
+    "source": "Ocean Sticker Pack",
+    "image": "/images/stickers/Octopus-Sticker-Legendary-from-Ocean-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "omnisex-pegasus-sticker",
+    "category": "stickers",
+    "name": "Omnisex Pegasus Sticker",
+    "rarity": "Rare",
+    "source": "Pride Sticker Pack",
+    "image": "/images/stickers/Omnisex-Pegasus-Sticker-Rare-from-Pride-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "orange-betta-fish-sticker",
+    "category": "stickers",
+    "name": "Orange Betta Fish Sticker",
+    "rarity": "Rare",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Orange-Betta-Fish-Sticker-Rare-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "orange-butterfly-sticker",
+    "category": "stickers",
+    "name": "Orange Butterfly Sticker",
+    "rarity": "Rare",
+    "source": "Pets Plus Sticker Pack",
+    "image": "/images/stickers/Orange-Butterfly-Sticker-Rare-from-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "otter-sticker",
+    "category": "stickers",
+    "name": "Otter Sticker",
+    "rarity": "Rare",
+    "source": "Summer Camp 2026 Sticker Pack",
+    "image": "/images/stickers/Otter-Sticker-Rare-from-Summer-Camp-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "otter-sticker",
+    "category": "stickers",
+    "name": "Otter Sticker",
+    "rarity": "Uncommon",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Otter-Sticker-Uncommon-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pan-parrot-sticker",
+    "category": "stickers",
+    "name": "Pan Parrot Sticker",
+    "rarity": "Rare",
+    "source": "Pride Sticker Pack",
+    "image": "/images/stickers/Pan-Parrot-Sticker-Rare-from-Pride-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "panda-sticker-ultra",
+    "category": "stickers",
+    "name": "Panda Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Panda-Sticker-Ultra-Rare-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "parakeet-sticker",
+    "category": "stickers",
+    "name": "Parakeet Sticker",
+    "rarity": "Common",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Parakeet-Sticker-Common-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "parrot-sticker",
+    "category": "stickers",
+    "name": "Parrot Sticker",
+    "rarity": "Legendary",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Parrot-Sticker-Legendary-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "partridge-sticker",
+    "category": "stickers",
+    "name": "Partridge Sticker",
+    "rarity": "Rare",
+    "source": "Winter 2024 Sticker Pack",
+    "image": "/images/stickers/Partridge-Sticker-Rare-from-Winter-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "patchy-bear-sticker",
+    "category": "stickers",
+    "name": "Patchy Bear Sticker",
+    "rarity": "Rare",
+    "source": "Halloween 2025 Sticker Pack",
+    "image": "/images/stickers/Patchy-Bear-Sticker-Rare-from-Halloween-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pelican-sticker",
+    "category": "stickers",
+    "name": "Pelican Sticker",
+    "rarity": "Rare",
+    "source": "Pets Plus Sticker Pack",
+    "image": "/images/stickers/Pelican-Sticker-Rare-from-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "penguin-sticker-ultra",
+    "category": "stickers",
+    "name": "Penguin Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Penguin-Sticker-Ultra-Rare-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "peppermint-penguin-sticker",
+    "category": "stickers",
+    "name": "Peppermint Penguin Sticker",
+    "rarity": "Legendary",
+    "source": "Winter 2024 Sticker Pack",
+    "image": "/images/stickers/Peppermint-Penguin-Sticker-Legendary-from-Winter-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pet-rock-sticker",
+    "category": "stickers",
+    "name": "Pet Rock Sticker",
+    "rarity": "Rare",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Pet-Rock-Sticker-Rare-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pets-plus-sticker-pack",
+    "category": "stickers",
+    "name": "Pets Plus Sticker Pack",
+    "rarity": "Legendary",
+    "source": "Pets Plus Subscription",
+    "image": "/images/stickers/Pets-Plus-Sticker-Pack-Legendary-from-Pets-Plus-Subscription.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "phantom-dragon-sticker",
+    "category": "stickers",
+    "name": "Phantom Dragon Sticker",
+    "rarity": "Legendary",
+    "source": "Halloween 2025 Sticker Pack",
+    "image": "/images/stickers/Phantom-Dragon-Sticker-Legendary-from-Halloween-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "phoenix-sticker",
+    "category": "stickers",
+    "name": "Phoenix Sticker",
+    "rarity": "Legendary",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Phoenix-Sticker-Legendary-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pig-sticker",
+    "category": "stickers",
+    "name": "Pig Sticker",
+    "rarity": "Rare",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Pig-Sticker-Rare-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pine-marten-sticker-ultra",
+    "category": "stickers",
+    "name": "Pine Marten Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Summer Camp 2026 Sticker Pack",
+    "image": "/images/stickers/Pine-Marten-Sticker-Ultra-Rare-from-Summer-Camp-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pink-betta-fish-sticker-ultra",
+    "category": "stickers",
+    "name": "Pink Betta Fish Sticker Ultra",
+    "rarity": "Rare",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Pink-Betta-Fish-Sticker-Ultra-Rare-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pink-cat-sticker",
+    "category": "stickers",
+    "name": "Pink Cat Sticker",
+    "rarity": "Common",
+    "source": "Task Board",
+    "image": "/images/stickers/Pink-Cat-Sticker-Common-from-Task-Board.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pirate-dog-sticker",
+    "category": "stickers",
+    "name": "Pirate Dog Sticker",
+    "rarity": "Legendary",
+    "source": "Summer 2025 Sticker Pack",
+    "image": "/images/stickers/Pirate-Dog-Sticker-Legendary-from-Summer-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pirate-hermit-crab-sticker-ultra",
+    "category": "stickers",
+    "name": "Pirate Hermit Crab Sticker Ultra",
+    "rarity": "Rare",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Pirate-Hermit-Crab-Sticker-Ultra-Rare-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pleading-tarsier-sticker",
+    "category": "stickers",
+    "name": "Pleading Tarsier Sticker",
+    "rarity": "Rare",
+    "source": "Vol 2 Pets Plus Sticker Pack",
+    "image": "/images/stickers/Pleading-Tarsier-Sticker-Rare-from-Vol-2-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "poodle-sticker",
+    "category": "stickers",
+    "name": "Poodle Sticker",
+    "rarity": "Rare",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Poodle-Sticker-Rare-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "praying-mantis-sticker",
+    "category": "stickers",
+    "name": "Praying Mantis Sticker",
+    "rarity": "Rare",
+    "source": "Sugarfest 2026 Sticker Pack",
+    "image": "/images/stickers/Praying-Mantis-Sticker-Rare-from-Sugarfest-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "premium-sticker-pack",
+    "category": "stickers",
+    "name": "Premium Sticker Pack",
+    "rarity": "Legendary",
+    "source": "Toy Shop",
+    "image": "/images/stickers/Premium-Sticker-Pack-Legendary-from-Toy-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pretty-please-snowball-sticker",
+    "category": "stickers",
+    "name": "Pretty Please Snowball Sticker",
+    "rarity": "Legendary",
+    "source": "Pets Plus Sticker Pack",
+    "image": "/images/stickers/Pretty-Please-Snowball-Sticker-Legendary-from-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pretty-pony-sticker",
+    "category": "stickers",
+    "name": "Pretty Pony Sticker",
+    "rarity": "Rare",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Pretty-Pony-Sticker-Rare-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "priceless-shrimp-sticker",
+    "category": "stickers",
+    "name": "Priceless Shrimp Sticker",
+    "rarity": "Legendary",
+    "source": "Summer 2025 Sticker Pack",
+    "image": "/images/stickers/Priceless-Shrimp-Sticker-Legendary-from-Summer-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pride-sticker-pack",
+    "category": "stickers",
+    "name": "Pride Sticker Pack",
+    "rarity": "Rare",
+    "source": "Summer State Fair 2024",
+    "image": "/images/stickers/Pride-Sticker-Pack-Rare-from-Summer-State-Fair-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "primal-kaijunior-sticker",
+    "category": "stickers",
+    "name": "Primal Kaijunior Sticker",
+    "rarity": "Rare",
+    "source": "Cherry Blossom 2025 Sticker Pack",
+    "image": "/images/stickers/Primal-Kaijunior-Sticker-Rare-from-Cherry-Blossom-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "proud-frog-sticker",
+    "category": "stickers",
+    "name": "Proud Frog Sticker",
+    "rarity": "Uncommon",
+    "source": "Redemption Kiosk",
+    "image": "/images/stickers/Proud-Frog-Sticker-Uncommon-from-Redemption-Kiosk.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pterodactyl-sticker",
+    "category": "stickers",
+    "name": "Pterodactyl Sticker",
+    "rarity": "Rare",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/Pterodactyl-Sticker-Rare-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pucked-up-pufferfish-sticker",
+    "category": "stickers",
+    "name": "Pucked Up Pufferfish Sticker",
+    "rarity": "Rare",
+    "source": "Vol 2 Pets Plus Sticker Pack",
+    "image": "/images/stickers/Pucked-Up-Pufferfish-Sticker-Rare-from-Vol-2-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pudding-cat-sticker",
+    "category": "stickers",
+    "name": "Pudding Cat Sticker",
+    "rarity": "Rare",
+    "source": "Pets Plus Sticker Pack",
+    "image": "/images/stickers/Pudding-Cat-Sticker-Rare-from-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "puffin-sticker-ultra",
+    "category": "stickers",
+    "name": "Puffin Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Pets Plus Sticker Pack",
+    "image": "/images/stickers/Puffin-Sticker-Ultra-Rare-from-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "punk-pony-stiker",
+    "category": "stickers",
+    "name": "Punk Pony Stiker",
+    "rarity": "Uncommon",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Punk-Pony-Stiker-Uncommon-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "queen-bee-sticker",
+    "category": "stickers",
+    "name": "Queen Bee Sticker",
+    "rarity": "Legendary",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Queen-Bee-Sticker-Legendary-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "rainbow-trout-sticker",
+    "category": "stickers",
+    "name": "Rainbow Trout Sticker",
+    "rarity": "Legendary",
+    "source": "Summer Camp 2026 Sticker Pack",
+    "image": "/images/stickers/Rainbow-Trout-Sticker-Legendary-from-Summer-Camp-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ram-sticker",
+    "category": "stickers",
+    "name": "Ram Sticker",
+    "rarity": "Rare",
+    "source": "Pets Plus Sticker Pack",
+    "image": "/images/stickers/Ram-Sticker-Rare-from-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "rare-chest-sticker",
+    "category": "stickers",
+    "name": "Rare Chest Sticker",
+    "rarity": "Rare",
+    "source": "Ocean Sticker Pack",
+    "image": "/images/stickers/Rare-Chest-Sticker-Rare-from-Ocean-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "rat-sticker",
+    "category": "stickers",
+    "name": "Rat Sticker",
+    "rarity": "Uncommon",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Rat-Sticker-Uncommon-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ratatoskr-sticker",
+    "category": "stickers",
+    "name": "Ratatoskr Sticker",
+    "rarity": "Common",
+    "source": "Winter 2024 Sticker Pack",
+    "image": "/images/stickers/Ratatoskr-Sticker-Common-from-Winter-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "red-cardinal-sticker-ultra",
+    "category": "stickers",
+    "name": "Red Cardinal Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Summer Camp 2026 Sticker Pack",
+    "image": "/images/stickers/Red-Cardinal-Sticker-Ultra-Rare-from-Summer-Camp-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "red-panda-sticker",
+    "category": "stickers",
+    "name": "Red Panda Sticker",
+    "rarity": "Rare",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Red-Panda-Sticker-Rare-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "reindeer-sticker",
+    "category": "stickers",
+    "name": "Reindeer Sticker",
+    "rarity": "Uncommon",
+    "source": "Winter 2024 Sticker Pack",
+    "image": "/images/stickers/Reindeer-Sticker-Uncommon-from-Winter-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "robin-sticker",
+    "category": "stickers",
+    "name": "Robin Sticker",
+    "rarity": "Common",
+    "source": "Winter 2024 Sticker Pack",
+    "image": "/images/stickers/Robin-Sticker-Common-from-Winter-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "rodeo-bull-sticker",
+    "category": "stickers",
+    "name": "Rodeo Bull Sticker",
+    "rarity": "Uncommon",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Rodeo-Bull-Sticker-Uncommon-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "round-fallow-deer-sticker",
+    "category": "stickers",
+    "name": "Round Fallow Deer Sticker",
+    "rarity": "Legendary",
+    "source": "Vol 2 Pets Plus Sticker Pack",
+    "image": "/images/stickers/Round-Fallow-Deer-Sticker-Legendary-from-Vol-2-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "sabertooth-sticker-ultra",
+    "category": "stickers",
+    "name": "Sabertooth Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/Sabertooth-Sticker-Ultra-Rare-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "sakura-spirit-sticker",
+    "category": "stickers",
+    "name": "Sakura Spirit Sticker",
+    "rarity": "Legendary",
+    "source": "Cherry Blossom 2025 Sticker Pack",
+    "image": "/images/stickers/Sakura-Spirit-Sticker-Legendary-from-Cherry-Blossom-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "santa-pet-rock-sticker",
+    "category": "stickers",
+    "name": "Santa Pet Rock Sticker",
+    "rarity": "Legendary",
+    "source": "Winter 2025 Sticker Pack",
+    "image": "/images/stickers/Santa-Pet-Rock-Sticker-Legendary-from-Winter-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "santa-sticker",
+    "category": "stickers",
+    "name": "Santa Sticker",
+    "rarity": "Rare",
+    "source": "Winter 2024 (Advent Calendar)",
+    "image": "/images/stickers/Santa-Sticker-Rare-from-Winter-2024-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "santa-s-throne-sticker",
+    "category": "stickers",
+    "name": "Santa's Throne Sticker",
+    "rarity": "Uncommon",
+    "source": "Winter 2024 Sticker Pack",
+    "image": "/images/stickers/Santa's-Throne-Sticker-Uncommon-from-Winter-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "sasquatch-sticker",
+    "category": "stickers",
+    "name": "Sasquatch Sticker",
+    "rarity": "Rare",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Sasquatch-Sticker-Rare-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "scarebear-sticker",
+    "category": "stickers",
+    "name": "Scarebear Sticker",
+    "rarity": "Legendary",
+    "source": "Halloween 2024 Sticker Pack",
+    "image": "/images/stickers/Scarebear-Sticker-Legendary-from-Halloween-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "scarecrow-cat-sticker",
+    "category": "stickers",
+    "name": "Scarecrow Cat Sticker",
+    "rarity": "Uncommon",
+    "source": "Halloween 2025 Sticker Pack",
+    "image": "/images/stickers/Scarecrow-Cat-Sticker-Uncommon-from-Halloween-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "scarecrow-sticker",
+    "category": "stickers",
+    "name": "Scarecrow Sticker",
+    "rarity": "Uncommon",
+    "source": "Halloween 2024 Sticker Pack",
+    "image": "/images/stickers/Scarecrow-Sticker-Uncommon-from-Halloween-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "scorching-kaijunior-sticker",
+    "category": "stickers",
+    "name": "Scorching Kaijunior Sticker",
+    "rarity": "Legendary",
+    "source": "Cherry Blossom 2025 Sticker Pack",
+    "image": "/images/stickers/Scorching-Kaijunior-Sticker-Legendary-from-Cherry-Blossom-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "sea-angel-sticker",
+    "category": "stickers",
+    "name": "Sea Angel Sticker",
+    "rarity": "Rare",
+    "source": "Ocean Sticker Pack",
+    "image": "/images/stickers/Sea-Angel-Sticker-Rare-from-Ocean-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "sea-skeleton-panda-sticker",
+    "category": "stickers",
+    "name": "Sea Skeleton Panda Sticker",
+    "rarity": "Uncommon",
+    "source": "Halloween 2024 Sticker Pack",
+    "image": "/images/stickers/Sea-Skeleton-Panda-Sticker-Uncommon-from-Halloween-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "seabed-creeper-sticker-ultra",
+    "category": "stickers",
+    "name": "Seabed Creeper Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Summer 2025 Sticker Pack",
+    "image": "/images/stickers/Seabed-Creeper-Sticker-Ultra-Rare-from-Summer-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "seagull-yell-animated-sticker",
+    "category": "stickers",
+    "name": "Seagull Yell Animated Sticker",
+    "rarity": "Legendary",
+    "source": "Pets Plus Sticker Pack",
+    "image": "/images/stickers/Seagull-Yell-Animated-Sticker-Legendary-from-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "seahorse-sticker",
+    "category": "stickers",
+    "name": "Seahorse Sticker",
+    "rarity": "Uncommon",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Seahorse-Sticker-Uncommon-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "seaslug-sticker-ultra",
+    "category": "stickers",
+    "name": "Seaslug Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Summer 2025 Sticker Pack",
+    "image": "/images/stickers/Seaslug-Sticker-Ultra-Rare-from-Summer-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "shadow-dragon-animated-sticker",
+    "category": "stickers",
+    "name": "Shadow Dragon Animated Sticker",
+    "rarity": "Legendary",
+    "source": "Halloween 2025 Sticker Pack",
+    "image": "/images/stickers/Shadow-Dragon-Animated-Sticker-Legendary-from-Halloween-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "shark-puppy-sticker-ultra",
+    "category": "stickers",
+    "name": "Shark Puppy Sticker Ultra",
+    "rarity": "Rare",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Shark-Puppy-Sticker-Ultra-Rare-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "shark-sticker",
+    "category": "stickers",
+    "name": "Shark Sticker",
+    "rarity": "Legendary",
+    "source": "Ocean Sticker Pack",
+    "image": "/images/stickers/Shark-Sticker-Legendary-from-Ocean-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "shetland-pony-dark-brown-sticker",
+    "category": "stickers",
+    "name": "Shetland Pony Dark Brown Sticker",
+    "rarity": "Uncommon",
+    "source": "Winter 2024 Sticker Pack",
+    "image": "/images/stickers/Shetland-Pony-Dark-Brown-Sticker-Uncommon-from-Winter-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "shiba-inu-sticker",
+    "category": "stickers",
+    "name": "Shiba Inu Sticker",
+    "rarity": "Uncommon",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Shiba-Inu-Sticker-Uncommon-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ship-sticker",
+    "category": "stickers",
+    "name": "Ship Sticker",
+    "rarity": "Rare",
+    "source": "Summer 2025 Sticker Pack",
+    "image": "/images/stickers/Ship-Sticker-Rare-from-Summer-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "shiver-wolf-sticker",
+    "category": "stickers",
+    "name": "Shiver Wolf Sticker",
+    "rarity": "Common",
+    "source": "Ice Dimension Baits",
+    "image": "/images/stickers/Shiver-Wolf-Sticker-Common-from-Ice-Dimension-Baits.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "show-pony-sticker",
+    "category": "stickers",
+    "name": "Show Pony Sticker",
+    "rarity": "Common",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Show-Pony-Sticker-Common-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "silly-duck-sticker",
+    "category": "stickers",
+    "name": "Silly Duck Sticker",
+    "rarity": "Rare",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Silly-Duck-Sticker-Rare-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "skele-rex-sticker",
+    "category": "stickers",
+    "name": "Skele Rex Sticker",
+    "rarity": "Legendary",
+    "source": "Halloween 2025 Sticker Pack",
+    "image": "/images/stickers/Skele-Rex-Sticker-Legendary-from-Halloween-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "sledding-penguin-sticker",
+    "category": "stickers",
+    "name": "Sledding Penguin Sticker",
+    "rarity": "Legendary",
+    "source": "Winter 2025 Sticker Pack",
+    "image": "/images/stickers/Sledding-Penguin-Sticker-Legendary-from-Winter-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "sleepy-armadillo-sticker-ultra",
+    "category": "stickers",
+    "name": "Sleepy Armadillo Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Vol 2 Pets Plus Sticker Pack",
+    "image": "/images/stickers/Sleepy-Armadillo-Sticker-Ultra-Rare-from-Vol-2-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "slime-sticker-ultra",
+    "category": "stickers",
+    "name": "Slime Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Halloween 2024 Sticker Pack",
+    "image": "/images/stickers/Slime-Sticker-Ultra-Rare-from-Halloween-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "sloth-sticker",
+    "category": "stickers",
+    "name": "Sloth Sticker",
+    "rarity": "Uncommon",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Sloth-Sticker-Uncommon-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "slug-sticker",
+    "category": "stickers",
+    "name": "Slug Sticker",
+    "rarity": "Common",
+    "source": "Halloween 2024 Sticker Pack",
+    "image": "/images/stickers/Slug-Sticker-Common-from-Halloween-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "slug-sticker",
+    "category": "stickers",
+    "name": "Slug Sticker",
+    "rarity": "Uncommon",
+    "source": "Sugarfest 2026 Sticker Pack",
+    "image": "/images/stickers/Slug-Sticker-Uncommon-from-Sugarfest-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "snow-globe-sticker",
+    "category": "stickers",
+    "name": "Snow Globe Sticker",
+    "rarity": "Uncommon",
+    "source": "Winter 2024 (Advent Calendar)",
+    "image": "/images/stickers/Snow-Globe-Sticker-Uncommon-from-Winter-2024-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "snow-monkey-sticker",
+    "category": "stickers",
+    "name": "Snow Monkey Sticker",
+    "rarity": "Rare",
+    "source": "Winter 2025 Sticker Pack",
+    "image": "/images/stickers/Snow-Monkey-Sticker-Rare-from-Winter-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "snowflake-sticker",
+    "category": "stickers",
+    "name": "Snowflake Sticker",
+    "rarity": "Common",
+    "source": "Winter 2025 Sticker Pack",
+    "image": "/images/stickers/Snowflake-Sticker-Common-from-Winter-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "snowman-sticker",
+    "category": "stickers",
+    "name": "Snowman Sticker",
+    "rarity": "Common",
+    "source": "Winter 2024 Sticker Pack",
+    "image": "/images/stickers/Snowman-Sticker-Common-from-Winter-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "snowy-mammoth-sticker",
+    "category": "stickers",
+    "name": "Snowy Mammoth Sticker",
+    "rarity": "Uncommon",
+    "source": "Ice Soup Bait",
+    "image": "/images/stickers/Snowy-Mammoth-Sticker-Uncommon-from-Ice-Soup-Bait.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "solaris-animated-sticker",
+    "category": "stickers",
+    "name": "Solaris Animated Sticker",
+    "rarity": "Legendary",
+    "source": "Summer Camp 2026 Sticker Pack",
+    "image": "/images/stickers/Solaris-Animated-Sticker-Legendary-from-Summer-Camp-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "space-whale-sticker",
+    "category": "stickers",
+    "name": "Space Whale Sticker",
+    "rarity": "Legendary",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Space-Whale-Sticker-Legendary-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "spider-web-sticker",
+    "category": "stickers",
+    "name": "Spider Web Sticker",
+    "rarity": "Common",
+    "source": "Halloween 2025 Sticker Pack",
+    "image": "/images/stickers/Spider-Web-Sticker-Common-from-Halloween-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "spinning-cat-animated-sticker",
+    "category": "stickers",
+    "name": "Spinning Cat Animated Sticker",
+    "rarity": "Legendary",
+    "source": "Vol 2 Pets Plus Sticker Pack",
+    "image": "/images/stickers/Spinning-Cat-Animated-Sticker-Legendary-from-Vol-2-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "squid-sticker",
+    "category": "stickers",
+    "name": "Squid Sticker",
+    "rarity": "Legendary",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Squid-Sticker-Legendary-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "squished-red-pandorama-sticker",
+    "category": "stickers",
+    "name": "Squished Red Pandorama Sticker",
+    "rarity": "Legendary",
+    "source": "Pets Plus Sticker Pack",
+    "image": "/images/stickers/Squished-Red-Pandorama-Sticker-Legendary-from-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "standard-sticker-pack",
+    "category": "stickers",
+    "name": "Standard Sticker Pack",
+    "rarity": "Common",
+    "source": "Toy Shop",
+    "image": "/images/stickers/Standard-Sticker-Pack-Common-from-Toy-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "starfish-sticker",
+    "category": "stickers",
+    "name": "Starfish Sticker",
+    "rarity": "Rare",
+    "source": "Pets Plus Sticker Pack",
+    "image": "/images/stickers/Starfish-Sticker-Rare-from-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "state-fair-sticker-pack",
+    "category": "stickers",
+    "name": "State Fair Sticker Pack",
+    "rarity": "Uncommon",
+    "source": "Summer State Fair 2024",
+    "image": "/images/stickers/State-Fair-Sticker-Pack-Uncommon-from-Summer-State-Fair-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "stegosaurus-sticker",
+    "category": "stickers",
+    "name": "Stegosaurus Sticker",
+    "rarity": "Uncommon",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/Stegosaurus-Sticker-Uncommon-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "stegosaurus-throw-toy-sticker",
+    "category": "stickers",
+    "name": "Stegosaurus Throw Toy Sticker",
+    "rarity": "Common",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/Stegosaurus-Throw-Toy-Sticker-Common-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "stingray-sticker",
+    "category": "stickers",
+    "name": "Stingray Sticker",
+    "rarity": "Common",
+    "source": "Ocean Sticker Pack",
+    "image": "/images/stickers/Stingray-Sticker-Common-from-Ocean-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "strawberry-shortcake-bat-dragon-sticker",
+    "category": "stickers",
+    "name": "Strawberry Shortcake Bat Dragon Sticker",
+    "rarity": "Legendary",
+    "source": "Pets Plus Sticker Pack",
+    "image": "/images/stickers/Strawberry-Shortcake-Bat-Dragon-Sticker-Legendary-from-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "subzero-scorpion-sticker",
+    "category": "stickers",
+    "name": "Subzero Scorpion Sticker",
+    "rarity": "Common",
+    "source": "Ice Dimension Baits",
+    "image": "/images/stickers/Subzero-Scorpion-Sticker-Common-from-Ice-Dimension-Baits.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "sugarfest-2026-sticker-pack",
+    "category": "stickers",
+    "name": "Sugarfest 2026 Sticker Pack",
+    "rarity": "Rare",
+    "source": "Sugar Festival 2026",
+    "image": "/images/stickers/Sugarfest-2026-Sticker-Pack-Rare-from-Sugar-Festival-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "summer-2025-sticker-pack",
+    "category": "stickers",
+    "name": "Summer 2025 Sticker Pack",
+    "rarity": "Rare",
+    "source": "Summer Festival 2025",
+    "image": "/images/stickers/Summer-2025-Sticker-Pack-Rare-from-Summer-Festival-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "sunrise-duckling-sticker",
+    "category": "stickers",
+    "name": "Sunrise Duckling Sticker",
+    "rarity": "Legendary",
+    "source": "Sugarfest 2026 Sticker Pack",
+    "image": "/images/stickers/Sunrise-Duckling-Sticker-Legendary-from-Sugarfest-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "super-saru-animated-sticker",
+    "category": "stickers",
+    "name": "Super Saru Animated Sticker",
+    "rarity": "Legendary",
+    "source": "Cherry Blossom 2025 Sticker Pack",
+    "image": "/images/stickers/Super-Saru-Animated-Sticker-Legendary-from-Cherry-Blossom-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "t-rex-rattle-sticker",
+    "category": "stickers",
+    "name": "T Rex Rattle Sticker",
+    "rarity": "Common",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/T-Rex-Rattle-Sticker-Common-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "t-rex-sticker",
+    "category": "stickers",
+    "name": "T Rex Sticker",
+    "rarity": "Legendary",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/T-Rex-Sticker-Legendary-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "t-rex-throw-toy-sticker",
+    "category": "stickers",
+    "name": "T Rex Throw Toy Sticker",
+    "rarity": "Common",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/T-Rex-Throw-Toy-Sticker-Common-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "tasmanian-tiger-sticker",
+    "category": "stickers",
+    "name": "Tasmanian Tiger Sticker",
+    "rarity": "Common",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/Tasmanian-Tiger-Sticker-Common-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "tealwood-monster-sticker",
+    "category": "stickers",
+    "name": "Tealwood Monster Sticker",
+    "rarity": "Legendary",
+    "source": "Summer Camp 2026 Sticker Pack",
+    "image": "/images/stickers/Tealwood-Monster-Sticker-Legendary-from-Summer-Camp-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "the-black-dog-sticker",
+    "category": "stickers",
+    "name": "The Black Dog Sticker",
+    "rarity": "Rare",
+    "source": "Halloween 2025 Sticker Pack",
+    "image": "/images/stickers/The-Black-Dog-Sticker-Rare-from-Halloween-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "toasty-dreams-sticker-ultra",
+    "category": "stickers",
+    "name": "Toasty Dreams Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Winter 2025 Sticker Pack",
+    "image": "/images/stickers/Toasty-Dreams-Sticker-Ultra-Rare-from-Winter-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "toasty-red-panda-sticker",
+    "category": "stickers",
+    "name": "Toasty Red Panda Sticker",
+    "rarity": "Legendary",
+    "source": "Fire Dimension Sticker Pack",
+    "image": "/images/stickers/Toasty-Red-Panda-Sticker-Legendary-from-Fire-Dimension-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "tortuga-de-la-isla-sticker-ultra",
+    "category": "stickers",
+    "name": "Tortuga de la Isla Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Summer Camp 2026 Sticker Pack",
+    "image": "/images/stickers/Tortuga-de-la-Isla-Sticker-Ultra-Rare-from-Summer-Camp-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "tortuga-de-la-isle-sticker-ultra",
+    "category": "stickers",
+    "name": "Tortuga De La Isle Sticker Ultra",
+    "rarity": "Rare",
+    "source": "State Fair Sticker Pack",
+    "image": "/images/stickers/Tortuga-De-La-Isle-Sticker-Ultra-Rare-from-State-Fair-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "toucan-sticker-ultra",
+    "category": "stickers",
+    "name": "Toucan Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Toucan-Sticker-Ultra-Rare-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "toxic-kaijunior-sticker-ultra",
+    "category": "stickers",
+    "name": "Toxic Kaijunior Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Cherry Blossom 2025 Sticker Pack",
+    "image": "/images/stickers/Toxic-Kaijunior-Sticker-Ultra-Rare-from-Cherry-Blossom-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "trans-glyptodon-barv-sticker",
+    "category": "stickers",
+    "name": "Trans Glyptodon Barv Sticker",
+    "rarity": "Rare",
+    "source": "Pride Sticker Pack",
+    "image": "/images/stickers/Trans-Glyptodon-Barv-Sticker-Rare-from-Pride-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "treasure-chest-sticker",
+    "category": "stickers",
+    "name": "Treasure Chest Sticker",
+    "rarity": "Common",
+    "source": "Ocean Sticker Pack",
+    "image": "/images/stickers/Treasure-Chest-Sticker-Common-from-Ocean-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "tree-decorating-animated-sticker",
+    "category": "stickers",
+    "name": "Tree Decorating Animated Sticker",
+    "rarity": "Legendary",
+    "source": "Winter 2025 Sticker Pack",
+    "image": "/images/stickers/Tree-Decorating-Animated-Sticker-Legendary-from-Winter-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "tree-kangaroo-family-sticker",
+    "category": "stickers",
+    "name": "Tree Kangaroo Family Sticker",
+    "rarity": "Rare",
+    "source": "Vol 2 Pets Plus Sticker Pack",
+    "image": "/images/stickers/Tree-Kangaroo-Family-Sticker-Rare-from-Vol-2-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "tree-sasquatch-sticker",
+    "category": "stickers",
+    "name": "Tree Sasquatch Sticker",
+    "rarity": "Rare",
+    "source": "Winter 2024 (Advent Calendar)",
+    "image": "/images/stickers/Tree-Sasquatch-Sticker-Rare-from-Winter-2024-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "triceratops-sticker",
+    "category": "stickers",
+    "name": "Triceratops Sticker",
+    "rarity": "Uncommon",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/Triceratops-Sticker-Uncommon-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "trick-or-treat-basket-sticker",
+    "category": "stickers",
+    "name": "Trick or Treat Basket Sticker",
+    "rarity": "Common",
+    "source": "Halloween 2024 Sticker Pack",
+    "image": "/images/stickers/Trick-or-Treat-Basket-Sticker-Common-from-Halloween-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "turtle-doves-sticker",
+    "category": "stickers",
+    "name": "Turtle Doves Sticker",
+    "rarity": "Uncommon",
+    "source": "Winter 2025 Sticker Pack",
+    "image": "/images/stickers/Turtle-Doves-Sticker-Uncommon-from-Winter-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "turtle-sticker-ultra",
+    "category": "stickers",
+    "name": "Turtle Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Turtle-Sticker-Ultra-Rare-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "undead-elk-sticker",
+    "category": "stickers",
+    "name": "Undead Elk Sticker",
+    "rarity": "Uncommon",
+    "source": "Halloween 2025 Sticker Pack",
+    "image": "/images/stickers/Undead-Elk-Sticker-Uncommon-from-Halloween-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "unicorn-sticker",
+    "category": "stickers",
+    "name": "Unicorn Sticker",
+    "rarity": "Legendary",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Unicorn-Sticker-Legendary-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "urchin-sticker",
+    "category": "stickers",
+    "name": "Urchin Sticker",
+    "rarity": "Common",
+    "source": "Ocean Sticker Pack",
+    "image": "/images/stickers/Urchin-Sticker-Common-from-Ocean-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "vanilla-penguin-sticker-ultra",
+    "category": "stickers",
+    "name": "Vanilla Penguin Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Winter 2025 Sticker Pack",
+    "image": "/images/stickers/Vanilla-Penguin-Sticker-Ultra-Rare-from-Winter-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "velociraptor-sticker",
+    "category": "stickers",
+    "name": "Velociraptor Sticker",
+    "rarity": "Uncommon",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/Velociraptor-Sticker-Uncommon-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "very-happy-clam-sticker-ultra",
+    "category": "stickers",
+    "name": "Very Happy Clam Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Vol 2 Pets Plus Sticker Pack",
+    "image": "/images/stickers/Very-Happy-Clam-Sticker-Ultra-Rare-from-Vol-2-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "vol-2-pets-plus-sticker-pack",
+    "category": "stickers",
+    "name": "Vol 2 Pets Plus Sticker Pack",
+    "rarity": "Legendary",
+    "source": "Pets Plus Subscription",
+    "image": "/images/stickers/Vol-2-Pets-Plus-Sticker-Pack-Legendary-from-Pets-Plus-Subscription.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "volcanic-rhino-sticker",
+    "category": "stickers",
+    "name": "Volcanic Rhino Sticker",
+    "rarity": "Legendary",
+    "source": "Fire Dimension Sticker Pack",
+    "image": "/images/stickers/Volcanic-Rhino-Sticker-Legendary-from-Fire-Dimension-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "waffle-wyrm-sticker-ultra",
+    "category": "stickers",
+    "name": "Waffle Wyrm Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Sugarfest 2026 Sticker Pack",
+    "image": "/images/stickers/Waffle-Wyrm-Sticker-Ultra-Rare-from-Sugarfest-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "wailing-mr-whiskerpips-sticker",
+    "category": "stickers",
+    "name": "Wailing Mr Whiskerpips Sticker",
+    "rarity": "Legendary",
+    "source": "Vol 2 Pets Plus Sticker Pack",
+    "image": "/images/stickers/Wailing-Mr-Whiskerpips-Sticker-Legendary-from-Vol-2-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "walrus-sticker",
+    "category": "stickers",
+    "name": "Walrus Sticker",
+    "rarity": "Uncommon",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Walrus-Sticker-Uncommon-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "water-balloon-sticker",
+    "category": "stickers",
+    "name": "Water Balloon Sticker",
+    "rarity": "Common",
+    "source": "Summer Camp 2026 Sticker Pack",
+    "image": "/images/stickers/Water-Balloon-Sticker-Common-from-Summer-Camp-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "water-rabbit-sticker",
+    "category": "stickers",
+    "name": "Water Rabbit Sticker",
+    "rarity": "Uncommon",
+    "source": "Sugarfest 2026 Sticker Pack",
+    "image": "/images/stickers/Water-Rabbit-Sticker-Uncommon-from-Sugarfest-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "well-actually-walrus-sticker",
+    "category": "stickers",
+    "name": "Well Actually Walrus Sticker",
+    "rarity": "Legendary",
+    "source": "Vol 2 Pets Plus Sticker Pack",
+    "image": "/images/stickers/Well-Actually-Walrus-Sticker-Legendary-from-Vol-2-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "wet-owl-sticker",
+    "category": "stickers",
+    "name": "Wet Owl Sticker",
+    "rarity": "Legendary",
+    "source": "Pets Plus Sticker Pack",
+    "image": "/images/stickers/Wet-Owl-Sticker-Legendary-from-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "white-sand-dollar-sticker-ultra",
+    "category": "stickers",
+    "name": "White Sand Dollar Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Ocean Sticker Pack",
+    "image": "/images/stickers/White-Sand-Dollar-Sticker-Ultra-Rare-from-Ocean-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "white-skeleton-dog-sticker",
+    "category": "stickers",
+    "name": "White Skeleton Dog Sticker",
+    "rarity": "Rare",
+    "source": "Halloween 2024 Sticker Pack",
+    "image": "/images/stickers/White-Skeleton-Dog-Sticker-Rare-from-Halloween-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "wildfire-hawk-sticker-ultra",
+    "category": "stickers",
+    "name": "Wildfire Hawk Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Fire Dimension Sticker Pack",
+    "image": "/images/stickers/Wildfire-Hawk-Sticker-Ultra-Rare-from-Fire-Dimension-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "winged-horse-sticker",
+    "category": "stickers",
+    "name": "Winged Horse Sticker",
+    "rarity": "Legendary",
+    "source": "Premium Sticker Pack",
+    "image": "/images/stickers/Winged-Horse-Sticker-Legendary-from-Premium-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "winter-2024-sticker-pack",
+    "category": "stickers",
+    "name": "Winter 2024 Sticker Pack",
+    "rarity": "Rare",
+    "source": "Winter 2024",
+    "image": "/images/stickers/Winter-2024-Sticker-Pack-Rare-from-Winter-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "winter-2025-sticker-pack",
+    "category": "stickers",
+    "name": "Winter 2025 Sticker Pack",
+    "rarity": "Rare",
+    "source": "Winter 2025",
+    "image": "/images/stickers/Winter-2025-Sticker-Pack-Rare-from-Winter-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "winter-deer-family-sticker",
+    "category": "stickers",
+    "name": "Winter Deer Family Sticker",
+    "rarity": "Legendary",
+    "source": "Vol 2 Pets Plus Sticker Pack",
+    "image": "/images/stickers/Winter-Deer-Family-Sticker-Legendary-from-Vol-2-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "winter-doe-sticker",
+    "category": "stickers",
+    "name": "Winter Doe Sticker",
+    "rarity": "Rare",
+    "source": "Winter 2024 Sticker Pack",
+    "image": "/images/stickers/Winter-Doe-Sticker-Rare-from-Winter-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "wishing-well-sticker-ultra",
+    "category": "stickers",
+    "name": "Wishing Well Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Ocean Sticker Pack",
+    "image": "/images/stickers/Wishing-Well-Sticker-Ultra-Rare-from-Ocean-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "wolpertinger-sticker-ultra",
+    "category": "stickers",
+    "name": "Wolpertinger Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Summer Camp 2026 Sticker Pack",
+    "image": "/images/stickers/Wolpertinger-Sticker-Ultra-Rare-from-Summer-Camp-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "wood-pigeon-sticker",
+    "category": "stickers",
+    "name": "Wood Pigeon Sticker",
+    "rarity": "Uncommon",
+    "source": "Cherry Blossom 2025 Sticker Pack",
+    "image": "/images/stickers/Wood-Pigeon-Sticker-Uncommon-from-Cherry-Blossom-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "woodpecker-sticker",
+    "category": "stickers",
+    "name": "Woodpecker Sticker",
+    "rarity": "Rare",
+    "source": "Summer Camp 2026 Sticker Pack",
+    "image": "/images/stickers/Woodpecker-Sticker-Rare-from-Summer-Camp-2026-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "wooly-mammoth-sticker",
+    "category": "stickers",
+    "name": "Wooly Mammoth Sticker",
+    "rarity": "Rare",
+    "source": "Fossil Sticker Pack",
+    "image": "/images/stickers/Wooly-Mammoth-Sticker-Rare-from-Fossil-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "yeti-sticker-ultra",
+    "category": "stickers",
+    "name": "Yeti Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Winter 2024 Sticker Pack",
+    "image": "/images/stickers/Yeti-Sticker-Ultra-Rare-from-Winter-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "yule-log-dog-sticker",
+    "category": "stickers",
+    "name": "Yule Log Dog Sticker",
+    "rarity": "Rare",
+    "source": "Pets Plus Sticker Pack",
+    "image": "/images/stickers/Yule-Log-Dog-Sticker-Rare-from-Pets-Plus-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "zebra-sticker",
+    "category": "stickers",
+    "name": "Zebra Sticker",
+    "rarity": "Rare",
+    "source": "Standard Sticker Pack",
+    "image": "/images/stickers/Zebra-Sticker-Rare-from-Standard-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "zombie-chick-sticker",
+    "category": "stickers",
+    "name": "Zombie Chick Sticker",
+    "rarity": "Rare",
+    "source": "Halloween 2025 Sticker Pack",
+    "image": "/images/stickers/Zombie-Chick-Sticker-Rare-from-Halloween-2025-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "zombie-wolf-sticker-ultra",
+    "category": "stickers",
+    "name": "Zombie Wolf Sticker Ultra",
+    "rarity": "Rare",
+    "source": "Halloween 2024 Sticker Pack",
+    "image": "/images/stickers/Zombie-Wolf-Sticker-Ultra-Rare-from-Halloween-2024-Sticker-Pack.png",
+    "value": null,
+    "valueUnit": null
+  }
+]

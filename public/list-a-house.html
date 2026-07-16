@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>List a House — AdoptMeHouseTrading.com</title>
+<meta name="description" content="Put your Adopt Me house up for trade.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="sign-mark"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="46" y="30" width="8" height="60" rx="2" fill="#7A5230"/><g transform="rotate(-6 50 40)"><rect x="20" y="18" width="60" height="34" rx="6" fill="#C0473C"/><text x="50" y="34" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="700" font-size="11" fill="#FFFFFF">FOR</text><text x="50" y="47" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="700" font-size="11" fill="#FFFFFF">TRADE</text></g></svg></span>
+      AdoptMeHouseTrading
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="houses/index.html">Browse Houses</a>
+      <a href="listings/index.html">Trade Listings</a>
+      <a href="list-a-house.html" class="active">List a House</a>
+      <a href="profile.html">My Profile</a>
+    </nav>
+  </div>
+</header>
+
+<section class="wrap" style="padding: 48px 0 80px;">
+
+  <div class="form-card" id="need-profile" hidden>
+    <h1>Set up a profile first</h1>
+    <p class="subtitle">We need a Roblox username to attach to your listing so other players know who to trade with.</p>
+    <a class="btn btn-primary" href="profile.html">Set Up Profile</a>
+  </div>
+
+  <div class="form-card" id="listing-form" hidden>
+    <h1>List Your House</h1>
+    <p class="subtitle">Post instantly — no approval wait. Be honest about condition and photos; listings can be reported.</p>
+    <div id="error" class="error-box" hidden></div>
+    <div id="success" class="success-box" hidden></div>
+
+    <label class="field-label" for="house-select">Which house?</label>
+    <select id="house-select"></select>
+
+    <label class="field-label" for="title">Listing title</label>
+    <input type="text" id="title" placeholder="e.g. Fully decorated Cozy Cabin, cottagecore theme" maxlength="120">
+
+    <label class="field-label" for="description">Description</label>
+    <textarea id="description" placeholder="Describe the interior, any rare furniture, why you're trading it..."></textarea>
+
+    <label class="field-label">Photos</label>
+    <input type="file" id="photo-input" accept="image/png,image/jpeg,image/webp" multiple>
+    <p class="hint">Up to 8 screenshots of the interior/exterior, 5MB each.</p>
+    <div id="photo-previews" class="selected-items"></div>
+
+    <label class="field-label">What are you looking for?</label>
+    <div class="checkbox-grid" id="looking-for-grid"></div>
+
+    <div class="hero-ctas" style="justify-content: flex-start; margin-top: 24px;">
+      <button class="btn btn-primary" id="submit-btn">Post Listing</button>
+    </div>
+  </div>
+
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community. Not affiliated with Adopt Me or Roblox Corporation.
+  </div>
+</footer>
+
+<script type="module">
+  import { api, getStoredProfile, CATEGORY_LABELS } from "./js/api.js";
+
+  const profile = getStoredProfile();
+  if (!profile) {
+    document.getElementById("need-profile").hidden = false;
+  } else {
+    document.getElementById("listing-form").hidden = false;
+    init();
+  }
+
+  const uploadedUrls = [];
+
+  async function init() {
+    const houses = await fetch("data/houses.json").then((r) => r.json());
+    const select = document.getElementById("house-select");
+    select.innerHTML = houses
+      .map((h) => `<option value="${h.id}">${h.name}</option>`)
+      .join("");
+
+    const grid = document.getElementById("looking-for-grid");
+    grid.innerHTML = Object.entries(CATEGORY_LABELS)
+      .map(
+        ([key, label]) =>
+          `<label><input type="checkbox" value="${key}"> ${label}</label>`
+      )
+      .join("");
+
+    document.getElementById("photo-input").addEventListener("change", handlePhotos);
+    document.getElementById("submit-btn").addEventListener("click", submitListing);
+  }
+
+  async function handlePhotos(e) {
+    const files = Array.from(e.target.files).slice(0, 8);
+    const previews = document.getElementById("photo-previews");
+    for (const file of files) {
+      const chip = document.createElement("span");
+      chip.className = "selected-chip";
+      chip.textContent = "Uploading " + file.name + "...";
+      previews.appendChild(chip);
+      try {
+        const url = await api.uploadPhoto(file);
+        uploadedUrls.push(url);
+        chip.innerHTML = `<img src="${url}" alt=""> ${file.name}`;
+      } catch (err) {
+        chip.textContent = "Failed: " + file.name;
+      }
+    }
+  }
+
+  async function submitListing() {
+    const errorBox = document.getElementById("error");
+    const successBox = document.getElementById("success");
+    errorBox.hidden = true;
+    successBox.hidden = true;
+
+    const house_id = document.getElementById("house-select").value;
+    const title = document.getElementById("title").value.trim();
+    const description = document.getElementById("description").value.trim();
+    const looking_for = Array.from(
+      document.querySelectorAll("#looking-for-grid input:checked")
+    ).map((el) => el.value);
+
+    if (!title) {
+      errorBox.textContent = "Give your listing a title.";
+      errorBox.hidden = false;
+      return;
+    }
+
+    try {
+      const { listing } = await api.createListing({
+        house_id,
+        title,
+        description,
+        photos: uploadedUrls,
+        looking_for,
+      });
+      successBox.textContent = "Listing posted! Redirecting...";
+      successBox.hidden = false;
+      setTimeout(() => {
+        window.location.href = `listings/listing.html?id=${listing.id}`;
+      }, 900);
+    } catch (err) {
+      errorBox.textContent = err.message;
+      errorBox.hidden = false;
+    }
+  }
+</script>
+</body>
+</html>

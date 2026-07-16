@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trade Listings — AdoptMeHouseTrading.com</title>
+<meta name="description" content="Browse houses other players have listed for trade.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="sign-mark"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="46" y="30" width="8" height="60" rx="2" fill="#7A5230"/><g transform="rotate(-6 50 40)"><rect x="20" y="18" width="60" height="34" rx="6" fill="#C0473C"/><text x="50" y="34" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="700" font-size="11" fill="#FFFFFF">FOR</text><text x="50" y="47" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="700" font-size="11" fill="#FFFFFF">TRADE</text></g></svg></span>
+      AdoptMeHouseTrading
+    </a>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../houses/index.html">Browse Houses</a>
+      <a href="index.html" class="active">Trade Listings</a>
+      <a href="../list-a-house.html">List a House</a>
+      <a href="../profile.html">My Profile</a>
+    </nav>
+  </div>
+</header>
+
+<section class="wrap" style="padding: 40px 0 80px;">
+  <div class="section-head">
+    <h2>Trade Listings</h2>
+    <a href="../list-a-house.html">+ List your house</a>
+  </div>
+  <div id="empty-state" class="form-card" hidden>
+    <h1>No listings yet</h1>
+    <p class="subtitle">Be the first to put a house up for trade.</p>
+    <a class="btn btn-primary" href="../list-a-house.html">List a House</a>
+  </div>
+  <div class="house-grid" id="listings-grid"></div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community. Not affiliated with Adopt Me or Roblox Corporation.
+  </div>
+</footer>
+
+<script type="module">
+  const grid = document.getElementById("listings-grid");
+  const empty = document.getElementById("empty-state");
+
+  const [{ listings }, houses] = await Promise.all([
+    fetch("/.netlify/functions/listings-list").then((r) => r.json()),
+    fetch("../data/houses.json").then((r) => r.json()),
+  ]);
+
+  const houseById = Object.fromEntries(houses.map((h) => [h.id, h]));
+
+  if (!listings.length) {
+    empty.hidden = false;
+  } else {
+    grid.innerHTML = listings
+      .map((listing) => {
+        const house = houseById[listing.house_id];
+        const photo = listing.photos?.[0] || house?.image || "../images/brand/searchdog.png";
+        return `
+        <a class="listing-card" href="listing.html?id=${listing.id}">
+          <div class="photo"><img src="${photo}" alt=""></div>
+          <div class="body">
+            <span class="status-badge ${listing.status}">${listing.status === "traded" ? "Traded" : "For Trade"}</span>
+            <h3>${escapeHtml(listing.title)}</h3>
+            <p class="lister">${house ? escapeHtml(house.name) : "Unknown house"} · by ${escapeHtml(listing.profiles?.rbx_username || "unknown")}</p>
+          </div>
+        </a>`;
+      })
+      .join("");
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+</script>
+</body>
+</html>

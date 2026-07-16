@@ -5,8 +5,7 @@
 [build.environment]
   NODE_VERSION = "20"
 
-# Netlify Functions live here once we add server-side pieces
-# (trade calculator persistence, value submission API, etc.)
+# Netlify Functions: profiles, listings, offers, photo uploads (see netlify/functions/)
 [functions]
   directory = "netlify/functions"
 

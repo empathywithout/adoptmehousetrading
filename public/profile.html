@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Profile — AdoptMeHouseTrading.com</title>
+<meta name="description" content="Set up your trading profile with your Roblox username.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="sign-mark"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="46" y="30" width="8" height="60" rx="2" fill="#7A5230"/><g transform="rotate(-6 50 40)"><rect x="20" y="18" width="60" height="34" rx="6" fill="#C0473C"/><text x="50" y="34" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="700" font-size="11" fill="#FFFFFF">FOR</text><text x="50" y="47" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="700" font-size="11" fill="#FFFFFF">TRADE</text></g></svg></span>
+      AdoptMeHouseTrading
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="houses/index.html">Browse Houses</a>
+      <a href="listings/index.html">Trade Listings</a>
+      <a href="list-a-house.html">List a House</a>
+      <a href="profile.html" class="active">My Profile</a>
+    </nav>
+  </div>
+</header>
+
+<section class="wrap" style="padding: 48px 0 80px;">
+  <div class="form-card" id="signed-out-view" hidden>
+    <h1>Set up your trading profile</h1>
+    <p class="subtitle">Just your Roblox username — no password needed. This is how other players will know who to friend and trade with in-game.</p>
+    <div id="error" class="error-box" hidden></div>
+    <label class="field-label" for="username">Roblox username</label>
+    <input type="text" id="username" placeholder="e.g. builds_by_ross" maxlength="20">
+    <p class="hint">We'll check this is a real Roblox account and pull your avatar.</p>
+    <div class="hero-ctas" style="justify-content: flex-start; margin-top: 20px;">
+      <button class="btn btn-primary" id="create-btn">Continue</button>
+    </div>
+  </div>
+
+  <div class="form-card" id="signed-in-view" hidden>
+    <h1>You're set up</h1>
+    <div class="profile-chip" style="margin: 18px 0 24px;">
+      <img id="avatar-img" src="" alt="">
+      <span class="name" id="username-display"></span>
+    </div>
+    <p class="subtitle">Other players will see this Roblox username on any listing or offer you make.</p>
+    <div class="hero-ctas" style="justify-content: flex-start;">
+      <a class="btn btn-secondary" href="list-a-house.html">List a House</a>
+      <button class="btn btn-secondary" id="switch-profile-btn">Use a different username</button>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community. Not affiliated with Adopt Me or Roblox Corporation.
+  </div>
+</footer>
+
+<script type="module">
+  import { api, getStoredProfile, saveSession, clearSession } from "./js/api.js";
+
+  const signedOutView = document.getElementById("signed-out-view");
+  const signedInView = document.getElementById("signed-in-view");
+  const errorBox = document.getElementById("error");
+
+  function showError(msg) {
+    errorBox.textContent = msg;
+    errorBox.hidden = false;
+  }
+
+  function render() {
+    const profile = getStoredProfile();
+    if (profile) {
+      signedInView.hidden = false;
+      signedOutView.hidden = true;
+      document.getElementById("username-display").textContent = profile.rbx_username;
+      document.getElementById("avatar-img").src = profile.rbx_avatar_url || "images/brand/searchdog.png";
+    } else {
+      signedInView.hidden = true;
+      signedOutView.hidden = false;
+    }
+  }
+
+  document.getElementById("create-btn").addEventListener("click", async () => {
+    errorBox.hidden = true;
+    const username = document.getElementById("username").value.trim();
+    if (!username) return showError("Enter a Roblox username.");
+
+    try {
+      const rbx = await api.lookupRoblox(username);
+      const { token, profile } = await api.createProfile(rbx);
+      saveSession(token, profile);
+      render();
+    } catch (err) {
+      showError(err.message);
+    }
+  });
+
+  document.getElementById("switch-profile-btn")?.addEventListener("click", () => {
+    clearSession();
+    render();
+  });
+
+  render();
+</script>
+</body>
+</html>

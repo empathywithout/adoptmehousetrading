@@ -1,0 +1,2702 @@
+[
+  {
+    "id": "adopt-me-boy-scooter",
+    "category": "vehicles",
+    "name": "Adopt Me Boy Scooter",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Adopt-Me-Boy-Scooter-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "adopt-me-girl-scooter",
+    "category": "vehicles",
+    "name": "Adopt Me Girl Scooter",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Adopt-Me-Girl-Scooter-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "adopt-me-snowboard-1",
+    "category": "vehicles",
+    "name": "Adopt Me Snowboard 1",
+    "rarity": "Common",
+    "source": "Gifts 2017",
+    "image": "/images/vehicles/Adopt-Me-Snowboard-1-Common-from-Gifts-2017.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "adopt-me-snowboard-2",
+    "category": "vehicles",
+    "name": "Adopt Me Snowboard 2",
+    "rarity": "Common",
+    "source": "Gifts 2017",
+    "image": "/images/vehicles/Adopt-Me-Snowboard-2-Common-from-Gifts-2017.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "airboat",
+    "category": "vehicles",
+    "name": "Airboat",
+    "rarity": "Common",
+    "source": "Beach Shop",
+    "image": "/images/vehicles/Airboat-Common-from-Beach-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ancient-unicycle-ultra",
+    "category": "vehicles",
+    "name": "Ancient Unicycle Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/vehicles/Ancient-Unicycle-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "axel",
+    "category": "vehicles",
+    "name": "Axel",
+    "rarity": "Legendary",
+    "source": "Robux",
+    "image": "/images/vehicles/Axel-Legendary-from-Robux.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "banana-car",
+    "category": "vehicles",
+    "name": "Banana Car",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Banana-Car-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bat-face-roller-skates",
+    "category": "vehicles",
+    "name": "Bat Face Roller Skates",
+    "rarity": "Uncommon",
+    "source": "Gifts",
+    "image": "/images/vehicles/Bat-Face-Roller-Skates-Uncommon-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bathtub",
+    "category": "vehicles",
+    "name": "Bathtub",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Bathtub-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "beach-buggy-ultra",
+    "category": "vehicles",
+    "name": "Beach Buggy Ultra",
+    "rarity": "Rare",
+    "source": "Summer Festival 2023",
+    "image": "/images/vehicles/Beach-Buggy-Ultra-Rare-from-Summer-Festival-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "beachgoer",
+    "category": "vehicles",
+    "name": "Beachgoer",
+    "rarity": "Rare",
+    "source": "Summer Festival 2023",
+    "image": "/images/vehicles/Beachgoer-Rare-from-Summer-Festival-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bee-shuttle",
+    "category": "vehicles",
+    "name": "Bee Shuttle",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Bee-Shuttle-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bethink-skateboard",
+    "category": "vehicles",
+    "name": "Bethink Skateboard",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Bethink-Skateboard-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bicycle",
+    "category": "vehicles",
+    "name": "Bicycle",
+    "rarity": "Common",
+    "source": "Vehicle Dealership",
+    "image": "/images/vehicles/Bicycle-Common-from-Vehicle-Dealership.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bike",
+    "category": "vehicles",
+    "name": "Bike",
+    "rarity": "Common",
+    "source": "Car Showroom",
+    "image": "/images/vehicles/Bike-Common-from-Car-Showroom.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "black-cab",
+    "category": "vehicles",
+    "name": "Black Cab",
+    "rarity": "Legendary",
+    "source": "Robux",
+    "image": "/images/vehicles/Black-Cab-Legendary-from-Robux.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "black-scooter",
+    "category": "vehicles",
+    "name": "Black Scooter",
+    "rarity": "Common",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Black-Scooter-Common-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "black-skateboard",
+    "category": "vehicles",
+    "name": "Black Skateboard",
+    "rarity": "Common",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Black-Skateboard-Common-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "black-snowboard",
+    "category": "vehicles",
+    "name": "Black Snowboard",
+    "rarity": "Common",
+    "source": "Gifts 2017",
+    "image": "/images/vehicles/Black-Snowboard-Common-from-Gifts-2017.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "blue-neon-snowboard",
+    "category": "vehicles",
+    "name": "Blue Neon Snowboard",
+    "rarity": "Common",
+    "source": "Gifts 2017",
+    "image": "/images/vehicles/Blue-Neon-Snowboard-Common-from-Gifts-2017.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "blue-rider",
+    "category": "vehicles",
+    "name": "Blue Rider",
+    "rarity": "Rare",
+    "source": "Star Rewards",
+    "image": "/images/vehicles/Blue-Rider-Rare-from-Star-Rewards.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "blue-scooter",
+    "category": "vehicles",
+    "name": "Blue Scooter",
+    "rarity": "Common",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Blue-Scooter-Common-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "blue-skateboard",
+    "category": "vehicles",
+    "name": "Blue Skateboard",
+    "rarity": "Common",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Blue-Skateboard-Common-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "blue-snowboard",
+    "category": "vehicles",
+    "name": "Blue Snowboard",
+    "rarity": "Common",
+    "source": "Gifts 2017",
+    "image": "/images/vehicles/Blue-Snowboard-Common-from-Gifts-2017.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bubble-car",
+    "category": "vehicles",
+    "name": "Bubble Car",
+    "rarity": "Legendary",
+    "source": "Robux",
+    "image": "/images/vehicles/Bubble-Car-Legendary-from-Robux.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bumper-car-ultra",
+    "category": "vehicles",
+    "name": "Bumper Car Ultra",
+    "rarity": "Rare",
+    "source": "Gorilla Box",
+    "image": "/images/vehicles/Bumper-Car-Ultra-Rare-from-Gorilla-Box.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bunny-carriage",
+    "category": "vehicles",
+    "name": "Bunny Carriage",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Bunny-Carriage-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "butterfly-roller-skates",
+    "category": "vehicles",
+    "name": "Butterfly Roller Skates",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/vehicles/Butterfly-Roller-Skates-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "camper-van",
+    "category": "vehicles",
+    "name": "Camper Van",
+    "rarity": "Rare",
+    "source": "Car Showroom",
+    "image": "/images/vehicles/Camper-Van-Rare-from-Car-Showroom.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "camping-van-ultra",
+    "category": "vehicles",
+    "name": "Camping Van Ultra",
+    "rarity": "Rare",
+    "source": "Camping Shop Refresh 2023",
+    "image": "/images/vehicles/Camping-Van-Ultra-Rare-from-Camping-Shop-Refresh-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "candy-camper-ultra",
+    "category": "vehicles",
+    "name": "Candy Camper Ultra",
+    "rarity": "Rare",
+    "source": "Winter 2023 (Advent Calendar)",
+    "image": "/images/vehicles/Candy-Camper-Ultra-Rare-from-Winter-2023-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "candy-snowmobile",
+    "category": "vehicles",
+    "name": "Candy Snowmobile",
+    "rarity": "Rare",
+    "source": "Winter 2022",
+    "image": "/images/vehicles/Candy-Snowmobile-Rare-from-Winter-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "canine-cruiser",
+    "category": "vehicles",
+    "name": "Canine Cruiser",
+    "rarity": "Legendary",
+    "source": "Redemption Kiosk",
+    "image": "/images/vehicles/Canine-Cruiser-Legendary-from-Redemption-Kiosk.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "car",
+    "category": "vehicles",
+    "name": "Car",
+    "rarity": "Uncommon",
+    "source": "Car Showroom",
+    "image": "/images/vehicles/Car-Uncommon-from-Car-Showroom.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "celestial-carrier",
+    "category": "vehicles",
+    "name": "Celestial Carrier",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Celestial-Carrier-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "chairlift",
+    "category": "vehicles",
+    "name": "Chairlift",
+    "rarity": "Rare",
+    "source": "Winter 2024",
+    "image": "/images/vehicles/Chairlift-Rare-from-Winter-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "charon-s-boat-ultra",
+    "category": "vehicles",
+    "name": "Charon's Boat Ultra",
+    "rarity": "Rare",
+    "source": "Halloween 2023",
+    "image": "/images/vehicles/Charon's-Boat-Ultra-Rare-from-Halloween-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "choo-choo-train",
+    "category": "vehicles",
+    "name": "Choo Choo Train",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Choo-Choo-Train-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "circus-ball-skates",
+    "category": "vehicles",
+    "name": "Circus Ball Skates",
+    "rarity": "Uncommon",
+    "source": "Capuchin Boxes",
+    "image": "/images/vehicles/Circus-Ball-Skates-Uncommon-from-Capuchin-Boxes.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "circus-ball-unicycle",
+    "category": "vehicles",
+    "name": "Circus Ball Unicycle",
+    "rarity": "Uncommon",
+    "source": "Gorilla Box",
+    "image": "/images/vehicles/Circus-Ball-Unicycle-Uncommon-from-Gorilla-Box.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "classic-airplane",
+    "category": "vehicles",
+    "name": "Classic Airplane",
+    "rarity": "Common",
+    "source": "Vehicle Dealership",
+    "image": "/images/vehicles/Classic-Airplane-Common-from-Vehicle-Dealership.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "classic-american-car-ultra",
+    "category": "vehicles",
+    "name": "Classic American Car Ultra",
+    "rarity": "Rare",
+    "source": "Summer State Fair 2024",
+    "image": "/images/vehicles/Classic-American-Car-Ultra-Rare-from-Summer-State-Fair-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "classic-boat",
+    "category": "vehicles",
+    "name": "Classic Boat",
+    "rarity": "Common",
+    "source": "Vehicle Dealership",
+    "image": "/images/vehicles/Classic-Boat-Common-from-Vehicle-Dealership.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "classic-helicopter",
+    "category": "vehicles",
+    "name": "Classic Helicopter",
+    "rarity": "Common",
+    "source": "Vehicle Dealership",
+    "image": "/images/vehicles/Classic-Helicopter-Common-from-Vehicle-Dealership.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cloud",
+    "category": "vehicles",
+    "name": "Cloud",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Cloud-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "clown-car-ultra",
+    "category": "vehicles",
+    "name": "Clown Car Ultra",
+    "rarity": "Rare",
+    "source": "Monkey Fairground",
+    "image": "/images/vehicles/Clown-Car-Ultra-Rare-from-Monkey-Fairground.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "clown-unicycle",
+    "category": "vehicles",
+    "name": "Clown Unicycle",
+    "rarity": "Uncommon",
+    "source": "Monkey Fairground",
+    "image": "/images/vehicles/Clown-Unicycle-Uncommon-from-Monkey-Fairground.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "convertible",
+    "category": "vehicles",
+    "name": "Convertible",
+    "rarity": "Rare",
+    "source": "Car showroom",
+    "image": "/images/vehicles/Convertible-Rare-from-Car-showroom.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cookie-unicycle-ultra",
+    "category": "vehicles",
+    "name": "Cookie Unicycle Ultra",
+    "rarity": "Rare",
+    "source": "Christmas 2019",
+    "image": "/images/vehicles/Cookie-Unicycle-Ultra-Rare-from-Christmas-2019.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "corsair-cruiser",
+    "category": "vehicles",
+    "name": "Corsair Cruiser",
+    "rarity": "Rare",
+    "source": "Summer Festival 2025",
+    "image": "/images/vehicles/Corsair-Cruiser-Rare-from-Summer-Festival-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "crabby-cruiser",
+    "category": "vehicles",
+    "name": "Crabby Cruiser",
+    "rarity": "Legendary",
+    "source": "Summer Festival 2023",
+    "image": "/images/vehicles/Crabby-Cruiser-Legendary-from-Summer-Festival-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "crescent-moon-car",
+    "category": "vehicles",
+    "name": "Crescent Moon Car",
+    "rarity": "Legendary",
+    "source": "Lunar New Year 2023",
+    "image": "/images/vehicles/Crescent-Moon-Car-Legendary-from-Lunar-New-Year-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cupcake-scooter",
+    "category": "vehicles",
+    "name": "Cupcake Scooter",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Cupcake-Scooter-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cupid-s-coupe",
+    "category": "vehicles",
+    "name": "Cupid's Coupe",
+    "rarity": "Legendary",
+    "source": "Mega Car Pack (Robux)",
+    "image": "/images/vehicles/Cupid's-Coupe-Legendary-from-Mega-Car-Pack-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "daisy-unicycle",
+    "category": "vehicles",
+    "name": "Daisy Unicycle",
+    "rarity": "Rare",
+    "source": "Spring Festival 2020",
+    "image": "/images/vehicles/Daisy-Unicycle-Rare-from-Spring-Festival-2020.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "daisymobile-ultra",
+    "category": "vehicles",
+    "name": "Daisymobile Ultra",
+    "rarity": "Rare",
+    "source": "Spring Fest 2023",
+    "image": "/images/vehicles/Daisymobile-Ultra-Rare-from-Spring-Fest-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dapper-friend-carrier",
+    "category": "vehicles",
+    "name": "Dapper Friend Carrier",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Dapper-Friend-Carrier-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dino-truck",
+    "category": "vehicles",
+    "name": "Dino Truck",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Dino-Truck-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dirt-bike-unicycle-ultra",
+    "category": "vehicles",
+    "name": "Dirt Bike Unicycle Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/vehicles/Dirt-Bike-Unicycle-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "doge-scooter",
+    "category": "vehicles",
+    "name": "Doge Scooter",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Doge-Scooter-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "doge-skateboard",
+    "category": "vehicles",
+    "name": "Doge Skateboard",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Doge-Skateboard-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dogmobile",
+    "category": "vehicles",
+    "name": "Dogmobile",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Dogmobile-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dolphin-cruiser",
+    "category": "vehicles",
+    "name": "Dolphin Cruiser",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Dolphin-Cruiser-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "donut-cycle",
+    "category": "vehicles",
+    "name": "Donut Cycle",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Donut-Cycle-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "donut-unicycle-ultra",
+    "category": "vehicles",
+    "name": "Donut Unicycle Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/vehicles/Donut-Unicycle-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "douglas",
+    "category": "vehicles",
+    "name": "Douglas",
+    "rarity": "Legendary",
+    "source": "Robux",
+    "image": "/images/vehicles/Douglas-Legendary-from-Robux.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dragon-train",
+    "category": "vehicles",
+    "name": "Dragon Train",
+    "rarity": "Legendary",
+    "source": "Lunar New Year 2022",
+    "image": "/images/vehicles/Dragon-Train-Legendary-from-Lunar-New-Year-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dragonster",
+    "category": "vehicles",
+    "name": "Dragonster",
+    "rarity": "Legendary",
+    "source": "Lunar New Year Gift Boxes",
+    "image": "/images/vehicles/Dragonster-Legendary-from-Lunar-New-Year-Gift-Boxes.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "duck-scooter",
+    "category": "vehicles",
+    "name": "Duck Scooter",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Duck-Scooter-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "egg-delivery-machine",
+    "category": "vehicles",
+    "name": "Egg Delivery Machine",
+    "rarity": "Legendary",
+    "source": "Easter 2022",
+    "image": "/images/vehicles/Egg-Delivery-Machine-Legendary-from-Easter-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "emoji-scooter",
+    "category": "vehicles",
+    "name": "Emoji Scooter",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Emoji-Scooter-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "emperor-s-chariot",
+    "category": "vehicles",
+    "name": "Emperor's Chariot",
+    "rarity": "Legendary",
+    "source": "September 2022 (Robux)",
+    "image": "/images/vehicles/Emperor's-Chariot-Legendary-from-September-2022-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "enchanted-broomstick-ultra",
+    "category": "vehicles",
+    "name": "Enchanted Broomstick Ultra",
+    "rarity": "Rare",
+    "source": "Halloween 2024 (Robux)",
+    "image": "/images/vehicles/Enchanted-Broomstick-Ultra-Rare-from-Halloween-2024-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "family-car",
+    "category": "vehicles",
+    "name": "Family Car",
+    "rarity": "Uncommon",
+    "source": "Vehicle Dealership",
+    "image": "/images/vehicles/Family-Car-Uncommon-from-Vehicle-Dealership.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "festive-deliveries-present-truck-ultra",
+    "category": "vehicles",
+    "name": "Festive Deliveries Present Truck Ultra",
+    "rarity": "Rare",
+    "source": "Christmas 2021",
+    "image": "/images/vehicles/Festive-Deliveries-Present-Truck-Ultra-Rare-from-Christmas-2021.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "festive-deliveries-sleigh",
+    "category": "vehicles",
+    "name": "Festive Deliveries Sleigh",
+    "rarity": "Legendary",
+    "source": "Christmas 2021",
+    "image": "/images/vehicles/Festive-Deliveries-Sleigh-Legendary-from-Christmas-2021.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "festive-ice-skates",
+    "category": "vehicles",
+    "name": "Festive Ice Skates",
+    "rarity": "Rare",
+    "source": "Christmas 2020",
+    "image": "/images/vehicles/Festive-Ice-Skates-Rare-from-Christmas-2020.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "festive-wagon",
+    "category": "vehicles",
+    "name": "Festive Wagon",
+    "rarity": "Rare",
+    "source": "Winter 2024 (Advent Calendar)",
+    "image": "/images/vehicles/Festive-Wagon-Rare-from-Winter-2024-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "festive-wreath-cruiser",
+    "category": "vehicles",
+    "name": "Festive Wreath Cruiser",
+    "rarity": "Uncommon",
+    "source": "Winter 2023",
+    "image": "/images/vehicles/Festive-Wreath-Cruiser-Uncommon-from-Winter-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "fidget-skateboard",
+    "category": "vehicles",
+    "name": "Fidget Skateboard",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Fidget-Skateboard-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "firework-cycle",
+    "category": "vehicles",
+    "name": "Firework Cycle",
+    "rarity": "Legendary",
+    "source": "Winter 2023",
+    "image": "/images/vehicles/Firework-Cycle-Legendary-from-Winter-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "fissy-skateboard",
+    "category": "vehicles",
+    "name": "Fissy Skateboard",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Fissy-Skateboard-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "flower-truck",
+    "category": "vehicles",
+    "name": "Flower Truck",
+    "rarity": "Legendary",
+    "source": "Spring Fest 2023",
+    "image": "/images/vehicles/Flower-Truck-Legendary-from-Spring-Fest-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "flower-wagon-ultra",
+    "category": "vehicles",
+    "name": "Flower Wagon Ultra",
+    "rarity": "Rare",
+    "source": "Spring Festival 2020",
+    "image": "/images/vehicles/Flower-Wagon-Ultra-Rare-from-Spring-Festival-2020.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "flying-cloud-ultra",
+    "category": "vehicles",
+    "name": "Flying Cloud Ultra",
+    "rarity": "Rare",
+    "source": "Cherry Blossom Festival 2025 (Robux)",
+    "image": "/images/vehicles/Flying-Cloud-Ultra-Rare-from-Cherry-Blossom-Festival-2025-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "fossil-paw-helicopter",
+    "category": "vehicles",
+    "name": "Fossil Paw Helicopter",
+    "rarity": "Rare",
+    "source": "Near Hot Air Balloon",
+    "image": "/images/vehicles/Fossil-Paw-Helicopter-Rare-from-Near-Hot-Air-Balloon.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "futuristic-unicycle",
+    "category": "vehicles",
+    "name": "Futuristic Unicycle",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/vehicles/Futuristic-Unicycle-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "galactic-hoverboard",
+    "category": "vehicles",
+    "name": "Galactic Hoverboard",
+    "rarity": "Rare",
+    "source": "Galactic Pass",
+    "image": "/images/vehicles/Galactic-Hoverboard-Rare-from-Galactic-Pass.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "galleon-ultra",
+    "category": "vehicles",
+    "name": "Galleon Ultra",
+    "rarity": "Rare",
+    "source": "Rain Weather Update",
+    "image": "/images/vehicles/Galleon-Ultra-Rare-from-Rain-Weather-Update.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ghost-vehicle-ultra",
+    "category": "vehicles",
+    "name": "Ghost Vehicle Ultra",
+    "rarity": "Rare",
+    "source": "Halloween 2018",
+    "image": "/images/vehicles/Ghost-Vehicle-Ultra-Rare-from-Halloween-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "giant-cheetah-mount",
+    "category": "vehicles",
+    "name": "Giant Cheetah Mount",
+    "rarity": "Legendary",
+    "source": "Safari Update 2023 (Roblox)",
+    "image": "/images/vehicles/Giant-Cheetah-Mount-Legendary-from-Safari-Update-2023-(Roblox).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "giant-snowball-ultra",
+    "category": "vehicles",
+    "name": "Giant Snowball Ultra",
+    "rarity": "Rare",
+    "source": "Winter 2022",
+    "image": "/images/vehicles/Giant-Snowball-Ultra-Rare-from-Winter-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "gingerbread-sleigh",
+    "category": "vehicles",
+    "name": "Gingerbread Sleigh",
+    "rarity": "Legendary",
+    "source": "Winter 2022",
+    "image": "/images/vehicles/Gingerbread-Sleigh-Legendary-from-Winter-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "gingerbread-stunt-plane",
+    "category": "vehicles",
+    "name": "Gingerbread Stunt Plane",
+    "rarity": "Rare",
+    "source": "Winter 2023",
+    "image": "/images/vehicles/Gingerbread-Stunt-Plane-Rare-from-Winter-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "glass-scooter",
+    "category": "vehicles",
+    "name": "Glass Scooter",
+    "rarity": "Uncommon",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Glass-Scooter-Uncommon-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "glass-skateboard",
+    "category": "vehicles",
+    "name": "Glass Skateboard",
+    "rarity": "Uncommon",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Glass-Skateboard-Uncommon-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "glass-snowboard",
+    "category": "vehicles",
+    "name": "Glass Snowboard",
+    "rarity": "Uncommon",
+    "source": "Gifts 2017",
+    "image": "/images/vehicles/Glass-Snowboard-Uncommon-from-Gifts-2017.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "gokart-ultra",
+    "category": "vehicles",
+    "name": "GoKart Ultra",
+    "rarity": "Rare",
+    "source": "VIP",
+    "image": "/images/vehicles/GoKart-Ultra-Rare-from-VIP.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "gold-scooter",
+    "category": "vehicles",
+    "name": "Gold Scooter",
+    "rarity": "Uncommon",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Gold-Scooter-Uncommon-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "gold-skateboard",
+    "category": "vehicles",
+    "name": "Gold Skateboard",
+    "rarity": "Uncommon",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Gold-Skateboard-Uncommon-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "gold-snowboard",
+    "category": "vehicles",
+    "name": "Gold Snowboard",
+    "rarity": "Common",
+    "source": "Gifts 2017",
+    "image": "/images/vehicles/Gold-Snowboard-Common-from-Gifts-2017.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "green-neon-snowboard",
+    "category": "vehicles",
+    "name": "Green Neon Snowboard",
+    "rarity": "Common",
+    "source": "Gifts 2017",
+    "image": "/images/vehicles/Green-Neon-Snowboard-Common-from-Gifts-2017.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "gummy-biplane",
+    "category": "vehicles",
+    "name": "Gummy Biplane",
+    "rarity": "Rare",
+    "source": "Sugar Festival 2026",
+    "image": "/images/vehicles/Gummy-Biplane-Rare-from-Sugar-Festival-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "gyrocopter",
+    "category": "vehicles",
+    "name": "Gyrocopter",
+    "rarity": "Legendary",
+    "source": "Vehicle Dealership (Robux)",
+    "image": "/images/vehicles/Gyrocopter-Legendary-from-Vehicle-Dealership-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "halloween-black-ponycycle",
+    "category": "vehicles",
+    "name": "Halloween Black Ponycycle",
+    "rarity": "Legendary",
+    "source": "Halloween 2021",
+    "image": "/images/vehicles/Halloween-Black-Ponycycle-Legendary-from-Halloween-2021.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "harvest-truck-ultra",
+    "category": "vehicles",
+    "name": "Harvest Truck Ultra",
+    "rarity": "Rare",
+    "source": "Fall Weather Update",
+    "image": "/images/vehicles/Harvest-Truck-Ultra-Rare-from-Fall-Weather-Update.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "haunted-wagon",
+    "category": "vehicles",
+    "name": "Haunted Wagon",
+    "rarity": "Uncommon",
+    "source": "Halloween 2023",
+    "image": "/images/vehicles/Haunted-Wagon-Uncommon-from-Halloween-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "headless-horseman-s-biplane",
+    "category": "vehicles",
+    "name": "Headless Horseman's Biplane",
+    "rarity": "Legendary",
+    "source": "Halloween 2022",
+    "image": "/images/vehicles/Headless-Horseman's-Biplane-Legendary-from-Halloween-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "heart-hoverboard-ultra",
+    "category": "vehicles",
+    "name": "Heart Hoverboard Ultra",
+    "rarity": "Rare",
+    "source": "Robux",
+    "image": "/images/vehicles/Heart-Hoverboard-Ultra-Rare-from-Robux.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "horse-and-carriage",
+    "category": "vehicles",
+    "name": "Horse and Carriage",
+    "rarity": "Legendary",
+    "source": "Vehicle Dealership (Robux)",
+    "image": "/images/vehicles/Horse-and-Carriage-Legendary-from-Vehicle-Dealership-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "horse-cycle",
+    "category": "vehicles",
+    "name": "Horse Cycle",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Horse-Cycle-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hot-air-balloon-ultra",
+    "category": "vehicles",
+    "name": "Hot Air Balloon Ultra",
+    "rarity": "Rare",
+    "source": "Capuchin Boxes",
+    "image": "/images/vehicles/Hot-Air-Balloon-Ultra-Rare-from-Capuchin-Boxes.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hot-rod-sleigh-ultra",
+    "category": "vehicles",
+    "name": "Hot Rod Sleigh Ultra",
+    "rarity": "Rare",
+    "source": "Winter 2024 (Advent Calendar)",
+    "image": "/images/vehicles/Hot-Rod-Sleigh-Ultra-Rare-from-Winter-2024-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hot-tub-muscle-car",
+    "category": "vehicles",
+    "name": "Hot Tub Muscle Car",
+    "rarity": "Legendary",
+    "source": "November 2022 (Robux)",
+    "image": "/images/vehicles/Hot-Tub-Muscle-Car-Legendary-from-November-2022-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hoverboard",
+    "category": "vehicles",
+    "name": "Hoverboard",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Hoverboard-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hovercar",
+    "category": "vehicles",
+    "name": "Hovercar",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Hovercar-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hovercraft-ultra",
+    "category": "vehicles",
+    "name": "Hovercraft Ultra",
+    "rarity": "Rare",
+    "source": "Star Rewards Refresh",
+    "image": "/images/vehicles/Hovercraft-Ultra-Rare-from-Star-Rewards-Refresh.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hovertible",
+    "category": "vehicles",
+    "name": "Hovertible",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Hovertible-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "human-bubble",
+    "category": "vehicles",
+    "name": "Human Bubble",
+    "rarity": "Rare",
+    "source": "Star Rewards",
+    "image": "/images/vehicles/Human-Bubble-Rare-from-Star-Rewards.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "husky-sled-ultra",
+    "category": "vehicles",
+    "name": "Husky Sled Ultra",
+    "rarity": "Rare",
+    "source": "Winter 2022",
+    "image": "/images/vehicles/Husky-Sled-Ultra-Rare-from-Winter-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ice-cream-truck",
+    "category": "vehicles",
+    "name": "Ice Cream Truck",
+    "rarity": "Legendary",
+    "source": "Robux",
+    "image": "/images/vehicles/Ice-Cream-Truck-Legendary-from-Robux.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ice-plane",
+    "category": "vehicles",
+    "name": "Ice Plane",
+    "rarity": "Legendary",
+    "source": "Winter 2022",
+    "image": "/images/vehicles/Ice-Plane-Legendary-from-Winter-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ice-queen-sleigh-ultra",
+    "category": "vehicles",
+    "name": "Ice Queen Sleigh Ultra",
+    "rarity": "Rare",
+    "source": "Christmas 2019",
+    "image": "/images/vehicles/Ice-Queen-Sleigh-Ultra-Rare-from-Christmas-2019.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ice-scooter",
+    "category": "vehicles",
+    "name": "Ice Scooter",
+    "rarity": "Uncommon",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Ice-Scooter-Uncommon-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ice-snowboard",
+    "category": "vehicles",
+    "name": "Ice Snowboard",
+    "rarity": "Common",
+    "source": "Gifts 2017",
+    "image": "/images/vehicles/Ice-Snowboard-Common-from-Gifts-2017.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "icebreaker-ship",
+    "category": "vehicles",
+    "name": "Icebreaker Ship",
+    "rarity": "Uncommon",
+    "source": "Winter 2022",
+    "image": "/images/vehicles/Icebreaker-Ship-Uncommon-from-Winter-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "imagination-box",
+    "category": "vehicles",
+    "name": "Imagination Box",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Imagination-Box-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "inspector-sherbet-bus",
+    "category": "vehicles",
+    "name": "Inspector Sherbet Bus",
+    "rarity": "Legendary",
+    "source": "Sugar Festival 2026",
+    "image": "/images/vehicles/Inspector-Sherbet-Bus-Legendary-from-Sugar-Festival-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ketchup-and-mustard-jetpack",
+    "category": "vehicles",
+    "name": "Ketchup and Mustard Jetpack",
+    "rarity": "Legendary",
+    "source": "Summer Camp 2026 (Robux)",
+    "image": "/images/vehicles/Ketchup-and-Mustard-Jetpack-Legendary-from-Summer-Camp-2026-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "keyboard-skateboard",
+    "category": "vehicles",
+    "name": "Keyboard Skateboard",
+    "rarity": "Uncommon",
+    "source": "Halloween 2025",
+    "image": "/images/vehicles/Keyboard-Skateboard-Uncommon-from-Halloween-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "landsailer-ultra",
+    "category": "vehicles",
+    "name": "Landsailer Ultra",
+    "rarity": "Rare",
+    "source": "Desert Weather Map",
+    "image": "/images/vehicles/Landsailer-Ultra-Rare-from-Desert-Weather-Map.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "laser-disco-skates",
+    "category": "vehicles",
+    "name": "Laser Disco Skates",
+    "rarity": "Rare",
+    "source": "Winter",
+    "image": "/images/vehicles/Laser-Disco-Skates-Rare-from-Winter.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "latte-motorcycle",
+    "category": "vehicles",
+    "name": "Latte Motorcycle",
+    "rarity": "Legendary",
+    "source": "Sugarfest Wagon Update 2026",
+    "image": "/images/vehicles/Latte-Motorcycle-Legendary-from-Sugarfest-Wagon-Update-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "lava-racer",
+    "category": "vehicles",
+    "name": "Lava Racer",
+    "rarity": "Legendary",
+    "source": "Halloween 2025",
+    "image": "/images/vehicles/Lava-Racer-Legendary-from-Halloween-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "lavender-teapot-carriage",
+    "category": "vehicles",
+    "name": "Lavender Teapot Carriage",
+    "rarity": "Legendary",
+    "source": "Royal Carriages 2023 (Robux)",
+    "image": "/images/vehicles/Lavender-Teapot-Carriage-Legendary-from-Royal-Carriages-2023-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "limo-ultra",
+    "category": "vehicles",
+    "name": "Limo Ultra",
+    "rarity": "Rare",
+    "source": "VIP Gamepass",
+    "image": "/images/vehicles/Limo-Ultra-Rare-from-VIP-Gamepass.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "lunar-muscle-car-ultra",
+    "category": "vehicles",
+    "name": "Lunar Muscle Car Ultra",
+    "rarity": "Rare",
+    "source": "Lunar New Year 2021",
+    "image": "/images/vehicles/Lunar-Muscle-Car-Ultra-Rare-from-Lunar-New-Year-2021.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "magical-girl-car",
+    "category": "vehicles",
+    "name": "Magical Girl Car",
+    "rarity": "Legendary",
+    "source": "Robux",
+    "image": "/images/vehicles/Magical-Girl-Car-Legendary-from-Robux.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "magical-princess-unicycle-ultra",
+    "category": "vehicles",
+    "name": "Magical Princess Unicycle Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/vehicles/Magical-Princess-Unicycle-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "medieval-wagon",
+    "category": "vehicles",
+    "name": "Medieval Wagon",
+    "rarity": "Rare",
+    "source": "September 2022",
+    "image": "/images/vehicles/Medieval-Wagon-Rare-from-September-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "melon-skateboard",
+    "category": "vehicles",
+    "name": "Melon Skateboard",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Melon-Skateboard-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "micro-car",
+    "category": "vehicles",
+    "name": "Micro Car",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Micro-Car-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "modern-unicycle-ultra",
+    "category": "vehicles",
+    "name": "Modern Unicycle Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/vehicles/Modern-Unicycle-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "mono-moped",
+    "category": "vehicles",
+    "name": "Mono Moped",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Mono-Moped-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "monocycle",
+    "category": "vehicles",
+    "name": "Monocycle",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Monocycle-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "moped",
+    "category": "vehicles",
+    "name": "Moped",
+    "rarity": "Rare",
+    "source": "Car Showroom",
+    "image": "/images/vehicles/Moped-Rare-from-Car-Showroom.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "motorbike",
+    "category": "vehicles",
+    "name": "Motorbike",
+    "rarity": "Common",
+    "source": "Vehicle Dealership",
+    "image": "/images/vehicles/Motorbike-Common-from-Vehicle-Dealership.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "motorcycle",
+    "category": "vehicles",
+    "name": "Motorcycle",
+    "rarity": "Common",
+    "source": "Car Showroom",
+    "image": "/images/vehicles/Motorcycle-Common-from-Car-Showroom.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "motorized-sofa",
+    "category": "vehicles",
+    "name": "Motorized Sofa",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Motorized-Sofa-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "multi-bike",
+    "category": "vehicles",
+    "name": "Multi Bike",
+    "rarity": "Common",
+    "source": "Car Showroom",
+    "image": "/images/vehicles/Multi-Bike-Common-from-Car-Showroom.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "muscle-car-ultra",
+    "category": "vehicles",
+    "name": "Muscle Car Ultra",
+    "rarity": "Rare",
+    "source": "Car Showroom",
+    "image": "/images/vehicles/Muscle-Car-Ultra-Rare-from-Car-Showroom.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "neon-black-scooter",
+    "category": "vehicles",
+    "name": "Neon Black Scooter",
+    "rarity": "Common",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Neon-Black-Scooter-Common-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "neon-black-skateboard-ultra",
+    "category": "vehicles",
+    "name": "Neon Black Skateboard Ultra",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Neon-Black-Skateboard-Ultra-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "neon-blue-scooter-ultra",
+    "category": "vehicles",
+    "name": "Neon Blue Scooter Ultra",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Neon-Blue-Scooter-Ultra-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "neon-blue-skateboard-ultra",
+    "category": "vehicles",
+    "name": "Neon Blue Skateboard Ultra",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Neon-Blue-Skateboard-Ultra-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "neon-green-scooter-ultra",
+    "category": "vehicles",
+    "name": "Neon Green Scooter Ultra",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Neon-Green-Scooter-Ultra-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "neon-green-skateboard-ultra",
+    "category": "vehicles",
+    "name": "Neon Green Skateboard Ultra",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Neon-Green-Skateboard-Ultra-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "neon-orange-scooter-ultra",
+    "category": "vehicles",
+    "name": "Neon Orange Scooter Ultra",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Neon-Orange-Scooter-Ultra-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "neon-orange-skateboard-ultra",
+    "category": "vehicles",
+    "name": "Neon Orange Skateboard Ultra",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Neon-Orange-Skateboard-Ultra-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "neon-pink-scooter-ultra",
+    "category": "vehicles",
+    "name": "Neon Pink Scooter Ultra",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Neon-Pink-Scooter-Ultra-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "neon-pink-skateboard-ultra",
+    "category": "vehicles",
+    "name": "Neon Pink Skateboard Ultra",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Neon-Pink-Skateboard-Ultra-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "neon-red-scooter-ultra",
+    "category": "vehicles",
+    "name": "Neon Red Scooter Ultra",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Neon-Red-Scooter-Ultra-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "neon-red-skateboard-ultra",
+    "category": "vehicles",
+    "name": "Neon Red Skateboard Ultra",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Neon-Red-Skateboard-Ultra-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "neon-skates",
+    "category": "vehicles",
+    "name": "Neon Skates",
+    "rarity": "Common",
+    "source": "Gifts",
+    "image": "/images/vehicles/Neon-Skates-Common-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "neon-white-scooter-ultra",
+    "category": "vehicles",
+    "name": "Neon White Scooter Ultra",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Neon-White-Scooter-Ultra-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "neon-white-skateboard-ultra",
+    "category": "vehicles",
+    "name": "Neon White Skateboard Ultra",
+    "rarity": "Rare",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Neon-White-Skateboard-Ultra-Rare-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "off-road-car",
+    "category": "vehicles",
+    "name": "Off Road Car",
+    "rarity": "Rare",
+    "source": "Vehicle Dealership",
+    "image": "/images/vehicles/Off-Road-Car-Rare-from-Vehicle-Dealership.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "offroader",
+    "category": "vehicles",
+    "name": "Offroader",
+    "rarity": "Rare",
+    "source": "Car Showroom",
+    "image": "/images/vehicles/Offroader-Rare-from-Car-Showroom.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "old-sail-boat",
+    "category": "vehicles",
+    "name": "Old Sail Boat",
+    "rarity": "Rare",
+    "source": "Rain Weather Update",
+    "image": "/images/vehicles/Old-Sail-Boat-Rare-from-Rain-Weather-Update.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "open-top-speeder",
+    "category": "vehicles",
+    "name": "Open Top Speeder",
+    "rarity": "Uncommon",
+    "source": "Vehicle Dealership",
+    "image": "/images/vehicles/Open-Top-Speeder-Uncommon-from-Vehicle-Dealership.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "orange-neon-snowboard",
+    "category": "vehicles",
+    "name": "Orange Neon Snowboard",
+    "rarity": "Common",
+    "source": "Gifts 2017",
+    "image": "/images/vehicles/Orange-Neon-Snowboard-Common-from-Gifts-2017.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "orbital-roller-skates",
+    "category": "vehicles",
+    "name": "Orbital Roller Skates",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/vehicles/Orbital-Roller-Skates-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "orchid-racer-ultra",
+    "category": "vehicles",
+    "name": "Orchid Racer Ultra",
+    "rarity": "Rare",
+    "source": "Star Rewards Refresh",
+    "image": "/images/vehicles/Orchid-Racer-Ultra-Rare-from-Star-Rewards-Refresh.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "paint-roller-truck",
+    "category": "vehicles",
+    "name": "Paint Roller Truck",
+    "rarity": "Legendary",
+    "source": "Salon Update 2023",
+    "image": "/images/vehicles/Paint-Roller-Truck-Legendary-from-Salon-Update-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "party-surfboard",
+    "category": "vehicles",
+    "name": "Party Surfboard",
+    "rarity": "Rare",
+    "source": "Pool Store 2023 Update",
+    "image": "/images/vehicles/Party-Surfboard-Rare-from-Pool-Store-2023-Update.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "personal-cannon-launcher-ultra",
+    "category": "vehicles",
+    "name": "Personal Cannon Launcher Ultra",
+    "rarity": "Rare",
+    "source": "Summer Festival 2025",
+    "image": "/images/vehicles/Personal-Cannon-Launcher-Ultra-Rare-from-Summer-Festival-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "personal-sheepdog-car-ultra",
+    "category": "vehicles",
+    "name": "Personal Sheepdog Car Ultra",
+    "rarity": "Rare",
+    "source": "Admin Abuse July 11 2026",
+    "image": "/images/vehicles/Personal-Sheepdog-Car-Ultra-Rare-from-Admin-Abuse-July-11-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pink-neon-snowboard",
+    "category": "vehicles",
+    "name": "Pink Neon Snowboard",
+    "rarity": "Common",
+    "source": "Gifts 2017",
+    "image": "/images/vehicles/Pink-Neon-Snowboard-Common-from-Gifts-2017.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pink-scooter",
+    "category": "vehicles",
+    "name": "Pink Scooter",
+    "rarity": "Common",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Pink-Scooter-Common-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pink-skateboard",
+    "category": "vehicles",
+    "name": "Pink Skateboard",
+    "rarity": "Common",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Pink-Skateboard-Common-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pirate-row-boat",
+    "category": "vehicles",
+    "name": "Pirate Row Boat",
+    "rarity": "Uncommon",
+    "source": "Summer Festival 2025",
+    "image": "/images/vehicles/Pirate-Row-Boat-Uncommon-from-Summer-Festival-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pizza-unicycle",
+    "category": "vehicles",
+    "name": "Pizza Unicycle",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/vehicles/Pizza-Unicycle-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "planetary-core-car-ultra",
+    "category": "vehicles",
+    "name": "Planetary Core Car Ultra",
+    "rarity": "Rare",
+    "source": "Star Rewards Refresh",
+    "image": "/images/vehicles/Planetary-Core-Car-Ultra-Rare-from-Star-Rewards-Refresh.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "plant-powered-roller-skates-ultra",
+    "category": "vehicles",
+    "name": "Plant Powered Roller Skates Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/vehicles/Plant-Powered-Roller-Skates-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "postie-van",
+    "category": "vehicles",
+    "name": "Postie Van",
+    "rarity": "Legendary",
+    "source": "November 28 2025 Update",
+    "image": "/images/vehicles/Postie-Van-Legendary-from-November-28-2025-Update.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "powerbike-ultra",
+    "category": "vehicles",
+    "name": "Powerbike Ultra",
+    "rarity": "Rare",
+    "source": "Cherry Blossom Festival 2025",
+    "image": "/images/vehicles/Powerbike-Ultra-Rare-from-Cherry-Blossom-Festival-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "prehistoric-car",
+    "category": "vehicles",
+    "name": "Prehistoric Car",
+    "rarity": "Legendary",
+    "source": "Fossil Isle Returns Bundle (Robux)",
+    "image": "/images/vehicles/Prehistoric-Car-Legendary-from-Fossil-Isle-Returns-Bundle-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "prince-carriage",
+    "category": "vehicles",
+    "name": "Prince Carriage",
+    "rarity": "Legendary",
+    "source": "Robux",
+    "image": "/images/vehicles/Prince-Carriage-Legendary-from-Robux.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "princess-carriage",
+    "category": "vehicles",
+    "name": "Princess Carriage",
+    "rarity": "Legendary",
+    "source": "Robux",
+    "image": "/images/vehicles/Princess-Carriage-Legendary-from-Robux.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pumpkin-carriage",
+    "category": "vehicles",
+    "name": "Pumpkin Carriage",
+    "rarity": "Legendary",
+    "source": "Halloween 2019",
+    "image": "/images/vehicles/Pumpkin-Carriage-Legendary-from-Halloween-2019.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "rabbit-helicopter",
+    "category": "vehicles",
+    "name": "Rabbit Helicopter",
+    "rarity": "Rare",
+    "source": "Spring Fest 2023 (Robux)",
+    "image": "/images/vehicles/Rabbit-Helicopter-Rare-from-Spring-Fest-2023-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "racing-monoplane",
+    "category": "vehicles",
+    "name": "Racing Monoplane",
+    "rarity": "Rare",
+    "source": "Near Hot Air Balloon",
+    "image": "/images/vehicles/Racing-Monoplane-Rare-from-Near-Hot-Air-Balloon.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "rainbow-trail-magic-carpet",
+    "category": "vehicles",
+    "name": "Rainbow Trail Magic Carpet",
+    "rarity": "Uncommon",
+    "source": "Pride Event 2022",
+    "image": "/images/vehicles/Rainbow-Trail-Magic-Carpet-Uncommon-from-Pride-Event-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "regal-roller",
+    "category": "vehicles",
+    "name": "Regal Roller",
+    "rarity": "Legendary",
+    "source": "Mega Car Pack (Robux)",
+    "image": "/images/vehicles/Regal-Roller-Legendary-from-Mega-Car-Pack-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "rgb-monster-truck-ultra",
+    "category": "vehicles",
+    "name": "RGB Monster Truck Ultra",
+    "rarity": "Rare",
+    "source": "RGB Reward Box",
+    "image": "/images/vehicles/RGB-Monster-Truck-Ultra-Rare-from-RGB-Reward-Box.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "rgb-ufo-ultra",
+    "category": "vehicles",
+    "name": "RGB UFO Ultra",
+    "rarity": "Rare",
+    "source": "RGB Reward Box",
+    "image": "/images/vehicles/RGB-UFO-Ultra-Rare-from-RGB-Reward-Box.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ribcage-carriage",
+    "category": "vehicles",
+    "name": "Ribcage Carriage",
+    "rarity": "Legendary",
+    "source": "Halloween 2020",
+    "image": "/images/vehicles/Ribcage-Carriage-Legendary-from-Halloween-2020.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "rift-rider",
+    "category": "vehicles",
+    "name": "Rift Rider",
+    "rarity": "Rare",
+    "source": "Halloween 2024",
+    "image": "/images/vehicles/Rift-Rider-Rare-from-Halloween-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "roblox-snowboard",
+    "category": "vehicles",
+    "name": "Roblox Snowboard",
+    "rarity": "Common",
+    "source": "Gifts 2017",
+    "image": "/images/vehicles/Roblox-Snowboard-Common-from-Gifts-2017.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "robo-unicycle-ultra",
+    "category": "vehicles",
+    "name": "Robo Unicycle Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/vehicles/Robo-Unicycle-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "rocket-racer-ultra",
+    "category": "vehicles",
+    "name": "Rocket Racer Ultra",
+    "rarity": "Rare",
+    "source": "Star Rewards",
+    "image": "/images/vehicles/Rocket-Racer-Ultra-Rare-from-Star-Rewards.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "rocket-skates",
+    "category": "vehicles",
+    "name": "Rocket Skates",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/vehicles/Rocket-Skates-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "rocket-sled",
+    "category": "vehicles",
+    "name": "Rocket Sled",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Rocket-Sled-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "roller-skates",
+    "category": "vehicles",
+    "name": "Roller Skates",
+    "rarity": "Common",
+    "source": "Toy Shop",
+    "image": "/images/vehicles/Roller-Skates-Common-from-Toy-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "rose-petal-carriage",
+    "category": "vehicles",
+    "name": "Rose Petal Carriage",
+    "rarity": "Legendary",
+    "source": "Royal Carriages 2023 (Robux)",
+    "image": "/images/vehicles/Rose-Petal-Carriage-Legendary-from-Royal-Carriages-2023-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "royal-carriage",
+    "category": "vehicles",
+    "name": "Royal Carriage",
+    "rarity": "Legendary",
+    "source": "Robux",
+    "image": "/images/vehicles/Royal-Carriage-Legendary-from-Robux.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "royal-crown-carriage",
+    "category": "vehicles",
+    "name": "Royal Crown Carriage",
+    "rarity": "Legendary",
+    "source": "Royal Carriages 2023 (Robux)",
+    "image": "/images/vehicles/Royal-Crown-Carriage-Legendary-from-Royal-Carriages-2023-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "santa-copter",
+    "category": "vehicles",
+    "name": "Santa Copter",
+    "rarity": "Legendary",
+    "source": "Winter 2025",
+    "image": "/images/vehicles/Santa-Copter-Legendary-from-Winter-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "santa-s-sleigh",
+    "category": "vehicles",
+    "name": "Santa's Sleigh",
+    "rarity": "Legendary",
+    "source": "Christmas 2019",
+    "image": "/images/vehicles/Santa's-Sleigh-Legendary-from-Christmas-2019.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "shadow-dragon-skateboard",
+    "category": "vehicles",
+    "name": "Shadow Dragon Skateboard",
+    "rarity": "Common",
+    "source": "Safety Hub",
+    "image": "/images/vehicles/Shadow-Dragon-Skateboard-Common-from-Safety-Hub.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "shadow-rider",
+    "category": "vehicles",
+    "name": "Shadow Rider",
+    "rarity": "Legendary",
+    "source": "Halloween 2022",
+    "image": "/images/vehicles/Shadow-Rider-Legendary-from-Halloween-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "shooting-star-board-ultra",
+    "category": "vehicles",
+    "name": "Shooting Star Board Ultra",
+    "rarity": "Rare",
+    "source": "Winter 2024 (Robux)",
+    "image": "/images/vehicles/Shooting-Star-Board-Ultra-Rare-from-Winter-2024-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "sled",
+    "category": "vehicles",
+    "name": "Sled",
+    "rarity": "Rare",
+    "source": "Christmas 2019",
+    "image": "/images/vehicles/Sled-Rare-from-Christmas-2019.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "snow-globetrotter-ultra",
+    "category": "vehicles",
+    "name": "Snow Globetrotter Ultra",
+    "rarity": "Rare",
+    "source": "Winter 2023",
+    "image": "/images/vehicles/Snow-Globetrotter-Ultra-Rare-from-Winter-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "snow-plow-ultra",
+    "category": "vehicles",
+    "name": "Snow Plow Ultra",
+    "rarity": "Rare",
+    "source": "Snow Weather Update",
+    "image": "/images/vehicles/Snow-Plow-Ultra-Rare-from-Snow-Weather-Update.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "snow-snowboard",
+    "category": "vehicles",
+    "name": "Snow Snowboard",
+    "rarity": "Common",
+    "source": "Gifts 2017",
+    "image": "/images/vehicles/Snow-Snowboard-Common-from-Gifts-2017.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "snowblower-toboggan-ultra",
+    "category": "vehicles",
+    "name": "Snowblower Toboggan Ultra",
+    "rarity": "Rare",
+    "source": "Winter 2022",
+    "image": "/images/vehicles/Snowblower-Toboggan-Ultra-Rare-from-Winter-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "snowmobile",
+    "category": "vehicles",
+    "name": "Snowmobile",
+    "rarity": "Legendary",
+    "source": "Cozy Cottage Gamepass",
+    "image": "/images/vehicles/Snowmobile-Legendary-from-Cozy-Cottage-Gamepass.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "soapy-skates",
+    "category": "vehicles",
+    "name": "Soapy Skates",
+    "rarity": "Common",
+    "source": "Gifts",
+    "image": "/images/vehicles/Soapy-Skates-Common-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "soccer-car",
+    "category": "vehicles",
+    "name": "Soccer Car",
+    "rarity": "Rare",
+    "source": "Soccer Update 2024",
+    "image": "/images/vehicles/Soccer-Car-Rare-from-Soccer-Update-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "solarpunk-skates-ultra",
+    "category": "vehicles",
+    "name": "Solarpunk Skates Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/vehicles/Solarpunk-Skates-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "speedboat",
+    "category": "vehicles",
+    "name": "Speedboat",
+    "rarity": "Rare",
+    "source": "Boats Update 2021",
+    "image": "/images/vehicles/Speedboat-Rare-from-Boats-Update-2021.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "spinning-teacup-vehicle-ultra",
+    "category": "vehicles",
+    "name": "Spinning Teacup Vehicle Ultra",
+    "rarity": "Rare",
+    "source": "Gibbon Boxes",
+    "image": "/images/vehicles/Spinning-Teacup-Vehicle-Ultra-Rare-from-Gibbon-Boxes.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "sports-bike",
+    "category": "vehicles",
+    "name": "Sports Bike",
+    "rarity": "Uncommon",
+    "source": "Vehicle Dealership",
+    "image": "/images/vehicles/Sports-Bike-Uncommon-from-Vehicle-Dealership.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "squirrel-car",
+    "category": "vehicles",
+    "name": "Squirrel Car",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Squirrel-Car-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "standard-roller-skates",
+    "category": "vehicles",
+    "name": "Standard Roller Skates",
+    "rarity": "Common",
+    "source": "Gifts",
+    "image": "/images/vehicles/Standard-Roller-Skates-Common-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "standard-unicycle",
+    "category": "vehicles",
+    "name": "Standard Unicycle",
+    "rarity": "Common",
+    "source": "Toy Shop",
+    "image": "/images/vehicles/Standard-Unicycle-Common-from-Toy-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "starter-bike",
+    "category": "vehicles",
+    "name": "Starter Bike",
+    "rarity": "Uncommon",
+    "source": "Robux (Starter Pack)",
+    "image": "/images/vehicles/Starter-Bike-Uncommon-from-Robux-(Starter-Pack).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "stocked-santa-sleigh-ultra",
+    "category": "vehicles",
+    "name": "Stocked Santa Sleigh Ultra",
+    "rarity": "Rare",
+    "source": "Winter 2025 (Advent Calendar)",
+    "image": "/images/vehicles/Stocked-Santa-Sleigh-Ultra-Rare-from-Winter-2025-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "strawberry-shortcake-skates",
+    "category": "vehicles",
+    "name": "Strawberry Shortcake Skates",
+    "rarity": "Rare",
+    "source": "Winter 2022",
+    "image": "/images/vehicles/Strawberry-Shortcake-Skates-Rare-from-Winter-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "strawberry-shortcake-unicycle",
+    "category": "vehicles",
+    "name": "Strawberry Shortcake Unicycle",
+    "rarity": "Uncommon",
+    "source": "Winter 2022",
+    "image": "/images/vehicles/Strawberry-Shortcake-Unicycle-Uncommon-from-Winter-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "street-drifter",
+    "category": "vehicles",
+    "name": "Street Drifter",
+    "rarity": "Legendary",
+    "source": "Mega Car Pack (Robux)",
+    "image": "/images/vehicles/Street-Drifter-Legendary-from-Mega-Car-Pack-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "street-racer",
+    "category": "vehicles",
+    "name": "Street Racer",
+    "rarity": "Legendary",
+    "source": "Influencer Update (Robux)",
+    "image": "/images/vehicles/Street-Racer-Legendary-from-Influencer-Update-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "summer-spectacle",
+    "category": "vehicles",
+    "name": "Summer Spectacle",
+    "rarity": "Legendary",
+    "source": "Summer State Fair 2024",
+    "image": "/images/vehicles/Summer-Spectacle-Legendary-from-Summer-State-Fair-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "sunshine-chariot-ultra",
+    "category": "vehicles",
+    "name": "Sunshine Chariot Ultra",
+    "rarity": "Rare",
+    "source": "Sunshine Games 2024",
+    "image": "/images/vehicles/Sunshine-Chariot-Ultra-Rare-from-Sunshine-Games-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "super-jetpack-ultra",
+    "category": "vehicles",
+    "name": "Super Jetpack Ultra",
+    "rarity": "Rare",
+    "source": "September 2023 (Robux)",
+    "image": "/images/vehicles/Super-Jetpack-Ultra-Rare-from-September-2023-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "surfboard",
+    "category": "vehicles",
+    "name": "Surfboard",
+    "rarity": "Rare",
+    "source": "Pool Store",
+    "image": "/images/vehicles/Surfboard-Rare-from-Pool-Store.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "suv",
+    "category": "vehicles",
+    "name": "SUV",
+    "rarity": "Legendary",
+    "source": "Robux",
+    "image": "/images/vehicles/SUV-Legendary-from-Robux.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "tandem-bicycle",
+    "category": "vehicles",
+    "name": "Tandem Bicycle",
+    "rarity": "Common",
+    "source": "Vehicle Dealership",
+    "image": "/images/vehicles/Tandem-Bicycle-Common-from-Vehicle-Dealership.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "throwing-knife-target",
+    "category": "vehicles",
+    "name": "Throwing Knife Target",
+    "rarity": "Rare",
+    "source": "Halloween 2022",
+    "image": "/images/vehicles/Throwing-Knife-Target-Rare-from-Halloween-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "tiffany",
+    "category": "vehicles",
+    "name": "Tiffany",
+    "rarity": "Legendary",
+    "source": "Robux",
+    "image": "/images/vehicles/Tiffany-Legendary-from-Robux.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "time-traveler-s-clock",
+    "category": "vehicles",
+    "name": "Time Traveler's Clock",
+    "rarity": "Common",
+    "source": "The Hunt Event 2024",
+    "image": "/images/vehicles/Time-Traveler's-Clock-Common-from-The-Hunt-Event-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "tiny-convertible",
+    "category": "vehicles",
+    "name": "Tiny Convertible",
+    "rarity": "Uncommon",
+    "source": "Car Showroom",
+    "image": "/images/vehicles/Tiny-Convertible-Uncommon-from-Car-Showroom.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "toxic-barrel-ultra",
+    "category": "vehicles",
+    "name": "Toxic Barrel Ultra",
+    "rarity": "Rare",
+    "source": "Bunker House Update (Robux)",
+    "image": "/images/vehicles/Toxic-Barrel-Ultra-Rare-from-Bunker-House-Update-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "toy-delivery-truck",
+    "category": "vehicles",
+    "name": "Toy Delivery Truck",
+    "rarity": "Uncommon",
+    "source": "Redemption Kiosk",
+    "image": "/images/vehicles/Toy-Delivery-Truck-Uncommon-from-Redemption-Kiosk.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "toy-rescue-helicopter",
+    "category": "vehicles",
+    "name": "Toy Rescue Helicopter",
+    "rarity": "Legendary",
+    "source": "Christmas 2021",
+    "image": "/images/vehicles/Toy-Rescue-Helicopter-Legendary-from-Christmas-2021.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "tractor-ultra",
+    "category": "vehicles",
+    "name": "Tractor Ultra",
+    "rarity": "Rare",
+    "source": "Fall Weather Update",
+    "image": "/images/vehicles/Tractor-Ultra-Rare-from-Fall-Weather-Update.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "traveling-house",
+    "category": "vehicles",
+    "name": "Traveling House",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Traveling-House-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "trireme-ultra",
+    "category": "vehicles",
+    "name": "Trireme Ultra",
+    "rarity": "Rare",
+    "source": "Desert Weather Map",
+    "image": "/images/vehicles/Trireme-Ultra-Rare-from-Desert-Weather-Map.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "trusty-sled",
+    "category": "vehicles",
+    "name": "Trusty Sled",
+    "rarity": "Uncommon",
+    "source": "Winter 2024 (Advent Calendar)",
+    "image": "/images/vehicles/Trusty-Sled-Uncommon-from-Winter-2024-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "tundra-exploration-machine-ultra",
+    "category": "vehicles",
+    "name": "Tundra Exploration Machine Ultra",
+    "rarity": "Rare",
+    "source": "Snow Weather Update",
+    "image": "/images/vehicles/Tundra-Exploration-Machine-Ultra-Rare-from-Snow-Weather-Update.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "unicorn-cycle",
+    "category": "vehicles",
+    "name": "Unicorn Cycle",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Unicorn-Cycle-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "unicorn-zombie-ponycycle-ultra",
+    "category": "vehicles",
+    "name": "Unicorn Zombie Ponycycle Ultra",
+    "rarity": "Rare",
+    "source": "Halloween 2022",
+    "image": "/images/vehicles/Unicorn-Zombie-Ponycycle-Ultra-Rare-from-Halloween-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "unicycle",
+    "category": "vehicles",
+    "name": "Unicycle",
+    "rarity": "Uncommon",
+    "source": "Toy Shop",
+    "image": "/images/vehicles/Unicycle-Uncommon-from-Toy-Shop.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "unstable-triangle-car-ultra",
+    "category": "vehicles",
+    "name": "Unstable Triangle Car Ultra",
+    "rarity": "Rare",
+    "source": "November 2022",
+    "image": "/images/vehicles/Unstable-Triangle-Car-Ultra-Rare-from-November-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "waffle-wagon",
+    "category": "vehicles",
+    "name": "Waffle Wagon",
+    "rarity": "Rare",
+    "source": "Winter 2023 (Advent Calendar)",
+    "image": "/images/vehicles/Waffle-Wagon-Rare-from-Winter-2023-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "water-scooter",
+    "category": "vehicles",
+    "name": "Water Scooter",
+    "rarity": "Uncommon",
+    "source": "Summer Festival 2023",
+    "image": "/images/vehicles/Water-Scooter-Uncommon-from-Summer-Festival-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "white-neon-snowboard",
+    "category": "vehicles",
+    "name": "White Neon Snowboard",
+    "rarity": "Common",
+    "source": "Gifts 2017",
+    "image": "/images/vehicles/White-Neon-Snowboard-Common-from-Gifts-2017.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "white-scooter",
+    "category": "vehicles",
+    "name": "White Scooter",
+    "rarity": "Common",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/White-Scooter-Common-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "white-skateboard",
+    "category": "vehicles",
+    "name": "White Skateboard",
+    "rarity": "Common",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/White-Skateboard-Common-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "white-snowboard",
+    "category": "vehicles",
+    "name": "White Snowboard",
+    "rarity": "Common",
+    "source": "Gifts 2017",
+    "image": "/images/vehicles/White-Snowboard-Common-from-Gifts-2017.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "wing-trunk-car",
+    "category": "vehicles",
+    "name": "Wing Trunk Car",
+    "rarity": "Legendary",
+    "source": "Robux",
+    "image": "/images/vehicles/Wing-Trunk-Car-Legendary-from-Robux.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "winged-skates-ultra",
+    "category": "vehicles",
+    "name": "Winged Skates Ultra",
+    "rarity": "Rare",
+    "source": "Gifts",
+    "image": "/images/vehicles/Winged-Skates-Ultra-Rare-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "witch-s-caravan",
+    "category": "vehicles",
+    "name": "Witch's Caravan",
+    "rarity": "Legendary",
+    "source": "Star Rewards",
+    "image": "/images/vehicles/Witch's-Caravan-Legendary-from-Star-Rewards.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "wizard-caravan",
+    "category": "vehicles",
+    "name": "Wizard Caravan",
+    "rarity": "Legendary",
+    "source": "Gifts",
+    "image": "/images/vehicles/Wizard-Caravan-Legendary-from-Gifts.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "wood-scooter",
+    "category": "vehicles",
+    "name": "Wood Scooter",
+    "rarity": "Uncommon",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Wood-Scooter-Uncommon-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "wood-skateboard",
+    "category": "vehicles",
+    "name": "Wood Skateboard",
+    "rarity": "Uncommon",
+    "source": "Gifts 2018",
+    "image": "/images/vehicles/Wood-Skateboard-Uncommon-from-Gifts-2018.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "yellow-taxi-cab",
+    "category": "vehicles",
+    "name": "Yellow Taxi Cab",
+    "rarity": "Legendary",
+    "source": "Robux",
+    "image": "/images/vehicles/Yellow-Taxi-Cab-Legendary-from-Robux.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "zamboni-ultra",
+    "category": "vehicles",
+    "name": "Zamboni Ultra",
+    "rarity": "Rare",
+    "source": "Special",
+    "image": "/images/vehicles/Zamboni-Ultra-Rare-from-Special.png",
+    "value": null,
+    "valueUnit": null
+  }
+]

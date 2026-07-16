@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trade Listing — AdoptMeHouseTrading.com</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="sign-mark"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="46" y="30" width="8" height="60" rx="2" fill="#7A5230"/><g transform="rotate(-6 50 40)"><rect x="20" y="18" width="60" height="34" rx="6" fill="#C0473C"/><text x="50" y="34" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="700" font-size="11" fill="#FFFFFF">FOR</text><text x="50" y="47" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="700" font-size="11" fill="#FFFFFF">TRADE</text></g></svg></span>
+      AdoptMeHouseTrading
+    </a>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../houses/index.html">Browse Houses</a>
+      <a href="index.html" class="active">Trade Listings</a>
+      <a href="../list-a-house.html">List a House</a>
+      <a href="../profile.html">My Profile</a>
+    </nav>
+  </div>
+</header>
+
+<section class="wrap" id="content" style="padding: 40px 0 80px;"></section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community. Not affiliated with Adopt Me or Roblox Corporation.
+    <div style="margin-top:8px;"><a href="#" id="report-link" style="color:var(--sign-red);">Report this listing</a></div>
+  </div>
+</footer>
+
+<script type="module">
+  import { api, getStoredProfile, CATEGORY_LABELS } from "../js/api.js";
+
+  const params = new URLSearchParams(location.search);
+  const listingId = params.get("id");
+  const content = document.getElementById("content");
+  const myProfile = getStoredProfile();
+
+  if (!listingId) {
+    content.innerHTML = `<div class="form-card"><h1>Listing not found</h1></div>`;
+  } else {
+    await loadListing();
+  }
+
+  async function loadListing() {
+    let data;
+    try {
+      data = await fetch(`/.netlify/functions/listings-get?id=${listingId}`).then((r) => r.json());
+    } catch {
+      content.innerHTML = `<div class="form-card"><h1>Couldn't load this listing</h1></div>`;
+      return;
+    }
+
+    if (data.error) {
+      content.innerHTML = `<div class="form-card"><h1>${escapeHtml(data.error)}</h1></div>`;
+      return;
+    }
+
+    const { listing, offers } = data;
+    const houses = await fetch("../data/houses.json").then((r) => r.json());
+    const house = houses.find((h) => h.id === listing.house_id);
+    const isOwner = myProfile && myProfile.id === listing.profile_id;
+
+    const photosHtml = (listing.photos?.length ? listing.photos : [house?.image])
+      .filter(Boolean)
+      .map((url) => `<img src="${url}" alt="" style="width:100%;border-radius:10px;margin-bottom:10px;">`)
+      .join("");
+
+    const lookingForHtml = (listing.looking_for || [])
+      .map((c) => `<span class="pill">${CATEGORY_LABELS[c] || c}</span>`)
+      .join("");
+
+    content.innerHTML = `
+      <div class="house-detail">
+        <div class="photo" style="flex-direction:column;align-items:stretch;">${photosHtml}</div>
+        <div>
+          <span class="status-badge ${listing.status}">${listing.status === "traded" ? "Traded" : "For Trade"}</span>
+          <h1 style="margin-top:8px;">${escapeHtml(listing.title)}</h1>
+          <div class="profile-chip" style="margin: 10px 0 16px;">
+            <img src="${listing.profiles?.rbx_avatar_url || "../images/brand/searchdog.png"}" alt="">
+            <span class="name">${escapeHtml(listing.profiles?.rbx_username || "unknown")}</span>
+          </div>
+          <p>${escapeHtml(listing.description || "No description provided.")}</p>
+          <div class="meta-row">
+            <span class="pill">House: ${house ? escapeHtml(house.name) : "Unknown"}</span>
+            ${lookingForHtml ? `<span class="pill">Looking for:</span>${lookingForHtml}` : ""}
+          </div>
+        </div>
+      </div>
+
+      <div class="section-head"><h2>Offers (${offers.length})</h2></div>
+      <div id="offers-list"></div>
+
+      ${
+        listing.status === "active" && !isOwner
+          ? `<div class="form-card" id="offer-form-card"><h1>Make an Offer</h1>
+              <div id="offer-error" class="error-box" hidden></div>
+              <div id="offer-success" class="success-box" hidden></div>
+              <div id="need-profile-offer" class="hint" hidden>
+                <a href="../profile.html">Set up your profile</a> to make an offer.
+              </div>
+              <div id="offer-builder">
+                <label class="field-label">Add items to your offer</label>
+                <div class="item-picker">
+                  <div class="category-tabs" id="category-tabs"></div>
+                  <input type="search" id="item-search" placeholder="Search items..." style="margin-bottom:10px;">
+                  <div class="results" id="item-results"></div>
+                </div>
+                <div class="selected-items" id="selected-items"></div>
+                <label class="field-label" for="offer-message">Message (optional)</label>
+                <textarea id="offer-message" placeholder="Anything you want the lister to know"></textarea>
+                <div class="hero-ctas" style="justify-content:flex-start;margin-top:18px;">
+                  <button class="btn btn-primary" id="submit-offer-btn">Submit Offer</button>
+                </div>
+              </div>
+            </div>`
+          : ""
+      }
+    `;
+
+    renderOffers(offers, isOwner, listing);
+
+    if (listing.status === "active" && !isOwner) {
+      if (!myProfile) {
+        document.getElementById("offer-builder").hidden = true;
+        document.getElementById("need-profile-offer").hidden = false;
+      } else {
+        await initOfferBuilder(listing);
+      }
+    }
+
+    document.getElementById("report-link").addEventListener("click", async (e) => {
+      e.preventDefault();
+      const reason = prompt("Why are you reporting this listing?");
+      if (!reason) return;
+      await api.report(listing.id, reason, "");
+      alert("Thanks — this listing has been flagged for review.");
+    });
+  }
+
+  function renderOffers(offers, isOwner, listing) {
+    const list = document.getElementById("offers-list");
+    if (!offers.length) {
+      list.innerHTML = `<p class="hint">No offers yet.</p>`;
+      return;
+    }
+
+    list.innerHTML = offers
+      .map((offer) => {
+        const itemsHtml = offer.items
+          .map((it) => `<div class="item"><img src="${it.image}" alt=""><div>${escapeHtml(it.name)}</div></div>`)
+          .join("");
+        const canRespond = isOwner && listing.status === "active" && offer.status === "pending";
+        return `
+        <div class="offer-card">
+          <div class="profile-chip">
+            <img src="${offer.profiles?.rbx_avatar_url || "../images/brand/searchdog.png"}" alt="">
+            <span class="name">${escapeHtml(offer.profiles?.rbx_username || "unknown")}</span>
+          </div>
+          <div class="items-row">${itemsHtml}</div>
+          ${offer.message ? `<p>${escapeHtml(offer.message)}</p>` : ""}
+          <span class="status-badge ${offer.status === "accepted" ? "active" : "traded"}">${offer.status}</span>
+          ${
+            canRespond
+              ? `<div class="offer-actions">
+                  <button class="btn-sm accept" data-offer="${offer.id}" data-action="accept">Accept</button>
+                  <button class="btn-sm decline" data-offer="${offer.id}" data-action="decline">Decline</button>
+                </div>`
+              : ""
+          }
+        </div>`;
+      })
+      .join("");
+
+    list.querySelectorAll("button[data-offer]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        try {
+          await api.respondToOffer(btn.dataset.offer, btn.dataset.action);
+          await loadListing();
+        } catch (err) {
+          alert(err.message);
+        }
+      });
+    });
+  }
+
+  async function initOfferBuilder(listing) {
+    const catalogsByCategory = {};
+    const categories = Object.keys(CATEGORY_LABELS);
+    let activeCategory = categories[0];
+    const selected = [];
+
+    const tabs = document.getElementById("category-tabs");
+    tabs.innerHTML = categories
+      .map((c) => `<button data-cat="${c}" class="${c === activeCategory ? "active" : ""}">${CATEGORY_LABELS[c]}</button>`)
+      .join("");
+
+    async function loadCategory(cat) {
+      if (!catalogsByCategory[cat]) {
+        catalogsByCategory[cat] = await fetch(`../data/${cat}.json`).then((r) => r.json());
+      }
+      renderResults();
+    }
+
+    function renderResults() {
+      const search = document.getElementById("item-search").value.toLowerCase();
+      const items = (catalogsByCategory[activeCategory] || [])
+        .filter((it) => it.name.toLowerCase().includes(search))
+        .slice(0, 60);
+
+      document.getElementById("item-results").innerHTML = items
+        .map(
+          (it) => `<div class="result-item ${selected.some((s) => s.id === it.id && s.category === it.category) ? "selected" : ""}"
+                      data-id="${it.id}" data-cat="${it.category}">
+                      <img src="${it.image}" alt="">${escapeHtml(it.name)}
+                    </div>`
+        )
+        .join("");
+
+      document.querySelectorAll(".result-item").forEach((el) => {
+        el.addEventListener("click", () => {
+          const item = catalogsByCategory[activeCategory].find((i) => i.id === el.dataset.id);
+          const idx = selected.findIndex((s) => s.id === item.id && s.category === item.category);
+          if (idx === -1) selected.push(item);
+          else selected.splice(idx, 1);
+          renderResults();
+          renderSelected();
+        });
+      });
+    }
+
+    function renderSelected() {
+      document.getElementById("selected-items").innerHTML = selected
+        .map(
+          (it, i) =>
+            `<span class="selected-chip"><img src="${it.image}" alt="">${escapeHtml(it.name)}<button data-i="${i}">×</button></span>`
+        )
+        .join("");
+      document.querySelectorAll(".selected-chip button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          selected.splice(Number(btn.dataset.i), 1);
+          renderResults();
+          renderSelected();
+        });
+      });
+    }
+
+    tabs.querySelectorAll("button").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        activeCategory = btn.dataset.cat;
+        tabs.querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
+        await loadCategory(activeCategory);
+      });
+    });
+
+    document.getElementById("item-search").addEventListener("input", renderResults);
+
+    document.getElementById("submit-offer-btn").addEventListener("click", async () => {
+      const errorBox = document.getElementById("offer-error");
+      const successBox = document.getElementById("offer-success");
+      errorBox.hidden = true;
+      successBox.hidden = true;
+
+      if (!selected.length) {
+        errorBox.textContent = "Add at least one item to your offer.";
+        errorBox.hidden = false;
+        return;
+      }
+
+      try {
+        await api.createOffer({
+          listing_id: listing.id,
+          items: selected,
+          message: document.getElementById("offer-message").value.trim(),
+        });
+        successBox.textContent = "Offer sent!";
+        successBox.hidden = false;
+        await loadListing();
+      } catch (err) {
+        errorBox.textContent = err.message;
+        errorBox.hidden = false;
+      }
+    });
+
+    await loadCategory(activeCategory);
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+</script>
+</body>
+</html>
