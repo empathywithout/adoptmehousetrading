@@ -15,6 +15,7 @@
     </a>
     <nav>
       <a href="../listings/index.html" class="active">Browse Houses</a>
+      <a href="../commissions/index.html">Commissions</a>
       <a href="../comps.html">Recent Trades</a>
       <a href="../houses/index.html">Values</a>
       <a href="../profile.html">Profile</a>
@@ -350,7 +351,7 @@
     }
 
     if (trade?.status === "corroborated") {
-      el.innerHTML = `<p class="hint">✓ Both sides confirmed this trade happened.</p>`;
+      el.innerHTML = `<span class="verified-badge">Verified</span>`;
       return;
     }
 

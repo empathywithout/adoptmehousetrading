@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Commissions — AdoptMeHouseTrading.com</title>
+<meta name="description" content="Find a builder taking custom house commissions on Adopt Me.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="signpost-mini"></span>
+      AdoptMeHouseTrading
+    </a>
+    <nav>
+      <a href="../listings/index.html">Browse Houses</a>
+      <a href="index.html" class="active">Commissions</a>
+      <a href="../comps.html">Recent Trades</a>
+      <a href="../houses/index.html">Values</a>
+      <a href="../profile.html">Profile</a>
+    </nav>
+    <div class="nav-actions">
+      <span id="nav-profile-pill"></span>
+      <a class="btn btn-primary" href="../list-a-house.html" style="padding:10px 20px;font-size:14px;">Add Listing</a>
+    </div>
+  </div>
+</header>
+<script type="module" src="../js/nav.js"></script>
+
+<section class="wrap" style="padding: 40px 0 80px;">
+  <div class="section-head">
+    <h2>Commissions</h2>
+    <a href="../profile.html">Become a builder →</a>
+  </div>
+  <p class="hint" style="margin-bottom:20px;max-width:640px;">
+    Custom house builds for hire — separate from trading an existing house. Payment is in Adopt Me items/value, same as everywhere else on this site.
+  </p>
+
+  <div class="filter-pills" id="status-pills"></div>
+  <div class="filter-pills" id="theme-pills"></div>
+
+  <div id="empty-state" class="form-card" hidden>
+    <h1>No builders yet</h1>
+    <p class="subtitle">Be the first to open up commissions.</p>
+    <a class="btn btn-primary" href="../profile.html">Become a Builder</a>
+  </div>
+  <div class="house-grid" id="builders-grid"></div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community. Not affiliated with Adopt Me or Roblox Corporation.
+    <div style="margin-top:8px;"><a href="../rules.html" style="color:var(--sign-red);">Community Rules</a></div>
+  </div>
+</footer>
+
+<script type="module">
+  import { THEME_LABELS } from "../js/api.js";
+
+  const grid = document.getElementById("builders-grid");
+  const empty = document.getElementById("empty-state");
+
+  let builders = await fetch("/.netlify/functions/builders-list").then((r) => r.json()).then((d) => d.builders || []);
+
+  let activeStatus = "open";
+  let activeTheme = "all";
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  const statusPillsEl = document.getElementById("status-pills");
+  statusPillsEl.innerHTML = ["open", "all"]
+    .map((s) => `<button data-key="${s}" class="${s === activeStatus ? "active" : ""}">${s === "open" ? "Open for Commissions" : "All Builders"}</button>`)
+    .join("");
+  statusPillsEl.querySelectorAll("button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      activeStatus = btn.dataset.key;
+      statusPillsEl.querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
+      render();
+    });
+  });
+
+  function renderThemePills() {
+    const themesInUse = [...new Set(builders.flatMap((b) => b.builder_themes || []))];
+    const themePillsEl = document.getElementById("theme-pills");
+    if (!themesInUse.length) {
+      themePillsEl.hidden = true;
+      return;
+    }
+    const entries = [{ key: "all", label: "All Themes" }, ...themesInUse.map((t) => ({ key: t, label: THEME_LABELS[t] || t }))];
+    themePillsEl.innerHTML = entries
+      .map((t) => `<button data-key="${t.key}" class="${t.key === activeTheme ? "active" : ""}">${t.label}</button>`)
+      .join("");
+    themePillsEl.querySelectorAll("button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        activeTheme = btn.dataset.key;
+        themePillsEl.querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
+        render();
+      });
+    });
+  }
+
+  function render() {
+    const filtered = builders.filter((b) => {
+      const matchesStatus = activeStatus === "all" || b.commission_status === activeStatus;
+      const matchesTheme = activeTheme === "all" || (b.builder_themes || []).includes(activeTheme);
+      return matchesStatus && matchesTheme;
+    });
+
+    if (!filtered.length) {
+      empty.hidden = false;
+      grid.innerHTML = "";
+    } else {
+      empty.hidden = true;
+      grid.innerHTML = filtered
+        .map((b) => {
+          const photo = b.portfolio_photos?.[0] || "../images/brand/searchdog.png";
+          const themesLine = (b.builder_themes || []).map((t) => THEME_LABELS[t] || t).join(", ");
+          return `
+          <a class="listing-card" href="builder.html?id=${b.id}">
+            <div class="photo"><img src="${photo}" alt=""></div>
+            <div class="body">
+              <h3>${escapeHtml(b.rbx_username)}</h3>
+              <div class="trust-row">
+                <span class="avatar-initial">${escapeHtml(b.rbx_username[0]?.toUpperCase() || "?")}</span>
+                <span class="username">${b.commission_status === "open" ? "Open for commissions" : "Closed"}</span>
+              </div>
+              ${themesLine ? `<p class="lister" style="margin-top:2px;">${escapeHtml(themesLine)}</p>` : ""}
+            </div>
+          </a>`;
+        })
+        .join("");
+    }
+  }
+
+  renderThemePills();
+  render();
+</script>
+</body>
+</html>

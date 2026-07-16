@@ -19,7 +19,18 @@ create table profiles (
   rbx_user_id bigint,                 -- from Roblox's public API, for avatar/profile link
   rbx_avatar_url text,
   session_token_hash text not null,   -- sha256 of the token stored in the player's browser
-  created_at timestamptz not null default now()
+  created_at timestamptz not null default now(),
+
+  -- Builder fields — a profile opts into being a "Builder" separately from
+  -- posting house listings. Commissions are a distinct system from house
+  -- trading (a builder takes custom-build requests; it's not tied to any
+  -- one house), so these live on the profile rather than as another
+  -- listing_type.
+  is_builder boolean not null default false,
+  builder_bio text,
+  commission_status text not null default 'closed' check (commission_status in ('open', 'closed')),
+  portfolio_photos jsonb not null default '[]', -- past work, Supabase Storage URLs
+  builder_themes jsonb not null default '[]'    -- specialties, same tag set as listing themes
 );
 
 create table listings (
@@ -118,6 +129,57 @@ create index completed_trades_status_idx on completed_trades(status);
 alter table completed_trades enable row level security;
 create policy "public can read corroborated trades" on completed_trades
   for select using (status = 'corroborated');
+
+-- Commission requests: a separate system from house trading. A builder
+-- (profiles.is_builder = true) takes requests from other players; unlike
+-- an offer on a house listing, a commission needs an explicit agreed-scope
+-- record locked in BEFORE work starts — this directly targets the real,
+-- recurring scam pattern in the community ("failed comm": builder finishes
+-- the work, client ghosts or lowballs after). Completion uses the exact
+-- same both-sides-confirm pattern as completed_trades — "verified" means
+-- the same thing everywhere on this site, not a different check per
+-- feature.
+create table commission_requests (
+  id uuid primary key default gen_random_uuid(),
+  builder_profile_id uuid not null references profiles(id) on delete cascade,
+  requester_profile_id uuid not null references profiles(id) on delete cascade,
+
+  description text not null,          -- what the client wants built
+  agreed_scope text,                  -- snapshot of description at accept time — the locked-in
+                                       -- agreement both sides can point back to later
+  themes jsonb not null default '[]', -- desired theme tags, same set as listing themes
+
+  offered_items jsonb not null default '[]',  -- payment offered, items — no Robux/cash per
+                                               -- the same no-crosstrading stance as trading
+  offered_value_amount numeric,
+  offered_value_unit text check (offered_value_unit in ('shark', 'frost')),
+
+  status text not null default 'pending'
+    check (status in ('pending', 'accepted', 'declined', 'delivered', 'verified', 'cancelled')),
+  -- pending:   submitted, awaiting builder response
+  -- accepted:  builder agreed — agreed_scope is now locked in, work begins
+  -- declined:  builder said no
+  -- delivered: builder marked the build finished, attached proof photos
+  -- verified:  BOTH sides confirmed completion (same pattern as completed_trades)
+  -- cancelled: either side backed out after accepted but before verified
+
+  delivery_photos jsonb not null default '[]',
+  builder_confirmed boolean not null default false,
+  requester_confirmed boolean not null default false,
+
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create index commission_requests_builder_idx on commission_requests(builder_profile_id);
+create index commission_requests_requester_idx on commission_requests(requester_profile_id);
+create index commission_requests_status_idx on commission_requests(status);
+
+alter table commission_requests enable row level security;
+-- No public select policy — a commission request is only visible to the
+-- two parties involved, via the service-role functions. Unlike a house
+-- listing's offers (which are semi-public, like Traderie's offer history),
+-- commission negotiations are private between the builder and the client.
 
 create table reports (
   id uuid primary key default gen_random_uuid(),

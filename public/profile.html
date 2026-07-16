@@ -16,6 +16,7 @@
     </a>
     <nav>
       <a href="listings/index.html">Browse Houses</a>
+      <a href="commissions/index.html">Commissions</a>
       <a href="comps.html">Recent Trades</a>
       <a href="houses/index.html">Values</a>
       <a href="profile.html" class="active">Profile</a>
@@ -66,6 +67,44 @@
       <p class="subtitle">Post a house, request one, or announce you're open for commissions.</p>
       <a class="btn btn-primary" href="list-a-house.html">List a House</a>
     </div>
+
+    <div class="section-head" style="margin-top:36px;"><h2>Builder Settings</h2></div>
+    <div class="form-card" style="max-width:none;">
+      <label class="field-label" style="margin-top:0;">
+        <input type="checkbox" id="is-builder-toggle"> I take house commissions
+      </label>
+      <div id="builder-settings-fields" hidden style="margin-top:16px;">
+        <label class="field-label" style="margin-top:0;" for="builder-bio">Bio</label>
+        <textarea id="builder-bio" placeholder="What you build, your style, turnaround time..."></textarea>
+
+        <label class="field-label">Status</label>
+        <div class="segmented" id="commission-status-toggle" style="max-width:280px;">
+          <button data-val="open" class="active accent">Open</button>
+          <button data-val="closed">Closed</button>
+        </div>
+
+        <label class="field-label">Specialties</label>
+        <div class="checkbox-grid" id="builder-themes-grid"></div>
+
+        <label class="field-label">Portfolio</label>
+        <div class="photo-slots" id="portfolio-slots" style="grid-template-columns:repeat(4,1fr);"></div>
+
+        <div class="hero-ctas" style="justify-content:flex-start;margin-top:18px;">
+          <button class="btn btn-primary" id="save-builder-btn">Save Builder Settings</button>
+        </div>
+        <div id="builder-save-success" class="success-box" hidden></div>
+      </div>
+    </div>
+
+    <div id="commission-requests-builder-section" hidden>
+      <div class="section-head" style="margin-top:36px;"><h2>Commission Requests Received</h2></div>
+      <div id="commission-requests-builder"></div>
+    </div>
+
+    <div id="commission-requests-requester-section" hidden>
+      <div class="section-head" style="margin-top:36px;"><h2>Your Commission Requests</h2></div>
+      <div id="commission-requests-requester"></div>
+    </div>
   </div>
 </section>
 
@@ -77,7 +116,7 @@
 </footer>
 
 <script type="module">
-  import { api, getStoredProfile, saveSession, clearSession, CATEGORY_LABELS } from "./js/api.js";
+  import { api, getStoredProfile, saveSession, clearSession, CATEGORY_LABELS, THEME_LABELS } from "./js/api.js";
 
   const signedOutView = document.getElementById("signed-out-view");
   const signedInView = document.getElementById("signed-in-view");
@@ -135,6 +174,8 @@
       "Member since " + new Date(dash.stats.member_since).getFullYear();
 
     renderListings(dash.listings, dash.profile.id);
+    renderBuilderSettings(dash.profile);
+    renderCommissionRequests(dash);
   }
 
   function renderListings(listings, myProfileId) {
@@ -207,6 +248,185 @@
         }
       });
     });
+  }
+
+  let uploadedPortfolioUrls = [];
+
+  function renderBuilderSettings(profile) {
+    const toggle = document.getElementById("is-builder-toggle");
+    const fields = document.getElementById("builder-settings-fields");
+    toggle.checked = !!profile.is_builder;
+    fields.hidden = !profile.is_builder;
+
+    document.getElementById("builder-bio").value = profile.builder_bio || "";
+    uploadedPortfolioUrls = [...(profile.portfolio_photos || [])];
+
+    const statusToggle = document.getElementById("commission-status-toggle");
+    statusToggle.querySelectorAll("button").forEach((b) => {
+      b.classList.toggle("active", b.dataset.val === (profile.commission_status || "closed"));
+    });
+
+    const themesGrid = document.getElementById("builder-themes-grid");
+    if (!themesGrid.dataset.built) {
+      themesGrid.innerHTML = Object.entries(THEME_LABELS)
+        .map(([key, label]) => `<label><input type="checkbox" value="${key}"> ${label}</label>`)
+        .join("");
+      themesGrid.dataset.built = "1";
+    }
+    themesGrid.querySelectorAll("input").forEach((cb) => {
+      cb.checked = (profile.builder_themes || []).includes(cb.value);
+    });
+
+    renderPortfolioSlots();
+
+    if (!toggle.dataset.bound) {
+      toggle.dataset.bound = "1";
+      toggle.addEventListener("change", () => {
+        fields.hidden = !toggle.checked;
+      });
+      statusToggle.querySelectorAll("button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          statusToggle.querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
+        });
+      });
+      document.getElementById("save-builder-btn").addEventListener("click", saveBuilderSettings);
+    }
+  }
+
+  function renderPortfolioSlots() {
+    const container = document.getElementById("portfolio-slots");
+    const slotCount = Math.max(4, uploadedPortfolioUrls.length + 1);
+    container.innerHTML = Array.from({ length: slotCount }, (_, i) => {
+      const url = uploadedPortfolioUrls[i];
+      return `<div class="photo-slot interior" data-slot="${i}">
+        ${url ? `<img src="${url}" alt="">` : `<div class="plus-circle">+</div><div class="slot-label">Photo</div>`}
+        <input type="file" accept="image/png,image/jpeg,image/webp" data-slot-input="${i}" style="display:none;">
+      </div>`;
+    }).join("");
+
+    container.querySelectorAll(".photo-slot").forEach((slot) => {
+      const fileInput = slot.querySelector("input[type=file]");
+      slot.addEventListener("click", () => fileInput.click());
+      fileInput.addEventListener("change", async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        try {
+          const url = await api.uploadPhoto(file);
+          uploadedPortfolioUrls[Number(slot.dataset.slot)] = url;
+          renderPortfolioSlots();
+        } catch (err) {
+          alert("Upload failed: " + err.message);
+        }
+      });
+    });
+  }
+
+  async function saveBuilderSettings() {
+    const isBuilder = document.getElementById("is-builder-toggle").checked;
+    const builderBio = document.getElementById("builder-bio").value.trim();
+    const commissionStatus = document.querySelector("#commission-status-toggle button.active").dataset.val;
+    const builderThemes = Array.from(document.querySelectorAll("#builder-themes-grid input:checked")).map((el) => el.value);
+
+    try {
+      await api.updateBuilder({
+        is_builder: isBuilder,
+        builder_bio: builderBio,
+        commission_status: commissionStatus,
+        portfolio_photos: uploadedPortfolioUrls.filter(Boolean),
+        builder_themes: builderThemes,
+      });
+      const successBox = document.getElementById("builder-save-success");
+      successBox.textContent = "Saved!";
+      successBox.hidden = false;
+      setTimeout(() => (successBox.hidden = true), 2000);
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  function renderCommissionRequests(dash) {
+    const builderSection = document.getElementById("commission-requests-builder-section");
+    const requesterSection = document.getElementById("commission-requests-requester-section");
+
+    const asBuilder = dash.commission_requests_as_builder || [];
+    const asRequester = dash.commission_requests_as_requester || [];
+
+    builderSection.hidden = !dash.profile.is_builder || !asBuilder.length;
+    requesterSection.hidden = !asRequester.length;
+
+    if (asBuilder.length) {
+      document.getElementById("commission-requests-builder").innerHTML = asBuilder
+        .map((req) => commissionRequestCard(req, req.profiles?.rbx_username, true))
+        .join("");
+    }
+    if (asRequester.length) {
+      document.getElementById("commission-requests-requester").innerHTML = asRequester
+        .map((req) => commissionRequestCard(req, req.profiles?.rbx_username, false))
+        .join("");
+    }
+
+    document.querySelectorAll("[data-commission-respond]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        try {
+          await api.respondToCommissionRequest(btn.dataset.commissionRespond, btn.dataset.action);
+          await render();
+        } catch (err) {
+          alert(err.message);
+        }
+      });
+    });
+    document.querySelectorAll("[data-commission-deliver]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        try {
+          await api.deliverCommission(btn.dataset.commissionDeliver, []);
+          await render();
+        } catch (err) {
+          alert(err.message);
+        }
+      });
+    });
+    document.querySelectorAll("[data-commission-confirm]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        try {
+          await api.confirmCommission(btn.dataset.commissionConfirm);
+          await render();
+        } catch (err) {
+          alert(err.message);
+        }
+      });
+    });
+  }
+
+  function commissionRequestCard(req, otherUsername, isBuilderView) {
+    const itemsSummary = (req.offered_items || []).map((i) => i.name).join(", ") || "no items offered";
+    const myConfirmed = isBuilderView ? req.builder_confirmed : req.requester_confirmed;
+
+    let actionsHtml = "";
+    if (isBuilderView && req.status === "pending") {
+      actionsHtml = `<div class="offer-actions">
+        <button class="btn-sm accept" data-commission-respond="${req.id}" data-action="accept">Accept</button>
+        <button class="btn-sm decline" data-commission-respond="${req.id}" data-action="decline">Decline</button>
+      </div>`;
+    } else if (isBuilderView && req.status === "accepted") {
+      actionsHtml = `<button class="btn-sm accept" data-commission-deliver="${req.id}">Mark Delivered</button>`;
+    } else if (req.status === "delivered" && !myConfirmed) {
+      actionsHtml = `<button class="btn-sm accept" data-commission-confirm="${req.id}">Confirm Completed</button>`;
+    } else if (req.status === "delivered" && myConfirmed) {
+      actionsHtml = `<p class="hint">Waiting on the other side to confirm.</p>`;
+    } else if (req.status === "verified") {
+      actionsHtml = `<p class="hint">✓ Verified complete.</p>`;
+    }
+
+    return `
+    <div class="offer-card">
+      <div class="profile-chip">
+        <span class="name">${escapeHtml(otherUsername || "unknown")}</span>
+      </div>
+      <p>${escapeHtml(req.status === "accepted" || req.status === "delivered" || req.status === "verified" ? req.agreed_scope || req.description : req.description)}</p>
+      <p class="hint">Offering: ${escapeHtml(itemsSummary)}</p>
+      ${req.status === "verified" ? `<span class="verified-badge">Verified</span>` : `<span class="status-badge traded">${req.status}</span>`}
+      ${actionsHtml}
+    </div>`;
   }
 
   document.getElementById("create-btn").addEventListener("click", async () => {

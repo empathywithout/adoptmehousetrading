@@ -1,6 +1,7 @@
 // GET, Authorization: Bearer <token>
 // -> { profile, stats: { completed_trades, active_listings, member_since },
-//      listings: [{ ...listing, offers: [...] }] }
+//      listings: [{ ...listing, offers: [...] }],
+//      commission_requests_as_builder: [...], commission_requests_as_requester: [...] }
 
 import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
 
@@ -28,6 +29,23 @@ async function handlerImpl(event) {
     return json(500, { error: "Couldn't load your listings" });
   }
 
+  const { data: requestsAsBuilder, error: rabErr } = await db
+    .from("commission_requests")
+    .select("*, profiles!commission_requests_requester_profile_id_fkey(rbx_username, rbx_avatar_url)")
+    .eq("builder_profile_id", profile.id)
+    .order("created_at", { ascending: false });
+
+  const { data: requestsAsRequester, error: rarErr } = await db
+    .from("commission_requests")
+    .select("*, profiles!commission_requests_builder_profile_id_fkey(rbx_username, rbx_avatar_url)")
+    .eq("requester_profile_id", profile.id)
+    .order("created_at", { ascending: false });
+
+  if (rabErr || rarErr) {
+    console.error(rabErr || rarErr);
+    return json(500, { error: "Couldn't load commission requests" });
+  }
+
   // Completed trades = corroborated trades where this profile was either
   // the lister or the offerer.
   const { count: asLister } = await db
@@ -42,9 +60,16 @@ async function handlerImpl(event) {
     .eq("status", "corroborated")
     .eq("offers.offering_profile_id", profile.id);
 
+  const { count: commissionsCompleted } = await db
+    .from("commission_requests")
+    .select("id", { count: "exact", head: true })
+    .eq("builder_profile_id", profile.id)
+    .eq("status", "verified");
+
   const stats = {
     completed_trades: (asLister || 0) + (asOfferer || 0),
     active_listings: listings.filter((l) => l.status === "active").length,
+    commissions_completed: commissionsCompleted || 0,
     member_since: profile.created_at,
   };
 
@@ -53,9 +78,16 @@ async function handlerImpl(event) {
       id: profile.id,
       rbx_username: profile.rbx_username,
       rbx_avatar_url: profile.rbx_avatar_url,
+      is_builder: profile.is_builder,
+      builder_bio: profile.builder_bio,
+      commission_status: profile.commission_status,
+      portfolio_photos: profile.portfolio_photos,
+      builder_themes: profile.builder_themes,
     },
     stats,
     listings,
+    commission_requests_as_builder: requestsAsBuilder,
+    commission_requests_as_requester: requestsAsRequester,
   });
 }
 

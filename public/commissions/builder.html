@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Builder — AdoptMeHouseTrading.com</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="signpost-mini"></span>
+      AdoptMeHouseTrading
+    </a>
+    <nav>
+      <a href="../listings/index.html">Browse Houses</a>
+      <a href="index.html" class="active">Commissions</a>
+      <a href="../comps.html">Recent Trades</a>
+      <a href="../houses/index.html">Values</a>
+      <a href="../profile.html">Profile</a>
+    </nav>
+    <div class="nav-actions">
+      <span id="nav-profile-pill"></span>
+      <a class="btn btn-primary" href="../list-a-house.html" style="padding:10px 20px;font-size:14px;">Add Listing</a>
+    </div>
+  </div>
+</header>
+<script type="module" src="../js/nav.js"></script>
+
+<section class="wrap" id="content" style="padding: 40px 0 80px;"></section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community. Not affiliated with Adopt Me or Roblox Corporation.
+    <div style="margin-top:8px;"><a href="../rules.html" style="color:var(--sign-red);">Community Rules</a></div>
+  </div>
+</footer>
+
+<script type="module">
+  import { api, getStoredProfile, THEME_LABELS } from "../js/api.js";
+  import { mountItemPicker } from "../js/item-picker.js";
+
+  const params = new URLSearchParams(location.search);
+  const builderId = params.get("id");
+  const content = document.getElementById("content");
+  const myProfile = getStoredProfile();
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  if (!builderId) {
+    content.innerHTML = `<div class="form-card"><h1>Builder not found</h1></div>`;
+  } else {
+    await load();
+  }
+
+  async function load() {
+    let data;
+    try {
+      data = await fetch(`/.netlify/functions/builder-get?id=${builderId}`).then((r) => r.json());
+    } catch {
+      content.innerHTML = `<div class="form-card"><h1>Couldn't load this builder</h1></div>`;
+      return;
+    }
+    if (data.error) {
+      content.innerHTML = `<div class="form-card"><h1>${escapeHtml(data.error)}</h1></div>`;
+      return;
+    }
+
+    const builder = data.builder;
+    const isSelf = myProfile && myProfile.id === builder.id;
+    const themesLine = (builder.builder_themes || []).map((t) => THEME_LABELS[t] || t).join(", ");
+
+    const portfolioHtml = builder.portfolio_photos?.length
+      ? `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">${builder.portfolio_photos.map((url) => `<img src="${url}" alt="" style="width:100%;border-radius:10px;aspect-ratio:1;object-fit:cover;">`).join("")}</div>`
+      : `<p class="hint">No portfolio photos yet.</p>`;
+
+    content.innerHTML = `
+      <div class="breadcrumb">Commissions &nbsp;/&nbsp; <span class="current">${escapeHtml(builder.rbx_username)}</span></div>
+      <div class="detail-grid">
+        <div>
+          <div class="trust-card" style="margin-bottom:20px;">
+            <img class="avatar-lg" src="${builder.rbx_avatar_url || ""}" alt="" onerror="this.removeAttribute('src')">
+            <div>
+              <div class="trust-name-row"><span class="name">${escapeHtml(builder.rbx_username)}</span></div>
+              <div class="trust-sub">${builder.commission_status === "open" ? "Open for commissions" : "Currently closed"}</div>
+            </div>
+          </div>
+          ${builder.builder_bio ? `<p>${escapeHtml(builder.builder_bio)}</p>` : ""}
+          ${themesLine ? `<div class="meta-row"><span class="pill">Specialties:</span>${(builder.builder_themes || []).map((t) => `<span class="pill">${THEME_LABELS[t] || t}</span>`).join("")}</div>` : ""}
+          <div class="section-head" style="margin-top:24px;"><h2 style="font-size:18px;">Portfolio</h2></div>
+          ${portfolioHtml}
+        </div>
+        <div class="sidebar-sticky">
+          ${
+            isSelf
+              ? `<div class="form-card"><h1>This is you</h1><p class="subtitle">Manage your builder settings from your profile.</p><a class="btn btn-primary" href="../profile.html">Go to Profile</a></div>`
+              : builder.commission_status !== "open"
+              ? `<div class="form-card"><h1>Not taking commissions right now</h1><p class="subtitle">Check back later, or browse other builders.</p></div>`
+              : !myProfile
+              ? `<div class="form-card"><h1>Request a Commission</h1><p class="subtitle"><a href="../profile.html">Set up your profile</a> to request a commission.</p></div>`
+              : `<div class="cta-box" style="background:var(--paper);border:1px solid var(--line);">
+                  <h3 style="color:var(--ink);">Request a Commission</h3>
+                  <div id="request-error" class="error-box" hidden></div>
+                  <div id="request-success" class="success-box" hidden></div>
+                  <label class="field-label" style="margin-top:0;" for="request-description">Describe what you want built</label>
+                  <textarea id="request-description" placeholder="Style, size, rooms, anything specific..."></textarea>
+                  <label class="field-label">Offer (optional)</label>
+                  <div class="item-picker">
+                    <div class="category-tabs" id="category-tabs"></div>
+                    <input type="search" id="item-search" placeholder="Search items..." style="margin-bottom:10px;">
+                    <div class="results" id="item-results"></div>
+                  </div>
+                  <div class="selected-items" id="selected-items"></div>
+                  <button class="btn btn-primary" id="submit-request-btn" style="width:100%;margin-top:14px;">Send Request</button>
+                </div>`
+          }
+        </div>
+      </div>
+    `;
+
+    if (!isSelf && builder.commission_status === "open" && myProfile) {
+      const picker = mountItemPicker(document.getElementById("content"), "");
+      document.getElementById("submit-request-btn").addEventListener("click", async () => {
+        const errorBox = document.getElementById("request-error");
+        const successBox = document.getElementById("request-success");
+        errorBox.hidden = true;
+        successBox.hidden = true;
+
+        const description = document.getElementById("request-description").value.trim();
+        if (!description) {
+          errorBox.textContent = "Describe what you want built.";
+          errorBox.hidden = false;
+          return;
+        }
+
+        try {
+          await api.createCommissionRequest({
+            builder_profile_id: builder.id,
+            description,
+            offered_items: picker.getSelected(),
+          });
+          successBox.textContent = "Request sent! Track it from your profile.";
+          successBox.hidden = false;
+        } catch (err) {
+          errorBox.textContent = err.message;
+          errorBox.hidden = false;
+        }
+      });
+    }
+  }
+</script>
+</body>
+</html>

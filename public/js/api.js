@@ -74,6 +74,21 @@ export const api = {
 
   report: (listing_id, reason, details) =>
     request("report-create", { method: "POST", body: { listing_id, reason, details } }),
+
+  updateBuilder: (patch) => request("profile-update-builder", { method: "POST", body: patch, auth: true }),
+  listBuilders: (params = {}) => {
+    const qs = new URLSearchParams(params).toString();
+    return request(`builders-list${qs ? `?${qs}` : ""}`);
+  },
+  getBuilder: (id) => request(`builder-get?id=${encodeURIComponent(id)}`),
+
+  createCommissionRequest: (payload) => request("commission-request-create", { method: "POST", body: payload, auth: true }),
+  respondToCommissionRequest: (request_id, action) =>
+    request("commission-request-respond", { method: "POST", body: { request_id, action }, auth: true }),
+  deliverCommission: (request_id, delivery_photos) =>
+    request("commission-request-deliver", { method: "POST", body: { request_id, delivery_photos }, auth: true }),
+  confirmCommission: (request_id) =>
+    request("commission-request-confirm", { method: "POST", body: { request_id }, auth: true }),
 };
 
 async function uploadPhoto(file) {
@@ -118,5 +133,5 @@ export const THEME_LABELS = {
   fantasy: "Fantasy",
   horror: "Horror",
   holiday_seasonal: "Holiday / Seasonal",
-  franchise_crossover: "Franchise Crossover",
+  franchise_crossover: "Custom Theme",
 };
