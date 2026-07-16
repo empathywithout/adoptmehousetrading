@@ -160,6 +160,22 @@
       </div>
     `;
 
+    document.title = `${builder.display_name} — Adopt Me House Builder | AdoptMeHouseTrading.com`;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute("content", `${builder.display_name} takes Adopt Me house commissions${themesLine ? ` — specialties: ${themesLine}` : ""}. ${builder.commission_status === "open" ? "Currently open for requests." : "Currently closed."}`);
+    const breadcrumbScript = document.createElement("script");
+    breadcrumbScript.type = "application/ld+json";
+    breadcrumbScript.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://adoptmehousetrading.com/" },
+        { "@type": "ListItem", position: 2, name: "Commissions", item: "https://adoptmehousetrading.com/commissions/index.html" },
+        { "@type": "ListItem", position: 3, name: builder.display_name, item: `https://adoptmehousetrading.com/commissions/builder.html?id=${builder.id}` },
+      ],
+    });
+    document.head.appendChild(breadcrumbScript);
+
     if (!isSelf && builder.commission_status === "open" && myProfile) {
       const picker = mountItemPicker(document.getElementById("content"), "");
 

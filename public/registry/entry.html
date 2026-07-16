@@ -223,6 +223,22 @@
       </div>
     `;
 
+    document.title = `${entry.title} — Adopt Me Build Registry | AdoptMeHouseTrading.com`;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute("content", `${entry.title}, registered by ${entry.profiles?.display_name || "a builder"} — original-creator attribution and clone-check history on AdoptMeHouseTrading.com.`);
+    const breadcrumbScript = document.createElement("script");
+    breadcrumbScript.type = "application/ld+json";
+    breadcrumbScript.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://adoptmehousetrading.com/" },
+        { "@type": "ListItem", position: 2, name: "Build Registry", item: "https://adoptmehousetrading.com/registry/index.html" },
+        { "@type": "ListItem", position: 3, name: entry.title, item: `https://adoptmehousetrading.com/registry/entry.html?id=${entry.id}` },
+      ],
+    });
+    document.head.appendChild(breadcrumbScript);
+
     if (!isSelf && myProfile) {
       document.getElementById("submit-dispute-btn").addEventListener("click", async () => {
         const errorBox = document.getElementById("dispute-error");

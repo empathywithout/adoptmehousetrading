@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Build Registry — AdoptMeHouseTrading.com</title>
-<meta name="description" content="A real, timestamped record of who built what first — attribution for Adopt Me house builds.">
+<title>Adopt Me Build Registry — Verify Original House Builders | AdoptMeHouseTrading.com</title>
+<meta name="description" content="A public, timestamped registry of original Adopt Me house builds — find out who built it first, spot clones, and see verified vs. disputed builds.">
 <link rel="stylesheet" href="../css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://adoptmehousetrading.com/"},{"@type":"ListItem","position":2,"name":"Build Registry","item":"https://adoptmehousetrading.com/registry/index.html"}]}</script>
 </head>
 <body>
 <header class="site-nav">
@@ -141,6 +142,22 @@
 
   renderThemePills();
   render();
+
+  if (entries.length) {
+    const itemListScript = document.createElement("script");
+    itemListScript.type = "application/ld+json";
+    itemListScript.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      itemListElement: entries.slice(0, 30).map((e, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: e.title,
+        url: `https://adoptmehousetrading.com/registry/entry.html?id=${e.id}`,
+      })),
+    });
+    document.head.appendChild(itemListScript);
+  }
 </script>
 </body>
 </html>

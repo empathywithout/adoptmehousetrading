@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Commissions — AdoptMeHouseTrading.com</title>
-<meta name="description" content="Find a builder taking custom house commissions on Adopt Me.">
+<title>Adopt Me House Commissions — Find a Builder | AdoptMeHouseTrading.com</title>
+<meta name="description" content="Find Adopt Me builders taking house commissions — browse portfolios, specialties like cottagecore or gothic themes, and request a custom build.">
 <link rel="stylesheet" href="../css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://adoptmehousetrading.com/"},{"@type":"ListItem","position":2,"name":"Commissions","item":"https://adoptmehousetrading.com/commissions/index.html"}]}</script>
 </head>
 <body>
 <header class="site-nav">
@@ -143,6 +144,22 @@
 
   renderThemePills();
   render();
+
+  if (builders.length) {
+    const itemListScript = document.createElement("script");
+    itemListScript.type = "application/ld+json";
+    itemListScript.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      itemListElement: builders.slice(0, 30).map((b, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: b.display_name,
+        url: `https://adoptmehousetrading.com/commissions/builder.html?id=${b.id}`,
+      })),
+    });
+    document.head.appendChild(itemListScript);
+  }
 </script>
 </body>
 </html>

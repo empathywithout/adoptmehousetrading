@@ -285,6 +285,25 @@
       }
     `;
 
+    document.title = `${listing.title} — Adopt Me House Trading | AdoptMeHouseTrading.com`;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      const valueText = listing.value_amount != null ? `${listing.value_amount} ${listing.value_unit || ""}` : "value TBD";
+      metaDesc.setAttribute("content", `${listing.title} — Adopt Me house trade listing, asking ${valueText}. Browse offers or make one on AdoptMeHouseTrading.com.`);
+    }
+    const breadcrumbScript = document.createElement("script");
+    breadcrumbScript.type = "application/ld+json";
+    breadcrumbScript.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://adoptmehousetrading.com/" },
+        { "@type": "ListItem", position: 2, name: "Browse Houses", item: "https://adoptmehousetrading.com/listings/index.html" },
+        { "@type": "ListItem", position: 3, name: listing.title, item: `https://adoptmehousetrading.com/listings/listing.html?id=${listing.id}` },
+      ],
+    });
+    document.head.appendChild(breadcrumbScript);
+
     renderOffers(offers, isOwner, listing);
 
     content.querySelectorAll(".detail-tabs .tab").forEach((tab) => {

@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Recent Trades — AdoptMeHouseTrading.com</title>
-<meta name="description" content="Real, verified completed house trades — not opinion-based value guides.">
+<title>Recent Adopt Me Trades — Verified House Trading Values | AdoptMeHouseTrading.com</title>
+<meta name="description" content="Real, verified Adopt Me house trades confirmed by both sides — see actual completed trade values instead of guesswork or opinion-based value lists.">
 <link rel="stylesheet" href="css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://adoptmehousetrading.com/"},{"@type":"ListItem","position":2,"name":"Recent Trades","item":"https://adoptmehousetrading.com/comps.html"}]}</script>
 </head>
 <body>
 <header class="site-nav">
@@ -152,6 +153,21 @@
   const POTION_ABBR = { none: "", ride: "R", fly: "F", fly_ride: "FR" };
 
   renderTrades();
+
+  if (trades.length) {
+    const itemListScript = document.createElement("script");
+    itemListScript.type = "application/ld+json";
+    itemListScript.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      itemListElement: trades.slice(0, 30).map((t, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: `${houseById[t.listings?.house_id]?.name || "House"} traded — verified`,
+      })),
+    });
+    document.head.appendChild(itemListScript);
+  }
 
   function escapeHtml(str) {
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
