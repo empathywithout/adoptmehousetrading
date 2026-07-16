@@ -106,6 +106,28 @@ async function handlerImpl(event) {
     console.error("build_registry query failed:", err);
   }
 
+  // My own sent offers — offers I've made on OTHER people's listings.
+  // Distinct from `listings` above, which only covers listings I posted.
+  let myOffers = [];
+  try {
+    const { data, error } = await db
+      .from("offers")
+      .select("*, listings(id, title, status, house_id, value_amount, value_unit, profile_id, profiles(display_name, rbx_username, rbx_avatar_url))")
+      .eq("offering_profile_id", profile.id)
+      .order("created_at", { ascending: false });
+    if (error) throw error;
+    // Same reveal-on-accept rule as everywhere else: the lister's real
+    // Roblox username only shows once my offer is actually accepted.
+    myOffers = (data || []).map((o) => {
+      if (o.listings?.profiles && o.status !== "accepted") {
+        o.listings.profiles.rbx_username = null;
+      }
+      return o;
+    });
+  } catch (err) {
+    console.error("my offers query failed:", err);
+  }
+
   // Completed trades = corroborated trades where this profile was either
   // the lister or the offerer.
   const { count: asLister } = await db
@@ -144,6 +166,7 @@ async function handlerImpl(event) {
     commission_requests_as_builder: requestsAsBuilder,
     commission_requests_as_requester: requestsAsRequester,
     build_registry_entries: myBuildRegistryEntries,
+    my_offers: myOffers,
   });
 }
 

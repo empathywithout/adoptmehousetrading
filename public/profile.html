@@ -97,6 +97,14 @@
       <a class="btn btn-primary" href="list-a-house.html">List a House</a>
     </div>
 
+    <div class="section-head" style="margin-top:36px;"><h2>My Offers</h2><a href="listings/index.html">Browse Houses →</a></div>
+    <div id="my-offers"></div>
+    <div id="no-offers-msg" class="form-card" hidden>
+      <h1>No offers sent yet</h1>
+      <p class="subtitle">Offers you make on other players' listings show up here.</p>
+      <a class="btn btn-primary" href="listings/index.html">Browse Houses</a>
+    </div>
+
     <div class="section-head" style="margin-top:36px;"><h2>Builder Settings</h2></div>
     <div class="form-card" style="max-width:none;">
       <label class="field-label" style="margin-top:0;">
@@ -226,6 +234,7 @@
       "Member since " + new Date(dash.stats.member_since).getFullYear();
 
     renderListings(dash.listings, dash.profile.id);
+    renderMyOffers(dash.my_offers || []);
     renderBuilderSettings(dash.profile);
     renderCommissionRequests(dash);
     renderBuildRegistry(dash.build_registry_entries || []);
@@ -304,6 +313,58 @@
   }
 
   let uploadedPortfolioUrls = [];
+
+  const OFFER_STATUS_LABELS = { pending: "Pending", accepted: "Accepted", declined: "Declined", withdrawn: "Withdrawn/Cancelled" };
+
+  function renderMyOffers(offers) {
+    const container = document.getElementById("my-offers");
+    const emptyMsg = document.getElementById("no-offers-msg");
+
+    if (!offers.length) {
+      emptyMsg.hidden = false;
+      container.innerHTML = "";
+      return;
+    }
+    emptyMsg.hidden = true;
+
+    container.innerHTML = offers
+      .map((offer) => {
+        const listing = offer.listings;
+        if (!listing) return "";
+        const photo = "images/brand/searchdog.png";
+        const listerName = listing.profiles?.display_name || "unknown";
+        const cancelBtn =
+          offer.status === "accepted"
+            ? `<button class="btn-sm decline" data-my-offer-cancel="${offer.id}">Cancel</button>`
+            : "";
+        return `
+        <div class="manage-card">
+          <a class="manage-head" href="listings/listing.html?id=${listing.id}" style="text-decoration:none;color:inherit;">
+            <div class="manage-thumb"><img src="${photo}" alt=""></div>
+            <div style="flex:1;">
+              <div class="manage-title">${escapeHtml(listing.title)}</div>
+              <p class="hint" style="margin:2px 0 0;">To ${escapeHtml(listerName)}${listing.status === "traded" && offer.status !== "accepted" ? " · Listing traded to someone else" : ""}</p>
+            </div>
+            <span class="offer-count">${OFFER_STATUS_LABELS[offer.status] || offer.status}</span>
+          </a>
+          ${cancelBtn ? `<div style="padding:10px 16px 14px;">${cancelBtn}</div>` : ""}
+        </div>`;
+      })
+      .join("");
+
+    container.querySelectorAll("[data-my-offer-cancel]").forEach((btn) => {
+      btn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        if (!confirm("Cancel this offer? The listing reopens for other offers.")) return;
+        try {
+          await api.cancelOffer(btn.dataset.myOfferCancel);
+          await render();
+        } catch (err) {
+          alert(err.message);
+        }
+      });
+    });
+  }
 
   function renderBuilderSettings(profile) {
     const toggle = document.getElementById("is-builder-toggle");
