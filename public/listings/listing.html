@@ -61,6 +61,9 @@
   const content = document.getElementById("content");
   const myProfile = getStoredProfile();
 
+  const VARIANT_LABELS = { regular: "", neon: "Neon", mega_neon: "Mega Neon" };
+  const POTION_ABBR = { none: "", ride: "R", fly: "F", fly_ride: "FR" };
+
   if (!listingId) {
     content.innerHTML = `<div class="form-card"><h1>Listing not found</h1></div>`;
   } else {
@@ -77,9 +80,6 @@
     if (days === 1) return "yesterday";
     return `${days} days ago`;
   }
-
-  const VARIANT_LABELS = { regular: "", neon: "Neon", mega_neon: "Mega Neon" };
-  const POTION_ABBR = { none: "", ride: "R", fly: "F", fly_ride: "FR" };
 
   function petPrefix(it) {
     if (it.category !== "adopt_me_pets") return "";

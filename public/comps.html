@@ -144,14 +144,14 @@
       .join("");
   }
 
+  const VARIANT_LABELS = { regular: "", neon: "Neon", mega_neon: "Mega Neon" };
+  const POTION_ABBR = { none: "", ride: "R", fly: "F", fly_ride: "FR" };
+
   renderTrades();
 
   function escapeHtml(str) {
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
-
-  const VARIANT_LABELS = { regular: "", neon: "Neon", mega_neon: "Mega Neon" };
-  const POTION_ABBR = { none: "", ride: "R", fly: "F", fly_ride: "FR" };
 
   function petPrefix(it) {
     if (it.category !== "adopt_me_pets") return "";
