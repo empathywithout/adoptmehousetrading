@@ -2,10 +2,12 @@
 // body: { request_id }
 // -> { request }
 //
-// Either party can cancel an ACCEPTED commission before it's delivered —
-// same reasoning as offers-cancel.js. Not allowed once delivered/verified,
-// since at that point there's actual completed work to account for rather
-// than just a plan someone's backing out of.
+// Two cases:
+//  - PENDING request: only the REQUESTER can cancel it (the builder
+//    already has "decline" for that side).
+//  - ACCEPTED request: either party can cancel before delivery — same
+//    reasoning as offers-cancel.js. Not allowed once delivered/verified,
+//    since at that point there's actual completed work to account for.
 
 import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
 
@@ -44,8 +46,12 @@ async function handlerImpl(event) {
     return json(403, { error: "Not a party to this commission" });
   }
 
-  if (request.status !== "accepted") {
-    return json(400, { error: "Only an accepted (not yet delivered) commission can be cancelled" });
+  if (request.status === "pending") {
+    if (!isRequester) {
+      return json(403, { error: "Only the requester can cancel a pending request — the builder can decline it instead" });
+    }
+  } else if (request.status !== "accepted") {
+    return json(400, { error: "This commission can't be cancelled anymore" });
   }
 
   const { data, error } = await db

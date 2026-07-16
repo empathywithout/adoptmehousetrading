@@ -2,13 +2,15 @@
 // body: { offer_id }
 // -> { offer }
 //
-// Either party (lister or offerer) can cancel an ACCEPTED offer before it's
-// fully confirmed by both sides — plans change, someone's no longer able
-// to trade in-game, etc. Not allowed once the trade is already
-// corroborated (both sides confirmed it happened) — at that point it's
-// done, not something to back out of. Cancelling reopens the listing for
-// other offers and clears any in-progress (unconfirmed) trade-confirmation
-// record so it doesn't linger.
+// Two cases:
+//  - PENDING offer: only the OFFERER can withdraw it (the lister already
+//    has "decline" for that side of it).
+//  - ACCEPTED offer: either party (lister or offerer) can back out before
+//    it's fully confirmed by both sides — plans change, someone's no
+//    longer able to trade in-game, etc. Not allowed once the trade is
+//    already corroborated — at that point it's done, not something to
+//    back out of. Cancelling an accepted offer reopens the listing and
+//    clears any in-progress (unconfirmed) trade-confirmation record.
 
 import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
 
@@ -52,8 +54,20 @@ async function handlerImpl(event) {
     return json(403, { error: "Not a party to this trade" });
   }
 
+  if (offer.status === "pending") {
+    if (!isOfferer) {
+      return json(403, { error: "Only the person who made the offer can withdraw it — the lister can decline it instead" });
+    }
+    const { data, error } = await db.from("offers").update({ status: "withdrawn" }).eq("id", offer_id).select().single();
+    if (error) {
+      console.error(error);
+      return json(500, { error: "Couldn't withdraw offer" });
+    }
+    return json(200, { offer: data });
+  }
+
   if (offer.status !== "accepted") {
-    return json(400, { error: "Only an accepted offer can be cancelled" });
+    return json(400, { error: "This offer can't be cancelled anymore" });
   }
 
   const { data: trade } = await db.from("completed_trades").select("status").eq("offer_id", offer_id).maybeSingle();

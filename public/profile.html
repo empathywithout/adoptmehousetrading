@@ -16,9 +16,7 @@
     </a>
     <nav>
       <a href="listings/index.html">Browse Houses</a>
-      <a href="commissions/index.html">Commissions</a>
-      <a href="registry/index.html">Build Registry</a>
-      <a href="comps.html">Recent Trades</a>
+      <a href="commissions/index.html">Commissions</a>      <a href="comps.html">Recent Trades</a>
       <a href="houses/index.html">Values</a>
       <a href="profile.html" class="active">Profile</a>
     </nav>
@@ -143,12 +141,12 @@
       <div id="commission-requests-requester"></div>
     </div>
 
-    <div class="section-head" style="margin-top:36px;"><h2>My Registered Builds</h2><a href="registry/submit.html">+ Register a build</a></div>
+    <div class="section-head" style="margin-top:36px;"><h2>My Portfolio</h2><a href="registry/submit.html">+ Add to portfolio</a></div>
     <div id="my-registry-entries"></div>
     <div id="no-registry-msg" class="form-card" hidden>
-      <h1>No builds registered yet</h1>
-      <p class="subtitle">Claim credit for your original work.</p>
-      <a class="btn btn-primary" href="registry/submit.html">Register a Build</a>
+      <h1>Nothing in your portfolio yet</h1>
+      <p class="subtitle">Show off builds you've made — visible here on your own profile.</p>
+      <a class="btn btn-primary" href="registry/submit.html">Add a Build</a>
     </div>
     </div>
   </div>
@@ -346,8 +344,8 @@
         const photo = "images/brand/searchdog.png";
         const listerName = listing.profiles?.display_name || "unknown";
         const cancelBtn =
-          offer.status === "accepted"
-            ? `<button class="btn-sm decline" data-my-offer-cancel="${offer.id}">Cancel</button>`
+          offer.status === "accepted" || offer.status === "pending"
+            ? `<button class="btn-sm decline" data-my-offer-cancel="${offer.id}">${offer.status === "pending" ? "Withdraw" : "Cancel"}</button>`
             : "";
         return `
         <div class="manage-card">
@@ -584,6 +582,8 @@
         <button class="btn-sm accept" data-commission-respond="${req.id}" data-action="accept">Accept</button>
         <button class="btn-sm decline" data-commission-respond="${req.id}" data-action="decline">Decline</button>
       </div>`;
+    } else if (!isBuilderView && req.status === "pending") {
+      actionsHtml = `<button class="btn-sm decline" data-commission-cancel="${req.id}">Withdraw</button>`;
     } else if (req.status === "accepted") {
       actionsHtml = `
         ${isBuilderView ? `<button class="btn-sm accept" data-commission-deliver="${req.id}">Mark Delivered</button>` : `<p class="hint">The builder is working on this.</p>`}

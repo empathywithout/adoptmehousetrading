@@ -15,9 +15,7 @@
     </a>
     <nav>
       <a href="../listings/index.html" class="active">Browse Houses</a>
-      <a href="../commissions/index.html">Commissions</a>
-      <a href="../registry/index.html">Build Registry</a>
-      <a href="../comps.html">Recent Trades</a>
+      <a href="../commissions/index.html">Commissions</a>      <a href="../comps.html">Recent Trades</a>
       <a href="../houses/index.html">Values</a>
       <a href="../profile.html">Profile</a>
     </nav>
@@ -316,6 +314,7 @@
     list.innerHTML = offers
       .map((offer) => {
         const canRespond = isOwner && listing.status === "active" && offer.status === "pending";
+        const canWithdraw = myProfile && myProfile.id === offer.offering_profile_id && offer.status === "pending";
         const isCounterparty =
           myProfile && (myProfile.id === listing.profile_id || myProfile.id === offer.offering_profile_id);
         const showConfirm = offer.status === "accepted" && isCounterparty;
@@ -337,6 +336,7 @@
                 </div>`
               : ""
           }
+          ${canWithdraw ? `<div class="offer-actions"><button class="btn-sm decline" data-withdraw="${offer.id}">Withdraw Offer</button></div>` : ""}
           ${showConfirm ? `<div class="trade-confirm" data-offer="${offer.id}"></div>` : ""}
           ${showConfirm ? `<div class="chat-container" data-chat-offer="${offer.id}"></div>` : ""}
         </div>`;
@@ -347,6 +347,17 @@
       btn.addEventListener("click", async () => {
         try {
           await api.respondToOffer(btn.dataset.offer, btn.dataset.action);
+          await loadListing();
+        } catch (err) {
+          alert(err.message);
+        }
+      });
+    });
+    list.querySelectorAll("[data-withdraw]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        if (!confirm("Withdraw this offer?")) return;
+        try {
+          await api.cancelOffer(btn.dataset.withdraw);
           await loadListing();
         } catch (err) {
           alert(err.message);
