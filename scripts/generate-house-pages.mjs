@@ -98,28 +98,86 @@ function houseCard(house, context) {
 // ---------- Homepage ----------
 
 function buildHomepage() {
-  const featured = houses.slice(0, 8);
   const body = `
 <section class="hero">
-  <div class="wrap">
-    <div class="hero-signpost">${SIGNPOST_SVG}</div>
-    <h1>Know what your house is really worth.</h1>
-    <p class="lede">Browse every tradeable house in Adopt Me, check values before you accept an offer, and find your next dream build.</p>
-    <div class="hero-ctas">
-      <a class="btn btn-primary" href="houses/index.html">Browse Houses</a>
-      <a class="btn btn-secondary" href="houses/index.html">Check a Trade</a>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="hero-eyebrow">Adopt Me House Trading</div>
+      <h1>Trade houses.<br>Track real values.</h1>
+      <p class="lede" style="margin-left:0;">List your house, see real offers in Pets, Vehicles, Toys and more, and check verified trade values before you commit.</p>
+      <div class="hero-ctas" style="justify-content:flex-start;">
+        <a class="btn btn-primary" href="listings/index.html">Browse Houses</a>
+        <a class="btn btn-secondary" href="comps.html">See Recent Trades</a>
+      </div>
     </div>
+    <div class="hero-signpost">${SIGNPOST_SVG}</div>
   </div>
 </section>
 <section class="wrap">
   <div class="section-head">
     <h2>Recently Added</h2>
-    <a href="houses/index.html">See all ${houses.length} houses →</a>
+    <a href="listings/index.html">View all listings →</a>
   </div>
-  <div class="house-grid">
-    ${featured.map((h) => houseCard(h, "root")).join("\n")}
+  <div id="recent-listings-grid" class="house-grid"></div>
+  <div id="recent-listings-empty" class="form-card" hidden>
+    <h1>No listings yet</h1>
+    <p class="subtitle">Be the first to put a house up for trade.</p>
+    <a class="btn btn-primary" href="list-a-house.html">List a House</a>
   </div>
-</section>`;
+</section>
+<script type="module">
+  import { CATEGORY_LABELS } from "./js/api.js";
+  const BADGE_CLASS = { house_trade: "house-trade", looking_for: "looking-for", commission: "commission" };
+  const BADGE_ICON = { house_trade: "icon-sign", looking_for: "icon-loop", commission: "icon-hammer" };
+  const TYPE_LABELS = { house_trade: "For Trade", looking_for: "Looking For", commission: "Commission" };
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  try {
+    const [{ listings }, houses] = await Promise.all([
+      fetch("/.netlify/functions/listings-list").then((r) => r.json()),
+      fetch("data/houses.json").then((r) => r.json()),
+    ]);
+    const houseById = Object.fromEntries(houses.map((h) => [h.id, h]));
+    const grid = document.getElementById("recent-listings-grid");
+
+    if (!listings || !listings.length) {
+      document.getElementById("recent-listings-empty").hidden = false;
+    } else {
+      grid.innerHTML = listings.slice(0, 8).map((listing) => {
+        const house = houseById[listing.house_id];
+        const photo = listing.photos?.[0] || house?.image || "images/brand/searchdog.png";
+        const username = listing.profiles?.rbx_username || "unknown";
+        const cardTag = listing.listing_type === "house_trade" && listing.is_cloned !== null
+          ? \`<div class="card-tag \${listing.is_cloned ? "cloned" : ""}">\${listing.is_cloned ? "Cloned" : "Original"}</div>\`
+          : "";
+        const valueLine = listing.value_amount !== null && listing.value_amount !== undefined
+          ? \`<div class="card-value"><span class="amount">\${listing.value_amount}</span><span class="unit">\${listing.value_unit || ""}</span></div>\`
+          : \`<div class="card-value"><span class="unit">\${listing.listing_type === "commission" ? "quote on request" : "value TBD"}</span></div>\`;
+
+        return \`<a class="listing-card" href="listings/listing.html?id=\${listing.id}">
+          <div class="photo">
+            <img src="\${photo}" alt="">
+            <div class="card-badge \${BADGE_CLASS[listing.listing_type] || "house-trade"}"><div class="\${BADGE_ICON[listing.listing_type] || "icon-sign"}"></div></div>
+            \${cardTag}
+          </div>
+          <div class="body">
+            <h3>\${escapeHtml(listing.title)}</h3>
+            <div class="trust-row">
+              <span class="avatar-initial">\${escapeHtml(username[0]?.toUpperCase() || "?")}</span>
+              <span class="username">\${escapeHtml(username)}</span>
+            </div>
+            \${valueLine}
+          </div>
+        </a>\`;
+      }).join("");
+    }
+  } catch (err) {
+    document.getElementById("recent-listings-empty").hidden = false;
+  }
+</script>`;
 
   return layout({
     title: "AdoptMeHouseTrading.com — Adopt Me House Values & Trading",
