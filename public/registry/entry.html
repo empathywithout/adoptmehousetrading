@@ -50,9 +50,20 @@
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
+  const VARIANT_LABELS = { regular: "", neon: "Neon", mega_neon: "Mega Neon" };
+  const POTION_ABBR = { none: "", ride: "R", fly: "F", fly_ride: "FR" };
+
+  function petPrefix(it) {
+    if (it.category !== "adopt_me_pets") return "";
+    const bits = [];
+    if (it.variant && it.variant !== "regular") bits.push(VARIANT_LABELS[it.variant]);
+    if (it.potion && it.potion !== "none") bits.push(`(${POTION_ABBR[it.potion]})`);
+    return bits.length ? bits.join(" ") + " " : "";
+  }
+
   function itemsRowHtml(items) {
     return (items || [])
-      .map((it) => `<div class="item"><img src="${it.image}" alt="">${it.qty > 1 ? `<span class="qty">×${it.qty}</span>` : ""}<div>${escapeHtml(it.name)}</div></div>`)
+      .map((it) => `<div class="item"><img src="${it.image}" alt="">${it.qty > 1 ? `<span class="qty">×${it.qty}</span>` : ""}<div>${escapeHtml(petPrefix(it) + it.name)}</div></div>`)
       .join("");
   }
 

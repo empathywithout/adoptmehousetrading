@@ -181,6 +181,17 @@
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
+  const VARIANT_LABELS = { regular: "", neon: "Neon", mega_neon: "Mega Neon" };
+  const POTION_ABBR = { none: "", ride: "R", fly: "F", fly_ride: "FR" };
+
+  function petPrefix(it) {
+    if (it.category !== "adopt_me_pets") return "";
+    const bits = [];
+    if (it.variant && it.variant !== "regular") bits.push(VARIANT_LABELS[it.variant]);
+    if (it.potion && it.potion !== "none") bits.push(`(${POTION_ABBR[it.potion]})`);
+    return bits.length ? bits.join(" ") + " " : "";
+  }
+
   function timeAgo(iso) {
     const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
     if (days < 1) return "today";
@@ -265,7 +276,7 @@
               <span class="avatar-initial">${escapeHtml((offer.profiles?.display_name || "?")[0].toUpperCase())}</span>
               <div>
                 <div class="username" style="font-weight:700;">${escapeHtml(offer.profiles?.display_name || "unknown")}</div>
-                <div class="items-summary">${escapeHtml((offer.items || []).map((i) => i.name).join(", ") || offer.message || "no items")}</div>
+                <div class="items-summary">${escapeHtml((offer.items || []).map((i) => petPrefix(i) + i.name).join(", ") || offer.message || "no items")}</div>
               </div>
             </div>
             <div style="display:flex;gap:8px;flex-shrink:0;">
@@ -562,7 +573,7 @@
   }
 
   function commissionRequestCard(req, otherProfile, isBuilderView) {
-    const itemsSummary = (req.offered_items || []).map((i) => i.name).join(", ") || "no items offered";
+    const itemsSummary = (req.offered_items || []).map((i) => petPrefix(i) + i.name).join(", ") || "no items offered";
     const myConfirmed = isBuilderView ? req.builder_confirmed : req.requester_confirmed;
     const otherName = otherProfile?.display_name || "unknown";
     const otherRbx = otherProfile?.rbx_username ? ` <span style="font-weight:400;color:var(--muted);">(Roblox: ${escapeHtml(otherProfile.rbx_username)})</span>` : "";

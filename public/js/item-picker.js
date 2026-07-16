@@ -10,11 +10,20 @@ import { CATEGORY_LABELS } from "./api.js";
 // multiple of the same pet/item ("3x Golden Egg"). Each entry in
 // getSelected() has a `qty` field; removal/adjustment happens via the
 // stepper on the selected-items chip, not by re-clicking the grid tile.
+//
+// Pets specifically also get variant (Regular/Neon/Mega Neon) and potion
+// (None/Ride/Fly/Ride+Fly) selectors on their chip — these are two
+// independent axes that multiply a pet's actual trade value (same model
+// Elvebredd/Traderie/AdoptMeValues all use), not cosmetic flavor text.
+export const PET_CATEGORY = "adopt_me_pets";
+export const VARIANT_LABELS = { regular: "Regular", neon: "Neon", mega_neon: "Mega Neon" };
+export const POTION_LABELS = { none: "No Potion", ride: "Ride", fly: "Fly", fly_ride: "Fly + Ride" };
+
 export function mountItemPicker(container, prefix = "") {
   const categories = Object.keys(CATEGORY_LABELS);
   const catalogsByCategory = {};
   let activeCategory = categories[0];
-  const selected = []; // [{ category, id, name, image, qty }]
+  const selected = []; // [{ category, id, name, image, qty, variant?, potion? }]
   const MAX_QTY = 20;
 
   const el = (id) => container.querySelector(`#${prefix}${id}`);
@@ -26,6 +35,14 @@ export function mountItemPicker(container, prefix = "") {
 
   function escapeHtml(str) {
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function variantPrefix(it) {
+    if (it.category !== PET_CATEGORY) return "";
+    const bits = [];
+    if (it.variant && it.variant !== "regular") bits.push(VARIANT_LABELS[it.variant]);
+    if (it.potion && it.potion !== "none") bits.push(`(${{ ride: "R", fly: "F", fly_ride: "FR" }[it.potion]})`);
+    return bits.length ? bits.join(" ") + " " : "";
   }
 
   async function loadCategory(cat) {
@@ -66,7 +83,12 @@ export function mountItemPicker(container, prefix = "") {
         if (existing) {
           existing.qty = Math.min(MAX_QTY, existing.qty + 1);
         } else {
-          selected.push({ ...item, qty: 1 });
+          const entry = { ...item, qty: 1 };
+          if (item.category === PET_CATEGORY) {
+            entry.variant = "regular";
+            entry.potion = "none";
+          }
+          selected.push(entry);
         }
         renderResults();
         renderSelected();
@@ -76,19 +98,31 @@ export function mountItemPicker(container, prefix = "") {
 
   function renderSelected() {
     el("selected-items").innerHTML = selected
-      .map(
-        (it, i) => `
+      .map((it, i) => {
+        const petControls =
+          it.category === PET_CATEGORY
+            ? `<span class="pet-modifiers">
+                <select data-i="${i}" data-field="variant">
+                  ${Object.entries(VARIANT_LABELS).map(([k, l]) => `<option value="${k}" ${it.variant === k ? "selected" : ""}>${l}</option>`).join("")}
+                </select>
+                <select data-i="${i}" data-field="potion">
+                  ${Object.entries(POTION_LABELS).map(([k, l]) => `<option value="${k}" ${it.potion === k ? "selected" : ""}>${l}</option>`).join("")}
+                </select>
+              </span>`
+            : "";
+        return `
         <span class="selected-chip">
           <img src="${it.image}" alt="">
-          <span class="chip-name">${escapeHtml(it.name)}</span>
+          <span class="chip-name">${escapeHtml(variantPrefix(it) + it.name)}</span>
+          ${petControls}
           <span class="qty-stepper">
             <button data-i="${i}" data-action="dec">−</button>
             <span class="qty-num">${it.qty}</span>
             <button data-i="${i}" data-action="inc">+</button>
           </span>
           <button data-i="${i}" data-action="remove" class="chip-remove">×</button>
-        </span>`
-      )
+        </span>`;
+      })
       .join("");
 
     el("selected-items")
@@ -105,6 +139,16 @@ export function mountItemPicker(container, prefix = "") {
             if (selected[i].qty <= 0) selected.splice(i, 1);
           }
           renderResults();
+          renderSelected();
+        });
+      });
+
+    el("selected-items")
+      .querySelectorAll("select[data-field]")
+      .forEach((sel) => {
+        sel.addEventListener("change", () => {
+          const i = Number(sel.dataset.i);
+          selected[i][sel.dataset.field] = sel.value;
           renderSelected();
         });
       });

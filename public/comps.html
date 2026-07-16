@@ -104,7 +104,7 @@
         const listing = trade.listings;
         const house = houseById[listing?.house_id];
         const items = trade.offers?.items || [];
-        const itemsSummary = items.map((it) => it.name).join(", ") || "items";
+        const itemsSummary = items.map((it) => petPrefix(it) + it.name).join(", ") || "items";
         const seller = listing?.profiles?.display_name || "unknown";
         const buyer = trade.offers?.profiles?.display_name || "unknown";
 
@@ -148,6 +148,17 @@
 
   function escapeHtml(str) {
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  const VARIANT_LABELS = { regular: "", neon: "Neon", mega_neon: "Mega Neon" };
+  const POTION_ABBR = { none: "", ride: "R", fly: "F", fly_ride: "FR" };
+
+  function petPrefix(it) {
+    if (it.category !== "adopt_me_pets") return "";
+    const bits = [];
+    if (it.variant && it.variant !== "regular") bits.push(VARIANT_LABELS[it.variant]);
+    if (it.potion && it.potion !== "none") bits.push(`(${POTION_ABBR[it.potion]})`);
+    return bits.length ? bits.join(" ") + " " : "";
   }
 </script>
 </body>

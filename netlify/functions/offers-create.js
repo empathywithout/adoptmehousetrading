@@ -58,6 +58,12 @@ async function handlerImpl(event) {
         name: String(it.name || ""),
         image: String(it.image || ""),
         qty: Math.min(20, Math.max(1, Number(it.qty) || 1)),
+        ...(it.category === "adopt_me_pets"
+          ? {
+              variant: ["regular", "neon", "mega_neon"].includes(it.variant) ? it.variant : "regular",
+              potion: ["none", "ride", "fly", "fly_ride"].includes(it.potion) ? it.potion : "none",
+            }
+          : {}),
       }))
     : [];
 
