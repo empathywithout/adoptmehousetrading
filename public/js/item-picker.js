@@ -114,12 +114,18 @@ export function mountItemPicker(container, prefix = "") {
         const petControls =
           it.category === PET_CATEGORY
             ? `<div class="pet-modifiers">
-                <select data-i="${i}" data-field="variant">
-                  ${Object.entries(VARIANT_LABELS).map(([k, l]) => `<option value="${k}" ${it.variant === k ? "selected" : ""}>${l}</option>`).join("")}
-                </select>
-                <select data-i="${i}" data-field="potion">
-                  ${Object.entries(POTION_LABELS).map(([k, l]) => `<option value="${k}" ${it.potion === k ? "selected" : ""}>${l}</option>`).join("")}
-                </select>
+                <label>
+                  <span class="pet-modifier-label">Variant</span>
+                  <select data-i="${i}" data-field="variant">
+                    ${Object.entries(VARIANT_LABELS).map(([k, l]) => `<option value="${k}" ${it.variant === k ? "selected" : ""}>${l}</option>`).join("")}
+                  </select>
+                </label>
+                <label>
+                  <span class="pet-modifier-label">Potion</span>
+                  <select data-i="${i}" data-field="potion">
+                    ${Object.entries(POTION_LABELS).map(([k, l]) => `<option value="${k}" ${it.potion === k ? "selected" : ""}>${l}</option>`).join("")}
+                  </select>
+                </label>
               </div>`
             : "";
         return `
