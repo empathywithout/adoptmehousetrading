@@ -260,7 +260,7 @@
     tab.addEventListener("click", () => {
       document.querySelectorAll("#profile-tabs .tab").forEach((t) => t.classList.remove("active"));
       tab.classList.add("active");
-      ["listings", "offers", "builder", "commissions", "portfolio"].forEach((name) => {
+      ["listings", "offers", "builder", "commissions", "portfolio", "data-team"].forEach((name) => {
         document.getElementById(`tab-panel-${name}`).hidden = name !== tab.dataset.tab;
       });
     });
