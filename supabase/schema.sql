@@ -271,6 +271,29 @@ alter table build_registry_disputes enable row level security;
 -- trusted mod, same role the community's own mods already play running
 -- their build contests) rather than shown publicly while pending.
 
+-- Trade chat: unlocks once an offer or commission is ACCEPTED — before
+-- that there's no reason for two strangers to be messaging each other.
+-- Preset-only (no free text) deliberately: a fixed, vetted phrase list
+-- means there's nothing to moderate for scams, harassment, or off-platform
+-- contact sharing — the tradeoff for that safety is less expressive chat,
+-- which is fine for coordinating an in-game trade. Shared across both
+-- offers and commissions via context_type/context_id rather than building
+-- two separate chat systems.
+create table trade_chat_messages (
+  id uuid primary key default gen_random_uuid(),
+  context_type text not null check (context_type in ('offer', 'commission')),
+  context_id uuid not null,
+  sender_profile_id uuid not null references profiles(id) on delete cascade,
+  preset_key text not null,
+  created_at timestamptz not null default now()
+);
+
+create index trade_chat_messages_context_idx on trade_chat_messages(context_type, context_id);
+
+alter table trade_chat_messages enable row level security;
+-- No public select policy — messages are only visible to the two parties
+-- involved, via the service-role functions, same as commission_requests.
+
 
 create table reports (
   id uuid primary key default gen_random_uuid(),

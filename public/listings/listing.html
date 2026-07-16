@@ -53,6 +53,7 @@
 
 <script type="module">
   import { api, getStoredProfile, CATEGORY_LABELS, THEME_LABELS, QUICK_REPLIES } from "../js/api.js";
+  import { mountChatPanel } from "../js/chat.js";
   import { mountItemPicker } from "../js/item-picker.js";
 
   const params = new URLSearchParams(location.search);
@@ -326,6 +327,7 @@
               : ""
           }
           ${showConfirm ? `<div class="trade-confirm" data-offer="${offer.id}"></div>` : ""}
+          ${showConfirm ? `<div class="chat-container" data-chat-offer="${offer.id}"></div>` : ""}
         </div>`;
       })
       .join("");
@@ -342,6 +344,7 @@
     });
 
     list.querySelectorAll(".trade-confirm").forEach((el) => renderTradeConfirm(el, el.dataset.offer));
+    list.querySelectorAll("[data-chat-offer]").forEach((el) => mountChatPanel(el, "offer", el.dataset.chatOffer));
   }
 
   async function renderTradeConfirm(el, offerId) {

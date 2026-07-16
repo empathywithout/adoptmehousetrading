@@ -163,6 +163,7 @@
 
 <script type="module">
   import { api, getStoredProfile, saveSession, clearSession, CATEGORY_LABELS, THEME_LABELS } from "./js/api.js";
+  import { mountChatPanel } from "./js/chat.js";
 
   const signedOutView = document.getElementById("signed-out-view");
   const signedInView = document.getElementById("signed-in-view");
@@ -479,6 +480,8 @@
         .join("");
     }
 
+    document.querySelectorAll("[data-chat-commission]").forEach((el) => mountChatPanel(el, "commission", el.dataset.chatCommission));
+
     document.querySelectorAll("[data-commission-respond]").forEach((btn) => {
       btn.addEventListener("click", async () => {
         try {
@@ -593,6 +596,7 @@
       <p class="hint">Offering: ${escapeHtml(itemsSummary)}</p>
       ${req.status === "verified" ? `<span class="verified-badge">Verified</span>` : `<span class="status-badge traded">${{ pending: "Pending", accepted: "Accepted", declined: "Declined", delivered: "Delivered", cancelled: "Cancelled" }[req.status] || req.status}</span>`}
       ${actionsHtml}
+      ${["accepted", "delivered", "verified"].includes(req.status) ? `<div data-chat-commission="${req.id}"></div>` : ""}
     </div>`;
   }
 
