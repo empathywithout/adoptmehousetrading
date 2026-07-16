@@ -17,6 +17,7 @@
       <a href="../index.html">Home</a>
       <a href="../houses/index.html">Browse Houses</a>
       <a href="index.html" class="active">Trade Listings</a>
+      <a href="../comps.html">Recent Trades</a>
       <a href="../list-a-house.html">List a House</a>
       <a href="../profile.html">My Profile</a>
     </nav>
@@ -47,6 +48,7 @@
 
 <script type="module">
   import { api, getStoredProfile, CATEGORY_LABELS } from "../js/api.js";
+  import { mountItemPicker } from "../js/item-picker.js";
 
   const params = new URLSearchParams(location.search);
   const listingId = params.get("id");
@@ -57,6 +59,16 @@
     content.innerHTML = `<div class="form-card"><h1>Listing not found</h1></div>`;
   } else {
     await loadListing();
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function itemsRowHtml(items) {
+    return (items || [])
+      .map((it) => `<div class="item"><img src="${it.image}" alt=""><div>${escapeHtml(it.name)}</div></div>`)
+      .join("");
   }
 
   async function loadListing() {
@@ -93,7 +105,16 @@
       listing.listing_type === "house_trade" && listing.is_cloned !== null
         ? `<span class="pill">${listing.is_cloned ? "Cloned / Speedbuild" : "100% Original"}</span>`
         : "";
-    const valueTag = listing.value_points ? `<span class="pill">${listing.value_points} pts</span>` : "";
+    const valueTag =
+      listing.value_amount !== null
+        ? `<span class="pill">${listing.value_amount} ${listing.value_unit || ""}</span>`
+        : "";
+    const bucksTag = listing.bucks_invested ? `<span class="pill">${listing.bucks_invested} Bucks invested</span>` : "";
+
+    const includedItemsHtml = listing.included_items?.length
+      ? `<div class="section-head" style="margin-top:20px;"><h2 style="font-size:18px;">Included with the house</h2></div>
+         <div class="items-row">${itemsRowHtml(listing.included_items)}</div>`
+      : "";
 
     content.innerHTML = `
       <div class="house-detail">
@@ -108,9 +129,10 @@
           <p>${escapeHtml(listing.description || "No description provided.")}</p>
           <div class="meta-row">
             ${house ? `<span class="pill">House: ${escapeHtml(house.name)}</span>` : ""}
-            ${cloneTag}${valueTag}
+            ${cloneTag}${valueTag}${bucksTag}
             ${lookingForHtml ? `<span class="pill">${listing.listing_type === "looking_for" ? "Offering:" : "Looking for:"}</span>${lookingForHtml}` : ""}
           </div>
+          ${includedItemsHtml}
         </div>
       </div>
 
@@ -161,7 +183,7 @@
         document.getElementById("offer-builder").hidden = true;
         document.getElementById("need-profile-offer").hidden = false;
       } else {
-        await initOfferBuilder(listing);
+        initOfferBuilder(listing);
       }
     }
 
@@ -187,17 +209,18 @@
 
     list.innerHTML = offers
       .map((offer) => {
-        const itemsHtml = offer.items
-          .map((it) => `<div class="item"><img src="${it.image}" alt=""><div>${escapeHtml(it.name)}</div></div>`)
-          .join("");
         const canRespond = isOwner && listing.status === "active" && offer.status === "pending";
+        const isCounterparty =
+          myProfile && (myProfile.id === listing.profile_id || myProfile.id === offer.offering_profile_id);
+        const showConfirm = offer.status === "accepted" && isCounterparty;
+
         return `
         <div class="offer-card">
           <div class="profile-chip">
             <img src="${offer.profiles?.rbx_avatar_url || "../images/brand/searchdog.png"}" alt="">
             <span class="name">${escapeHtml(offer.profiles?.rbx_username || "unknown")}</span>
           </div>
-          <div class="items-row">${itemsHtml}</div>
+          <div class="items-row">${itemsRowHtml(offer.items)}</div>
           ${offer.message ? `<p>${escapeHtml(offer.message)}</p>` : ""}
           <span class="status-badge ${offer.status === "accepted" ? "active" : "traded"}">${offer.status}</span>
           ${
@@ -208,6 +231,7 @@
                 </div>`
               : ""
           }
+          ${showConfirm ? `<div class="trade-confirm" data-offer="${offer.id}"></div>` : ""}
         </div>`;
       })
       .join("");
@@ -222,78 +246,52 @@
         }
       });
     });
+
+    list.querySelectorAll(".trade-confirm").forEach((el) => renderTradeConfirm(el, el.dataset.offer));
   }
 
-  async function initOfferBuilder(listing) {
-    const catalogsByCategory = {};
-    const categories = Object.keys(CATEGORY_LABELS);
-    let activeCategory = categories[0];
-    const selected = [];
-
-    const tabs = document.getElementById("category-tabs");
-    tabs.innerHTML = categories
-      .map((c) => `<button data-cat="${c}" class="${c === activeCategory ? "active" : ""}">${CATEGORY_LABELS[c]}</button>`)
-      .join("");
-
-    async function loadCategory(cat) {
-      if (!catalogsByCategory[cat]) {
-        catalogsByCategory[cat] = await fetch(`../data/${cat}.json`).then((r) => r.json());
-      }
-      renderResults();
+  async function renderTradeConfirm(el, offerId) {
+    let trade;
+    try {
+      trade = await api.getTrade(offerId);
+    } catch {
+      trade = null;
     }
 
-    function renderResults() {
-      const search = document.getElementById("item-search").value.toLowerCase();
-      const items = (catalogsByCategory[activeCategory] || [])
-        .filter((it) => it.name.toLowerCase().includes(search))
-        .slice(0, 60);
-
-      document.getElementById("item-results").innerHTML = items
-        .map(
-          (it) => `<div class="result-item ${selected.some((s) => s.id === it.id && s.category === it.category) ? "selected" : ""}"
-                      data-id="${it.id}" data-cat="${it.category}">
-                      <img src="${it.image}" alt="">${escapeHtml(it.name)}
-                    </div>`
-        )
-        .join("");
-
-      document.querySelectorAll(".result-item").forEach((el) => {
-        el.addEventListener("click", () => {
-          const item = catalogsByCategory[activeCategory].find((i) => i.id === el.dataset.id);
-          const idx = selected.findIndex((s) => s.id === item.id && s.category === item.category);
-          if (idx === -1) selected.push(item);
-          else selected.splice(idx, 1);
-          renderResults();
-          renderSelected();
-        });
-      });
+    if (trade?.status === "corroborated") {
+      el.innerHTML = `<p class="hint">✓ Both sides confirmed this trade happened.</p>`;
+      return;
     }
 
-    function renderSelected() {
-      document.getElementById("selected-items").innerHTML = selected
-        .map(
-          (it, i) =>
-            `<span class="selected-chip"><img src="${it.image}" alt="">${escapeHtml(it.name)}<button data-i="${i}">×</button></span>`
-        )
-        .join("");
-      document.querySelectorAll(".selected-chip button").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          selected.splice(Number(btn.dataset.i), 1);
-          renderResults();
-          renderSelected();
-        });
-      });
-    }
+    const myConfirmed = trade && myProfile && (
+      (trade.lister_confirmed && trade.__isLister) || (trade.offerer_confirmed && !trade.__isLister)
+    );
 
-    tabs.querySelectorAll("button").forEach((btn) => {
+    el.innerHTML = `
+      <div style="margin-top:10px;">
+        ${
+          myConfirmed
+            ? `<p class="hint">You've confirmed this trade. Waiting on the other side.</p>`
+            : `<button class="btn-sm accept" data-confirm="${offerId}">Confirm this trade happened</button>
+               <p class="hint">Optional: attach a screenshot as proof — helps build a real trade-value history for the community.</p>`
+        }
+      </div>`;
+
+    const btn = el.querySelector("[data-confirm]");
+    if (btn) {
       btn.addEventListener("click", async () => {
-        activeCategory = btn.dataset.cat;
-        tabs.querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
-        await loadCategory(activeCategory);
+        try {
+          await api.confirmTrade(offerId);
+          await renderTradeConfirm(el, offerId);
+        } catch (err) {
+          alert(err.message);
+        }
       });
-    });
+    }
+  }
 
-    document.getElementById("item-search").addEventListener("input", renderResults);
+  function initOfferBuilder(listing) {
+    const picker = mountItemPicker(document.getElementById("offer-builder"), "");
 
     document.getElementById("submit-offer-btn").addEventListener("click", async () => {
       const errorBox = document.getElementById("offer-error");
@@ -301,23 +299,22 @@
       errorBox.hidden = true;
       successBox.hidden = true;
 
+      const selected = picker.getSelected();
+      const message = document.getElementById("offer-message").value.trim();
+
       if (listing.listing_type === "house_trade" && !selected.length) {
         errorBox.textContent = "Add at least one item to your offer.";
         errorBox.hidden = false;
         return;
       }
-      if (listing.listing_type !== "house_trade" && !selected.length && !document.getElementById("offer-message").value.trim()) {
+      if (listing.listing_type !== "house_trade" && !selected.length && !message) {
         errorBox.textContent = "Add an item or a message.";
         errorBox.hidden = false;
         return;
       }
 
       try {
-        await api.createOffer({
-          listing_id: listing.id,
-          items: selected,
-          message: document.getElementById("offer-message").value.trim(),
-        });
+        await api.createOffer({ listing_id: listing.id, items: selected, message });
         successBox.textContent = "Offer sent!";
         successBox.hidden = false;
         await loadListing();
@@ -326,12 +323,6 @@
         errorBox.hidden = false;
       }
     });
-
-    await loadCategory(activeCategory);
-  }
-
-  function escapeHtml(str) {
-    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 </script>
 </body>

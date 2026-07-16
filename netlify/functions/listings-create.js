@@ -40,8 +40,11 @@ export async function handler(event) {
     description,
     photos,
     looking_for,
+    included_items,
     is_cloned,
-    value_points,
+    value_amount,
+    value_unit,
+    bucks_invested,
   } = body;
 
   const cleanType = VALID_LISTING_TYPES.includes(listing_type) ? listing_type : "house_trade";
@@ -59,13 +62,28 @@ export async function handler(event) {
 
   const cleanPhotos = Array.isArray(photos) ? photos.filter((p) => typeof p === "string").slice(0, 8) : [];
 
+  const cleanIncludedItems = Array.isArray(included_items)
+    ? included_items.slice(0, 40).map((it) => ({
+        category: String(it.category || ""),
+        id: String(it.id || ""),
+        name: String(it.name || ""),
+        image: String(it.image || ""),
+      }))
+    : [];
+
   // is_cloned only makes sense for an actual house being traded — a
   // "looking_for" or "commission" post isn't claiming a build is theirs.
   const cleanIsCloned = cleanType === "house_trade" && typeof is_cloned === "boolean" ? is_cloned : null;
 
-  const cleanValuePoints =
-    value_points !== undefined && value_points !== null && value_points !== "" && !isNaN(Number(value_points))
-      ? Number(value_points)
+  const cleanValueAmount =
+    value_amount !== undefined && value_amount !== null && value_amount !== "" && !isNaN(Number(value_amount))
+      ? Number(value_amount)
+      : null;
+  const cleanValueUnit = ["shark", "frost"].includes(value_unit) ? value_unit : null;
+
+  const cleanBucksInvested =
+    bucks_invested !== undefined && bucks_invested !== null && bucks_invested !== "" && !isNaN(Number(bucks_invested))
+      ? Number(bucks_invested)
       : null;
 
   const db = supabaseAdmin();
@@ -76,7 +94,10 @@ export async function handler(event) {
       listing_type: cleanType,
       house_id: cleanType === "commission" ? null : house_id,
       is_cloned: cleanIsCloned,
-      value_points: cleanValuePoints,
+      value_amount: cleanValueAmount,
+      value_unit: cleanValueAmount !== null ? cleanValueUnit : null,
+      bucks_invested: cleanBucksInvested,
+      included_items: cleanIncludedItems,
       title: String(title).slice(0, 120),
       description: description ? String(description).slice(0, 2000) : null,
       photos: cleanPhotos,

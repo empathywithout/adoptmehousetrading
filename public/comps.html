@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recent Trades — AdoptMeHouseTrading.com</title>
+<meta name="description" content="Real, corroborated completed house trades — not opinion-based value guides.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="sign-mark"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="46" y="30" width="8" height="60" rx="2" fill="#7A5230"/><g transform="rotate(-6 50 40)"><rect x="20" y="18" width="60" height="34" rx="6" fill="#C0473C"/><text x="50" y="34" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="700" font-size="11" fill="#FFFFFF">FOR</text><text x="50" y="47" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="700" font-size="11" fill="#FFFFFF">TRADE</text></g></svg></span>
+      AdoptMeHouseTrading
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="houses/index.html">Browse Houses</a>
+      <a href="listings/index.html">Trade Listings</a>
+      <a href="comps.html" class="active">Recent Trades</a>
+      <a href="list-a-house.html">List a House</a>
+      <a href="profile.html">My Profile</a>
+    </nav>
+  </div>
+</header>
+
+<section class="wrap" style="padding: 40px 0 80px;">
+  <div class="section-head">
+    <h2>Recent Completed Trades</h2>
+  </div>
+  <p class="hint" style="margin-bottom:20px;max-width:640px;">
+    Real trades, corroborated by both sides — not a value team's opinion. Each one shown here was confirmed independently by both the house lister and the person who offered on it. Thin right now since it grows with actual trade volume, not editorial judgment.
+  </p>
+  <div id="empty-state" class="form-card" hidden>
+    <h1>No corroborated trades yet</h1>
+    <p class="subtitle">Once accepted offers get confirmed by both sides on a listing page, they'll show up here.</p>
+  </div>
+  <div id="trades-list"></div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community. Not affiliated with Adopt Me or Roblox Corporation.
+    <div style="margin-top:8px;"><a href="rules.html" style="color:var(--sign-red);">Community Rules</a></div>
+  </div>
+</footer>
+
+<script type="module">
+  const [{ trades }, houses] = await Promise.all([
+    fetch("/.netlify/functions/trades-list").then((r) => r.json()),
+    fetch("data/houses.json").then((r) => r.json()),
+  ]);
+
+  const houseById = Object.fromEntries(houses.map((h) => [h.id, h]));
+  const list = document.getElementById("trades-list");
+
+  if (!trades.length) {
+    document.getElementById("empty-state").hidden = false;
+  } else {
+    list.innerHTML = trades
+      .map((trade) => {
+        const listing = trade.listings;
+        const house = houseById[listing?.house_id];
+        const items = trade.offers?.items || [];
+        const valueTag =
+          listing?.value_amount !== null && listing?.value_amount !== undefined
+            ? `<span class="pill">${listing.value_amount} ${listing.value_unit || ""}</span>`
+            : "";
+        const cloneTag =
+          listing?.is_cloned !== null && listing?.is_cloned !== undefined
+            ? `<span class="pill">${listing.is_cloned ? "Cloned" : "Original"}</span>`
+            : "";
+        return `
+        <div class="offer-card">
+          <h3 style="font-family:var(--font-display);color:var(--pine);margin:0 0 6px;">
+            ${house ? escapeHtml(house.name) : "Unknown house"}
+          </h3>
+          <p class="hint">${escapeHtml(listing?.profiles?.rbx_username || "unknown")} traded with ${escapeHtml(trade.offers?.profiles?.rbx_username || "unknown")}</p>
+          <div class="meta-row" style="margin:8px 0;">${valueTag}${cloneTag}</div>
+          <p class="hint" style="margin-bottom:6px;">Received in return:</p>
+          <div class="items-row">${items.map((it) => `<div class="item"><img src="${it.image}" alt=""><div>${escapeHtml(it.name)}</div></div>`).join("")}</div>
+        </div>`;
+      })
+      .join("");
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+</script>
+</body>
+</html>

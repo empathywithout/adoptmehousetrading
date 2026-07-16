@@ -39,7 +39,21 @@ create table listings (
                                        -- mirrors the community's own "100% original" vs
                                        -- "cloned/70%+ similar" distinction, which matters a
                                        -- lot to how a listing is valued and trusted
-  value_points numeric,               -- flat point-scale value (community convention), optional
+  value_amount numeric,               -- magnitude in value_unit, e.g. 1.5
+  value_unit text check (value_unit in ('shark', 'frost')),
+                                       -- Shark (low/mid trades) and Frost (high-tier trades)
+                                       -- are the real community baseline units — NOT a fixed
+                                       -- conversion, it floats (~4/5 Frost per Shark as of this
+                                       -- writing). Store the unit the poster actually used
+                                       -- rather than forcing a conversion we can't verify.
+  bucks_invested numeric,             -- optional: total Bucks the lister says they spent on
+                                       -- the house + furniture. Self-reported, not itemized
+                                       -- against a furniture catalog — just a number the
+                                       -- lister provides.
+  included_items jsonb not null default '[]', -- array of {category,id,name,image} — bonus
+                                       -- items bundled in WITH the house (not what the lister
+                                       -- wants back — see looking_for for that). Same
+                                       -- category rules as offers: everything except houses.
 
   title text not null,
   description text,
@@ -70,6 +84,32 @@ create table offers (
 );
 
 create index offers_listing_id_idx on offers(listing_id);
+
+-- Completed trades: the seed of a future "comps" engine (real settled trades,
+-- not opinion-based value guides). Rather than a cold separate submission
+-- flow, this hooks directly into offers that get accepted right here — when
+-- an offer is accepted, either party can confirm the trade actually happened
+-- in-game and attach a screenshot. If BOTH parties confirm, that's a real
+-- corroboration signal (two independent accounts agreeing) without needing
+-- any video/hashing/trust-tier system yet.
+create table completed_trades (
+  id uuid primary key default gen_random_uuid(),
+  offer_id uuid not null unique references offers(id) on delete cascade,
+  listing_id uuid not null references listings(id) on delete cascade,
+  lister_confirmed boolean not null default false,
+  lister_proof_photo text,
+  offerer_confirmed boolean not null default false,
+  offerer_proof_photo text,
+  status text not null default 'pending' check (status in ('pending', 'corroborated', 'disputed')),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create index completed_trades_status_idx on completed_trades(status);
+
+alter table completed_trades enable row level security;
+create policy "public can read corroborated trades" on completed_trades
+  for select using (status = 'corroborated');
 
 create table reports (
   id uuid primary key default gen_random_uuid(),

@@ -18,6 +18,7 @@
       <a href="index.html">Home</a>
       <a href="houses/index.html">Browse Houses</a>
       <a href="listings/index.html">Trade Listings</a>
+      <a href="comps.html">Recent Trades</a>
       <a href="list-a-house.html" class="active">List a House</a>
       <a href="profile.html">My Profile</a>
     </nav>
@@ -60,9 +61,19 @@
       <p class="hint">Cloned = 70%+ similar to another existing build, including speedbuilds. Misrepresenting this can get a listing reported.</p>
     </div>
 
-    <label class="field-label" for="value-points">Value (optional)</label>
-    <input type="text" id="value-points" placeholder="e.g. 30" inputmode="decimal">
-    <p class="hint">Using the community's flat point scale, if you know it. Leave blank if unsure.</p>
+    <label class="field-label" for="value-amount">Value (optional)</label>
+    <div style="display:flex; gap:8px;">
+      <input type="text" id="value-amount" placeholder="e.g. 1.5" inputmode="decimal" style="flex:2;">
+      <select id="value-unit" style="flex:1;">
+        <option value="shark">Shark</option>
+        <option value="frost">Frost</option>
+      </select>
+    </div>
+    <p class="hint">Shark and Frost are the community's real baseline units (Shark = low/mid trades, Frost = high-tier). Leave blank if unsure.</p>
+
+    <label class="field-label" for="bucks-invested">Bucks invested (optional)</label>
+    <input type="text" id="bucks-invested" placeholder="e.g. 12000" inputmode="numeric">
+    <p class="hint">Total Bucks you've put into the house + furniture, if you want to share it.</p>
 
     <label class="field-label" for="title">Listing title</label>
     <input type="text" id="title" placeholder="e.g. Fully decorated Cozy Cabin, cottagecore theme" maxlength="120">
@@ -75,6 +86,17 @@
       <input type="file" id="photo-input" accept="image/png,image/jpeg,image/webp" multiple>
       <p class="hint">Up to 8 screenshots of the interior/exterior, 5MB each.</p>
       <div id="photo-previews" class="selected-items"></div>
+    </div>
+
+    <div id="included-items-field">
+      <label class="field-label">Items included with the house (optional)</label>
+      <p class="hint" style="margin-top:-2px;margin-bottom:6px;">Bonus pets/items you're throwing in with the house — separate from what you want back below.</p>
+      <div class="item-picker">
+        <div class="category-tabs" id="incl-category-tabs"></div>
+        <input type="search" id="incl-item-search" placeholder="Search items..." style="margin-bottom:10px;">
+        <div class="results" id="incl-item-results"></div>
+      </div>
+      <div class="selected-items" id="incl-selected-items"></div>
     </div>
 
     <label class="field-label" id="looking-for-label">What are you looking for?</label>
@@ -96,8 +118,11 @@
 
 <script type="module">
   import { api, getStoredProfile, CATEGORY_LABELS } from "./js/api.js";
+  import { mountItemPicker } from "./js/item-picker.js";
 
   const profile = getStoredProfile();
+  let includedItemsPicker = null;
+
   if (!profile) {
     document.getElementById("need-profile").hidden = false;
   } else {
@@ -124,6 +149,8 @@
       .map(([key, label]) => `<label><input type="checkbox" value="${key}"> ${label}</label>`)
       .join("");
 
+    includedItemsPicker = mountItemPicker(document.getElementById("included-items-field"), "incl-");
+
     document.getElementById("photo-input").addEventListener("change", handlePhotos);
     document.getElementById("submit-btn").addEventListener("click", submitListing);
     document
@@ -140,6 +167,7 @@
     document.getElementById("house-field").hidden = type === "commission";
     document.getElementById("cloned-field").hidden = type !== "house_trade";
     document.getElementById("photos-field").hidden = type === "looking_for";
+    document.getElementById("included-items-field").hidden = type !== "house_trade";
 
     const houseLabel = document.getElementById("house-select-label");
     houseLabel.textContent = type === "looking_for" ? "Which house are you looking for?" : "Which house?";
@@ -180,11 +208,15 @@
     const looking_for = Array.from(
       document.querySelectorAll("#looking-for-grid input:checked")
     ).map((el) => el.value);
-    const valueRaw = document.getElementById("value-points").value.trim();
+    const valueAmountRaw = document.getElementById("value-amount").value.trim();
+    const value_unit = document.getElementById("value-unit").value;
+    const bucksRaw = document.getElementById("bucks-invested").value.trim();
     const is_cloned =
       listing_type === "house_trade"
         ? document.querySelector('input[name="is_cloned"]:checked').value === "true"
         : null;
+    const included_items =
+      listing_type === "house_trade" && includedItemsPicker ? includedItemsPicker.getSelected() : [];
 
     if (!title) {
       errorBox.textContent = "Give your listing a title.";
@@ -200,8 +232,11 @@
         description,
         photos: listing_type === "looking_for" ? [] : uploadedUrls,
         looking_for,
+        included_items,
         is_cloned,
-        value_points: valueRaw === "" ? null : valueRaw,
+        value_amount: valueAmountRaw === "" ? null : valueAmountRaw,
+        value_unit,
+        bucks_invested: bucksRaw === "" ? null : bucksRaw,
       });
       successBox.textContent = "Listing posted! Redirecting...";
       successBox.hidden = false;

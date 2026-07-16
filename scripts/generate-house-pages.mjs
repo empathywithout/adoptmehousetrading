@@ -62,6 +62,7 @@ function layout({ title, description, path: routePath, depth, body }) {
       <a href="${rootPrefix}index.html">Home</a>
       <a href="${rootPrefix}houses/index.html" class="${routePath.startsWith("houses") ? "active" : ""}">Browse Houses</a>
       <a href="${rootPrefix}listings/index.html" class="${routePath.startsWith("listings") ? "active" : ""}">Trade Listings</a>
+      <a href="${rootPrefix}comps.html">Recent Trades</a>
       <a href="${rootPrefix}list-a-house.html">List a House</a>
       <a href="${rootPrefix}profile.html">My Profile</a>
     </nav>

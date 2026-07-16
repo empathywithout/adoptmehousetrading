@@ -63,6 +63,14 @@ export const api = {
   respondToOffer: (offer_id, action) =>
     request("offers-respond", { method: "POST", body: { offer_id, action }, auth: true }),
 
+  getTrade: (offer_id) => request(`trades-get?offer_id=${encodeURIComponent(offer_id)}`, { auth: true }),
+  confirmTrade: (offer_id, proof_photo) =>
+    request("trades-confirm", { method: "POST", body: { offer_id, proof_photo }, auth: true }),
+  listTrades: (params = {}) => {
+    const qs = new URLSearchParams(params).toString();
+    return request(`trades-list${qs ? `?${qs}` : ""}`);
+  },
+
   report: (listing_id, reason, details) =>
     request("report-create", { method: "POST", body: { listing_id, reason, details } }),
 };
