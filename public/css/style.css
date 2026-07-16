@@ -22,7 +22,11 @@
    --good-soft  #E7F6EE   light green tint
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
+/* Fonts loaded via <link rel="preconnect"> + <link rel="stylesheet"> in each
+   page's <head> instead of @import here — @import forces a fully serial
+   chain (fetch style.css -> parse -> discover @import -> fetch fonts CSS ->
+   parse -> fetch font files) instead of letting the browser's HTML preload
+   scanner discover and start the fonts request in parallel immediately. */
 
 :root {
   --ink: #16332B;

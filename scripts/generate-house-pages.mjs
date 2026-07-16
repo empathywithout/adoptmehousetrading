@@ -107,6 +107,9 @@ function layout({ title, description, path: routePath, depth, body, jsonLd = [],
 <meta property="og:description" content="${escapeHtml(description)}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="${canonical}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${rootPrefix}css/style.css">
 ${allJsonLd.map(jsonLdScript).join("\n")}
 </head>
