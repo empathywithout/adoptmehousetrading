@@ -709,6 +709,9 @@ label.field-label {
 
 input[type="text"],
 input[type="search"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
 textarea,
 select {
   width: 100%;
@@ -723,6 +726,9 @@ select {
 
 input[type="text"]:focus,
 input[type="search"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
 textarea:focus,
 select:focus {
   outline: 2px solid var(--accent);
@@ -1377,8 +1383,7 @@ textarea { resize: vertical; min-height: 90px; }
   cursor: pointer;
   font-family: var(--font-body);
 }
-.segmented button.active.accent { background: var(--accent); color: var(--white); }
-.segmented button.active.ink { background: var(--ink); color: var(--white); }
+.segmented button.active { background: var(--accent); color: var(--white); }
 
 .house-filter-row {
   display: flex;

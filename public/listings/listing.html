@@ -314,7 +314,7 @@
           </div>
           <div class="items-row">${itemsRowHtml(offer.items)}</div>
           ${offer.message ? `<p>${escapeHtml(offer.message)}</p>` : ""}
-          <span class="status-badge ${offer.status === "accepted" ? "active" : "traded"}">${offer.status}</span>
+          <span class="status-badge ${offer.status === "accepted" ? "active" : "traded"}">${{ pending: "Pending", accepted: "Accepted", declined: "Declined", withdrawn: "Withdrawn" }[offer.status] || offer.status}</span>
           ${
             canRespond
               ? `<div class="offer-actions">

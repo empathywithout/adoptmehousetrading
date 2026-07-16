@@ -38,7 +38,7 @@
     <div id="error" class="error-box" hidden></div>
 
     <div id="signup-form">
-      <h1>Set up your trading profile</h1>
+      <h1>Create Profile</h1>
       <p class="subtitle">A real account (email + password) plus your Roblox username. Your Roblox username stays private — other players see your display name until a trade is actually accepted.</p>
       <label class="field-label" style="margin-top:0;" for="signup-display-name">Display name</label>
       <input type="text" id="signup-display-name" placeholder="What other players see" maxlength="24">
@@ -469,7 +469,7 @@
       </div>
       <p>${escapeHtml(req.status === "accepted" || req.status === "delivered" || req.status === "verified" ? req.agreed_scope || req.description : req.description)}</p>
       <p class="hint">Offering: ${escapeHtml(itemsSummary)}</p>
-      ${req.status === "verified" ? `<span class="verified-badge">Verified</span>` : `<span class="status-badge traded">${req.status}</span>`}
+      ${req.status === "verified" ? `<span class="verified-badge">Verified</span>` : `<span class="status-badge traded">${{ pending: "Pending", accepted: "Accepted", declined: "Declined", delivered: "Delivered", cancelled: "Cancelled" }[req.status] || req.status}</span>`}
       ${actionsHtml}
     </div>`;
   }
