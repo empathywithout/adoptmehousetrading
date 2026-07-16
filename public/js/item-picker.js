@@ -67,8 +67,8 @@ export function mountItemPicker(container, prefix = "") {
     renderResults();
   }
 
-  function findValueRange(item) {
-    return valuesByCategory[item.category]?.find(
+  function findValueRanges(item) {
+    return (valuesByCategory[item.category] || []).filter(
       (v) => v.item_id === item.id && (v.variant || null) === (item.variant || null) && (v.potion || null) === (item.potion || null)
     );
   }
@@ -86,7 +86,14 @@ export function mountItemPicker(container, prefix = "") {
     el("item-results").innerHTML = items
       .map((it) => {
         const existing = findSelected(it.id, it.category);
-        const valueRange = findValueRange({ ...it, variant: null, potion: null });
+        const valueRanges = findValueRanges({ ...it, variant: null, potion: null });
+        const valueHtml = valueRanges
+          .map((v) => {
+            const range = v.value_low === v.value_high ? `${v.value_low}` : `${v.value_low}-${v.value_high}`;
+            const label = v.source === "verified" ? "Verified" : "Data Team";
+            return `<span class="result-value ${v.source}" title="From ${v.sample_size} ${v.source === "verified" ? "verified trade" : "Data Team submission"}${v.sample_size === 1 ? "" : "s"}">${range} ${v.value_unit} <em>${label}</em></span>`;
+          })
+          .join("");
         return `<div class="result-item ${existing ? "selected" : ""}"
                     data-id="${it.id}" data-cat="${it.category}">
                     ${
@@ -95,11 +102,7 @@ export function mountItemPicker(container, prefix = "") {
                         : ""
                     }
                     <img src="${it.image}" alt="" loading="lazy">${escapeHtml(it.name)}
-                    ${
-                      valueRange
-                        ? `<span class="result-value" title="From ${valueRange.sample_size} verified trade${valueRange.sample_size === 1 ? "" : "s"} on this site">${valueRange.value_low === valueRange.value_high ? valueRange.value_low : `${valueRange.value_low}-${valueRange.value_high}`} ${valueRange.value_unit}</span>`
-                        : ""
-                    }
+                    ${valueHtml}
                   </div>`;
       })
       .join("");

@@ -106,6 +106,20 @@ async function handlerImpl(event) {
     console.error("build_registry query failed:", err);
   }
 
+  let dataTeamApplication = null;
+  try {
+    const { data } = await db
+      .from("data_team_applications")
+      .select("status, created_at")
+      .eq("profile_id", profile.id)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    dataTeamApplication = data || null;
+  } catch (err) {
+    console.error("data_team_applications query failed:", err);
+  }
+
   // My own sent offers — offers I've made on OTHER people's listings.
   // Distinct from `listings` above, which only covers listings I posted.
   let myOffers = [];
@@ -160,6 +174,7 @@ async function handlerImpl(event) {
       commission_status: profile.commission_status || "closed",
       portfolio_photos: profile.portfolio_photos || [],
       builder_themes: profile.builder_themes || [],
+      is_data_team_member: profile.is_data_team_member || false,
     },
     stats,
     listings,
@@ -167,6 +182,7 @@ async function handlerImpl(event) {
     commission_requests_as_requester: requestsAsRequester,
     build_registry_entries: myBuildRegistryEntries,
     my_offers: myOffers,
+    data_team_application: dataTeamApplication,
   });
 }
 

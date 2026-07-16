@@ -102,6 +102,7 @@
       <button class="tab" data-tab="builder">Builder</button>
       <button class="tab" data-tab="commissions">Commissions</button>
       <button class="tab" data-tab="portfolio">Portfolio</button>
+      <button class="tab" data-tab="data-team">Data Team</button>
     </div>
 
     <div id="tab-panel-listings">
@@ -183,6 +184,53 @@
         <a class="btn btn-primary" href="registry/submit.html">Register a Build</a>
       </div>
     </div>
+
+    <div id="tab-panel-data-team" hidden>
+      <div class="section-head"><h2>Data Team</h2></div>
+      <p class="hint" style="margin-bottom:16px;max-width:640px;">A vetted group of trusted members who help bootstrap our value list by submitting trades they've made or witnessed. Kept separate from on-site verified trade data — clearly labeled, never blended into one number.</p>
+
+      <div id="data-team-not-applied" class="form-card" style="max-width:none;" hidden>
+        <h1 style="font-size:18px;">Apply for the Data Team</h1>
+        <div id="apply-error" class="error-box" hidden></div>
+        <div id="apply-success" class="success-box" hidden></div>
+        <label class="field-label" style="margin-top:0;" for="apply-message">Why should we trust your submissions?</label>
+        <textarea id="apply-message" placeholder="Trading history, reputation on other value sites, how active you are in the community, etc."></textarea>
+        <button class="btn btn-primary" id="apply-btn" style="margin-top:12px;">Submit Application</button>
+      </div>
+
+      <div id="data-team-pending" class="form-card" hidden>
+        <h1 style="font-size:18px;">Application Pending</h1>
+        <p class="subtitle">We'll review it — check back here.</p>
+      </div>
+
+      <div id="data-team-rejected" class="form-card" hidden>
+        <h1 style="font-size:18px;">Application Not Approved</h1>
+        <p class="subtitle">You're welcome to submit real verified trades the normal way — those still count.</p>
+      </div>
+
+      <div id="data-team-approved" hidden>
+        <div class="form-card" style="max-width:none;">
+          <h1 style="font-size:18px;">Submit a Value</h1>
+          <div id="submit-value-error" class="error-box" hidden></div>
+          <div id="submit-value-success" class="success-box" hidden></div>
+          <div class="item-picker">
+            <div class="category-tabs" id="dt-category-tabs"></div>
+            <input type="search" id="dt-item-search" placeholder="Search items...">
+            <div class="results" id="dt-item-results"></div>
+          </div>
+          <div class="selected-items" id="dt-selected-items"></div>
+          <label class="field-label">Value</label>
+          <div style="display:flex;gap:8px;">
+            <input type="text" id="dt-value-amount" placeholder="e.g. 120" inputmode="decimal" style="flex:1;">
+            <div class="segmented" id="dt-unit-toggle" style="flex:none;width:auto;">
+              <button data-val="shark" class="active accent">Shark</button>
+              <button data-val="frost">Frost</button>
+            </div>
+          </div>
+          <button class="btn btn-primary" id="submit-value-btn" style="margin-top:14px;">Submit</button>
+        </div>
+      </div>
+    </div>
     </div>
   </div>
 </section>
@@ -197,6 +245,7 @@
 <script type="module">
   import { api, getStoredProfile, saveSession, clearSession, CATEGORY_LABELS, THEME_LABELS } from "./js/api.js";
   import { mountChatPanel } from "./js/chat.js";
+  import { mountItemPicker } from "./js/item-picker.js";
 
   const signedOutView = document.getElementById("signed-out-view");
 
@@ -300,6 +349,7 @@
     renderBuilderSettings(dash.profile, dash.build_registry_entries || []);
     renderCommissionRequests(dash);
     renderBuildRegistry(dash.build_registry_entries || []);
+    renderDataTeam(dash.profile, dash.data_team_application);
   }
 
   function renderListings(listings, myProfileId) {
@@ -616,6 +666,105 @@
         </a>`;
       })
       .join("");
+  }
+
+  let dataTeamPicker = null;
+
+  function renderDataTeam(profile, application) {
+    const notApplied = document.getElementById("data-team-not-applied");
+    const pending = document.getElementById("data-team-pending");
+    const rejected = document.getElementById("data-team-rejected");
+    const approved = document.getElementById("data-team-approved");
+    notApplied.hidden = true;
+    pending.hidden = true;
+    rejected.hidden = true;
+    approved.hidden = true;
+
+    if (profile.is_data_team_member) {
+      approved.hidden = false;
+      if (!dataTeamPicker) {
+        dataTeamPicker = mountItemPicker(document.getElementById("tab-panel-data-team"), "dt-");
+        document.getElementById("dt-unit-toggle").querySelectorAll("button").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            document.getElementById("dt-unit-toggle").querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
+          });
+        });
+        document.getElementById("submit-value-btn").addEventListener("click", submitDataTeamValue);
+      }
+    } else if (application?.status === "pending") {
+      pending.hidden = false;
+    } else {
+      notApplied.hidden = false;
+      if (application?.status === "rejected" && !notApplied.dataset.notedRejection) {
+        notApplied.insertAdjacentHTML("afterbegin", `<p class="hint" style="color:var(--accent-dark);">Your last application wasn't approved. Real verified trades still count toward values regardless.</p>`);
+        notApplied.dataset.notedRejection = "1";
+      }
+      if (!document.getElementById("apply-btn").dataset.bound) {
+        document.getElementById("apply-btn").dataset.bound = "1";
+        document.getElementById("apply-btn").addEventListener("click", submitDataTeamApplication);
+      }
+    }
+  }
+
+  async function submitDataTeamApplication() {
+    const errorBox = document.getElementById("apply-error");
+    const successBox = document.getElementById("apply-success");
+    errorBox.hidden = true;
+    successBox.hidden = true;
+    const message = document.getElementById("apply-message").value.trim();
+    if (!message) {
+      errorBox.textContent = "Tell us why you'd be a good fit.";
+      errorBox.hidden = false;
+      return;
+    }
+    try {
+      await api.applyForDataTeam(message);
+      successBox.textContent = "Application submitted!";
+      successBox.hidden = false;
+      await render();
+    } catch (err) {
+      errorBox.textContent = err.message;
+      errorBox.hidden = false;
+    }
+  }
+
+  async function submitDataTeamValue() {
+    const errorBox = document.getElementById("submit-value-error");
+    const successBox = document.getElementById("submit-value-success");
+    errorBox.hidden = true;
+    successBox.hidden = true;
+
+    const selected = dataTeamPicker.getSelected();
+    if (selected.length !== 1) {
+      errorBox.textContent = "Select exactly one item.";
+      errorBox.hidden = false;
+      return;
+    }
+    const item = selected[0];
+    const valueAmount = document.getElementById("dt-value-amount").value.trim();
+    const valueUnit = document.querySelector("#dt-unit-toggle button.active").dataset.val;
+    if (!valueAmount || Number(valueAmount) <= 0) {
+      errorBox.textContent = "Enter a positive value.";
+      errorBox.hidden = false;
+      return;
+    }
+
+    try {
+      await api.submitDataTeamValue({
+        category: item.category,
+        item_id: item.id,
+        variant: item.variant || null,
+        potion: item.potion || null,
+        value_amount: valueAmount,
+        value_unit: valueUnit,
+      });
+      successBox.textContent = "Submitted — thank you!";
+      successBox.hidden = false;
+      document.getElementById("dt-value-amount").value = "";
+    } catch (err) {
+      errorBox.textContent = err.message;
+      errorBox.hidden = false;
+    }
   }
 
   function commissionRequestCard(req, otherProfile, isBuilderView) {

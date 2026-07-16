@@ -31,6 +31,13 @@
       <h1>No pending disputes</h1>
       <p class="subtitle">Everything's resolved.</p>
     </div>
+
+    <div class="section-head" style="margin-top:36px;"><h2>Pending Data Team Applications</h2></div>
+    <div id="applications-list"></div>
+    <div id="empty-applications" class="form-card" hidden>
+      <h1>No pending applications</h1>
+      <p class="subtitle">Nothing to review right now.</p>
+    </div>
   </div>
 
 </section>
@@ -50,19 +57,66 @@
     const pw = getAdminPassword();
     if (!pw) return;
     try {
-      const res = await fetch("/.netlify/functions/admin-disputes-list", {
-        headers: { "X-Admin-Password": pw },
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Login failed");
+      const [disputesRes, applicationsRes] = await Promise.all([
+        fetch("/.netlify/functions/admin-disputes-list", { headers: { "X-Admin-Password": pw } }),
+        fetch("/.netlify/functions/admin-data-team-list", { headers: { "X-Admin-Password": pw } }),
+      ]);
+      const disputesData = await disputesRes.json();
+      const applicationsData = await applicationsRes.json();
+      if (!disputesRes.ok) throw new Error(disputesData.error || "Login failed");
       document.getElementById("login-card").hidden = true;
       document.getElementById("disputes-view").hidden = false;
-      renderDisputes(data.disputes);
+      renderDisputes(disputesData.disputes);
+      renderApplications(applicationsData.applications || []);
     } catch (err) {
       sessionStorage.removeItem(SESSION_KEY);
       document.getElementById("login-error").textContent = err.message;
       document.getElementById("login-error").hidden = false;
     }
+  }
+
+  function renderApplications(applications) {
+    const list = document.getElementById("applications-list");
+    const empty = document.getElementById("empty-applications");
+
+    if (!applications.length) {
+      empty.hidden = false;
+      list.innerHTML = "";
+      return;
+    }
+    empty.hidden = true;
+
+    list.innerHTML = applications
+      .map(
+        (a) => `
+        <div class="form-card" style="max-width:none;margin-bottom:16px;">
+          <h1 style="font-size:18px;">${escapeHtml(a.profiles?.display_name || "unknown")}</h1>
+          <p class="hint" style="margin:2px 0 10px;">Member since ${new Date(a.profiles?.created_at || a.created_at).toLocaleDateString()} · Applied ${new Date(a.created_at).toLocaleDateString()}</p>
+          <p style="margin:0 0 10px;">${escapeHtml(a.message)}</p>
+          <div class="hero-ctas" style="justify-content:flex-start;">
+            <button class="btn-sm accept" data-review="${a.id}" data-decision="approved">Approve</button>
+            <button class="btn-sm decline" data-review="${a.id}" data-decision="rejected">Reject</button>
+          </div>
+        </div>`
+      )
+      .join("");
+
+    list.querySelectorAll("[data-review]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        try {
+          const res = await fetch("/.netlify/functions/admin-data-team-approve", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "X-Admin-Password": getAdminPassword() },
+            body: JSON.stringify({ application_id: btn.dataset.review, decision: btn.dataset.decision }),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || "Couldn't update");
+          await tryLoad();
+        } catch (err) {
+          alert(err.message);
+        }
+      });
+    });
   }
 
   function renderDisputes(disputes) {

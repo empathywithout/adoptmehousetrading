@@ -188,11 +188,19 @@ create table item_values (
   variant text,                        -- pets only: regular/neon/mega_neon, null otherwise
   potion text,                         -- pets only: none/ride/fly/fly_ride, null otherwise
   value_unit text not null check (value_unit in ('shark', 'frost')),
+  source text not null default 'verified' check (source in ('verified', 'data_team')),
+                                       -- 'verified' = derived from a corroborated on-site trade
+                                       -- (the strongest signal we have). 'data_team' = self-
+                                       -- reported by a vetted Data Team member (see
+                                       -- data_team_applications below) — useful for bootstrapping
+                                       -- volume, but a real trust step down from a two-sided
+                                       -- confirmed trade, so it's tracked as its OWN row rather
+                                       -- than silently blended into the verified range.
   value_low numeric not null,
   value_high numeric not null,
   sample_size int not null default 0,
   updated_at timestamptz not null default now(),
-  unique (category, item_id, variant, potion, value_unit)
+  unique (category, item_id, variant, potion, value_unit, source)
 );
 
 create index item_values_lookup_idx on item_values(category, item_id, variant, potion);
@@ -200,6 +208,28 @@ create index item_values_lookup_idx on item_values(category, item_id, variant, p
 alter table item_values enable row level security;
 create policy "public can read item values" on item_values
   for select using (true);
+
+-- Data Team: a vetted group of trusted members who can self-report trades
+-- to bootstrap item_values faster than on-site verified volume alone.
+-- Deliberately gated behind an application + approval, not open to anyone
+-- with a profile — the whole point is that self-reported data needs a
+-- real trust step, same reasoning as everything else on this site
+-- (post-first, but reviewed/gated where the stakes are real).
+alter table profiles add column is_data_team_member boolean not null default false;
+
+create table data_team_applications (
+  id uuid primary key default gen_random_uuid(),
+  profile_id uuid not null references profiles(id) on delete cascade,
+  message text not null,               -- why they should be trusted (trading history/reputation elsewhere, etc.)
+  status text not null default 'pending' check (status in ('pending', 'approved', 'rejected')),
+  created_at timestamptz not null default now(),
+  reviewed_at timestamptz
+);
+
+create index data_team_applications_status_idx on data_team_applications(status);
+
+alter table data_team_applications enable row level security;
+-- No public select policy — applications are reviewed by an admin only.
 
 -- Commission requests: a separate system from house trading. A builder
 -- (profiles.is_builder = true) takes requests from other players; unlike

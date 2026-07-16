@@ -106,6 +106,9 @@ export const api = {
     request("registry-dispute-create", { method: "POST", body: { build_registry_id, claim, claimed_original_entry_id }, auth: true }),
   submitDisputeRebuttal: (dispute_id, rebuttal) =>
     request("registry-dispute-rebuttal", { method: "POST", body: { dispute_id, rebuttal }, auth: true }),
+
+  applyForDataTeam: (message) => request("data-team-apply", { method: "POST", body: { message }, auth: true }),
+  submitDataTeamValue: (payload) => request("data-team-submit-trade", { method: "POST", body: payload, auth: true }),
 };
 
 async function uploadPhoto(file) {
