@@ -36,7 +36,7 @@ async function handlerImpl(event) {
 
   const { data: dispute } = await db
     .from("build_registry_disputes")
-    .select("*, build_registry(profile_id)")
+    .select("*, build_registry!build_registry_disputes_build_registry_id_fkey(profile_id)")
     .eq("id", dispute_id)
     .maybeSingle();
 

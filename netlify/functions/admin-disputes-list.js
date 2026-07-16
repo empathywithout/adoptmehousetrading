@@ -16,7 +16,7 @@ async function handlerImpl(event) {
   const { data, error } = await db
     .from("build_registry_disputes")
     .select(
-      "*, profiles!build_registry_disputes_disputer_profile_id_fkey(display_name), build_registry(id, title, photos, profile_id, profiles(display_name))"
+      "*, profiles!build_registry_disputes_disputer_profile_id_fkey(display_name), build_registry!build_registry_disputes_build_registry_id_fkey(id, title, photos, profile_id, profiles(display_name))"
     )
     .eq("status", "pending")
     .order("created_at", { ascending: true });
