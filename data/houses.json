@@ -1,0 +1,461 @@
+[
+  {
+    "id": "biodome-home",
+    "name": "Biodome Home",
+    "rarity": "Common",
+    "source": "House",
+    "image": "/images/houses/Biodome-Home-Common-from-House.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bunker-house",
+    "name": "Bunker House",
+    "rarity": "Common",
+    "source": "Bunker House Update",
+    "image": "/images/houses/Bunker-House-Common-from-Bunker-House-Update.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "castle",
+    "name": "Castle",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Castle-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "celebrity-mansion",
+    "name": "Celebrity Mansion",
+    "rarity": "Common",
+    "source": "Celebrity Mansion Gamepass (Robux)",
+    "image": "/images/houses/Celebrity-Mansion-Common-from-Celebrity-Mansion-Gamepass-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "christmas-pudding-house",
+    "name": "Christmas Pudding House",
+    "rarity": "Common",
+    "source": "Winter 2025",
+    "image": "/images/houses/Christmas-Pudding-House-Common-from-Winter-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "container-home",
+    "name": "Container Home",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Container-Home-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cozy-cabin",
+    "name": "Cozy Cabin",
+    "rarity": "Common",
+    "source": "Cozy Cabin & Snowmobile Gamepass (Robux)",
+    "image": "/images/houses/Cozy-Cabin-Common-from-Cozy-Cabin-&-Snowmobile-Gamepass-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "crooked-house",
+    "name": "Crooked House",
+    "rarity": "Common",
+    "source": "Artsy Update",
+    "image": "/images/houses/Crooked-House-Common-from-Artsy-Update.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "donut-shop",
+    "name": "Donut Shop",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Donut-Shop-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "dragon-s-castle",
+    "name": "Dragon's Castle",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Dragon's-Castle-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "eco-natural-earth-house",
+    "name": "Eco Natural Earth House",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Eco-Natural-Earth-House-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "estate",
+    "name": "Estate",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Estate-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "expandable-dino-house",
+    "name": "Expandable Dino House",
+    "rarity": "Common",
+    "source": "Fossil Isle 2024",
+    "image": "/images/houses/Expandable-Dino-House-Common-from-Fossil-Isle-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "expandable-friendly-home",
+    "name": "Expandable Friendly Home",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Expandable-Friendly-Home-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "expandable-hillside-mansion",
+    "name": "Expandable Hillside Mansion",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Expandable-Hillside-Mansion-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "expandable-luxury-mansion",
+    "name": "Expandable Luxury Mansion",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Expandable-Luxury-Mansion-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "fairy-house",
+    "name": "Fairy House",
+    "rarity": "Common",
+    "source": "Fairy Update 2019",
+    "image": "/images/houses/Fairy-House-Common-from-Fairy-Update-2019.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "family-home",
+    "name": "Family Home",
+    "rarity": "Common",
+    "source": "Starter Pack",
+    "image": "/images/houses/Family-Home-Common-from-Starter-Pack.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "futuristic-house",
+    "name": "Futuristic House",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Futuristic-House-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "gingerbread-house",
+    "name": "Gingerbread House",
+    "rarity": "Common",
+    "source": "Christmas 2019",
+    "image": "/images/houses/Gingerbread-House-Common-from-Christmas-2019.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "halloween-hotel",
+    "name": "Halloween Hotel",
+    "rarity": "Common",
+    "source": "September 2025",
+    "image": "/images/houses/Halloween-Hotel-Common-from-September-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "haunted-house",
+    "name": "Haunted House",
+    "rarity": "Common",
+    "source": "Halloween 2023",
+    "image": "/images/houses/Haunted-House-Common-from-Halloween-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hollywood-house",
+    "name": "Hollywood House",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Hollywood-House-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "hospital-home",
+    "name": "Hospital Home",
+    "rarity": "Common",
+    "source": "School and Hospital Houses (Robux)",
+    "image": "/images/houses/Hospital-Home-Common-from-School-and-Hospital-Houses-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ice-cream-house",
+    "name": "Ice Cream House",
+    "rarity": "Common",
+    "source": "February 2025",
+    "image": "/images/houses/Ice-Cream-House-Common-from-February-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "igloo-home",
+    "name": "Igloo Home",
+    "rarity": "Common",
+    "source": "Winter 2022",
+    "image": "/images/houses/Igloo-Home-Common-from-Winter-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "korean-house",
+    "name": "Korean House",
+    "rarity": "Common",
+    "source": "Lunar New Year 2024",
+    "image": "/images/houses/Korean-House-Common-from-Lunar-New-Year-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "lunar-house",
+    "name": "Lunar House",
+    "rarity": "Common",
+    "source": "Lunar New Year 2021",
+    "image": "/images/houses/Lunar-House-Common-from-Lunar-New-Year-2021.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "luxury-apartments",
+    "name": "Luxury Apartments",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Luxury-Apartments-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "mansion",
+    "name": "Mansion",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Mansion-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "mermaid-mansion",
+    "name": "Mermaid Mansion",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Mermaid-Mansion-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "millionaire-mansion",
+    "name": "Millionaire Mansion",
+    "rarity": "Common",
+    "source": "Millionaire Pack (Robux)",
+    "image": "/images/houses/Millionaire-Mansion-Common-from-Millionaire-Pack-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "modern-mansion",
+    "name": "Modern Mansion",
+    "rarity": "Common",
+    "source": "Modern Mansion Gamepass (Robux)",
+    "image": "/images/houses/Modern-Mansion-Common-from-Modern-Mansion-Gamepass-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "mountain-house",
+    "name": "Mountain House",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Mountain-House-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "party-house",
+    "name": "Party House",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Party-House-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pirate-ship-house",
+    "name": "Pirate Ship House",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Pirate-Ship-House-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pizza-place",
+    "name": "Pizza Place",
+    "rarity": "Common",
+    "source": "Own A Shop Update",
+    "image": "/images/houses/Pizza-Place-Common-from-Own-A-Shop-Update.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "queenslander-house",
+    "name": "Queenslander House",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Queenslander-House-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "racetrack-house",
+    "name": "Racetrack House",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Racetrack-House-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "royal-palace",
+    "name": "Royal Palace",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Royal-Palace-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ruler-s-castle",
+    "name": "Ruler's Castle",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Ruler's-Castle-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "safari-home",
+    "name": "Safari Home",
+    "rarity": "Common",
+    "source": "Safari Update 2023",
+    "image": "/images/houses/Safari-Home-Common-from-Safari-Update-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "sandbox-island",
+    "name": "Sandbox Island",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Sandbox-Island-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "scary-house",
+    "name": "Scary House",
+    "rarity": "Common",
+    "source": "Halloween 2021",
+    "image": "/images/houses/Scary-House-Common-from-Halloween-2021.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "schoolhouse-home",
+    "name": "Schoolhouse Home",
+    "rarity": "Common",
+    "source": "School and Hospital Houses (Robux)",
+    "image": "/images/houses/Schoolhouse-Home-Common-from-School-and-Hospital-Houses-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "shop-house",
+    "name": "Shop House",
+    "rarity": "Common",
+    "source": "Build House Menu",
+    "image": "/images/houses/Shop-House-Common-from-Build-House-Menu.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "soccer-stadium",
+    "name": "Soccer Stadium",
+    "rarity": "Common",
+    "source": "Soccer Update 2024",
+    "image": "/images/houses/Soccer-Stadium-Common-from-Soccer-Update-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "space-fleet-house",
+    "name": "Space Fleet House",
+    "rarity": "Common",
+    "source": "Space Bundle Gamepass",
+    "image": "/images/houses/Space-Fleet-House-Common-from-Space-Bundle-Gamepass.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "tiny-home",
+    "name": "Tiny Home",
+    "rarity": "Common",
+    "source": "Default House",
+    "image": "/images/houses/Tiny-Home-Common-from-Default-House.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "toyshop-house",
+    "name": "Toyshop House",
+    "rarity": "Common",
+    "source": "September 2023",
+    "image": "/images/houses/Toyshop-House-Common-from-September-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "treehouse-update",
+    "name": "Treehouse Update",
+    "rarity": "Common",
+    "source": "Treehouse Update",
+    "image": "/images/houses/Treehouse-Update-Common-from-Treehouse-Update.png",
+    "value": null,
+    "valueUnit": null
+  }
+]

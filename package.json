@@ -1,0 +1,11 @@
+{
+  "name": "adoptmehousetrading",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "parse": "node scripts/parse-houses.mjs",
+    "generate": "node scripts/generate-house-pages.mjs",
+    "build": "npm run parse && npm run generate"
+  }
+}

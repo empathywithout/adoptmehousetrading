@@ -1,0 +1,16 @@
+[build]
+  command = "npm run build"
+  publish = "public"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Netlify Functions live here once we add server-side pieces
+# (trade calculator persistence, value submission API, etc.)
+[functions]
+  directory = "netlify/functions"
+
+[[redirects]]
+  from = "/house/*"
+  to = "/houses/:splat.html"
+  status = 301
