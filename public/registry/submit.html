@@ -47,6 +47,20 @@
     <label class="field-label" style="margin-top:0;" for="title">Build title</label>
     <input type="text" id="title" placeholder="e.g. Ivory Pagoda" maxlength="120">
 
+    <label class="field-label">House type (optional)</label>
+    <p class="hint" style="margin-top:-4px;margin-bottom:8px;">Which house is this build on, if it's tied to one specific type?</p>
+    <div class="house-picker" id="house-picker">
+      <div class="house-picker-trigger" id="house-picker-trigger">
+        <div class="house-picker-thumb"><img id="house-picker-img" src="" alt=""></div>
+        <div class="house-picker-name" id="house-picker-name">None selected</div>
+        <div class="caret"></div>
+      </div>
+      <div class="house-picker-dropdown" id="house-picker-dropdown" hidden>
+        <input type="search" id="house-search" placeholder="Search houses...">
+        <div id="house-picker-list"></div>
+      </div>
+    </div>
+
     <label class="field-label" for="description">Description</label>
     <textarea id="description" placeholder="Style, techniques used, when you built it..."></textarea>
 
@@ -74,6 +88,10 @@
   import { api, getStoredProfile, THEME_LABELS } from "../js/api.js";
 
   const profile = getStoredProfile();
+  const uploadedPhotos = [];
+  let houses = [];
+  let selectedHouseId = null;
+
   if (!profile) {
     document.getElementById("need-profile").hidden = false;
   } else {
@@ -81,16 +99,83 @@
     init();
   }
 
-  const uploadedPhotos = [];
+  function escapeHtml(str) {
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
 
-  function init() {
+  async function init() {
     const themesGrid = document.getElementById("themes-grid");
     themesGrid.innerHTML = Object.entries(THEME_LABELS)
       .map(([key, label]) => `<label><input type="checkbox" value="${key}"> ${label}</label>`)
       .join("");
 
+    // Photo slots don't depend on house data — render them immediately so a
+    // slow/failed houses.json fetch can never block photo uploads from
+    // working, which is the actual point of this form.
     renderPhotoSlots();
     document.getElementById("submit-btn").addEventListener("click", submitEntry);
+
+    try {
+      houses = await fetch("../data/houses.json").then((r) => r.json());
+      renderHousePicker();
+    } catch (err) {
+      console.error("Couldn't load house list (non-fatal, house link is optional):", err);
+      // Leave the picker showing "None selected" — linking to a house is
+      // optional, so a failed fetch here shouldn't block the rest of the form.
+    }
+  }
+
+  function renderHousePicker() {
+    const trigger = document.getElementById("house-picker-trigger");
+    const dropdown = document.getElementById("house-picker-dropdown");
+    const listEl = document.getElementById("house-picker-list");
+    const searchInput = document.getElementById("house-search");
+
+    function updateTrigger() {
+      const house = houses.find((h) => h.id === selectedHouseId);
+      document.getElementById("house-picker-img").src = house?.image || "";
+      document.getElementById("house-picker-name").textContent = house?.name || "None selected";
+    }
+
+    function renderList(filter = "") {
+      const filtered = houses.filter((h) => h.name.toLowerCase().includes(filter.toLowerCase()));
+      const noneRow = `<div class="house-picker-row ${!selectedHouseId ? "selected" : ""}" data-id="">
+        <div class="name">None</div>
+      </div>`;
+      listEl.innerHTML =
+        noneRow +
+        filtered
+          .map(
+            (h) => `<div class="house-picker-row ${h.id === selectedHouseId ? "selected" : ""}" data-id="${h.id}">
+              <div class="thumb"><img src="${h.image}" alt=""></div>
+              <div class="name">${escapeHtml(h.name)}</div>
+            </div>`
+          )
+          .join("");
+      listEl.querySelectorAll(".house-picker-row").forEach((row) => {
+        row.addEventListener("click", () => {
+          selectedHouseId = row.dataset.id || null;
+          updateTrigger();
+          dropdown.hidden = true;
+        });
+      });
+    }
+
+    trigger.addEventListener("click", () => {
+      dropdown.hidden = !dropdown.hidden;
+      if (!dropdown.hidden) {
+        renderList(searchInput.value);
+        searchInput.focus();
+      }
+    });
+    document.addEventListener("click", (e) => {
+      if (!document.getElementById("house-picker").contains(e.target)) dropdown.hidden = true;
+    });
+    searchInput.addEventListener("input", () => renderList(searchInput.value));
+    searchInput.addEventListener("click", (e) => e.stopPropagation());
+
+    updateTrigger();
+    renderList();
   }
 
   function renderPhotoSlots() {
@@ -144,7 +229,7 @@
     }
 
     try {
-      const { entry } = await api.registerBuild({ title, description, themes, photos });
+      const { entry } = await api.registerBuild({ title, description, themes, photos, house_id: selectedHouseId });
       successBox.textContent = "Build registered! Redirecting...";
       successBox.hidden = false;
       setTimeout(() => {
