@@ -125,9 +125,21 @@ create table reports (
   created_at timestamptz not null default now()
 );
 
+-- Data API grants: Supabase's newer default is that new tables in the public
+-- schema are NOT automatically exposed to the Data API (PostgREST) — you
+-- must explicitly grant access. Without this, service_role gets
+-- "PGRST125: Invalid path specified" on every request, because PostgREST's
+-- schema cache doesn't even know these tables exist as API resources.
+-- service_role is the only role our Netlify Functions ever use (the browser
+-- never talks to Supabase directly), so that's the only grant needed here.
+grant usage on schema public to service_role;
+grant all on all tables in schema public to service_role;
+alter default privileges in schema public grant all on tables to service_role;
+
 -- Row Level Security: all writes go through Netlify Functions using the
--- service role key (which bypasses RLS), so the anon/public key used by the
--- browser gets read-only access to active listings/offers and nothing else.
+-- service role key (bypasses RLS), so the anon/public key used by the
+-- browser (if ever used directly) gets read-only access to active
+-- listings/offers and nothing else.
 alter table profiles enable row level security;
 alter table listings enable row level security;
 alter table offers enable row level security;
