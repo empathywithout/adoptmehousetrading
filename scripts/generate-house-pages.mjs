@@ -110,7 +110,17 @@ function buildHomepage() {
         <a class="btn btn-secondary" href="comps.html">See Recent Trades</a>
       </div>
     </div>
-    <div class="hero-signpost">${SIGNPOST_SVG}</div>
+    <div class="big-sign-wrap">
+      <div class="big-sign-frame">
+        <div class="big-sign-post"></div>
+        <div class="big-sign-crossbar"></div>
+        <div class="big-sign-hang">
+          <div class="big-sign-box">
+            <div class="big-sign-text">FOR<br>TRADE</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 <section class="wrap">

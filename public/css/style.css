@@ -200,12 +200,111 @@ img { max-width: 100%; display: block; }
   100% { transform: rotate(-2.5deg); }
 }
 
+@keyframes postSwing {
+  0% { transform: translateX(-50%) rotate(-0.6deg); }
+  50% { transform: translateX(-50%) rotate(0.6deg); }
+  100% { transform: translateX(-50%) rotate(-0.6deg); }
+}
+
 .hero-signpost {
   width: 76px;
   height: 76px;
   margin: 0 auto 20px;
   transform-origin: top center;
   animation: signSwing 4.5s ease-in-out infinite;
+}
+
+/* Large hero sign — matches the mockup's actual scale, not the small
+   compact icon used in the nav mark / detail-page badge. */
+.big-sign-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 360px;
+}
+
+.big-sign-frame {
+  position: relative;
+  width: 240px;
+  height: 340px;
+}
+
+.big-sign-post {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 13px;
+  height: 290px;
+  background: var(--ink);
+  border-radius: 3px;
+  transform-origin: bottom center;
+  animation: postSwing 4.5s ease-in-out infinite;
+}
+
+.big-sign-crossbar {
+  position: absolute;
+  left: 50%;
+  top: 32px;
+  transform: translateX(-50%);
+  width: 135px;
+  height: 9px;
+  background: var(--ink);
+  border-radius: 3px;
+  z-index: 2;
+}
+
+.big-sign-hang {
+  position: absolute;
+  left: 50%;
+  top: 38px;
+  transform-origin: top center;
+  animation: signSwing 4.5s ease-in-out infinite;
+  z-index: 3;
+}
+
+.big-sign-box {
+  position: relative;
+  left: -85px;
+  width: 170px;
+  height: 88px;
+  background: var(--white);
+  border: 4px solid var(--ink);
+  border-radius: 10px;
+  box-shadow: 0 10px 26px rgba(22, 51, 43, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.big-sign-box::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -8px;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  background: var(--ink);
+  border-radius: 50%;
+}
+
+.big-sign-text {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 24px;
+  color: var(--accent);
+  letter-spacing: -0.5px;
+  text-align: center;
+  line-height: 1.1;
+}
+
+@media (max-width: 800px) {
+  .big-sign-wrap { height: 220px; }
+  .big-sign-frame { width: 160px; height: 210px; }
+  .big-sign-post { height: 170px; }
+  .big-sign-crossbar { width: 100px; }
+  .big-sign-box { width: 130px; height: 68px; left: -65px; }
+  .big-sign-text { font-size: 19px; }
 }
 
 .hero h1 {
