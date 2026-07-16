@@ -91,7 +91,7 @@
         (a) => `
         <div class="form-card" style="max-width:none;margin-bottom:16px;">
           <h1 style="font-size:18px;">${escapeHtml(a.profiles?.display_name || "unknown")}</h1>
-          <p class="hint" style="margin:2px 0 10px;">Member since ${new Date(a.profiles?.created_at || a.created_at).toLocaleDateString()} · Applied ${new Date(a.created_at).toLocaleDateString()}</p>
+          <p class="hint" style="margin:2px 0 10px;">${escapeHtml(a.profiles?.email || "no email on file")} · Member since ${new Date(a.profiles?.created_at || a.created_at).toLocaleDateString()} · Applied ${new Date(a.created_at).toLocaleDateString()}</p>
           <p style="margin:0 0 10px;">${escapeHtml(a.message)}</p>
           <div class="hero-ctas" style="justify-content:flex-start;">
             <button class="btn-sm accept" data-review="${a.id}" data-decision="approved">Approve</button>
