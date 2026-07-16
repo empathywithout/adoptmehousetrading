@@ -16,6 +16,7 @@ async function handlerImpl(event) {
   return json(200, {
     profile: {
       id: profile.id,
+      display_name: profile.display_name,
       rbx_username: profile.rbx_username,
       rbx_user_id: profile.rbx_user_id,
       rbx_avatar_url: profile.rbx_avatar_url,

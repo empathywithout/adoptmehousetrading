@@ -123,9 +123,9 @@
           <a class="listing-card" href="builder.html?id=${b.id}">
             <div class="photo"><img src="${photo}" alt=""></div>
             <div class="body">
-              <h3>${escapeHtml(b.rbx_username)}</h3>
+              <h3>${escapeHtml(b.display_name)}</h3>
               <div class="trust-row">
-                <span class="avatar-initial">${escapeHtml(b.rbx_username[0]?.toUpperCase() || "?")}</span>
+                <span class="avatar-initial">${escapeHtml(b.display_name[0]?.toUpperCase() || "?")}</span>
                 <span class="username">${b.commission_status === "open" ? "Open for commissions" : "Closed"}</span>
               </div>
               ${themesLine ? `<p class="lister" style="margin-top:2px;">${escapeHtml(themesLine)}</p>` : ""}

@@ -104,8 +104,8 @@
         const house = houseById[listing?.house_id];
         const items = trade.offers?.items || [];
         const itemsSummary = items.map((it) => it.name).join(", ") || "items";
-        const seller = listing?.profiles?.rbx_username || "unknown";
-        const buyer = trade.offers?.profiles?.rbx_username || "unknown";
+        const seller = listing?.profiles?.display_name || "unknown";
+        const buyer = trade.offers?.profiles?.display_name || "unknown";
 
         return `
         <div class="trade-card">

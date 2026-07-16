@@ -31,17 +31,39 @@
 
 <section class="wrap" style="padding: 48px 0 80px;">
   <div class="form-card" id="signed-out-view" hidden>
-    <h1>Set up your trading profile</h1>
-    <p class="subtitle">Just your Roblox username and a short PIN — no password, no email. The PIN is what lets you sign back in on another device, and it's the only thing stopping someone else from typing in your username and taking over.</p>
+    <div class="segmented" id="auth-mode-toggle" style="margin-bottom:20px;">
+      <button data-mode="signup" class="active accent">Sign Up</button>
+      <button data-mode="login">Log In</button>
+    </div>
     <div id="error" class="error-box" hidden></div>
-    <label class="field-label" for="username">Roblox username</label>
-    <input type="text" id="username" placeholder="e.g. builds_by_ross" maxlength="20">
-    <p class="hint">We'll check this is a real Roblox account and pull your avatar.</p>
-    <label class="field-label" for="pin">4-6 digit PIN</label>
-    <input type="text" id="pin" placeholder="e.g. 4821" maxlength="6" inputmode="numeric" autocomplete="off">
-    <p class="hint">New username: this sets your PIN. Existing username: this must match. There's no recovery if you forget it — keep it somewhere safe.</p>
-    <div class="hero-ctas" style="justify-content: flex-start; margin-top: 20px;">
-      <button class="btn btn-primary" id="create-btn">Continue</button>
+
+    <div id="signup-form">
+      <h1>Set up your trading profile</h1>
+      <p class="subtitle">A real account (email + password) plus your Roblox username. Your Roblox username stays private — other players see your display name until a trade is actually accepted.</p>
+      <label class="field-label" style="margin-top:0;" for="signup-display-name">Display name</label>
+      <input type="text" id="signup-display-name" placeholder="What other players see" maxlength="24">
+      <label class="field-label" for="username">Roblox username</label>
+      <input type="text" id="username" placeholder="e.g. builds_by_ross" maxlength="20">
+      <p class="hint">We'll check this is a real Roblox account and pull your avatar. Kept private — see above.</p>
+      <label class="field-label" for="signup-email">Email</label>
+      <input type="email" id="signup-email" placeholder="you@example.com" autocomplete="email">
+      <label class="field-label" for="signup-password">Password</label>
+      <input type="password" id="signup-password" placeholder="At least 8 characters" autocomplete="new-password">
+      <div class="hero-ctas" style="justify-content: flex-start; margin-top: 20px;">
+        <button class="btn btn-primary" id="create-btn">Create Account</button>
+      </div>
+    </div>
+
+    <div id="login-form" hidden>
+      <h1>Log in</h1>
+      <p class="subtitle">Signing in on a new device doesn't sign you out anywhere else.</p>
+      <label class="field-label" style="margin-top:0;" for="login-email">Email</label>
+      <input type="email" id="login-email" placeholder="you@example.com" autocomplete="email">
+      <label class="field-label" for="login-password">Password</label>
+      <input type="password" id="login-password" placeholder="Your password" autocomplete="current-password">
+      <div class="hero-ctas" style="justify-content: flex-start; margin-top: 20px;">
+        <button class="btn btn-primary" id="login-btn">Log In</button>
+      </div>
     </div>
   </div>
 
@@ -56,13 +78,14 @@
           <span style="width:8px;height:8px;border-radius:50%;background:var(--good);"></span>
           <span class="online-label">Online</span>
         </div>
+        <div class="hint" style="margin-bottom:6px;">Roblox: <span id="rbx-username-display"></span> (private — only shown to accepted trade partners)</div>
         <div class="stat-line">
           <span class="stat"><span class="num" id="stat-trades">0</span><span class="label">completed trades</span></span>
           <span class="stat"><span class="num" id="stat-listings">0</span><span class="label">active listings</span></span>
           <span class="member-since" id="stat-member-since"></span>
         </div>
       </div>
-      <button class="btn btn-secondary" id="switch-profile-btn">Use a different username</button>
+      <button class="btn btn-secondary" id="switch-profile-btn">Log Out</button>
     </div>
 
     <div class="section-head"><h2>Active Listings</h2><a href="list-a-house.html">+ List a house</a></div>
@@ -182,10 +205,11 @@
     document.getElementById("dashboard-error").hidden = true;
     document.getElementById("dashboard-content").hidden = false;
 
-    document.getElementById("username-display").textContent = dash.profile.rbx_username;
+    document.getElementById("username-display").textContent = dash.profile.display_name;
+    document.getElementById("rbx-username-display").textContent = dash.profile.rbx_username;
     const avatarImg = document.getElementById("avatar-img");
     if (dash.profile.rbx_avatar_url) avatarImg.src = dash.profile.rbx_avatar_url;
-    else avatarImg.textContent = dash.profile.rbx_username[0]?.toUpperCase() || "?";
+    else avatarImg.textContent = dash.profile.display_name[0]?.toUpperCase() || "?";
 
     document.getElementById("stat-trades").textContent = dash.stats.completed_trades;
     document.getElementById("stat-listings").textContent = dash.stats.active_listings;
@@ -218,9 +242,9 @@
             (offer) => `
           <div class="manage-offer-row">
             <div class="left">
-              <span class="avatar-initial">${escapeHtml((offer.profiles?.rbx_username || "?")[0].toUpperCase())}</span>
+              <span class="avatar-initial">${escapeHtml((offer.profiles?.display_name || "?")[0].toUpperCase())}</span>
               <div>
-                <div class="username" style="font-weight:700;">${escapeHtml(offer.profiles?.rbx_username || "unknown")}</div>
+                <div class="username" style="font-weight:700;">${escapeHtml(offer.profiles?.display_name || "unknown")}</div>
                 <div class="items-summary">${escapeHtml((offer.items || []).map((i) => i.name).join(", ") || offer.message || "no items")}</div>
               </div>
             </div>
@@ -375,12 +399,12 @@
 
     if (asBuilder.length) {
       document.getElementById("commission-requests-builder").innerHTML = asBuilder
-        .map((req) => commissionRequestCard(req, req.profiles?.rbx_username, true))
+        .map((req) => commissionRequestCard(req, req.profiles, true))
         .join("");
     }
     if (asRequester.length) {
       document.getElementById("commission-requests-requester").innerHTML = asRequester
-        .map((req) => commissionRequestCard(req, req.profiles?.rbx_username, false))
+        .map((req) => commissionRequestCard(req, req.profiles, false))
         .join("");
     }
 
@@ -416,9 +440,11 @@
     });
   }
 
-  function commissionRequestCard(req, otherUsername, isBuilderView) {
+  function commissionRequestCard(req, otherProfile, isBuilderView) {
     const itemsSummary = (req.offered_items || []).map((i) => i.name).join(", ") || "no items offered";
     const myConfirmed = isBuilderView ? req.builder_confirmed : req.requester_confirmed;
+    const otherName = otherProfile?.display_name || "unknown";
+    const otherRbx = otherProfile?.rbx_username ? ` <span style="font-weight:400;color:var(--muted);">(Roblox: ${escapeHtml(otherProfile.rbx_username)})</span>` : "";
 
     let actionsHtml = "";
     if (isBuilderView && req.status === "pending") {
@@ -439,7 +465,7 @@
     return `
     <div class="offer-card">
       <div class="profile-chip">
-        <span class="name">${escapeHtml(otherUsername || "unknown")}</span>
+        <span class="name">${escapeHtml(otherName)}${otherRbx}</span>
       </div>
       <p>${escapeHtml(req.status === "accepted" || req.status === "delivered" || req.status === "verified" ? req.agreed_scope || req.description : req.description)}</p>
       <p class="hint">Offering: ${escapeHtml(itemsSummary)}</p>
@@ -448,16 +474,52 @@
     </div>`;
   }
 
+  document.getElementById("auth-mode-toggle").querySelectorAll("button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.getElementById("auth-mode-toggle").querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
+      document.getElementById("signup-form").hidden = btn.dataset.mode !== "signup";
+      document.getElementById("login-form").hidden = btn.dataset.mode !== "login";
+      errorBox.hidden = true;
+    });
+  });
+
   document.getElementById("create-btn").addEventListener("click", async () => {
     errorBox.hidden = true;
+    const displayName = document.getElementById("signup-display-name").value.trim();
     const username = document.getElementById("username").value.trim();
-    const pin = document.getElementById("pin").value.trim();
+    const email = document.getElementById("signup-email").value.trim();
+    const password = document.getElementById("signup-password").value;
+
+    if (!displayName) return showError("Choose a display name.");
     if (!username) return showError("Enter a Roblox username.");
-    if (!/^\d{4,6}$/.test(pin)) return showError("PIN must be 4-6 digits.");
+    if (!email) return showError("Enter an email address.");
+    if (password.length < 8) return showError("Password must be at least 8 characters.");
 
     try {
       const rbx = await api.lookupRoblox(username);
-      const { token, profile } = await api.createProfile({ ...rbx, pin });
+      const { token, profile } = await api.signup({
+        email,
+        password,
+        display_name: displayName,
+        rbx_username: rbx.rbx_username,
+        rbx_user_id: rbx.rbx_user_id,
+        avatar_url: rbx.avatar_url,
+      });
+      saveSession(token, profile);
+      await render();
+    } catch (err) {
+      showError(err.message);
+    }
+  });
+
+  document.getElementById("login-btn").addEventListener("click", async () => {
+    errorBox.hidden = true;
+    const email = document.getElementById("login-email").value.trim();
+    const password = document.getElementById("login-password").value;
+    if (!email || !password) return showError("Enter your email and password.");
+
+    try {
+      const { token, profile } = await api.login(email, password);
       saveSession(token, profile);
       await render();
     } catch (err) {

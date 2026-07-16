@@ -50,7 +50,8 @@ async function request(path, { method = "GET", body, auth = false } = {}) {
 
 export const api = {
   lookupRoblox: (username) => request("roblox-lookup", { method: "POST", body: { username } }),
-  createProfile: (rbx) => request("profile-create", { method: "POST", body: rbx }),
+  signup: (payload) => request("auth-signup", { method: "POST", body: payload }),
+  login: (email, password) => request("auth-login", { method: "POST", body: { email, password } }),
   me: () => request("profile-me", { auth: true }),
   dashboard: () => request("profile-dashboard", { auth: true }),
 

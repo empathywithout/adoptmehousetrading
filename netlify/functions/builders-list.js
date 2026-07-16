@@ -13,7 +13,7 @@ async function handlerImpl(event) {
 
   let query = db
     .from("profiles")
-    .select("id, rbx_username, rbx_avatar_url, builder_bio, commission_status, portfolio_photos, builder_themes, created_at")
+    .select("id, display_name, rbx_avatar_url, builder_bio, commission_status, portfolio_photos, builder_themes, created_at")
     .eq("is_builder", true)
     .order("created_at", { ascending: false });
 

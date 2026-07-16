@@ -170,10 +170,10 @@
             <img class="avatar-lg" src="${listing.profiles?.rbx_avatar_url || ""}" alt="" onerror="this.removeAttribute('src')">
             <div>
               <div class="trust-name-row">
-                <span class="name">${escapeHtml(listing.profiles?.rbx_username || "unknown")}</span>
+                <span class="name">${escapeHtml(listing.profiles?.display_name || "unknown")}</span>
                 <span style="width:6px;height:6px;border-radius:50%;background:var(--good);"></span>
               </div>
-              <div class="trust-sub">Lister</div>
+              <div class="trust-sub">${listing.profiles?.rbx_username ? `Lister · Roblox: ${escapeHtml(listing.profiles.rbx_username)}` : "Lister"}</div>
             </div>
           </div>
 
@@ -310,7 +310,7 @@
         <div class="offer-card">
           <div class="profile-chip">
             <img src="${offer.profiles?.rbx_avatar_url || "../images/brand/searchdog.png"}" alt="">
-            <span class="name">${escapeHtml(offer.profiles?.rbx_username || "unknown")}</span>
+            <span class="name">${escapeHtml(offer.profiles?.display_name || "unknown")}${offer.profiles?.rbx_username ? ` <span style="font-weight:400;color:var(--muted);">(Roblox: ${escapeHtml(offer.profiles.rbx_username)})</span>` : ""}</span>
           </div>
           <div class="items-row">${itemsRowHtml(offer.items)}</div>
           ${offer.message ? `<p>${escapeHtml(offer.message)}</p>` : ""}

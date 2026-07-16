@@ -15,19 +15,23 @@ create extension if not exists "pgcrypto";
 
 create table profiles (
   id uuid primary key default gen_random_uuid(),
-  rbx_username text not null unique,
+
+  email text not null unique,
+  password_hash text not null,        -- scrypt hash — same slow-hash reasoning as the PIN this
+                                       -- replaces, just for a real password now.
+  password_salt text not null,
+
+  display_name text not null unique,  -- shown publicly everywhere (listing cards, Browse
+                                       -- Houses, Recent Trades, builder profiles). The real
+                                       -- Roblox username is private and only revealed to a
+                                       -- specific counterparty once an offer/commission with
+                                       -- them is ACCEPTED — see listings-get.js/profile-dashboard
+                                       -- for where that reveal actually happens.
+
+  rbx_username text not null unique,  -- private — see display_name above
   rbx_user_id bigint,                 -- from Roblox's public API, for avatar/profile link
   rbx_avatar_url text,
-  session_token_hash text,             -- legacy single-session column, kept only so profiles
-                                        -- created before the sessions table existed don't get
-                                        -- signed out; new logins always use the sessions table.
-  pin_hash text,                       -- scrypt hash of a 4-6 digit PIN, set on first claim.
-                                        -- Required to re-claim this username from a new
-                                        -- browser/device — the only thing standing between
-                                        -- "anyone can type your username" and actually needing
-                                        -- to know something. No recovery if forgotten: same
-                                        -- no-password philosophy, just with one small secret.
-  pin_salt text,                       -- random salt for the above, unique per profile
+
   created_at timestamptz not null default now(),
 
   -- Builder fields — a profile opts into being a "Builder" separately from
@@ -43,10 +47,8 @@ create table profiles (
 );
 
 -- Sessions: a profile can be signed in on multiple devices/browsers at once.
--- Claiming a username with the correct PIN just adds a new row here rather
--- than invalidating every other active session (the old single-column
--- design meant signing in anywhere new silently kicked you out everywhere
--- else — this fixes that).
+-- Logging in on a new device just adds a row here rather than invalidating
+-- every other active session.
 create table sessions (
   id uuid primary key default gen_random_uuid(),
   profile_id uuid not null references profiles(id) on delete cascade,

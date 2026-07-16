@@ -19,7 +19,7 @@ async function handlerImpl(event) {
 
   const { data: listings, error: listingsErr } = await db
     .from("listings")
-    .select("*, offers(*, profiles(rbx_username, rbx_avatar_url))")
+    .select("*, offers(*, profiles(display_name, rbx_username, rbx_avatar_url))")
     .eq("profile_id", profile.id)
     .neq("status", "removed")
     .order("created_at", { ascending: false });
@@ -29,6 +29,19 @@ async function handlerImpl(event) {
     return json(500, { error: "Couldn't load your listings" });
   }
 
+  // Roblox username is private — only reveal it on an offer once it's
+  // actually been accepted (the two parties now need to coordinate the
+  // in-game trade). Everyone else's offers on your own listings still show
+  // only their display_name.
+  const ACCEPTED_ISH = ["accepted"];
+  for (const listing of listings) {
+    for (const offer of listing.offers || []) {
+      if (offer.profiles && !ACCEPTED_ISH.includes(offer.status)) {
+        offer.profiles.rbx_username = null;
+      }
+    }
+  }
+
   // Commission data is queried defensively — if commission_requests doesn't
   // exist yet (migration not run) or errors for any other reason, the rest
   // of the dashboard (listings, trade stats) should still load. A missing
@@ -36,15 +49,19 @@ async function handlerImpl(event) {
   let requestsAsBuilder = [];
   let requestsAsRequester = [];
   let commissionsCompleted = 0;
+  const REVEALED_STATUSES = ["accepted", "delivered", "verified"];
 
   try {
     const { data, error } = await db
       .from("commission_requests")
-      .select("*, profiles!commission_requests_requester_profile_id_fkey(rbx_username, rbx_avatar_url)")
+      .select("*, profiles!commission_requests_requester_profile_id_fkey(display_name, rbx_username, rbx_avatar_url)")
       .eq("builder_profile_id", profile.id)
       .order("created_at", { ascending: false });
     if (error) throw error;
-    requestsAsBuilder = data || [];
+    requestsAsBuilder = (data || []).map((r) => {
+      if (r.profiles && !REVEALED_STATUSES.includes(r.status)) r.profiles.rbx_username = null;
+      return r;
+    });
   } catch (err) {
     console.error("commission_requests (as builder) query failed:", err);
   }
@@ -52,11 +69,14 @@ async function handlerImpl(event) {
   try {
     const { data, error } = await db
       .from("commission_requests")
-      .select("*, profiles!commission_requests_builder_profile_id_fkey(rbx_username, rbx_avatar_url)")
+      .select("*, profiles!commission_requests_builder_profile_id_fkey(display_name, rbx_username, rbx_avatar_url)")
       .eq("requester_profile_id", profile.id)
       .order("created_at", { ascending: false });
     if (error) throw error;
-    requestsAsRequester = data || [];
+    requestsAsRequester = (data || []).map((r) => {
+      if (r.profiles && !REVEALED_STATUSES.includes(r.status)) r.profiles.rbx_username = null;
+      return r;
+    });
   } catch (err) {
     console.error("commission_requests (as requester) query failed:", err);
   }
@@ -97,6 +117,7 @@ async function handlerImpl(event) {
   return json(200, {
     profile: {
       id: profile.id,
+      display_name: profile.display_name,
       rbx_username: profile.rbx_username,
       rbx_avatar_url: profile.rbx_avatar_url,
       is_builder: profile.is_builder || false,

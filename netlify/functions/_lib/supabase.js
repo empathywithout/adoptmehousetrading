@@ -30,32 +30,29 @@ export function hashToken(token) {
   return createHash("sha256").update(token).digest("hex");
 }
 
-// PIN hashing: scrypt with a per-profile random salt. A 4-6 digit PIN has
-// far less entropy than a session token, so a fast hash (sha256) alone
-// would be crackable offline if the DB ever leaked — scrypt's deliberate
-// slowness matters here even though it doesn't for the random 32-byte
-// session tokens above.
-export function newPinSalt() {
+// Generic scrypt-based secret hashing — used for account passwords. A
+// fast hash (sha256) alone is fine for random 32-byte session tokens
+// above, but a password has far less entropy and needs scrypt's
+// deliberate slowness to resist offline cracking if the DB ever leaked.
+export function newSecretSalt() {
   return randomBytes(16).toString("hex");
 }
 
-export function hashPin(pin, salt) {
-  return scryptSync(String(pin), salt, 64).toString("hex");
+export function hashSecret(secret, salt) {
+  return scryptSync(String(secret), salt, 64).toString("hex");
 }
 
-export function verifyPin(pin, salt, expectedHash) {
+export function verifySecret(secret, salt, expectedHash) {
   if (!salt || !expectedHash) return false;
-  const actual = Buffer.from(hashPin(pin, salt), "hex");
+  const actual = Buffer.from(hashSecret(secret, salt), "hex");
   const expected = Buffer.from(expectedHash, "hex");
   if (actual.length !== expected.length) return false;
   return timingSafeEqual(actual, expected);
 }
 
 // Extracts "Bearer <token>" from the Authorization header and resolves it
-// to a profile row. Checks the sessions table first (supports multiple
-// simultaneous devices); falls back to the legacy single-session column on
-// profiles so nobody who was already signed in before sessions existed
-// gets logged out by the upgrade.
+// to a profile row via the sessions table (a profile can have many active
+// sessions across devices).
 export async function requireProfile(event) {
   const auth = event.headers.authorization || event.headers.Authorization || "";
   const token = auth.startsWith("Bearer ") ? auth.slice(7).trim() : null;
@@ -70,19 +67,10 @@ export async function requireProfile(event) {
     .eq("token_hash", tokenHash)
     .maybeSingle();
 
-  if (session?.profiles) {
-    db.from("sessions").update({ last_seen_at: new Date().toISOString() }).eq("token_hash", tokenHash).then(() => {});
-    return session.profiles;
-  }
+  if (!session?.profiles) return null;
 
-  // Legacy fallback — pre-sessions-table profiles.
-  const { data: legacy } = await db
-    .from("profiles")
-    .select("*")
-    .eq("session_token_hash", tokenHash)
-    .maybeSingle();
-
-  return legacy || null;
+  db.from("sessions").update({ last_seen_at: new Date().toISOString() }).eq("token_hash", tokenHash).then(() => {});
+  return session.profiles;
 }
 
 export function json(statusCode, body) {

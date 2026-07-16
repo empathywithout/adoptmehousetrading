@@ -1,5 +1,5 @@
 // GET ?house_id=&status=
-// -> { listings: [...] } — each with profile.rbx_username attached
+// -> { listings: [...] } — each with profile.display_name attached
 
 import {  supabaseAdmin, json, safeHandler } from "./_lib/supabase.js";
 
@@ -13,7 +13,7 @@ async function handlerImpl(event) {
 
   let query = db
     .from("listings")
-    .select("*, profiles(rbx_username, rbx_avatar_url)")
+    .select("*, profiles(display_name, rbx_avatar_url)")
     .order("created_at", { ascending: false })
     .limit(100);
 

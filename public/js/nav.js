@@ -19,7 +19,7 @@ if (raw && pillEl) {
     // like /houses/index.html — account for that instead of undercounting.
     const depth = location.pathname.endsWith("/") ? segments.length : segments.length - 1;
     const prefix = "../".repeat(Math.max(0, depth));
-    pillEl.innerHTML = `<a href="${prefix}profile.html" class="nav-pill">${profile.rbx_username}</a>`;
+    pillEl.innerHTML = `<a href="${prefix}profile.html" class="nav-pill">${profile.display_name}</a>`;
   } catch {
     // malformed stored profile — leave the pill empty rather than break the page
   }

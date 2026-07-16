@@ -163,7 +163,7 @@ function buildHomepage() {
       grid.innerHTML = listings.slice(0, 8).map((listing) => {
         const house = houseById[listing.house_id];
         const photo = listing.photos?.[0] || house?.image || "images/brand/searchdog.png";
-        const username = listing.profiles?.rbx_username || "unknown";
+        const username = listing.profiles?.display_name || "unknown";
         const cardTag = listing.listing_type === "house_trade" && listing.is_cloned !== null
           ? \`<div class="card-tag \${listing.is_cloned ? "cloned" : ""}">\${listing.is_cloned ? "Cloned" : "Original"}</div>\`
           : "";

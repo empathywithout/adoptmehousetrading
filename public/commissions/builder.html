@@ -78,13 +78,13 @@
       : `<p class="hint">No portfolio photos yet.</p>`;
 
     content.innerHTML = `
-      <div class="breadcrumb">Commissions &nbsp;/&nbsp; <span class="current">${escapeHtml(builder.rbx_username)}</span></div>
+      <div class="breadcrumb">Commissions &nbsp;/&nbsp; <span class="current">${escapeHtml(builder.display_name)}</span></div>
       <div class="detail-grid">
         <div>
           <div class="trust-card" style="margin-bottom:20px;">
             <img class="avatar-lg" src="${builder.rbx_avatar_url || ""}" alt="" onerror="this.removeAttribute('src')">
             <div>
-              <div class="trust-name-row"><span class="name">${escapeHtml(builder.rbx_username)}</span></div>
+              <div class="trust-name-row"><span class="name">${escapeHtml(builder.display_name)}</span></div>
               <div class="trust-sub">${builder.commission_status === "open" ? "Open for commissions" : "Currently closed"}</div>
             </div>
           </div>
