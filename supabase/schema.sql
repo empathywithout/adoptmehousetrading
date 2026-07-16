@@ -164,6 +164,43 @@ alter table completed_trades enable row level security;
 create policy "public can read corroborated trades" on completed_trades
   for select using (status = 'corroborated');
 
+-- Derived value list — built from OUR OWN verified trades, not imported from
+-- any other site (see the research conversation this came out of: other
+-- value sites' data is either ToS-restricted or not ours to republish, and
+-- more importantly, using someone else's opinions would undercut the entire
+-- premise of this site being about real verified trades).
+--
+-- Real constraint: completed_trades records a whole trade (a house's value
+-- vs. a bundle of offered items), not a per-item price. Splitting a
+-- multi-item bundle's value across different items would be a guess
+-- dressed up as data — so only offers with a SINGLE item type (any
+-- quantity, divided evenly) count as a data point here. Multi-item offers
+-- are real trades but aren't usable as clean per-item pricing signals.
+--
+-- Recomputed incrementally whenever a trade newly becomes corroborated
+-- (see trades-confirm.js) rather than on a schedule — there's no cron
+-- infrastructure, and this keeps values fresh the moment real data exists
+-- without needing one.
+create table item_values (
+  id uuid primary key default gen_random_uuid(),
+  category text not null,              -- adopt_me_pets, vehicles, toys, pet_wear, stickers, strollers, foods
+  item_id text not null,               -- matches the id field in data/{category}.json
+  variant text,                        -- pets only: regular/neon/mega_neon, null otherwise
+  potion text,                         -- pets only: none/ride/fly/fly_ride, null otherwise
+  value_unit text not null check (value_unit in ('shark', 'frost')),
+  value_low numeric not null,
+  value_high numeric not null,
+  sample_size int not null default 0,
+  updated_at timestamptz not null default now(),
+  unique (category, item_id, variant, potion, value_unit)
+);
+
+create index item_values_lookup_idx on item_values(category, item_id, variant, potion);
+
+alter table item_values enable row level security;
+create policy "public can read item values" on item_values
+  for select using (true);
+
 -- Commission requests: a separate system from house trading. A builder
 -- (profiles.is_builder = true) takes requests from other players; unlike
 -- an offer on a house listing, a commission needs an explicit agreed-scope

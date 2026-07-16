@@ -963,6 +963,14 @@ textarea { resize: vertical; min-height: 90px; }
 .item-picker .result-item img { width: 100%; aspect-ratio: 1; object-fit: contain; }
 .item-picker .result-item.selected { border-color: var(--accent); background: var(--accent-soft); }
 
+.result-value {
+  display: block;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--accent-dark);
+  margin-top: 2px;
+}
+
 .result-qty-badge {
   position: absolute;
   top: 4px;

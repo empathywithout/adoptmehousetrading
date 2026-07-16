@@ -35,7 +35,7 @@ async function handlerImpl(event) {
 
   const { data: offer } = await db
     .from("offers")
-    .select("id, status, listing_id, offering_profile_id, listings(profile_id)")
+    .select("id, status, listing_id, offering_profile_id, items, listings(profile_id, value_amount, value_unit)")
     .eq("id", offer_id)
     .maybeSingle();
 
@@ -80,6 +80,59 @@ async function handlerImpl(event) {
   if (error) {
     console.error(error);
     return json(500, { error: "Couldn't confirm trade" });
+  }
+
+  // Recompute item values the moment this trade newly becomes corroborated
+  // — not on a schedule, since there's no cron infrastructure, and this
+  // keeps values fresh the instant real data exists. Only single-item-type
+  // offers count as clean per-item pricing signals (see item_values comment
+  // in schema.sql for why multi-item offers are excluded).
+  const justCorroborated = data.status === "corroborated" && existing?.status !== "corroborated";
+  if (justCorroborated && offer.listings.value_amount != null && offer.items?.length === 1) {
+    try {
+      const item = offer.items[0];
+      const qty = Math.max(1, Number(item.qty) || 1);
+      const impliedValue = offer.listings.value_amount / qty;
+      const unit = offer.listings.value_unit;
+
+      const { data: existingValue } = await db
+        .from("item_values")
+        .select("*")
+        .eq("category", item.category)
+        .eq("item_id", item.id)
+        .is("variant", item.variant || null)
+        .is("potion", item.potion || null)
+        .eq("value_unit", unit)
+        .maybeSingle();
+
+      if (existingValue) {
+        await db
+          .from("item_values")
+          .update({
+            value_low: Math.min(existingValue.value_low, impliedValue),
+            value_high: Math.max(existingValue.value_high, impliedValue),
+            sample_size: existingValue.sample_size + 1,
+            updated_at: new Date().toISOString(),
+          })
+          .eq("id", existingValue.id);
+      } else {
+        await db.from("item_values").insert({
+          category: item.category,
+          item_id: item.id,
+          variant: item.variant || null,
+          potion: item.potion || null,
+          value_unit: unit,
+          value_low: impliedValue,
+          value_high: impliedValue,
+          sample_size: 1,
+        });
+      }
+    } catch (err) {
+      // Value recomputation is a nice-to-have layered on top of a
+      // successful trade confirmation — never let it fail the actual
+      // confirmation the user is waiting on.
+      console.error("item_values recompute failed (non-fatal):", err);
+    }
   }
 
   return json(200, {

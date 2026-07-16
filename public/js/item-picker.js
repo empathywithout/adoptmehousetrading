@@ -44,14 +44,33 @@ export function mountItemPicker(container, prefix = "") {
     return bits.length ? bits.join(" ") + " " : "";
   }
 
+  const valuesByCategory = {};
+
   async function loadCategory(cat) {
+    const segments = location.pathname.split("/").filter(Boolean);
+    const depthLevel = location.pathname.endsWith("/") ? segments.length : segments.length - 1;
+    const depth = "../".repeat(Math.max(0, depthLevel));
+
     if (!catalogsByCategory[cat]) {
-      const segments = location.pathname.split("/").filter(Boolean);
-      const depthLevel = location.pathname.endsWith("/") ? segments.length : segments.length - 1;
-      const depth = "../".repeat(Math.max(0, depthLevel));
       catalogsByCategory[cat] = await fetch(`${depth}data/${cat}.json`).then((r) => r.json());
     }
+    if (!valuesByCategory[cat]) {
+      // Community value ranges, derived from our own verified trades — not
+      // essential to the picker working, so a failure here is silent.
+      try {
+        const res = await fetch(`/.netlify/functions/item-values-list?category=${cat}`).then((r) => r.json());
+        valuesByCategory[cat] = res.values || [];
+      } catch {
+        valuesByCategory[cat] = [];
+      }
+    }
     renderResults();
+  }
+
+  function findValueRange(item) {
+    return valuesByCategory[item.category]?.find(
+      (v) => v.item_id === item.id && (v.variant || null) === (item.variant || null) && (v.potion || null) === (item.potion || null)
+    );
   }
 
   function findSelected(id, category) {
@@ -67,6 +86,7 @@ export function mountItemPicker(container, prefix = "") {
     el("item-results").innerHTML = items
       .map((it) => {
         const existing = findSelected(it.id, it.category);
+        const valueRange = findValueRange({ ...it, variant: null, potion: null });
         return `<div class="result-item ${existing ? "selected" : ""}"
                     data-id="${it.id}" data-cat="${it.category}">
                     ${
@@ -75,6 +95,11 @@ export function mountItemPicker(container, prefix = "") {
                         : ""
                     }
                     <img src="${it.image}" alt="" loading="lazy">${escapeHtml(it.name)}
+                    ${
+                      valueRange
+                        ? `<span class="result-value" title="From ${valueRange.sample_size} verified trade${valueRange.sample_size === 1 ? "" : "s"} on this site">${valueRange.value_low === valueRange.value_high ? valueRange.value_low : `${valueRange.value_low}-${valueRange.value_high}`} ${valueRange.value_unit}</span>`
+                        : ""
+                    }
                   </div>`;
       })
       .join("");
