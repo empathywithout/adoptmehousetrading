@@ -40,8 +40,61 @@ function escapeHtml(str) {
     .replace(/"/g, "&quot;");
 }
 
-function layout({ title, description, path: routePath, depth, body }) {
+// Canonical production domain — used in JSON-LD/sitemap regardless of
+// which Netlify subdomain is currently serving the site, since schema and
+// sitemap URLs should point at the real intended domain.
+const SITE_URL = "https://adoptmehousetrading.com";
+
+// Organization + WebSite JSON-LD, identical on every page — this is the
+// "foundation schema" every guide agrees comes first, before anything
+// page-specific: it's what lets search engines and AI systems recognize
+// this as one coherent entity across all its pages rather than a pile of
+// unrelated documents.
+function siteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${SITE_URL}/#organization`,
+        name: "AdoptMeHouseTrading.com",
+        url: SITE_URL,
+        description:
+          "A fan-made resource for Roblox's Adopt Me! house trading community — house values, live trade listings, builder commissions, and a build registry. Not affiliated with Adopt Me or Roblox Corporation.",
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: "AdoptMeHouseTrading.com",
+        publisher: { "@id": `${SITE_URL}/#organization` },
+      },
+    ],
+  };
+}
+
+function breadcrumbJsonLd(items) {
+  // items: [{ name, path }] — path relative to site root, no leading slash
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: `${SITE_URL}/${item.path}`,
+    })),
+  };
+}
+
+function jsonLdScript(data) {
+  return `<script type="application/ld+json">${JSON.stringify(data)}</script>`;
+}
+
+function layout({ title, description, path: routePath, depth, body, jsonLd = [], canonicalPath }) {
   const rootPrefix = depth === 0 ? "" : "../".repeat(depth);
+  const canonical = `${SITE_URL}/${canonicalPath !== undefined ? canonicalPath : routePath === "home" ? "" : `${routePath}.html`}`;
+  const allJsonLd = [siteJsonLd(), ...jsonLd];
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +102,13 @@ function layout({ title, description, path: routePath, depth, body }) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escapeHtml(title)}</title>
 <meta name="description" content="${escapeHtml(description)}">
+<link rel="canonical" href="${canonical}">
+<meta property="og:title" content="${escapeHtml(title)}">
+<meta property="og:description" content="${escapeHtml(description)}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="${canonical}">
 <link rel="stylesheet" href="${rootPrefix}css/style.css">
+${allJsonLd.map(jsonLdScript).join("\n")}
 </head>
 <body>
 <header class="site-nav">
@@ -81,7 +140,7 @@ function layout({ title, description, path: routePath, depth, body }) {
 ${body}
 <footer class="site-footer">
   <div class="wrap">
-    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community. Not affiliated with Adopt Me or Roblox Corporation.
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community — house values, live trade listings, builder commissions, and a build registry for verifying who built a house first. Not affiliated with, endorsed by, or sponsored by Adopt Me, Uplift Games, or Roblox Corporation.
     <div style="margin-top:8px;"><a href="${rootPrefix}rules.html" style="color:var(--sign-red);">Community Rules</a></div>
   </div>
 </footer>
@@ -207,6 +266,7 @@ function buildHomepage() {
     title: "AdoptMeHouseTrading.com — Adopt Me House Values & Trading",
     description: "Browse Adopt Me house values, check if a house trade is fair, and explore every tradeable house in Roblox's Adopt Me!.",
     path: "home",
+    canonicalPath: "",
     depth: 0,
     body,
   });
@@ -232,6 +292,7 @@ function buildBrowsePage() {
     description: "Reference values for every tradeable house in Adopt Me.",
     path: "houses/index",
     depth: 1,
+    jsonLd: [breadcrumbJsonLd([{ name: "Home", path: "" }, { name: "Values", path: "houses/index.html" }])],
     body,
   });
 }
@@ -275,6 +336,13 @@ function buildHousePage(house) {
     description: `${house.name} (from ${house.source}) — current Adopt Me house trading value and details.`,
     path: `houses/${house.id}`,
     depth: 1,
+    jsonLd: [
+      breadcrumbJsonLd([
+        { name: "Home", path: "" },
+        { name: "Values", path: "houses/index.html" },
+        { name: house.name, path: `houses/${house.id}.html` },
+      ]),
+    ],
     body,
   });
 }

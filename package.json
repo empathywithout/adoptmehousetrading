@@ -7,7 +7,8 @@
     "parse": "node scripts/parse-catalog.mjs",
     "copy-data": "mkdir -p public/data && cp data/*.json public/data/",
     "generate": "node scripts/generate-house-pages.mjs",
-    "build": "npm run parse && npm run copy-data && npm run generate"
+    "sitemap": "node scripts/generate-sitemap.mjs",
+    "build": "npm run parse && npm run copy-data && npm run generate && npm run sitemap"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.6",

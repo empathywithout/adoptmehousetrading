@@ -3,7 +3,7 @@
   publish = "public"
 
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "22"
 
 # Netlify Functions: profiles, listings, offers, photo uploads (see netlify/functions/)
 [functions]

@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Trade Listing — AdoptMeHouseTrading.com</title>
+<meta name="description" content="A live house-for-trade listing on AdoptMeHouseTrading.com — real offers, real value, real players.">
+<link rel="canonical" href="https://adoptmehousetrading.com/listings/listing.html" id="canonical-link">
 <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -37,7 +39,7 @@
 
 <footer class="site-footer">
   <div class="wrap">
-    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community. Not affiliated with Adopt Me or Roblox Corporation.
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community — house values, live trade listings, builder commissions, and a build registry for verifying who built a house first. Not affiliated with, endorsed by, or sponsored by Adopt Me, Uplift Games, or Roblox Corporation.
     <div style="margin-top:8px;"><a href="../rules.html" style="color:var(--sign-red);">Community Rules</a></div>
     <div style="margin-top:8px;">
       <a href="#" id="report-link" style="color:var(--sign-red);">Report this listing</a>
@@ -117,6 +119,16 @@
     const houses = await fetch("../data/houses.json").then((r) => r.json());
     const house = listing.house_id ? houses.find((h) => h.id === listing.house_id) : null;
     const isOwner = myProfile && myProfile.id === listing.profile_id;
+
+    // Progressive enhancement: the static <head> tags are a reasonable
+    // generic fallback for crawlers that don't execute JS; once we know
+    // which specific listing this is, make them accurate.
+    document.title = `${listing.title} — AdoptMeHouseTrading.com`;
+    document.querySelector('meta[name="description"]')?.setAttribute(
+      "content",
+      `${listing.title}${house ? ` (${house.name})` : ""} — a live house trade listing on AdoptMeHouseTrading.com.`
+    );
+    document.getElementById("canonical-link")?.setAttribute("href", `https://adoptmehousetrading.com/listings/listing.html?id=${listing.id}`);
 
     const TYPE_LABELS = { house_trade: "For Trade", looking_for: "Looking For", commission: "Commission" };
 
