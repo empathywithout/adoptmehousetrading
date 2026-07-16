@@ -93,66 +93,89 @@
       <button class="btn btn-secondary" id="switch-profile-btn">Log Out</button>
     </div>
 
-    <div class="section-head"><h2>Active Listings</h2><a href="list-a-house.html">+ List a house</a></div>
-    <div id="my-listings"></div>
-    <div id="no-listings-msg" class="form-card" hidden>
-      <h1>No listings yet</h1>
-      <p class="subtitle">Post a house, request one, or announce you're open for commissions.</p>
-      <a class="btn btn-primary" href="list-a-house.html">List a House</a>
+    <div class="detail-tabs" id="profile-tabs" style="margin-top:8px;">
+      <button class="tab active" data-tab="listings">Listings</button>
+      <button class="tab" data-tab="offers">Offers</button>
+      <button class="tab" data-tab="builder">Builder</button>
+      <button class="tab" data-tab="commissions">Commissions</button>
+      <button class="tab" data-tab="portfolio">Portfolio</button>
     </div>
 
-    <div class="section-head" style="margin-top:36px;"><h2>My Offers</h2><a href="listings/index.html">Browse Houses →</a></div>
-    <div id="my-offers"></div>
-    <div id="no-offers-msg" class="form-card" hidden>
-      <h1>No offers sent yet</h1>
-      <p class="subtitle">Offers you make on other players' listings show up here.</p>
-      <a class="btn btn-primary" href="listings/index.html">Browse Houses</a>
-    </div>
-
-    <div class="section-head" style="margin-top:36px;"><h2>Builder Settings</h2></div>
-    <div class="form-card" style="max-width:none;">
-      <label class="field-label" style="margin-top:0;">
-        <input type="checkbox" id="is-builder-toggle"> I take house commissions
-      </label>
-      <div id="builder-settings-fields" hidden style="margin-top:16px;">
-        <label class="field-label" style="margin-top:0;" for="builder-bio">Bio</label>
-        <textarea id="builder-bio" placeholder="What you build, your style, turnaround time..."></textarea>
-
-        <label class="field-label">Status</label>
-        <div class="segmented" id="commission-status-toggle" style="max-width:280px;">
-          <button data-val="open" class="active accent">Open</button>
-          <button data-val="closed">Closed</button>
-        </div>
-
-        <label class="field-label">Specialties</label>
-        <div class="checkbox-grid" id="builder-themes-grid"></div>
-
-        <label class="field-label">Portfolio</label>
-        <div class="photo-slots" id="portfolio-slots" style="grid-template-columns:repeat(4,1fr);"></div>
-
-        <div class="hero-ctas" style="justify-content:flex-start;margin-top:18px;">
-          <button class="btn btn-primary" id="save-builder-btn">Save Builder Settings</button>
-        </div>
-        <div id="builder-save-success" class="success-box" hidden></div>
+    <div id="tab-panel-listings">
+      <div class="section-head"><h2>Active Listings</h2><a href="list-a-house.html">+ List a house</a></div>
+      <div id="my-listings"></div>
+      <div id="no-listings-msg" class="form-card" hidden>
+        <h1>No listings yet</h1>
+        <p class="subtitle">Post a house, request one, or announce you're open for commissions.</p>
+        <a class="btn btn-primary" href="list-a-house.html">List a House</a>
       </div>
     </div>
 
-    <div id="commission-requests-builder-section" hidden>
-      <div class="section-head" style="margin-top:36px;"><h2>Commission Requests Received</h2></div>
-      <div id="commission-requests-builder"></div>
+    <div id="tab-panel-offers" hidden>
+      <div class="section-head"><h2>My Offers</h2><a href="listings/index.html">Browse Houses →</a></div>
+      <div id="my-offers"></div>
+      <div id="no-offers-msg" class="form-card" hidden>
+        <h1>No offers sent yet</h1>
+        <p class="subtitle">Offers you make on other players' listings show up here.</p>
+        <a class="btn btn-primary" href="listings/index.html">Browse Houses</a>
+      </div>
     </div>
 
-    <div id="commission-requests-requester-section" hidden>
-      <div class="section-head" style="margin-top:36px;"><h2>Your Commission Requests</h2></div>
-      <div id="commission-requests-requester"></div>
+    <div id="tab-panel-builder" hidden>
+      <div class="section-head"><h2>Builder Settings</h2></div>
+      <div class="form-card" style="max-width:none;">
+        <label class="field-label" style="margin-top:0;">
+          <input type="checkbox" id="is-builder-toggle"> I take house commissions
+        </label>
+        <div id="builder-settings-fields" hidden style="margin-top:16px;">
+          <label class="field-label" style="margin-top:0;" for="builder-bio">Bio</label>
+          <textarea id="builder-bio" placeholder="What you build, your style, turnaround time..."></textarea>
+
+          <label class="field-label">Status</label>
+          <div class="segmented" id="commission-status-toggle" style="max-width:280px;">
+            <button data-val="open" class="active accent">Open</button>
+            <button data-val="closed">Closed</button>
+          </div>
+
+          <label class="field-label">Specialties</label>
+          <div class="checkbox-grid" id="builder-themes-grid"></div>
+
+          <label class="field-label">Portfolio</label>
+          <div class="photo-slots" id="portfolio-slots" style="grid-template-columns:repeat(4,1fr);"></div>
+
+          <div class="hero-ctas" style="justify-content:flex-start;margin-top:18px;">
+            <button class="btn btn-primary" id="save-builder-btn">Save Builder Settings</button>
+          </div>
+          <div id="builder-save-success" class="success-box" hidden></div>
+        </div>
+      </div>
     </div>
 
-    <div class="section-head" style="margin-top:36px;"><h2>My Registered Builds</h2><a href="registry/submit.html">+ Register a build</a></div>
-    <div id="my-registry-entries"></div>
-    <div id="no-registry-msg" class="form-card" hidden>
-      <h1>No builds registered yet</h1>
-      <p class="subtitle">Claim credit for your original work — visible publicly in the Build Registry.</p>
-      <a class="btn btn-primary" href="registry/submit.html">Register a Build</a>
+    <div id="tab-panel-commissions" hidden>
+      <div id="commission-requests-builder-section" hidden>
+        <div class="section-head"><h2>Commission Requests Received</h2></div>
+        <div id="commission-requests-builder"></div>
+      </div>
+
+      <div id="commission-requests-requester-section" hidden>
+        <div class="section-head" style="margin-top:24px;"><h2>Your Commission Requests</h2></div>
+        <div id="commission-requests-requester"></div>
+      </div>
+
+      <div id="no-commissions-msg" class="form-card" hidden>
+        <h1>No commission activity yet</h1>
+        <p class="subtitle">Requests you send or receive show up here. Take commissions yourself from the Builder tab.</p>
+      </div>
+    </div>
+
+    <div id="tab-panel-portfolio" hidden>
+      <div class="section-head"><h2>My Registered Builds</h2><a href="registry/submit.html">+ Register a build</a></div>
+      <div id="my-registry-entries"></div>
+      <div id="no-registry-msg" class="form-card" hidden>
+        <h1>No builds registered yet</h1>
+        <p class="subtitle">Claim credit for your original work — visible publicly in the Build Registry.</p>
+        <a class="btn btn-primary" href="registry/submit.html">Register a Build</a>
+      </div>
     </div>
     </div>
   </div>
@@ -170,6 +193,16 @@
   import { mountChatPanel } from "./js/chat.js";
 
   const signedOutView = document.getElementById("signed-out-view");
+
+  document.querySelectorAll("#profile-tabs .tab").forEach((tab) => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll("#profile-tabs .tab").forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
+      ["listings", "offers", "builder", "commissions", "portfolio"].forEach((name) => {
+        document.getElementById(`tab-panel-${name}`).hidden = name !== tab.dataset.tab;
+      });
+    });
+  });
   const signedInView = document.getElementById("signed-in-view");
   const errorBox = document.getElementById("error");
 
@@ -483,6 +516,7 @@
 
     builderSection.hidden = !dash.profile.is_builder || !asBuilder.length;
     requesterSection.hidden = !asRequester.length;
+    document.getElementById("no-commissions-msg").hidden = !(builderSection.hidden && requesterSection.hidden);
 
     if (asBuilder.length) {
       document.getElementById("commission-requests-builder").innerHTML = asBuilder

@@ -87,7 +87,11 @@
       <div class="detail-grid">
         <div>
           <div class="trust-card" style="margin-bottom:20px;">
-            <img class="avatar-lg" src="${builder.rbx_avatar_url || ""}" alt="" onerror="this.removeAttribute('src')">
+            ${
+              builder.rbx_avatar_url
+                ? `<img class="avatar-lg" src="${builder.rbx_avatar_url}" alt="" style="object-fit:cover;">`
+                : `<div class="avatar-lg" style="display:flex;align-items:center;justify-content:center;">${escapeHtml(builder.display_name[0]?.toUpperCase() || "?")}</div>`
+            }
             <div>
               <div class="trust-name-row"><span class="name">${escapeHtml(builder.display_name)}</span></div>
               <div class="trust-sub">${builder.commission_status === "open" ? "Open for commissions" : "Currently closed"}</div>

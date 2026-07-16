@@ -130,7 +130,7 @@
             <div class="body">
               <h3>${escapeHtml(b.display_name)}</h3>
               <div class="trust-row">
-                <span class="avatar-initial">${escapeHtml(b.display_name[0]?.toUpperCase() || "?")}</span>
+                ${b.rbx_avatar_url ? `<img src="${b.rbx_avatar_url}" alt="" class="avatar-initial" style="object-fit:cover;">` : `<span class="avatar-initial">${escapeHtml(b.display_name[0]?.toUpperCase() || "?")}</span>`}
                 <span class="username">${b.commission_status === "open" ? "Open for commissions" : "Closed"}</span>
               </div>
               ${themesLine ? `<p class="lister" style="margin-top:2px;">${escapeHtml(themesLine)}</p>` : ""}
