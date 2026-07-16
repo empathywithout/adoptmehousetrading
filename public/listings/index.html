@@ -27,9 +27,10 @@
 
 <section class="wrap" style="padding: 40px 0 80px;">
   <div class="section-head">
-    <h2>Trade Listings</h2>
+    <h2 id="listings-heading">Trade Listings</h2>
     <a href="../list-a-house.html">+ List your house</a>
   </div>
+  <div class="house-filter-row" id="house-filter-row"></div>
   <div class="filter-pills" id="type-pills"></div>
   <div class="listings-toolbar">
     <input type="search" id="search-input" placeholder="Search listings..." style="max-width:260px;">
@@ -71,6 +72,7 @@
     { key: "commission", label: "Commission" },
   ];
   let activeFilter = "all";
+  let activeHouseId = "all";
   let searchTerm = "";
 
   const pillsEl = document.getElementById("type-pills");
@@ -88,11 +90,57 @@
     renderGrid();
   });
 
+  // House-type filter row: only houses that actually appear among current
+  // listings, not the full 51-house catalog — a real listings page is much
+  // sparser than a mockup's sample data, so showing every house type
+  // regardless of whether anyone's listed one would mostly be empty filters.
+  function renderHouseFilterRow() {
+    const houseIdsInUse = [...new Set(listings.map((l) => l.house_id).filter(Boolean))];
+    const houseFilterEl = document.getElementById("house-filter-row");
+
+    if (!houseIdsInUse.length) {
+      houseFilterEl.hidden = true;
+      return;
+    }
+
+    const entries = [{ id: "all", name: "All", image: null }, ...houseIdsInUse.map((id) => houseById[id]).filter(Boolean)];
+
+    houseFilterEl.innerHTML = entries
+      .map(
+        (h) => `<div class="house-filter-pill ${h.id === activeHouseId ? "active" : ""}" data-house="${h.id}">
+          ${h.image ? `<div class="thumb"><img src="${h.image}" alt=""></div>` : ""}
+          <div class="fname">${escapeHtml(h.name)}</div>
+        </div>`
+      )
+      .join("");
+
+    houseFilterEl.querySelectorAll(".house-filter-pill").forEach((pill) => {
+      pill.addEventListener("click", () => {
+        activeHouseId = pill.dataset.house;
+        houseFilterEl.querySelectorAll(".house-filter-pill").forEach((p) => p.classList.toggle("active", p === pill));
+        renderGrid();
+      });
+    });
+  }
+
+  function updateHeading() {
+    const heading = document.getElementById("listings-heading");
+    if (activeHouseId === "all") {
+      heading.textContent = "Trade Listings";
+    } else {
+      const house = houseById[activeHouseId];
+      heading.textContent = house ? `${house.name} Listings` : "Trade Listings";
+    }
+  }
+
   function renderGrid() {
+    updateHeading();
+
     const filtered = listings.filter((listing) => {
       const matchesType = activeFilter === "all" || listing.listing_type === activeFilter;
+      const matchesHouse = activeHouseId === "all" || listing.house_id === activeHouseId;
       const matchesSearch = !searchTerm || listing.title.toLowerCase().includes(searchTerm);
-      return matchesType && matchesSearch;
+      return matchesType && matchesHouse && matchesSearch;
     });
 
     if (!filtered.length) {
@@ -137,6 +185,7 @@
         .join("");
     }
   }
+  renderHouseFilterRow();
 
   renderGrid();
 
