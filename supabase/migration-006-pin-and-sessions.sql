@@ -16,6 +16,8 @@ create table if not exists sessions (
 create index if not exists sessions_profile_idx on sessions(profile_id);
 create index if not exists sessions_token_idx on sessions(token_hash);
 
+alter table sessions enable row level security;
+
 -- Migrate any existing single-session tokens into the new table so nobody
 -- currently signed in gets logged out by this change.
 insert into sessions (profile_id, token_hash)

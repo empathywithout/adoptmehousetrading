@@ -60,6 +60,12 @@ create table sessions (
 create index sessions_profile_idx on sessions(profile_id);
 create index sessions_token_idx on sessions(token_hash);
 
+-- RLS with no public policies — only the service-role key (which bypasses
+-- RLS entirely) should ever touch this table. Session tokens are exactly
+-- the kind of thing the anon/authenticated keys should never be able to
+-- query directly, even read-only.
+alter table sessions enable row level security;
+
 create table listings (
   id uuid primary key default gen_random_uuid(),
   profile_id uuid not null references profiles(id) on delete cascade,
