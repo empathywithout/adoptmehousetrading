@@ -93,6 +93,19 @@ async function handlerImpl(event) {
     console.error("commission count query failed:", err);
   }
 
+  let myBuildRegistryEntries = [];
+  try {
+    const { data, error } = await db
+      .from("build_registry")
+      .select("*")
+      .eq("profile_id", profile.id)
+      .order("created_at", { ascending: false });
+    if (error) throw error;
+    myBuildRegistryEntries = data || [];
+  } catch (err) {
+    console.error("build_registry query failed:", err);
+  }
+
   // Completed trades = corroborated trades where this profile was either
   // the lister or the offerer.
   const { count: asLister } = await db
@@ -130,6 +143,7 @@ async function handlerImpl(event) {
     listings,
     commission_requests_as_builder: requestsAsBuilder,
     commission_requests_as_requester: requestsAsRequester,
+    build_registry_entries: myBuildRegistryEntries,
   });
 }
 

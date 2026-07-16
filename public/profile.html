@@ -17,6 +17,7 @@
     <nav>
       <a href="listings/index.html">Browse Houses</a>
       <a href="commissions/index.html">Commissions</a>
+      <a href="registry/index.html">Build Registry</a>
       <a href="comps.html">Recent Trades</a>
       <a href="houses/index.html">Values</a>
       <a href="profile.html" class="active">Profile</a>
@@ -133,6 +134,14 @@
       <div class="section-head" style="margin-top:36px;"><h2>Your Commission Requests</h2></div>
       <div id="commission-requests-requester"></div>
     </div>
+
+    <div class="section-head" style="margin-top:36px;"><h2>My Registered Builds</h2><a href="registry/submit.html">+ Register a build</a></div>
+    <div id="my-registry-entries"></div>
+    <div id="no-registry-msg" class="form-card" hidden>
+      <h1>No builds registered yet</h1>
+      <p class="subtitle">Claim credit for your original work.</p>
+      <a class="btn btn-primary" href="registry/submit.html">Register a Build</a>
+    </div>
     </div>
   </div>
 </section>
@@ -219,6 +228,7 @@
     renderListings(dash.listings, dash.profile.id);
     renderBuilderSettings(dash.profile);
     renderCommissionRequests(dash);
+    renderBuildRegistry(dash.build_registry_entries || []);
   }
 
   function renderListings(listings, myProfileId) {
@@ -438,6 +448,42 @@
         }
       });
     });
+  }
+
+  function renderBuildRegistry(entries) {
+    const container = document.getElementById("my-registry-entries");
+    const emptyMsg = document.getElementById("no-registry-msg");
+
+    if (!entries.length) {
+      emptyMsg.hidden = false;
+      container.innerHTML = "";
+      return;
+    }
+    emptyMsg.hidden = true;
+
+    const STATUS_LABELS = {
+      active: "Active",
+      disputed: "Disputed",
+      confirmed_clone: "Confirmed Clone",
+      confirmed_original: "Confirmed Original",
+    };
+
+    container.innerHTML = entries
+      .map((entry) => {
+        const photo = entry.photos?.[0] || "images/brand/searchdog.png";
+        return `
+        <a class="manage-card" href="registry/entry.html?id=${entry.id}" style="text-decoration:none;color:inherit;display:block;">
+          <div class="manage-head">
+            <div class="manage-thumb"><img src="${photo}" alt=""></div>
+            <div style="flex:1;">
+              <div class="manage-title">${escapeHtml(entry.title)}</div>
+              <p class="hint" style="margin:2px 0 0;">Registered ${new Date(entry.created_at).toLocaleDateString()}</p>
+            </div>
+            <span class="status-badge ${entry.status === "active" ? "active" : "traded"}">${STATUS_LABELS[entry.status] || entry.status}</span>
+          </div>
+        </a>`;
+      })
+      .join("");
   }
 
   function commissionRequestCard(req, otherProfile, isBuilderView) {

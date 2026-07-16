@@ -214,6 +214,59 @@ alter table commission_requests enable row level security;
 -- listing's offers (which are semi-public, like Traderie's offer history),
 -- commission negotiations are private between the builder and the client.
 
+-- Build registry: the actual prestige mechanic for this community, per
+-- research — attribution, not badges or points. A builder registers a
+-- build as their original work (photos + timestamp + theme tags), so
+-- there's a real, queryable "who built this first" instead of the manual
+-- crowdsourced compilation posts people were already doing by hand.
+--
+-- Moderation model: post-first, dispute-based, not pre-approval — a
+-- submission is live immediately. Timestamp is the tiebreaker: a newer
+-- entry that looks like an existing one gets flagged as a possible
+-- duplicate (possible_duplicate_of) automatically, informational only,
+-- never blocking. Actual disputes go through build_registry_disputes
+-- below and get manually reviewed — same "corroborate/dispute after,
+-- don't gatekeep before" pattern already used for completed_trades.
+create table build_registry (
+  id uuid primary key default gen_random_uuid(),
+  profile_id uuid not null references profiles(id) on delete cascade,
+  title text not null,                -- the build's name, e.g. "Ivory Pagoda"
+  description text,
+  photos jsonb not null default '[]', -- required in practice (enforced in the function,
+                                       -- not the DB) — ideally including in-progress shots,
+                                       -- much harder to fake retroactively than a finished photo
+  themes jsonb not null default '[]', -- same tag set as listing themes
+  house_id text,                      -- optional link to data/houses.json, if known
+  possible_duplicate_of uuid references build_registry(id),
+  status text not null default 'active' check (status in ('active', 'disputed', 'confirmed_clone', 'confirmed_original')),
+  created_at timestamptz not null default now()
+);
+
+create index build_registry_profile_idx on build_registry(profile_id);
+create index build_registry_status_idx on build_registry(status);
+
+alter table build_registry enable row level security;
+create policy "public can read build registry entries" on build_registry
+  for select using (true);
+
+create table build_registry_disputes (
+  id uuid primary key default gen_random_uuid(),
+  build_registry_id uuid not null references build_registry(id) on delete cascade,
+  disputer_profile_id uuid not null references profiles(id) on delete cascade,
+  claim text not null,                          -- the disputer's explanation/evidence
+  claimed_original_entry_id uuid references build_registry(id), -- their own earlier entry, if they have one
+  status text not null default 'pending' check (status in ('pending', 'upheld', 'rejected')),
+  created_at timestamptz not null default now()
+);
+
+create index build_registry_disputes_entry_idx on build_registry_disputes(build_registry_id);
+
+alter table build_registry_disputes enable row level security;
+-- No public select policy — disputes are reviewed manually (by you or a
+-- trusted mod, same role the community's own mods already play running
+-- their build contests) rather than shown publicly while pending.
+
+
 create table reports (
   id uuid primary key default gen_random_uuid(),
   listing_id uuid not null references listings(id) on delete cascade,

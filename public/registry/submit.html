@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Register a Build — AdoptMeHouseTrading.com</title>
+<meta name="description" content="Claim credit for your original Adopt Me house build.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="signpost-mini"></span>
+      AdoptMeHouseTrading
+    </a>
+    <nav>
+      <a href="../listings/index.html">Browse Houses</a>
+      <a href="../commissions/index.html">Commissions</a>
+      <a href="index.html" class="active">Build Registry</a>
+      <a href="../comps.html">Recent Trades</a>
+      <a href="../houses/index.html">Values</a>
+      <a href="../profile.html">Profile</a>
+    </nav>
+    <div class="nav-actions">
+      <span id="nav-profile-pill"></span>
+      <a class="btn btn-primary" href="../list-a-house.html" style="padding:10px 20px;font-size:14px;">Add Listing</a>
+    </div>
+  </div>
+</header>
+<script type="module" src="../js/nav.js"></script>
+
+<section class="wrap" style="padding: 48px 0 80px;">
+
+  <div class="form-card" id="need-profile" hidden>
+    <h1>Set up a profile first</h1>
+    <p class="subtitle">Registering a build needs an account so it's tied to you.</p>
+    <a class="btn btn-primary" href="../profile.html">Set Up Profile</a>
+  </div>
+
+  <div id="registry-form" hidden style="max-width:640px;margin:0 auto;">
+    <h1 style="font-family:var(--font-display);font-weight:800;font-size:28px;color:var(--ink);margin-bottom:6px;">Register a Build</h1>
+    <p class="hint" style="font-size:14px;margin-bottom:24px;">Post instantly, no approval wait. Include in-progress shots if you have them — much harder to fake retroactively than a finished photo alone, and it strengthens your claim if this is ever disputed.</p>
+    <div id="error" class="error-box" hidden></div>
+    <div id="success" class="success-box" hidden></div>
+
+    <label class="field-label" style="margin-top:0;" for="title">Build title</label>
+    <input type="text" id="title" placeholder="e.g. Ivory Pagoda" maxlength="120">
+
+    <label class="field-label" for="description">Description</label>
+    <textarea id="description" placeholder="Style, techniques used, when you built it..."></textarea>
+
+    <label class="field-label">Themes (optional)</label>
+    <div class="checkbox-grid" id="themes-grid"></div>
+
+    <label class="field-label">Photos <span style="font-weight:600;color:var(--muted);font-size:12px;">(at least 1 required)</span></label>
+    <div class="photo-slots" id="photo-slots"></div>
+
+    <div class="hero-ctas" style="justify-content: flex-start; margin-top: 24px;">
+      <button class="btn btn-primary" id="submit-btn">Register Build</button>
+    </div>
+  </div>
+
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community. Not affiliated with Adopt Me or Roblox Corporation.
+    <div style="margin-top:8px;"><a href="../rules.html" style="color:var(--sign-red);">Community Rules</a></div>
+  </div>
+</footer>
+
+<script type="module">
+  import { api, getStoredProfile, THEME_LABELS } from "../js/api.js";
+
+  const profile = getStoredProfile();
+  if (!profile) {
+    document.getElementById("need-profile").hidden = false;
+  } else {
+    document.getElementById("registry-form").hidden = false;
+    init();
+  }
+
+  const uploadedPhotos = [];
+
+  function init() {
+    const themesGrid = document.getElementById("themes-grid");
+    themesGrid.innerHTML = Object.entries(THEME_LABELS)
+      .map(([key, label]) => `<label><input type="checkbox" value="${key}"> ${label}</label>`)
+      .join("");
+
+    renderPhotoSlots();
+    document.getElementById("submit-btn").addEventListener("click", submitEntry);
+  }
+
+  function renderPhotoSlots() {
+    const container = document.getElementById("photo-slots");
+    const slotCount = Math.max(4, uploadedPhotos.length + 1);
+    container.innerHTML = Array.from({ length: slotCount }, (_, i) => {
+      const url = uploadedPhotos[i];
+      return `<div class="photo-slot ${i === 0 ? "main" : "interior"}" data-slot="${i}">
+        ${url ? `<img src="${url}" alt="">` : `<div class="plus-circle">+</div><div class="slot-label">${i === 0 ? "Main Photo" : "Photo"}</div>`}
+        <input type="file" accept="image/png,image/jpeg,image/webp" data-slot-input="${i}" style="display:none;">
+      </div>`;
+    }).join("");
+
+    container.querySelectorAll(".photo-slot").forEach((slot) => {
+      const fileInput = slot.querySelector("input[type=file]");
+      slot.addEventListener("click", () => fileInput.click());
+      fileInput.addEventListener("change", async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        try {
+          const url = await api.uploadPhoto(file);
+          uploadedPhotos[Number(slot.dataset.slot)] = url;
+          renderPhotoSlots();
+        } catch (err) {
+          alert("Upload failed: " + err.message);
+        }
+      });
+    });
+  }
+
+  async function submitEntry() {
+    const errorBox = document.getElementById("error");
+    const successBox = document.getElementById("success");
+    errorBox.hidden = true;
+    successBox.hidden = true;
+
+    const title = document.getElementById("title").value.trim();
+    const description = document.getElementById("description").value.trim();
+    const themes = Array.from(document.querySelectorAll("#themes-grid input:checked")).map((el) => el.value);
+    const photos = uploadedPhotos.filter(Boolean);
+
+    if (!title) {
+      errorBox.textContent = "Give your build a title.";
+      errorBox.hidden = false;
+      return;
+    }
+    if (!photos.length) {
+      errorBox.textContent = "Add at least one photo.";
+      errorBox.hidden = false;
+      return;
+    }
+
+    try {
+      const { entry } = await api.registerBuild({ title, description, themes, photos });
+      successBox.textContent = "Build registered! Redirecting...";
+      successBox.hidden = false;
+      setTimeout(() => {
+        window.location.href = `entry.html?id=${entry.id}`;
+      }, 900);
+    } catch (err) {
+      errorBox.textContent = err.message;
+      errorBox.hidden = false;
+    }
+  }
+</script>
+</body>
+</html>

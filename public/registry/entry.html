@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Registered Build — AdoptMeHouseTrading.com</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="signpost-mini"></span>
+      AdoptMeHouseTrading
+    </a>
+    <nav>
+      <a href="../listings/index.html">Browse Houses</a>
+      <a href="../commissions/index.html">Commissions</a>
+      <a href="index.html" class="active">Build Registry</a>
+      <a href="../comps.html">Recent Trades</a>
+      <a href="../houses/index.html">Values</a>
+      <a href="../profile.html">Profile</a>
+    </nav>
+    <div class="nav-actions">
+      <span id="nav-profile-pill"></span>
+      <a class="btn btn-primary" href="../list-a-house.html" style="padding:10px 20px;font-size:14px;">Add Listing</a>
+    </div>
+  </div>
+</header>
+<script type="module" src="../js/nav.js"></script>
+
+<section class="wrap" id="content" style="padding: 40px 0 80px;"></section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community. Not affiliated with Adopt Me or Roblox Corporation.
+    <div style="margin-top:8px;"><a href="../rules.html" style="color:var(--sign-red);">Community Rules</a></div>
+  </div>
+</footer>
+
+<script type="module">
+  import { api, getStoredProfile, THEME_LABELS } from "../js/api.js";
+
+  const params = new URLSearchParams(location.search);
+  const entryId = params.get("id");
+  const content = document.getElementById("content");
+  const myProfile = getStoredProfile();
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  if (!entryId) {
+    content.innerHTML = `<div class="form-card"><h1>Build not found</h1></div>`;
+  } else {
+    await load();
+  }
+
+  async function load() {
+    let data;
+    try {
+      data = await fetch(`/.netlify/functions/registry-get?id=${entryId}`).then((r) => r.json());
+    } catch {
+      content.innerHTML = `<div class="form-card"><h1>Couldn't load this build</h1></div>`;
+      return;
+    }
+    if (data.error) {
+      content.innerHTML = `<div class="form-card"><h1>${escapeHtml(data.error)}</h1></div>`;
+      return;
+    }
+
+    const { entry, possible_duplicate, dispute_count } = data;
+    const isSelf = myProfile && myProfile.id === entry.profile_id;
+    const themesLine = (entry.themes || []).map((t) => THEME_LABELS[t] || t).join(", ");
+
+    const photosHtml = entry.photos?.length
+      ? entry.photos.map((url) => `<img src="${url}" alt="" style="width:100%;border-radius:10px;margin-bottom:10px;">`).join("")
+      : `<p class="hint">No photos.</p>`;
+
+    const statusBanner =
+      entry.status === "disputed"
+        ? `<div class="error-box">This entry is currently disputed (${dispute_count} dispute${dispute_count === 1 ? "" : "s"} filed) — under review.</div>`
+        : entry.status === "confirmed_clone"
+        ? `<div class="error-box">This entry has been reviewed and confirmed as a clone of another build.</div>`
+        : entry.status === "confirmed_original"
+        ? `<div class="success-box">This entry has been reviewed and confirmed as original.</div>`
+        : "";
+
+    const duplicateNotice = possible_duplicate
+      ? `<div class="error-box">Possible duplicate of an earlier entry: <a href="entry.html?id=${possible_duplicate.id}" style="color:var(--sign-red-dark);text-decoration:underline;">${escapeHtml(possible_duplicate.title)}</a> by ${escapeHtml(possible_duplicate.profiles?.display_name || "unknown")}, registered ${new Date(possible_duplicate.created_at).toLocaleDateString()}. This is an automatic title match, not a confirmed ruling.</div>`
+      : "";
+
+    content.innerHTML = `
+      <div class="breadcrumb">Build Registry &nbsp;/&nbsp; <span class="current">${escapeHtml(entry.title)}</span></div>
+      <div class="detail-grid">
+        <div>
+          <h1 style="font-family:var(--font-display);color:var(--ink);margin:0 0 6px;">${escapeHtml(entry.title)}</h1>
+          <p class="hint" style="margin-bottom:16px;">Registered ${new Date(entry.created_at).toLocaleDateString()}</p>
+          ${statusBanner}
+          ${duplicateNotice}
+          <div>${photosHtml}</div>
+          ${entry.description ? `<p style="margin-top:16px;">${escapeHtml(entry.description)}</p>` : ""}
+          ${themesLine ? `<div class="meta-row" style="margin-top:12px;"><span class="pill">Themes:</span>${(entry.themes || []).map((t) => `<span class="pill">${THEME_LABELS[t] || t}</span>`).join("")}</div>` : ""}
+        </div>
+        <div class="sidebar-sticky">
+          <div class="trust-card">
+            <img class="avatar-lg" src="${entry.profiles?.rbx_avatar_url || ""}" alt="" onerror="this.removeAttribute('src')">
+            <div>
+              <div class="trust-name-row"><span class="name">${escapeHtml(entry.profiles?.display_name || "unknown")}</span></div>
+              <div class="trust-sub">Registered builder</div>
+            </div>
+          </div>
+          ${
+            isSelf
+              ? `<div class="form-card"><h1>This is your entry</h1><p class="subtitle">If this is disputed, you'll see a note above once it's under review.</p></div>`
+              : !myProfile
+              ? `<div class="form-card"><h1>Think this isn't right?</h1><p class="subtitle"><a href="../profile.html">Set up your profile</a> to file a dispute.</p></div>`
+              : `<div class="cta-box" style="background:var(--paper);border:1px solid var(--line);">
+                  <h3 style="color:var(--ink);">Dispute This Claim</h3>
+                  <p style="color:var(--muted);">If you're the actual original creator, or this is a clone, explain here. A human reviews disputes — this doesn't resolve automatically.</p>
+                  <div id="dispute-error" class="error-box" hidden></div>
+                  <div id="dispute-success" class="success-box" hidden></div>
+                  <textarea id="dispute-claim" placeholder="Explain your claim — when you built this, where you've posted proof before, etc."></textarea>
+                  <button class="btn btn-primary" id="submit-dispute-btn" style="width:100%;margin-top:14px;">File Dispute</button>
+                </div>`
+          }
+        </div>
+      </div>
+    `;
+
+    if (!isSelf && myProfile) {
+      document.getElementById("submit-dispute-btn").addEventListener("click", async () => {
+        const errorBox = document.getElementById("dispute-error");
+        const successBox = document.getElementById("dispute-success");
+        errorBox.hidden = true;
+        successBox.hidden = true;
+        const claim = document.getElementById("dispute-claim").value.trim();
+        if (!claim) {
+          errorBox.textContent = "Explain your claim.";
+          errorBox.hidden = false;
+          return;
+        }
+        try {
+          await api.disputeRegistryEntry(entry.id, claim);
+          successBox.textContent = "Dispute filed — a reviewer will take a look.";
+          successBox.hidden = false;
+          document.getElementById("submit-dispute-btn").disabled = true;
+        } catch (err) {
+          errorBox.textContent = err.message;
+          errorBox.hidden = false;
+        }
+      });
+    }
+  }
+</script>
+</body>
+</html>

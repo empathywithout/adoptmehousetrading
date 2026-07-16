@@ -92,6 +92,15 @@ export const api = {
     request("commission-request-deliver", { method: "POST", body: { request_id, delivery_photos }, auth: true }),
   confirmCommission: (request_id) =>
     request("commission-request-confirm", { method: "POST", body: { request_id }, auth: true }),
+
+  registerBuild: (payload) => request("registry-create", { method: "POST", body: payload, auth: true }),
+  listRegistry: (params = {}) => {
+    const qs = new URLSearchParams(params).toString();
+    return request(`registry-list${qs ? `?${qs}` : ""}`);
+  },
+  getRegistryEntry: (id) => request(`registry-get?id=${encodeURIComponent(id)}`),
+  disputeRegistryEntry: (build_registry_id, claim, claimed_original_entry_id) =>
+    request("registry-dispute-create", { method: "POST", body: { build_registry_id, claim, claimed_original_entry_id }, auth: true }),
 };
 
 async function uploadPhoto(file) {

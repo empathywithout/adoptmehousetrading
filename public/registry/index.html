@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build Registry — AdoptMeHouseTrading.com</title>
+<meta name="description" content="A real, timestamped record of who built what first — attribution for Adopt Me house builds.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="signpost-mini"></span>
+      AdoptMeHouseTrading
+    </a>
+    <nav>
+      <a href="../listings/index.html">Browse Houses</a>
+      <a href="../commissions/index.html">Commissions</a>
+      <a href="index.html" class="active">Build Registry</a>
+      <a href="../comps.html">Recent Trades</a>
+      <a href="../houses/index.html">Values</a>
+      <a href="../profile.html">Profile</a>
+    </nav>
+    <div class="nav-actions">
+      <span id="nav-profile-pill"></span>
+      <a class="btn btn-primary" href="../list-a-house.html" style="padding:10px 20px;font-size:14px;">Add Listing</a>
+    </div>
+  </div>
+</header>
+<script type="module" src="../js/nav.js"></script>
+
+<section class="wrap" style="padding: 40px 0 80px;">
+  <div class="section-head">
+    <h2>Build Registry</h2>
+    <a href="submit.html">+ Register a build</a>
+  </div>
+  <p class="hint" style="margin-bottom:20px;max-width:640px;">
+    A real, timestamped record of who built what first — not a badge or a score. Posted instantly, timestamp is the tiebreaker, and anyone can dispute a claim if it's wrong.
+  </p>
+
+  <div class="filter-pills" id="theme-pills"></div>
+
+  <div id="empty-state" class="form-card" hidden>
+    <h1>No builds registered yet</h1>
+    <p class="subtitle">Be the first to claim credit for your work.</p>
+    <a class="btn btn-primary" href="submit.html">Register a Build</a>
+  </div>
+  <div class="house-grid" id="registry-grid"></div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community. Not affiliated with Adopt Me or Roblox Corporation.
+    <div style="margin-top:8px;"><a href="../rules.html" style="color:var(--sign-red);">Community Rules</a></div>
+  </div>
+</footer>
+
+<script type="module">
+  import { THEME_LABELS } from "../js/api.js";
+
+  const grid = document.getElementById("registry-grid");
+  const empty = document.getElementById("empty-state");
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  let entries = [];
+  try {
+    const data = await fetch("/.netlify/functions/registry-list").then((r) => r.json());
+    entries = data.entries || [];
+  } catch {
+    entries = [];
+  }
+
+  let activeTheme = "all";
+
+  function renderThemePills() {
+    const themesInUse = [...new Set(entries.flatMap((e) => e.themes || []))];
+    const pillsEl = document.getElementById("theme-pills");
+    if (!themesInUse.length) {
+      pillsEl.hidden = true;
+      return;
+    }
+    const opts = [{ key: "all", label: "All Themes" }, ...themesInUse.map((t) => ({ key: t, label: THEME_LABELS[t] || t }))];
+    pillsEl.innerHTML = opts.map((o) => `<button data-key="${o.key}" class="${o.key === "all" ? "active" : ""}">${o.label}</button>`).join("");
+    pillsEl.querySelectorAll("button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        activeTheme = btn.dataset.key;
+        pillsEl.querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
+        render();
+      });
+    });
+  }
+
+  function render() {
+    const filtered = activeTheme === "all" ? entries : entries.filter((e) => (e.themes || []).includes(activeTheme));
+
+    if (!filtered.length) {
+      empty.hidden = false;
+      grid.innerHTML = "";
+      return;
+    }
+    empty.hidden = true;
+
+    grid.innerHTML = filtered
+      .map((entry) => {
+        const photo = entry.photos?.[0] || "../images/brand/searchdog.png";
+        const statusTag =
+          entry.status === "disputed"
+            ? `<div class="card-tag">Disputed</div>`
+            : entry.status === "confirmed_clone"
+            ? `<div class="card-tag cloned">Confirmed Clone</div>`
+            : "";
+        return `
+        <a class="listing-card" href="entry.html?id=${entry.id}">
+          <div class="photo">
+            <img src="${photo}" alt="">
+            ${statusTag}
+          </div>
+          <div class="body">
+            <h3>${escapeHtml(entry.title)}</h3>
+            <div class="trust-row">
+              <span class="avatar-initial">${escapeHtml((entry.profiles?.display_name || "?")[0].toUpperCase())}</span>
+              <span class="username">${escapeHtml(entry.profiles?.display_name || "unknown")}</span>
+            </div>
+            <p class="lister" style="margin-top:6px;">Registered ${new Date(entry.created_at).toLocaleDateString()}</p>
+          </div>
+        </a>`;
+      })
+      .join("");
+  }
+
+  renderThemePills();
+  render();
+</script>
+</body>
+</html>
