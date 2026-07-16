@@ -126,7 +126,7 @@
       empty.hidden = true;
       grid.innerHTML = filtered
         .map((b) => {
-          const photo = b.portfolio_photos?.[0] || "../images/brand/searchdog.png";
+          const photo = b.cover_photo || "../images/brand/searchdog.png";
           const themesLine = (b.builder_themes || []).map((t) => THEME_LABELS[t] || t).join(", ");
           return `
           <a class="listing-card" href="builder.html?id=${b.id}">

@@ -143,6 +143,10 @@
           <label class="field-label">Specialties</label>
           <div class="checkbox-grid" id="builder-themes-grid"></div>
 
+          <label class="field-label">Cover Photo</label>
+          <p class="hint" style="margin-top:-4px;margin-bottom:8px;">Which registered build shows on your Commissions card. Defaults to your most recent if you don't pick one.</p>
+          <div id="cover-photo-picker" class="house-grid" style="margin-bottom:8px;"></div>
+
           <p class="hint" style="margin-top:20px;">Your portfolio (what shows on your public builder page) comes from your <a href="#" data-goto-tab="portfolio" style="color:var(--accent);">Portfolio</a> tab — register a build there and it shows up automatically. No separate photo upload here anymore.</p>
 
           <div class="hero-ctas" style="justify-content:flex-start;margin-top:18px;">
@@ -293,7 +297,7 @@
 
     renderListings(dash.listings, dash.profile.id);
     renderMyOffers(dash.my_offers || []);
-    renderBuilderSettings(dash.profile);
+    renderBuilderSettings(dash.profile, dash.build_registry_entries || []);
     renderCommissionRequests(dash);
     renderBuildRegistry(dash.build_registry_entries || []);
   }
@@ -421,13 +425,16 @@
     });
   }
 
-  function renderBuilderSettings(profile) {
+  let selectedFeaturedId = null;
+
+  function renderBuilderSettings(profile, registryEntries) {
     const toggle = document.getElementById("is-builder-toggle");
     const fields = document.getElementById("builder-settings-fields");
     toggle.checked = !!profile.is_builder;
     fields.hidden = !profile.is_builder;
 
     document.getElementById("builder-bio").value = profile.builder_bio || "";
+    selectedFeaturedId = profile.featured_registry_entry_id || null;
 
     const statusToggle = document.getElementById("commission-status-toggle");
     statusToggle.querySelectorAll("button").forEach((b) => {
@@ -445,6 +452,8 @@
       cb.checked = (profile.builder_themes || []).includes(cb.value);
     });
 
+    renderCoverPhotoPicker(registryEntries);
+
     if (!toggle.dataset.bound) {
       toggle.dataset.bound = "1";
       toggle.addEventListener("change", () => {
@@ -459,6 +468,30 @@
     }
   }
 
+  function renderCoverPhotoPicker(registryEntries) {
+    const container = document.getElementById("cover-photo-picker");
+    if (!registryEntries.length) {
+      container.innerHTML = `<p class="hint">Register a build in the Portfolio tab to pick a cover photo.</p>`;
+      return;
+    }
+    container.innerHTML = registryEntries
+      .map((e) => {
+        const photo = e.photos?.[0] || "images/brand/searchdog.png";
+        const isSelected = selectedFeaturedId === e.id;
+        return `<div class="house-card ${isSelected ? "cover-selected" : ""}" data-cover-id="${e.id}" style="cursor:pointer;">
+          <div class="thumb"><img src="${photo}" alt="" loading="lazy"></div>
+          <div class="info"><h3>${escapeHtml(e.title)}</h3>${isSelected ? `<p class="source" style="color:var(--accent);font-weight:700;">Selected</p>` : ""}</div>
+        </div>`;
+      })
+      .join("");
+    container.querySelectorAll("[data-cover-id]").forEach((el) => {
+      el.addEventListener("click", () => {
+        selectedFeaturedId = selectedFeaturedId === el.dataset.coverId ? null : el.dataset.coverId;
+        renderCoverPhotoPicker(registryEntries);
+      });
+    });
+  }
+
   async function saveBuilderSettings() {
     const isBuilder = document.getElementById("is-builder-toggle").checked;
     const builderBio = document.getElementById("builder-bio").value.trim();
@@ -471,6 +504,7 @@
         builder_bio: builderBio,
         commission_status: commissionStatus,
         builder_themes: builderThemes,
+        featured_registry_entry_id: selectedFeaturedId,
       });
       const successBox = document.getElementById("builder-save-success");
       successBox.textContent = "Saved!";

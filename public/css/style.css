@@ -486,6 +486,11 @@ img { max-width: 100%; display: block; }
   position: relative;
 }
 
+.house-card.cover-selected {
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
 .house-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 28px rgba(20, 22, 26, 0.10);

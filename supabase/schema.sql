@@ -42,7 +42,8 @@ create table profiles (
   is_builder boolean not null default false,
   builder_bio text,
   commission_status text not null default 'closed' check (commission_status in ('open', 'closed')),
-  portfolio_photos jsonb not null default '[]', -- past work, Supabase Storage URLs
+  portfolio_photos jsonb not null default '[]', -- legacy, no longer written to by the UI —
+                                       -- portfolio now comes from build_registry (see below)
   builder_themes jsonb not null default '[]'    -- specialties, same tag set as listing themes
 );
 
@@ -253,6 +254,11 @@ create index build_registry_status_idx on build_registry(status);
 alter table build_registry enable row level security;
 create policy "public can read build registry entries" on build_registry
   for select using (true);
+
+-- Which registered build shows as a builder's cover photo on Commissions
+-- cards and their profile page. Optional — falls back to their most
+-- recent registered build if not set.
+alter table profiles add column featured_registry_entry_id uuid references build_registry(id);
 
 create table build_registry_disputes (
   id uuid primary key default gen_random_uuid(),
