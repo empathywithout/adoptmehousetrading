@@ -10,6 +10,7 @@
     "build": "npm run parse && npm run copy-data && npm run generate"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.110.6"
+    "@supabase/supabase-js": "^2.110.6",
+    "ws": "^8.21.1"
   }
 }

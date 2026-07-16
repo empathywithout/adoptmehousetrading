@@ -1,15 +1,25 @@
 import { createClient } from "@supabase/supabase-js";
 import { randomBytes, createHash } from "crypto";
+import WebSocket from "ws";
 
 // Service-role client: server-side only, bypasses Row Level Security.
 // Never expose SUPABASE_SERVICE_ROLE_KEY to the browser.
+//
+// supabase-js always constructs a realtime client internally (even though
+// we never use realtime subscriptions), which needs a WebSocket
+// implementation. Netlify's Node runtime doesn't expose one globally, so
+// we hand it the `ws` package directly via the transport option — this is
+// the fix suggested by supabase-js's own error message.
 export function supabaseAdmin() {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) {
     throw new Error("Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY env vars");
   }
-  return createClient(url, key, { auth: { persistSession: false } });
+  return createClient(url, key, {
+    auth: { persistSession: false },
+    realtime: { transport: WebSocket },
+  });
 }
 
 export function newSessionToken() {
