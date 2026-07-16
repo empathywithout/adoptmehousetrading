@@ -5,9 +5,9 @@
 // to friend/trade in-game, but this endpoint is public — anyone can see the
 // offers on a listing, same as Traderie shows offer history publicly.
 
-import { supabaseAdmin, json } from "./_lib/supabase.js";
+import {  supabaseAdmin, json, safeHandler } from "./_lib/supabase.js";
 
-export async function handler(event) {
+async function handlerImpl(event) {
   if (event.httpMethod !== "GET") {
     return json(405, { error: "Method not allowed" });
   }
@@ -42,3 +42,5 @@ export async function handler(event) {
 
   return json(200, { listing, offers });
 }
+
+export const handler = safeHandler(handlerImpl);

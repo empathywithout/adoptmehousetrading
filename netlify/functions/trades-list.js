@@ -6,9 +6,9 @@
 // breakdown — that only makes sense once there's real volume to calibrate
 // against (see project notes on comps).
 
-import { supabaseAdmin, json } from "./_lib/supabase.js";
+import {  supabaseAdmin, json, safeHandler } from "./_lib/supabase.js";
 
-export async function handler(event) {
+async function handlerImpl(event) {
   if (event.httpMethod !== "GET") {
     return json(405, { error: "Method not allowed" });
   }
@@ -38,3 +38,5 @@ export async function handler(event) {
 
   return json(200, { trades: data });
 }
+
+export const handler = safeHandler(handlerImpl);

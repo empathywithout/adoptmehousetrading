@@ -5,9 +5,9 @@
 // CORS, and so we can validate the username actually exists before letting
 // someone claim a profile with it.
 
-import { json } from "./_lib/supabase.js";
+import {  json, safeHandler } from "./_lib/supabase.js";
 
-export async function handler(event) {
+async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
     return json(405, { error: "Method not allowed" });
   }
@@ -57,3 +57,5 @@ export async function handler(event) {
     return json(502, { error: "Couldn't reach Roblox — try again in a moment" });
   }
 }
+
+export const handler = safeHandler(handlerImpl);

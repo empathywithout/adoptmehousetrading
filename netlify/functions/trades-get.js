@@ -6,9 +6,9 @@
 // the anon-key read path; this function uses the service role and does its
 // own authorization check instead).
 
-import { supabaseAdmin, requireProfile, json } from "./_lib/supabase.js";
+import {  supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
 
-export async function handler(event) {
+async function handlerImpl(event) {
   if (event.httpMethod !== "GET") {
     return json(405, { error: "Method not allowed" });
   }
@@ -54,3 +54,5 @@ export async function handler(event) {
     __isLister: isLister,
   });
 }
+
+export const handler = safeHandler(handlerImpl);

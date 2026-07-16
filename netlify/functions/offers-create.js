@@ -2,9 +2,9 @@
 // body: { listing_id, items: [{category,id,name,image}], message }
 // -> { offer }
 
-import { supabaseAdmin, requireProfile, json } from "./_lib/supabase.js";
+import {  supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
 
-export async function handler(event) {
+async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
     return json(405, { error: "Method not allowed" });
   }
@@ -78,3 +78,5 @@ export async function handler(event) {
 
   return json(200, { offer: data });
 }
+
+export const handler = safeHandler(handlerImpl);

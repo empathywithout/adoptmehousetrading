@@ -45,3 +45,22 @@ export function json(statusCode, body) {
     body: JSON.stringify(body),
   };
 }
+
+// Wraps a Netlify function handler so ANY thrown error (missing env vars,
+// Supabase connection failures, bad JSON, whatever) returns a real JSON
+// error response instead of an opaque 502 from Netlify's gateway. Every
+// function in this directory should export handler wrapped in this.
+export function safeHandler(fn) {
+  return async (event, context) => {
+    try {
+      return await fn(event, context);
+    } catch (err) {
+      console.error("Unhandled function error:", err);
+      const message =
+        err?.message?.includes("SUPABASE_URL") || err?.message?.includes("SUPABASE_SERVICE_ROLE_KEY")
+          ? "Server misconfigured: Supabase environment variables aren't set. Check Netlify's Site settings → Environment variables."
+          : "Something went wrong on our end. Try again in a moment.";
+      return json(500, { error: message });
+    }
+  };
+}

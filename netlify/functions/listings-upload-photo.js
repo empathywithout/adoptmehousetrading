@@ -7,13 +7,13 @@
 // Netlify's synchronous function payload cap (~6MB) is the practical limit —
 // have the browser downscale/compress images before base64-encoding them.
 
-import { supabaseAdmin, requireProfile, json } from "./_lib/supabase.js";
+import {  supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
 
 const BUCKET = "listing-photos";
 const ALLOWED_TYPES = ["image/png", "image/jpeg", "image/webp"];
 const MAX_BYTES = 5 * 1024 * 1024;
 
-export async function handler(event) {
+async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
     return json(405, { error: "Method not allowed" });
   }
@@ -59,3 +59,5 @@ export async function handler(event) {
 
   return json(200, { url: publicUrlData.publicUrl });
 }
+
+export const handler = safeHandler(handlerImpl);

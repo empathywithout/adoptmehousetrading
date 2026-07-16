@@ -2,7 +2,7 @@
 // body: { house_id, title, description, photos: [url], looking_for: [category] }
 // -> { listing }
 
-import { supabaseAdmin, requireProfile, json } from "./_lib/supabase.js";
+import {  supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
 
 const VALID_CATEGORIES = [
   "adopt_me_pets",
@@ -16,7 +16,7 @@ const VALID_CATEGORIES = [
 
 const VALID_LISTING_TYPES = ["house_trade", "looking_for", "commission"];
 
-export async function handler(event) {
+async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
     return json(405, { error: "Method not allowed" });
   }
@@ -113,3 +113,5 @@ export async function handler(event) {
 
   return json(200, { listing: data });
 }
+
+export const handler = safeHandler(handlerImpl);

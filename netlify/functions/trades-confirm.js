@@ -7,9 +7,9 @@
 // If only one side ever confirms, the trade stays 'pending' indefinitely,
 // which is fine — it just doesn't feed the public comps feed.
 
-import { supabaseAdmin, requireProfile, json } from "./_lib/supabase.js";
+import {  supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
 
-export async function handler(event) {
+async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
     return json(405, { error: "Method not allowed" });
   }
@@ -88,3 +88,5 @@ export async function handler(event) {
     offerer_confirmed: data.offerer_confirmed,
   });
 }
+
+export const handler = safeHandler(handlerImpl);

@@ -5,7 +5,7 @@
 // doesn't take the listing down automatically; it just logs it for manual
 // review, since photos post instantly without pre-approval.
 
-import { supabaseAdmin, json } from "./_lib/supabase.js";
+import {  supabaseAdmin, json, safeHandler } from "./_lib/supabase.js";
 
 const VALID_REASONS = [
   "crosstrading",
@@ -15,7 +15,7 @@ const VALID_REASONS = [
   "other",
 ];
 
-export async function handler(event) {
+async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
     return json(405, { error: "Method not allowed" });
   }
@@ -46,3 +46,5 @@ export async function handler(event) {
 
   return json(200, { ok: true });
 }
+
+export const handler = safeHandler(handlerImpl);

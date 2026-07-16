@@ -8,9 +8,9 @@
 // and invalidates the old one, so if someone else "steals" your username's
 // profile here, creating it again with your own browser takes it back.
 
-import { supabaseAdmin, newSessionToken, hashToken, json } from "./_lib/supabase.js";
+import {  supabaseAdmin, newSessionToken, hashToken, json, safeHandler } from "./_lib/supabase.js";
 
-export async function handler(event) {
+async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
     return json(405, { error: "Method not allowed" });
   }
@@ -59,3 +59,5 @@ export async function handler(event) {
     },
   });
 }
+
+export const handler = safeHandler(handlerImpl);

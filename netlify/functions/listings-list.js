@@ -1,9 +1,9 @@
 // GET ?house_id=&status=
 // -> { listings: [...] } — each with profile.rbx_username attached
 
-import { supabaseAdmin, json } from "./_lib/supabase.js";
+import {  supabaseAdmin, json, safeHandler } from "./_lib/supabase.js";
 
-export async function handler(event) {
+async function handlerImpl(event) {
   if (event.httpMethod !== "GET") {
     return json(405, { error: "Method not allowed" });
   }
@@ -36,3 +36,5 @@ export async function handler(event) {
 
   return json(200, { listings: data });
 }
+
+export const handler = safeHandler(handlerImpl);

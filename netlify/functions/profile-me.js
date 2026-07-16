@@ -1,9 +1,9 @@
 // GET, Authorization: Bearer <token>
 // -> { profile }
 
-import { requireProfile, json } from "./_lib/supabase.js";
+import {  requireProfile, json, safeHandler } from "./_lib/supabase.js";
 
-export async function handler(event) {
+async function handlerImpl(event) {
   if (event.httpMethod !== "GET") {
     return json(405, { error: "Method not allowed" });
   }
@@ -22,3 +22,5 @@ export async function handler(event) {
     },
   });
 }
+
+export const handler = safeHandler(handlerImpl);
