@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import { randomBytes, createHash } from "crypto";
+import { randomBytes, createHash, scryptSync, timingSafeEqual } from "crypto";
 import WebSocket from "ws";
 
 // Service-role client: server-side only, bypasses Row Level Security.
@@ -30,22 +30,59 @@ export function hashToken(token) {
   return createHash("sha256").update(token).digest("hex");
 }
 
+// PIN hashing: scrypt with a per-profile random salt. A 4-6 digit PIN has
+// far less entropy than a session token, so a fast hash (sha256) alone
+// would be crackable offline if the DB ever leaked — scrypt's deliberate
+// slowness matters here even though it doesn't for the random 32-byte
+// session tokens above.
+export function newPinSalt() {
+  return randomBytes(16).toString("hex");
+}
+
+export function hashPin(pin, salt) {
+  return scryptSync(String(pin), salt, 64).toString("hex");
+}
+
+export function verifyPin(pin, salt, expectedHash) {
+  if (!salt || !expectedHash) return false;
+  const actual = Buffer.from(hashPin(pin, salt), "hex");
+  const expected = Buffer.from(expectedHash, "hex");
+  if (actual.length !== expected.length) return false;
+  return timingSafeEqual(actual, expected);
+}
+
 // Extracts "Bearer <token>" from the Authorization header and resolves it
-// to a profile row. Returns null if missing/invalid.
+// to a profile row. Checks the sessions table first (supports multiple
+// simultaneous devices); falls back to the legacy single-session column on
+// profiles so nobody who was already signed in before sessions existed
+// gets logged out by the upgrade.
 export async function requireProfile(event) {
   const auth = event.headers.authorization || event.headers.Authorization || "";
   const token = auth.startsWith("Bearer ") ? auth.slice(7).trim() : null;
   if (!token) return null;
 
   const db = supabaseAdmin();
-  const { data, error } = await db
-    .from("profiles")
-    .select("*")
-    .eq("session_token_hash", hashToken(token))
+  const tokenHash = hashToken(token);
+
+  const { data: session } = await db
+    .from("sessions")
+    .select("profile_id, profiles(*)")
+    .eq("token_hash", tokenHash)
     .maybeSingle();
 
-  if (error || !data) return null;
-  return data;
+  if (session?.profiles) {
+    db.from("sessions").update({ last_seen_at: new Date().toISOString() }).eq("token_hash", tokenHash).then(() => {});
+    return session.profiles;
+  }
+
+  // Legacy fallback — pre-sessions-table profiles.
+  const { data: legacy } = await db
+    .from("profiles")
+    .select("*")
+    .eq("session_token_hash", tokenHash)
+    .maybeSingle();
+
+  return legacy || null;
 }
 
 export function json(statusCode, body) {

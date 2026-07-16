@@ -18,7 +18,16 @@ create table profiles (
   rbx_username text not null unique,
   rbx_user_id bigint,                 -- from Roblox's public API, for avatar/profile link
   rbx_avatar_url text,
-  session_token_hash text not null,   -- sha256 of the token stored in the player's browser
+  session_token_hash text,             -- legacy single-session column, kept only so profiles
+                                        -- created before the sessions table existed don't get
+                                        -- signed out; new logins always use the sessions table.
+  pin_hash text,                       -- scrypt hash of a 4-6 digit PIN, set on first claim.
+                                        -- Required to re-claim this username from a new
+                                        -- browser/device — the only thing standing between
+                                        -- "anyone can type your username" and actually needing
+                                        -- to know something. No recovery if forgotten: same
+                                        -- no-password philosophy, just with one small secret.
+  pin_salt text,                       -- random salt for the above, unique per profile
   created_at timestamptz not null default now(),
 
   -- Builder fields — a profile opts into being a "Builder" separately from
@@ -32,6 +41,22 @@ create table profiles (
   portfolio_photos jsonb not null default '[]', -- past work, Supabase Storage URLs
   builder_themes jsonb not null default '[]'    -- specialties, same tag set as listing themes
 );
+
+-- Sessions: a profile can be signed in on multiple devices/browsers at once.
+-- Claiming a username with the correct PIN just adds a new row here rather
+-- than invalidating every other active session (the old single-column
+-- design meant signing in anywhere new silently kicked you out everywhere
+-- else — this fixes that).
+create table sessions (
+  id uuid primary key default gen_random_uuid(),
+  profile_id uuid not null references profiles(id) on delete cascade,
+  token_hash text not null unique,
+  created_at timestamptz not null default now(),
+  last_seen_at timestamptz not null default now()
+);
+
+create index sessions_profile_idx on sessions(profile_id);
+create index sessions_token_idx on sessions(token_hash);
 
 create table listings (
   id uuid primary key default gen_random_uuid(),

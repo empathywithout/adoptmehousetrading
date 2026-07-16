@@ -32,11 +32,14 @@
 <section class="wrap" style="padding: 48px 0 80px;">
   <div class="form-card" id="signed-out-view" hidden>
     <h1>Set up your trading profile</h1>
-    <p class="subtitle">Just your Roblox username — no password needed. This is how other players will know who to friend and trade with in-game.</p>
+    <p class="subtitle">Just your Roblox username and a short PIN — no password, no email. The PIN is what lets you sign back in on another device, and it's the only thing stopping someone else from typing in your username and taking over.</p>
     <div id="error" class="error-box" hidden></div>
     <label class="field-label" for="username">Roblox username</label>
     <input type="text" id="username" placeholder="e.g. builds_by_ross" maxlength="20">
     <p class="hint">We'll check this is a real Roblox account and pull your avatar.</p>
+    <label class="field-label" for="pin">4-6 digit PIN</label>
+    <input type="text" id="pin" placeholder="e.g. 4821" maxlength="6" inputmode="numeric" autocomplete="off">
+    <p class="hint">New username: this sets your PIN. Existing username: this must match. There's no recovery if you forget it — keep it somewhere safe.</p>
     <div class="hero-ctas" style="justify-content: flex-start; margin-top: 20px;">
       <button class="btn btn-primary" id="create-btn">Continue</button>
     </div>
@@ -448,11 +451,13 @@
   document.getElementById("create-btn").addEventListener("click", async () => {
     errorBox.hidden = true;
     const username = document.getElementById("username").value.trim();
+    const pin = document.getElementById("pin").value.trim();
     if (!username) return showError("Enter a Roblox username.");
+    if (!/^\d{4,6}$/.test(pin)) return showError("PIN must be 4-6 digits.");
 
     try {
       const rbx = await api.lookupRoblox(username);
-      const { token, profile } = await api.createProfile(rbx);
+      const { token, profile } = await api.createProfile({ ...rbx, pin });
       saveSession(token, profile);
       await render();
     } catch (err) {
