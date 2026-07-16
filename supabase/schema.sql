@@ -236,6 +236,11 @@ create table build_registry (
                                        -- not the DB) — ideally including in-progress shots,
                                        -- much harder to fake retroactively than a finished photo
   themes jsonb not null default '[]', -- same tag set as listing themes
+  included_items jsonb not null default '[]', -- items/pets/etc featured in the build —
+                                       -- same {category,id,name,image} shape as listing
+                                       -- included_items, since builders often want credit
+                                       -- for a build's furniture/pet staging too, not just
+                                       -- the house shell
   house_id text,                      -- optional link to data/houses.json, if known
   possible_duplicate_of uuid references build_registry(id),
   status text not null default 'active' check (status in ('active', 'disputed', 'confirmed_clone', 'confirmed_original')),

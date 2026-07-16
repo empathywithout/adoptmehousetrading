@@ -52,7 +52,7 @@
       <label class="field-label" style="margin-top:0;" id="house-select-label">House Type</label>
       <div class="house-picker" id="house-picker">
         <div class="house-picker-trigger" id="house-picker-trigger">
-          <div class="house-picker-thumb"><img id="house-picker-img" src="" alt=""></div>
+          <div class="house-picker-thumb"><img id="house-picker-img" src="" alt="" style="object-fit:contain;padding:4px;"></div>
           <div class="house-picker-name" id="house-picker-name"></div>
           <div class="caret"></div>
         </div>
@@ -139,7 +139,7 @@
 </footer>
 
 <script type="module">
-  import { api, getStoredProfile, CATEGORY_LABELS, THEME_LABELS } from "./js/api.js";
+  import { api, getStoredProfile, CATEGORY_LABELS, THEME_LABELS, HOUSE_PLACEHOLDER_ICON } from "./js/api.js";
   import { mountItemPicker } from "./js/item-picker.js";
 
   const profile = getStoredProfile();
@@ -252,7 +252,10 @@
 
     function updateTrigger() {
       const house = houses.find((h) => h.id === selectedHouseId);
-      document.getElementById("house-picker-img").src = house?.image || "";
+      const img = document.getElementById("house-picker-img");
+      img.src = house?.image || HOUSE_PLACEHOLDER_ICON;
+      img.style.objectFit = house ? "cover" : "contain";
+      img.style.padding = house ? "0" : "4px";
       document.getElementById("house-picker-name").textContent = house?.name || "Choose a house";
     }
 

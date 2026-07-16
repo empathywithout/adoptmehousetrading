@@ -50,6 +50,12 @@
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
+  function itemsRowHtml(items) {
+    return (items || [])
+      .map((it) => `<div class="item"><img src="${it.image}" alt=""><div>${escapeHtml(it.name)}</div></div>`)
+      .join("");
+  }
+
   if (!entryId) {
     content.innerHTML = `<div class="form-card"><h1>Build not found</h1></div>`;
   } else {
@@ -101,6 +107,12 @@
           <div>${photosHtml}</div>
           ${entry.description ? `<p style="margin-top:16px;">${escapeHtml(entry.description)}</p>` : ""}
           ${themesLine ? `<div class="meta-row" style="margin-top:12px;"><span class="pill">Themes:</span>${(entry.themes || []).map((t) => `<span class="pill">${THEME_LABELS[t] || t}</span>`).join("")}</div>` : ""}
+          ${
+            entry.included_items?.length
+              ? `<div class="section-head" style="margin-top:20px;"><h2 style="font-size:18px;">Featured Items / Pets</h2></div>
+                 <div class="items-row">${itemsRowHtml(entry.included_items)}</div>`
+              : ""
+          }
         </div>
         <div class="sidebar-sticky">
           <div class="trust-card">

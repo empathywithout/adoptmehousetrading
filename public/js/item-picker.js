@@ -23,7 +23,9 @@ export function mountItemPicker(container, prefix = "") {
 
   async function loadCategory(cat) {
     if (!catalogsByCategory[cat]) {
-      const depth = location.pathname.includes("/listings/") ? "../" : "";
+      const segments = location.pathname.split("/").filter(Boolean);
+      const depthLevel = location.pathname.endsWith("/") ? segments.length : segments.length - 1;
+      const depth = "../".repeat(Math.max(0, depthLevel));
       catalogsByCategory[cat] = await fetch(`${depth}data/${cat}.json`).then((r) => r.json());
     }
     renderResults();

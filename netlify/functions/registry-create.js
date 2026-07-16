@@ -46,7 +46,7 @@ async function handlerImpl(event) {
     return json(400, { error: "Invalid JSON body" });
   }
 
-  const { title, description, themes, photos, house_id } = body;
+  const { title, description, themes, photos, house_id, included_items } = body;
 
   if (!title?.trim()) {
     return json(400, { error: "Give your build a title" });
@@ -56,6 +56,14 @@ async function handlerImpl(event) {
     return json(400, { error: "At least one photo is required to register a build" });
   }
   const cleanThemes = Array.isArray(themes) ? themes.filter((t) => VALID_THEMES.includes(t)) : [];
+  const cleanIncludedItems = Array.isArray(included_items)
+    ? included_items.slice(0, 30).map((it) => ({
+        category: String(it.category || ""),
+        id: String(it.id || ""),
+        name: String(it.name || ""),
+        image: String(it.image || ""),
+      }))
+    : [];
 
   const db = supabaseAdmin();
 
@@ -84,6 +92,7 @@ async function handlerImpl(event) {
       description: description ? String(description).slice(0, 2000) : null,
       photos: cleanPhotos,
       themes: cleanThemes,
+      included_items: cleanIncludedItems,
       house_id: house_id || null,
       possible_duplicate_of: possibleDuplicateOf,
     })

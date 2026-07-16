@@ -119,6 +119,14 @@ async function uploadPhoto(file) {
   return url;
 }
 
+// Generic house-outline placeholder shown in the house-picker component
+// before any house is selected — used instead of an empty <img src=""> so
+// browsers don't render their default broken-image glyph. Shared here so
+// every page using the house picker (List a House, Build Registry) shows
+// the exact same placeholder.
+export const HOUSE_PLACEHOLDER_ICON =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M4 11.5L12 4l8 7.5V19a1 1 0 01-1 1h-5v-6H10v6H5a1 1 0 01-1-1v-7.5z' stroke='%237C8F87' stroke-width='1.6' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E";
+
 export const CATEGORY_LABELS = {
   adopt_me_pets: "Pets",
   vehicles: "Vehicles",
