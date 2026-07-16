@@ -43,6 +43,8 @@
   </div>
 
   <div id="signed-in-view" hidden>
+    <div id="dashboard-error" class="form-card" hidden></div>
+    <div id="dashboard-content" hidden>
     <div class="profile-hero">
       <img class="avatar-big" id="avatar-img" src="" alt="" onerror="this.removeAttribute('src')">
       <div style="flex:1;">
@@ -105,6 +107,7 @@
       <div class="section-head" style="margin-top:36px;"><h2>Your Commission Requests</h2></div>
       <div id="commission-requests-requester"></div>
     </div>
+    </div>
   </div>
 </section>
 
@@ -156,12 +159,25 @@
     try {
       dash = await api.dashboard();
     } catch (err) {
-      // Token might be stale/invalid — fall back to signed-out view.
-      clearSession();
-      signedInView.hidden = true;
-      signedOutView.hidden = false;
+      if (err.status === 401) {
+        // Token is genuinely invalid/expired — fall back to signed-out view.
+        clearSession();
+        signedInView.hidden = true;
+        signedOutView.hidden = false;
+        return;
+      }
+      // Anything else (a server-side hiccup, a table not migrated yet, etc.)
+      // shouldn't wipe a valid session — show an error and let them retry.
+      document.getElementById("dashboard-content").hidden = true;
+      const errorEl = document.getElementById("dashboard-error");
+      errorEl.hidden = false;
+      errorEl.innerHTML = `<h1>Couldn't load your profile</h1><p class="subtitle">${err.message}</p><button class="btn btn-primary" id="retry-btn">Try Again</button>`;
+      document.getElementById("retry-btn").addEventListener("click", render);
       return;
     }
+
+    document.getElementById("dashboard-error").hidden = true;
+    document.getElementById("dashboard-content").hidden = false;
 
     document.getElementById("username-display").textContent = dash.profile.rbx_username;
     const avatarImg = document.getElementById("avatar-img");

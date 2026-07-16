@@ -29,21 +29,48 @@ async function handlerImpl(event) {
     return json(500, { error: "Couldn't load your listings" });
   }
 
-  const { data: requestsAsBuilder, error: rabErr } = await db
-    .from("commission_requests")
-    .select("*, profiles!commission_requests_requester_profile_id_fkey(rbx_username, rbx_avatar_url)")
-    .eq("builder_profile_id", profile.id)
-    .order("created_at", { ascending: false });
+  // Commission data is queried defensively — if commission_requests doesn't
+  // exist yet (migration not run) or errors for any other reason, the rest
+  // of the dashboard (listings, trade stats) should still load. A missing
+  // secondary feature shouldn't take down the whole profile page.
+  let requestsAsBuilder = [];
+  let requestsAsRequester = [];
+  let commissionsCompleted = 0;
 
-  const { data: requestsAsRequester, error: rarErr } = await db
-    .from("commission_requests")
-    .select("*, profiles!commission_requests_builder_profile_id_fkey(rbx_username, rbx_avatar_url)")
-    .eq("requester_profile_id", profile.id)
-    .order("created_at", { ascending: false });
+  try {
+    const { data, error } = await db
+      .from("commission_requests")
+      .select("*, profiles!commission_requests_requester_profile_id_fkey(rbx_username, rbx_avatar_url)")
+      .eq("builder_profile_id", profile.id)
+      .order("created_at", { ascending: false });
+    if (error) throw error;
+    requestsAsBuilder = data || [];
+  } catch (err) {
+    console.error("commission_requests (as builder) query failed:", err);
+  }
 
-  if (rabErr || rarErr) {
-    console.error(rabErr || rarErr);
-    return json(500, { error: "Couldn't load commission requests" });
+  try {
+    const { data, error } = await db
+      .from("commission_requests")
+      .select("*, profiles!commission_requests_builder_profile_id_fkey(rbx_username, rbx_avatar_url)")
+      .eq("requester_profile_id", profile.id)
+      .order("created_at", { ascending: false });
+    if (error) throw error;
+    requestsAsRequester = data || [];
+  } catch (err) {
+    console.error("commission_requests (as requester) query failed:", err);
+  }
+
+  try {
+    const { count, error } = await db
+      .from("commission_requests")
+      .select("id", { count: "exact", head: true })
+      .eq("builder_profile_id", profile.id)
+      .eq("status", "verified");
+    if (error) throw error;
+    commissionsCompleted = count || 0;
+  } catch (err) {
+    console.error("commission count query failed:", err);
   }
 
   // Completed trades = corroborated trades where this profile was either
@@ -60,16 +87,10 @@ async function handlerImpl(event) {
     .eq("status", "corroborated")
     .eq("offers.offering_profile_id", profile.id);
 
-  const { count: commissionsCompleted } = await db
-    .from("commission_requests")
-    .select("id", { count: "exact", head: true })
-    .eq("builder_profile_id", profile.id)
-    .eq("status", "verified");
-
   const stats = {
     completed_trades: (asLister || 0) + (asOfferer || 0),
     active_listings: listings.filter((l) => l.status === "active").length,
-    commissions_completed: commissionsCompleted || 0,
+    commissions_completed: commissionsCompleted,
     member_since: profile.created_at,
   };
 
@@ -78,11 +99,11 @@ async function handlerImpl(event) {
       id: profile.id,
       rbx_username: profile.rbx_username,
       rbx_avatar_url: profile.rbx_avatar_url,
-      is_builder: profile.is_builder,
-      builder_bio: profile.builder_bio,
-      commission_status: profile.commission_status,
-      portfolio_photos: profile.portfolio_photos,
-      builder_themes: profile.builder_themes,
+      is_builder: profile.is_builder || false,
+      builder_bio: profile.builder_bio || null,
+      commission_status: profile.commission_status || "closed",
+      portfolio_photos: profile.portfolio_photos || [],
+      builder_themes: profile.builder_themes || [],
     },
     stats,
     listings,
