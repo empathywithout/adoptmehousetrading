@@ -22,10 +22,12 @@ function escapeHtml(str) {
 export async function mountChatPanel(container, contextType, contextId) {
   const myProfile = getStoredProfile();
   container.innerHTML = `<div class="chat-panel">
+    <div class="chat-counterparty" id="chat-counterparty-${contextId}"></div>
     <div class="chat-messages" id="chat-messages-${contextId}"><p class="hint">Loading...</p></div>
     <div class="chat-presets" id="chat-presets-${contextId}"></div>
   </div>`;
 
+  const counterpartyEl = container.querySelector(`#chat-counterparty-${contextId}`);
   const messagesEl = container.querySelector(`#chat-messages-${contextId}`);
   const presetsEl = container.querySelector(`#chat-presets-${contextId}`);
 
@@ -61,6 +63,18 @@ export async function mountChatPanel(container, contextType, contextId) {
       );
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Couldn't load messages");
+
+      if (data.counterparty) {
+        const cp = data.counterparty;
+        counterpartyEl.innerHTML = `
+          <img src="${cp.rbx_avatar_url || ""}" alt="" onerror="this.style.visibility='hidden'">
+          <div class="cp-info">
+            <div class="cp-name">${escapeHtml(cp.display_name)}</div>
+            <div class="cp-rbx">Roblox: <strong>${escapeHtml(cp.rbx_username)}</strong></div>
+          </div>
+          <a href="https://www.roblox.com/users/${cp.rbx_user_id}/profile" target="_blank" rel="noopener" class="btn-sm accept">Add Friend on Roblox ↗</a>
+        `;
+      }
 
       if (!data.messages.length) {
         messagesEl.innerHTML = `<p class="hint">No messages yet — use a quick reply below to say hello.</p>`;
