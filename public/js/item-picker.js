@@ -6,10 +6,9 @@ import { CATEGORY_LABELS } from "./api.js";
 //   {prefix}category-tabs, {prefix}item-search, {prefix}item-results, {prefix}selected-items
 //
 // Supports quantities: clicking an item already in the selection adds
-// another of it rather than deselecting — real trades often involve
-// multiple of the same pet/item ("3x Golden Egg"). Each entry in
-// getSelected() has a `qty` field; removal/adjustment happens via the
-// stepper on the selected-items chip, not by re-clicking the grid tile.
+// another of it. A small × button on the tile's own qty badge removes one
+// (or the whole thing at qty 1) directly from the grid — no need to
+// scroll to the chip list just to back out of a click.
 //
 // Pets specifically also get variant (Regular/Neon/Mega Neon) and potion
 // (None/Ride/Fly/Ride+Fly) selectors on their chip — these are two
@@ -70,17 +69,30 @@ export function mountItemPicker(container, prefix = "") {
         const existing = findSelected(it.id, it.category);
         return `<div class="result-item ${existing ? "selected" : ""}"
                     data-id="${it.id}" data-cat="${it.category}">
-                    ${existing ? `<span class="result-qty-badge">${existing.qty}</span>` : ""}
+                    ${
+                      existing
+                        ? `<span class="result-qty-badge" data-remove-one="${it.id}" data-remove-cat="${it.category}" title="Click to remove one">${existing.qty}<span class="badge-x">×</span></span>`
+                        : ""
+                    }
                     <img src="${it.image}" alt="">${escapeHtml(it.name)}
                   </div>`;
       })
       .join("");
 
     el("item-results").querySelectorAll(".result-item").forEach((resultEl) => {
-      resultEl.addEventListener("click", () => {
+      resultEl.addEventListener("click", (e) => {
+        const badge = e.target.closest("[data-remove-one]");
         const item = catalogsByCategory[activeCategory].find((i) => i.id === resultEl.dataset.id);
         const existing = findSelected(item.id, item.category);
-        if (existing) {
+
+        if (badge && existing) {
+          // Clicked the qty badge itself — remove one instead of adding.
+          existing.qty -= 1;
+          if (existing.qty <= 0) {
+            const idx = selected.indexOf(existing);
+            selected.splice(idx, 1);
+          }
+        } else if (existing) {
           existing.qty = Math.min(MAX_QTY, existing.qty + 1);
         } else {
           const entry = { ...item, qty: 1 };
@@ -101,27 +113,31 @@ export function mountItemPicker(container, prefix = "") {
       .map((it, i) => {
         const petControls =
           it.category === PET_CATEGORY
-            ? `<span class="pet-modifiers">
+            ? `<div class="pet-modifiers">
                 <select data-i="${i}" data-field="variant">
                   ${Object.entries(VARIANT_LABELS).map(([k, l]) => `<option value="${k}" ${it.variant === k ? "selected" : ""}>${l}</option>`).join("")}
                 </select>
                 <select data-i="${i}" data-field="potion">
                   ${Object.entries(POTION_LABELS).map(([k, l]) => `<option value="${k}" ${it.potion === k ? "selected" : ""}>${l}</option>`).join("")}
                 </select>
-              </span>`
+              </div>`
             : "";
         return `
-        <span class="selected-chip">
-          <img src="${it.image}" alt="">
-          <span class="chip-name">${escapeHtml(variantPrefix(it) + it.name)}</span>
+        <div class="selected-chip">
+          <div class="chip-top">
+            <img src="${it.image}" alt="">
+            <span class="chip-name">${escapeHtml(variantPrefix(it) + it.name)}</span>
+            <button data-i="${i}" data-action="remove" class="chip-remove" title="Remove">×</button>
+          </div>
           ${petControls}
-          <span class="qty-stepper">
-            <button data-i="${i}" data-action="dec">−</button>
-            <span class="qty-num">${it.qty}</span>
-            <button data-i="${i}" data-action="inc">+</button>
-          </span>
-          <button data-i="${i}" data-action="remove" class="chip-remove">×</button>
-        </span>`;
+          <div class="chip-footer">
+            <div class="qty-stepper">
+              <button data-i="${i}" data-action="dec">−</button>
+              <span class="qty-num">${it.qty}</span>
+              <button data-i="${i}" data-action="inc">+</button>
+            </div>
+          </div>
+        </div>`;
       })
       .join("");
 
