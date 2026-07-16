@@ -131,7 +131,11 @@
           <input type="checkbox" id="is-builder-toggle"> I take house commissions
         </label>
         <div id="builder-settings-fields" hidden style="margin-top:16px;">
-          <label class="field-label" style="margin-top:0;" for="builder-bio">Bio</label>
+          <label class="field-label" style="margin-top:0;">Cover Photo</label>
+          <p class="hint" style="margin-top:-4px;margin-bottom:10px;">Pick which registered build shows on your Commissions card — click one below. Defaults to your most recent if you don't pick one.</p>
+          <div id="cover-photo-picker" class="house-grid cover-photo-picker" style="margin-bottom:24px;padding:14px;background:var(--surface);border-radius:12px;"></div>
+
+          <label class="field-label" for="builder-bio">Bio</label>
           <textarea id="builder-bio" placeholder="What you build, your style, turnaround time..."></textarea>
 
           <label class="field-label">Status</label>
@@ -142,10 +146,6 @@
 
           <label class="field-label">Specialties</label>
           <div class="checkbox-grid" id="builder-themes-grid"></div>
-
-          <label class="field-label">Cover Photo</label>
-          <p class="hint" style="margin-top:-4px;margin-bottom:8px;">Which registered build shows on your Commissions card. Defaults to your most recent if you don't pick one.</p>
-          <div id="cover-photo-picker" class="house-grid" style="margin-bottom:8px;"></div>
 
           <p class="hint" style="margin-top:20px;">Your portfolio (what shows on your public builder page) comes from your <a href="#" data-goto-tab="portfolio" style="color:var(--accent);">Portfolio</a> tab — register a build there and it shows up automatically. No separate photo upload here anymore.</p>
 
