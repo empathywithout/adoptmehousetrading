@@ -234,6 +234,8 @@
 }
 .progress-bar-fill.good { background: var(--good); }
 .progress-label { font-size: 11px; color: var(--muted); }
+.guide-photo-slot.uploading { opacity: 0.7; pointer-events: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -470,27 +472,36 @@
             <button class="remove-photo" data-remove="${i}" title="Remove">✕</button>
           </div>`;
         }
-        return `<div class="guide-photo-slot" data-slot="${i}">
+        return `<div class="guide-photo-slot" data-slot="${i}" title="${i === 0 ? "Add cover photo" : "Add photo " + (i + 1)}">
           <span class="slot-plus">+</span>
           <span class="slot-sub">${i === 0 ? "Cover photo" : "Photo " + (i + 1)}</span>
-          <input type="file" accept="image/png,image/jpeg,image/webp" style="display:none;">
+          <input type="file" accept="image/png,image/jpeg,image/webp" style="display:none;" data-slot-input="${i}">
         </div>`;
       }).join("");
 
       grid.querySelectorAll(".guide-photo-slot").forEach((slot) => {
         const fileInput = slot.querySelector("input[type=file]");
         if (fileInput) {
-          slot.addEventListener("click", () => fileInput.click());
+          slot.addEventListener("click", (e) => {
+            if (slot.classList.contains("uploading")) return;
+            fileInput.click();
+          });
           fileInput.addEventListener("change", async (e) => {
             const file = e.target.files[0];
             if (!file) return;
+            // Show uploading state
+            slot.classList.add("uploading");
+            slot.innerHTML = `<span class="slot-plus" style="animation:spin 1s linear infinite;display:inline-block;">⏳</span><span class="slot-sub">Uploading...</span>`;
             try {
               const url = await api.uploadPhoto(file);
               uploadedPhotos[Number(slot.dataset.slot)] = url;
               render();
               updateChecklist();
             } catch (err) {
-              alert("Upload failed: " + err.message);
+              render(); // restore slot
+              const errBox = document.getElementById("submit-error");
+              errBox.textContent = "Photo upload failed: " + err.message;
+              errBox.hidden = false;
             }
           });
         }

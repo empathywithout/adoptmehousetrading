@@ -223,7 +223,8 @@ img { max-width: 100%; display: block; }
 [data-theme="dark"] .nav-bell-header {
   background: var(--surface-2);
 }
-.nav-more-dropdown a {
+.nav-more-dropdown a,
+.site-nav nav .nav-more-dropdown a {
   display: block;
   padding: 9px 14px;
   border-radius: 7px;
@@ -232,8 +233,10 @@ img { max-width: 100%; display: block; }
   font-weight: 600;
   font-size: 14px;
   white-space: nowrap;
+  border-bottom: none;
 }
-.nav-more-dropdown a:hover { background: var(--surface); }
+.nav-more-dropdown a:hover,
+.site-nav nav .nav-more-dropdown a:hover { background: var(--surface); color: var(--ink); }
 
 .site-nav nav {
   display: flex;
