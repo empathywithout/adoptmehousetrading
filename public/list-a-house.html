@@ -376,7 +376,7 @@
       btn.addEventListener("click", (e) => {
         e.stopPropagation();
         uploadedPhotos[Number(btn.dataset.remove)] = null;
-        renderSlots();
+        renderPhotoSlots();
       });
     });
 
@@ -393,7 +393,7 @@
         try {
           const url = await api.uploadPhoto(file);
           uploadedPhotos[slotKey] = url;
-          renderSlots();
+          renderPhotoSlots();
         } catch (err) {
           alert("Upload failed: " + err.message);
         }
