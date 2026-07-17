@@ -38,6 +38,13 @@
       <h1>No pending applications</h1>
       <p class="subtitle">Nothing to review right now.</p>
     </div>
+
+    <div class="section-head" style="margin-top:36px;"><h2>Pending Guide Submissions</h2></div>
+    <div id="content-list"></div>
+    <div id="empty-content" class="form-card" hidden>
+      <h1>No pending submissions</h1>
+      <p class="subtitle">Nothing to review right now.</p>
+    </div>
   </div>
 
 </section>
@@ -57,22 +64,74 @@
     const pw = getAdminPassword();
     if (!pw) return;
     try {
-      const [disputesRes, applicationsRes] = await Promise.all([
+      const [disputesRes, applicationsRes, contentRes] = await Promise.all([
         fetch("/.netlify/functions/admin-disputes-list", { headers: { "X-Admin-Password": pw } }),
         fetch("/.netlify/functions/admin-data-team-list", { headers: { "X-Admin-Password": pw } }),
+        fetch("/.netlify/functions/admin-content-list", { headers: { "X-Admin-Password": pw } }),
       ]);
       const disputesData = await disputesRes.json();
       const applicationsData = await applicationsRes.json();
+      const contentData = await contentRes.json();
       if (!disputesRes.ok) throw new Error(disputesData.error || "Login failed");
       document.getElementById("login-card").hidden = true;
       document.getElementById("disputes-view").hidden = false;
       renderDisputes(disputesData.disputes);
       renderApplications(applicationsData.applications || []);
+      renderContentSubmissions(contentData.submissions || []);
     } catch (err) {
       sessionStorage.removeItem(SESSION_KEY);
       document.getElementById("login-error").textContent = err.message;
       document.getElementById("login-error").hidden = false;
     }
+  }
+
+  const GUIDE_CATEGORY_LABELS = { build_guide: "Build Guide", how_to: "How-To", tips: "Tips", other: "Other" };
+
+  function renderContentSubmissions(submissions) {
+    const list = document.getElementById("content-list");
+    const empty = document.getElementById("empty-content");
+
+    if (!submissions.length) {
+      empty.hidden = false;
+      list.innerHTML = "";
+      return;
+    }
+    empty.hidden = true;
+
+    list.innerHTML = submissions
+      .map((s) => {
+        const preview = s.body.length > 400 ? s.body.slice(0, 400) + "…" : s.body;
+        return `
+        <div class="form-card" style="max-width:none;margin-bottom:16px;">
+          <span class="pill" style="margin-bottom:8px;display:inline-block;">${GUIDE_CATEGORY_LABELS[s.category] || s.category}</span>
+          <h1 style="font-size:18px;">${escapeHtml(s.title)}</h1>
+          <p class="hint" style="margin:2px 0 10px;">By ${escapeHtml(s.profiles?.display_name || "unknown")} (${escapeHtml(s.profiles?.email || "no email")})</p>
+          ${s.photos?.length ? `<div style="display:flex;gap:8px;margin-bottom:10px;">${s.photos.map((p) => `<img src="${p}" alt="" style="width:70px;height:70px;border-radius:8px;object-fit:cover;">`).join("")}</div>` : ""}
+          <p style="margin:0 0 12px;white-space:pre-wrap;">${escapeHtml(preview)}</p>
+          <div class="hero-ctas" style="justify-content:flex-start;">
+            <button class="btn-sm accept" data-content-review="${s.id}" data-decision="approved">Approve & Publish</button>
+            <button class="btn-sm decline" data-content-review="${s.id}" data-decision="rejected">Reject</button>
+          </div>
+        </div>`;
+      })
+      .join("");
+
+    list.querySelectorAll("[data-content-review]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        try {
+          const res = await fetch("/.netlify/functions/admin-content-approve", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "X-Admin-Password": getAdminPassword() },
+            body: JSON.stringify({ submission_id: btn.dataset.contentReview, decision: btn.dataset.decision }),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || "Couldn't update");
+          await tryLoad();
+        } catch (err) {
+          alert(err.message);
+        }
+      });
+    });
   }
 
   function renderApplications(applications) {

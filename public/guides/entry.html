@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guide — AdoptMeHouseTrading.com</title>
+<meta name="description" content="Community-submitted Adopt Me guide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="signpost-mini"></span>
+      AdoptMeHouseTrading
+    </a>
+    <nav>
+      <a href="../listings/index.html">Browse Houses</a>
+      <a href="../commissions/index.html">Commissions</a>
+      <a href="../comps.html">Recent Trades</a>
+      <div class="nav-more">
+        <button type="button" class="nav-more-trigger active">More <span class="nav-more-caret"></span></button>
+        <div class="nav-more-dropdown" hidden>
+          <a href="../houses/index.html">Values</a>
+          <a href="../registry/index.html">Build Registry</a>
+          <a href="index.html">Guides</a>
+        </div>
+      </div>
+      <a href="../profile.html">Profile</a>
+    </nav>
+    <div class="nav-actions">
+      <span id="nav-profile-pill"></span>
+      <a href="submit.html" class="btn btn-primary">Submit a Guide</a>
+    </div>
+  </div>
+</header>
+<script type="module" src="../js/nav.js"></script>
+
+<section class="wrap" style="padding: 32px 0 64px;max-width:760px;">
+  <div class="breadcrumb">Guides &nbsp;/&nbsp; <span class="current" id="breadcrumb-current"></span></div>
+  <div id="content"></div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community — house values, live trade listings, builder commissions, and a build registry for verifying who built a house first. Not affiliated with, endorsed by, or sponsored by Adopt Me, Uplift Games, or Roblox Corporation.
+    <div style="margin-top:8px;"><a href="../rules.html" style="color:var(--sign-red);">Community Rules</a></div>
+  </div>
+</footer>
+
+<script type="module">
+  import { GUIDE_CATEGORY_LABELS } from "../js/api.js";
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  const params = new URLSearchParams(location.search);
+  const id = params.get("id");
+  const content = document.getElementById("content");
+
+  if (!id) {
+    content.innerHTML = `<div class="form-card"><h1>Guide not found</h1></div>`;
+  } else {
+    await load();
+  }
+
+  async function load() {
+    let data;
+    try {
+      data = await fetch(`/.netlify/functions/content-get?id=${id}`).then((r) => r.json());
+    } catch {
+      content.innerHTML = `<div class="form-card"><h1>Couldn't load this guide</h1></div>`;
+      return;
+    }
+    if (data.error) {
+      content.innerHTML = `<div class="form-card"><h1>${escapeHtml(data.error)}</h1></div>`;
+      return;
+    }
+
+    const g = data.submission;
+    document.getElementById("breadcrumb-current").textContent = g.title;
+    document.title = `${g.title} — Adopt Me ${GUIDE_CATEGORY_LABELS[g.category] || "Guide"} | AdoptMeHouseTrading.com`;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute("content", `${g.title} — a community-submitted Adopt Me ${(GUIDE_CATEGORY_LABELS[g.category] || "guide").toLowerCase()} by ${g.profiles?.display_name || "a community member"}.`);
+
+    const photosHtml = g.photos?.length
+      ? g.photos.map((url, i) => `<img src="${url}" alt="" ${i > 0 ? 'loading="lazy" ' : ''}style="width:100%;border-radius:10px;margin-bottom:10px;">`).join("")
+      : "";
+
+    // Body is stored as plain text with blank-line paragraph breaks — not
+    // rich HTML, so this stays a straightforward escape-then-linebreak
+    // render rather than needing a markdown renderer.
+    const bodyHtml = g.body
+      .split(/\n{2,}/)
+      .map((para) => `<p style="margin:0 0 16px;line-height:1.7;">${escapeHtml(para).replace(/\n/g, "<br>")}</p>`)
+      .join("");
+
+    content.innerHTML = `
+      <span class="pill" style="margin-bottom:12px;display:inline-block;">${GUIDE_CATEGORY_LABELS[g.category] || g.category}</span>
+      <h1 style="font-family:var(--font-display);color:var(--ink);margin:6px 0 6px;">${escapeHtml(g.title)}</h1>
+      <div class="trust-row" style="margin-bottom:20px;">
+        <img class="avatar-initial" src="${g.profiles?.rbx_avatar_url || ""}" alt="" onerror="this.style.visibility='hidden'">
+        <span>By ${escapeHtml(g.profiles?.display_name || "a community member")} · ${new Date(g.published_at || g.created_at).toLocaleDateString()}</span>
+      </div>
+      ${photosHtml}
+      ${bodyHtml}
+    `;
+  }
+</script>
+</body>
+</html>

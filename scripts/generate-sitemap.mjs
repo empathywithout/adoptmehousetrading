@@ -9,6 +9,7 @@ const staticRoutes = [
   { path: "listings/index.html", priority: "0.9", changefreq: "hourly" },
   { path: "commissions/index.html", priority: "0.7", changefreq: "daily" },
   { path: "registry/index.html", priority: "0.6", changefreq: "daily" },
+  { path: "guides/index.html", priority: "0.6", changefreq: "daily" },
   { path: "comps.html", priority: "0.6", changefreq: "daily" },
   { path: "houses/index.html", priority: "0.8", changefreq: "weekly" },
   { path: "list-a-house.html", priority: "0.5", changefreq: "monthly" },

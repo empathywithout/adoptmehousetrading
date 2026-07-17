@@ -125,10 +125,11 @@ ${allJsonLd.map(jsonLdScript).join("\n")}
       <a href="${rootPrefix}commissions/index.html" class="${routePath.startsWith("commissions") ? "active" : ""}">Commissions</a>
       <a href="${rootPrefix}comps.html" class="${routePath === "comps" ? "active" : ""}">Recent Trades</a>
       <div class="nav-more">
-        <button type="button" class="nav-more-trigger ${routePath.startsWith("houses") || routePath.startsWith("registry") ? "active" : ""}">More <span class="nav-more-caret"></span></button>
+        <button type="button" class="nav-more-trigger ${routePath.startsWith("houses") || routePath.startsWith("registry") || routePath.startsWith("guides") ? "active" : ""}">More <span class="nav-more-caret"></span></button>
         <div class="nav-more-dropdown" hidden>
           <a href="${rootPrefix}houses/index.html">Values</a>
           <a href="${rootPrefix}registry/index.html">Build Registry</a>
+          <a href="${rootPrefix}guides/index.html">Guides</a>
         </div>
       </div>
       <a href="${rootPrefix}profile.html" class="${routePath === "profile" ? "active" : ""}">Profile</a>

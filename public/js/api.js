@@ -109,6 +109,7 @@ export const api = {
 
   applyForDataTeam: (message) => request("data-team-apply", { method: "POST", body: { message }, auth: true }),
   submitDataTeamValue: (payload) => request("data-team-submit-trade", { method: "POST", body: payload, auth: true }),
+  submitGuide: (payload) => request("content-submit", { method: "POST", body: payload, auth: true }),
 };
 
 async function uploadPhoto(file) {
@@ -155,6 +156,13 @@ export const CATEGORY_LABELS = {
   stickers: "Stickers",
   strollers: "Strollers",
   foods: "Food",
+};
+
+export const GUIDE_CATEGORY_LABELS = {
+  build_guide: "Build Guide",
+  how_to: "How-To",
+  tips: "Tips",
+  other: "Other",
 };
 
 // Seed list, not a locked enum — real builds cross aesthetic styles,

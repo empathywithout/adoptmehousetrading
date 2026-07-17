@@ -21,6 +21,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://adoptmehousetrading.com/guides/index.html</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://adoptmehousetrading.com/comps.html</loc>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

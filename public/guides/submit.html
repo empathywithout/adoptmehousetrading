@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Submit a Guide — AdoptMeHouseTrading.com</title>
+<meta name="description" content="Submit a build guide, how-to, or trading tip to AdoptMeHouseTrading.com — reviewed before publishing, credited to you.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://adoptmehousetrading.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://adoptmehousetrading.com/guides/index.html"},{"@type":"ListItem","position":3,"name":"Submit a Guide","item":"https://adoptmehousetrading.com/guides/submit.html"}]}</script>
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="signpost-mini"></span>
+      AdoptMeHouseTrading
+    </a>
+    <nav>
+      <a href="../listings/index.html">Browse Houses</a>
+      <a href="../commissions/index.html">Commissions</a>
+      <a href="../comps.html">Recent Trades</a>
+      <div class="nav-more">
+        <button type="button" class="nav-more-trigger active">More <span class="nav-more-caret"></span></button>
+        <div class="nav-more-dropdown" hidden>
+          <a href="../houses/index.html">Values</a>
+          <a href="../registry/index.html">Build Registry</a>
+          <a href="index.html">Guides</a>
+        </div>
+      </div>
+      <a href="../profile.html">Profile</a>
+    </nav>
+    <div class="nav-actions">
+      <span id="nav-profile-pill"></span>
+    </div>
+  </div>
+</header>
+<script type="module" src="../js/nav.js"></script>
+
+<section class="wrap" style="padding: 32px 0 64px;max-width:720px;">
+  <h1 style="font-family:var(--font-display);color:var(--ink);">Submit a Guide</h1>
+  <p class="subtitle">Build guides, how-tos, trading tips — anything genuinely useful to other players. A real person reviews every submission before it's published, and it's always credited to you by name. This doesn't publish instantly.</p>
+
+  <div id="signed-out-msg" class="form-card" hidden>
+    <h1>Sign in first</h1>
+    <p class="subtitle"><a href="../profile.html">Set up your profile</a> to submit a guide.</p>
+  </div>
+
+  <div id="submit-form" class="form-card" style="max-width:none;" hidden>
+    <div id="submit-error" class="error-box" hidden></div>
+    <div id="submit-success" class="success-box" hidden></div>
+
+    <label class="field-label" style="margin-top:0;">Category</label>
+    <div class="segmented" id="category-toggle" style="max-width:none;display:grid;grid-template-columns:repeat(4,1fr);"></div>
+
+    <label class="field-label" for="guide-title">Title</label>
+    <input type="text" id="guide-title" placeholder="e.g. How to Make a Mega Neon Fast" maxlength="120">
+
+    <label class="field-label" for="guide-body">Content</label>
+    <textarea id="guide-body" placeholder="Write your guide here. Separate paragraphs with a blank line." style="min-height:260px;"></textarea>
+    <p class="hint" style="margin-top:-4px;">At least 100 characters — give it enough substance to actually help someone.</p>
+
+    <label class="field-label">Photos (optional)</label>
+    <div class="photo-slots" id="photo-slots" style="grid-template-columns:repeat(4,1fr);"></div>
+
+    <div class="hero-ctas" style="justify-content:flex-start;margin-top:20px;">
+      <button class="btn btn-primary" id="submit-btn">Submit for Review</button>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community — house values, live trade listings, builder commissions, and a build registry for verifying who built a house first. Not affiliated with, endorsed by, or sponsored by Adopt Me, Uplift Games, or Roblox Corporation.
+    <div style="margin-top:8px;"><a href="../rules.html" style="color:var(--sign-red);">Community Rules</a></div>
+  </div>
+</footer>
+
+<script type="module">
+  import { api, getStoredProfile, GUIDE_CATEGORY_LABELS } from "../js/api.js";
+
+  const myProfile = getStoredProfile();
+  if (!myProfile) {
+    document.getElementById("signed-out-msg").hidden = false;
+  } else {
+    document.getElementById("submit-form").hidden = false;
+    init();
+  }
+
+  let uploadedPhotos = [];
+
+  function init() {
+    const categoryToggle = document.getElementById("category-toggle");
+    categoryToggle.innerHTML = Object.entries(GUIDE_CATEGORY_LABELS)
+      .map(([key, label], i) => `<button data-val="${key}" class="${i === 0 ? "active accent" : ""}">${label}</button>`)
+      .join("");
+    categoryToggle.querySelectorAll("button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        categoryToggle.querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
+      });
+    });
+
+    renderPhotoSlots();
+    document.getElementById("submit-btn").addEventListener("click", submitGuide);
+  }
+
+  function renderPhotoSlots() {
+    const container = document.getElementById("photo-slots");
+    const slotCount = Math.max(4, uploadedPhotos.length + 1);
+    container.innerHTML = Array.from({ length: slotCount }, (_, i) => {
+      const url = uploadedPhotos[i];
+      return `<div class="photo-slot interior" data-slot="${i}">
+        ${url ? `<img src="${url}" alt="">` : `<div class="plus-circle">+</div><div class="slot-label">Photo</div>`}
+        <input type="file" accept="image/png,image/jpeg,image/webp" data-slot-input="${i}" style="display:none;">
+      </div>`;
+    }).join("");
+
+    container.querySelectorAll(".photo-slot").forEach((slot) => {
+      const fileInput = slot.querySelector("input[type=file]");
+      slot.addEventListener("click", () => fileInput.click());
+      fileInput.addEventListener("change", async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        try {
+          const url = await api.uploadPhoto(file);
+          uploadedPhotos[Number(slot.dataset.slot)] = url;
+          renderPhotoSlots();
+        } catch (err) {
+          alert("Upload failed: " + err.message);
+        }
+      });
+    });
+  }
+
+  async function submitGuide() {
+    const errorBox = document.getElementById("submit-error");
+    const successBox = document.getElementById("submit-success");
+    errorBox.hidden = true;
+    successBox.hidden = true;
+
+    const category = document.querySelector("#category-toggle button.active").dataset.val;
+    const title = document.getElementById("guide-title").value.trim();
+    const body = document.getElementById("guide-body").value.trim();
+
+    if (title.length < 5) {
+      errorBox.textContent = "Title needs to be at least 5 characters.";
+      errorBox.hidden = false;
+      return;
+    }
+    if (body.length < 100) {
+      errorBox.textContent = "Content needs to be at least 100 characters.";
+      errorBox.hidden = false;
+      return;
+    }
+
+    try {
+      await api.submitGuide({ category, title, body, photos: uploadedPhotos.filter(Boolean) });
+      successBox.textContent = "Submitted! A real person will review it before it's published.";
+      successBox.hidden = false;
+      document.getElementById("submit-btn").disabled = true;
+    } catch (err) {
+      errorBox.textContent = err.message;
+      errorBox.hidden = false;
+    }
+  }
+</script>
+</body>
+</html>

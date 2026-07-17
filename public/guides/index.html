@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adopt Me Build Guides & How-Tos | AdoptMeHouseTrading.com</title>
+<meta name="description" content="Community-submitted Adopt Me house build guides, how-tos, and trading tips — written by players, reviewed before publishing, credited to the author.">
+<link rel="canonical" href="https://adoptmehousetrading.com/guides/index.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://adoptmehousetrading.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://adoptmehousetrading.com/guides/index.html"}]}</script>
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="signpost-mini"></span>
+      AdoptMeHouseTrading
+    </a>
+    <nav>
+      <a href="../listings/index.html">Browse Houses</a>
+      <a href="../commissions/index.html">Commissions</a>
+      <a href="../comps.html">Recent Trades</a>
+      <div class="nav-more">
+        <button type="button" class="nav-more-trigger active">More <span class="nav-more-caret"></span></button>
+        <div class="nav-more-dropdown" hidden>
+          <a href="../houses/index.html">Values</a>
+          <a href="../registry/index.html">Build Registry</a>
+          <a href="index.html">Guides</a>
+        </div>
+      </div>
+      <a href="../profile.html">Profile</a>
+    </nav>
+    <div class="nav-actions">
+      <span id="nav-profile-pill"></span>
+      <a href="submit.html" class="btn btn-primary">Submit a Guide</a>
+    </div>
+  </div>
+</header>
+<script type="module" src="../js/nav.js"></script>
+
+<section class="wrap" style="padding: 32px 0 64px;">
+  <h1 style="font-family:var(--font-display);color:var(--ink);">Build Guides & How-Tos</h1>
+  <p class="subtitle" style="max-width:640px;">Written by the community, reviewed before publishing, credited to the author. Have something worth sharing? <a href="submit.html" style="color:var(--accent);">Submit a guide</a>.</p>
+
+  <div class="filter-pills" id="category-pills" style="margin-top:20px;"></div>
+
+  <div class="house-grid" id="guides-grid" style="margin-top:20px;"></div>
+  <div id="empty-state" class="form-card" hidden>
+    <h1>No guides yet</h1>
+    <p class="subtitle">Be the first — <a href="submit.html">submit one</a>.</p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community — house values, live trade listings, builder commissions, and a build registry for verifying who built a house first. Not affiliated with, endorsed by, or sponsored by Adopt Me, Uplift Games, or Roblox Corporation.
+    <div style="margin-top:8px;"><a href="../rules.html" style="color:var(--sign-red);">Community Rules</a></div>
+  </div>
+</footer>
+
+<script type="module">
+  import { GUIDE_CATEGORY_LABELS } from "../js/api.js";
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  let activeCategory = "all";
+  const guides = await fetch("/.netlify/functions/content-list").then((r) => r.json()).then((d) => d.submissions || []);
+
+  function renderPills() {
+    const pills = document.getElementById("category-pills");
+    const categories = ["all", ...Object.keys(GUIDE_CATEGORY_LABELS)];
+    pills.innerHTML = categories
+      .map((c) => `<button data-cat="${c}" class="${c === activeCategory ? "active" : ""}">${c === "all" ? "All" : GUIDE_CATEGORY_LABELS[c]}</button>`)
+      .join("");
+    pills.querySelectorAll("button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        activeCategory = btn.dataset.cat;
+        renderPills();
+        renderGrid();
+      });
+    });
+  }
+
+  function renderGrid() {
+    const grid = document.getElementById("guides-grid");
+    const empty = document.getElementById("empty-state");
+    const filtered = activeCategory === "all" ? guides : guides.filter((g) => g.category === activeCategory);
+
+    if (!filtered.length) {
+      empty.hidden = false;
+      grid.innerHTML = "";
+      return;
+    }
+    empty.hidden = true;
+
+    grid.innerHTML = filtered
+      .map(
+        (g) => `<a class="house-card" href="entry.html?id=${g.id}">
+          <div class="thumb"><img src="${g.photos?.[0] || "../images/brand/searchdog.png"}" alt="" loading="lazy"></div>
+          <div class="info">
+            <h3>${escapeHtml(g.title)}</h3>
+            <p class="source">${GUIDE_CATEGORY_LABELS[g.category] || g.category} · by ${escapeHtml(g.profiles?.display_name || "unknown")}</p>
+          </div>
+        </a>`
+      )
+      .join("");
+  }
+
+  if (guides.length) {
+    const itemListScript = document.createElement("script");
+    itemListScript.type = "application/ld+json";
+    itemListScript.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      itemListElement: guides.slice(0, 30).map((g, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: g.title,
+        url: `https://adoptmehousetrading.com/guides/entry.html?id=${g.id}`,
+      })),
+    });
+    document.head.appendChild(itemListScript);
+  }
+
+  renderPills();
+  renderGrid();
+</script>
+</body>
+</html>

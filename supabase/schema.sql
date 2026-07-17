@@ -231,6 +231,33 @@ create index data_team_applications_status_idx on data_team_applications(status)
 alter table data_team_applications enable row level security;
 -- No public select policy — applications are reviewed by an admin only.
 
+-- User-submitted guides/how-tos, reviewed before publishing. Unlike Data
+-- Team submissions (deliberately kept off the public/indexed surface),
+-- published guides ARE meant to be public and indexed — good long-form
+-- niche content is exactly what helps search visibility, and no
+-- competitor site actually crowdsources guides from users with a review
+-- step (they're all first-party editorial), so this is real differentiation.
+create table content_submissions (
+  id uuid primary key default gen_random_uuid(),
+  profile_id uuid not null references profiles(id) on delete cascade,
+  category text not null check (category in ('build_guide', 'how_to', 'tips', 'other')),
+  title text not null,
+  body text not null,
+  photos jsonb not null default '[]',
+  status text not null default 'pending' check (status in ('pending', 'approved', 'rejected')),
+  created_at timestamptz not null default now(),
+  reviewed_at timestamptz,
+  published_at timestamptz
+);
+
+create index content_submissions_status_idx on content_submissions(status);
+
+alter table content_submissions enable row level security;
+create policy "public can read approved content" on content_submissions
+  for select using (status = 'approved');
+-- Pending/rejected submissions are only visible to admins (service role) —
+-- same reasoning as disputes: no public review-in-progress visibility.
+
 -- Commission requests: a separate system from house trading. A builder
 -- (profiles.is_builder = true) takes requests from other players; unlike
 -- an offer on a house listing, a commission needs an explicit agreed-scope
@@ -396,7 +423,50 @@ grant usage on schema public to service_role;
 grant all on all tables in schema public to service_role;
 alter default privileges in schema public grant all on tables to service_role;
 
--- Row Level Security: all writes go through Netlify Functions using the
+-- Content submissions: user-submitted build guides, how-tos, and trading
+-- guides, reviewed before publication. Unlike the Data Team feature, this
+-- content is meant to be genuinely public and SEO-indexed — real long-form
+-- content is what actually builds search authority, and guides written by
+-- REAL registered builders (see build_registry) are a genuine
+-- differentiator from the generic "best Adopt Me house ideas" listicle
+-- sites that already crowd this space.
+--
+-- Categories reflect what the community actually organizes content around
+-- (from research into TikTok/Reddit/YouTube Adopt Me build content), not a
+-- generic "guide" bucket: theme builds, budget/challenge builds, building
+-- techniques/tricks, and trading & value guides.
+--
+-- Approval here does NOT auto-publish a live page — this site is static
+-- pre-rendered HTML, so publishing means running scripts/generate-guides.mjs
+-- (pulls all approved submissions and generates real static pages), then
+-- the normal build+commit+push, same as every other content type on this
+-- site. One extra manual step, but no new CI/webhook infrastructure needed.
+create table content_submissions (
+  id uuid primary key default gen_random_uuid(),
+  profile_id uuid not null references profiles(id) on delete cascade,
+  title text not null,
+  category text not null check (category in ('theme_build', 'budget_build', 'building_technique', 'trading_guide')),
+  body text not null,                  -- markdown
+  cover_photo text,                    -- Supabase Storage URL, optional
+  house_id text,                       -- optional: which house type this is about
+  related_registry_entry_id uuid references build_registry(id),
+                                       -- optional: cross-link to the author's own
+                                       -- registered build, if this guide is about it
+  status text not null default 'pending' check (status in ('pending', 'approved', 'rejected')),
+  rejection_note text,                 -- optional feedback shown to the author
+  slug text unique,                    -- set on approval, used for the public URL
+  created_at timestamptz not null default now(),
+  reviewed_at timestamptz,
+  published_at timestamptz
+);
+
+create index content_submissions_status_idx on content_submissions(status);
+
+alter table content_submissions enable row level security;
+create policy "public can read approved content" on content_submissions
+  for select using (status = 'approved');
+
+
 -- service role key (bypasses RLS), so the anon/public key used by the
 -- browser (if ever used directly) gets read-only access to active
 -- listings/offers and nothing else.
