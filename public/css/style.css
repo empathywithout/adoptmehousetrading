@@ -997,28 +997,174 @@ textarea { resize: vertical; min-height: 90px; }
 }
 
 .checkbox-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin-top: 4px;
 }
 
 .checkbox-grid label {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
   background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 9px;
-  padding: 8px 10px;
-  font-size: 13.5px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
+  transition: border-color 0.12s, background 0.12s, color 0.12s;
+  user-select: none;
 }
-
+.checkbox-grid label input[type="checkbox"] {
+  display: none;
+}
+.checkbox-grid label::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--line);
+  flex-shrink: 0;
+  transition: background 0.12s;
+}
 .checkbox-grid label:has(input:checked) {
   border-color: var(--accent);
-  background: var(--accent-soft);
+  background: var(--accent);
+  color: var(--white);
 }
+.checkbox-grid label:has(input:checked)::before {
+  background: var(--white);
+}
+.checkbox-grid label:hover:not(:has(input:checked)) {
+  border-color: var(--ink-soft);
+  background: var(--surface-2);
+}
+
+/* ---------- Builder Settings — toggle switch --------- */
+.builder-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+  user-select: none;
+}
+.builder-toggle-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.builder-toggle-title {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ink);
+}
+.builder-toggle-sub {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.toggle-switch {
+  flex-shrink: 0;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.toggle-switch input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.toggle-track {
+  width: 44px;
+  height: 25px;
+  background: var(--line);
+  border-radius: 999px;
+  position: relative;
+  transition: background 0.18s;
+  display: block;
+}
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 19px;
+  height: 19px;
+  background: var(--white);
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+  transition: transform 0.18s;
+}
+.toggle-switch input:checked ~ .toggle-track { background: var(--accent); }
+.toggle-switch input:checked ~ .toggle-track .toggle-thumb { transform: translateX(19px); }
+
+/* ---------- Builder Settings — status cards ---------- */
+.status-card-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 4px;
+  max-width: 440px;
+}
+.status-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s;
+  user-select: none;
+}
+.status-card input[type="radio"] { display: none; }
+.status-card-icon {
+  font-size: 16px;
+  font-weight: 800;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--surface-2);
+  color: var(--muted);
+  transition: background 0.12s, color 0.12s;
+}
+.status-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.status-card-body strong {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.status-card-body span {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.status-card-open:has(input:checked) {
+  border-color: var(--good);
+  background: var(--good-soft);
+}
+.status-card-open:has(input:checked) .status-card-icon {
+  background: var(--good);
+  color: var(--white);
+}
+.status-card-closed:has(input:checked) {
+  border-color: var(--muted);
+  background: var(--surface);
+}
+.status-card-closed:has(input:checked) .status-card-icon {
+  background: var(--muted);
+  color: var(--white);
+}
+.status-card:hover:not(:has(input:checked)) { border-color: var(--ink-soft); }
 
 /* ---------- Profile chip ---------- */
 
