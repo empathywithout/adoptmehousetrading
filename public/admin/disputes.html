@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-<title>Dispute Resolution — Admin</title>
+<title>Admin Dashboard — AdoptMeHouseTrading.com</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,7 @@
 <section class="wrap" style="padding: 48px 0 80px;">
 
   <div class="form-card" id="login-card">
-    <h1>Admin: Dispute Resolution</h1>
+    <h1>Admin Dashboard</h1>
     <p class="subtitle">Not linked from anywhere on the site — bookmark this page.</p>
     <div id="login-error" class="error-box" hidden></div>
     <label class="field-label" style="margin-top:0;" for="admin-password">Admin password</label>
@@ -73,7 +73,9 @@
       const disputesData = await disputesRes.json();
       const applicationsData = await applicationsRes.json();
       const contentData = await contentRes.json();
-      if (!disputesRes.ok) throw new Error(disputesData.error || "Login failed");
+      const failedRes = [disputesRes, applicationsRes, contentRes].find(r => !r.ok);
+      const failedData = failedRes === disputesRes ? disputesData : failedRes === applicationsRes ? applicationsData : contentData;
+      if (failedRes) throw new Error(failedData?.error || "Login failed — check password or Netlify env vars");
       document.getElementById("login-card").hidden = true;
       document.getElementById("disputes-view").hidden = false;
       renderDisputes(disputesData.disputes);
@@ -86,7 +88,7 @@
     }
   }
 
-  const GUIDE_CATEGORY_LABELS = { build_guide: "Build Guide", how_to: "How-To", tips: "Tips", other: "Other" };
+  const GUIDE_CATEGORY_LABELS = { theme_build: "Theme Build Guide", budget_build: "Budget / Challenge Build", building_technique: "Building Technique", trading_guide: "Trading & Values Guide" };
 
   function renderContentSubmissions(submissions) {
     const list = document.getElementById("content-list");

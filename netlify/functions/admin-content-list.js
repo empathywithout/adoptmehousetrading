@@ -19,8 +19,8 @@ async function handlerImpl(event) {
     .order("created_at", { ascending: true });
 
   if (error) {
-    console.error(error);
-    return json(500, { error: "Couldn't load submissions" });
+    console.error("netlify/functions/admin-content-list.js error:", JSON.stringify(error));
+    return json(500, { error: `Couldn't load submissions: ${error.message || JSON.stringify(error)}` });
   }
 
   return json(200, { submissions: data });

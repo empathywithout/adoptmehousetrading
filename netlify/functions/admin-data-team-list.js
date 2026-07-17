@@ -19,8 +19,8 @@ async function handlerImpl(event) {
     .order("created_at", { ascending: true });
 
   if (error) {
-    console.error(error);
-    return json(500, { error: "Couldn't load applications" });
+    console.error("netlify/functions/admin-data-team-list.js error:", JSON.stringify(error));
+    return json(500, { error: `Couldn't load applications: ${error.message || JSON.stringify(error)}` });
   }
 
   return json(200, { applications: data });

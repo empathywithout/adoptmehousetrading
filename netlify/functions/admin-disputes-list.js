@@ -22,8 +22,8 @@ async function handlerImpl(event) {
     .order("created_at", { ascending: true });
 
   if (error) {
-    console.error(error);
-    return json(500, { error: "Couldn't load disputes" });
+    console.error("admin-disputes-list Supabase error:", JSON.stringify(error));
+    return json(500, { error: `Couldn't load disputes: ${error.message || error.hint || JSON.stringify(error)}` });
   }
 
   return json(200, { disputes: data });
