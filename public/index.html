@@ -144,10 +144,6 @@
           ? `<p class="lister" style="margin-top:2px;">${listing.themes.map((t) => THEME_LABELS[t] || t).join(", ")}</p>`
           : "";
         const isSaved = savedIds.has(listing.id);
-        const saveCls = isSaved ? 'save-btn saved' : 'save-btn';
-        const saveTitle = isSaved ? 'Saved — click to unsave' : 'Save this listing';
-        const saveTxt = isSaved ? 'Saved' : 'Save';
-        const saveBtn = '<button class="' + saveCls + '" data-listing-id="' + listing.id + '" title="' + saveTitle + '" onclick="event.preventDefault()">' + saveTxt + '</button>';
         return `
         <a class="listing-card" href="listings/listing.html?id=${listing.id}">
           <div class="photo">
@@ -160,13 +156,26 @@
             <div class="trust-row">
               ${listing.profiles?.rbx_avatar_url ? `<img class="trust-row-avatar" src="${listing.profiles.rbx_avatar_url}" alt="">` : `<span class="avatar-initial">${escapeHtml(username[0]?.toUpperCase() || "?")}</span>`}
               <span class="username">${escapeHtml(username)}</span>
-              ${saveBtn}
+              <span class="save-placeholder" data-listing-id="${listing.id}" data-saved="${isSaved}"></span>
             </div>
             ${valueLine}
             ${themeLine}
           </div>
         </a>`;
       }).join("");
+      // Replace placeholders with real save buttons
+      document.querySelectorAll(".save-placeholder").forEach((span) => {
+        const id = span.dataset.listingId;
+        const saved = span.dataset.saved === "true";
+        const btn = document.createElement("button");
+        btn.className = "save-btn" + (saved ? " saved" : "");
+        btn.dataset.listingId = id;
+        btn.title = saved ? "Saved — click to unsave" : "Save this listing";
+        btn.textContent = saved ? "Saved" : "Save";
+        btn.onclick = (e) => e.preventDefault();
+        span.replaceWith(btn);
+      });
+
       // Delegated save handler
       document.getElementById("recent-listings-grid").addEventListener("click", async (e) => {
         const btn = e.target.closest(".save-btn[data-listing-id]");

@@ -60,7 +60,16 @@
     A real, timestamped record of who built what first — not a badge or a score. Post your Adopt Me house build instantly, timestamp is the tiebreaker, and anyone can dispute a claim if it's wrong. Community Verified after 30+ days undisputed, or Confirmed Original/Confirmed Clone once a dispute is actually reviewed.
   </p>
 
-  <div class="filter-pills" id="theme-pills"></div>
+  <div class="listings-toolbar" style="flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+    <select id="theme-select" style="padding:8px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:13.5px;cursor:pointer;">
+      <option value="all">All Themes</option>
+    </select>
+    <select id="clone-select" style="padding:8px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:13.5px;cursor:pointer;">
+      <option value="all">Original &amp; Cloned</option>
+      <option value="original">Original Only</option>
+      <option value="cloned">Cloned Only</option>
+    </select>
+  </div>
 
   <div id="empty-state" class="form-card" hidden>
     <span class="card-heading">No builds registered yet</span>
@@ -89,6 +98,7 @@
 
   let activeSort = "recent"; // "recent" | "saves"
   let activeTheme = "all";
+  let activeClone = "all";
   let savedIds = new Set();
   let myProfileId = null;
 
@@ -120,7 +130,7 @@
   sortPills.innerHTML = `
     <button data-sort="recent" class="active">Most Recent</button>
     <button data-sort="saves">Most Saved</button>`;
-  document.getElementById("theme-pills").insertAdjacentElement("beforebegin", sortPills);
+  document.getElementById("theme-select").closest("div").insertAdjacentElement("beforebegin", sortPills);
   sortPills.querySelectorAll("button").forEach(btn => {
     btn.addEventListener("click", () => {
       activeSort = btn.dataset.sort;
@@ -129,20 +139,14 @@
     });
   });
 
-  // ── Theme pills ─────────────────────────────────────────────
+  // ── Theme + clone dropdowns ──────────────────────────────────
   function renderThemePills() {
     const themesInUse = [...new Set(entries.flatMap(e => e.themes || []))];
-    const pillsEl = document.getElementById("theme-pills");
-    if (!themesInUse.length) { pillsEl.hidden = true; return; }
-    const opts = [{ key: "all", label: "All Themes" }, ...themesInUse.map(t => ({ key: t, label: THEME_LABELS[t] || t }))];
-    pillsEl.innerHTML = opts.map(o => `<button data-key="${o.key}" class="${o.key === "all" ? "active" : ""}">${o.label}</button>`).join("");
-    pillsEl.querySelectorAll("button").forEach(btn => {
-      btn.addEventListener("click", () => {
-        activeTheme = btn.dataset.key;
-        pillsEl.querySelectorAll("button").forEach(b => b.classList.toggle("active", b === btn));
-        render();
-      });
-    });
+    const sel = document.getElementById("theme-select");
+    sel.innerHTML = '<option value="all">All Themes</option>' +
+      themesInUse.map(t => `<option value="${t}">${THEME_LABELS[t] || t}</option>`).join("");
+    sel.addEventListener("change", (e) => { activeTheme = e.target.value; render(); });
+    document.getElementById("clone-select").addEventListener("change", (e) => { activeClone = e.target.value; render(); });
   }
 
   // ── Save button handler (delegated) ─────────────────────────
@@ -194,6 +198,8 @@
   // ── Main render ─────────────────────────────────────────────
   function render() {
     let filtered = activeTheme === "all" ? [...entries] : entries.filter(e => (e.themes || []).includes(activeTheme));
+    if (activeClone === "original") filtered = filtered.filter(e => e.build_type === "original" || (!e.build_type && !e.is_cloned));
+    if (activeClone === "cloned") filtered = filtered.filter(e => e.build_type === "cloned" || e.is_cloned);
 
     if (activeSort === "saves") {
       filtered.sort((a, b) => (b.save_count || 0) - (a.save_count || 0));
