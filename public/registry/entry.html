@@ -243,13 +243,13 @@
           ${compareHtml}
         </div>
         <div class="sidebar-sticky">
-          ${!isSelf ? `<button class="btn btn-secondary entry-save-btn" data-id="${entry.id}" style="width:100%;justify-content:center;margin-bottom:12px;${window._entrySavedIds?.has(entry.id) ? 'border-color:var(--accent);color:var(--accent);background:var(--accent-soft);' : ''}">
-            ${window._entrySavedIds?.has(entry.id) ? `♥ Saved${entry.save_count > 0 ? " · " + entry.save_count : ""}` : `♡ Save${entry.save_count > 0 ? " · " + entry.save_count : ""}`}
-          </button>` : entry.save_count > 0 ? `<div style="text-align:center;font-size:13px;color:var(--muted);margin-bottom:12px;">🔖 ${entry.save_count} saves</div>` : ""}
           <div class="trust-card">
             <img class="avatar-lg" src="${entry.profiles?.rbx_avatar_url || ""}" alt="" onerror="this.removeAttribute('src')">
             <div>
-              <div class="trust-name-row"><span class="name">${escapeHtml(entry.profiles?.display_name || "unknown")}</span></div>
+              <div class="trust-name-row">
+                <span class="name">${escapeHtml(entry.profiles?.display_name || "unknown")}</span>
+                ${!isSelf ? `<button class="save-btn entry-save-btn ${window._entrySavedIds?.has(entry.id) ? "saved" : ""}" data-id="${entry.id}" title="${window._entrySavedIds?.has(entry.id) ? "Saved — click to unsave" : "Save this build"}">${window._entrySavedIds?.has(entry.id) ? "Saved" : "Save"}</button>` : ""}
+              </div>
               <div class="trust-sub">Registered builder</div>
             </div>
           </div>
@@ -355,8 +355,9 @@
           const isSaved = result.saved;
           if (isSaved) window._entrySavedIds?.add(saveBtn.dataset.id);
           else window._entrySavedIds?.delete(saveBtn.dataset.id);
-          saveBtn.textContent = isSaved ? `♥ Saved${result.save_count > 0 ? " · " + result.save_count : ""}` : `♡ Save${result.save_count > 0 ? " · " + result.save_count : ""}`;
-          saveBtn.style.cssText = `width:100%;justify-content:center;margin-bottom:12px;${isSaved ? 'border-color:var(--accent);color:var(--accent);background:var(--accent-soft);' : ''}`;
+          saveBtn.classList.toggle("saved", isSaved);
+          saveBtn.textContent = isSaved ? "Saved" : "Save";
+          saveBtn.title = isSaved ? "Saved — click to unsave" : "Save this build";
         } catch { alert("Something went wrong"); }
         finally { saveBtn.dataset.loading = ""; saveBtn.style.opacity = ""; }
       });
