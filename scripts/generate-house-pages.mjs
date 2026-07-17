@@ -122,6 +122,7 @@ ${allJsonLd.map(jsonLdScript).join("\n")}
 
   gtag('config', 'G-REW2CFBX6H');
 </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4897654017851351" crossorigin="anonymous"></script>
 </head>
 <body>
 <header class="site-nav">
