@@ -312,18 +312,19 @@ img { max-width: 100%; display: block; }
   position: absolute;
   top: 0;
   right: 0;
-  background: var(--accent);
+  background: #e53;
   color: var(--white);
   font-size: 10px;
   font-weight: 700;
   border-radius: 999px;
   min-width: 16px;
   height: 16px;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   padding: 0 3px;
 }
+.nav-bell-badge:not([hidden]) { display: flex; }
 .nav-bell-dropdown {
   position: absolute;
   top: calc(100% + 12px);
