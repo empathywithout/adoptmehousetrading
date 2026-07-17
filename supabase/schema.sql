@@ -72,14 +72,19 @@ create table listings (
   profile_id uuid not null references profiles(id) on delete cascade,
 
   listing_type text not null default 'house_trade'
-    check (listing_type in ('house_trade', 'looking_for', 'commission')),
+    check (listing_type in ('house_trade', 'looking_for')),
   -- house_trade: "I have this house, offer me items for it" (the original flow)
   -- looking_for: "I want this house, here's what I'll pay" — a request post,
   --              not an offer of an existing house
-  -- commission:  "I build houses for hire" — a builder announcing availability,
-  --              not tied to one specific house
+  -- (a 'commission' type used to exist here — a builder announcing
+  -- availability via a listing, separate from and redundant with the
+  -- proper Builder Profile system on commissions/index.html. Removed:
+  -- it mixed "quote on request" service posts into Browse Houses, a page
+  -- whose whole point is actual houses being traded. Existing legacy rows
+  -- with listing_type='commission' are simply excluded from all public
+  -- browse views going forward rather than migrated/deleted.)
 
-  house_id text,                      -- id from data/houses.json; null for 'commission'
+  house_id text not null,             -- id from data/houses.json
   is_cloned boolean,                  -- true/false for house_trade listings; null when N/A —
                                        -- mirrors the community's own "100% original" vs
                                        -- "cloned/70%+ similar" distinction, which matters a
@@ -121,10 +126,7 @@ create table listings (
   looking_for jsonb not null default '[]', -- array of category keys wanted in return, e.g. ["adopt_me_pets","toys"]
   status text not null default 'active' check (status in ('active', 'traded', 'removed')),
   created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now(),
-
-  constraint house_id_required_for_house_listings
-    check (listing_type = 'commission' or house_id is not null)
+  updated_at timestamptz not null default now()
 );
 
 create index listings_status_idx on listings(status);

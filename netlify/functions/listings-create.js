@@ -14,7 +14,7 @@ const VALID_CATEGORIES = [
   "foods",
 ];
 
-const VALID_LISTING_TYPES = ["house_trade", "looking_for", "commission"];
+const VALID_LISTING_TYPES = ["house_trade", "looking_for"];
 
 const VALID_THEMES = [
   "cottagecore",
@@ -65,8 +65,8 @@ async function handlerImpl(event) {
 
   const cleanType = VALID_LISTING_TYPES.includes(listing_type) ? listing_type : "house_trade";
 
-  if (cleanType !== "commission" && !house_id) {
-    return json(400, { error: "house_id is required for this listing type" });
+  if (!house_id) {
+    return json(400, { error: "house_id is required" });
   }
   if (!title) {
     return json(400, { error: "title is required" });
@@ -103,7 +103,7 @@ async function handlerImpl(event) {
     : [];
 
   // is_cloned only makes sense for an actual house being traded — a
-  // "looking_for" or "commission" post isn't claiming a build is theirs.
+  // "looking_for" post isn't claiming a build is theirs.
   const cleanIsCloned = cleanType === "house_trade" && typeof is_cloned === "boolean" ? is_cloned : null;
 
   const cleanValueAmount =
@@ -126,7 +126,7 @@ async function handlerImpl(event) {
     .insert({
       profile_id: profile.id,
       listing_type: cleanType,
-      house_id: cleanType === "commission" ? null : house_id,
+      house_id,
       is_cloned: cleanIsCloned,
       value_amount: cleanValueAmount,
       value_unit: cleanValueAmount !== null ? cleanValueUnit : null,

@@ -49,7 +49,8 @@
 
   <div id="listing-form" hidden style="max-width:760px;margin:0 auto;">
     <h1 style="font-family:var(--font-display);font-weight:800;font-size:28px;color:var(--ink);letter-spacing:-0.5px;margin-bottom:6px;">List a House</h1>
-    <p class="hint" style="font-size:14px;margin-bottom:28px;">Post your house for trade, looking-for, or commission. Real photos and an accurate value help you get real offers fast.</p>
+    <p class="hint" style="font-size:14px;margin-bottom:8px;">Post your house for trade, or a looking-for request. Real photos and an accurate value help you get real offers fast.</p>
+    <p class="hint" style="font-size:13px;margin-bottom:28px;">Build houses for hire instead? <a href="profile.html" style="color:var(--accent);">Become a Builder</a> — a dedicated profile, portfolio, and commission request system, not a listing.</p>
     <div id="error" class="error-box" hidden></div>
     <div id="success" class="success-box" hidden></div>
 
@@ -178,7 +179,6 @@
   const TYPE_DEFS = [
     { id: "house_trade", label: "House Trade", hint: "Offer for offer", iconClass: "house-trade", icon: "icon-sign", tip: "Trading a house you own for other items." },
     { id: "looking_for", label: "Looking For", hint: "You want this house", iconClass: "looking-for", icon: "icon-loop", tip: "You don't have this house yet — describe what you'll pay for it. No photos needed." },
-    { id: "commission", label: "Commission", hint: "Build-to-order", iconClass: "commission", icon: "icon-hammer", tip: "You build custom houses for other players — announce you're open for commissions." },
   ];
 
   function escapeHtml(str) {
@@ -250,7 +250,7 @@
     document.querySelectorAll("#type-card-grid .type-card").forEach((c) => c.classList.toggle("active", c.dataset.type === activeType));
     document.getElementById("type-hint").textContent = TYPE_DEFS.find((t) => t.id === activeType).tip;
 
-    document.getElementById("house-field").hidden = activeType === "commission";
+    document.getElementById("house-field").hidden = false;
     document.getElementById("cloned-field").hidden = activeType !== "house_trade";
     document.getElementById("photos-field").hidden = activeType === "looking_for";
     document.getElementById("included-items-field").hidden = activeType !== "house_trade";
@@ -393,7 +393,7 @@
     try {
       const { listing } = await api.createListing({
         listing_type: activeType,
-        house_id: activeType === "commission" ? null : selectedHouseId,
+        house_id: selectedHouseId,
         title,
         description,
         photos,

@@ -210,9 +210,9 @@ function buildHomepage() {
 </section>
 <script type="module">
   import { CATEGORY_LABELS, THEME_LABELS } from "./js/api.js";
-  const BADGE_CLASS = { house_trade: "house-trade", looking_for: "looking-for", commission: "commission" };
+  const BADGE_CLASS = { house_trade: "house-trade", looking_for: "looking-for" };
   const BADGE_ICON = { house_trade: "icon-sign", looking_for: "icon-loop", commission: "icon-hammer" };
-  const TYPE_LABELS = { house_trade: "For Trade", looking_for: "Looking For", commission: "Commission" };
+  const TYPE_LABELS = { house_trade: "For Trade", looking_for: "Looking For" };
 
   function escapeHtml(str) {
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -238,7 +238,7 @@ function buildHomepage() {
           : "";
         const valueLine = listing.value_amount !== null && listing.value_amount !== undefined
           ? \`<div class="card-value"><span class="amount">\${listing.value_amount}</span><span class="unit">\${listing.value_unit || ""}</span></div>\`
-          : \`<div class="card-value"><span class="unit">\${listing.listing_type === "commission" ? "quote on request" : "value TBD"}</span></div>\`;
+          : \`<div class="card-value"><span class="unit">value TBD</span></div>\`;
         const themeLine = listing.themes?.length
           ? \`<p class="lister" style="margin-top:2px;">\${listing.themes.map((t) => THEME_LABELS[t] || t).join(", ")}</p>\`
           : "";

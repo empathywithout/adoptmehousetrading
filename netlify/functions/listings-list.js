@@ -19,6 +19,11 @@ async function handlerImpl(event) {
 
   query = query.in("status", params.status ? [params.status] : ["active", "traded"]);
 
+  // The 'commission' listing_type is deprecated (see migration-020) — any
+  // legacy rows with that value stay in the database untouched, but never
+  // show up in public browse results.
+  query = query.neq("listing_type", "commission");
+
   if (params.house_id) {
     query = query.eq("house_id", params.house_id);
   }

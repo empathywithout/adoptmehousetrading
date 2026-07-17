@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Browse Houses — Adopt Me House Trading Listings | AdoptMeHouseTrading.com</title>
-<meta name="description" content="Browse real Adopt Me house trading listings — house trades, looking-for posts, and commissions from active traders, filterable by house type and theme.">
+<meta name="description" content="Browse real Adopt Me house trading listings — house trades and looking-for posts from active traders, filterable by house type and theme.">
 <link rel="canonical" href="https://adoptmehousetrading.com/listings/index.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,7 +45,7 @@
     <h1 id="listings-heading">Browse Adopt Me House Trading Listings</h1>
     <a href="../list-a-house.html">+ List your house</a>
   </div>
-  <p class="hint" style="margin-top:-6px;margin-bottom:20px;max-width:680px;">Real houses listed by real Adopt Me players — filter by house type, theme, and whether you're offering a trade, looking for a specific house, or open to commissions. Every listing shows the lister's asking value in Shark, Frost, or Ride Pot, so you know what to offer before you commit.</p>
+  <p class="hint" style="margin-top:-6px;margin-bottom:20px;max-width:680px;">Real houses listed by real Adopt Me players — filter by house type, theme, and whether you're offering a trade or looking for a specific house. Every listing shows the lister's asking value in Shark, Frost, or Ride Pot, so you know what to offer before you commit.</p>
   <div class="house-filter-row" id="house-filter-row"></div>
   <div class="filter-pills" id="theme-pills"></div>
   <div class="filter-pills" id="type-pills"></div>
@@ -80,15 +80,14 @@
 
   const houseById = Object.fromEntries(houses.map((h) => [h.id, h]));
 
-  const TYPE_LABELS = { house_trade: "For Trade", looking_for: "Looking For", commission: "Commission" };
-  const BADGE_CLASS = { house_trade: "house-trade", looking_for: "looking-for", commission: "commission" };
+  const TYPE_LABELS = { house_trade: "For Trade", looking_for: "Looking For" };
+  const BADGE_CLASS = { house_trade: "house-trade", looking_for: "looking-for" };
   const BADGE_ICON = { house_trade: "icon-sign", looking_for: "icon-loop", commission: "icon-hammer" };
 
   const FILTERS = [
     { key: "all", label: "All" },
     { key: "house_trade", label: "House Trade" },
     { key: "looking_for", label: "Looking For" },
-    { key: "commission", label: "Commission" },
   ];
   let activeFilter = "all";
   let activeHouseId = "all";
@@ -205,7 +204,7 @@
           const valueLine =
             listing.value_amount !== null && listing.value_amount !== undefined
               ? `<div class="card-value"><span class="amount">${listing.value_amount}</span><span class="unit">${listing.value_unit || ""}</span></div>`
-              : `<div class="card-value"><span class="unit">${listing.listing_type === "commission" ? "quote on request" : "value TBD"}</span></div>`;
+              : `<div class="card-value"><span class="unit">value TBD</span></div>`;
 
           const themeLine = listing.themes?.length
             ? `<p class="lister" style="margin-top:2px;">${listing.themes.map((t) => THEME_LABELS[t] || t).join(", ")}</p>`
@@ -226,7 +225,7 @@
               </div>
               ${valueLine}
               ${themeLine}
-              <p class="lister" style="margin-top:6px;">${house ? escapeHtml(house.name) : listing.listing_type === "commission" ? "Custom builds" : "Unknown house"} ${listing.status === "traded" ? "· Traded" : ""}</p>
+              <p class="lister" style="margin-top:6px;">${house ? escapeHtml(house.name) : "Unknown house"} ${listing.status === "traded" ? "· Traded" : ""}</p>
             </div>
           </a>`;
         })
