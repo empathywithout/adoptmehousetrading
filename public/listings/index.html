@@ -58,10 +58,21 @@
   </div>
   <p class="hint" style="margin-top:-6px;margin-bottom:20px;max-width:680px;">Real houses listed by real Adopt Me players — filter by house type, theme, and whether you're offering a trade or looking for a specific house. Every listing shows the lister's asking value in Shark, Frost, or Ride Pot, so you know what to offer before you commit.</p>
   <div class="house-filter-row" id="house-filter-row"></div>
-  <div class="filter-pills" id="theme-pills"></div>
-  <div class="filter-pills" id="type-pills"></div>
-  <div class="listings-toolbar">
-    <input type="search" id="search-input" placeholder="Search listings..." style="max-width:260px;">
+  <div class="listings-toolbar" style="flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+    <input type="search" id="search-input" placeholder="Search listings..." style="max-width:220px;">
+    <select id="type-select" style="padding:8px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:13.5px;cursor:pointer;">
+      <option value="all">All Types</option>
+      <option value="house_trade">House Trade</option>
+      <option value="looking_for">Looking For</option>
+    </select>
+    <select id="theme-select" style="padding:8px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:13.5px;cursor:pointer;">
+      <option value="all">All Themes</option>
+    </select>
+    <select id="clone-select" style="padding:8px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:13.5px;cursor:pointer;">
+      <option value="all">Original &amp; Cloned</option>
+      <option value="original">Original Only</option>
+      <option value="cloned">Cloned Only</option>
+    </select>
   </div>
   <div id="empty-state" class="form-card" hidden>
     <span class="card-heading">No listings yet</span>
@@ -110,16 +121,16 @@
   let activeFilter = "all";
   let activeHouseId = "all";
   let activeTheme = "all";
+  let activeClone = "all";
   let searchTerm = "";
 
-  const pillsEl = document.getElementById("type-pills");
-  pillsEl.innerHTML = FILTERS.map((f) => `<button data-key="${f.key}" class="${f.key === activeFilter ? "active" : ""}">${f.label}</button>`).join("");
-  pillsEl.querySelectorAll("button").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      activeFilter = btn.dataset.key;
-      pillsEl.querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
-      renderGrid();
-    });
+  document.getElementById("type-select").addEventListener("change", (e) => {
+    activeFilter = e.target.value;
+    renderGrid();
+  });
+  document.getElementById("clone-select").addEventListener("change", (e) => {
+    activeClone = e.target.value;
+    renderGrid();
   });
 
   document.getElementById("search-input").addEventListener("input", (e) => {
@@ -162,23 +173,12 @@
 
   function renderThemeFilterRow() {
     const themesInUse = [...new Set(listings.flatMap((l) => l.themes || []))];
-    const themePillsEl = document.getElementById("theme-pills");
-
-    if (!themesInUse.length) {
-      themePillsEl.hidden = true;
-      return;
-    }
-
-    const entries = [{ key: "all", label: "All Themes" }, ...themesInUse.map((t) => ({ key: t, label: THEME_LABELS[t] || t }))];
-    themePillsEl.innerHTML = entries
-      .map((t) => `<button data-key="${t.key}" class="${t.key === activeTheme ? "active" : ""}">${t.label}</button>`)
-      .join("");
-    themePillsEl.querySelectorAll("button").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        activeTheme = btn.dataset.key;
-        themePillsEl.querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
-        renderGrid();
-      });
+    const sel = document.getElementById("theme-select");
+    sel.innerHTML = '<option value="all">All Themes</option>' +
+      themesInUse.map((t) => `<option value="${t}">${THEME_LABELS[t] || t}</option>`).join("");
+    sel.addEventListener("change", (e) => {
+      activeTheme = e.target.value;
+      renderGrid();
     });
   }
 
@@ -200,7 +200,8 @@
       const matchesHouse = activeHouseId === "all" || listing.house_id === activeHouseId;
       const matchesTheme = activeTheme === "all" || (listing.themes || []).includes(activeTheme);
       const matchesSearch = !searchTerm || listing.title.toLowerCase().includes(searchTerm);
-      return matchesType && matchesHouse && matchesTheme && matchesSearch;
+      const matchesClone = activeClone === "all" || (activeClone === "original" ? !listing.is_cloned : listing.is_cloned);
+      return matchesType && matchesHouse && matchesTheme && matchesSearch && matchesClone;
     });
 
     if (!filtered.length) {
