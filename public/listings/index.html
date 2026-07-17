@@ -224,7 +224,7 @@
       const matchesClone = activeClone === "all" ||
         (activeClone === "original" && listing.build_type === "original") ||
         (activeClone === "speedbuild" && listing.build_type === "speedbuild") ||
-        (activeClone === "glitch" && listing.build_type === "glitch") ||
+        (activeClone === "glitch" && (listing.build_type === "glitch_original" || listing.build_type === "glitch_cloned")) ||
         (activeClone === "cloned" && listing.is_cloned);
       return matchesType && matchesHouse && matchesTheme && matchesSearch && matchesClone;
     });
@@ -241,8 +241,8 @@
           const username = listing.profiles?.display_name || "unknown";
 
           const cardTag = listing.listing_type === "house_trade"
-            ? listing.build_type === "glitch"
-              ? `<div class="card-tag" style="background:#7c3aed;color:#fff;">Glitch Build</div>`
+            ? listing.build_type === "glitch_original" || listing.build_type === "glitch_cloned"
+              ? `<div class="card-tag" style="background:#7c3aed;color:#fff;">Glitch${listing.build_type === "glitch_cloned" ? " (Cloned)" : ""}</div>`
               : listing.build_type === "speedbuild"
               ? `<div class="card-tag" style="background:var(--butter);color:var(--ink);">Speedbuild</div>`
               : listing.is_cloned !== null

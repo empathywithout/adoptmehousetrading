@@ -71,7 +71,7 @@ async function handlerImpl(event) {
     themes, theme_note, looking_for, included_items, video_url, photos, build_type,
   } = body;
 
-  const VALID_BUILD_TYPES = ["original", "speedbuild", "cloned", "glitch"];
+  const VALID_BUILD_TYPES = ["original", "speedbuild", "cloned", "glitch", "glitch_original", "glitch_cloned"];
   const cleanBuildType = build_type && VALID_BUILD_TYPES.includes(build_type) ? build_type : undefined;
 
   // Validate

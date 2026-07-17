@@ -94,12 +94,7 @@
           <span class="build-type-label">Speedbuild</span>
           <span class="build-type-sub">Built from a template or tutorial</span>
         </label>
-        <label class="build-type-card build-type-glitch" data-val="glitch">
-          <input type="radio" name="edit_build_type" value="glitch" style="display:none;">
-          <span class="build-type-icon">⚡✨</span>
-          <span class="build-type-label">Glitch Build</span>
-          <span class="build-type-sub">Uses in-game glitches to place items</span>
-        </label>
+
         <label class="build-type-card build-type-cloned" data-val="cloned">
           <input type="radio" name="edit_build_type" value="cloned" style="display:none;">
           <span class="build-type-icon">◈</span>
@@ -108,6 +103,11 @@
         </label>
       </div>
     </div>
+    <label style="display:flex;align-items:center;gap:8px;margin-top:10px;cursor:pointer;user-select:none;">
+      <input type="checkbox" id="edit-is-glitch" style="width:16px;height:16px;accent-color:#7c3aed;">
+      <span style="font-size:13.5px;font-weight:600;color:var(--ink);">⚡✨ Glitch Build</span>
+      <span style="font-size:12px;color:var(--muted);">— uses in-game glitches to place items</span>
+    </label>
 
     <!-- Description -->
     <label class="field-label" for="edit-description">Description <span style="font-weight:400;color:var(--muted);">(optional)</span></label>
@@ -231,7 +231,11 @@
     // Build type selector (only for house_trade)
     if (listing.listing_type === "house_trade") {
       const btGrid = document.getElementById("edit-build-type-grid");
-      const currentType = listing.build_type || (listing.is_cloned ? "cloned" : "original");
+      const isGlitchBuild = listing.build_type?.startsWith("glitch_");
+      const currentType = isGlitchBuild
+        ? listing.build_type.replace("glitch_", "")
+        : listing.build_type || (listing.is_cloned ? "cloned" : "original");
+      if (isGlitchBuild) document.getElementById("edit-is-glitch").checked = true;
       btGrid.querySelectorAll(".build-type-card").forEach((card) => {
         card.classList.toggle("active", card.dataset.val === currentType);
         card.addEventListener("click", () => {
@@ -393,7 +397,10 @@
 
     try {
       const activeBuildCard = document.querySelector("#edit-build-type-grid .build-type-card.active");
-      const build_type = activeBuildCard ? activeBuildCard.dataset.val : null;
+      const isGlitch = document.getElementById("edit-is-glitch")?.checked;
+      const baseType = activeBuildCard ? activeBuildCard.dataset.val : null;
+      const build_type = baseType && isGlitch && (baseType === "original" || baseType === "cloned")
+        ? "glitch_" + baseType : baseType;
       await api.updateListing(listingId, {
         title,
         build_type,

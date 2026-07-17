@@ -119,13 +119,12 @@
           <span class="build-type-label">Cloned</span>
           <span class="build-type-sub">70%+ similar to another existing build</span>
         </label>
-        <label class="build-type-card build-type-glitch" data-val="glitch">
-          <input type="radio" name="build_type" value="glitch" style="display:none;">
-          <span class="build-type-icon">⚡✨</span>
-          <span class="build-type-label">Glitch Build</span>
-          <span class="build-type-sub">Uses in-game glitches or exploits to place items</span>
-        </label>
       </div>
+      <label style="display:flex;align-items:center;gap:8px;margin-top:10px;cursor:pointer;user-select:none;">
+        <input type="checkbox" id="is-glitch-build" style="width:16px;height:16px;accent-color:#7c3aed;">
+        <span style="font-size:13.5px;font-weight:600;color:var(--ink);">⚡✨ Glitch Build</span>
+        <span style="font-size:12px;color:var(--muted);">— uses in-game glitches to place items</span>
+      </label>
       <p class="hint" style="margin-top:8px;">Misrepresenting build type can get a listing reported and removed.</p>
     </div>
 
@@ -418,8 +417,12 @@
     const looking_for = Array.from(document.querySelectorAll("#looking-for-grid input:checked")).map((el) => el.value);
     const valueAmountRaw = document.getElementById("value-amount").value.trim().replace(/,/g, "");
     const bucksRaw = document.getElementById("bucks-invested").value.trim().replace(/,/g, "");
-    const build_type = activeType === "house_trade" ? buildTypeVal : null;
-    const is_cloned = build_type === "cloned" ? true : (build_type === "original" || build_type === "glitch" || build_type === "speedbuild") ? false : null;
+    const isGlitch = document.getElementById("is-glitch-build")?.checked;
+    const baseType = activeType === "house_trade" ? buildTypeVal : null;
+    const build_type = baseType && isGlitch && (baseType === "original" || baseType === "cloned")
+      ? "glitch_" + baseType
+      : baseType;
+    const is_cloned = build_type === "cloned" || build_type === "glitch_cloned" ? true : build_type ? false : null;
     const included_items = activeType === "house_trade" && includedItemsPicker ? includedItemsPicker.getSelected() : [];
     const photos = activeType === "looking_for" ? [] : uploadedPhotos.filter(Boolean);
     const video_url = document.getElementById("video-tour-url").value.trim();

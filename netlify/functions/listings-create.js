@@ -126,7 +126,7 @@ async function handlerImpl(event) {
     : [];
 
   // build_type: 3-way originality claim. is_cloned (boolean) kept for backward compat.
-  const VALID_BUILD_TYPES = ["original", "speedbuild", "cloned", "glitch"];
+  const VALID_BUILD_TYPES = ["original", "speedbuild", "cloned", "glitch", "glitch_original", "glitch_cloned"];
   const cleanBuildType = cleanType === "house_trade" && VALID_BUILD_TYPES.includes(build_type)
     ? build_type
     : null;
