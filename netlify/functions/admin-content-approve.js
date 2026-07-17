@@ -2,7 +2,7 @@
 // body: { submission_id, decision: "approved" | "rejected" }
 // -> { submission }
 
-import { supabaseAdmin, requireAdmin, json, safeHandler } from "./_lib/supabase.js";
+import { supabaseAdmin, requireAdmin, notify, json, safeHandler } from "./_lib/supabase.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
@@ -47,6 +47,14 @@ async function handlerImpl(event) {
     console.error(error);
     return json(500, { error: "Couldn't update submission" });
   }
+
+  await notify(
+    db,
+    submission.profile_id,
+    decision === "approved" ? "guide_approved" : "guide_rejected",
+    decision === "approved" ? `Your guide "${submission.title}" was approved and published!` : `Your guide "${submission.title}" wasn't approved`,
+    decision === "approved" ? `guides/entry.html?id=${submission.id}` : "profile.html"
+  );
 
   return json(200, { submission: data });
 }

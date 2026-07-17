@@ -6,7 +6,7 @@
 // other pending offer on it (the house is gone — those offers no longer
 // make sense to leave open).
 
-import {  supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
+import { supabaseAdmin, requireProfile, notify, json, safeHandler } from "./_lib/supabase.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
@@ -34,7 +34,7 @@ async function handlerImpl(event) {
 
   const { data: offer } = await db
     .from("offers")
-    .select("*, listings(id, profile_id, status)")
+    .select("*, listings(id, title, profile_id, status)")
     .eq("id", offer_id)
     .maybeSingle();
 
@@ -58,6 +58,7 @@ async function handlerImpl(event) {
       .select()
       .single();
     if (error) return json(500, { error: "Couldn't decline offer" });
+    await notify(db, offer.offering_profile_id, "offer_declined", `Your offer on "${offer.listings.title}" was declined`, `listings/listing.html?id=${offer.listings.id}`);
     return json(200, { offer: data });
   }
 
@@ -76,6 +77,8 @@ async function handlerImpl(event) {
     .update({ status: "declined" })
     .eq("listing_id", offer.listings.id)
     .eq("status", "pending");
+
+  await notify(db, offer.offering_profile_id, "offer_accepted", `Your offer on "${offer.listings.title}" was accepted!`, `listings/listing.html?id=${offer.listings.id}`);
 
   return json(200, { offer: data });
 }

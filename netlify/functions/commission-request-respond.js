@@ -8,7 +8,7 @@
 // lowballs" scam pattern (there's now something concrete that was agreed
 // to before work started).
 
-import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
+import { supabaseAdmin, requireProfile, notify, json, safeHandler } from "./_lib/supabase.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
@@ -62,6 +62,14 @@ async function handlerImpl(event) {
     console.error(error);
     return json(500, { error: "Couldn't respond to request" });
   }
+
+  await notify(
+    db,
+    request.requester_profile_id,
+    action === "accept" ? "commission_accepted" : "commission_declined",
+    action === "accept" ? "Your commission request was accepted!" : "Your commission request was declined",
+    "profile.html"
+  );
 
   return json(200, { request: data });
 }

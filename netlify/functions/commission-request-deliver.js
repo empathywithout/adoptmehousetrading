@@ -2,7 +2,7 @@
 // body: { request_id, delivery_photos }
 // -> { request }
 
-import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
+import { supabaseAdmin, requireProfile, notify, json, safeHandler } from "./_lib/supabase.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
@@ -52,6 +52,8 @@ async function handlerImpl(event) {
     console.error(error);
     return json(500, { error: "Couldn't mark as delivered" });
   }
+
+  await notify(db, request.requester_profile_id, "commission_delivered", "Your commission was marked delivered — check it out", "profile.html");
 
   return json(200, { request: data });
 }

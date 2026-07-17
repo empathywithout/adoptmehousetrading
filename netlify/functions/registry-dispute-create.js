@@ -10,7 +10,7 @@
 // UI built yet — deliberately deferred until there's real dispute volume
 // to justify it.
 
-import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
+import { supabaseAdmin, requireProfile, notify, json, safeHandler } from "./_lib/supabase.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
@@ -36,7 +36,7 @@ async function handlerImpl(event) {
 
   const db = supabaseAdmin();
 
-  const { data: entry } = await db.from("build_registry").select("id, profile_id").eq("id", build_registry_id).maybeSingle();
+  const { data: entry } = await db.from("build_registry").select("id, title, profile_id").eq("id", build_registry_id).maybeSingle();
   if (!entry) {
     return json(404, { error: "Build not found" });
   }
@@ -61,6 +61,8 @@ async function handlerImpl(event) {
   }
 
   await db.from("build_registry").update({ status: "disputed" }).eq("id", build_registry_id);
+
+  await notify(db, entry.profile_id, "dispute_filed", `Someone disputed your build "${entry.title}" — you can respond`, `registry/entry.html?id=${build_registry_id}`);
 
   return json(200, { dispute });
 }

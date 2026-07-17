@@ -9,7 +9,7 @@
 // Updates both rows together so they can't drift out of sync, which was
 // the actual problem with resolving this by hand in two separate places.
 
-import { supabaseAdmin, requireAdmin, json, safeHandler } from "./_lib/supabase.js";
+import { supabaseAdmin, requireAdmin, notify, json, safeHandler } from "./_lib/supabase.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
@@ -65,6 +65,10 @@ async function handlerImpl(event) {
     console.error(entryErr);
     return json(500, { error: "Dispute resolved, but couldn't update the registry entry's status" });
   }
+
+  const rulingText = ruling === "upheld" ? "confirmed as a clone" : "confirmed as original";
+  await notify(db, updatedEntry.profile_id, "dispute_resolved", `The dispute on your build "${updatedEntry.title}" was resolved — ${rulingText}`, `registry/entry.html?id=${updatedEntry.id}`);
+  await notify(db, dispute.disputer_profile_id, "dispute_resolved", `Your dispute on "${updatedEntry.title}" was ${ruling === "upheld" ? "upheld" : "rejected"}`, `registry/entry.html?id=${updatedEntry.id}`);
 
   return json(200, { dispute: updatedDispute, entry: updatedEntry });
 }

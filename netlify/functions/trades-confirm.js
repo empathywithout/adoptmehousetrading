@@ -7,7 +7,7 @@
 // If only one side ever confirms, the trade stays 'pending' indefinitely,
 // which is fine — it just doesn't feed the public comps feed.
 
-import {  supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
+import { supabaseAdmin, requireProfile, notify, json, safeHandler } from "./_lib/supabase.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
@@ -35,7 +35,7 @@ async function handlerImpl(event) {
 
   const { data: offer } = await db
     .from("offers")
-    .select("id, status, listing_id, offering_profile_id, items, listings(profile_id, value_amount, value_unit)")
+    .select("id, status, listing_id, offering_profile_id, items, listings(profile_id, title, value_amount, value_unit)")
     .eq("id", offer_id)
     .maybeSingle();
 
@@ -82,12 +82,21 @@ async function handlerImpl(event) {
     return json(500, { error: "Couldn't confirm trade" });
   }
 
+  const justCorroborated = data.status === "corroborated" && existing?.status !== "corroborated";
+
+  const otherPartyId = isLister ? offer.offering_profile_id : offer.listings.profile_id;
+  if (justCorroborated) {
+    await notify(db, offer.listings.profile_id, "trade_corroborated", `Trade for "${offer.listings.title}" is fully confirmed!`, `listings/listing.html?id=${offer.listing_id}`);
+    await notify(db, offer.offering_profile_id, "trade_corroborated", `Trade for "${offer.listings.title}" is fully confirmed!`, `listings/listing.html?id=${offer.listing_id}`);
+  } else if (data.status === "pending") {
+    await notify(db, otherPartyId, "trade_confirm_needed", `${profile.display_name} confirmed the trade for "${offer.listings.title}" — confirm your side too`, `listings/listing.html?id=${offer.listing_id}`);
+  }
+
   // Recompute item values the moment this trade newly becomes corroborated
   // — not on a schedule, since there's no cron infrastructure, and this
   // keeps values fresh the instant real data exists. Only single-item-type
   // offers count as clean per-item pricing signals (see item_values comment
   // in schema.sql for why multi-item offers are excluded).
-  const justCorroborated = data.status === "corroborated" && existing?.status !== "corroborated";
   if (justCorroborated && offer.listings.value_amount != null && offer.items?.length === 1) {
     try {
       const item = offer.items[0];

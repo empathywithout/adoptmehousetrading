@@ -83,6 +83,19 @@ export function requireAdmin(event) {
   return Boolean(expected) && provided === expected;
 }
 
+// Fire-and-forget notification insert. Called directly inside the same
+// function that causes the triggering event, right alongside the real DB
+// write — no separate pub/sub system needed since everything already runs
+// through these service-role functions. Never let a notification failure
+// break the actual action the user is waiting on.
+export async function notify(db, profile_id, type, message, link = null) {
+  try {
+    await db.from("notifications").insert({ profile_id, type, message, link });
+  } catch (err) {
+    console.error(`notify(${type}) failed (non-fatal):`, err);
+  }
+}
+
 export function json(statusCode, body) {
   return {
     statusCode,

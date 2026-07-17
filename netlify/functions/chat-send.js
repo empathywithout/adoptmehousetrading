@@ -2,7 +2,7 @@
 // body: { context_type: "offer" | "commission", context_id, preset_key }
 // -> { message }
 
-import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
+import { supabaseAdmin, requireProfile, notify, json, safeHandler } from "./_lib/supabase.js";
 
 const VALID_PRESETS = [
   "ready_now",
@@ -51,6 +51,7 @@ async function handlerImpl(event) {
 
   let isParty = false;
   let statusOk = false;
+  let otherPartyId = null;
 
   if (context_type === "offer") {
     const { data: offer } = await db
@@ -61,6 +62,7 @@ async function handlerImpl(event) {
     if (!offer) return json(404, { error: "Offer not found" });
     isParty = offer.offering_profile_id === profile.id || offer.listings.profile_id === profile.id;
     statusOk = UNLOCKED_STATUSES.offer.includes(offer.status);
+    otherPartyId = offer.offering_profile_id === profile.id ? offer.listings.profile_id : offer.offering_profile_id;
   } else {
     const { data: request } = await db
       .from("commission_requests")
@@ -70,6 +72,7 @@ async function handlerImpl(event) {
     if (!request) return json(404, { error: "Commission not found" });
     isParty = request.builder_profile_id === profile.id || request.requester_profile_id === profile.id;
     statusOk = UNLOCKED_STATUSES.commission.includes(request.status);
+    otherPartyId = request.builder_profile_id === profile.id ? request.requester_profile_id : request.builder_profile_id;
   }
 
   if (!isParty) {
@@ -94,6 +97,8 @@ async function handlerImpl(event) {
     console.error(error);
     return json(500, { error: "Couldn't send message" });
   }
+
+  await notify(db, otherPartyId, "chat_message", `${profile.display_name} sent you a trade chat message`, context_type === "offer" ? "profile.html" : "profile.html");
 
   return json(200, { message });
 }

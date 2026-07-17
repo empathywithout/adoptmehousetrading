@@ -2,7 +2,7 @@
 // body: { listing_id, items: [{category,id,name,image}], message }
 // -> { offer }
 
-import {  supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
+import { supabaseAdmin, requireProfile, notify, json, safeHandler } from "./_lib/supabase.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
@@ -31,7 +31,7 @@ async function handlerImpl(event) {
 
   const { data: listing } = await db
     .from("listings")
-    .select("id, status, profile_id, listing_type")
+    .select("id, title, status, profile_id, listing_type")
     .eq("id", listing_id)
     .maybeSingle();
 
@@ -82,6 +82,14 @@ async function handlerImpl(event) {
     console.error(error);
     return json(500, { error: "Couldn't submit offer" });
   }
+
+  await notify(
+    db,
+    listing.profile_id,
+    "offer_received",
+    `${profile.display_name} made an offer on "${listing.title}"`,
+    `listings/listing.html?id=${listing_id}`
+  );
 
   return json(200, { offer: data });
 }

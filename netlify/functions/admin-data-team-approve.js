@@ -2,7 +2,7 @@
 // body: { application_id, decision: "approved" | "rejected" }
 // -> { application }
 
-import { supabaseAdmin, requireAdmin, json, safeHandler } from "./_lib/supabase.js";
+import { supabaseAdmin, requireAdmin, notify, json, safeHandler } from "./_lib/supabase.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
@@ -46,6 +46,14 @@ async function handlerImpl(event) {
   if (decision === "approved") {
     await db.from("profiles").update({ is_data_team_member: true }).eq("id", application.profile_id);
   }
+
+  await notify(
+    db,
+    application.profile_id,
+    decision === "approved" ? "data_team_approved" : "data_team_rejected",
+    decision === "approved" ? "You're on the Data Team! You can now submit values." : "Your Data Team application wasn't approved this time",
+    "profile.html"
+  );
 
   return json(200, { application: updated });
 }

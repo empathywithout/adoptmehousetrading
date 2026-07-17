@@ -466,6 +466,28 @@ alter table content_submissions enable row level security;
 create policy "public can read approved content" on content_submissions
   for select using (status = 'approved');
 
+-- Notifications: created directly by the same function that causes the
+-- triggering event (an offer, an accept/decline, a chat message, etc.)
+-- rather than a separate pub/sub system — simplest thing that works given
+-- everything already runs through service-role functions anyway. `link` is
+-- a relative site path the front-end navigates to on click.
+create table notifications (
+  id uuid primary key default gen_random_uuid(),
+  profile_id uuid not null references profiles(id) on delete cascade,
+  type text not null,
+  message text not null,
+  link text,
+  read boolean not null default false,
+  created_at timestamptz not null default now()
+);
+
+create index notifications_profile_unread_idx on notifications(profile_id, read, created_at desc);
+
+alter table notifications enable row level security;
+-- No public select policy — a person's notifications are only ever
+-- fetched through the service-role notifications-list.js function,
+-- authenticated as that specific profile.
+
 
 -- service role key (bypasses RLS), so the anon/public key used by the
 -- browser (if ever used directly) gets read-only access to active

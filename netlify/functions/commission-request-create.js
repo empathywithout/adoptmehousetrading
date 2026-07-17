@@ -2,7 +2,7 @@
 // body: { builder_profile_id, description, themes, offered_items, offered_value_amount, offered_value_unit }
 // -> { request }
 
-import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
+import { supabaseAdmin, requireProfile, notify, json, safeHandler } from "./_lib/supabase.js";
 
 const VALID_THEMES = [
   "cottagecore",
@@ -99,6 +99,8 @@ async function handlerImpl(event) {
     console.error(error);
     return json(500, { error: "Couldn't submit request" });
   }
+
+  await notify(db, builder_profile_id, "commission_request_received", `${profile.display_name} sent you a commission request`, "profile.html");
 
   return json(200, { request: data });
 }

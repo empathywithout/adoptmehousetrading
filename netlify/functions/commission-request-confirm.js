@@ -6,7 +6,7 @@
 // thing everywhere on this site (two independent confirmations), whether
 // it's a house trade or a commission.
 
-import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
+import { supabaseAdmin, requireProfile, notify, json, safeHandler } from "./_lib/supabase.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
@@ -60,6 +60,14 @@ async function handlerImpl(event) {
   if (error) {
     console.error(error);
     return json(500, { error: "Couldn't confirm commission" });
+  }
+
+  const otherPartyId = isBuilder ? request.requester_profile_id : request.builder_profile_id;
+  if (data.status === "verified") {
+    await notify(db, request.builder_profile_id, "commission_verified", "Commission fully confirmed by both sides!", "profile.html");
+    await notify(db, request.requester_profile_id, "commission_verified", "Commission fully confirmed by both sides!", "profile.html");
+  } else {
+    await notify(db, otherPartyId, "commission_confirm_needed", `${profile.display_name} confirmed the commission — confirm your side too`, "profile.html");
   }
 
   return json(200, {
