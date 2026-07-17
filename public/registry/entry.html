@@ -63,6 +63,13 @@
 <script type="module">
   import { api, getStoredProfile, getToken, THEME_LABELS } from "../js/api.js";
 
+  const DISPUTE_TYPE_LABELS = {
+    i_am_original:      "Claims to be the original creator",
+    this_is_clone:      "Claims this is a clone",
+    this_is_speedbuild: "Claims this is a speedbuild",
+    other:              "Other issue",
+  };
+
   const params = new URLSearchParams(location.search);
   const entryId = params.get("id");
   const content = document.getElementById("content");
@@ -179,13 +186,20 @@
     const pendingOwnDispute = isSelf ? disputes.find((d) => d.status === "pending" && !d.rebuttal) : null;
 
     const rebuttalFormHtml = pendingOwnDispute
-      ? `<div class="cta-box" style="background:var(--paper);border:1px solid var(--accent);margin-top:12px;">
-          <h3 style="color:var(--ink);">Someone disputed this build</h3>
-          <p style="color:var(--muted);">Their claim: "${escapeHtml(pendingOwnDispute.claim)}"</p>
-          <p style="color:var(--muted);">You get one response before this is reviewed.</p>
+      ? `<div class="form-card" style="border:2px solid var(--accent);margin-top:12px;">
+          <h3 style="font-family:var(--font-display);color:var(--ink);margin:0 0 4px;">Someone Disputed This Build</h3>
+          <div style="background:var(--surface-2);border-radius:8px;padding:10px 12px;margin-bottom:16px;">
+            <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">${DISPUTE_TYPE_LABELS[pendingOwnDispute.dispute_type] || "Dispute"}</div>
+            <p style="margin:0 0 8px;font-size:13px;">${escapeHtml(pendingOwnDispute.claim)}</p>
+            ${pendingOwnDispute.proof_url ? `<a href="${escapeHtml(pendingOwnDispute.proof_url)}" target="_blank" rel="noopener" style="color:var(--accent);font-size:12px;">📎 Their proof link ↗</a>` : ""}
+          </div>
+          <p style="color:var(--muted);font-size:13px;margin:0 0 14px;">You get one response before this goes to a reviewer. If you have counter-evidence, link it.</p>
           <div id="rebuttal-error" class="error-box" hidden></div>
           <div id="rebuttal-success" class="success-box" hidden></div>
-          <textarea id="rebuttal-text" placeholder="Your response to this claim..."></textarea>
+          <label class="field-label" style="margin-top:0;">Your Response</label>
+          <textarea id="rebuttal-text" placeholder="Explain your side — when you built it, why it's yours, etc."></textarea>
+          <label class="field-label">Counter-Evidence Link <span style="font-weight:400;color:var(--muted);">(optional but strongly recommended)</span></label>
+          <input type="url" id="rebuttal-proof-url" placeholder="https://youtube.com/... or https://streamable.com/...">
           <button class="btn btn-primary" id="submit-rebuttal-btn" style="width:100%;margin-top:14px;">Submit Response</button>
         </div>`
       : "";
@@ -247,13 +261,56 @@
               ? `<div class="form-card"><span class="card-heading">This is your entry</span><p class="subtitle">${pendingOwnDispute ? "Respond to the dispute above." : "No pending disputes right now."}</p></div>`
               : !myProfile
               ? `<div class="form-card"><span class="card-heading">Think this isn't right?</span><p class="subtitle"><a href="../profile.html">Set up your profile</a> to file a dispute.</p></div>`
-              : `<div class="cta-box" style="background:var(--paper);border:1px solid var(--line);">
-                  <h3 style="color:var(--ink);">Dispute This Claim</h3>
-                  <p style="color:var(--muted);">If you're the actual original creator, or this is a clone, explain here. A human reviews disputes — this doesn't resolve automatically.</p>
+              : `<div class="form-card" style="max-width:none;">
+                  <h3 style="font-family:var(--font-display);color:var(--ink);margin:0 0 4px;">Dispute This Entry</h3>
+                  <p style="color:var(--muted);font-size:13px;margin:0 0 20px;">A human reviews every dispute — nothing resolves automatically. Disputes without real proof are rejected.</p>
+
                   <div id="dispute-error" class="error-box" hidden></div>
                   <div id="dispute-success" class="success-box" hidden></div>
-                  <textarea id="dispute-claim" placeholder="Explain your claim — when you built this, where you've posted proof before, etc."></textarea>
-                  <button class="btn btn-primary" id="submit-dispute-btn" style="width:100%;margin-top:14px;">File Dispute</button>
+
+                  <label class="field-label" style="margin-top:0;">What are you claiming?</label>
+                  <div class="build-type-grid" id="dispute-type-grid" style="grid-template-columns:repeat(2,1fr);">
+                    <label class="build-type-card build-type-original" data-val="i_am_original" style="cursor:pointer;">
+                      <input type="radio" name="dispute_type" value="i_am_original" style="display:none;">
+                      <span class="build-type-icon">✦</span>
+                      <span class="build-type-label">I'm the original creator</span>
+                      <span class="build-type-sub">I built this first and can prove it</span>
+                    </label>
+                    <label class="build-type-card build-type-cloned" data-val="this_is_clone" style="cursor:pointer;">
+                      <input type="radio" name="dispute_type" value="this_is_clone" style="display:none;">
+                      <span class="build-type-icon">◈</span>
+                      <span class="build-type-label">This is a clone of someone else's build</span>
+                      <span class="build-type-sub">I can show the original this was copied from</span>
+                    </label>
+                    <label class="build-type-card build-type-speedbuild" data-val="this_is_speedbuild" style="cursor:pointer;">
+                      <input type="radio" name="dispute_type" value="this_is_speedbuild" style="display:none;">
+                      <span class="build-type-icon">⚡</span>
+                      <span class="build-type-label">This is a speedbuild</span>
+                      <span class="build-type-sub">Built from a public template, not an original design</span>
+                    </label>
+                    <label class="build-type-card" data-val="other" style="cursor:pointer;--cat-color:var(--muted);">
+                      <input type="radio" name="dispute_type" value="other" style="display:none;">
+                      <span class="build-type-icon">⚑</span>
+                      <span class="build-type-label">Other issue</span>
+                      <span class="build-type-sub">Something else is wrong with this entry</span>
+                    </label>
+                  </div>
+
+                  <label class="field-label">Proof Link <span style="font-weight:400;color:var(--accent);">(required)</span></label>
+                  <p class="hint" style="margin-top:-4px;margin-bottom:8px;">Link to a YouTube video, Streamable recording, TikTok, Reddit post, or any external evidence showing when this was built. A text explanation alone is not enough.</p>
+                  <input type="url" id="dispute-proof-url" placeholder="https://youtube.com/watch?v=... or https://streamable.com/...">
+
+                  <label class="field-label">Explanation</label>
+                  <p class="hint" style="margin-top:-4px;margin-bottom:8px;">Describe your claim in detail — when you built it, how long ago, what makes it yours. Minimum 50 characters.</p>
+                  <textarea id="dispute-claim" placeholder="e.g. I built this house in July 2025 — here's my speedbuild from my channel showing the full process. The registered date here is 2 months after my video went up."></textarea>
+                  <div id="dispute-char-count" style="font-size:11px;color:var(--muted);margin-top:4px;text-align:right;">0 / 50 min</div>
+
+                  <label class="field-label">Link to your own registry entry <span style="font-weight:400;color:var(--muted);">(optional)</span></label>
+                  <p class="hint" style="margin-top:-4px;margin-bottom:8px;">If you've already registered this build yourself, paste the entry URL so the reviewer can compare timestamps directly.</p>
+                  <input type="url" id="dispute-own-entry-url" placeholder="https://adoptmehousetrading.com/registry/entry.html?id=...">
+
+                  <button class="btn btn-primary" id="submit-dispute-btn" style="width:100%;margin-top:20px;" disabled>File Dispute</button>
+                  <p class="hint" style="margin-top:8px;text-align:center;">False disputes can result in your account being flagged.</p>
                 </div>`
           }
         </div>
@@ -304,20 +361,60 @@
     }
 
     if (!isSelf && myProfile) {
-      document.getElementById("submit-dispute-btn").addEventListener("click", async () => {
+      let selectedDisputeType = null;
+
+      // Wire dispute type cards
+      document.querySelectorAll("#dispute-type-grid .build-type-card").forEach((card) => {
+        card.addEventListener("click", () => {
+          selectedDisputeType = card.dataset.val;
+          document.querySelectorAll("#dispute-type-grid .build-type-card").forEach((c) => c.classList.remove("active"));
+          card.classList.add("active");
+          card.querySelector("input").checked = true;
+          updateDisputeSubmitBtn();
+        });
+      });
+
+      // Character counter
+      const claimArea = document.getElementById("dispute-claim");
+      const charCount = document.getElementById("dispute-char-count");
+      claimArea?.addEventListener("input", () => {
+        const len = claimArea.value.trim().length;
+        charCount.textContent = `${len} / 50 min`;
+        charCount.style.color = len >= 50 ? "var(--good)" : "var(--muted)";
+        updateDisputeSubmitBtn();
+      });
+
+      document.getElementById("dispute-proof-url")?.addEventListener("input", updateDisputeSubmitBtn);
+
+      function updateDisputeSubmitBtn() {
+        const btn = document.getElementById("submit-dispute-btn");
+        if (!btn) return;
+        const hasType = !!selectedDisputeType;
+        const hasClaim = (document.getElementById("dispute-claim")?.value.trim().length || 0) >= 50;
+        const hasProof = /^https?:\/\//.test(document.getElementById("dispute-proof-url")?.value.trim() || "");
+        btn.disabled = !(hasType && hasClaim && hasProof);
+      }
+
+      document.getElementById("submit-dispute-btn")?.addEventListener("click", async () => {
         const errorBox = document.getElementById("dispute-error");
         const successBox = document.getElementById("dispute-success");
         errorBox.hidden = true;
         successBox.hidden = true;
+
         const claim = document.getElementById("dispute-claim").value.trim();
-        if (!claim) {
-          errorBox.textContent = "Explain your claim.";
-          errorBox.hidden = false;
-          return;
+        const proof_url = document.getElementById("dispute-proof-url").value.trim();
+        const ownEntryUrl = document.getElementById("dispute-own-entry-url")?.value.trim();
+
+        // Extract entry ID from own registry URL if provided
+        let claimed_original_entry_id = null;
+        if (ownEntryUrl) {
+          const m = ownEntryUrl.match(/[?&]id=([a-f0-9-]{36})/i);
+          if (m) claimed_original_entry_id = m[1];
         }
+
         try {
-          await api.disputeRegistryEntry(entry.id, claim);
-          successBox.textContent = "Dispute filed — a reviewer will take a look.";
+          await api.disputeRegistryEntry(entry.id, claim, claimed_original_entry_id, selectedDisputeType, proof_url);
+          successBox.textContent = "Dispute filed — a reviewer will look at your proof and get back to you. The entry is now marked as disputed.";
           successBox.hidden = false;
           document.getElementById("submit-dispute-btn").disabled = true;
         } catch (err) {
@@ -334,13 +431,14 @@
         errorBox.hidden = true;
         successBox.hidden = true;
         const rebuttal = document.getElementById("rebuttal-text").value.trim();
+        const rebuttal_proof_url = document.getElementById("rebuttal-proof-url")?.value.trim() || null;
         if (!rebuttal) {
           errorBox.textContent = "Write a response.";
           errorBox.hidden = false;
           return;
         }
         try {
-          await api.submitDisputeRebuttal(pendingOwnDispute.id, rebuttal);
+          await api.submitDisputeRebuttal(pendingOwnDispute.id, rebuttal, rebuttal_proof_url);
           successBox.textContent = "Response submitted.";
           successBox.hidden = false;
           document.getElementById("submit-rebuttal-btn").disabled = true;

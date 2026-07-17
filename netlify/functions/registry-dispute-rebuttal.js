@@ -1,5 +1,5 @@
 // POST, Authorization: Bearer <token>
-// body: { dispute_id, rebuttal }
+// body: { dispute_id, rebuttal, rebuttal_proof_url }
 // -> { dispute }
 //
 // One rebuttal per dispute — the accused builder's chance to respond before
@@ -27,7 +27,7 @@ async function handlerImpl(event) {
     return json(400, { error: "Invalid JSON body" });
   }
 
-  const { dispute_id, rebuttal } = body;
+  const { dispute_id, rebuttal, rebuttal_proof_url } = body;
   if (!dispute_id || !rebuttal?.trim()) {
     return json(400, { error: "dispute_id and a rebuttal are required" });
   }
@@ -55,7 +55,13 @@ async function handlerImpl(event) {
 
   const { data, error } = await db
     .from("build_registry_disputes")
-    .update({ rebuttal: String(rebuttal).slice(0, 2000), rebuttal_at: new Date().toISOString() })
+    .update({
+      rebuttal: String(rebuttal).slice(0, 2000),
+      rebuttal_at: new Date().toISOString(),
+      rebuttal_proof_url: rebuttal_proof_url && /^https?:\/\//.test(String(rebuttal_proof_url).trim())
+        ? String(rebuttal_proof_url).trim().slice(0, 500)
+        : null,
+    })
     .eq("id", dispute_id)
     .select()
     .single();

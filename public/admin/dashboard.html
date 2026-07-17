@@ -203,6 +203,13 @@
     });
   }
 
+  const DISPUTE_TYPE_LABELS = {
+    i_am_original:      "Claims to be the original creator",
+    this_is_clone:      "Claims this is a clone of another build",
+    this_is_speedbuild: "Claims this is a speedbuild/template",
+    other:              "Other issue",
+  };
+
   function renderDisputes(disputes) {
     const list = document.getElementById("disputes-list");
     const empty = document.getElementById("empty-disputes");
@@ -218,18 +225,41 @@
       .map((d) => {
         const entry = d.build_registry;
         const photo = entry?.photos?.[0] || "../images/brand/searchdog.png";
+        const disputeTypeLabel = DISPUTE_TYPE_LABELS[d.dispute_type] || "Dispute";
+        const proofSection = d.proof_url
+          ? `<div style="margin:10px 0;padding:10px 12px;background:var(--accent-soft);border:1px solid var(--accent);border-radius:8px;">
+              <div style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">📎 Proof Submitted</div>
+              <a href="${escapeHtml(d.proof_url)}" target="_blank" rel="noopener" style="color:var(--accent);word-break:break-all;font-size:13px;">${escapeHtml(d.proof_url)}</a>
+             </div>`
+          : `<div style="margin:10px 0;padding:8px 12px;background:var(--surface-2);border-radius:8px;font-size:12px;color:var(--muted);">⚠️ No proof URL submitted</div>`;
+        const rebuttalSection = d.rebuttal
+          ? `<div style="margin-top:12px;padding:12px;background:var(--surface-2);border-radius:8px;">
+              <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Builder's Response</div>
+              <p style="margin:0 0 8px;font-size:13px;">${escapeHtml(d.rebuttal)}</p>
+              ${d.rebuttal_proof_url ? `<a href="${escapeHtml(d.rebuttal_proof_url)}" target="_blank" rel="noopener" style="color:var(--accent);font-size:12px;">📎 Builder's proof link ↗</a>` : ""}
+             </div>`
+          : `<p class="hint" style="margin:8px 0 0;">No response from the builder yet.</p>`;
+
         return `
         <div class="form-card" style="max-width:none;margin-bottom:16px;">
           <div style="display:flex;gap:16px;">
             <img src="${photo}" alt="" style="width:80px;height:80px;border-radius:10px;object-fit:cover;flex-shrink:0;">
-            <div style="flex:1;">
-              <h1 style="font-size:18px;">${escapeHtml(entry?.title || "Unknown build")}</h1>
-              <p class="hint" style="margin:2px 0 10px;">Registered by ${escapeHtml(entry?.profiles?.display_name || "unknown")} · <a href="entry.html?id=${entry?.id}" target="_blank">View entry ↗</a></p>
-              <p style="margin:0 0 8px;"><strong>Dispute by ${escapeHtml(d.profiles?.display_name || "unknown")}:</strong><br>${escapeHtml(d.claim)}</p>
-              ${d.rebuttal ? `<p style="margin:0 0 8px;"><strong>Builder's response:</strong><br>${escapeHtml(d.rebuttal)}</p>` : `<p class="hint" style="margin:0 0 8px;">No response from the builder yet.</p>`}
-              <div class="hero-ctas" style="justify-content:flex-start;margin-top:10px;">
-                <button class="btn-sm decline" data-resolve="${d.id}" data-ruling="upheld">Uphold Dispute (mark as clone)</button>
-                <button class="btn-sm accept" data-resolve="${d.id}" data-ruling="rejected">Reject Dispute (confirm original)</button>
+            <div style="flex:1;min-width:0;">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;flex-wrap:wrap;">
+                <h3 style="font-family:var(--font-display);font-size:17px;margin:0 0 2px;">${escapeHtml(entry?.title || "Unknown build")}</h3>
+                <span style="background:var(--butter);color:var(--ink);font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap;">${escapeHtml(disputeTypeLabel)}</span>
+              </div>
+              <p class="hint" style="margin:2px 0 10px;">Registered by ${escapeHtml(entry?.profiles?.display_name || "unknown")} · <a href="../registry/entry.html?id=${entry?.id}" target="_blank">View entry ↗</a></p>
+
+              <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">Claim — by ${escapeHtml(d.profiles?.display_name || "unknown")}</div>
+              <p style="margin:0;font-size:13px;line-height:1.5;">${escapeHtml(d.claim)}</p>
+
+              ${proofSection}
+              ${rebuttalSection}
+
+              <div class="hero-ctas" style="justify-content:flex-start;margin-top:14px;">
+                <button class="btn-sm decline" data-resolve="${d.id}" data-ruling="upheld">Uphold — Mark as Clone</button>
+                <button class="btn-sm accept" data-resolve="${d.id}" data-ruling="rejected">Reject — Confirm Original</button>
               </div>
             </div>
           </div>

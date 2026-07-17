@@ -104,10 +104,10 @@ export const api = {
     return request(`registry-list${qs ? `?${qs}` : ""}`);
   },
   getRegistryEntry: (id) => request(`registry-get?id=${encodeURIComponent(id)}`),
-  disputeRegistryEntry: (build_registry_id, claim, claimed_original_entry_id) =>
-    request("registry-dispute-create", { method: "POST", body: { build_registry_id, claim, claimed_original_entry_id }, auth: true }),
-  submitDisputeRebuttal: (dispute_id, rebuttal) =>
-    request("registry-dispute-rebuttal", { method: "POST", body: { dispute_id, rebuttal }, auth: true }),
+  disputeRegistryEntry: (build_registry_id, claim, claimed_original_entry_id, dispute_type, proof_url) =>
+    request("registry-dispute-create", { method: "POST", body: { build_registry_id, claim, claimed_original_entry_id, dispute_type, proof_url }, auth: true }),
+  submitDisputeRebuttal: (dispute_id, rebuttal, rebuttal_proof_url) =>
+    request("registry-dispute-rebuttal", { method: "POST", body: { dispute_id, rebuttal, rebuttal_proof_url }, auth: true }),
 
   applyForDataTeam: (message) => request("data-team-apply", { method: "POST", body: { message }, auth: true }),
   submitDataTeamValue: (payload) => request("data-team-submit-trade", { method: "POST", body: payload, auth: true }),
