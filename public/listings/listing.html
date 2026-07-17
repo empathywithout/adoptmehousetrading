@@ -123,6 +123,19 @@
     const house = listing.house_id ? houses.find((h) => h.id === listing.house_id) : null;
     const isOwner = myProfile && myProfile.id === listing.profile_id;
 
+    // Load saved state for this listing
+    let isSaved = false;
+    const token = localStorage.getItem("amht_token");
+    if (token && !isOwner) {
+      try {
+        const savedRes = await fetch("/.netlify/functions/listing-saves-me", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const savedData = await savedRes.json();
+        isSaved = (savedData.saved_ids || []).includes(listing.id);
+      } catch {}
+    }
+
     // Progressive enhancement: the static <head> tags are a reasonable
     // generic fallback for crawlers that don't execute JS; once we know
     // which specific listing this is, make them accurate.
@@ -260,7 +273,12 @@
           }
           ${
             listing.status === "active" && !isOwner
-              ? `<button id="report-btn" style="background:none;border:none;color:var(--muted);font-size:12.5px;cursor:pointer;padding:8px 0 0;text-decoration:underline;text-underline-offset:2px;">Report this listing</button>`
+              ? `<div style="display:flex;align-items:center;gap:16px;margin-top:8px;">
+                  ${myProfile ? `<button id="save-listing-btn" class="btn" style="background:${isSaved ? "var(--good-soft)" : "var(--surface-2)"};color:${isSaved ? "var(--good)" : "var(--ink)"};border:1.5px solid ${isSaved ? "var(--good)" : "var(--line)"};font-size:13px;padding:7px 14px;">
+                    ${isSaved ? "✓ Saved" : "♡ Save Listing"}
+                  </button>` : ""}
+                  <button id="report-btn" style="background:none;border:none;color:var(--muted);font-size:12.5px;cursor:pointer;text-decoration:underline;text-underline-offset:2px;">Report this listing</button>
+                </div>`
               : ""
           }
         </div>
@@ -379,6 +397,32 @@
         initOfferBuilder(listing);
       }
     }
+
+    // Save listing
+    document.getElementById("save-listing-btn")?.addEventListener("click", async () => {
+      const btn = document.getElementById("save-listing-btn");
+      const t = localStorage.getItem("amht_token");
+      if (!t) { alert("Sign in to save listings."); return; }
+      btn.disabled = true;
+      try {
+        const res = await fetch("/.netlify/functions/listing-save", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${t}` },
+          body: JSON.stringify({ listing_id: listing.id }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Couldn't save");
+        isSaved = data.saved;
+        btn.textContent = isSaved ? "✓ Saved" : "♡ Save Listing";
+        btn.style.background = isSaved ? "var(--good-soft)" : "var(--surface-2)";
+        btn.style.color = isSaved ? "var(--good)" : "var(--ink)";
+        btn.style.border = `1.5px solid ${isSaved ? "var(--good)" : "var(--line)"}`;
+      } catch (err) {
+        alert(err.message);
+      } finally {
+        btn.disabled = false;
+      }
+    });
 
     // Report modal
     const reportModal = document.getElementById("report-modal");

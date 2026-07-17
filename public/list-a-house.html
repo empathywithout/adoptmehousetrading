@@ -465,11 +465,26 @@
         value_unit: unitVal,
         bucks_invested: bucksRaw === "" ? null : bucksRaw,
       });
-      successBox.textContent = "Listing posted! Redirecting...";
       successBox.hidden = false;
-      setTimeout(() => {
+      successBox.innerHTML = `
+        <strong>Listing posted!</strong>
+        <p style="margin:10px 0 12px;font-size:14px;">Want to also register this build in the Build Registry to claim credit for it?</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button id="yes-register-btn" class="btn btn-primary" style="font-size:13px;padding:8px 16px;">Yes, register this build</button>
+          <button id="no-register-btn" class="btn" style="font-size:13px;padding:8px 16px;background:var(--surface-2);color:var(--ink);">No thanks, view listing</button>
+        </div>`;
+      document.getElementById("yes-register-btn").addEventListener("click", () => {
+        sessionStorage.setItem("amht_portfolio_prefill", JSON.stringify({
+          title: listing.title,
+          photos: listing.photos || [],
+          house_id: listing.house_id || null,
+          themes: listing.themes || [],
+        }));
+        window.location.href = `registry/submit.html`;
+      });
+      document.getElementById("no-register-btn").addEventListener("click", () => {
         window.location.href = `listings/listing.html?id=${listing.id}`;
-      }, 900);
+      });
     } catch (err) {
       errorBox.textContent = err.message;
       errorBox.hidden = false;

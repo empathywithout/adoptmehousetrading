@@ -114,7 +114,7 @@
       <button class="tab" data-tab="builder">Builder</button>
       <button class="tab" data-tab="commissions">Commissions</button>
       <button class="tab" data-tab="portfolio">My Builds</button>
-      <button class="tab" data-tab="saved">Saved Builds</button>
+      <button class="tab" data-tab="saved">Saved</button>
       <button class="tab" data-tab="guides">My Guides</button>
       <button class="tab" data-tab="data-team">Data Team</button>
     </div>
@@ -260,6 +260,19 @@
 
     <div id="tab-panel-saved" hidden>
       <div class="section-head">
+        <h2>Saved Listings</h2>
+        <a href="listings/index.html">Browse Listings →</a>
+      </div>
+      <div id="saved-listings-grid" class="house-grid"></div>
+      <div id="saved-listings-empty" hidden>
+        <div class="empty-state-card">
+          <div class="empty-state-icon">🏷️</div>
+          <h3>No saved listings yet</h3>
+          <p>Browse listings and save ones you're interested in — they'll show up here.</p>
+          <a class="btn btn-primary" href="listings/index.html">Browse Listings</a>
+        </div>
+      </div>
+      <div class="section-head" style="margin-top:32px;">
         <h2>Saved Builds</h2>
         <a href="registry/index.html">Browse Registry →</a>
       </div>
@@ -825,6 +838,36 @@
   }
 
   async function loadSavedBuilds() {
+    // Load saved listings
+    const listingsGrid = document.getElementById("saved-listings-grid");
+    const listingsEmpty = document.getElementById("saved-listings-empty");
+    try {
+      const token = localStorage.getItem("amht_token");
+      const res = await fetch("/.netlify/functions/listing-saves-me", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = await res.json();
+      const listings = data.listings || [];
+      if (!listings.length) {
+        listingsEmpty.hidden = false;
+        listingsGrid.innerHTML = "";
+      } else {
+        listingsEmpty.hidden = true;
+        listingsGrid.innerHTML = listings.map((l) => {
+          const photo = l.photos?.[0] || "";
+          return `<a class="listing-card" href="listings/listing.html?id=${l.id}" style="text-decoration:none;">
+            <div class="photo"><img src="${photo}" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+            <div class="body">
+              <h3>${escapeHtml(l.title)}</h3>
+              <p class="hint" style="margin:4px 0 0;">${l.value_amount ? `${l.value_amount} ${l.value_unit || ""}` : "Value not set"}</p>
+            </div>
+          </a>`;
+        }).join("");
+      }
+    } catch {
+      listingsGrid.innerHTML = `<p class="hint" style="color:var(--accent);">Couldn't load saved listings.</p>`;
+    }
+
     const grid = document.getElementById("saved-builds-grid");
     const empty = document.getElementById("saved-builds-empty");
     grid.innerHTML = `<p class="hint" style="padding:8px 0;">Loading...</p>`;
