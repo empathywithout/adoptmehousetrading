@@ -130,7 +130,7 @@
     if (!listings || !listings.length) {
       document.getElementById("recent-listings-empty").hidden = false;
     } else {
-      grid.innerHTML = listings.slice(0, 8).map((listing) => { try {
+      grid.innerHTML = listings.slice(0, 8).map((listing) => {
         const house = houseById[listing.house_id];
         const photo = listing.photos?.[0] || house?.image || "images/brand/searchdog.png";
         const username = listing.profiles?.display_name || "unknown";
@@ -143,32 +143,26 @@
         const themeLine = listing.themes?.length
           ? `<p class="lister" style="margin-top:2px;">${listing.themes.map((t) => THEME_LABELS[t] || t).join(", ")}</p>`
           : "";
-
         const isSaved = savedIds.has(listing.id);
-        const avatarHtml = listing.profiles?.rbx_avatar_url
-          ? '<img class="trust-row-avatar" src="' + (listing.profiles?.rbx_avatar_url || '') + '" alt="">'
-          : '<span class="avatar-initial">' + escapeHtml((username[0] || '?').toUpperCase()) + '</span>';
-        const saveBtnHtml = '<button class="save-btn' + (isSaved ? ' saved' : '') + '" data-listing-id="' + listing.id + '" title="' + (isSaved ? 'Saved — click to unsave' : 'Save this listing') + '" onclick="event.preventDefault()">' + (isSaved ? 'Saved' : 'Save') + '</button>';
-        const badgeHtml = '<div class="card-badge ' + (BADGE_CLASS[listing.listing_type] || "house-trade") + '" title="' + (TYPE_LABELS[listing.listing_type] || "For Trade") + '"><div class="' + (BADGE_ICON[listing.listing_type] || "icon-sign") + '"></div></div>';
-
-        return '<a class="listing-card" href="listings/listing.html?id=' + listing.id + '">' +
-          '<div class="photo">' +
-            '<img src="' + photo + '" alt="" loading="lazy">' +
-            badgeHtml +
-            cardTag +
-          '</div>' +
-          '<div class="body">' +
-            '<h3>' + escapeHtml(listing.title) + '</h3>' +
-            '<div class="trust-row">' +
-              avatarHtml +
-              '<span class="username">' + escapeHtml(username) + '</span>' +
-              saveBtnHtml +
-            '</div>' +
-            valueLine +
-            themeLine +
-          '</div>' +
-        '</a>';
-      } catch(e) { console.error('Card error:', e, listing); return ''; }
+        const saveBtn = `<button class="save-btn ${isSaved ? "saved" : ""}" data-listing-id="${listing.id}" title="${isSaved ? "Saved — click to unsave" : "Save this listing"}" onclick="event.preventDefault()">${isSaved ? "Saved" : "Save"}</button>`;
+        return `
+        <a class="listing-card" href="listings/listing.html?id=${listing.id}">
+          <div class="photo">
+            <img src="${photo}" alt="" loading="lazy">
+            <div class="card-badge ${BADGE_CLASS[listing.listing_type] || "house-trade"}" title="${TYPE_LABELS[listing.listing_type] || "For Trade"}"><div class="${BADGE_ICON[listing.listing_type] || "icon-sign"}"></div></div>
+            ${cardTag}
+          </div>
+          <div class="body">
+            <h3>${escapeHtml(listing.title)}</h3>
+            <div class="trust-row">
+              ${listing.profiles?.rbx_avatar_url ? `<img class="trust-row-avatar" src="${listing.profiles.rbx_avatar_url}" alt="">` : `<span class="avatar-initial">${escapeHtml(username[0]?.toUpperCase() || "?")}</span>`}
+              <span class="username">${escapeHtml(username)}</span>
+              ${saveBtn}
+            </div>
+            ${valueLine}
+            ${themeLine}
+          </div>
+        </a>`;
       }).join("");
       // Delegated save handler
       document.getElementById("recent-listings-grid").addEventListener("click", async (e) => {
