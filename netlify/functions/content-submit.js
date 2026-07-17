@@ -34,12 +34,12 @@ async function handlerImpl(event) {
     return json(400, { error: "Valid category is required" });
   }
   const cleanTitle = String(title || "").trim();
-  if (cleanTitle.length < 5 || cleanTitle.length > 120) {
-    return json(400, { error: "Title must be 5-120 characters" });
+  if (cleanTitle.length < 10 || cleanTitle.length > 100) {
+    return json(400, { error: "Title must be 10–100 characters" });
   }
   const cleanBody = String(body || "").trim();
-  if (cleanBody.length < 100) {
-    return json(400, { error: "Give it enough substance to be useful — at least 100 characters" });
+  if (cleanBody.length < 800) {
+    return json(400, { error: "Guides need to be at least 800 characters — enough to genuinely help someone reading it" });
   }
 
   const db = supabaseAdmin();

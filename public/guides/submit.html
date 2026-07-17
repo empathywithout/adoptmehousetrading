@@ -6,6 +6,7 @@
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <title>Submit a Guide — AdoptMeHouseTrading.com</title>
 <meta name="description" content="Submit a build guide, how-to, or trading tip to AdoptMeHouseTrading.com — reviewed before publishing, credited to you.">
+<link rel="canonical" href="https://adoptmehousetrading.com/guides/submit.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,9 +18,223 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-REW2CFBX6H');
 </script>
+<style>
+/* ── Guide Submit Page ───────────────────────────────────── */
+
+.submit-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 28px;
+  align-items: start;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+@media (max-width: 780px) {
+  .submit-layout { grid-template-columns: 1fr; }
+  .submit-sidebar { order: -1; }
+}
+
+/* Category selector — pill style, not segmented */
+.cat-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+.cat-btn {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.12s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.cat-btn:hover { border-color: var(--ink-soft); background: var(--surface-2); }
+.cat-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+}
+.cat-btn .cat-icon { font-size: 15px; }
+
+/* Category description strip */
+.cat-hint {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-top: 10px;
+  display: none;
+}
+.cat-hint.visible { display: block; }
+
+/* Title field with counter */
+.title-wrap { position: relative; }
+.title-counter {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  pointer-events: none;
+}
+.title-counter.warn { color: var(--accent); }
+#guide-title { padding-right: 56px; }
+
+/* Writing tips box */
+.tips-box {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 18px;
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-top: 10px;
+}
+.tips-box strong { color: var(--ink); font-size: 13px; display: block; margin-bottom: 6px; }
+.tips-box ul { margin: 0; padding-left: 18px; }
+.tips-box li { margin-bottom: 4px; }
+
+/* Body textarea with word count */
+.body-wrap { position: relative; }
+.body-counter {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--surface);
+  padding: 2px 6px;
+  border-radius: 6px;
+  pointer-events: none;
+}
+.body-counter.good { color: var(--good); }
+.body-counter.warn { color: var(--accent); }
+#guide-body { min-height: 380px; padding-bottom: 28px; }
+
+/* Photo slots — 3 col for guides, different from listing's 5-slot grid */
+.guide-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 8px;
+}
+.guide-photo-slot {
+  aspect-ratio: 16/9;
+  border: 1.5px dashed var(--line);
+  border-radius: 10px;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: border-color 0.12s, background 0.12s;
+}
+.guide-photo-slot:hover { border-color: var(--accent); background: var(--accent-soft); }
+.guide-photo-slot img { width: 100%; height: 100%; object-fit: cover; position: absolute; }
+.guide-photo-slot .slot-plus { font-size: 20px; color: var(--muted); }
+.guide-photo-slot .slot-sub { font-size: 10px; color: var(--muted); font-weight: 600; }
+.guide-photo-slot .remove-photo {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+/* Sidebar */
+.submit-sidebar {
+  position: sticky;
+  top: 76px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.sidebar-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px 20px;
+}
+.sidebar-card h3 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+.sidebar-card ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.sidebar-card li { margin-bottom: 4px; }
+.sidebar-checklist { list-style: none; padding: 0; margin: 0; }
+.sidebar-checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.check-icon { flex-shrink: 0; font-size: 13px; margin-top: 1px; }
+.check-icon.done { color: var(--good); }
+.check-icon.todo { color: var(--line); }
+
+/* Progress bar */
+.progress-bar-wrap { margin: 6px 0 0; }
+.progress-bar-track {
+  height: 6px;
+  background: var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+  transition: width 0.3s, background 0.3s;
+  width: 0%;
+}
+.progress-bar-fill.good { background: var(--good); }
+.progress-label { font-size: 11px; color: var(--muted); }
+</style>
 </head>
 <body>
 <header class="site-nav">
@@ -49,37 +264,132 @@
 </header>
 <script type="module" src="../js/nav.js"></script>
 
-<section class="wrap" style="padding: 32px 0 64px;max-width:720px;">
-  <h1 style="font-family:var(--font-display);color:var(--ink);">Submit a Guide</h1>
-  <p class="subtitle">Build guides, how-tos, trading tips — anything genuinely useful to other players. A real person reviews every submission before it's published, and it's always credited to you by name. This doesn't publish instantly.</p>
+<!-- Sign-out gate -->
+<div id="signed-out-msg" class="wrap" style="padding:60px 24px;max-width:560px;text-align:center;" hidden>
+  <div style="font-size:36px;margin-bottom:12px;opacity:0.4">✍️</div>
+  <h1 style="font-family:var(--font-display);color:var(--ink);margin:0 0 8px;">Sign in to submit</h1>
+  <p style="color:var(--muted);margin:0 0 20px;">Guides are always credited to you by name — sign in so we know who wrote it.</p>
+  <a href="../profile.html" class="btn btn-primary">Sign In / Sign Up</a>
+</div>
 
-  <div id="signed-out-msg" class="form-card" hidden>
-    <h1>Sign in first</h1>
-    <p class="subtitle"><a href="../profile.html">Set up your profile</a> to submit a guide.</p>
-  </div>
-
-  <div id="submit-form" class="form-card" style="max-width:none;" hidden>
-    <div id="submit-error" class="error-box" hidden></div>
-    <div id="submit-success" class="success-box" hidden></div>
-
-    <label class="field-label" style="margin-top:0;">Category</label>
-    <div class="segmented" id="category-toggle" style="max-width:none;display:grid;grid-template-columns:repeat(4,1fr);"></div>
-
-    <label class="field-label" for="guide-title">Title</label>
-    <input type="text" id="guide-title" placeholder="e.g. How to Make a Mega Neon Fast" maxlength="120">
-
-    <label class="field-label" for="guide-body">Content</label>
-    <textarea id="guide-body" placeholder="Write your guide here. Separate paragraphs with a blank line." style="min-height:260px;"></textarea>
-    <p class="hint" style="margin-top:-4px;">At least 100 characters — give it enough substance to actually help someone.</p>
-
-    <label class="field-label">Photos (optional)</label>
-    <div class="photo-slots" id="photo-slots" style="grid-template-columns:repeat(4,1fr);"></div>
-
-    <div class="hero-ctas" style="justify-content:flex-start;margin-top:20px;">
-      <button class="btn btn-primary" id="submit-btn">Submit for Review</button>
+<div id="submit-form-wrap" hidden>
+  <!-- Page header -->
+  <div style="border-bottom:1px solid var(--line);padding:28px 0 24px;">
+    <div style="max-width:1040px;margin:0 auto;padding:0 24px;">
+      <div class="breadcrumb" style="margin-bottom:6px;"><a href="index.html" style="color:var(--muted);text-decoration:none;">Guides</a> &nbsp;/&nbsp; Submit</div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(22px,4vw,32px);font-weight:800;color:var(--ink);margin:0 0 6px;letter-spacing:-0.5px;">Submit a Guide</h1>
+      <p style="color:var(--muted);font-size:14px;margin:0;">Written by you, reviewed by us, published with your name on it. Aim for something that actually teaches — these become searchable articles on the site.</p>
     </div>
   </div>
-</section>
+
+  <div class="submit-layout">
+    <!-- ── Main form ── -->
+    <div>
+      <div id="submit-error" class="error-box" hidden style="margin-bottom:16px;"></div>
+      <div id="submit-success" class="success-box" hidden style="margin-bottom:16px;"></div>
+
+      <!-- Category -->
+      <div style="margin-bottom:24px;">
+        <label class="field-label" style="margin-top:0;">Category</label>
+        <p style="font-size:12.5px;color:var(--muted);margin:0 0 8px;">Choose the one that best fits — it determines how your guide is tagged and where it shows up.</p>
+        <div class="cat-selector" id="category-selector"></div>
+        <div class="cat-hint" id="cat-hint"></div>
+      </div>
+
+      <!-- Title -->
+      <div style="margin-bottom:24px;">
+        <label class="field-label" style="margin-top:0;" for="guide-title">Title</label>
+        <p style="font-size:12.5px;color:var(--muted);margin:0 0 8px;">Clear and specific — people should know exactly what they'll learn. Be descriptive rather than clever.</p>
+        <div class="title-wrap">
+          <input type="text" id="guide-title" placeholder="e.g. How to Make a Mega Neon Pet Fast in 2026" maxlength="100">
+          <span class="title-counter" id="title-counter">0/100</span>
+        </div>
+        <p class="hint" style="margin-top:6px;">Aim for 50–80 characters — specific enough to be useful, short enough to be readable as a headline.</p>
+      </div>
+
+      <!-- Introduction -->
+      <div style="margin-bottom:24px;">
+        <label class="field-label" style="margin-top:0;" for="guide-intro">Introduction</label>
+        <p style="font-size:12.5px;color:var(--muted);margin:0 0 8px;">1–2 sentences: what will someone know or be able to do after reading this? Don't bury the lead.</p>
+        <textarea id="guide-intro" placeholder="In this guide you'll learn exactly how to..." style="min-height:80px;" maxlength="400"></textarea>
+      </div>
+
+      <!-- Main content -->
+      <div style="margin-bottom:24px;">
+        <label class="field-label" style="margin-top:0;" for="guide-body">Main Content</label>
+        <div class="tips-box">
+          <strong>📝 What makes a good guide</strong>
+          <ul>
+            <li>Use short paragraphs — one idea each, blank line between them</li>
+            <li>Be specific: "3–5 Golden Eggs" not "some eggs"</li>
+            <li>Include what doesn't work and why — that's as useful as what does</li>
+            <li>Walk through your actual process, not an idealized one</li>
+            <li>Link your tips to real item values where relevant</li>
+          </ul>
+        </div>
+        <div class="body-wrap" style="margin-top:10px;">
+          <textarea id="guide-body" placeholder="Start writing your guide here. Use blank lines between paragraphs.&#10;&#10;Example structure:&#10;• What you need / requirements&#10;• Step-by-step process&#10;• Tips, mistakes to avoid&#10;• What to do next"></textarea>
+          <span class="body-counter" id="body-counter">0 / 800 min</span>
+        </div>
+      </div>
+
+      <!-- Cover photo -->
+      <div style="margin-bottom:24px;">
+        <label class="field-label" style="margin-top:0;">Photos</label>
+        <p style="font-size:12.5px;color:var(--muted);margin:0 0 8px;">Screenshots help a lot — show your build, the result, the process. First photo becomes the cover image on the browse page.</p>
+        <div class="guide-photo-grid" id="photo-grid"></div>
+      </div>
+
+      <!-- Submit -->
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <button class="btn btn-primary" id="submit-btn" disabled>Submit for Review</button>
+        <span style="font-size:12.5px;color:var(--muted);">A real person reviews before publishing. Usually within a few days.</span>
+      </div>
+    </div>
+
+    <!-- ── Sidebar ── -->
+    <div class="submit-sidebar">
+      <!-- Quality checklist -->
+      <div class="sidebar-card">
+        <h3>Readiness Check</h3>
+        <ul class="sidebar-checklist" id="readiness-list">
+          <li><span class="check-icon todo" id="chk-cat">○</span><span>Category selected</span></li>
+          <li><span class="check-icon todo" id="chk-title">○</span><span>Title is 20–100 characters</span></li>
+          <li><span class="check-icon todo" id="chk-intro">○</span><span>Introduction written</span></li>
+          <li><span class="check-icon todo" id="chk-body">○</span><span>Content is at least 800 characters</span></li>
+          <li><span class="check-icon todo" id="chk-photo">○</span><span>At least one photo added <em style="color:var(--muted);font-style:normal;">(optional but recommended)</em></span></li>
+        </ul>
+        <div class="progress-bar-wrap" style="margin-top:14px;">
+          <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-fill"></div></div>
+          <div class="progress-label" id="progress-label">0 of 4 required</div>
+        </div>
+      </div>
+
+      <!-- What happens next -->
+      <div class="sidebar-card">
+        <h3>What happens next</h3>
+        <ul>
+          <li>A moderator reads it for accuracy and quality</li>
+          <li>If approved, it publishes with your name on it</li>
+          <li>It becomes a searchable article on this site</li>
+          <li>You'll get a notification either way</li>
+        </ul>
+      </div>
+
+      <!-- Good example -->
+      <div class="sidebar-card">
+        <h3>What we're looking for</h3>
+        <ul>
+          <li>Specific, actionable advice — not vague tips</li>
+          <li>Real values and trade ratios, not guesses</li>
+          <li>Written from your own experience</li>
+          <li>800+ characters — enough to be genuinely useful</li>
+          <li>Adopt Me houses, builds, or trading focus</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 
 <footer class="site-footer">
   <div class="wrap">
@@ -95,53 +405,168 @@
   if (!myProfile) {
     document.getElementById("signed-out-msg").hidden = false;
   } else {
-    document.getElementById("submit-form").hidden = false;
+    document.getElementById("submit-form-wrap").hidden = false;
     init();
   }
 
+  const CAT_ICONS = {
+    theme_build: "🏠",
+    budget_build: "💰",
+    building_technique: "🔧",
+    trading_guide: "📊",
+  };
+
+  const CAT_HINTS = {
+    theme_build: "Walk through how you built a specific theme — cottagecore, gothic, Japanese, franchise crossover, etc. Include what pieces you used, where you got them, and what made the theme work.",
+    budget_build: "Show how to build something impressive with limited Bucks or without rare items. Budget builds and challenge builds (starter house only, etc.) are genuinely useful and get good traffic.",
+    building_technique: "Explain a specific technique — layering furniture, using stickers, hiding seams, creating effects. Something reusable that applies to builds beyond just one house.",
+    trading_guide: "Help players understand what to trade for something, what fair value looks like, or how the trading meta works for a specific item category or house type.",
+  };
+
+  let activeCategory = null;
   let uploadedPhotos = [];
 
   function init() {
-    const categoryToggle = document.getElementById("category-toggle");
-    categoryToggle.innerHTML = Object.entries(GUIDE_CATEGORY_LABELS)
-      .map(([key, label], i) => `<button data-val="${key}" class="${i === 0 ? "active accent" : ""}">${label}</button>`)
-      .join("");
-    categoryToggle.querySelectorAll("button").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        categoryToggle.querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
-      });
-    });
+    buildCategorySelector();
+    buildPhotoGrid();
+    setupCounters();
 
-    renderPhotoSlots();
     document.getElementById("submit-btn").addEventListener("click", submitGuide);
   }
 
-  function renderPhotoSlots() {
-    const container = document.getElementById("photo-slots");
-    const slotCount = Math.max(4, uploadedPhotos.length + 1);
-    container.innerHTML = Array.from({ length: slotCount }, (_, i) => {
-      const url = uploadedPhotos[i];
-      return `<div class="photo-slot interior" data-slot="${i}">
-        ${url ? `<img src="${url}" alt="">` : `<div class="plus-circle">+</div><div class="slot-label">Photo</div>`}
-        <input type="file" accept="image/png,image/jpeg,image/webp" data-slot-input="${i}" style="display:none;">
-      </div>`;
-    }).join("");
+  function buildCategorySelector() {
+    const container = document.getElementById("category-selector");
+    container.innerHTML = Object.entries(GUIDE_CATEGORY_LABELS)
+      .map(([key, label]) => `
+        <button class="cat-btn" data-cat="${key}">
+          <span class="cat-icon">${CAT_ICONS[key] || "📄"}</span>
+          ${label}
+        </button>`)
+      .join("");
 
-    container.querySelectorAll(".photo-slot").forEach((slot) => {
-      const fileInput = slot.querySelector("input[type=file]");
-      slot.addEventListener("click", () => fileInput.click());
-      fileInput.addEventListener("change", async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        try {
-          const url = await api.uploadPhoto(file);
-          uploadedPhotos[Number(slot.dataset.slot)] = url;
-          renderPhotoSlots();
-        } catch (err) {
-          alert("Upload failed: " + err.message);
-        }
+    container.querySelectorAll(".cat-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        container.querySelectorAll(".cat-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        activeCategory = btn.dataset.cat;
+        const hint = document.getElementById("cat-hint");
+        hint.textContent = CAT_HINTS[activeCategory] || "";
+        hint.classList.add("visible");
+        updateChecklist();
       });
     });
+  }
+
+  function buildPhotoGrid() {
+    const grid = document.getElementById("photo-grid");
+
+    function render() {
+      const slots = Math.max(3, uploadedPhotos.length + 1);
+      grid.innerHTML = Array.from({ length: slots }, (_, i) => {
+        const url = uploadedPhotos[i];
+        if (url) {
+          return `<div class="guide-photo-slot" data-slot="${i}">
+            <img src="${url}" alt="">
+            <button class="remove-photo" data-remove="${i}" title="Remove">✕</button>
+          </div>`;
+        }
+        return `<div class="guide-photo-slot" data-slot="${i}">
+          <span class="slot-plus">+</span>
+          <span class="slot-sub">${i === 0 ? "Cover photo" : "Photo " + (i + 1)}</span>
+          <input type="file" accept="image/png,image/jpeg,image/webp" style="display:none;">
+        </div>`;
+      }).join("");
+
+      grid.querySelectorAll(".guide-photo-slot").forEach((slot) => {
+        const fileInput = slot.querySelector("input[type=file]");
+        if (fileInput) {
+          slot.addEventListener("click", () => fileInput.click());
+          fileInput.addEventListener("change", async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            try {
+              const url = await api.uploadPhoto(file);
+              uploadedPhotos[Number(slot.dataset.slot)] = url;
+              render();
+              updateChecklist();
+            } catch (err) {
+              alert("Upload failed: " + err.message);
+            }
+          });
+        }
+        const removeBtn = slot.querySelector(".remove-photo");
+        if (removeBtn) {
+          removeBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            uploadedPhotos.splice(Number(removeBtn.dataset.remove), 1);
+            render();
+            updateChecklist();
+          });
+        }
+      });
+    }
+
+    render();
+  }
+
+  function setupCounters() {
+    const titleInput = document.getElementById("guide-title");
+    const titleCounter = document.getElementById("title-counter");
+    titleInput.addEventListener("input", () => {
+      const len = titleInput.value.length;
+      titleCounter.textContent = `${len}/100`;
+      titleCounter.classList.toggle("warn", len > 90 || (len > 0 && len < 20));
+      updateChecklist();
+    });
+
+    const bodyArea = document.getElementById("guide-body");
+    const bodyCounter = document.getElementById("body-counter");
+    bodyArea.addEventListener("input", () => {
+      const len = bodyArea.value.trim().length;
+      const pct = Math.min(100, Math.round((len / 800) * 100));
+      if (len >= 800) {
+        bodyCounter.textContent = `${len} chars ✓`;
+        bodyCounter.className = "body-counter good";
+      } else {
+        bodyCounter.textContent = `${len} / 800 min`;
+        bodyCounter.className = "body-counter" + (len > 400 ? " warn" : "");
+      }
+      updateChecklist();
+    });
+
+    document.getElementById("guide-intro").addEventListener("input", updateChecklist);
+  }
+
+  function updateChecklist() {
+    const title = document.getElementById("guide-title").value.trim();
+    const intro = document.getElementById("guide-intro").value.trim();
+    const body = document.getElementById("guide-body").value.trim();
+    const hasPhoto = uploadedPhotos.filter(Boolean).length > 0;
+
+    const checks = {
+      "chk-cat": !!activeCategory,
+      "chk-title": title.length >= 20 && title.length <= 100,
+      "chk-intro": intro.length >= 20,
+      "chk-body": body.length >= 800,
+      "chk-photo": hasPhoto,
+    };
+
+    Object.entries(checks).forEach(([id, pass]) => {
+      const el = document.getElementById(id);
+      el.textContent = pass ? "✓" : "○";
+      el.className = "check-icon " + (pass ? "done" : "todo");
+    });
+
+    const required = ["chk-cat", "chk-title", "chk-intro", "chk-body"];
+    const done = required.filter((id) => checks[id]).length;
+    const pct = Math.round((done / required.length) * 100);
+    const fill = document.getElementById("progress-fill");
+    fill.style.width = pct + "%";
+    fill.className = "progress-bar-fill" + (done === required.length ? " good" : "");
+    document.getElementById("progress-label").textContent = `${done} of ${required.length} required`;
+
+    const allRequired = required.every((id) => checks[id]);
+    document.getElementById("submit-btn").disabled = !allRequired;
   }
 
   async function submitGuide() {
@@ -150,26 +575,24 @@
     errorBox.hidden = true;
     successBox.hidden = true;
 
-    const category = document.querySelector("#category-toggle button.active").dataset.val;
     const title = document.getElementById("guide-title").value.trim();
-    const body = document.getElementById("guide-body").value.trim();
-
-    if (title.length < 5) {
-      errorBox.textContent = "Title needs to be at least 5 characters.";
-      errorBox.hidden = false;
-      return;
-    }
-    if (body.length < 100) {
-      errorBox.textContent = "Content needs to be at least 100 characters.";
-      errorBox.hidden = false;
-      return;
-    }
+    const intro = document.getElementById("guide-intro").value.trim();
+    const bodyRaw = document.getElementById("guide-body").value.trim();
+    // Merge intro + body into one formatted body for storage
+    const body = intro ? `${intro}\n\n${bodyRaw}` : bodyRaw;
 
     try {
-      await api.submitGuide({ category, title, body, photos: uploadedPhotos.filter(Boolean) });
-      successBox.textContent = "Submitted! A real person will review it before it's published.";
+      await api.submitGuide({
+        category: activeCategory,
+        title,
+        body,
+        photos: uploadedPhotos.filter(Boolean),
+        cover_photo: uploadedPhotos[0] || null,
+      });
+      successBox.innerHTML = `<strong>Submitted!</strong> A real person will review it before it's published — we'll notify you here and on your profile. <a href="index.html" style="color:var(--accent);">Back to Guides →</a>`;
       successBox.hidden = false;
       document.getElementById("submit-btn").disabled = true;
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
       errorBox.textContent = err.message;
       errorBox.hidden = false;

@@ -161,10 +161,10 @@ export const CATEGORY_LABELS = {
 };
 
 export const GUIDE_CATEGORY_LABELS = {
-  build_guide: "Build Guide",
-  how_to: "How-To",
-  tips: "Tips",
-  other: "Other",
+  theme_build:        "Theme Build Guide",
+  budget_build:       "Budget / Challenge Build",
+  building_technique: "Building Technique",
+  trading_guide:      "Trading & Values Guide",
 };
 
 // Seed list, not a locked enum — real builds cross aesthetic styles,
