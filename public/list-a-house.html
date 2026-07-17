@@ -194,6 +194,12 @@
 
   const profile = getStoredProfile();
   let includedItemsPicker = null;
+  const uploadedPhotos = [null, null, null, null, null, null, null, null]; // up to 8 photos (min 5 required)
+  let houses = [];
+  let selectedHouseId = null;
+  let activeType = "house_trade";
+  let buildTypeVal = "original";
+  let unitVal = "shark";
 
   if (!profile) {
     document.getElementById("need-profile").hidden = false;
@@ -201,13 +207,6 @@
     document.getElementById("listing-form").hidden = false;
     init();
   }
-
-  const uploadedPhotos = [null, null, null, null, null, null, null, null]; // up to 8 photos (min 5 required)
-  let houses = [];
-  let selectedHouseId = null;
-  let activeType = "house_trade";
-  let buildTypeVal = "original";
-  let unitVal = "shark";
 
   const TYPE_DEFS = [
     { id: "house_trade", label: "House Trade", hint: "Offer for offer", iconClass: "house-trade", icon: "icon-sign", tip: "Trading a house you own for other items." },
