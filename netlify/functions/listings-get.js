@@ -33,7 +33,7 @@ async function handlerImpl(event) {
     .eq("id", id)
     .maybeSingle();
 
-  if (listingErr || !listing) {
+  if (listingErr || !listing || listing.status === "removed") {
     return json(404, { error: "Listing not found" });
   }
 

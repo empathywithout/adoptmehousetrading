@@ -130,6 +130,29 @@
       .map(([key, label]) => `<label><input type="checkbox" value="${key}"> ${label}</label>`)
       .join("");
 
+    // Prefill from a listing via "Add to Portfolio" — one-time use, cleared
+    // immediately so a page refresh doesn't re-apply stale data.
+    const prefillRaw = sessionStorage.getItem("amht_portfolio_prefill");
+    let prefill = null;
+    if (prefillRaw) {
+      sessionStorage.removeItem("amht_portfolio_prefill");
+      try {
+        prefill = JSON.parse(prefillRaw);
+      } catch {
+        prefill = null;
+      }
+    }
+    if (prefill) {
+      document.getElementById("title").value = prefill.title || "";
+      (prefill.photos || []).forEach((url) => uploadedPhotos.push(url));
+      selectedHouseId = prefill.house_id || null;
+      const prefillNote = document.createElement("p");
+      prefillNote.className = "hint";
+      prefillNote.style.cssText = "margin-top:-4px;margin-bottom:16px;color:var(--accent-dark);";
+      prefillNote.textContent = "Pre-filled from your listing — review everything before submitting, especially the photos and themes.";
+      document.getElementById("title").insertAdjacentElement("beforebegin", prefillNote);
+    }
+
     // Photo slots don't depend on house data — render them immediately so a
     // slow/failed houses.json fetch can never block photo uploads from
     // working, which is the actual point of this form.
@@ -140,6 +163,11 @@
     try {
       houses = await fetch("../data/houses.json").then((r) => r.json());
       renderHousePicker();
+      if (prefill?.themes?.length) {
+        themesGrid.querySelectorAll("input").forEach((cb) => {
+          cb.checked = prefill.themes.includes(cb.value);
+        });
+      }
     } catch (err) {
       console.error("Couldn't load house list (non-fatal, house link is optional):", err);
       // Leave the picker showing "None selected" — linking to a house is

@@ -111,6 +111,7 @@ export const api = {
   submitDataTeamValue: (payload) => request("data-team-submit-trade", { method: "POST", body: payload, auth: true }),
   submitGuide: (payload) => request("content-submit", { method: "POST", body: payload, auth: true }),
   removeRegistryEntry: (entry_id) => request("registry-delete", { method: "POST", body: { entry_id }, auth: true }),
+  removeListing: (listing_id) => request("listings-remove", { method: "POST", body: { listing_id }, auth: true }),
 };
 
 async function uploadPhoto(file) {
