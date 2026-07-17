@@ -442,8 +442,9 @@
       } catch {}
       if (!videoHostOk) {
         errorBox.textContent = "Video tour link must be a YouTube or Streamable URL.";
-      errorBox.hidden = false;
-      return;
+        errorBox.hidden = false;
+        return;
+      }
     }
 
     try {
