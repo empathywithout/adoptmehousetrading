@@ -216,6 +216,7 @@
               <div class="trust-name-row">
                 <span class="name">${escapeHtml(listing.profiles?.display_name || "unknown")}</span>
                 <span style="width:6px;height:6px;border-radius:50%;background:var(--good);"></span>
+                ${myProfile && !isOwner ? `<button id="save-listing-btn" class="save-btn ${isSaved ? "saved" : ""}" title="${isSaved ? "Saved — click to unsave" : "Save this listing"}">${isSaved ? "Saved" : "Save"}</button>` : ""}
               </div>
               <div class="trust-sub">${listing.profiles?.rbx_username ? `Lister · Roblox: ${escapeHtml(listing.profiles.rbx_username)}` : "Lister"}</div>
             </div>
@@ -271,10 +272,7 @@
           }
           ${
             listing.status === "active" && !isOwner
-              ? `<div style="display:flex;align-items:center;gap:16px;margin-top:8px;">
-                  ${myProfile ? `<button id="save-listing-btn" class="btn" style="background:${isSaved ? "var(--good-soft)" : "var(--surface-2)"};color:${isSaved ? "var(--good)" : "var(--ink)"};border:1.5px solid ${isSaved ? "var(--good)" : "var(--line)"};font-size:13px;padding:7px 14px;">
-                    ${isSaved ? "✓ Saved" : "♡ Save Listing"}
-                  </button>` : ""}
+              ? `<div style="margin-top:8px;">
                   <button id="report-btn" style="background:none;border:none;color:var(--muted);font-size:12.5px;cursor:pointer;text-decoration:underline;text-underline-offset:2px;">Report this listing</button>
                 </div>`
               : ""
@@ -411,10 +409,9 @@
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "Couldn't save");
         isSaved = data.saved;
-        btn.textContent = isSaved ? "✓ Saved" : "♡ Save Listing";
-        btn.style.background = isSaved ? "var(--good-soft)" : "var(--surface-2)";
-        btn.style.color = isSaved ? "var(--good)" : "var(--ink)";
-        btn.style.border = `1.5px solid ${isSaved ? "var(--good)" : "var(--line)"}`;
+        btn.classList.toggle("saved", isSaved);
+        btn.textContent = isSaved ? "Saved" : "Save";
+        btn.title = isSaved ? "Saved — click to unsave" : "Save this listing";
       } catch (err) {
         alert(err.message);
       } finally {
