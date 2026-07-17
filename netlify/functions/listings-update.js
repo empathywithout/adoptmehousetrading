@@ -122,7 +122,7 @@ async function handlerImpl(event) {
       looking_for: cleanLookingFor,
       included_items: cleanIncludedItems,
       video_url: cleanVideoUrl,
-      ...(cleanBuildType !== undefined ? { build_type: cleanBuildType, is_cloned: cleanBuildType === "cloned" } : {}),
+      ...(cleanBuildType !== undefined ? { build_type: cleanBuildType, is_cloned: cleanBuildType === "cloned" || cleanBuildType === "glitch_cloned" } : {}),
       updated_at: new Date().toISOString(),
     })
     .eq("id", listing_id)
