@@ -2349,6 +2349,14 @@ textarea { resize: vertical; min-height: 90px; }
 .site-footer a { color: var(--accent); }
 .site-footer a:hover { color: var(--accent-dark); }
 
+/* Hamburger hidden on desktop by default */
+.nav-hamburger { display: none; }
+
+/* Nav always visible on desktop regardless of mobile-open class */
+@media (min-width: 641px) {
+  .site-nav nav { display: flex !important; position: static !important; background: none !important; flex-direction: row !important; }
+}
+
 /* ═══════════════════════════════════════════════════════════════
    MOBILE RESPONSIVE — 640px and below
    Comprehensive pass: nav hamburger, grids, forms, cards, profile
