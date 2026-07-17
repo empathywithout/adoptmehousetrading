@@ -200,7 +200,7 @@
     init();
   }
 
-  const uploadedPhotos = [null, null, null, null, null]; // at least 5 required — [main, interior1-4]
+  const uploadedPhotos = [null, null, null, null, null, null, null, null]; // up to 8 photos (min 5 required)
   let houses = [];
   let selectedHouseId = null;
   let activeType = "house_trade";
@@ -352,16 +352,21 @@
       { key: 2, label: "Interior 2", main: false },
       { key: 3, label: "Interior 3", main: false },
       { key: 4, label: "Interior 4", main: false },
+      { key: 5, label: "Photo 6", main: false },
+      { key: 6, label: "Photo 7", main: false },
+      { key: 7, label: "Photo 8", main: false },
     ];
 
+    while (uploadedPhotos.length < 8) uploadedPhotos.push(null);
+
     container.innerHTML = slotDefs
-      .map(
-        (s) => `<div class="photo-slot ${s.main ? "main" : "interior"}" data-slot="${s.key}">
-          <div class="plus-circle">+</div>
-          <div class="slot-label">${s.label}</div>
+      .map((s) => {
+        const existing = uploadedPhotos[s.key];
+        return `<div class="photo-slot ${s.main ? "main" : "interior"}" data-slot="${s.key}">
+          ${existing ? `<img src="${existing}">` : `<div class="plus-circle">+</div><div class="slot-label">${s.label}</div>`}
           <input type="file" accept="image/png,image/jpeg,image/webp" data-slot-input="${s.key}" style="display:none;">
-        </div>`
-      )
+        </div>`;
+      })
       .join("");
 
     container.querySelectorAll(".photo-slot").forEach((slot) => {
@@ -374,11 +379,16 @@
         try {
           const url = await api.uploadPhoto(file);
           uploadedPhotos[slotKey] = url;
-          const img = document.createElement("img");
-          img.src = url;
-          slot.querySelector(".plus-circle").remove();
-          slot.querySelector(".slot-label").remove();
-          slot.prepend(img);
+          const existingImg = slot.querySelector("img");
+          if (existingImg) {
+            existingImg.src = url;
+          } else {
+            slot.querySelector(".plus-circle")?.remove();
+            slot.querySelector(".slot-label")?.remove();
+            const img = document.createElement("img");
+            img.src = url;
+            slot.prepend(img);
+          }
         } catch (err) {
           alert("Upload failed: " + err.message);
         }
