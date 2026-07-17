@@ -221,7 +221,7 @@
         </div>
         <div class="sidebar-sticky">
           ${!isSelf ? `<button class="btn btn-secondary entry-save-btn" data-id="${entry.id}" style="width:100%;justify-content:center;margin-bottom:12px;${window._entrySavedIds?.has(entry.id) ? 'border-color:var(--accent);color:var(--accent);background:var(--accent-soft);' : ''}">
-            🔖 ${window._entrySavedIds?.has(entry.id) ? `Saved · ${entry.save_count || 0}` : `Save Build · ${entry.save_count || 0}`}
+            ${window._entrySavedIds?.has(entry.id) ? `♥ Saved${entry.save_count > 0 ? " · " + entry.save_count : ""}` : `♡ Save${entry.save_count > 0 ? " · " + entry.save_count : ""}`}
           </button>` : entry.save_count > 0 ? `<div style="text-align:center;font-size:13px;color:var(--muted);margin-bottom:12px;">🔖 ${entry.save_count} saves</div>` : ""}
           <div class="trust-card">
             <img class="avatar-lg" src="${entry.profiles?.rbx_avatar_url || ""}" alt="" onerror="this.removeAttribute('src')">
@@ -285,7 +285,7 @@
           const isSaved = result.saved;
           if (isSaved) window._entrySavedIds?.add(saveBtn.dataset.id);
           else window._entrySavedIds?.delete(saveBtn.dataset.id);
-          saveBtn.textContent = isSaved ? `🔖 Saved · ${result.save_count}` : `🔖 Save Build · ${result.save_count}`;
+          saveBtn.textContent = isSaved ? `♥ Saved${result.save_count > 0 ? " · " + result.save_count : ""}` : `♡ Save${result.save_count > 0 ? " · " + result.save_count : ""}`;
           saveBtn.style.cssText = `width:100%;justify-content:center;margin-bottom:12px;${isSaved ? 'border-color:var(--accent);color:var(--accent);background:var(--accent-soft);' : ''}`;
         } catch { alert("Something went wrong"); }
         finally { saveBtn.dataset.loading = ""; saveBtn.style.opacity = ""; }
