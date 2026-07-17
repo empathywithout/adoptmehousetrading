@@ -232,8 +232,8 @@
               }</div>
             </div>
             <div>
-              <div class="stat-label">Bucks Invested</div>
-              <div class="stat-value">${listing.bucks_invested ? listing.bucks_invested : `<span class="unit" style="font-size:15px;">—</span>`}</div>
+              <div class="stat-label">Bucks Invested <span style="font-size:10px;font-weight:500;color:var(--muted);">(est.)</span></div>
+              <div class="stat-value">${listing.bucks_invested ? `<span class="bucks-icon-sm" style="background-image:url('../images/brand/bucks-icon.svg');"></span>${listing.bucks_invested.toLocaleString()}` : `<span class="unit" style="font-size:15px;">—</span>`}</div>
             </div>
             ${
               listing.listing_type === "house_trade" && listing.is_cloned !== null

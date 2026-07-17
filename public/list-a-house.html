@@ -135,8 +135,12 @@
       </div>
     </div>
 
-    <label class="field-label" for="bucks-invested">Bucks Invested <span style="font-weight:600;color:var(--muted);font-size:12px;">(optional)</span></label>
-    <input type="text" id="bucks-invested" placeholder="890,000" inputmode="numeric">
+    <label class="field-label" for="bucks-invested">Bucks Invested <span style="font-weight:600;color:var(--muted);font-size:12px;">(optional estimate)</span></label>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <img src="images/brand/bucks-icon.svg" width="18" height="18" alt="B$" style="flex-shrink:0;">
+      <input type="text" id="bucks-invested" placeholder="e.g. 890000" inputmode="numeric" style="flex:1;">
+    </div>
+    <p class="hint" style="margin-top:4px;">In-game Adopt Me Bucks spent building this house — helps buyers understand the effort involved. Rough estimate is fine.</p>
 
     <div id="included-items-field" style="margin-top:24px;">
       <label class="field-label">Items included with the house (optional)</label>

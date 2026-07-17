@@ -94,8 +94,12 @@
     </div>
 
     <!-- Bucks invested -->
-    <label class="field-label" for="edit-bucks">Bucks Invested <span style="font-weight:400;color:var(--muted);">(optional)</span></label>
-    <input type="text" id="edit-bucks" placeholder="e.g. 12500" inputmode="decimal">
+    <label class="field-label" for="edit-bucks">Bucks Invested <span style="font-weight:400;color:var(--muted);">(optional estimate)</span></label>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <img src="../images/brand/bucks-icon.svg" width="18" height="18" alt="B$" style="flex-shrink:0;">
+      <input type="text" id="edit-bucks" placeholder="e.g. 12500" inputmode="decimal" style="flex:1;">
+    </div>
+    <p class="hint" style="margin-top:4px;">In-game Adopt Me Bucks spent building. Rough estimate is fine.</p>
 
     <!-- Themes -->
     <label class="field-label">Themes</label>
