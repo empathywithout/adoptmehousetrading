@@ -364,16 +364,29 @@
     container.innerHTML = slotDefs
       .map((s) => {
         const existing = uploadedPhotos[s.key];
-        return `<div class="photo-slot ${s.main ? "main" : "interior"}" data-slot="${s.key}">
-          ${existing ? `<img src="${existing}">` : `<div class="plus-circle">+</div><div class="slot-label">${s.label}</div>`}
+        return `<div class="photo-slot ${s.main ? "main" : "interior"}" data-slot="${s.key}" style="position:relative;">
+          ${existing
+            ? `<img src="${existing}"><button class="photo-remove-btn" data-remove="${s.key}" title="Remove photo" style="position:absolute;top:5px;right:5px;background:rgba(0,0,0,0.65);color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">✕</button>`
+            : `<div class="plus-circle">+</div><div class="slot-label">${s.label}</div>`}
           <input type="file" accept="image/png,image/jpeg,image/webp" data-slot-input="${s.key}" style="display:none;">
         </div>`;
       })
       .join("");
 
+    container.querySelectorAll(".photo-remove-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        uploadedPhotos[Number(btn.dataset.remove)] = null;
+        renderSlots();
+      });
+    });
+
     container.querySelectorAll(".photo-slot").forEach((slot) => {
       const fileInput = slot.querySelector("input[type=file]");
-      slot.addEventListener("click", () => fileInput.click());
+      slot.addEventListener("click", (e) => {
+        if (e.target.closest(".photo-remove-btn")) return;
+        fileInput.click();
+      });
       fileInput.addEventListener("change", async (e) => {
         const file = e.target.files[0];
         if (!file) return;
@@ -381,16 +394,7 @@
         try {
           const url = await api.uploadPhoto(file);
           uploadedPhotos[slotKey] = url;
-          const existingImg = slot.querySelector("img");
-          if (existingImg) {
-            existingImg.src = url;
-          } else {
-            slot.querySelector(".plus-circle")?.remove();
-            slot.querySelector(".slot-label")?.remove();
-            const img = document.createElement("img");
-            img.src = url;
-            slot.prepend(img);
-          }
+          renderSlots();
         } catch (err) {
           alert("Upload failed: " + err.message);
         }
