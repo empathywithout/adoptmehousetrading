@@ -68,8 +68,11 @@ async function handlerImpl(event) {
   const body = JSON.parse(event.body || "{}");
   const {
     title, description, value_amount, value_unit, bucks_invested,
-    themes, theme_note, looking_for, included_items, video_url, photos,
+    themes, theme_note, looking_for, included_items, video_url, photos, build_type,
   } = body;
+
+  const VALID_BUILD_TYPES = ["original", "speedbuild", "cloned", "glitch"];
+  const cleanBuildType = build_type && VALID_BUILD_TYPES.includes(build_type) ? build_type : undefined;
 
   // Validate
   const cleanTitle = String(title || "").trim();
@@ -119,6 +122,7 @@ async function handlerImpl(event) {
       looking_for: cleanLookingFor,
       included_items: cleanIncludedItems,
       video_url: cleanVideoUrl,
+      ...(cleanBuildType !== undefined ? { build_type: cleanBuildType, is_cloned: cleanBuildType === "cloned" } : {}),
       updated_at: new Date().toISOString(),
     })
     .eq("id", listing_id)

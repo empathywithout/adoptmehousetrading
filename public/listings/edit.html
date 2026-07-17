@@ -78,6 +78,37 @@
     <label class="field-label" for="edit-title">Title</label>
     <input type="text" id="edit-title" maxlength="120" placeholder="e.g. Cozy cottagecore 100% original build">
 
+    <!-- Build Type -->
+    <div id="edit-build-type-field" style="margin-bottom:24px;">
+      <label class="field-label" style="margin-top:0;">Build Type</label>
+      <div class="build-type-grid" id="edit-build-type-grid">
+        <label class="build-type-card build-type-original" data-val="original">
+          <input type="radio" name="edit_build_type" value="original" style="display:none;">
+          <span class="build-type-icon">✦</span>
+          <span class="build-type-label">100% Original</span>
+          <span class="build-type-sub">Your own design</span>
+        </label>
+        <label class="build-type-card build-type-speedbuild" data-val="speedbuild">
+          <input type="radio" name="edit_build_type" value="speedbuild" style="display:none;">
+          <span class="build-type-icon">⚡</span>
+          <span class="build-type-label">Speedbuild</span>
+          <span class="build-type-sub">Built from a template or tutorial</span>
+        </label>
+        <label class="build-type-card build-type-glitch" data-val="glitch">
+          <input type="radio" name="edit_build_type" value="glitch" style="display:none;">
+          <span class="build-type-icon">⚡✨</span>
+          <span class="build-type-label">Glitch Build</span>
+          <span class="build-type-sub">Uses in-game glitches to place items</span>
+        </label>
+        <label class="build-type-card build-type-cloned" data-val="cloned">
+          <input type="radio" name="edit_build_type" value="cloned" style="display:none;">
+          <span class="build-type-icon">◈</span>
+          <span class="build-type-label">Cloned</span>
+          <span class="build-type-sub">70%+ similar to another build</span>
+        </label>
+      </div>
+    </div>
+
     <!-- Description -->
     <label class="field-label" for="edit-description">Description <span style="font-weight:400;color:var(--muted);">(optional)</span></label>
     <textarea id="edit-description" placeholder="More detail about the build, what it includes, anything the photos don't show..."></textarea>
@@ -195,6 +226,21 @@
     if (listing.status !== "active") {
       showError("Only active listings can be edited.");
       return;
+    }
+
+    // Build type selector (only for house_trade)
+    if (listing.listing_type === "house_trade") {
+      const btGrid = document.getElementById("edit-build-type-grid");
+      const currentType = listing.build_type || (listing.is_cloned ? "cloned" : "original");
+      btGrid.querySelectorAll(".build-type-card").forEach((card) => {
+        card.classList.toggle("active", card.dataset.val === currentType);
+        card.addEventListener("click", () => {
+          btGrid.querySelectorAll(".build-type-card").forEach((c) => c.classList.remove("active"));
+          card.classList.add("active");
+        });
+      });
+    } else {
+      document.getElementById("edit-build-type-field").hidden = true;
     }
 
     // Populate read-only header
@@ -346,8 +392,11 @@
     btn.textContent = "Saving…";
 
     try {
+      const activeBuildCard = document.querySelector("#edit-build-type-grid .build-type-card.active");
+      const build_type = activeBuildCard ? activeBuildCard.dataset.val : null;
       await api.updateListing(listingId, {
         title,
+        build_type,
         description: document.getElementById("edit-description").value.trim() || null,
         value_amount: document.getElementById("edit-value").value.trim() || null,
         value_unit: activeUnit,
