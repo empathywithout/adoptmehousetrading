@@ -128,6 +128,9 @@
         .map((b) => {
           const photo = b.cover_photo || "../images/brand/searchdog.png";
           const themesLine = (b.builder_themes || []).map((t) => THEME_LABELS[t] || t).join(", ");
+          const prestigeLine = b.original_saves > 0
+            ? `<p class="lister" style="margin-top:2px;color:var(--accent);font-weight:700;">🔖 ${b.original_saves} save${b.original_saves !== 1 ? "s" : ""} on original builds</p>`
+            : "";
           return `
           <a class="listing-card" href="builder.html?id=${b.id}">
             <div class="photo"><img src="${photo}" alt="" loading="lazy"></div>
@@ -138,6 +141,7 @@
                 <span class="username">Open for commissions</span>
               </div>
               ${themesLine ? `<p class="lister" style="margin-top:2px;">${escapeHtml(themesLine)}</p>` : ""}
+              ${prestigeLine}
             </div>
           </a>`;
         })

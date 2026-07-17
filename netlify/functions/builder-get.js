@@ -26,13 +26,23 @@ async function handlerImpl(event) {
 
   const { data: ownEntries } = await db
     .from("build_registry")
-    .select("id, photos, created_at")
+    .select("id, photos, created_at, save_count, status")
     .eq("profile_id", id)
     .order("created_at", { ascending: false });
 
   const featured = data.featured_registry_entry_id ? (ownEntries || []).find((e) => e.id === data.featured_registry_entry_id) : null;
   const chosen = featured || (ownEntries || [])[0];
   data.cover_photo = chosen?.photos?.[0] || null;
+
+  // Prestige stat: total saves on builds that are original or uncontested.
+  // Confirmed clones excluded entirely. Disputed entries excluded (outcome unknown).
+  // Only the builder's own legitimate work counts toward their reputation.
+  const PRESTIGE_STATUSES = new Set(["active", "confirmed_original"]);
+  data.original_saves = (ownEntries || [])
+    .filter(e => PRESTIGE_STATUSES.has(e.status))
+    .reduce((sum, e) => sum + (e.save_count || 0), 0);
+  data.original_build_count = (ownEntries || [])
+    .filter(e => PRESTIGE_STATUSES.has(e.status)).length;
 
   return json(200, { builder: data });
 }

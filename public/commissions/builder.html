@@ -140,6 +140,12 @@
             <div>
               <div class="trust-name-row"><span class="name">${escapeHtml(builder.display_name)}</span></div>
               <div class="trust-sub">${builder.commission_status === "open" ? "Open for commissions" : "Currently closed"}</div>
+              ${builder.original_saves > 0
+                ? `<div style="margin-top:8px;display:flex;align-items:center;gap:6px;">
+                    <span style="font-size:13px;font-weight:700;color:var(--accent);">🔖 ${builder.original_saves}</span>
+                    <span style="font-size:12px;color:var(--muted);">save${builder.original_saves !== 1 ? "s" : ""} on original builds</span>
+                  </div>`
+                : ""}
             </div>
           </div>
           ${builder.builder_bio ? `<p>${escapeHtml(builder.builder_bio)}</p>` : ""}

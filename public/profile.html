@@ -156,6 +156,9 @@
 
         <div id="builder-settings-fields" hidden style="margin-top:24px;border-top:1px solid var(--line);padding-top:24px;">
 
+          <!-- Prestige stat — shown when builder has saves on original builds -->
+          <div id="builder-prestige-stat" hidden></div>
+
           <!-- Cover Photo -->
           <label class="field-label" style="margin-top:0;">Cover Photo</label>
           <p class="hint" style="margin-top:-4px;margin-bottom:10px;">Pick which registered build shows on your Commissions card — click one below. Defaults to your most recent if you don't pick one.</p>
@@ -606,6 +609,26 @@
     const fields = document.getElementById("builder-settings-fields");
     toggle.checked = !!profile.is_builder;
     fields.hidden = !profile.is_builder;
+
+    // Prestige stat: saves on original/uncontested builds only
+    const PRESTIGE_STATUSES = new Set(["active", "confirmed_original"]);
+    const originalBuilds = registryEntries.filter(e => PRESTIGE_STATUSES.has(e.status));
+    const originalSaves = originalBuilds.reduce((sum, e) => sum + (e.save_count || 0), 0);
+    const prestigeEl = document.getElementById("builder-prestige-stat");
+    if (prestigeEl) {
+      if (profile.is_builder && originalSaves > 0) {
+        prestigeEl.innerHTML = `<div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;margin-bottom:20px;">
+          <span style="font-size:22px;">🔖</span>
+          <div>
+            <div style="font-weight:700;color:var(--accent);font-size:15px;">${originalSaves} save${originalSaves !== 1 ? "s" : ""} on your original builds</div>
+            <div style="font-size:12px;color:var(--muted);">From ${originalBuilds.length} registered build${originalBuilds.length !== 1 ? "s" : ""}. Cloned or disputed builds don't count.</div>
+          </div>
+        </div>`;
+        prestigeEl.hidden = false;
+      } else {
+        prestigeEl.hidden = true;
+      }
+    }
 
     document.getElementById("builder-bio").value = profile.builder_bio || "";
     selectedFeaturedId = profile.featured_registry_entry_id || null;
