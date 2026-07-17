@@ -177,16 +177,16 @@
       const data = await api.getListing(listingId);
       listing = data.listing;
     } catch (e) {
-      showError("Couldn't load listing.");
+      showError("Couldn't load listing: " + e.message);
       return;
     }
 
     if (!listing || listing.profile_id !== myProfile.id) {
-      showError("Listing not found or not yours.");
+      showError("Listing not found or not yours. (profile mismatch)");
       return;
     }
     if (listing.status !== "active") {
-      showError("Only active listings can be edited.");
+      showError("Only active listings can be edited. (status: " + listing.status + ")");
       return;
     }
 
