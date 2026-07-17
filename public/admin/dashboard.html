@@ -136,8 +136,13 @@
           ${s.photos?.length ? `<div style="display:flex;gap:8px;margin-bottom:10px;">${s.photos.map((p) => `<img src="${p}" alt="" style="width:70px;height:70px;border-radius:8px;object-fit:cover;">`).join("")}</div>` : ""}
           <p data-body-preview="${s.id}" style="margin:0 0 8px;white-space:pre-wrap;">${escapeHtml(preview)}</p>
           ${needsToggle ? `<button data-toggle-body="${s.id}" data-full="${encodeURIComponent(s.body)}" style="background:none;border:none;color:var(--accent);font-size:13px;font-weight:600;cursor:pointer;padding:0;margin-bottom:12px;">Show more ↓</button>` : ""}
-          <div class="hero-ctas" style="justify-content:flex-start;margin-top:4px;">
+          <div data-editor-wrap="${s.id}" style="display:none;margin-bottom:12px;">
+            <p style="font-size:12px;font-weight:600;color:var(--muted);margin:0 0 6px;">Edit before publishing:</p>
+            <textarea data-editor="${s.id}" style="width:100%;min-height:260px;font-family:var(--font-body);font-size:13.5px;line-height:1.6;padding:10px;border:1.5px solid var(--line);border-radius:8px;resize:vertical;box-sizing:border-box;">${escapeHtml(s.body)}</textarea>
+          </div>
+          <div class="hero-ctas" style="justify-content:flex-start;margin-top:4px;flex-wrap:wrap;gap:8px;">
             <button class="btn-sm accept" data-content-review="${s.id}" data-decision="approved">Approve & Publish</button>
+            <button data-toggle-editor="${s.id}" class="btn-sm" style="background:var(--surface-2);color:var(--ink);">Edit First</button>
             <button class="btn-sm decline" data-content-review="${s.id}" data-decision="rejected">Reject</button>
           </div>
         </div>`;
@@ -163,13 +168,29 @@
       });
     });
 
+    list.querySelectorAll("[data-toggle-editor]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.dataset.toggleEditor;
+        const wrap = list.querySelector(`[data-editor-wrap="${id}"]`);
+        const isOpen = wrap.style.display !== "none";
+        wrap.style.display = isOpen ? "none" : "block";
+        btn.textContent = isOpen ? "Edit First" : "Hide Editor";
+      });
+    });
+
     list.querySelectorAll("[data-content-review]").forEach((btn) => {
       btn.addEventListener("click", async () => {
         try {
           const res = await fetch("/.netlify/functions/admin-content-approve", {
             method: "POST",
             headers: { "Content-Type": "application/json", "X-Admin-Password": getAdminPassword() },
-            body: JSON.stringify({ submission_id: btn.dataset.contentReview, decision: btn.dataset.decision }),
+            body: JSON.stringify({
+              submission_id: btn.dataset.contentReview,
+              decision: btn.dataset.decision,
+              edited_body: btn.dataset.decision === "approved"
+                ? (list.querySelector(`[data-editor="${btn.dataset.contentReview}"]`)?.value || null)
+                : null,
+            }),
           });
           const data = await res.json();
           if (!res.ok) throw new Error(data.error || "Couldn't update");

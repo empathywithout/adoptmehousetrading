@@ -19,7 +19,7 @@ async function handlerImpl(event) {
     return json(400, { error: "Invalid JSON body" });
   }
 
-  const { submission_id, decision } = body;
+  const { submission_id, decision, edited_body } = body;
   if (!submission_id || !["approved", "rejected"].includes(decision)) {
     return json(400, { error: "submission_id and a valid decision are required" });
   }
@@ -34,6 +34,9 @@ async function handlerImpl(event) {
   const patch = { status: decision, reviewed_at: new Date().toISOString() };
   if (decision === "approved") {
     patch.published_at = new Date().toISOString();
+    if (edited_body && typeof edited_body === "string" && edited_body.trim()) {
+      patch.body = edited_body.trim();
+    }
   }
 
   const { data, error } = await db
