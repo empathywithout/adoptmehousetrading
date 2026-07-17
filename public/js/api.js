@@ -204,6 +204,5 @@ export const THEME_LABELS = {
   custom_theme:     "Custom Theme",
   // Legacy keys — old listings/builds keep displaying correctly
   gothic_dark:         "Gothic",
-  modern_apartment:    "Modern",
-  franchise_crossover: "Custom Theme",
+
 };

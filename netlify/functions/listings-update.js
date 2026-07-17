@@ -117,7 +117,6 @@ async function handlerImpl(event) {
       included_items: cleanIncludedItems,
       video_url: cleanVideoUrl,
       updated_at: new Date().toISOString(),
-      build_type: cleanBuildType,
     })
     .eq("id", listing_id)
     .select()
