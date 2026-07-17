@@ -144,23 +144,32 @@
           ? `<p class="lister" style="margin-top:2px;">${listing.themes.map((t) => THEME_LABELS[t] || t).join(", ")}</p>`
           : "";
 
-        return `<a class="listing-card" href="listings/listing.html?id=${listing.id}">
-          <div class="photo">
-            <img src="${photo}" alt="" loading="lazy">
-            <div class="card-badge ${BADGE_CLASS[listing.listing_type] || "house-trade"}" title="${TYPE_LABELS[listing.listing_type] || "For Trade"}"><div class="${BADGE_ICON[listing.listing_type] || "icon-sign"}"></div></div>
-            ${cardTag}
-          </div>
-          <div class="body">
-            <h3>${escapeHtml(listing.title)}</h3>
-            <div class="trust-row">
-              ${listing.profiles?.rbx_avatar_url ? `<img class="trust-row-avatar" src="${listing.profiles.rbx_avatar_url}" alt="">` : `<span class="avatar-initial">${escapeHtml(username[0]?.toUpperCase() || "?")}</span>`}
-              <span class="username">${escapeHtml(username)}</span>
-              ${myProfile?.id !== listing.profile_id ? `<button class="save-btn ${savedIds.has(listing.id) ? "saved" : ""}" data-listing-id="${listing.id}" title="${savedIds.has(listing.id) ? "Saved — click to unsave" : "Save this listing"}" onclick="event.preventDefault()">${savedIds.has(listing.id) ? "Saved" : "Save"}</button>` : ""}
-            </div>
-            ${valueLine}
-            ${themeLine}
-          </div>
-        </a>`;
+        const isSaved = savedIds.has(listing.id);
+        const avatarHtml = listing.profiles?.rbx_avatar_url
+          ? '<img class="trust-row-avatar" src="' + listing.profiles.rbx_avatar_url + '" alt="">'
+          : '<span class="avatar-initial">' + escapeHtml(username[0]?.toUpperCase() || "?") + '</span>';
+        const saveBtnHtml = myProfile?.id !== listing.profile_id
+          ? '<button class="save-btn' + (isSaved ? ' saved' : '') + '" data-listing-id="' + listing.id + '" title="' + (isSaved ? 'Saved — click to unsave' : 'Save this listing') + '" onclick="event.preventDefault()">' + (isSaved ? 'Saved' : 'Save') + '</button>'
+          : '';
+        const badgeHtml = '<div class="card-badge ' + (BADGE_CLASS[listing.listing_type] || "house-trade") + '" title="' + (TYPE_LABELS[listing.listing_type] || "For Trade") + '"><div class="' + (BADGE_ICON[listing.listing_type] || "icon-sign") + '"></div></div>';
+
+        return '<a class="listing-card" href="listings/listing.html?id=' + listing.id + '">' +
+          '<div class="photo">' +
+            '<img src="' + photo + '" alt="" loading="lazy">' +
+            badgeHtml +
+            cardTag +
+          '</div>' +
+          '<div class="body">' +
+            '<h3>' + escapeHtml(listing.title) + '</h3>' +
+            '<div class="trust-row">' +
+              avatarHtml +
+              '<span class="username">' + escapeHtml(username) + '</span>' +
+              saveBtnHtml +
+            '</div>' +
+            valueLine +
+            themeLine +
+          '</div>' +
+        '</a>';
       }).join("");
       // Delegated save handler
       document.getElementById("recent-listings-grid").addEventListener("click", async (e) => {
