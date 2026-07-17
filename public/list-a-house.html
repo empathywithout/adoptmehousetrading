@@ -255,6 +255,13 @@
       });
     });
 
+    document.getElementById("build-type-grid").querySelectorAll(".build-type-card").forEach((card) => {
+      card.addEventListener("click", () => {
+        buildTypeVal = card.dataset.val;
+        document.getElementById("build-type-grid").querySelectorAll(".build-type-card").forEach((c) => c.classList.toggle("active", c === card));
+      });
+    });
+
     document.getElementById("submit-btn").addEventListener("click", submitListing);
 
     onTypeChange();
