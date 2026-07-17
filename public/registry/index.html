@@ -61,14 +61,17 @@
   </p>
 
   <div class="listings-toolbar" style="flex-wrap:wrap;gap:10px;margin-bottom:12px;">
-    <select id="theme-select" style="padding:8px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:13.5px;cursor:pointer;">
+    <select id="theme-select" class="filter-select">
       <option value="all">All Themes</option>
     </select>
-    <select id="clone-select" style="padding:8px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:13.5px;cursor:pointer;">
-      <option value="all">Original &amp; Cloned</option>
-      <option value="original">Original Only</option>
-      <option value="cloned">Cloned Only</option>
+    <select id="clone-select" class="filter-select">
+      <option value="all">Build Type</option>
+      <option value="original">Original</option>
+      <option value="speedbuild">Speedbuild</option>
+      <option value="glitch">Glitch Build</option>
+      <option value="cloned">Cloned</option>
     </select>
+    <button id="clear-filters-btn" hidden style="padding:7px 14px;border:1.5px solid var(--line);border-radius:8px;background:none;color:var(--muted);font-size:13px;cursor:pointer;white-space:nowrap;">✕ Clear</button>
   </div>
 
   <div id="empty-state" class="form-card" hidden>
@@ -146,7 +149,18 @@
     sel.innerHTML = '<option value="all">All Themes</option>' +
       themesInUse.map(t => `<option value="${t}">${THEME_LABELS[t] || t}</option>`).join("");
     sel.addEventListener("change", (e) => { activeTheme = e.target.value; render(); });
-    document.getElementById("clone-select").addEventListener("change", (e) => { activeClone = e.target.value; render(); });
+    document.getElementById("clone-select").addEventListener("change", (e) => { activeClone = e.target.value; updateClearBtn(); render(); });
+
+  function updateClearBtn() {
+    document.getElementById("clear-filters-btn").hidden = activeTheme === "all" && activeClone === "all";
+  }
+  document.getElementById("clear-filters-btn").addEventListener("click", () => {
+    activeTheme = "all"; activeClone = "all";
+    document.getElementById("theme-select").value = "all";
+    document.getElementById("clone-select").value = "all";
+    updateClearBtn();
+    render();
+  });
   }
 
   // ── Save button handler (delegated) ─────────────────────────
@@ -200,6 +214,8 @@
     let filtered = activeTheme === "all" ? [...entries] : entries.filter(e => (e.themes || []).includes(activeTheme));
     if (activeClone === "original") filtered = filtered.filter(e => e.build_type === "original" || (!e.build_type && !e.is_cloned));
     if (activeClone === "cloned") filtered = filtered.filter(e => e.build_type === "cloned" || e.is_cloned);
+    if (activeClone === "speedbuild") filtered = filtered.filter(e => e.build_type === "speedbuild");
+    if (activeClone === "glitch") filtered = filtered.filter(e => e.build_type === "glitch");
 
     if (activeSort === "saves") {
       filtered.sort((a, b) => (b.save_count || 0) - (a.save_count || 0));
@@ -230,6 +246,8 @@
         // Submitter-declared build type when no admin ruling yet
         : entry.build_type === "speedbuild"
         ? `<div class="card-tag" style="background:var(--butter);color:var(--ink);">Speedbuild</div>`
+        : entry.build_type === "glitch"
+        ? `<div class="card-tag" style="background:#7c3aed;color:#fff;">Glitch Build</div>`
         : entry.build_type === "cloned"
         ? `<div class="card-tag cloned">Cloned</div>`
         : `<div class="card-tag" style="background:var(--good);color:var(--white);">Original</div>`;

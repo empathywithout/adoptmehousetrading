@@ -153,7 +153,11 @@
 
     const cloneTag =
       listing.listing_type === "house_trade" && listing.is_cloned !== null
-        ? `<span class="pill">${listing.is_cloned ? "Cloned / Speedbuild" : "100% Original"}</span>`
+        ? `<span class="pill">${
+            listing.build_type === "glitch" ? "Glitch Build" :
+            listing.build_type === "speedbuild" ? "Speedbuild" :
+            listing.is_cloned ? "Cloned" : "100% Original"
+          }</span>`
         : "";
 
     const lookingForHtml = (listing.looking_for || [])

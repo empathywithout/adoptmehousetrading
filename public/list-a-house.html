@@ -119,6 +119,12 @@
           <span class="build-type-label">Cloned</span>
           <span class="build-type-sub">70%+ similar to another existing build</span>
         </label>
+        <label class="build-type-card build-type-glitch" data-val="glitch">
+          <input type="radio" name="build_type" value="glitch" style="display:none;">
+          <span class="build-type-icon">⚡✨</span>
+          <span class="build-type-label">Glitch Build</span>
+          <span class="build-type-sub">Uses in-game glitches or exploits to place items</span>
+        </label>
       </div>
       <p class="hint" style="margin-top:8px;">Misrepresenting build type can get a listing reported and removed.</p>
     </div>
@@ -413,7 +419,7 @@
     const valueAmountRaw = document.getElementById("value-amount").value.trim().replace(/,/g, "");
     const bucksRaw = document.getElementById("bucks-invested").value.trim().replace(/,/g, "");
     const build_type = activeType === "house_trade" ? buildTypeVal : null;
-    const is_cloned = build_type === "cloned" ? true : build_type === "original" ? false : null;
+    const is_cloned = build_type === "cloned" ? true : (build_type === "original" || build_type === "glitch" || build_type === "speedbuild") ? false : null;
     const included_items = activeType === "house_trade" && includedItemsPicker ? includedItemsPicker.getSelected() : [];
     const photos = activeType === "looking_for" ? [] : uploadedPhotos.filter(Boolean);
     const video_url = document.getElementById("video-tour-url").value.trim();

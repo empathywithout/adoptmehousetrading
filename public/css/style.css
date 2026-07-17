@@ -2715,3 +2715,21 @@ textarea { resize: vertical; min-height: 90px; }
   .btn { padding: 10px 18px; font-size: 14px; }
   .hero-grid h1 { font-size: 28px !important; }
 }
+
+.filter-select {
+  padding: 7px 28px 7px 12px;
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 13.5px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+.filter-select:focus { outline: none; border-color: var(--accent); }
+
+.build-type-glitch.active { border-color: #7c3aed; background: rgba(124,58,237,0.08); }
+.build-type-glitch.active .build-type-label { color: #7c3aed; }
