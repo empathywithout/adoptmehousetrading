@@ -223,16 +223,9 @@ img { max-width: 100%; display: block; }
 [data-theme="dark"] .nav-bell-header {
   background: var(--surface-2);
 }
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(22, 51, 43, 0.12);
-  padding: 6px;
-  min-width: 160px;
-  z-index: 30;
-}
 .nav-more-dropdown a {
   display: block;
-  padding: 8px 10px;
+  padding: 9px 14px;
   border-radius: 7px;
   color: var(--ink);
   text-decoration: none;
