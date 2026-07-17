@@ -436,6 +436,7 @@ create table content_submissions (
   category text not null check (category in ('theme_build', 'budget_build', 'building_technique', 'trading_guide')),
   body text not null,                  -- markdown
   cover_photo text,                    -- Supabase Storage URL, optional
+  video_url text,                      -- optional YouTube/Streamable/etc. link (not a raw upload)
   house_id text,                       -- optional: which house type this is about
   related_registry_entry_id uuid references build_registry(id),
                                        -- optional: cross-link to the author's own

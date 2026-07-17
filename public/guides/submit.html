@@ -331,7 +331,7 @@
         </div>
         <div class="body-wrap" style="margin-top:10px;">
           <textarea id="guide-body" placeholder="Start writing your guide here. Use blank lines between paragraphs.&#10;&#10;Example structure:&#10;• What you need / requirements&#10;• Step-by-step process&#10;• Tips, mistakes to avoid&#10;• What to do next"></textarea>
-          <span class="body-counter" id="body-counter">0 / 800 min</span>
+          <span class="body-counter" id="body-counter">0 / 300 min</span>
         </div>
       </div>
 
@@ -340,6 +340,13 @@
         <label class="field-label" style="margin-top:0;">Photos</label>
         <p style="font-size:12.5px;color:var(--muted);margin:0 0 8px;">Screenshots help a lot — show your build, the result, the process. First photo becomes the cover image on the browse page.</p>
         <div class="guide-photo-grid" id="photo-grid"></div>
+      </div>
+
+      <!-- Video URL -->
+      <div style="margin-bottom:24px;">
+        <label class="field-label" style="margin-top:0;" for="guide-video">Video Guide Link <span style="font-weight:400;color:var(--muted);">(optional)</span></label>
+        <p style="font-size:12.5px;color:var(--muted);margin:0 0 8px;">Link a YouTube, Streamable, or TikTok walkthrough. Video content isn't indexable by search engines on its own — the written content above is what gets found in search. Think of video as a bonus for readers who want to see it in action.</p>
+        <input type="url" id="guide-video" placeholder="https://youtube.com/watch?v=...">
       </div>
 
       <!-- Submit -->
@@ -358,7 +365,7 @@
           <li><span class="check-icon todo" id="chk-cat">○</span><span>Category selected</span></li>
           <li><span class="check-icon todo" id="chk-title">○</span><span>Title is 20–100 characters</span></li>
           <li><span class="check-icon todo" id="chk-intro">○</span><span>Introduction written</span></li>
-          <li><span class="check-icon todo" id="chk-body">○</span><span>Content is at least 800 characters</span></li>
+          <li><span class="check-icon todo" id="chk-body">○</span><span id="chk-body-label">Content is at least 300 characters (varies by type)</span></li>
           <li><span class="check-icon todo" id="chk-photo">○</span><span>At least one photo added <em style="color:var(--muted);font-style:normal;">(optional but recommended)</em></span></li>
         </ul>
         <div class="progress-bar-wrap" style="margin-top:14px;">
@@ -385,7 +392,7 @@
           <li>Specific, actionable advice — not vague tips</li>
           <li>Real values and trade ratios, not guesses</li>
           <li>Written from your own experience</li>
-          <li>800+ characters — enough to be genuinely useful</li>
+          <li>300+ characters — more is always better</li>
           <li>Adopt Me houses, builds, or trading focus</li>
         </ul>
       </div>
@@ -454,6 +461,13 @@
         const hint = document.getElementById("cat-hint");
         hint.textContent = CAT_HINTS[activeCategory] || "";
         hint.classList.add("visible");
+        // Refresh body counter and checklist label for the new per-category minimum
+        const catMin = CAT_MIN[activeCategory] || 300;
+        const bodyLen = document.getElementById("guide-body").value.trim().length;
+        const bodyCounter = document.getElementById("body-counter");
+        if (bodyLen < catMin) bodyCounter.textContent = `${bodyLen} / ${catMin} min`;
+        const bodyChkSpan = document.querySelector("#chk-body + span");
+        if (bodyChkSpan) bodyChkSpan.textContent = `Content is at least ${catMin} characters`;
         updateChecklist();
       });
     });
@@ -520,6 +534,10 @@
     render();
   }
 
+  const CAT_MIN = { theme_build: 500, budget_build: 500, building_technique: 300, trading_guide: 500 };
+
+  function getCatMin() { return CAT_MIN[activeCategory] || 300; }
+
   function setupCounters() {
     const titleInput = document.getElementById("guide-title");
     const titleCounter = document.getElementById("title-counter");
@@ -534,13 +552,13 @@
     const bodyCounter = document.getElementById("body-counter");
     bodyArea.addEventListener("input", () => {
       const len = bodyArea.value.trim().length;
-      const pct = Math.min(100, Math.round((len / 800) * 100));
-      if (len >= 800) {
+      const min = getCatMin();
+      if (len >= min) {
         bodyCounter.textContent = `${len} chars ✓`;
         bodyCounter.className = "body-counter good";
       } else {
-        bodyCounter.textContent = `${len} / 800 min`;
-        bodyCounter.className = "body-counter" + (len > 400 ? " warn" : "");
+        bodyCounter.textContent = `${len} / ${min} min`;
+        bodyCounter.className = "body-counter" + (len > min * 0.6 ? " warn" : "");
       }
       updateChecklist();
     });
@@ -558,7 +576,7 @@
       "chk-cat": !!activeCategory,
       "chk-title": title.length >= 20 && title.length <= 100,
       "chk-intro": intro.length >= 20,
-      "chk-body": body.length >= 800,
+      "chk-body": body.length >= getCatMin(),
       "chk-photo": hasPhoto,
     };
 
@@ -592,11 +610,19 @@
     // Merge intro + body into one formatted body for storage
     const body = intro ? `${intro}\n\n${bodyRaw}` : bodyRaw;
 
+    const videoUrl = document.getElementById("guide-video").value.trim();
+    if (videoUrl && !/^https?:\/\//.test(videoUrl)) {
+      errorBox.textContent = "Video link needs to be a full URL (https://...)";
+      errorBox.hidden = false;
+      return;
+    }
+
     try {
       await api.submitGuide({
         category: activeCategory,
         title,
         body,
+        video_url: videoUrl || null,
         photos: uploadedPhotos.filter(Boolean),
         cover_photo: uploadedPhotos[0] || null,
       });
