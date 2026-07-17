@@ -149,9 +149,7 @@
     const TYPE_LABELS = { house_trade: "For Trade", looking_for: "Looking For", commission: "Commission" };
 
     const photos = (listing.photos?.length ? listing.photos : house ? [house.image] : []).filter(Boolean);
-    const photosHtml = photos.length
-      ? photos.map((url, i) => `<img src="${url}" alt="${escapeHtml(listing.title)} photo ${i + 1}" ${i > 0 ? 'loading="lazy" ' : ''}style="width:100%;border-radius:10px;margin-bottom:10px;">`).join("")
-      : `<p class="hint">No photos on this listing.</p>`;
+    const photosHtml = buildSlideshow(photos, escapeHtml(listing.title));
 
     const cloneTag =
       listing.listing_type === "house_trade" && listing.is_cloned !== null

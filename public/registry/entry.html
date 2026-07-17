@@ -137,9 +137,7 @@
     const themesLine = (entry.themes || []).map((t) => THEME_LABELS[t] || t).join(", ");
     const pendingDisputeCount = disputes.filter((d) => d.status === "pending").length;
 
-    const photosHtml = entry.photos?.length
-      ? entry.photos.map((url, i) => `<img src="${url}" alt="${escapeHtml(entry.title)} photo ${i + 1}" ${i > 0 ? 'loading="lazy" ' : ''}style="width:100%;border-radius:10px;margin-bottom:10px;">`).join("")
-      : `<p class="hint">No photos.</p>`;
+    const photosHtml = buildSlideshow(entry.photos || [], escapeHtml(entry.title));
 
     const verifiedBadge = entry.is_community_verified
       ? `<span class="verified-badge" style="margin-bottom:10px;display:inline-flex;">Community Verified — undisputed 30+ days</span><br>`
@@ -453,6 +451,57 @@
       });
     }
   }
+
+  function buildSlideshow(photos, altPrefix) {
+    if (!photos || !photos.length) return '<p class="hint">No photos.</p>';
+    if (photos.length === 1) return `<img src="${photos[0]}" alt="${altPrefix} photo 1" style="width:100%;border-radius:12px;display:block;">`;
+
+    const id = "ss" + Math.random().toString(36).slice(2, 7);
+    let current = 0;
+
+    const html = `
+      <div id="${id}" style="position:relative;user-select:none;">
+        <div style="position:relative;border-radius:12px;overflow:hidden;background:#000;">
+          <img id="${id}-main" src="${photos[0]}" alt="${altPrefix} photo 1" style="width:100%;display:block;aspect-ratio:16/10;object-fit:cover;">
+          <button id="${id}-prev" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.55);color:#fff;border:none;border-radius:50%;width:36px;height:36px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">‹</button>
+          <button id="${id}-next" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.55);color:#fff;border:none;border-radius:50%;width:36px;height:36px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">›</button>
+          <span id="${id}-counter" style="position:absolute;bottom:10px;right:12px;background:rgba(0,0,0,0.55);color:#fff;font-size:12px;font-weight:600;padding:3px 8px;border-radius:20px;">1 / ${photos.length}</span>
+        </div>
+        <div style="display:flex;gap:6px;margin-top:8px;overflow-x:auto;padding-bottom:4px;">
+          ${photos.map((url, i) => `<img id="${id}-thumb-${i}" src="${url}" alt="${altPrefix} photo ${i+1}" loading="lazy" style="width:64px;height:64px;object-fit:cover;border-radius:7px;cursor:pointer;flex-shrink:0;border:2px solid ${i === 0 ? "var(--accent)" : "transparent"};transition:border-color 0.15s;">`).join("")}
+        </div>
+      </div>`;
+
+    setTimeout(() => {
+      const wrap = document.getElementById(id);
+      if (!wrap) return;
+      const mainImg = document.getElementById(`${id}-main`);
+      const counter = document.getElementById(`${id}-counter`);
+      const thumbs = photos.map((_, i) => document.getElementById(`${id}-thumb-${i}`));
+
+      function goTo(n) {
+        current = (n + photos.length) % photos.length;
+        mainImg.src = photos[current];
+        mainImg.alt = `${altPrefix} photo ${current + 1}`;
+        counter.textContent = `${current + 1} / ${photos.length}`;
+        thumbs.forEach((t, i) => t.style.borderColor = i === current ? "var(--accent)" : "transparent");
+        thumbs[current].scrollIntoView({ behavior: "smooth", inline: "nearest", block: "nearest" });
+      }
+
+      document.getElementById(`${id}-prev`).addEventListener("click", () => goTo(current - 1));
+      document.getElementById(`${id}-next`).addEventListener("click", () => goTo(current + 1));
+      thumbs.forEach((t, i) => t.addEventListener("click", () => goTo(i)));
+
+      wrap.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") goTo(current - 1);
+        if (e.key === "ArrowRight") goTo(current + 1);
+      });
+      wrap.setAttribute("tabindex", "0");
+    }, 0);
+
+    return html;
+  }
+
 </script>
 </body>
 </html>
