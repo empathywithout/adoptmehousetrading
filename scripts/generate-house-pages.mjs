@@ -103,6 +103,7 @@ function layout({ title, description, path: routePath, depth, body, jsonLd = [],
 <title>${escapeHtml(title)}</title>
 <meta name="description" content="${escapeHtml(description)}">
 <link rel="canonical" href="${canonical}">
+<link rel="icon" type="image/svg+xml" href="${rootPrefix}favicon.svg">
 <meta property="og:title" content="${escapeHtml(title)}">
 <meta property="og:description" content="${escapeHtml(description)}">
 <meta property="og:type" content="website">
