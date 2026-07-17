@@ -112,6 +112,15 @@ function layout({ title, description, path: routePath, depth, body, jsonLd = [],
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${rootPrefix}css/style.css">
 ${allJsonLd.map(jsonLdScript).join("\n")}
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-REW2CFBX6H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-REW2CFBX6H');
+</script>
 </head>
 <body>
 <header class="site-nav">
@@ -145,7 +154,7 @@ ${body}
 <footer class="site-footer">
   <div class="wrap">
     AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community — house values, live trade listings, builder commissions, and a build registry for verifying who built a house first. Not affiliated with, endorsed by, or sponsored by Adopt Me, Uplift Games, or Roblox Corporation.
-    <div style="margin-top:8px;"><a href="${rootPrefix}rules.html" style="color:var(--sign-red);">Community Rules</a></div>
+    <div style="margin-top:8px;"><a href="${rootPrefix}rules.html" style="color:var(--sign-red);">Community Rules</a> · <a href="${rootPrefix}privacy.html" style="color:var(--sign-red);">Privacy Policy</a></div>
   </div>
 </footer>
 </body>
