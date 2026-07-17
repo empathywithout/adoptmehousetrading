@@ -153,6 +153,11 @@
   const params = new URLSearchParams(location.search);
   const listingId = params.get("id");
 
+  let activeUnit = "shark";
+  let photos = [];
+  let includedItems = [];
+  let listing = null;
+
   if (!myProfile) {
     document.getElementById("need-profile").hidden = false;
   } else if (!listingId) {
@@ -161,11 +166,6 @@
     document.getElementById("edit-form").hidden = false;
     await init();
   }
-
-  let activeUnit = "shark";
-  let photos = [];
-  let includedItems = [];
-  let listing = null;
 
   function escapeHtml(s) {
     return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -177,16 +177,16 @@
       const data = await api.getListing(listingId);
       listing = data.listing;
     } catch (e) {
-      showError("Couldn't load listing: " + e.message);
+      showError("Couldn't load listing.");
       return;
     }
 
     if (!listing || listing.profile_id !== myProfile.id) {
-      showError("Listing not found or not yours. (profile mismatch)");
+      showError("Listing not found or not yours.");
       return;
     }
     if (listing.status !== "active") {
-      showError("Only active listings can be edited. (status: " + listing.status + ")");
+      showError("Only active listings can be edited.");
       return;
     }
 
