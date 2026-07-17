@@ -460,6 +460,26 @@ create policy "public can read approved content" on content_submissions
 -- rather than a separate pub/sub system — simplest thing that works given
 -- everything already runs through service-role functions anyway. `link` is
 -- a relative site path the front-end navigates to on click.
+-- Registry saves: one save per profile per build entry.
+-- Materialized save_count on build_registry for fast sorting.
+-- See migration-023 for the trigger that keeps it accurate.
+create table registry_saves (
+  id uuid primary key default gen_random_uuid(),
+  profile_id uuid not null references profiles(id) on delete cascade,
+  build_registry_id uuid not null references build_registry(id) on delete cascade,
+  created_at timestamptz not null default now(),
+  constraint registry_saves_unique unique (profile_id, build_registry_id)
+);
+
+create index registry_saves_entry_idx on registry_saves(build_registry_id);
+create index registry_saves_profile_idx on registry_saves(profile_id);
+
+alter table registry_saves enable row level security;
+create policy "public can count saves" on registry_saves for select using (true);
+
+-- save_count on build_registry (kept in sync by trigger in migration-023)
+-- already added via: alter table build_registry add column if not exists save_count integer not null default 0;
+
 create table notifications (
   id uuid primary key default gen_random_uuid(),
   profile_id uuid not null references profiles(id) on delete cascade,

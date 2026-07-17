@@ -78,7 +78,7 @@
 </footer>
 
 <script type="module">
-  import { THEME_LABELS } from "../js/api.js";
+  import { api, getToken, THEME_LABELS } from "../js/api.js";
 
   const grid = document.getElementById("registry-grid");
   const empty = document.getElementById("empty-state");
@@ -87,36 +87,116 @@
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
-  let entries = [];
-  try {
-    const data = await fetch("/.netlify/functions/registry-list").then((r) => r.json());
-    entries = data.entries || [];
-  } catch {
-    entries = [];
+  let activeSort = "recent"; // "recent" | "saves"
+  let activeTheme = "all";
+  let savedIds = new Set();
+  let myProfileId = null;
+
+  // Load entries and user's saved set in parallel
+  const token = getToken();
+  const [entriesData, savedData] = await Promise.all([
+    fetch("/.netlify/functions/registry-list").then(r => r.json()).catch(() => ({})),
+    token
+      ? fetch("/.netlify/functions/registry-saves-me", { headers: { Authorization: `Bearer ${token}` } })
+          .then(r => r.json()).catch(() => ({}))
+      : Promise.resolve({}),
+  ]);
+
+  let entries = entriesData.entries || [];
+  savedIds = new Set(savedData.saved_ids || []);
+
+  // Get my profile id to hide save button on own builds
+  if (token) {
+    try {
+      const raw = localStorage.getItem("amht_profile");
+      if (raw) myProfileId = JSON.parse(raw).id;
+    } catch {}
   }
 
-  let activeTheme = "all";
+  // ── Sort pills ──────────────────────────────────────────────
+  const sortPills = document.createElement("div");
+  sortPills.className = "filter-pills";
+  sortPills.style.marginBottom = "8px";
+  sortPills.innerHTML = `
+    <button data-sort="recent" class="active">Most Recent</button>
+    <button data-sort="saves">Most Saved</button>`;
+  document.getElementById("theme-pills").insertAdjacentElement("beforebegin", sortPills);
+  sortPills.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      activeSort = btn.dataset.sort;
+      sortPills.querySelectorAll("button").forEach(b => b.classList.toggle("active", b === btn));
+      render();
+    });
+  });
 
+  // ── Theme pills ─────────────────────────────────────────────
   function renderThemePills() {
-    const themesInUse = [...new Set(entries.flatMap((e) => e.themes || []))];
+    const themesInUse = [...new Set(entries.flatMap(e => e.themes || []))];
     const pillsEl = document.getElementById("theme-pills");
-    if (!themesInUse.length) {
-      pillsEl.hidden = true;
-      return;
-    }
-    const opts = [{ key: "all", label: "All Themes" }, ...themesInUse.map((t) => ({ key: t, label: THEME_LABELS[t] || t }))];
-    pillsEl.innerHTML = opts.map((o) => `<button data-key="${o.key}" class="${o.key === "all" ? "active" : ""}">${o.label}</button>`).join("");
-    pillsEl.querySelectorAll("button").forEach((btn) => {
+    if (!themesInUse.length) { pillsEl.hidden = true; return; }
+    const opts = [{ key: "all", label: "All Themes" }, ...themesInUse.map(t => ({ key: t, label: THEME_LABELS[t] || t }))];
+    pillsEl.innerHTML = opts.map(o => `<button data-key="${o.key}" class="${o.key === "all" ? "active" : ""}">${o.label}</button>`).join("");
+    pillsEl.querySelectorAll("button").forEach(btn => {
       btn.addEventListener("click", () => {
         activeTheme = btn.dataset.key;
-        pillsEl.querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
+        pillsEl.querySelectorAll("button").forEach(b => b.classList.toggle("active", b === btn));
         render();
       });
     });
   }
 
+  // ── Save button handler (delegated) ─────────────────────────
+  grid.addEventListener("click", async (e) => {
+    const btn = e.target.closest(".save-btn");
+    if (!btn || btn.dataset.loading) return;
+    e.preventDefault(); // don't navigate to the entry
+    e.stopPropagation();
+
+    if (!token) {
+      window.location.href = "../profile.html";
+      return;
+    }
+
+    const entryId = btn.dataset.id;
+    btn.dataset.loading = "1";
+    btn.style.opacity = "0.5";
+    try {
+      const res = await fetch("/.netlify/functions/registry-save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ build_registry_id: entryId }),
+      });
+      const data = await res.json();
+      if (!res.ok) { alert(data.error || "Couldn't save"); return; }
+      // Update local state
+      if (data.saved) {
+        savedIds.add(entryId);
+      } else {
+        savedIds.delete(entryId);
+      }
+      // Update the entry's count in local data
+      const entry = entries.find(e => e.id === entryId);
+      if (entry) entry.save_count = data.save_count;
+      // Re-render just this card's save btn without a full re-render
+      btn.dataset.loading = "";
+      btn.style.opacity = "";
+      btn.classList.toggle("saved", data.saved);
+      btn.title = data.saved ? "Saved — click to unsave" : "Save this build";
+      btn.innerHTML = data.saved ? `🔖 ${data.save_count}` : `🔖 ${data.save_count}`;
+    } catch (err) {
+      btn.dataset.loading = "";
+      btn.style.opacity = "";
+      alert("Something went wrong");
+    }
+  });
+
+  // ── Main render ─────────────────────────────────────────────
   function render() {
-    const filtered = activeTheme === "all" ? entries : entries.filter((e) => (e.themes || []).includes(activeTheme));
+    let filtered = activeTheme === "all" ? [...entries] : entries.filter(e => (e.themes || []).includes(activeTheme));
+
+    if (activeSort === "saves") {
+      filtered.sort((a, b) => (b.save_count || 0) - (a.save_count || 0));
+    }
 
     if (!filtered.length) {
       empty.hidden = false;
@@ -125,42 +205,50 @@
     }
     empty.hidden = true;
 
-    grid.innerHTML = filtered
-      .map((entry) => {
-        const photo = entry.photos?.[0] || "../images/brand/searchdog.png";
-        const statusTag =
-          entry.status === "disputed"
-            ? `<div class="card-tag">Disputed</div>`
-            : entry.status === "confirmed_clone"
-            ? `<div class="card-tag cloned">Confirmed Clone</div>`
-            : entry.is_community_verified
-            ? `<div class="card-tag">Verified</div>`
-            : "";
-        return `
-        <a class="listing-card" href="entry.html?id=${entry.id}">
-          <div class="photo">
-            <img src="${photo}" alt="${escapeHtml(entry.title)}" loading="lazy">
+    grid.innerHTML = filtered.map(entry => {
+      const photo = entry.photos?.[0] || "../images/brand/searchdog.png";
+      const statusTag = entry.status === "disputed"
+        ? `<div class="card-tag">Disputed</div>`
+        : entry.status === "confirmed_clone"
+        ? `<div class="card-tag cloned">Confirmed Clone</div>`
+        : entry.is_community_verified
+        ? `<div class="card-tag">Verified</div>`
+        : "";
+      const isSaved = savedIds.has(entry.id);
+      const isOwnBuild = myProfileId && entry.profile_id === myProfileId;
+      const saveCount = entry.save_count || 0;
+      const saveBtn = !isOwnBuild
+        ? `<button class="save-btn ${isSaved ? "saved" : ""}" data-id="${entry.id}" title="${isSaved ? "Saved — click to unsave" : token ? "Save this build" : "Sign in to save"}">🔖 ${saveCount}</button>`
+        : saveCount > 0 ? `<span class="save-count-display">🔖 ${saveCount}</span>` : "";
+
+      return `
+      <a class="listing-card" href="entry.html?id=${entry.id}">
+        <div class="photo">
+          <img src="${photo}" alt="${escapeHtml(entry.title)}" loading="lazy">
+          ${statusTag}
+        </div>
+        <div class="body">
+          <h3>${escapeHtml(entry.title)}</h3>
+          <div class="trust-row">
+            ${entry.profiles?.rbx_avatar_url
+              ? `<img class="trust-row-avatar" src="${entry.profiles.rbx_avatar_url}" alt="">`
+              : `<span class="avatar-initial">${escapeHtml((entry.profiles?.display_name || "?")[0].toUpperCase())}</span>`}
+            <span class="username">${escapeHtml(entry.profiles?.display_name || "unknown")}</span>
+            ${saveBtn}
           </div>
-          <div class="body">
-            <h3>${escapeHtml(entry.title)}</h3>
-            <div class="trust-row">
-              ${entry.profiles?.rbx_avatar_url ? `<img class="trust-row-avatar" src="${entry.profiles.rbx_avatar_url}" alt="">` : `<span class="avatar-initial">${escapeHtml((entry.profiles?.display_name || "?")[0].toUpperCase())}</span>`}
-              <span class="username">${escapeHtml(entry.profiles?.display_name || "unknown")}</span>
-            </div>
-            <p class="lister" style="margin-top:6px;">Registered ${new Date(entry.created_at).toLocaleDateString()}</p>
-          </div>
-        </a>`;
-      })
-      .join("");
+          <p class="lister" style="margin-top:6px;">Registered ${new Date(entry.created_at).toLocaleDateString()}</p>
+        </div>
+      </a>`;
+    }).join("");
   }
 
   renderThemePills();
   render();
 
   if (entries.length) {
-    const itemListScript = document.createElement("script");
-    itemListScript.type = "application/ld+json";
-    itemListScript.textContent = JSON.stringify({
+    const schema = document.createElement("script");
+    schema.type = "application/ld+json";
+    schema.textContent = JSON.stringify({
       "@context": "https://schema.org",
       "@type": "ItemList",
       itemListElement: entries.slice(0, 30).map((e, i) => ({
@@ -170,7 +258,7 @@
         url: `https://adoptmehousetrading.com/registry/entry.html?id=${e.id}`,
       })),
     });
-    document.head.appendChild(itemListScript);
+    document.head.appendChild(schema);
   }
 </script>
 </body>

@@ -97,6 +97,8 @@ export const api = {
     request("commission-request-cancel", { method: "POST", body: { request_id }, auth: true }),
 
   registerBuild: (payload) => request("registry-create", { method: "POST", body: payload, auth: true }),
+  saveRegistryBuild: (build_registry_id) => request("registry-save", { method: "POST", body: { build_registry_id }, auth: true }),
+  getMyRegistrySaves: () => request("registry-saves-me", { auth: true }),
   listRegistry: (params = {}) => {
     const qs = new URLSearchParams(params).toString();
     return request(`registry-list${qs ? `?${qs}` : ""}`);
