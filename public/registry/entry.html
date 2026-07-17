@@ -99,9 +99,17 @@
     let data;
     try {
       const token = getToken();
-      data = await fetch(`/.netlify/functions/registry-get?id=${entryId}`, {
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
-      }).then((r) => r.json());
+      const [entryRes, savedRes] = await Promise.all([
+        fetch(`/.netlify/functions/registry-get?id=${entryId}`, {
+          headers: token ? { Authorization: `Bearer ${token}` } : {},
+        }).then((r) => r.json()),
+        token
+          ? fetch("/.netlify/functions/registry-saves-me", { headers: { Authorization: `Bearer ${token}` } })
+              .then(r => r.json()).catch(() => ({}))
+          : Promise.resolve({}),
+      ]);
+      data = entryRes;
+      window._entrySavedIds = new Set(savedRes.saved_ids || []);
     } catch {
       content.innerHTML = `<div class="form-card"><h1>Couldn't load this build</h1></div>`;
       return;
@@ -212,6 +220,9 @@
           ${compareHtml}
         </div>
         <div class="sidebar-sticky">
+          ${!isSelf ? `<button class="btn btn-secondary entry-save-btn" data-id="${entry.id}" style="width:100%;justify-content:center;margin-bottom:12px;${window._entrySavedIds?.has(entry.id) ? 'border-color:var(--accent);color:var(--accent);background:var(--accent-soft);' : ''}">
+            🔖 ${window._entrySavedIds?.has(entry.id) ? `Saved · ${entry.save_count || 0}` : `Save Build · ${entry.save_count || 0}`}
+          </button>` : entry.save_count > 0 ? `<div style="text-align:center;font-size:13px;color:var(--muted);margin-bottom:12px;">🔖 ${entry.save_count} saves</div>` : ""}
           <div class="trust-card">
             <img class="avatar-lg" src="${entry.profiles?.rbx_avatar_url || ""}" alt="" onerror="this.removeAttribute('src')">
             <div>
@@ -253,6 +264,33 @@
       ],
     });
     document.head.appendChild(breadcrumbScript);
+
+    // Save button handler
+    const saveBtn = document.querySelector(".entry-save-btn");
+    if (saveBtn) {
+      saveBtn.addEventListener("click", async () => {
+        const token = getToken();
+        if (!token) { window.location.href = "../profile.html"; return; }
+        if (saveBtn.dataset.loading) return;
+        saveBtn.dataset.loading = "1";
+        saveBtn.style.opacity = "0.5";
+        try {
+          const res = await fetch("/.netlify/functions/registry-save", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+            body: JSON.stringify({ build_registry_id: saveBtn.dataset.id }),
+          });
+          const result = await res.json();
+          if (!res.ok) { alert(result.error || "Couldn't save"); return; }
+          const isSaved = result.saved;
+          if (isSaved) window._entrySavedIds?.add(saveBtn.dataset.id);
+          else window._entrySavedIds?.delete(saveBtn.dataset.id);
+          saveBtn.textContent = isSaved ? `🔖 Saved · ${result.save_count}` : `🔖 Save Build · ${result.save_count}`;
+          saveBtn.style.cssText = `width:100%;justify-content:center;margin-bottom:12px;${isSaved ? 'border-color:var(--accent);color:var(--accent);background:var(--accent-soft);' : ''}`;
+        } catch { alert("Something went wrong"); }
+        finally { saveBtn.dataset.loading = ""; saveBtn.style.opacity = ""; }
+      });
+    }
 
     if (!isSelf && myProfile) {
       document.getElementById("submit-dispute-btn").addEventListener("click", async () => {
