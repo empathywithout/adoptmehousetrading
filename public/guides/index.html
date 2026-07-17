@@ -393,6 +393,38 @@
 </div>
 
 <div class="guides-content">
+  <!-- Write-for-us callout — always visible, above the grid -->
+  <div id="write-for-us-nudge" style="
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:13px 18px;
+    margin-bottom:24px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-left:3px solid var(--accent);
+    border-radius:12px;
+    flex-wrap:wrap;
+  ">
+    <div style="display:flex;align-items:center;gap:12px;min-width:0;">
+      <span style="font-size:20px;flex-shrink:0;">✍️</span>
+      <span style="font-size:13.5px;color:var(--ink-soft);line-height:1.4;">
+        <strong style="color:var(--ink);">Know something worth sharing?</strong>
+        Build guides, theme walkthroughs, and trading tips are all welcome —
+        written by the community, credited to you, published on this site.
+      </span>
+    </div>
+    <a href="submit.html" style="
+      flex-shrink:0;
+      font-size:13px;
+      font-weight:700;
+      color:var(--accent);
+      text-decoration:none;
+      white-space:nowrap;
+    ">Write a guide →</a>
+  </div>
+
   <div id="featured-slot"></div>
   <div class="guides-grid" id="guides-grid"></div>
   <div class="guides-empty" id="empty-state" hidden>
@@ -540,46 +572,6 @@
       })),
     });
     document.head.appendChild(schema);
-
-    // Write-for-us nudge — shown between featured guide and grid
-    // Only inject if not already there (e.g. on filter change)
-    if (!document.getElementById("write-for-us-nudge")) {
-      const nudge = document.createElement("div");
-      nudge.id = "write-for-us-nudge";
-      nudge.innerHTML = `
-        <div style="
-          display:flex;
-          align-items:center;
-          justify-content:space-between;
-          gap:16px;
-          padding:13px 18px;
-          margin:20px 0 0;
-          background:var(--surface);
-          border:1px solid var(--line);
-          border-left:3px solid var(--accent);
-          border-radius:12px;
-          flex-wrap:wrap;
-        ">
-          <div style="display:flex;align-items:center;gap:12px;min-width:0;">
-            <span style="font-size:20px;flex-shrink:0;">✍️</span>
-            <span style="font-size:13.5px;color:var(--ink-soft);line-height:1.4;">
-              <strong style="color:var(--ink);">Know something worth sharing?</strong>
-              Build guides, theme walkthroughs, and trading tips are all welcome —
-              written by the community, credited to you, published on this site.
-            </span>
-          </div>
-          <a href="submit.html" style="
-            flex-shrink:0;
-            font-size:13px;
-            font-weight:700;
-            color:var(--accent);
-            text-decoration:none;
-            white-space:nowrap;
-          ">Write a guide →</a>
-        </div>`;
-      const featuredSlot = document.getElementById("featured-slot");
-      featuredSlot.parentNode.insertBefore(nudge, featuredSlot.nextSibling);
-    }
   }
 
   renderTabs();
