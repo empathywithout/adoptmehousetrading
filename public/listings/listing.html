@@ -171,6 +171,7 @@
           <div class="hint" style="margin-bottom:20px;">${listing.status === "traded" ? "Traded" : "Listed " + timeAgo(listing.created_at)} · ${TYPE_LABELS[listing.listing_type] || "For Trade"}</div>
 
           <div>${photosHtml}</div>
+          ${listing.video_url ? `<a href="${listing.video_url}" target="_blank" rel="noopener" class="btn-sm accept" style="display:inline-flex;text-decoration:none;margin-top:6px;margin-bottom:10px;">▶ Watch Video Tour</a>` : ""}
 
           ${
             listing.description

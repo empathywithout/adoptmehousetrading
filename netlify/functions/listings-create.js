@@ -52,6 +52,7 @@ async function handlerImpl(event) {
     title,
     description,
     photos,
+    video_url,
     looking_for,
     included_items,
     is_cloned,
@@ -76,6 +77,14 @@ async function handlerImpl(event) {
     : [];
 
   const cleanPhotos = Array.isArray(photos) ? photos.filter((p) => typeof p === "string").slice(0, 8) : [];
+
+  // A "looking_for" post doesn't have a house to photograph — the minimum
+  // only applies where a real house/example build is actually being shown.
+  if (cleanType !== "looking_for" && cleanPhotos.length < 5) {
+    return json(400, { error: "At least 5 photos are required" });
+  }
+
+  const cleanVideoUrl = video_url && /^https?:\/\//.test(video_url) ? String(video_url).slice(0, 500) : null;
 
   const cleanIncludedItems = Array.isArray(included_items)
     ? included_items.slice(0, 40).map((it) => ({
@@ -128,6 +137,7 @@ async function handlerImpl(event) {
       title: String(title).slice(0, 120),
       description: description ? String(description).slice(0, 2000) : null,
       photos: cleanPhotos,
+      video_url: cleanVideoUrl,
       looking_for: cleanLookingFor,
     })
     .select()

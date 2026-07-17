@@ -56,6 +56,33 @@
   --font-body: 'Inter', system-ui, sans-serif;
 }
 
+/* Dark mode: same variable names, dark values — every existing component
+   already reads these tokens, so this is the only override block needed
+   rather than touching individual rules. */
+[data-theme="dark"] {
+  --ink: #EAF2EE;
+  --ink-soft: #C3D3CC;
+  --muted: #8FA69C;
+  --paper: #0F1D18;
+  --surface: #16261F;
+  --surface-2: #1F332A;
+  --line: #2A3E34;
+  --accent: #FF6B5B;
+  --accent-dark: #E6483A;
+  --accent-soft: #3A211E;
+  --butter: #F5B93F;
+  --good: #4FCB8B;
+  --good-soft: #16332B;
+  --white: #FFFFFF;
+
+  --pine: #EAF2EE;
+  --pine-dark: #0F1D18;
+  --mint: #16261F;
+  --sign-red: #FF6B5B;
+  --sign-red-dark: #E6483A;
+  --charcoal: #EAF2EE;
+}
+
 * { box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
@@ -67,6 +94,7 @@ body {
   font-family: var(--font-body);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 a { color: inherit; }
@@ -240,6 +268,21 @@ img { max-width: 100%; display: block; }
   font-weight: 600;
   white-space: nowrap;
 }
+
+.theme-toggle {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  width: 36px;
+  height: 36px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.theme-toggle:hover { background: var(--surface-2); }
 
 .nav-bell-wrap { position: relative; display: inline-flex; margin-right: 8px; }
 .nav-bell {

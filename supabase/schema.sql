@@ -110,7 +110,14 @@ create table listings (
 
   title text not null,
   description text,
-  photos jsonb not null default '[]', -- array of Supabase Storage URLs
+  photos jsonb not null default '[]', -- array of Supabase Storage URLs, minimum 5 enforced
+                                       -- in listings-create.js (not here — a photo COUNT
+                                       -- floor isn't expressible as a simple column check)
+  video_url text,                     -- optional video tour LINK (YouTube/Streamable/etc.),
+                                       -- deliberately NOT a raw file upload — video storage/
+                                       -- bandwidth costs scale far worse than photos, and a
+                                       -- link offloads playback/transcoding to a platform
+                                       -- built for it instead of us building our own
   looking_for jsonb not null default '[]', -- array of category keys wanted in return, e.g. ["adopt_me_pets","toys"]
   status text not null default 'active' check (status in ('active', 'traded', 'removed')),
   created_at timestamptz not null default now(),

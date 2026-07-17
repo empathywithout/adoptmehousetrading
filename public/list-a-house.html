@@ -74,8 +74,14 @@
 
     <div id="photos-field" style="margin-bottom:28px;">
       <label class="field-label" style="margin-top:0;">Photos</label>
-      <p class="hint" style="margin-top:-4px;margin-bottom:12px;">Include the exterior and at least 2 interior shots. Listings with 4+ photos get more offers.</p>
+      <p class="hint" style="margin-top:-4px;margin-bottom:12px;">At least 5 photos required — exterior plus interior shots. Listings with more photos get more offers.</p>
       <div class="photo-slots" id="photo-slots"></div>
+    </div>
+
+    <div id="video-tour-field" style="margin-bottom:28px;">
+      <label class="field-label" style="margin-top:0;" for="video-tour-url">Video Tour (optional)</label>
+      <p class="hint" style="margin-top:-4px;margin-bottom:8px;">Link a YouTube, Streamable, or similar video walkthrough — not a file upload.</p>
+      <input type="url" id="video-tour-url" placeholder="https://youtube.com/watch?v=...">
     </div>
 
     <div id="cloned-field" style="margin-bottom:24px;">
@@ -162,7 +168,7 @@
     init();
   }
 
-  const uploadedPhotos = [null, null, null, null]; // [main, interior1, interior2, interior3]
+  const uploadedPhotos = [null, null, null, null, null]; // at least 5 required — [main, interior1-4]
   let houses = [];
   let selectedHouseId = null;
   let activeType = "house_trade";
@@ -312,6 +318,7 @@
       { key: 1, label: "Interior 1", main: false },
       { key: 2, label: "Interior 2", main: false },
       { key: 3, label: "Interior 3", main: false },
+      { key: 4, label: "Interior 4", main: false },
     ];
 
     container.innerHTML = slotDefs
@@ -360,6 +367,7 @@
     const is_cloned = activeType === "house_trade" ? cloneVal === "true" : null;
     const included_items = activeType === "house_trade" && includedItemsPicker ? includedItemsPicker.getSelected() : [];
     const photos = activeType === "looking_for" ? [] : uploadedPhotos.filter(Boolean);
+    const video_url = document.getElementById("video-tour-url").value.trim();
     const themes =
       activeType === "house_trade"
         ? Array.from(document.querySelectorAll("#themes-grid input:checked")).map((el) => el.value)
@@ -371,6 +379,16 @@
       errorBox.hidden = false;
       return;
     }
+    if (activeType !== "looking_for" && photos.length < 5) {
+      errorBox.textContent = `Add at least 5 photos (you have ${photos.length}).`;
+      errorBox.hidden = false;
+      return;
+    }
+    if (video_url && !/^https?:\/\//.test(video_url)) {
+      errorBox.textContent = "Video tour link needs to be a full URL (starting with http:// or https://).";
+      errorBox.hidden = false;
+      return;
+    }
 
     try {
       const { listing } = await api.createListing({
@@ -379,6 +397,7 @@
         title,
         description,
         photos,
+        video_url: video_url || null,
         looking_for,
         included_items,
         themes,

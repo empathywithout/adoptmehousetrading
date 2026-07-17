@@ -29,6 +29,39 @@ if (raw && pillEl) {
   }
 }
 
+// Dark mode — same variable set, dark values, so every existing component
+// picks it up automatically (see [data-theme="dark"] in style.css). Applied
+// here rather than an inline head script for simplicity; a brief flash of
+// light mode on load for dark-mode users is an accepted tradeoff for that.
+const THEME_KEY = "amht_theme";
+const storedTheme = localStorage.getItem(THEME_KEY);
+const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+const initialTheme = storedTheme || (prefersDark ? "dark" : "light");
+if (initialTheme === "dark") document.documentElement.dataset.theme = "dark";
+
+const navActionsEl = document.querySelector(".nav-actions");
+if (navActionsEl) {
+  const themeBtn = document.createElement("button");
+  themeBtn.type = "button";
+  themeBtn.className = "theme-toggle";
+  themeBtn.title = "Toggle dark mode";
+  themeBtn.textContent = initialTheme === "dark" ? "☀️" : "🌙";
+  navActionsEl.prepend(themeBtn);
+
+  themeBtn.addEventListener("click", () => {
+    const isDark = document.documentElement.dataset.theme === "dark";
+    if (isDark) {
+      delete document.documentElement.dataset.theme;
+      localStorage.setItem(THEME_KEY, "light");
+      themeBtn.textContent = "🌙";
+    } else {
+      document.documentElement.dataset.theme = "dark";
+      localStorage.setItem(THEME_KEY, "dark");
+      themeBtn.textContent = "☀️";
+    }
+  });
+}
+
 // "More" nav dropdown (Values, Build Registry, Guides) — same toggle-and-click-away
 // pattern as the house-picker dropdown elsewhere on the site.
 const moreTrigger = document.querySelector(".nav-more-trigger");
