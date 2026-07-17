@@ -365,8 +365,24 @@
         tab.dataset.loaded = "1";
         loadSavedBuilds();
       }
+      // Update hash so links like profile.html#builder work
+      history.replaceState(null, "", `#${tab.dataset.tab}`);
     });
   });
+
+  // Activate tab from URL hash on load (e.g. profile.html#builder)
+  const hashTab = location.hash.replace("#", "");
+  if (hashTab) {
+    const matchingTab = document.querySelector(`#profile-tabs .tab[data-tab="${hashTab}"]`);
+    if (matchingTab) {
+      matchingTab.click();
+      // Give the panel a tick to unhide then scroll it into view
+      setTimeout(() => {
+        const panel = document.getElementById(`tab-panel-${hashTab}`);
+        if (panel) panel.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 80);
+    }
+  }
   const signedInView = document.getElementById("signed-in-view");
   const errorBox = document.getElementById("error");
 
