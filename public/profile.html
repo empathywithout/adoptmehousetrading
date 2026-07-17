@@ -216,41 +216,76 @@
     </div>
 
     <div id="tab-panel-portfolio" hidden>
-      <div class="section-head"><h2>My Registered Builds</h2><a href="registry/submit.html">+ Register a build</a></div>
+      <div class="section-head">
+        <h2>My Registered Builds</h2>
+        <a href="registry/submit.html" class="btn-sm accept">+ Register a Build</a>
+      </div>
       <div id="my-registry-entries"></div>
-      <div id="no-registry-msg" class="form-card" hidden>
-        <h1>No builds registered yet</h1>
-        <p class="subtitle">Claim credit for your original work — visible publicly in the Build Registry.</p>
-        <a class="btn btn-primary" href="registry/submit.html">Register a Build</a>
+      <div id="no-registry-msg" hidden>
+        <div class="empty-state-card">
+          <div class="empty-state-icon">🏠</div>
+          <h3>No builds registered yet</h3>
+          <p>Claim credit for your original work — it shows up publicly in the Build Registry and on your builder profile.</p>
+          <a class="btn btn-primary" href="registry/submit.html">Register a Build</a>
+        </div>
       </div>
     </div>
 
     <div id="tab-panel-data-team" hidden>
-      <div class="section-head"><h2>Data Team</h2></div>
-      <p class="hint" style="margin-bottom:16px;max-width:640px;">A vetted group of trusted members who help bootstrap our value list by submitting trades they've made or witnessed. Kept separate from on-site verified trade data — clearly labeled, never blended into one number.</p>
 
-      <div id="data-team-not-applied" class="form-card" style="max-width:none;" hidden>
-        <h1 style="font-size:18px;">Apply for the Data Team</h1>
-        <div id="apply-error" class="error-box" hidden></div>
-        <div id="apply-success" class="success-box" hidden></div>
-        <label class="field-label" style="margin-top:0;" for="apply-message">Why should we trust your submissions?</label>
-        <textarea id="apply-message" placeholder="Trading history, reputation on other value sites, how active you are in the community, etc."></textarea>
-        <button class="btn btn-primary" id="apply-btn" style="margin-top:12px;">Submit Application</button>
+      <!-- Header with badge -->
+      <div class="dt-header">
+        <div>
+          <h2 class="dt-title">Data Team <span class="dt-badge">Invite Only</span></h2>
+          <p class="dt-subtitle">A vetted group who help bootstrap item values by submitting trades they've made or witnessed. Kept separate from on-site verified trade data — clearly labeled, never blended.</p>
+        </div>
       </div>
 
-      <div id="data-team-pending" class="form-card" hidden>
-        <h1 style="font-size:18px;">Application Pending</h1>
-        <p class="subtitle">We'll review it — check back here.</p>
+      <!-- Not yet applied -->
+      <div id="data-team-not-applied" hidden>
+        <div class="dt-apply-card">
+          <div class="dt-apply-icon">📋</div>
+          <div class="dt-apply-body">
+            <h3>Apply for the Data Team</h3>
+            <p>Share your trading history and community reputation — we'll review and get back to you here.</p>
+            <div id="apply-error" class="error-box" hidden></div>
+            <div id="apply-success" class="success-box" hidden></div>
+            <textarea id="apply-message" placeholder="Trading history, reputation on other value sites, how active you are in the community, etc." style="margin-top:12px;"></textarea>
+            <button class="btn btn-primary" id="apply-btn" style="margin-top:12px;">Submit Application</button>
+          </div>
+        </div>
       </div>
 
-      <div id="data-team-rejected" class="form-card" hidden>
-        <h1 style="font-size:18px;">Application Not Approved</h1>
-        <p class="subtitle">You're welcome to submit real verified trades the normal way — those still count.</p>
+      <!-- Pending -->
+      <div id="data-team-pending" hidden>
+        <div class="dt-status-card dt-status-pending">
+          <span class="dt-status-dot"></span>
+          <div>
+            <strong>Application Under Review</strong>
+            <p>We'll review it — check back here.</p>
+          </div>
+        </div>
       </div>
 
+      <!-- Rejected -->
+      <div id="data-team-rejected" hidden>
+        <div class="dt-status-card dt-status-rejected">
+          <span class="dt-status-dot"></span>
+          <div>
+            <strong>Application Not Approved</strong>
+            <p>Real verified trades you confirm on the site still count toward values regardless.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Approved — submit form -->
       <div id="data-team-approved" hidden>
+        <div class="dt-status-card dt-status-approved" style="margin-bottom:20px;">
+          <span class="dt-status-dot"></span>
+          <div><strong>Data Team Member</strong><p>Submit trade values below — labeled as Data Team, never blended with verified data.</p></div>
+        </div>
         <div class="form-card" style="max-width:none;">
-          <h1 style="font-size:18px;">Submit a Value</h1>
+          <h3 style="font-family:var(--font-display);margin:0 0 16px;font-size:17px;">Submit a Value</h3>
           <div id="submit-value-error" class="error-box" hidden></div>
           <div id="submit-value-success" class="success-box" hidden></div>
           <div class="item-picker">
