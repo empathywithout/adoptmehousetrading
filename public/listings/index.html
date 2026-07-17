@@ -21,6 +21,7 @@
 
   gtag('config', 'G-REW2CFBX6H');
 </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4897654017851351" crossorigin="anonymous"></script>
 </head>
 <body>
 <header class="site-nav">
@@ -249,6 +250,7 @@
       grid.innerHTML = "";
     } else {
       empty.hidden = true;
+
       grid.innerHTML = filtered
         .map((listing) => {
           const house = houseById[listing.house_id];
@@ -295,6 +297,16 @@
           </a>`;
         })
         .join("");
+
+      // Inject ad between rows
+      const cards = grid.querySelectorAll('.listing-card');
+      if (cards.length >= 4) {
+        const ad = document.createElement('div');
+        ad.style.cssText = 'grid-column:1/-1;margin:4px 0;text-align:center;min-height:90px;';
+        ad.innerHTML = '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4897654017851351" data-ad-slot="auto" data-ad-format="horizontal" data-full-width-responsive="true"></ins>';
+        cards[2].insertAdjacentElement('afterend', ad);
+        try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+      }
     }
   }
   // Delegated save handler
