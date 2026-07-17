@@ -114,6 +114,7 @@
       <button class="tab" data-tab="builder">Builder</button>
       <button class="tab" data-tab="commissions">Commissions</button>
       <button class="tab" data-tab="portfolio">Portfolio</button>
+      <button class="tab" data-tab="saved">Saved Builds</button>
       <button class="tab" data-tab="data-team">Data Team</button>
     </div>
 
@@ -232,6 +233,22 @@
       </div>
     </div>
 
+    <div id="tab-panel-saved" hidden>
+      <div class="section-head">
+        <h2>Saved Builds</h2>
+        <a href="registry/index.html">Browse Registry →</a>
+      </div>
+      <div id="saved-builds-grid" class="house-grid"></div>
+      <div id="saved-builds-empty" hidden>
+        <div class="empty-state-card">
+          <div class="empty-state-icon">🔖</div>
+          <h3>No saved builds yet</h3>
+          <p>Browse the Build Registry and save builds you like — they'll show up here.</p>
+          <a class="btn btn-primary" href="registry/index.html">Browse Registry</a>
+        </div>
+      </div>
+    </div>
+
     <div id="tab-panel-data-team" hidden>
 
       <!-- Header with badge -->
@@ -337,9 +354,14 @@
     tab.addEventListener("click", () => {
       document.querySelectorAll("#profile-tabs .tab").forEach((t) => t.classList.remove("active"));
       tab.classList.add("active");
-      ["listings", "offers", "builder", "commissions", "portfolio", "data-team"].forEach((name) => {
+      ["listings", "offers", "builder", "commissions", "portfolio", "saved", "data-team"].forEach((name) => {
         document.getElementById(`tab-panel-${name}`).hidden = name !== tab.dataset.tab;
       });
+      // Lazy-load saved builds the first time the tab is opened
+      if (tab.dataset.tab === "saved" && !tab.dataset.loaded) {
+        tab.dataset.loaded = "1";
+        loadSavedBuilds();
+      }
     });
   });
   const signedInView = document.getElementById("signed-in-view");
@@ -726,6 +748,63 @@
         }
       });
     });
+  }
+
+  async function loadSavedBuilds() {
+    const grid = document.getElementById("saved-builds-grid");
+    const empty = document.getElementById("saved-builds-empty");
+    grid.innerHTML = `<p class="hint" style="padding:8px 0;">Loading...</p>`;
+
+    try {
+      // Get the IDs the user has saved
+      const token = localStorage.getItem("amht_token");
+      const [savedRes, entriesRes] = await Promise.all([
+        fetch("/.netlify/functions/registry-saves-me", { headers: { Authorization: `Bearer ${token}` } }),
+      ]);
+      const savedData = await savedRes.json();
+      const savedIds = savedData.saved_ids || [];
+
+      if (!savedIds.length) {
+        grid.innerHTML = "";
+        empty.hidden = false;
+        return;
+      }
+
+      // Fetch registry entries for each saved ID
+      // registry-list doesn't support filtering by ID array, so fetch them via registry-get in parallel
+      const entryResults = await Promise.all(
+        savedIds.map(id =>
+          fetch(`/.netlify/functions/registry-get?id=${encodeURIComponent(id)}`)
+            .then(r => r.json())
+            .then(d => d.entry)
+            .catch(() => null)
+        )
+      );
+      const entries = entryResults.filter(Boolean);
+
+      if (!entries.length) {
+        grid.innerHTML = "";
+        empty.hidden = false;
+        return;
+      }
+
+      empty.hidden = true;
+      grid.innerHTML = entries.map(entry => {
+        const photo = entry.photos?.[0] || "images/brand/searchdog.png";
+        const builderName = entry.profiles?.display_name || "unknown";
+        return `
+        <a class="house-card" href="registry/entry.html?id=${entry.id}" style="text-decoration:none;">
+          <div class="thumb"><img src="${escapeHtml(photo)}" alt="${escapeHtml(entry.title)}" loading="lazy"></div>
+          <div class="info">
+            <h3>${escapeHtml(entry.title)}</h3>
+            <p class="source">by ${escapeHtml(builderName)}</p>
+            <p class="source">🔖 ${entry.save_count || 0} saves</p>
+          </div>
+        </a>`;
+      }).join("");
+    } catch (err) {
+      grid.innerHTML = `<p class="hint" style="color:var(--accent);">Couldn't load saved builds.</p>`;
+    }
   }
 
   function renderBuildRegistry(entries) {
