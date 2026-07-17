@@ -16,6 +16,7 @@ async function handlerImpl(event) {
   let query = db
     .from("build_registry")
     .select("*, profiles!build_registry_profile_id_fkey(display_name, rbx_avatar_url)")
+    .neq("status", "removed")
     .order("created_at", { ascending: false })
     .limit(200);
 

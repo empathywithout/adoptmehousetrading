@@ -135,18 +135,18 @@
             </div>
           </div>
           <div style="border-top:1px solid var(--line);padding-top:10px;display:flex;flex-direction:column;gap:8px;">
-            <div class="trust-row" style="margin-bottom:0;">
-              <span class="avatar-initial">${escapeHtml(seller[0]?.toUpperCase() || "?")}</span>
+            <a class="trust-row" style="margin-bottom:0;text-decoration:none;color:inherit;" href="player.html?id=${listing?.profile_id || ""}">
+              ${listing?.profiles?.rbx_avatar_url ? `<img class="trust-row-avatar" src="${listing.profiles.rbx_avatar_url}" alt="">` : `<span class="avatar-initial">${escapeHtml(seller[0]?.toUpperCase() || "?")}</span>`}
               <span class="username">${escapeHtml(seller)}</span>
               <span class="online-dot"></span>
               <span style="font-size:10.5px;color:var(--muted);">lister</span>
-            </div>
-            <div class="trust-row" style="margin-bottom:0;">
-              <span class="avatar-initial">${escapeHtml(buyer[0]?.toUpperCase() || "?")}</span>
+            </a>
+            <a class="trust-row" style="margin-bottom:0;text-decoration:none;color:inherit;" href="player.html?id=${trade.offers?.offering_profile_id || ""}">
+              ${trade.offers?.profiles?.rbx_avatar_url ? `<img class="trust-row-avatar" src="${trade.offers.profiles.rbx_avatar_url}" alt="">` : `<span class="avatar-initial">${escapeHtml(buyer[0]?.toUpperCase() || "?")}</span>`}
               <span class="username">${escapeHtml(buyer)}</span>
               <span class="online-dot"></span>
               <span style="font-size:10.5px;color:var(--muted);">offerer</span>
-            </div>
+            </a>
           </div>
         </div>`;
       })

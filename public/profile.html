@@ -272,6 +272,7 @@
 
   const BADGE_CLASS = { house_trade: "house-trade", looking_for: "looking-for", commission: "commission" };
   const BADGE_ICON = { house_trade: "icon-sign", looking_for: "icon-loop", commission: "icon-hammer" };
+  const TYPE_LABELS = { house_trade: "For Trade", looking_for: "Looking For", commission: "Commission" };
 
   function showError(msg) {
     errorBox.textContent = msg;
@@ -374,13 +375,13 @@
           .map(
             (offer) => `
           <div class="manage-offer-row">
-            <div class="left">
-              <span class="avatar-initial">${escapeHtml((offer.profiles?.display_name || "?")[0].toUpperCase())}</span>
+            <a class="left" href="player.html?id=${offer.offering_profile_id}" style="text-decoration:none;color:inherit;">
+              ${offer.profiles?.rbx_avatar_url ? `<img class="trust-row-avatar" src="${offer.profiles.rbx_avatar_url}" alt="">` : `<span class="avatar-initial">${escapeHtml((offer.profiles?.display_name || "?")[0].toUpperCase())}</span>`}
               <div>
                 <div class="username" style="font-weight:700;">${escapeHtml(offer.profiles?.display_name || "unknown")}</div>
                 <div class="items-summary">${escapeHtml((offer.items || []).map((i) => petPrefix(i) + i.name).join(", ") || offer.message || "no items")}</div>
               </div>
-            </div>
+            </a>
             <div style="display:flex;gap:8px;flex-shrink:0;">
               <button class="btn-sm accept" data-offer="${offer.id}" data-action="accept">Accept</button>
               <button class="btn-sm decline" data-offer="${offer.id}" data-action="decline">Decline</button>
@@ -393,7 +394,8 @@
         <div class="manage-card">
           <a class="manage-head" href="listings/listing.html?id=${listing.id}" style="text-decoration:none;color:inherit;">
             <div class="manage-thumb">
-              <img src="${photo}" alt="" loading="lazy"><div class="${BADGE_ICON[listing.listing_type] || "icon-sign"}"></div></div>
+              <img src="${photo}" alt="" loading="lazy">
+              <div class="card-badge ${BADGE_CLASS[listing.listing_type] || "house-trade"}" title="${TYPE_LABELS[listing.listing_type] || "For Trade"}"><div class="${BADGE_ICON[listing.listing_type] || "icon-sign"}"></div></div>
             </div>
             <div style="flex:1;">
               <div class="manage-title">${escapeHtml(listing.title)}</div>
@@ -656,18 +658,33 @@
       .map((entry) => {
         const photo = entry.photos?.[0] || "images/brand/searchdog.png";
         return `
-        <a class="manage-card" href="registry/entry.html?id=${entry.id}" style="text-decoration:none;color:inherit;display:block;">
-          <div class="manage-head">
+        <div class="manage-card">
+          <a class="manage-head" href="registry/entry.html?id=${entry.id}" style="text-decoration:none;color:inherit;">
             <div class="manage-thumb"><img src="${photo}" alt="" loading="lazy"></div>
             <div style="flex:1;">
               <div class="manage-title">${escapeHtml(entry.title)}</div>
               <p class="hint" style="margin:2px 0 0;">Registered ${new Date(entry.created_at).toLocaleDateString()}</p>
             </div>
             <span class="status-badge ${entry.status === "active" ? "active" : "traded"}">${STATUS_LABELS[entry.status] || entry.status}</span>
+          </a>
+          <div style="padding:10px 16px 14px;">
+            <button class="btn-sm decline" data-remove-registry="${entry.id}">Remove from Portfolio</button>
           </div>
-        </a>`;
+        </div>`;
       })
       .join("");
+
+    container.querySelectorAll("[data-remove-registry]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        if (!confirm("Remove this from your Portfolio? It'll no longer show publicly or in the Build Registry.")) return;
+        try {
+          await api.removeRegistryEntry(btn.dataset.removeRegistry);
+          await render();
+        } catch (err) {
+          alert(err.message);
+        }
+      });
+    });
   }
 
   let dataTeamPicker = null;

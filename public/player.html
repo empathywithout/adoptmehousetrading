@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Player — AdoptMeHouseTrading.com</title>
+<meta name="description" content="Public trade reputation on AdoptMeHouseTrading.com.">
+<meta name="robots" content="noindex, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="signpost-mini"></span>
+      AdoptMeHouseTrading
+    </a>
+    <nav>
+      <a href="listings/index.html">Browse Houses</a>
+      <a href="commissions/index.html">Commissions</a>
+      <a href="comps.html">Recent Trades</a>
+      <div class="nav-more">
+        <button type="button" class="nav-more-trigger">More <span class="nav-more-caret"></span></button>
+        <div class="nav-more-dropdown" hidden>
+          <a href="houses/index.html">Values</a>
+          <a href="registry/index.html">Build Registry</a>
+          <a href="guides/index.html">Guides</a>
+        </div>
+      </div>
+      <a href="profile.html">Profile</a>
+    </nav>
+    <div class="nav-actions">
+      <span id="nav-profile-pill"></span>
+    </div>
+  </div>
+</header>
+<script type="module" src="js/nav.js"></script>
+
+<section class="wrap" style="padding: 32px 0 64px;max-width:640px;">
+  <div id="content"></div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community — house values, live trade listings, builder commissions, and a build registry for verifying who built a house first. Not affiliated with, endorsed by, or sponsored by Adopt Me, Uplift Games, or Roblox Corporation.
+    <div style="margin-top:8px;"><a href="rules.html" style="color:var(--sign-red);">Community Rules</a></div>
+  </div>
+</footer>
+
+<script type="module">
+  function escapeHtml(str) {
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  const params = new URLSearchParams(location.search);
+  const id = params.get("id");
+  const content = document.getElementById("content");
+
+  if (!id) {
+    content.innerHTML = `<div class="form-card"><h1>Player not found</h1></div>`;
+  } else {
+    await load();
+  }
+
+  async function load() {
+    let data;
+    try {
+      data = await fetch(`/.netlify/functions/player-get?id=${id}`).then((r) => r.json());
+    } catch {
+      content.innerHTML = `<div class="form-card"><h1>Couldn't load this player</h1></div>`;
+      return;
+    }
+    if (data.error) {
+      content.innerHTML = `<div class="form-card"><h1>${escapeHtml(data.error)}</h1></div>`;
+      return;
+    }
+
+    const p = data.player;
+    document.title = `${p.display_name} — AdoptMeHouseTrading.com`;
+
+    content.innerHTML = `
+      <div class="form-card" style="max-width:none;text-align:center;">
+        <img src="${p.rbx_avatar_url || ""}" alt="" style="width:72px;height:72px;border-radius:50%;object-fit:cover;margin-bottom:12px;" onerror="this.style.visibility='hidden'">
+        <h1 style="font-family:var(--font-display);color:var(--ink);margin:0 0 4px;">${escapeHtml(p.display_name)}</h1>
+        <p class="subtitle">Member since ${new Date(p.member_since).toLocaleDateString()}</p>
+        <div class="stat-grid-card" style="margin-top:20px;">
+          <div><div class="stat-label">Completed Trades</div><div class="stat-value accent">${p.completed_trades}</div></div>
+          <div><div class="stat-label">Active Listings</div><div class="stat-value">${p.active_listings}</div></div>
+          <div class="full-row" style="border-top:none;padding-top:0;"><div class="stat-label">Registered Builds</div><div class="stat-value">${p.registered_builds}</div></div>
+        </div>
+        <div class="hero-ctas" style="justify-content:center;margin-top:20px;">
+          ${p.is_builder ? `<a class="btn btn-primary" href="commissions/builder.html?id=${p.id}">View Builder Page</a>` : ""}
+        </div>
+        ${p.is_data_team_member ? `<p class="hint" style="margin-top:16px;">✓ Verified Data Team member</p>` : ""}
+      </div>
+    `;
+  }
+</script>
+</body>
+</html>

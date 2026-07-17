@@ -18,7 +18,7 @@ async function handlerImpl(event) {
   let query = db
     .from("completed_trades")
     .select(
-      "id, created_at, listing_id, listings(house_id, title, value_amount, value_unit, is_cloned, profiles(display_name)), offers(items, offering_profile_id, profiles(display_name))"
+      "id, created_at, listing_id, listings(house_id, title, value_amount, value_unit, is_cloned, profile_id, profiles(display_name, rbx_avatar_url)), offers(items, offering_profile_id, profiles(display_name, rbx_avatar_url))"
     )
     .eq("status", "corroborated")
     .order("created_at", { ascending: false })

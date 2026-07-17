@@ -119,13 +119,13 @@
         return `<a class="listing-card" href="listings/listing.html?id=${listing.id}">
           <div class="photo">
             <img src="${photo}" alt="" loading="lazy">
-            <div class="card-badge ${BADGE_CLASS[listing.listing_type] || "house-trade"}"><div class="${BADGE_ICON[listing.listing_type] || "icon-sign"}"></div></div>
+            <div class="card-badge ${BADGE_CLASS[listing.listing_type] || "house-trade"}" title="${TYPE_LABELS[listing.listing_type] || "For Trade"}"><div class="${BADGE_ICON[listing.listing_type] || "icon-sign"}"></div></div>
             ${cardTag}
           </div>
           <div class="body">
             <h3>${escapeHtml(listing.title)}</h3>
             <div class="trust-row">
-              <span class="avatar-initial">${escapeHtml(username[0]?.toUpperCase() || "?")}</span>
+              ${listing.profiles?.rbx_avatar_url ? `<img class="trust-row-avatar" src="${listing.profiles.rbx_avatar_url}" alt="">` : `<span class="avatar-initial">${escapeHtml(username[0]?.toUpperCase() || "?")}</span>`}
               <span class="username">${escapeHtml(username)}</span>
             </div>
             ${valueLine}

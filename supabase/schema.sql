@@ -345,7 +345,7 @@ create table build_registry (
                                        -- the house shell
   house_id text,                      -- optional link to data/houses.json, if known
   possible_duplicate_of uuid references build_registry(id),
-  status text not null default 'active' check (status in ('active', 'disputed', 'confirmed_clone', 'confirmed_original')),
+  status text not null default 'active' check (status in ('active', 'disputed', 'confirmed_clone', 'confirmed_original', 'removed')),
   created_at timestamptz not null default now()
 );
 

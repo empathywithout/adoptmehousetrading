@@ -99,6 +99,7 @@ async function handlerImpl(event) {
       .from("build_registry")
       .select("*")
       .eq("profile_id", profile.id)
+      .neq("status", "removed")
       .order("created_at", { ascending: false });
     if (error) throw error;
     myBuildRegistryEntries = data || [];

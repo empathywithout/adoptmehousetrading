@@ -110,6 +110,7 @@ export const api = {
   applyForDataTeam: (message) => request("data-team-apply", { method: "POST", body: { message }, auth: true }),
   submitDataTeamValue: (payload) => request("data-team-submit-trade", { method: "POST", body: payload, auth: true }),
   submitGuide: (payload) => request("content-submit", { method: "POST", body: payload, auth: true }),
+  removeRegistryEntry: (entry_id) => request("registry-delete", { method: "POST", body: { entry_id }, auth: true }),
 };
 
 async function uploadPhoto(file) {

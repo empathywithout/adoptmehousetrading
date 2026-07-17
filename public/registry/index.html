@@ -133,7 +133,7 @@
           <div class="body">
             <h3>${escapeHtml(entry.title)}</h3>
             <div class="trust-row">
-              <span class="avatar-initial">${escapeHtml((entry.profiles?.display_name || "?")[0].toUpperCase())}</span>
+              ${entry.profiles?.rbx_avatar_url ? `<img class="trust-row-avatar" src="${entry.profiles.rbx_avatar_url}" alt="">` : `<span class="avatar-initial">${escapeHtml((entry.profiles?.display_name || "?")[0].toUpperCase())}</span>`}
               <span class="username">${escapeHtml(entry.profiles?.display_name || "unknown")}</span>
             </div>
             <p class="lister" style="margin-top:6px;">Registered ${new Date(entry.created_at).toLocaleDateString()}</p>

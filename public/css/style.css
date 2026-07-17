@@ -718,7 +718,7 @@ img { max-width: 100%; display: block; }
 .card-badge.looking-for { background: var(--ink); }
 .card-badge.commission { background: var(--butter); }
 
-.card-badge .icon-sign { width: 11px; height: 8px; background: var(--white); border-radius: 1px; }
+.card-badge .icon-sign { width: 12px; height: 12px; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20.59 13.41 13 21l-9-9V4h8l8.59 8.59a2 2 0 0 1 0 2.82z'/%3E%3Ccircle cx='7.5' cy='7.5' r='1.5' fill='white'/%3E%3C/svg%3E") center/contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20.59 13.41 13 21l-9-9V4h8l8.59 8.59a2 2 0 0 1 0 2.82z'/%3E%3Ccircle cx='7.5' cy='7.5' r='1.5' fill='white'/%3E%3C/svg%3E") center/contain no-repeat; background: var(--white); }
 .card-badge .icon-loop { width: 9px; height: 9px; border: 2px solid var(--white); border-radius: 50%; }
 .card-badge .icon-hammer { width: 9px; height: 9px; background: var(--white); transform: rotate(45deg); border-radius: 1px; }
 
@@ -757,6 +757,13 @@ img { max-width: 100%; display: block; }
   justify-content: center;
   flex-shrink: 0;
   font-family: var(--font-body);
+}
+img.trust-row-avatar {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .trust-row .username {

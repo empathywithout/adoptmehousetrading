@@ -41,7 +41,7 @@ async function handlerImpl(event) {
     .eq("id", id)
     .maybeSingle();
 
-  if (error || !entry) {
+  if (error || !entry || entry.status === "removed") {
     return json(404, { error: "Build not found" });
   }
 
