@@ -118,6 +118,12 @@
       fetch("/.netlify/functions/listings-list").then((r) => r.json()),
       fetch("data/houses.json").then((r) => r.json()),
     ]);
+    const myProfile = (() => { try { return JSON.parse(localStorage.getItem("amht_profile")); } catch { return null; } })();
+    const token = localStorage.getItem("amht_token");
+    const savedData = token
+      ? await fetch("/.netlify/functions/listing-saves-me", { headers: { Authorization: `Bearer ${token}` } }).then(r => r.json()).catch(() => ({}))
+      : {};
+    let savedIds = new Set(savedData.saved_ids || []);
     const houseById = Object.fromEntries(houses.map((h) => [h.id, h]));
     const grid = document.getElementById("recent-listings-grid");
 
@@ -149,12 +155,36 @@
             <div class="trust-row">
               ${listing.profiles?.rbx_avatar_url ? `<img class="trust-row-avatar" src="${listing.profiles.rbx_avatar_url}" alt="">` : `<span class="avatar-initial">${escapeHtml(username[0]?.toUpperCase() || "?")}</span>`}
               <span class="username">${escapeHtml(username)}</span>
+              ${myProfile && myProfile.id !== listing.profile_id ? `<button class="save-btn ${savedIds.has(listing.id) ? "saved" : ""}" data-listing-id="${listing.id}" title="${savedIds.has(listing.id) ? "Saved — click to unsave" : "Save this listing"}" onclick="event.preventDefault()">${savedIds.has(listing.id) ? "Saved" : "Save"}</button>` : ""}
             </div>
             ${valueLine}
             ${themeLine}
           </div>
         </a>`;
       }).join("");
+      // Delegated save handler
+      document.getElementById("recent-listings-grid").addEventListener("click", async (e) => {
+        const btn = e.target.closest(".save-btn[data-listing-id]");
+        if (!btn) return;
+        e.preventDefault();
+        if (!token) { alert("Sign in to save listings."); return; }
+        const listingId = btn.dataset.listingId;
+        btn.disabled = true;
+        try {
+          const res = await fetch("/.netlify/functions/listing-save", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+            body: JSON.stringify({ listing_id: listingId }),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || "Couldn't save");
+          if (data.saved) { savedIds.add(listingId); } else { savedIds.delete(listingId); }
+          btn.classList.toggle("saved", data.saved);
+          btn.title = data.saved ? "Saved — click to unsave" : "Save this listing";
+          btn.textContent = data.saved ? "Saved" : "Save";
+        } catch (err) { alert(err.message); }
+        finally { btn.disabled = false; }
+      });
     }
   } catch (err) {
     document.getElementById("recent-listings-empty").hidden = false;
