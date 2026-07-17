@@ -128,7 +128,7 @@
         return `
         <a class="listing-card" href="entry.html?id=${entry.id}">
           <div class="photo">
-            <img src="${photo}" alt="" loading="lazy">
+            <img src="${photo}" alt="${escapeHtml(entry.title)}" loading="lazy">
           </div>
           <div class="body">
             <h3>${escapeHtml(entry.title)}</h3>

@@ -282,7 +282,7 @@ function buildBrowsePage() {
   const body = `
 <section class="wrap">
   <div class="section-head" style="margin-top:40px;">
-    <h2>House Values (${houses.length})</h2>
+    <h1>House Values (${houses.length})</h1>
     <a href="../listings/index.html">Looking to trade? Browse live listings →</a>
   </div>
   <p class="hint" style="margin-bottom:20px;">Reference values for every house type in Adopt Me. To actually trade, head to <a href="../listings/index.html" style="color:var(--accent);">Browse Houses</a> to see real listings from real players.</p>

@@ -117,6 +117,7 @@
 
     content.innerHTML = `
       <div class="breadcrumb">Commissions &nbsp;/&nbsp; <span class="current">${escapeHtml(builder.display_name)}</span></div>
+      <h1 style="font-family:var(--font-display);color:var(--ink);margin:6px 0 16px;">${escapeHtml(builder.display_name)}</h1>
       <div class="detail-grid">
         <div>
           <div class="trust-card" style="margin-bottom:20px;">
@@ -138,11 +139,11 @@
         <div class="sidebar-sticky">
           ${
             isSelf
-              ? `<div class="form-card"><h1>This is you</h1><p class="subtitle">Manage your builder settings from your profile.</p><a class="btn btn-primary" href="../profile.html">Go to Profile</a></div>`
+              ? `<div class="form-card"><span class="card-heading">This is you</span><p class="subtitle">Manage your builder settings from your profile.</p><a class="btn btn-primary" href="../profile.html">Go to Profile</a></div>`
               : builder.commission_status !== "open"
-              ? `<div class="form-card"><h1>Not taking commissions right now</h1><p class="subtitle">Check back later, or browse other builders.</p></div>`
+              ? `<div class="form-card"><span class="card-heading">Not taking commissions right now</span><p class="subtitle">Check back later, or browse other builders.</p></div>`
               : !myProfile
-              ? `<div class="form-card"><h1>Request a Commission</h1><p class="subtitle"><a href="../profile.html">Set up your profile</a> to request a commission.</p></div>`
+              ? `<div class="form-card"><span class="card-heading">Request a Commission</span><p class="subtitle"><a href="../profile.html">Set up your profile</a> to request a commission.</p></div>`
               : `<div class="cta-box" style="background:var(--paper);border:1px solid var(--line);">
                   <h3 style="color:var(--ink);">Request a Commission</h3>
                   <div id="request-error" class="error-box" hidden></div>

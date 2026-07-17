@@ -138,7 +138,7 @@
 
     const photos = (listing.photos?.length ? listing.photos : house ? [house.image] : []).filter(Boolean);
     const photosHtml = photos.length
-      ? photos.map((url, i) => `<img src="${url}" alt="" ${i > 0 ? 'loading="lazy" ' : ''}style="width:100%;border-radius:10px;margin-bottom:10px;">`).join("")
+      ? photos.map((url, i) => `<img src="${url}" alt="${escapeHtml(listing.title)} photo ${i + 1}" ${i > 0 ? 'loading="lazy" ' : ''}style="width:100%;border-radius:10px;margin-bottom:10px;">`).join("")
       : `<p class="hint">No photos on this listing.</p>`;
 
     const cloneTag =
@@ -254,7 +254,7 @@
 
       ${
         listing.status === "active" && !isOwner
-          ? `<div class="form-card" id="offer-form-card" style="margin-top:32px;"><h1>${listing.listing_type === "commission" ? "Request a Commission" : listing.listing_type === "looking_for" ? "I Have This House" : "Make an Offer"}</h1>
+          ? `<div class="form-card" id="offer-form-card" style="margin-top:32px;"><span class="card-heading">${listing.listing_type === "commission" ? "Request a Commission" : listing.listing_type === "looking_for" ? "I Have This House" : "Make an Offer"}</span>
               <div id="offer-error" class="error-box" hidden></div>
               <div id="offer-success" class="success-box" hidden></div>
               <div id="need-profile-offer" class="hint" hidden>

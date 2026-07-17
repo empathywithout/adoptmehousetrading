@@ -84,11 +84,23 @@
     const g = data.submission;
     document.getElementById("breadcrumb-current").textContent = g.title;
     document.title = `${g.title} — Adopt Me ${GUIDE_CATEGORY_LABELS[g.category] || "Guide"} | AdoptMeHouseTrading.com`;
+    const breadcrumbScript = document.createElement("script");
+    breadcrumbScript.type = "application/ld+json";
+    breadcrumbScript.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://adoptmehousetrading.com/" },
+        { "@type": "ListItem", position: 2, name: "Guides", item: "https://adoptmehousetrading.com/guides/index.html" },
+        { "@type": "ListItem", position: 3, name: g.title, item: `https://adoptmehousetrading.com/guides/entry.html?id=${g.id}` },
+      ],
+    });
+    document.head.appendChild(breadcrumbScript);
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) metaDesc.setAttribute("content", `${g.title} — a community-submitted Adopt Me ${(GUIDE_CATEGORY_LABELS[g.category] || "guide").toLowerCase()} by ${g.profiles?.display_name || "a community member"}.`);
 
     const photosHtml = g.photos?.length
-      ? g.photos.map((url, i) => `<img src="${url}" alt="" ${i > 0 ? 'loading="lazy" ' : ''}style="width:100%;border-radius:10px;margin-bottom:10px;">`).join("")
+      ? g.photos.map((url, i) => `<img src="${url}" alt="${escapeHtml(g.title)} photo ${i + 1}" ${i > 0 ? 'loading="lazy" ' : ''}style="width:100%;border-radius:10px;margin-bottom:10px;">`).join("")
       : "";
 
     // Body is stored as plain text with blank-line paragraph breaks — not

@@ -112,7 +112,7 @@
     const pendingDisputeCount = disputes.filter((d) => d.status === "pending").length;
 
     const photosHtml = entry.photos?.length
-      ? entry.photos.map((url, i) => `<img src="${url}" alt="" ${i > 0 ? 'loading="lazy" ' : ''}style="width:100%;border-radius:10px;margin-bottom:10px;">`).join("")
+      ? entry.photos.map((url, i) => `<img src="${url}" alt="${escapeHtml(entry.title)} photo ${i + 1}" ${i > 0 ? 'loading="lazy" ' : ''}style="width:100%;border-radius:10px;margin-bottom:10px;">`).join("")
       : `<p class="hint">No photos.</p>`;
 
     const verifiedBadge = entry.is_community_verified
@@ -211,9 +211,9 @@
           ${rebuttalFormHtml}
           ${
             isSelf
-              ? `<div class="form-card"><h1>This is your entry</h1><p class="subtitle">${pendingOwnDispute ? "Respond to the dispute above." : "No pending disputes right now."}</p></div>`
+              ? `<div class="form-card"><span class="card-heading">This is your entry</span><p class="subtitle">${pendingOwnDispute ? "Respond to the dispute above." : "No pending disputes right now."}</p></div>`
               : !myProfile
-              ? `<div class="form-card"><h1>Think this isn't right?</h1><p class="subtitle"><a href="../profile.html">Set up your profile</a> to file a dispute.</p></div>`
+              ? `<div class="form-card"><span class="card-heading">Think this isn't right?</span><p class="subtitle"><a href="../profile.html">Set up your profile</a> to file a dispute.</p></div>`
               : `<div class="cta-box" style="background:var(--paper);border:1px solid var(--line);">
                   <h3 style="color:var(--ink);">Dispute This Claim</h3>
                   <p style="color:var(--muted);">If you're the actual original creator, or this is a clone, explain here. A human reviews disputes — this doesn't resolve automatically.</p>

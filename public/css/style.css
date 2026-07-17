@@ -566,6 +566,7 @@ img { max-width: 100%; display: block; }
   margin: 8px 0 20px;
 }
 
+.section-head h1,
 .section-head h2 {
   font-family: var(--font-display);
   font-weight: 800;
@@ -903,6 +904,15 @@ img { max-width: 100%; display: block; }
   font-size: 26px;
   margin: 0 0 6px;
   letter-spacing: -0.3px;
+}
+.form-card .card-heading {
+  font-family: var(--font-display);
+  color: var(--ink);
+  font-size: 26px;
+  margin: 0 0 6px;
+  letter-spacing: -0.3px;
+  font-weight: 700;
+  display: block;
 }
 
 .form-card .subtitle {

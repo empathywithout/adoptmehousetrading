@@ -101,7 +101,7 @@
     grid.innerHTML = filtered
       .map(
         (g) => `<a class="house-card" href="entry.html?id=${g.id}">
-          <div class="thumb"><img src="${g.photos?.[0] || "../images/brand/searchdog.png"}" alt="" loading="lazy"></div>
+          <div class="thumb"><img src="${g.photos?.[0] || "../images/brand/searchdog.png"}" alt="${escapeHtml(g.title)}" loading="lazy"></div>
           <div class="info">
             <h3>${escapeHtml(g.title)}</h3>
             <p class="source">${GUIDE_CATEGORY_LABELS[g.category] || g.category} · by ${escapeHtml(g.profiles?.display_name || "unknown")}</p>
