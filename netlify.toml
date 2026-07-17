@@ -13,3 +13,13 @@
   from = "/house/*"
   to = "/houses/:splat.html"
   status = 301
+
+[[redirects]]
+  from = "/admin/dashboard"
+  to = "/admin/dashboard.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin/disputes"
+  to = "/admin/dashboard.html"
+  status = 301
