@@ -1,10 +1,11 @@
 // GET, header X-Admin-Password: <ADMIN_PASSWORD>
 // -> { disputes: [...] }
 //
-// Uses two separate queries instead of one complex embedded join — this table
-// has two FKs to build_registry (build_registry_id AND claimed_original_entry_id)
-// which causes PostgREST to choke on embedded joins even with FK hints.
-// Simpler to fetch disputes first, then enrich with registry/profile data.
+// Uses flat queries only — no PostgREST embedded joins at all, because:
+// 1. build_registry_disputes has two FKs to build_registry
+// 2. build_registry <-> profiles is circular (profiles.featured_registry_entry_id -> build_registry,
+//    build_registry.profile_id -> profiles), which PostgREST flags as ambiguous
+// Simpler and safer to fetch each table flat and join in JS.
 
 import { supabaseAdmin, requireAdmin, json, safeHandler } from "./_lib/supabase.js";
 
@@ -18,49 +19,73 @@ async function handlerImpl(event) {
 
   const db = supabaseAdmin();
 
-  // Step 1: fetch pending disputes — no joins, just the raw rows
+  // 1. Fetch disputes — flat, no joins
   const { data: disputes, error: disputesErr } = await db
     .from("build_registry_disputes")
-    .select("*")
+    .select("id, build_registry_id, disputer_profile_id, claim, rebuttal, rebuttal_at, status, created_at, claimed_original_entry_id")
     .eq("status", "pending")
     .order("created_at", { ascending: true });
 
   if (disputesErr) {
-    console.error("disputes query error:", JSON.stringify(disputesErr));
-    return json(500, { error: `Couldn't load disputes: ${disputesErr.message || disputesErr.hint || JSON.stringify(disputesErr)}` });
+    console.error("disputes error:", JSON.stringify(disputesErr));
+    return json(500, { error: `Couldn't load disputes: ${disputesErr.message}` });
   }
 
   if (!disputes || disputes.length === 0) {
     return json(200, { disputes: [] });
   }
 
-  // Step 2: collect the IDs we need to look up
+  // 2. Collect IDs
   const registryIds = [...new Set([
     ...disputes.map(d => d.build_registry_id),
     ...disputes.map(d => d.claimed_original_entry_id).filter(Boolean),
   ])];
-  const profileIds = [...new Set(disputes.map(d => d.disputer_profile_id).filter(Boolean))];
+  const disputerProfileIds = [...new Set(disputes.map(d => d.disputer_profile_id).filter(Boolean))];
 
-  // Step 3: fetch registry entries and profiles in parallel
-  const [{ data: entries }, { data: profiles }] = await Promise.all([
-    db.from("build_registry")
-      .select("id, title, photos, profile_id, profiles!build_registry_profile_id_fkey(display_name)")
-      .in("id", registryIds),
-    db.from("profiles")
-      .select("id, display_name")
-      .in("id", profileIds),
-  ]);
+  // 3. Fetch registry entries flat (no nested profiles embed)
+  const { data: entries, error: entriesErr } = await db
+    .from("build_registry")
+    .select("id, title, photos, profile_id")
+    .in("id", registryIds);
 
+  if (entriesErr) {
+    console.error("entries error:", JSON.stringify(entriesErr));
+    return json(500, { error: `Couldn't load registry entries: ${entriesErr.message}` });
+  }
+
+  // 4. Collect all profile IDs we need (disputers + builders)
+  const builderProfileIds = (entries || []).map(e => e.profile_id).filter(Boolean);
+  const allProfileIds = [...new Set([...disputerProfileIds, ...builderProfileIds])];
+
+  // 5. Fetch profiles flat
+  const { data: profiles, error: profilesErr } = await db
+    .from("profiles")
+    .select("id, display_name")
+    .in("id", allProfileIds);
+
+  if (profilesErr) {
+    console.error("profiles error:", JSON.stringify(profilesErr));
+    return json(500, { error: `Couldn't load profiles: ${profilesErr.message}` });
+  }
+
+  // 6. Build lookup maps and enrich
   const entryById = Object.fromEntries((entries || []).map(e => [e.id, e]));
   const profileById = Object.fromEntries((profiles || []).map(p => [p.id, p]));
 
-  // Step 4: enrich disputes with the fetched data
-  const enriched = disputes.map(d => ({
-    ...d,
-    build_registry: entryById[d.build_registry_id] || null,
-    profiles: profileById[d.disputer_profile_id] || null,
-    claimed_original_entry: d.claimed_original_entry_id ? entryById[d.claimed_original_entry_id] || null : null,
-  }));
+  const enriched = disputes.map(d => {
+    const entry = entryById[d.build_registry_id] || null;
+    return {
+      ...d,
+      build_registry: entry ? {
+        ...entry,
+        profiles: entry.profile_id ? profileById[entry.profile_id] || null : null,
+      } : null,
+      profiles: d.disputer_profile_id ? profileById[d.disputer_profile_id] || null : null,
+      claimed_original_entry: d.claimed_original_entry_id
+        ? entryById[d.claimed_original_entry_id] || null
+        : null,
+    };
+  });
 
   return json(200, { disputes: enriched });
 }
