@@ -2880,3 +2880,40 @@ textarea { resize: vertical; min-height: 90px; }
 }
 
 
+
+/* ── Listing detail: readability improvements ───────────────────── */
+@media (max-width: 640px) {
+
+  /* Bigger, clearer title */
+  .detail-grid h1 { font-size: 22px !important; line-height: 1.2; margin-bottom: 4px; }
+
+  /* CTA button full width and prominent */
+  .cta-box { border-radius: 14px; }
+  .cta-box .btn.btn-primary { width: 100%; font-size: 16px; padding: 14px; border-radius: 10px; }
+
+  /* Value stat: more readable */
+  .stat-grid-card .stat-value.accent { font-size: 22px; }
+
+  /* Meta pills: wrap and breathe */
+  .meta-row { flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+
+  /* Offers/tabs: easier to tap */
+  .detail-tabs .tab { font-size: 14px; padding: 12px 16px; }
+
+  /* Offer cards: cleaner on mobile */
+  .offer-card { padding: 14px; }
+
+  /* Report link: more visible */
+  #report-btn { font-size: 13px; padding: 8px 0; display: block; }
+
+  /* Description text: more readable */
+  .detail-grid p { font-size: 14.5px; line-height: 1.65; }
+
+  /* No-photo state */
+  .detail-grid > div > div:first-of-type .hint { 
+    padding: 32px 16px;
+    background: var(--surface-2);
+    border-radius: 12px;
+    text-align: center;
+  }
+}
