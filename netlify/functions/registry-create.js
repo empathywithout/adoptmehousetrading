@@ -71,8 +71,8 @@ async function handlerImpl(event) {
     return json(400, { error: "Give your build a title" });
   }
   const cleanPhotos = Array.isArray(photos) ? photos.filter((p) => typeof p === "string").slice(0, 8) : [];
-  if (!cleanPhotos.length) {
-    return json(400, { error: "At least one photo is required to register a build" });
+  if (cleanPhotos.length < 3) {
+    return json(400, { error: "At least 3 photos are required to register a build — help others verify your work" });
   }
   const cleanThemes = Array.isArray(themes) ? themes.filter((t) => VALID_THEMES.includes(t)) : [];
   const cleanIncludedItems = Array.isArray(included_items)

@@ -97,7 +97,8 @@
     </div>
     <div class="selected-items" id="selected-items"></div>
 
-    <label class="field-label">Photos <span style="font-weight:600;color:var(--muted);font-size:12px;">(at least 1 required)</span></label>
+    <label class="field-label">Photos <span style="font-weight:600;color:var(--muted);font-size:12px;">(at least 3 required)</span></label>
+    <p class="hint" style="margin-top:-4px;margin-bottom:10px;">First photo is your main exterior shot. Add interior and detail photos — they're how other players verify it's genuinely your build, and what shows on your builder profile.</p>
     <div class="photo-slots" id="photo-slots"></div>
 
     <div class="hero-ctas" style="justify-content: flex-start; margin-top: 24px;">
@@ -248,11 +249,11 @@
 
   function renderPhotoSlots() {
     const container = document.getElementById("photo-slots");
-    const slotCount = Math.max(4, uploadedPhotos.length + 1);
+    const slotCount = Math.max(5, uploadedPhotos.length + 1);
     container.innerHTML = Array.from({ length: slotCount }, (_, i) => {
       const url = uploadedPhotos[i];
       return `<div class="photo-slot ${i === 0 ? "main" : "interior"}" data-slot="${i}">
-        ${url ? `<img src="${url}" alt="">` : `<div class="plus-circle">+</div><div class="slot-label">${i === 0 ? "Main Photo" : "Photo"}</div>`}
+        ${url ? `<img src="${url}" alt="">` : `<div class="plus-circle">+</div><div class="slot-label">${i === 0 ? "Main Photo" : i < 3 ? `Photo ${i + 1} (required)` : `Photo ${i + 1}`}</div>`}
         <input type="file" accept="image/png,image/jpeg,image/webp" data-slot-input="${i}" style="display:none;">
       </div>`;
     }).join("");
@@ -291,8 +292,8 @@
       errorBox.hidden = false;
       return;
     }
-    if (!photos.length) {
-      errorBox.textContent = "Add at least one photo.";
+    if (photos.length < 3) {
+      errorBox.textContent = "Add at least 3 photos — one main shot plus interior/detail photos help others verify your build.";
       errorBox.hidden = false;
       return;
     }

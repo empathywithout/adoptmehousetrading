@@ -247,8 +247,9 @@
 
           ${
             isOwner && listing.status === "active"
-              ? `<div style="display:flex;gap:8px;margin-bottom:16px;">
+              ? `<div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
                   <a class="btn btn-primary" href="edit.html?id=${listing.id}" style="text-decoration:none;">Edit Listing</a>
+                  ${listing.listing_type !== "looking_for" ? `<button class="btn" style="background:var(--surface-2);color:var(--ink);" id="register-build-btn">Register This Build</button>` : ""}
                 </div>`
               : ""
           }
@@ -328,6 +329,29 @@
     });
     document.head.appendChild(breadcrumbScript);
 
+    // SocialMediaPosting schema — listings are community posts, not products.
+    // Product/Offer schema would require real currency values which Shark/Frost/RP aren't.
+    const listingSchema = document.createElement("script");
+    listingSchema.type = "application/ld+json";
+    listingSchema.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SocialMediaPosting",
+      headline: listing.title,
+      url: `https://adoptmehousetrading.com/listings/listing.html?id=${listing.id}`,
+      datePublished: listing.created_at,
+      dateModified: listing.updated_at || listing.created_at,
+      author: { "@type": "Person", name: listing.profiles?.display_name || "Adopt Me player" },
+      image: listing.photos?.slice(0, 3) || [],
+      articleBody: listing.description || listing.title,
+      keywords: [
+        "Adopt Me house trading",
+        listing.house_id,
+        ...(listing.themes || []).map(t => t.replace(/_/g, " ")),
+        listing.listing_type === "looking_for" ? "looking for house" : "house for trade",
+      ].filter(Boolean).join(", "),
+    });
+    document.head.appendChild(listingSchema);
+
     renderOffers(offers, isOwner, listing);
 
     content.querySelectorAll(".detail-tabs .tab").forEach((tab) => {
@@ -341,6 +365,16 @@
 
     document.getElementById("scroll-to-offer-btn")?.addEventListener("click", () => {
       document.getElementById("offer-form-card")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    document.getElementById("register-build-btn")?.addEventListener("click", () => {
+      sessionStorage.setItem("amht_portfolio_prefill", JSON.stringify({
+        title: listing.title,
+        photos: listing.photos || [],
+        house_id: listing.house_id || null,
+        themes: listing.themes || [],
+      }));
+      location.href = "../registry/submit.html";
     });
 
     if (listing.status === "active" && !isOwner) {
