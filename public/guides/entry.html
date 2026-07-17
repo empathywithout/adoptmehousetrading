@@ -127,7 +127,7 @@
       <h1 style="font-family:var(--font-display);color:var(--ink);margin:6px 0 6px;">${escapeHtml(g.title)}</h1>
       <div class="trust-row" style="margin-bottom:20px;">
         <img class="avatar-initial" src="${g.profiles?.rbx_avatar_url || ""}" alt="" onerror="this.style.visibility='hidden'">
-        <span>By ${escapeHtml(g.profiles?.display_name || "a community member")} · ${new Date(g.published_at || g.created_at).toLocaleDateString()}</span>
+        <span>By ${g.profile_id ? `<a href="../player.html?id=${g.profile_id}" style="color:var(--accent);text-decoration:none;font-weight:600;">${escapeHtml(g.profiles?.display_name || "a community member")}</a>` : escapeHtml(g.profiles?.display_name || "a community member")} · ${new Date(g.published_at || g.created_at).toLocaleDateString()}</span>
       </div>
       ${photosHtml}
       ${bodyHtml}

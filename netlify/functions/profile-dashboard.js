@@ -107,6 +107,20 @@ async function handlerImpl(event) {
     console.error("build_registry query failed:", err);
   }
 
+  let myGuides = [];
+  try {
+    const { data, error } = await db
+      .from("content_submissions")
+      .select("id, title, category, published_at, photos")
+      .eq("profile_id", profile.id)
+      .eq("status", "approved")
+      .order("published_at", { ascending: false });
+    if (error) throw error;
+    myGuides = data || [];
+  } catch (err) {
+    console.error("my guides query failed:", err);
+  }
+
   let dataTeamApplication = null;
   try {
     const { data } = await db
@@ -184,6 +198,7 @@ async function handlerImpl(event) {
     build_registry_entries: myBuildRegistryEntries,
     my_offers: myOffers,
     data_team_application: dataTeamApplication,
+    my_guides: myGuides,
   });
 }
 

@@ -115,6 +115,7 @@
       <button class="tab" data-tab="commissions">Commissions</button>
       <button class="tab" data-tab="portfolio">My Builds</button>
       <button class="tab" data-tab="saved">Saved Builds</button>
+      <button class="tab" data-tab="guides">My Guides</button>
       <button class="tab" data-tab="data-team">Data Team</button>
     </div>
 
@@ -273,6 +274,12 @@
       </div>
     </div>
 
+    <div id="tab-panel-guides" hidden>
+      <div class="section-head"><h2>My Published Guides</h2><a href="guides/submit.html">+ Submit a Guide</a></div>
+      <div id="my-guides-list"></div>
+      <p id="no-guides-msg" hidden class="subtitle" style="margin-top:16px;">You haven't had any guides published yet. <a href="guides/submit.html" style="color:var(--accent);">Submit one →</a></p>
+    </div>
+
     <div id="tab-panel-data-team" hidden>
 
       <!-- Header with badge -->
@@ -378,7 +385,7 @@
     tab.addEventListener("click", () => {
       document.querySelectorAll("#profile-tabs .tab").forEach((t) => t.classList.remove("active"));
       tab.classList.add("active");
-      ["listings", "offers", "builder", "commissions", "portfolio", "saved", "data-team"].forEach((name) => {
+      ["listings", "offers", "builder", "commissions", "portfolio", "saved", "guides", "data-team"].forEach((name) => {
         document.getElementById(`tab-panel-${name}`).hidden = name !== tab.dataset.tab;
       });
       // Hide the Data Team nudge when on the data-team tab itself
@@ -494,6 +501,7 @@
     renderBuilderSettings(dash.profile, dash.build_registry_entries || []);
     renderCommissionRequests(dash);
     renderBuildRegistry(dash.build_registry_entries || []);
+    renderGuides(dash.my_guides || []);
     renderDataTeam(dash.profile, dash.data_team_application);
   }
 
@@ -922,6 +930,37 @@
         }
       });
     });
+  }
+
+  const GUIDE_CATEGORY_LABELS = {
+    theme_build: "Theme Build Guide",
+    budget_build: "Budget / Challenge Build",
+    building_technique: "Building Technique",
+    trading_guide: "Trading & Values Guide",
+  };
+
+  function renderGuides(guides) {
+    const container = document.getElementById("my-guides-list");
+    const emptyMsg = document.getElementById("no-guides-msg");
+    if (!guides.length) {
+      emptyMsg.hidden = false;
+      container.innerHTML = "";
+      return;
+    }
+    emptyMsg.hidden = true;
+    container.innerHTML = guides.map((g) => {
+      const photo = g.photos?.[0] || "";
+      return `
+      <div class="manage-card">
+        <a class="manage-head" href="guides/entry.html?id=${g.id}" style="text-decoration:none;color:inherit;">
+          ${photo ? `<div class="manage-thumb"><img src="${photo}" alt="" loading="lazy"></div>` : ""}
+          <div style="flex:1;">
+            <div class="manage-title">${escapeHtml(g.title)}</div>
+            <p class="hint" style="margin:2px 0 0;">${GUIDE_CATEGORY_LABELS[g.category] || g.category} · Published ${new Date(g.published_at).toLocaleDateString()}</p>
+          </div>
+        </a>
+      </div>`;
+    }).join("");
   }
 
   let dataTeamPicker = null;

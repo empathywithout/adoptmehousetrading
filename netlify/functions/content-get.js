@@ -16,7 +16,7 @@ async function handlerImpl(event) {
   const db = supabaseAdmin();
   const { data, error } = await db
     .from("content_submissions")
-    .select("id, category, title, body, photos, created_at, published_at, profiles(display_name, rbx_avatar_url)")
+    .select("id, category, title, body, photos, created_at, published_at, profile_id, profiles(display_name, rbx_avatar_url)")
     .eq("id", id)
     .eq("status", "approved")
     .maybeSingle();
