@@ -381,6 +381,11 @@
       ["listings", "offers", "builder", "commissions", "portfolio", "saved", "data-team"].forEach((name) => {
         document.getElementById(`tab-panel-${name}`).hidden = name !== tab.dataset.tab;
       });
+      // Hide the Data Team nudge when on the data-team tab itself
+      const nudge = document.getElementById("data-team-nudge");
+      if (nudge && nudge.style.display !== "none") {
+        nudge.style.visibility = tab.dataset.tab === "data-team" ? "hidden" : "visible";
+      }
       // Lazy-load saved builds the first time the tab is opened
       if (tab.dataset.tab === "saved" && !tab.dataset.loaded) {
         tab.dataset.loaded = "1";
