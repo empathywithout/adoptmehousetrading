@@ -146,6 +146,10 @@
       document.getElementById("title").value = prefill.title || "";
       (prefill.photos || []).forEach((url) => uploadedPhotos.push(url));
       selectedHouseId = prefill.house_id || null;
+      (prefill.themes || []).forEach((theme) => {
+        const cb = themesGrid.querySelector(`input[value="${theme}"]`);
+        if (cb) cb.checked = true;
+      });
       const prefillNote = document.createElement("p");
       prefillNote.className = "hint";
       prefillNote.style.cssText = "margin-top:-4px;margin-bottom:16px;color:var(--accent-dark);";
