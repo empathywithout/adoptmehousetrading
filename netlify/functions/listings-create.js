@@ -3,6 +3,7 @@
 // -> { listing }
 
 import {  supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
+import { validateVideoUrl } from "./_lib/oembed.js";
 
 const VALID_CATEGORIES = [
   "adopt_me_pets",
@@ -105,6 +106,8 @@ async function handlerImpl(event) {
   }
 
   const cleanVideoUrl = video_url && /^https?:\/\//.test(video_url) ? String(video_url).slice(0, 500) : null;
+  const videoErr = await validateVideoUrl(cleanVideoUrl);
+  if (videoErr) return json(400, { error: videoErr });
 
   const cleanIncludedItems = Array.isArray(included_items)
     ? included_items.slice(0, 40).map((it) => ({

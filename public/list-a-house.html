@@ -92,8 +92,10 @@
 
     <div id="video-tour-field" style="margin-bottom:28px;">
       <label class="field-label" style="margin-top:0;" for="video-tour-url">Video Tour (optional)</label>
-      <p class="hint" style="margin-top:-4px;margin-bottom:8px;">Link a YouTube, Streamable, or similar video walkthrough — not a file upload.</p>
+      <p class="hint" style="margin-top:-4px;margin-bottom:6px;">Paste a <strong>YouTube</strong> or <strong>Streamable</strong> link — other platforms aren't supported. The video must be public.</p>
+      <p class="hint" style="margin-top:0;margin-bottom:8px;font-size:11.5px;color:var(--muted);">✓ youtube.com/watch?v=... &nbsp;✓ youtu.be/... &nbsp;✓ streamable.com/...</p>
       <input type="url" id="video-tour-url" placeholder="https://youtube.com/watch?v=...">
+      <p id="video-url-error" style="color:var(--error,#e53);font-size:12.5px;margin-top:6px;display:none;"></p>
     </div>
 
     <div id="cloned-field" style="margin-bottom:24px;">
@@ -428,8 +430,15 @@
       errorBox.hidden = false;
       return;
     }
-    if (video_url && !/^https?:\/\//.test(video_url)) {
-      errorBox.textContent = "Video tour link needs to be a full URL (starting with http:// or https://).";
+    if (video_url) {
+      const allowedVideoHosts = ["youtube.com", "www.youtube.com", "youtu.be", "streamable.com", "www.streamable.com"];
+      let videoHostOk = false;
+      try {
+        const parsed = new URL(video_url);
+        videoHostOk = allowedVideoHosts.includes(parsed.hostname);
+      } catch {}
+      if (!videoHostOk) {
+        errorBox.textContent = "Video tour link must be a YouTube or Streamable URL.";
       errorBox.hidden = false;
       return;
     }

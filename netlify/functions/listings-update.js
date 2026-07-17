@@ -7,6 +7,7 @@
 // offers which were made based on those facts.
 
 import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
+import { validateVideoUrl } from "./_lib/oembed.js";
 
 const VALID_CATEGORIES = ["adopt_me_pets", "vehicles", "toys", "pet_wear", "stickers", "strollers", "foods"];
 const VALID_UNITS = ["shark", "frost", "rp"];
@@ -92,6 +93,8 @@ async function handlerImpl(event) {
     ? looking_for.filter((c) => VALID_CATEGORIES.includes(c)) : [];
   const cleanVideoUrl = video_url && /^https?:\/\//.test(String(video_url).trim())
     ? String(video_url).trim().slice(0, 500) : null;
+  const videoErr = await validateVideoUrl(cleanVideoUrl);
+  if (videoErr) return json(400, { error: videoErr });
   const cleanIncludedItems = Array.isArray(included_items)
     ? included_items.slice(0, 40).map((it) => ({
         category: it.category,
