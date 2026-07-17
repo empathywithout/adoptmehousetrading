@@ -246,6 +246,14 @@
           </div>
 
           ${
+            isOwner && listing.status === "active"
+              ? `<div style="display:flex;gap:8px;margin-bottom:16px;">
+                  <a class="btn btn-primary" href="edit.html?id=${listing.id}" style="text-decoration:none;">Edit Listing</a>
+                </div>`
+              : ""
+          }
+
+          ${
             listing.status === "active" && !isOwner
               ? `<div class="cta-box" id="offer-cta">
                   <h3>${listing.listing_type === "commission" ? "Request a Commission" : listing.listing_type === "looking_for" ? "I Have This House" : "Make an Offer"}</h3>

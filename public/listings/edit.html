@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<title>Edit Listing — AdoptMeHouseTrading.com</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-REW2CFBX6H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-REW2CFBX6H');
+</script>
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html"><span class="signpost-mini"></span>AdoptMeHouseTrading</a>
+    <nav>
+      <a href="index.html">Browse Houses</a>
+      <a href="../commissions/index.html">Find a Builder</a>
+      <a href="../comps.html">Recent Trades</a>
+      <div class="nav-more">
+        <button type="button" class="nav-more-trigger">More <span class="nav-more-caret"></span></button>
+        <div class="nav-more-dropdown" hidden>
+          <a href="../houses/index.html">Values</a>
+          <a href="../registry/index.html">Build Registry</a>
+          <a href="../guides/index.html">Guides</a>
+        </div>
+      </div>
+      <a href="../profile.html">Profile</a>
+    </nav>
+    <div class="nav-actions">
+      <span id="nav-profile-pill"></span>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<script type="module" src="../js/nav.js"></script>
+
+<div class="wrap" style="max-width:760px;padding-top:36px;padding-bottom:80px;">
+
+  <!-- Not signed in -->
+  <div id="need-profile" hidden class="form-card" style="text-align:center;">
+    <h1 style="font-family:var(--font-display);">Sign in to edit</h1>
+    <a href="../profile.html" class="btn btn-primary" style="margin-top:12px;">Sign In</a>
+  </div>
+
+  <!-- Edit form -->
+  <div id="edit-form" hidden>
+    <div style="margin-bottom:20px;">
+      <a href="../profile.html" style="color:var(--muted);font-size:13px;text-decoration:none;">← Back to profile</a>
+    </div>
+    <h1 style="font-family:var(--font-display);font-weight:800;font-size:28px;color:var(--ink);letter-spacing:-0.5px;margin-bottom:4px;">Edit Listing</h1>
+    <p class="hint" style="margin-bottom:24px;">House type and listing type can't be changed — existing offers were made based on those. Everything else is fair game.</p>
+
+    <div id="error" class="error-box" hidden></div>
+    <div id="success" class="success-box" hidden></div>
+
+    <!-- Listing type + house — read-only display -->
+    <div class="form-card" style="max-width:none;margin-bottom:20px;padding:14px 18px;display:flex;align-items:center;gap:14px;">
+      <div id="listing-type-badge" class="card-badge house-trade"><div class="icon-sign"></div></div>
+      <div>
+        <div style="font-weight:700;font-size:15px;color:var(--ink);" id="listing-house-name">—</div>
+        <div style="font-size:12px;color:var(--muted);" id="listing-type-label">House Trade</div>
+      </div>
+      <span style="margin-left:auto;font-size:11px;color:var(--muted);">Not editable</span>
+    </div>
+
+    <!-- Title -->
+    <label class="field-label" for="edit-title">Title</label>
+    <input type="text" id="edit-title" maxlength="120" placeholder="e.g. Cozy cottagecore 100% original build">
+
+    <!-- Description -->
+    <label class="field-label" for="edit-description">Description <span style="font-weight:400;color:var(--muted);">(optional)</span></label>
+    <textarea id="edit-description" placeholder="More detail about the build, what it includes, anything the photos don't show..."></textarea>
+
+    <!-- Value -->
+    <label class="field-label">Asking Value</label>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <input type="text" id="edit-value" placeholder="e.g. 45" inputmode="decimal" style="flex:1;max-width:160px;">
+      <div class="segmented" id="unit-toggle">
+        <button data-val="shark" class="active accent">Shark</button>
+        <button data-val="frost">Frost</button>
+        <button data-val="rp">Ride Pot</button>
+      </div>
+    </div>
+
+    <!-- Bucks invested -->
+    <label class="field-label" for="edit-bucks">Bucks Invested <span style="font-weight:400;color:var(--muted);">(optional)</span></label>
+    <input type="text" id="edit-bucks" placeholder="e.g. 12500" inputmode="decimal">
+
+    <!-- Themes -->
+    <label class="field-label">Themes</label>
+    <div class="checkbox-grid" id="themes-grid"></div>
+    <div id="theme-note-field" hidden style="margin-top:10px;">
+      <input type="text" id="edit-theme-note" placeholder="Describe your custom theme..." maxlength="200">
+    </div>
+
+    <!-- Photos -->
+    <label class="field-label">Photos <span id="photo-count-label" style="font-weight:400;color:var(--muted);">(min 5)</span></label>
+    <p class="hint" style="margin-top:-4px;margin-bottom:10px;">First photo is the cover. Drag to reorder isn't supported — remove and re-add to change order. Add up to 8 total.</p>
+    <div class="photo-slots" id="photo-slots" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:4px;"></div>
+
+    <!-- Video -->
+    <label class="field-label" for="edit-video">Video Tour Link <span style="font-weight:400;color:var(--muted);">(optional)</span></label>
+    <input type="url" id="edit-video" placeholder="https://youtube.com/watch?v=...">
+
+    <!-- Looking for — only shown for looking_for type -->
+    <div id="looking-for-field" hidden>
+      <label class="field-label">What I'm offering</label>
+      <p class="hint" style="margin-top:-4px;margin-bottom:10px;">Select the item categories you'll pay with.</p>
+      <div class="checkbox-grid" id="looking-for-grid"></div>
+    </div>
+
+    <!-- Included items -->
+    <div id="included-items-field">
+      <label class="field-label">Items included in this trade <span style="font-weight:400;color:var(--muted);">(optional)</span></label>
+      <p class="hint" style="margin-top:-4px;margin-bottom:10px;">Any extra items you're throwing in alongside the house.</p>
+      <div id="item-picker-mount"></div>
+    </div>
+
+    <div style="display:flex;gap:10px;align-items:center;margin-top:24px;flex-wrap:wrap;">
+      <button class="btn btn-primary" id="save-btn">Save Changes</button>
+      <a href="../profile.html" class="btn" style="background:var(--surface-2);color:var(--ink);">Cancel</a>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community — house values, live trade listings, builder commissions, and a build registry for verifying who built a house first. Not affiliated with, endorsed by, or sponsored by Adopt Me, Uplift Games, or Roblox Corporation.
+    <div style="margin-top:8px;"><a href="../rules.html" style="color:var(--sign-red);">Community Rules</a> · <a href="../privacy.html" style="color:var(--sign-red);">Privacy Policy</a> · <a href="https://www.reddit.com/r/adoptmehousetrading/" style="color:var(--sign-red);" target="_blank" rel="noopener">Reddit</a></div>
+  </div>
+</footer>
+
+<script type="module">
+  import { api, getStoredProfile, THEME_LABELS, CATEGORY_LABELS } from "../js/api.js";
+  import { mountItemPicker } from "../js/item-picker.js";
+
+  const myProfile = getStoredProfile();
+  const params = new URLSearchParams(location.search);
+  const listingId = params.get("id");
+
+  if (!myProfile) {
+    document.getElementById("need-profile").hidden = false;
+  } else if (!listingId) {
+    location.href = "../profile.html";
+  } else {
+    document.getElementById("edit-form").hidden = false;
+    await init();
+  }
+
+  let activeUnit = "shark";
+  let photos = [];
+  let includedItems = [];
+  let listing = null;
+
+  function escapeHtml(s) {
+    return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  async function init() {
+    // Fetch the listing
+    try {
+      const data = await api.getListing(listingId);
+      listing = data.listing;
+    } catch (e) {
+      showError("Couldn't load listing.");
+      return;
+    }
+
+    if (!listing || listing.profile_id !== myProfile.id) {
+      showError("Listing not found or not yours.");
+      return;
+    }
+    if (listing.status !== "active") {
+      showError("Only active listings can be edited.");
+      return;
+    }
+
+    // Populate read-only header
+    document.getElementById("listing-house-name").textContent = listing.house_id || "Unknown house";
+    document.getElementById("listing-type-label").textContent =
+      listing.listing_type === "looking_for" ? "Looking For" : "House Trade";
+    const badge = document.getElementById("listing-type-badge");
+    badge.className = `card-badge ${listing.listing_type === "looking_for" ? "looking-for" : "house-trade"}`;
+    badge.innerHTML = `<div class="${listing.listing_type === "looking_for" ? "icon-loop" : "icon-sign"}"></div>`;
+
+    // Show/hide listing-type-specific sections
+    document.getElementById("looking-for-field").hidden = listing.listing_type !== "looking_for";
+    document.getElementById("included-items-field").hidden = listing.listing_type === "looking_for";
+    document.getElementById("photo-count-label").textContent =
+      listing.listing_type === "looking_for" ? "(optional)" : "(min 5)";
+
+    // Pre-fill fields
+    document.getElementById("edit-title").value = listing.title || "";
+    document.getElementById("edit-description").value = listing.description || "";
+    document.getElementById("edit-value").value = listing.value_amount ?? "";
+    document.getElementById("edit-video").value = listing.video_url || "";
+    document.getElementById("edit-bucks").value = listing.bucks_invested ?? "";
+    document.getElementById("edit-theme-note").value = listing.theme_note || "";
+
+    // Unit toggle
+    activeUnit = listing.value_unit || "shark";
+    document.querySelectorAll("#unit-toggle button").forEach((btn) => {
+      btn.classList.toggle("active", btn.dataset.val === activeUnit);
+      btn.classList.toggle("accent", btn.dataset.val === activeUnit);
+    });
+    document.querySelectorAll("#unit-toggle button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        activeUnit = btn.dataset.val;
+        document.querySelectorAll("#unit-toggle button").forEach((b) => {
+          b.classList.toggle("active", b === btn);
+          b.classList.toggle("accent", b === btn);
+        });
+      });
+    });
+
+    // Themes grid
+    const savedThemes = listing.themes || [];
+    const THEME_KEYS = ["cottagecore","cutecore","gothic_dark","realism","nature","modern_apartment","fantasy","horror","holiday_seasonal","franchise_crossover"];
+    const themesGrid = document.getElementById("themes-grid");
+    themesGrid.innerHTML = THEME_KEYS.map((key) =>
+      `<label><input type="checkbox" value="${key}" ${savedThemes.includes(key) ? "checked" : ""}>${escapeHtml(THEME_LABELS[key] || key)}</label>`
+    ).join("");
+    const themeNoteField = document.getElementById("theme-note-field");
+    themeNoteField.hidden = !savedThemes.includes("franchise_crossover");
+    themesGrid.querySelectorAll("input[type=checkbox]").forEach((cb) => {
+      cb.addEventListener("change", () => {
+        themeNoteField.hidden = !themesGrid.querySelector('[value="franchise_crossover"]').checked;
+      });
+    });
+
+    // Looking-for grid
+    if (listing.listing_type === "looking_for") {
+      const savedLF = listing.looking_for || [];
+      const lfGrid = document.getElementById("looking-for-grid");
+      lfGrid.innerHTML = Object.entries(CATEGORY_LABELS).map(([key, label]) =>
+        `<label><input type="checkbox" value="${key}" ${savedLF.includes(key) ? "checked" : ""}>${escapeHtml(label)}</label>`
+      ).join("");
+    }
+
+    // Photos
+    photos = [...(listing.photos || [])];
+    renderPhotos();
+
+    // Item picker for included items
+    if (listing.listing_type !== "looking_for") {
+      includedItems = [...(listing.included_items || [])];
+      mountItemPicker(document.getElementById("item-picker-mount"), "edit");
+      // Pre-populate picker with existing items
+      if (includedItems.length) {
+        document.dispatchEvent(new CustomEvent("amht:prefill-items", { detail: { prefix: "edit", items: includedItems } }));
+      }
+      document.addEventListener("amht:items-changed", (e) => {
+        if (e.detail.prefix === "edit") includedItems = e.detail.items;
+      });
+    }
+
+    // Save button
+    document.getElementById("save-btn").addEventListener("click", saveChanges);
+  }
+
+  function renderPhotos() {
+    const container = document.getElementById("photo-slots");
+    const slots = Math.max(5, photos.length + 1);
+    container.innerHTML = Array.from({ length: Math.min(slots, 8) }, (_, i) => {
+      if (photos[i]) {
+        return `<div class="photo-slot main" style="position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;">
+          <img src="${escapeHtml(photos[i])}" style="width:100%;height:100%;object-fit:cover;">
+          <button data-remove="${i}" style="position:absolute;top:4px;right:4px;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+        </div>`;
+      }
+      return `<div class="photo-slot main" data-add style="aspect-ratio:1;border:1.5px dashed var(--line);border-radius:10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:var(--surface);">
+        <span style="font-size:20px;color:var(--muted);">+</span>
+        <span style="font-size:10px;color:var(--muted);font-weight:600;">${i === 0 && !photos.length ? "Cover" : "Add"}</span>
+        <input type="file" accept="image/png,image/jpeg,image/webp" style="display:none;">
+      </div>`;
+    }).join("");
+
+    container.querySelectorAll("[data-add]").forEach((slot) => {
+      const input = slot.querySelector("input[type=file]");
+      slot.addEventListener("click", () => { if (!slot.dataset.uploading) input.click(); });
+      input.addEventListener("change", async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        slot.dataset.uploading = "1";
+        slot.innerHTML = `<span style="font-size:11px;color:var(--muted);">Uploading...</span>`;
+        try {
+          const url = await api.uploadPhoto(file);
+          photos.push(url);
+          renderPhotos();
+        } catch (err) {
+          showError("Photo upload failed: " + err.message);
+          renderPhotos();
+        }
+      });
+    });
+
+    container.querySelectorAll("[data-remove]").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        photos.splice(Number(btn.dataset.remove), 1);
+        renderPhotos();
+      });
+    });
+  }
+
+  async function saveChanges() {
+    clearMessages();
+    const title = document.getElementById("edit-title").value.trim();
+    if (!title) { showError("Title is required."); return; }
+
+    if (listing.listing_type !== "looking_for" && photos.length < 5) {
+      showError("At least 5 photos are required.");
+      return;
+    }
+
+    const themes = [...document.querySelectorAll("#themes-grid input:checked")].map((c) => c.value);
+    const theme_note = themes.includes("franchise_crossover")
+      ? document.getElementById("edit-theme-note").value.trim() : null;
+    const looking_for = listing.listing_type === "looking_for"
+      ? [...document.querySelectorAll("#looking-for-grid input:checked")].map((c) => c.value) : [];
+
+    const btn = document.getElementById("save-btn");
+    btn.disabled = true;
+    btn.textContent = "Saving…";
+
+    try {
+      await api.updateListing(listingId, {
+        title,
+        description: document.getElementById("edit-description").value.trim() || null,
+        value_amount: document.getElementById("edit-value").value.trim() || null,
+        value_unit: activeUnit,
+        bucks_invested: document.getElementById("edit-bucks").value.trim() || null,
+        themes,
+        theme_note,
+        looking_for,
+        included_items: includedItems,
+        video_url: document.getElementById("edit-video").value.trim() || null,
+        photos,
+      });
+      const success = document.getElementById("success");
+      success.innerHTML = `Changes saved. <a href="listing.html?id=${listingId}" style="color:var(--accent);">View listing →</a>`;
+      success.hidden = false;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (err) {
+      showError(err.message);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Save Changes";
+    }
+  }
+
+  function showError(msg) {
+    const el = document.getElementById("error");
+    el.textContent = msg;
+    el.hidden = false;
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+  function clearMessages() {
+    document.getElementById("error").hidden = true;
+    document.getElementById("success").hidden = true;
+  }
+</script>
+</body>
+</html>

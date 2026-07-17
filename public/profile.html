@@ -510,9 +510,10 @@
             <span class="offer-count">${pendingOffers.length} offer${pendingOffers.length === 1 ? "" : "s"}</span>
           </a>
           ${pendingOffers.length ? `<div class="manage-offers">${offersHtml}</div>` : ""}
-          <div style="padding:10px 16px 14px;display:flex;gap:8px;">
-            <button class="btn-sm decline" data-remove-listing="${listing.id}">Remove Listing</button>
-            ${listing.listing_type !== "looking_for" ? `<button class="btn-sm accept" data-portfolio-listing='${JSON.stringify({ title: listing.title, photos: listing.photos || [], house_id: listing.house_id || null, themes: listing.themes || [] }).replace(/'/g, "&#39;")}'>Add to Portfolio</button>` : ""}
+          <div style="padding:10px 16px 14px;display:flex;gap:8px;flex-wrap:wrap;">
+            <a class="btn-sm accept" href="listings/edit.html?id=${listing.id}" style="text-decoration:none;">Edit</a>
+            <button class="btn-sm decline" data-remove-listing="${listing.id}">Remove</button>
+            ${listing.listing_type !== "looking_for" ? `<button class="btn-sm" style="background:var(--surface-2);color:var(--ink);" data-portfolio-listing='${JSON.stringify({ title: listing.title, photos: listing.photos || [], house_id: listing.house_id || null, themes: listing.themes || [] }).replace(/'/g, "&#39;")}'>Add to Portfolio</button>` : ""}
           </div>
         </div>`;
       })
