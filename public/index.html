@@ -144,7 +144,10 @@
           ? `<p class="lister" style="margin-top:2px;">${listing.themes.map((t) => THEME_LABELS[t] || t).join(", ")}</p>`
           : "";
         const isSaved = savedIds.has(listing.id);
-        const saveBtn = `<button class="save-btn ${isSaved ? "saved" : ""}" data-listing-id="${listing.id}" title="${isSaved ? "Saved — click to unsave" : "Save this listing"}" onclick="event.preventDefault()">${isSaved ? "Saved" : "Save"}</button>`;
+        const saveCls = isSaved ? 'save-btn saved' : 'save-btn';
+        const saveTitle = isSaved ? 'Saved — click to unsave' : 'Save this listing';
+        const saveTxt = isSaved ? 'Saved' : 'Save';
+        const saveBtn = '<button class="' + saveCls + '" data-listing-id="' + listing.id + '" title="' + saveTitle + '" onclick="event.preventDefault()">' + saveTxt + '</button>';
         return `
         <a class="listing-card" href="listings/listing.html?id=${listing.id}">
           <div class="photo">
