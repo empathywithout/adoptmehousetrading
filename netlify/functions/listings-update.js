@@ -57,7 +57,7 @@ async function handlerImpl(event) {
   // Verify ownership and that listing is still active
   const { data: existing, error: fetchErr } = await db
     .from("listings")
-    .select("id, profile_id, status, listing_type")
+    .select("id, profile_id, status, listing_type, photos")
     .eq("id", listing_id)
     .maybeSingle();
 
@@ -132,8 +132,8 @@ async function handlerImpl(event) {
     .maybeSingle();
 
   if (updateErr) {
-    console.error("listings-update error:", updateErr);
-    return json(500, { error: "Couldn't save changes" });
+    console.error("listings-update error:", JSON.stringify(updateErr));
+    return json(500, { error: "Couldn't save changes: " + (updateErr.message || updateErr.code || JSON.stringify(updateErr)) });
   }
 
   return json(200, { listing: updated });
