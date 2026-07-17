@@ -125,21 +125,43 @@
 
     list.innerHTML = submissions
       .map((s) => {
-        const preview = s.body.length > 400 ? s.body.slice(0, 400) + "…" : s.body;
+        const PREVIEW_LEN = 400;
+        const needsToggle = s.body.length > PREVIEW_LEN;
+        const preview = needsToggle ? s.body.slice(0, PREVIEW_LEN) + "…" : s.body;
         return `
         <div class="form-card" style="max-width:none;margin-bottom:16px;">
           <span class="pill" style="margin-bottom:8px;display:inline-block;">${GUIDE_CATEGORY_LABELS[s.category] || s.category}</span>
           <h1 style="font-size:18px;">${escapeHtml(s.title)}</h1>
           <p class="hint" style="margin:2px 0 10px;">By ${escapeHtml(s.profiles?.display_name || "unknown")} (${escapeHtml(s.profiles?.email || "no email")})</p>
           ${s.photos?.length ? `<div style="display:flex;gap:8px;margin-bottom:10px;">${s.photos.map((p) => `<img src="${p}" alt="" style="width:70px;height:70px;border-radius:8px;object-fit:cover;">`).join("")}</div>` : ""}
-          <p style="margin:0 0 12px;white-space:pre-wrap;">${escapeHtml(preview)}</p>
-          <div class="hero-ctas" style="justify-content:flex-start;">
+          <p data-body-preview="${s.id}" style="margin:0 0 8px;white-space:pre-wrap;">${escapeHtml(preview)}</p>
+          ${needsToggle ? `<button data-toggle-body="${s.id}" data-full="${encodeURIComponent(s.body)}" style="background:none;border:none;color:var(--accent);font-size:13px;font-weight:600;cursor:pointer;padding:0;margin-bottom:12px;">Show more ↓</button>` : ""}
+          <div class="hero-ctas" style="justify-content:flex-start;margin-top:4px;">
             <button class="btn-sm accept" data-content-review="${s.id}" data-decision="approved">Approve & Publish</button>
             <button class="btn-sm decline" data-content-review="${s.id}" data-decision="rejected">Reject</button>
           </div>
         </div>`;
       })
       .join("");
+
+    list.querySelectorAll("[data-toggle-body]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.dataset.toggleBody;
+        const preview = list.querySelector(`[data-body-preview="${id}"]`);
+        const isExpanded = btn.dataset.expanded === "1";
+        if (isExpanded) {
+          const PREVIEW_LEN = 400;
+          const full = decodeURIComponent(btn.dataset.full);
+          preview.textContent = full.slice(0, PREVIEW_LEN) + "…";
+          btn.textContent = "Show more ↓";
+          btn.dataset.expanded = "0";
+        } else {
+          preview.textContent = decodeURIComponent(btn.dataset.full);
+          btn.textContent = "Show less ↑";
+          btn.dataset.expanded = "1";
+        }
+      });
+    });
 
     list.querySelectorAll("[data-content-review]").forEach((btn) => {
       btn.addEventListener("click", async () => {
