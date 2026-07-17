@@ -56,19 +56,7 @@
   <div class="wrap">
     AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community — house values, live trade listings, builder commissions, and a build registry for verifying who built a house first. Not affiliated with, endorsed by, or sponsored by Adopt Me, Uplift Games, or Roblox Corporation.
     <div style="margin-top:8px;"><a href="../rules.html" style="color:var(--sign-red);">Community Rules</a> · <a href="../privacy.html" style="color:var(--sign-red);">Privacy Policy</a> · <a href="https://www.reddit.com/r/adoptmehousetrading/" style="color:var(--sign-red);" target="_blank" rel="noopener">Reddit</a></div>
-    <div style="margin-top:8px;">
-      <a href="#" id="report-link" style="color:var(--sign-red);">Report this listing</a>
-      <span id="report-form" hidden>
-        <select id="report-reason" style="width:auto;display:inline-block;margin:0 6px;">
-          <option value="crosstrading">Crosstrading (Robux/real money/outside Adopt Me)</option>
-          <option value="proxy_trading">Proxy trading (not the actual owner)</option>
-          <option value="misrepresented_clone">Misrepresented original/cloned status</option>
-          <option value="scam_or_no_show">Scam or no-show</option>
-          <option value="other">Other</option>
-        </select>
-        <button class="btn-sm decline" id="report-submit">Submit</button>
-      </span>
-    </div>
+    <div style="margin-top:8px;"><span id="report-footer-placeholder"></span></div>
   </div>
 </footer>
 
@@ -270,6 +258,11 @@
                 </div>`
               : ""
           }
+          ${
+            listing.status === "active" && !isOwner
+              ? `<button id="report-btn" style="background:none;border:none;color:var(--muted);font-size:12.5px;cursor:pointer;padding:8px 0 0;text-decoration:underline;text-underline-offset:2px;">Report this listing</button>`
+              : ""
+          }
         </div>
       </div>
 
@@ -387,16 +380,38 @@
       }
     }
 
-    document.getElementById("report-link").addEventListener("click", (e) => {
-      e.preventDefault();
-      document.getElementById("report-form").hidden = false;
-      e.target.hidden = true;
+    // Report modal
+    const reportModal = document.getElementById("report-modal");
+    document.getElementById("report-btn")?.addEventListener("click", () => {
+      reportModal.style.display = "flex";
     });
-
-    document.getElementById("report-submit").addEventListener("click", async () => {
-      const reason = document.getElementById("report-reason").value;
-      await api.report(listing.id, reason, "");
-      document.getElementById("report-form").outerHTML = "<span class='hint'>Thanks — flagged for review.</span>";
+    document.getElementById("report-modal-cancel").addEventListener("click", () => {
+      reportModal.style.display = "none";
+    });
+    reportModal.addEventListener("click", (e) => {
+      if (e.target === reportModal) reportModal.style.display = "none";
+    });
+    document.getElementById("report-modal-submit").addEventListener("click", async () => {
+      const reason = document.getElementById("report-reason-modal").value;
+      const notes = document.getElementById("report-notes-modal").value.trim();
+      const errEl = document.getElementById("report-modal-error");
+      const okEl = document.getElementById("report-modal-success");
+      const btn = document.getElementById("report-modal-submit");
+      errEl.hidden = true;
+      okEl.hidden = true;
+      btn.disabled = true;
+      btn.textContent = "Submitting...";
+      try {
+        await api.report(listing.id, reason, notes);
+        okEl.textContent = "Thanks — our team will review this shortly.";
+        okEl.hidden = false;
+        setTimeout(() => { reportModal.style.display = "none"; }, 2000);
+      } catch (err) {
+        errEl.textContent = err.message || "Couldn't submit report.";
+        errEl.hidden = false;
+        btn.disabled = false;
+        btn.textContent = "Submit Report";
+      }
     });
   }
 
@@ -561,5 +576,28 @@
     });
   }
 </script>
+<!-- Report Modal -->
+<div id="report-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;padding:16px;">
+  <div style="background:var(--surface);border-radius:16px;padding:28px;max-width:440px;width:100%;box-shadow:0 8px 40px rgba(0,0,0,0.18);">
+    <h2 style="font-family:var(--font-display);font-size:20px;margin:0 0 6px;">Report this listing</h2>
+    <p style="font-size:13.5px;color:var(--muted);margin:0 0 18px;">Let us know what's wrong. Reports are reviewed by our team.</p>
+    <label class="field-label" for="report-reason-modal">Reason</label>
+    <select id="report-reason-modal" style="width:100%;margin-bottom:16px;">
+      <option value="crosstrading">Crosstrading (Robux/real money/outside Adopt Me)</option>
+      <option value="proxy_trading">Proxy trading (not the actual owner)</option>
+      <option value="misrepresented_clone">Misrepresented original/cloned status</option>
+      <option value="scam_or_no_show">Scam or no-show</option>
+      <option value="other">Other</option>
+    </select>
+    <label class="field-label" for="report-notes-modal">Additional details <span style="font-weight:400;color:var(--muted);">(optional)</span></label>
+    <textarea id="report-notes-modal" placeholder="Any extra context that helps us review faster..." style="width:100%;min-height:80px;margin-bottom:16px;resize:vertical;box-sizing:border-box;"></textarea>
+    <div id="report-modal-error" class="error-box" hidden style="margin-bottom:12px;"></div>
+    <div id="report-modal-success" class="success-box" hidden style="margin-bottom:12px;"></div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;">
+      <button id="report-modal-cancel" class="btn" style="background:var(--surface-2);color:var(--ink);">Cancel</button>
+      <button id="report-modal-submit" class="btn-sm decline" style="padding:10px 20px;font-size:14px;">Submit Report</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
