@@ -138,6 +138,16 @@
       ? `<span class="verified-badge" style="margin-bottom:10px;display:inline-flex;">Community Verified — undisputed 30+ days</span><br>`
       : "";
 
+    const buildTypeLabel = entry.build_type === "speedbuild" ? "⚡ Speedbuild"
+      : entry.build_type === "cloned" ? "◈ Cloned"
+      : "✦ Original";
+    const buildTypeBadgeStyle = entry.build_type === "speedbuild"
+      ? "background:var(--butter);color:var(--ink);"
+      : entry.build_type === "cloned"
+      ? "background:var(--muted);color:var(--white);"
+      : "background:var(--good);color:var(--white);";
+    const buildTypeBadge = `<span class="pill" style="${buildTypeBadgeStyle};margin-right:6px;">${buildTypeLabel}</span>`;
+
     const statusBanner =
       entry.status === "disputed"
         ? `<div class="error-box">This entry is currently disputed (${pendingDisputeCount} pending) — under review.</div>`
@@ -210,6 +220,7 @@
           <div>${photosHtml}</div>
           ${entry.description ? `<p style="margin-top:16px;">${escapeHtml(entry.description)}</p>` : ""}
           ${themesLine ? `<div class="meta-row" style="margin-top:12px;"><span class="pill">Themes:</span>${(entry.themes || []).map((t) => `<span class="pill">${THEME_LABELS[t] || t}</span>`).join("")}</div>` : ""}
+          <div class="meta-row" style="margin-top:8px;">${buildTypeBadge}</div>
           ${
             entry.included_items?.length
               ? `<div class="section-head" style="margin-top:20px;"><h2 style="font-size:18px;">Featured Items / Pets</h2></div>

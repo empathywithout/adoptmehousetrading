@@ -1,5 +1,5 @@
 // POST, Authorization: Bearer <token>
-// body: { title, description, themes, photos, house_id }
+// body: { title, description, themes, photos, house_id, build_type }
 // -> { entry }
 //
 // Post-first, not pre-approved — live immediately. Runs a lightweight
@@ -65,7 +65,7 @@ async function handlerImpl(event) {
     return json(400, { error: "Invalid JSON body" });
   }
 
-  const { title, description, themes, photos, house_id, included_items } = body;
+  const { title, description, themes, photos, house_id, included_items, build_type } = body;
 
   if (!title?.trim()) {
     return json(400, { error: "Give your build a title" });
@@ -75,6 +75,8 @@ async function handlerImpl(event) {
     return json(400, { error: "At least 3 photos are required to register a build — help others verify your work" });
   }
   const cleanThemes = Array.isArray(themes) ? themes.filter((t) => VALID_THEMES.includes(t)) : [];
+  const VALID_BUILD_TYPES = ["original", "speedbuild", "cloned"];
+  const cleanBuildType = VALID_BUILD_TYPES.includes(build_type) ? build_type : "original";
   const cleanIncludedItems = Array.isArray(included_items)
     ? included_items.slice(0, 30).map((it) => ({
         category: String(it.category || ""),
@@ -120,6 +122,7 @@ async function handlerImpl(event) {
       themes: cleanThemes,
       included_items: cleanIncludedItems,
       house_id: house_id || null,
+      build_type: cleanBuildType,
       possible_duplicate_of: possibleDuplicateOf,
     })
     .select()

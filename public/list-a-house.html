@@ -97,12 +97,28 @@
     </div>
 
     <div id="cloned-field" style="margin-bottom:24px;">
-      <label class="field-label" style="margin-top:0;">Is this build original or cloned?</label>
-      <div class="segmented" id="clone-toggle">
-        <button data-val="false" class="active ink">100% Original</button>
-        <button data-val="true">Cloned / Speedbuild</button>
+      <label class="field-label" style="margin-top:0;">Build Type</label>
+      <div class="build-type-grid" id="build-type-grid">
+        <label class="build-type-card build-type-original active" data-val="original">
+          <input type="radio" name="build_type" value="original" checked style="display:none;">
+          <span class="build-type-icon">✦</span>
+          <span class="build-type-label">100% Original</span>
+          <span class="build-type-sub">Your own design, not based on another build</span>
+        </label>
+        <label class="build-type-card build-type-speedbuild" data-val="speedbuild">
+          <input type="radio" name="build_type" value="speedbuild" style="display:none;">
+          <span class="build-type-icon">⚡</span>
+          <span class="build-type-label">Speedbuild</span>
+          <span class="build-type-sub">Built from a speedbuild template or tutorial</span>
+        </label>
+        <label class="build-type-card build-type-cloned" data-val="cloned">
+          <input type="radio" name="build_type" value="cloned" style="display:none;">
+          <span class="build-type-icon">◈</span>
+          <span class="build-type-label">Cloned</span>
+          <span class="build-type-sub">70%+ similar to another existing build</span>
+        </label>
       </div>
-      <p class="hint">Cloned = 70%+ similar to another existing build, including speedbuilds. Misrepresenting this can get a listing reported.</p>
+      <p class="hint" style="margin-top:8px;">Misrepresenting build type can get a listing reported and removed.</p>
     </div>
 
     <div id="themes-field" style="margin-bottom:24px;">
@@ -188,7 +204,7 @@
   let houses = [];
   let selectedHouseId = null;
   let activeType = "house_trade";
-  let cloneVal = "false";
+  let buildTypeVal = "original";
   let unitVal = "shark";
 
   const TYPE_DEFS = [
@@ -379,7 +395,8 @@
     const looking_for = Array.from(document.querySelectorAll("#looking-for-grid input:checked")).map((el) => el.value);
     const valueAmountRaw = document.getElementById("value-amount").value.trim().replace(/,/g, "");
     const bucksRaw = document.getElementById("bucks-invested").value.trim().replace(/,/g, "");
-    const is_cloned = activeType === "house_trade" ? cloneVal === "true" : null;
+    const build_type = activeType === "house_trade" ? buildTypeVal : null;
+    const is_cloned = build_type === "cloned" ? true : build_type === "original" ? false : null;
     const included_items = activeType === "house_trade" && includedItemsPicker ? includedItemsPicker.getSelected() : [];
     const photos = activeType === "looking_for" ? [] : uploadedPhotos.filter(Boolean);
     const video_url = document.getElementById("video-tour-url").value.trim();
@@ -418,6 +435,7 @@
         themes,
         theme_note,
         is_cloned,
+        build_type,
         value_amount: valueAmountRaw === "" ? null : valueAmountRaw,
         value_unit: unitVal,
         bucks_invested: bucksRaw === "" ? null : bucksRaw,

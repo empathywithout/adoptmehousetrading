@@ -85,7 +85,29 @@
     <label class="field-label" for="description">Description</label>
     <textarea id="description" placeholder="Style, techniques used, when you built it..."></textarea>
 
-    <label class="field-label">Themes (optional)</label>
+    <label class="field-label">Build Type</label>
+    <div class="build-type-grid" id="build-type-grid">
+      <label class="build-type-card build-type-original active" data-val="original">
+        <input type="radio" name="build_type" value="original" checked style="display:none;">
+        <span class="build-type-icon">✦</span>
+        <span class="build-type-label">100% Original</span>
+        <span class="build-type-sub">Your own design, not based on another build</span>
+      </label>
+      <label class="build-type-card build-type-speedbuild" data-val="speedbuild">
+        <input type="radio" name="build_type" value="speedbuild" style="display:none;">
+        <span class="build-type-icon">⚡</span>
+        <span class="build-type-label">Speedbuild</span>
+        <span class="build-type-sub">Built from a speedbuild template or tutorial</span>
+      </label>
+      <label class="build-type-card build-type-cloned" data-val="cloned">
+        <input type="radio" name="build_type" value="cloned" style="display:none;">
+        <span class="build-type-icon">◈</span>
+        <span class="build-type-label">Cloned</span>
+        <span class="build-type-sub">70%+ similar to another existing build</span>
+      </label>
+    </div>
+
+    <label class="field-label" style="margin-top:16px;">Themes (optional)</label>
     <div class="checkbox-grid" id="themes-grid"></div>
 
     <label class="field-label">Items / pets featured in this build (optional)</label>
@@ -124,6 +146,7 @@
   let houses = [];
   let selectedHouseId = null;
   let itemsPicker = null;
+  let buildTypeVal = "original";
 
   if (!profile) {
     document.getElementById("need-profile").hidden = false;
@@ -137,6 +160,16 @@
   }
 
   async function init() {
+    // Wire build type selector
+    document.querySelectorAll("#build-type-grid .build-type-card").forEach((card) => {
+      card.addEventListener("click", () => {
+        buildTypeVal = card.dataset.val;
+        document.querySelectorAll("#build-type-grid .build-type-card").forEach((c) => c.classList.remove("active"));
+        card.classList.add("active");
+        card.querySelector("input").checked = true;
+      });
+    });
+
     const themesGrid = document.getElementById("themes-grid");
     themesGrid.innerHTML = Object.entries(THEME_LABELS)
       .map(([key, label]) => `<label><input type="checkbox" value="${key}"> ${label}</label>`)
@@ -299,7 +332,7 @@
     }
 
     try {
-      const { entry } = await api.registerBuild({ title, description, themes, photos, house_id: selectedHouseId, included_items });
+      const { entry } = await api.registerBuild({ title, description, themes, photos, house_id: selectedHouseId, included_items, build_type: buildTypeVal });
       successBox.textContent = "Build registered! Redirecting...";
       successBox.hidden = false;
       setTimeout(() => {

@@ -75,6 +75,7 @@ async function handlerImpl(event) {
     looking_for,
     included_items,
     is_cloned,
+    build_type,
     value_amount,
     value_unit,
     bucks_invested,
@@ -121,6 +122,12 @@ async function handlerImpl(event) {
       }))
     : [];
 
+  // build_type: 3-way originality claim. is_cloned (boolean) kept for backward compat.
+  const VALID_BUILD_TYPES = ["original", "speedbuild", "cloned"];
+  const cleanBuildType = cleanType === "house_trade" && VALID_BUILD_TYPES.includes(build_type)
+    ? build_type
+    : null;
+  // is_cloned: kept for backward compat — derive from build_type if provided.
   // is_cloned only makes sense for an actual house being traded — a
   // "looking_for" post isn't claiming a build is theirs.
   const cleanIsCloned = cleanType === "house_trade" && typeof is_cloned === "boolean" ? is_cloned : null;
@@ -147,6 +154,7 @@ async function handlerImpl(event) {
       listing_type: cleanType,
       house_id,
       is_cloned: cleanIsCloned,
+      build_type: cleanBuildType,
       value_amount: cleanValueAmount,
       value_unit: cleanValueAmount !== null ? cleanValueUnit : null,
       bucks_invested: cleanBucksInvested,
