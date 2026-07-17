@@ -242,12 +242,7 @@
 
     includedItemsPicker = mountItemPicker(document.getElementById("included-items-field"), "incl-");
 
-    document.getElementById("clone-toggle").querySelectorAll("button").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        cloneVal = btn.dataset.val;
-        document.getElementById("clone-toggle").querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
-      });
-    });
+
     document.getElementById("unit-toggle").querySelectorAll("button").forEach((btn) => {
       btn.addEventListener("click", () => {
         unitVal = btn.dataset.val;
