@@ -79,7 +79,7 @@ async function handlerImpl(event) {
     offered_value_amount !== undefined && offered_value_amount !== null && offered_value_amount !== "" && !isNaN(Number(offered_value_amount))
       ? Number(offered_value_amount)
       : null;
-  const cleanValueUnit = ["shark", "frost"].includes(offered_value_unit) ? offered_value_unit : null;
+  const cleanValueUnit = ["shark", "frost", "rp"].includes(offered_value_unit) ? offered_value_unit : null;
 
   const { data, error } = await db
     .from("commission_requests")

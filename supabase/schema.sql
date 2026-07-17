@@ -93,7 +93,7 @@ create table listings (
   theme_note text,                    -- optional free text, e.g. which franchise for a
                                        -- "franchise_crossover" tag ("Animal Crossing")
   value_amount numeric,               -- magnitude in value_unit, e.g. 1.5
-  value_unit text check (value_unit in ('shark', 'frost')),
+  value_unit text check (value_unit in ('shark', 'frost', 'rp')),
                                        -- Shark (low/mid trades) and Frost (high-tier trades)
                                        -- are the real community baseline units — NOT a fixed
                                        -- conversion, it floats (~4/5 Frost per Shark as of this
@@ -187,7 +187,7 @@ create table item_values (
   item_id text not null,               -- matches the id field in data/{category}.json
   variant text,                        -- pets only: regular/neon/mega_neon, null otherwise
   potion text,                         -- pets only: none/ride/fly/fly_ride, null otherwise
-  value_unit text not null check (value_unit in ('shark', 'frost')),
+  value_unit text not null check (value_unit in ('shark', 'frost', 'rp')),
   source text not null default 'verified' check (source in ('verified', 'data_team')),
                                        -- 'verified' = derived from a corroborated on-site trade
                                        -- (the strongest signal we have). 'data_team' = self-
@@ -280,7 +280,7 @@ create table commission_requests (
   offered_items jsonb not null default '[]',  -- payment offered, items — no Robux/cash per
                                                -- the same no-crosstrading stance as trading
   offered_value_amount numeric,
-  offered_value_unit text check (offered_value_unit in ('shark', 'frost')),
+  offered_value_unit text check (offered_value_unit in ('shark', 'frost', 'rp')),
 
   status text not null default 'pending'
     check (status in ('pending', 'accepted', 'declined', 'delivered', 'verified', 'cancelled')),

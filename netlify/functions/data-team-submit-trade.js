@@ -31,7 +31,7 @@ async function handlerImpl(event) {
 
   const { category, item_id, variant, potion, value_amount, value_unit } = body;
 
-  if (!category || !item_id || !["shark", "frost"].includes(value_unit)) {
+  if (!category || !item_id || !["shark", "frost", "rp"].includes(value_unit)) {
     return json(400, { error: "category, item_id, and a valid value_unit are required" });
   }
   const amount = Number(value_amount);

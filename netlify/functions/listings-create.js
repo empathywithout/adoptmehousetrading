@@ -101,7 +101,7 @@ async function handlerImpl(event) {
     value_amount !== undefined && value_amount !== null && value_amount !== "" && !isNaN(Number(value_amount))
       ? Number(value_amount)
       : null;
-  const cleanValueUnit = ["shark", "frost"].includes(value_unit) ? value_unit : null;
+  const cleanValueUnit = ["shark", "frost", "rp"].includes(value_unit) ? value_unit : null;
 
   const cleanBucksInvested =
     bucks_invested !== undefined && bucks_invested !== null && bucks_invested !== "" && !isNaN(Number(bucks_invested))
