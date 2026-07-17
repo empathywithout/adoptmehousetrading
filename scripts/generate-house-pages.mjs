@@ -245,13 +245,19 @@ function buildHomepage() {
       fetch("/.netlify/functions/listings-list").then((r) => r.json()),
       fetch("data/houses.json").then((r) => r.json()),
     ]);
+    const myProfile = (() => { try { return JSON.parse(localStorage.getItem("amht_profile")); } catch { return null; } })();
+    const token = localStorage.getItem("amht_token");
+    const savedData = token
+      ? await fetch("/.netlify/functions/listing-saves-me", { headers: { Authorization: \`Bearer \${token}\` } }).then(r => r.json()).catch(() => ({}))
+      : {};
+    let savedIds = new Set(savedData.saved_ids || []);
     const houseById = Object.fromEntries(houses.map((h) => [h.id, h]));
     const grid = document.getElementById("recent-listings-grid");
 
     if (!listings || !listings.length) {
       document.getElementById("recent-listings-empty").hidden = false;
     } else {
-      grid.innerHTML = listings.slice(0, 8).map((listing) => {
+      grid.innerHTML = listings.filter(l => l.listing_type !== "looking_for").slice(0, 8).map((listing) => {
         const house = houseById[listing.house_id];
         const photo = listing.photos?.[0] || house?.image || "images/brand/searchdog.png";
         const username = listing.profiles?.display_name || "unknown";
@@ -264,6 +270,11 @@ function buildHomepage() {
         const themeLine = listing.themes?.length
           ? \`<p class="lister" style="margin-top:2px;">\${listing.themes.map((t) => THEME_LABELS[t] || t).join(", ")}</p>\`
           : "";
+        const isSaved = savedIds.has(listing.id);
+        const saveCls = isSaved ? "save-btn saved" : "save-btn";
+        const saveTitle = isSaved ? "Saved \u2014 click to unsave" : "Save this listing";
+        const saveTxt = isSaved ? "Saved" : "Save";
+        const saveBtn = '<button class=\"' + saveCls + '\" data-listing-id=\"' + listing.id + '\" title=\"' + saveTitle + '\" onclick=\"event.preventDefault()\">' + saveTxt + '</button>';
 
         return \`<a class="listing-card" href="listings/listing.html?id=\${listing.id}">
           <div class="photo">
@@ -276,12 +287,37 @@ function buildHomepage() {
             <div class="trust-row">
               \${listing.profiles?.rbx_avatar_url ? \`<img class="trust-row-avatar" src="\${listing.profiles.rbx_avatar_url}" alt="">\` : \`<span class="avatar-initial">\${escapeHtml(username[0]?.toUpperCase() || "?")}</span>\`}
               <span class="username">\${escapeHtml(username)}</span>
+              \${saveBtn}
             </div>
             \${valueLine}
             \${themeLine}
           </div>
         </a>\`;
       }).join("");
+
+      // Save handler
+      document.getElementById("recent-listings-grid").addEventListener("click", async (e) => {
+        const btn = e.target.closest(".save-btn[data-listing-id]");
+        if (!btn) return;
+        e.preventDefault();
+        if (!token) { alert("Sign in to save listings."); return; }
+        const listingId = btn.dataset.listingId;
+        btn.disabled = true;
+        try {
+          const res = await fetch("/.netlify/functions/listing-save", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Authorization: \`Bearer \${token}\` },
+            body: JSON.stringify({ listing_id: listingId }),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || "Couldn't save");
+          if (data.saved) { savedIds.add(listingId); } else { savedIds.delete(listingId); }
+          btn.classList.toggle("saved", data.saved);
+          btn.title = data.saved ? "Saved \u2014 click to unsave" : "Save this listing";
+          btn.textContent = data.saved ? "Saved" : "Save";
+        } catch (err) { alert(err.message); }
+        finally { btn.disabled = false; }
+      });
     }
   } catch (err) {
     document.getElementById("recent-listings-empty").hidden = false;
