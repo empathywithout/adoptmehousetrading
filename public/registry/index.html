@@ -65,13 +65,12 @@
       <option value="all">All Themes</option>
     </select>
     <select id="clone-select" class="filter-select">
-      <option value="all">All Build Types</option>
+      <option value="all">Build Type</option>
       <option value="original">Original</option>
-      <option value="glitch_original">Glitch (Original)</option>
       <option value="speedbuild">Speedbuild</option>
       <option value="cloned">Cloned</option>
-      <option value="glitch_cloned">Glitch (Cloned)</option>
     </select>
+    <button id="glitch-toggle-btn" style="padding:7px 14px;border:1.5px solid var(--line);border-radius:8px;background:none;color:var(--muted);font-size:13px;cursor:pointer;white-space:nowrap;">⚡✨ Glitch</button>
     <button id="clear-filters-btn" hidden style="padding:7px 14px;border:1.5px solid var(--line);border-radius:8px;background:none;color:var(--muted);font-size:13px;cursor:pointer;white-space:nowrap;">✕ Clear</button>
   </div>
 
@@ -103,6 +102,7 @@
   let activeSort = "recent"; // "recent" | "saves"
   let activeTheme = "all";
   let activeClone = "all";
+  let glitchOnly = false;
   let savedIds = new Set();
   let myProfileId = null;
 
@@ -151,16 +151,25 @@
       themesInUse.map(t => `<option value="${t}">${THEME_LABELS[t] || t}</option>`).join("");
     sel.addEventListener("change", (e) => { activeTheme = e.target.value; render(); });
     document.getElementById("clone-select").addEventListener("change", (e) => { activeClone = e.target.value; updateClearBtn(); render(); });
+  document.getElementById("glitch-toggle-btn").addEventListener("click", () => {
+    glitchOnly = !glitchOnly;
+    const btn = document.getElementById("glitch-toggle-btn");
+    btn.style.background = glitchOnly ? "rgba(124,58,237,0.12)" : "none";
+    btn.style.color = glitchOnly ? "#7c3aed" : "var(--muted)";
+    btn.style.borderColor = glitchOnly ? "#7c3aed" : "var(--line)";
+    updateClearBtn(); render();
+  });
 
   function updateClearBtn() {
-    document.getElementById("clear-filters-btn").hidden = activeTheme === "all" && activeClone === "all";
+    document.getElementById("clear-filters-btn").hidden = activeTheme === "all" && activeClone === "all" && !glitchOnly;
   }
   document.getElementById("clear-filters-btn").addEventListener("click", () => {
-    activeTheme = "all"; activeClone = "all";
+    activeTheme = "all"; activeClone = "all"; glitchOnly = false;
     document.getElementById("theme-select").value = "all";
     document.getElementById("clone-select").value = "all";
-    updateClearBtn();
-    render();
+    const gb = document.getElementById("glitch-toggle-btn");
+    gb.style.background = "none"; gb.style.color = "var(--muted)"; gb.style.borderColor = "var(--line)";
+    updateClearBtn(); render();
   });
   }
 
