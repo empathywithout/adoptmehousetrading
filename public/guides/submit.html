@@ -410,14 +410,6 @@
 <script type="module">
   import { api, getStoredProfile, GUIDE_CATEGORY_LABELS } from "../js/api.js";
 
-  const myProfile = getStoredProfile();
-  if (!myProfile) {
-    document.getElementById("signed-out-msg").hidden = false;
-  } else {
-    document.getElementById("submit-form-wrap").hidden = false;
-    init();
-  }
-
   const CAT_ICONS = {
     theme_build: "🏠",
     budget_build: "💰",
@@ -432,8 +424,18 @@
     trading_guide: "Help players understand what to trade for something, what fair value looks like, or how the trading meta works for a specific item category or house type.",
   };
 
+  const CAT_MIN = { theme_build: 500, budget_build: 500, building_technique: 300, trading_guide: 500 };
+
   let activeCategory = null;
   let uploadedPhotos = [];
+
+  const myProfile = getStoredProfile();
+  if (!myProfile) {
+    document.getElementById("signed-out-msg").hidden = false;
+  } else {
+    document.getElementById("submit-form-wrap").hidden = false;
+    init();
+  }
 
   function init() {
     buildCategorySelector();
@@ -533,8 +535,6 @@
 
     render();
   }
-
-  const CAT_MIN = { theme_build: 500, budget_build: 500, building_technique: 300, trading_guide: 500 };
 
   function getCatMin() { return CAT_MIN[activeCategory] || 300; }
 
