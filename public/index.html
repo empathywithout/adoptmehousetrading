@@ -155,7 +155,7 @@
             <div class="trust-row">
               ${listing.profiles?.rbx_avatar_url ? `<img class="trust-row-avatar" src="${listing.profiles.rbx_avatar_url}" alt="">` : `<span class="avatar-initial">${escapeHtml(username[0]?.toUpperCase() || "?")}</span>`}
               <span class="username">${escapeHtml(username)}</span>
-              ${myProfile && myProfile.id !== listing.profile_id ? `<button class="save-btn ${savedIds.has(listing.id) ? "saved" : ""}" data-listing-id="${listing.id}" title="${savedIds.has(listing.id) ? "Saved — click to unsave" : "Save this listing"}" onclick="event.preventDefault()">${savedIds.has(listing.id) ? "Saved" : "Save"}</button>` : ""}
+              ${myProfile?.id !== listing.profile_id ? `<button class="save-btn ${savedIds.has(listing.id) ? "saved" : ""}" data-listing-id="${listing.id}" title="${savedIds.has(listing.id) ? "Saved — click to unsave" : "Save this listing"}" onclick="event.preventDefault()">${savedIds.has(listing.id) ? "Saved" : "Save"}</button>` : ""}
             </div>
             ${valueLine}
             ${themeLine}
