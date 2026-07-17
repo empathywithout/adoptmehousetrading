@@ -226,16 +226,16 @@
 
     // Themes grid
     const savedThemes = listing.themes || [];
-    const THEME_KEYS = ["cottagecore","cutecore","gothic_dark","realism","nature","modern_apartment","fantasy","horror","holiday_seasonal","franchise_crossover"];
+    const THEME_KEYS = ["cutecore","coquette","cottagecore","cozy","gothic","cutegoth","cottagegoth","realism","fairycore","nature","garden","japanese","modern","minimalist","medieval","dark_academia","royal","victorian","vintage","beach","tropical","farmhouse","autumn","winter_cabin","spring","fantasy","horror","holiday_seasonal","custom_theme"];
     const themesGrid = document.getElementById("themes-grid");
     themesGrid.innerHTML = THEME_KEYS.map((key) =>
       `<label><input type="checkbox" value="${key}" ${savedThemes.includes(key) ? "checked" : ""}>${escapeHtml(THEME_LABELS[key] || key)}</label>`
     ).join("");
     const themeNoteField = document.getElementById("theme-note-field");
-    themeNoteField.hidden = !savedThemes.includes("franchise_crossover");
+    themeNoteField.hidden = !savedThemes.includes("custom_theme");
     themesGrid.querySelectorAll("input[type=checkbox]").forEach((cb) => {
       cb.addEventListener("change", () => {
-        themeNoteField.hidden = !themesGrid.querySelector('[value="franchise_crossover"]').checked;
+        themeNoteField.hidden = !themesGrid.querySelector('[value="custom_theme"]').checked;
       });
     });
 
@@ -325,7 +325,7 @@
     }
 
     const themes = [...document.querySelectorAll("#themes-grid input:checked")].map((c) => c.value);
-    const theme_note = themes.includes("franchise_crossover")
+    const theme_note = themes.includes("custom_theme")
       ? document.getElementById("edit-theme-note").value.trim() : null;
     const looking_for = listing.listing_type === "looking_for"
       ? [...document.querySelectorAll("#looking-for-grid input:checked")].map((c) => c.value) : [];

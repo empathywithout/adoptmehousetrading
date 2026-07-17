@@ -5,16 +5,35 @@
 import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
 
 const VALID_THEMES = [
-  "cottagecore",
   "cutecore",
+  "coquette",
+  "cottagecore",
+  "cozy",
   "gothic",
+  "cutegoth",
+  "cottagegoth",
   "realism",
+  "fairycore",
   "nature",
+  "garden",
+  "japanese",
   "modern",
+  "minimalist",
+  "medieval",
+  "dark_academia",
+  "royal",
+  "victorian",
+  "vintage",
+  "beach",
+  "tropical",
+  "farmhouse",
+  "autumn",
+  "winter_cabin",
+  "spring",
   "fantasy",
   "horror",
   "holiday_seasonal",
-  "franchise_crossover",
+  "custom_theme",
 ];
 
 async function handlerImpl(event) {

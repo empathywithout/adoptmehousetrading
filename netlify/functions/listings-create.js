@@ -17,16 +17,35 @@ const VALID_CATEGORIES = [
 const VALID_LISTING_TYPES = ["house_trade", "looking_for"];
 
 const VALID_THEMES = [
-  "cottagecore",
   "cutecore",
+  "coquette",
+  "cottagecore",
+  "cozy",
   "gothic",
+  "cutegoth",
+  "cottagegoth",
   "realism",
+  "fairycore",
   "nature",
+  "garden",
+  "japanese",
   "modern",
+  "minimalist",
+  "medieval",
+  "dark_academia",
+  "royal",
+  "victorian",
+  "vintage",
+  "beach",
+  "tropical",
+  "farmhouse",
+  "autumn",
+  "winter_cabin",
+  "spring",
   "fantasy",
   "horror",
   "holiday_seasonal",
-  "franchise_crossover",
+  "custom_theme",
 ];
 
 async function handlerImpl(event) {

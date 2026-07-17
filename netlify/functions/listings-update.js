@@ -10,7 +10,37 @@ import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabas
 
 const VALID_CATEGORIES = ["adopt_me_pets", "vehicles", "toys", "pet_wear", "stickers", "strollers", "foods"];
 const VALID_UNITS = ["shark", "frost", "rp"];
-const VALID_THEMES = ["cottagecore", "cutecore", "gothic_dark", "realism", "nature", "modern_apartment", "fantasy", "horror", "holiday_seasonal", "franchise_crossover"];
+const VALID_THEMES = [
+  "cutecore",
+  "coquette",
+  "cottagecore",
+  "cozy",
+  "gothic",
+  "cutegoth",
+  "cottagegoth",
+  "realism",
+  "fairycore",
+  "nature",
+  "garden",
+  "japanese",
+  "modern",
+  "minimalist",
+  "medieval",
+  "dark_academia",
+  "royal",
+  "victorian",
+  "vintage",
+  "beach",
+  "tropical",
+  "farmhouse",
+  "autumn",
+  "winter_cabin",
+  "spring",
+  "fantasy",
+  "horror",
+  "holiday_seasonal",
+  "custom_theme",
+];
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "PUT") return json(405, { error: "Method not allowed" });

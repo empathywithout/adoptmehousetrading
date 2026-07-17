@@ -215,7 +215,7 @@
       .join("");
     themesGrid.querySelectorAll("[data-theme-checkbox]").forEach((cb) => {
       cb.addEventListener("change", () => {
-        const franchiseChecked = themesGrid.querySelector('[value="franchise_crossover"]').checked;
+        const franchiseChecked = themesGrid.querySelector('[value="custom_theme"]').checked;
         document.getElementById("franchise-note-field").hidden = !franchiseChecked;
       });
     });
@@ -383,7 +383,7 @@
       activeType === "house_trade"
         ? Array.from(document.querySelectorAll("#themes-grid input:checked")).map((el) => el.value)
         : [];
-    const theme_note = themes.includes("franchise_crossover") ? document.getElementById("theme-note").value.trim() : "";
+    const theme_note = themes.includes("custom_theme") ? document.getElementById("theme-note").value.trim() : "";
 
     if (!title) {
       errorBox.textContent = "Give your listing a title.";
