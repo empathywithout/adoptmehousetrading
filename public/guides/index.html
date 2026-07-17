@@ -18,9 +18,334 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-REW2CFBX6H');
 </script>
+<style>
+  /* ── Guides page ─────────────────────────────────────────────── */
+
+  .guides-hero {
+    background: var(--ink);
+    padding: 52px 0 48px;
+    margin-bottom: 0;
+  }
+  .guides-hero-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .guides-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 800;
+    color: var(--paper);
+    margin: 0 0 10px;
+    letter-spacing: -0.8px;
+    line-height: 1.1;
+  }
+  .guides-hero p {
+    color: var(--muted);
+    font-size: 15px;
+    margin: 0;
+    max-width: 520px;
+    line-height: 1.6;
+  }
+  .guides-hero p a { color: var(--accent); text-decoration: none; }
+  .guides-hero p a:hover { text-decoration: underline; }
+  .guides-hero-cta {
+    flex-shrink: 0;
+  }
+
+  /* Category color system — the signature element */
+  .guide-cat-build_guide  { --cat-color: var(--good); }
+  .guide-cat-how_to       { --cat-color: var(--accent); }
+  .guide-cat-tips         { --cat-color: var(--butter); }
+  .guide-cat-other        { --cat-color: var(--muted); }
+
+  /* Category pills in filters */
+  .guide-filter-row {
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    padding: 0 0 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .guide-filter-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .guide-filter-inner::-webkit-scrollbar { display: none; }
+  .guide-filter-btn {
+    flex-shrink: 0;
+    padding: 14px 20px;
+    border: none;
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .guide-filter-btn:hover { color: var(--ink); }
+  .guide-filter-btn.active {
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+  }
+
+  /* Grid area */
+  .guides-content {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* Featured card — first guide gets a big horizontal spotlight */
+  .guide-featured {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    margin-bottom: 36px;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.18s, transform 0.18s;
+    min-height: 280px;
+  }
+  .guide-featured:hover {
+    box-shadow: 0 8px 32px rgba(22,51,43,0.12);
+    transform: translateY(-2px);
+  }
+  .guide-featured-img {
+    position: relative;
+    overflow: hidden;
+  }
+  .guide-featured-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s;
+  }
+  .guide-featured:hover .guide-featured-img img { transform: scale(1.03); }
+  .guide-featured-img .cat-stripe {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+  }
+  .guide-featured-body {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .guide-featured-body h2 {
+    font-family: var(--font-display);
+    font-size: clamp(18px, 2.5vw, 26px);
+    font-weight: 800;
+    color: var(--ink);
+    margin: 12px 0 12px;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+  }
+  .guide-featured-body .guide-excerpt {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    flex: 1;
+    margin-bottom: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .featured-label {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  /* Regular grid cards */
+  .guides-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 800px) {
+    .guides-grid { grid-template-columns: repeat(2, 1fr); }
+    .guide-featured { grid-template-columns: 1fr; min-height: 360px; }
+    .guide-featured-img { min-height: 200px; }
+  }
+  @media (max-width: 520px) {
+    .guides-grid { grid-template-columns: 1fr; }
+    .guides-hero-inner { flex-direction: column; align-items: flex-start; }
+  }
+
+  .guide-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.18s, transform 0.18s;
+    position: relative;
+  }
+  .guide-card:hover {
+    box-shadow: 0 6px 24px rgba(22,51,43,0.1);
+    transform: translateY(-2px);
+  }
+  /* The signature left-edge category stripe */
+  .guide-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--cat-color, var(--muted));
+    border-radius: 14px 0 0 14px;
+  }
+  .guide-card-img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    display: block;
+  }
+  .guide-card-body {
+    padding: 16px 18px 18px 22px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .guide-card-body h3 {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 6px 0 8px;
+    line-height: 1.3;
+  }
+  .guide-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+  }
+  .guide-card-meta img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .guide-card-meta .meta-initial {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 9px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .guide-card-meta span {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 600;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Category pill */
+  .cat-pill {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 10.5px;
+    font-weight: 700;
+    background: var(--cat-color, var(--muted));
+    color: var(--white);
+    letter-spacing: 0.3px;
+  }
+  .guide-cat-tips .cat-pill { color: var(--ink); }
+
+  /* Featured author row */
+  .guide-author-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .guide-author-row img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .guide-author-row .meta-initial {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .guide-author-row span {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  /* Empty state */
+  .guides-empty {
+    text-align: center;
+    padding: 80px 24px;
+  }
+  .guides-empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.4;
+  }
+  .guides-empty h2 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--ink);
+    margin: 0 0 8px;
+  }
+  .guides-empty p {
+    color: var(--muted);
+    margin: 0 0 24px;
+  }
+</style>
 </head>
 <body>
 <header class="site-nav">
@@ -45,24 +370,37 @@
     </nav>
     <div class="nav-actions">
       <span id="nav-profile-pill"></span>
-      <a href="submit.html" class="btn btn-primary">Submit a Guide</a>
     </div>
   </div>
 </header>
 <script type="module" src="../js/nav.js"></script>
 
-<section class="wrap" style="padding: 32px 0 64px;">
-  <h1 style="font-family:var(--font-display);color:var(--ink);">Build Guides & How-Tos</h1>
-  <p class="subtitle" style="max-width:640px;">Adopt Me house building guides, how-tos, and trading tips — written by the community, reviewed before publishing, always credited to the author. Have something worth sharing? <a href="submit.html" style="color:var(--accent);">Submit a guide</a>.</p>
-
-  <div class="filter-pills" id="category-pills" style="margin-top:20px;"></div>
-
-  <div class="house-grid" id="guides-grid" style="margin-top:20px;"></div>
-  <div id="empty-state" class="form-card" hidden>
-    <span class="card-heading">No guides yet</span>
-    <p class="subtitle">Be the first — <a href="submit.html">submit one</a>.</p>
+<div class="guides-hero">
+  <div class="guides-hero-inner">
+    <div>
+      <h1>Build Guides & How-Tos</h1>
+      <p>Adopt Me house building guides, trading tips, and how-tos — written by the community, reviewed before publishing, always credited to the original author.</p>
+    </div>
+    <div class="guides-hero-cta">
+      <a href="submit.html" class="btn btn-primary">Submit a Guide</a>
+    </div>
   </div>
-</section>
+</div>
+
+<div class="guide-filter-row">
+  <div class="guide-filter-inner" id="category-tabs"></div>
+</div>
+
+<div class="guides-content">
+  <div id="featured-slot"></div>
+  <div class="guides-grid" id="guides-grid"></div>
+  <div class="guides-empty" id="empty-state" hidden>
+    <div class="guides-empty-icon">📖</div>
+    <h2>No guides yet</h2>
+    <p>Be the first community member to share something useful.</p>
+    <a href="submit.html" class="btn btn-primary">Submit a Guide</a>
+  </div>
+</div>
 
 <footer class="site-footer">
   <div class="wrap">
@@ -74,57 +412,123 @@
 <script type="module">
   import { GUIDE_CATEGORY_LABELS } from "../js/api.js";
 
+  const CAT_CLASS = {
+    build_guide: "guide-cat-build_guide",
+    how_to:      "guide-cat-how_to",
+    tips:        "guide-cat-tips",
+    other:       "guide-cat-other",
+  };
+
   function escapeHtml(str) {
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
-  let activeCategory = "all";
-  const guides = await fetch("/.netlify/functions/content-list").then((r) => r.json()).then((d) => d.submissions || []);
+  function avatarHtml(g, size = "small") {
+    const name = g.profiles?.display_name || "?";
+    if (g.profiles?.rbx_avatar_url) {
+      return `<img src="${g.profiles.rbx_avatar_url}" alt="">`;
+    }
+    return `<span class="meta-initial">${escapeHtml(name[0].toUpperCase())}</span>`;
+  }
 
-  function renderPills() {
-    const pills = document.getElementById("category-pills");
-    const categories = ["all", ...Object.keys(GUIDE_CATEGORY_LABELS)];
-    pills.innerHTML = categories
-      .map((c) => `<button data-cat="${c}" class="${c === activeCategory ? "active" : ""}">${c === "all" ? "All" : GUIDE_CATEGORY_LABELS[c]}</button>`)
+  let activeCategory = "all";
+  let guides = [];
+
+  try {
+    const res = await fetch("/.netlify/functions/content-list");
+    const data = await res.json();
+    guides = data.submissions || [];
+  } catch {
+    guides = [];
+  }
+
+  // Category tabs
+  function renderTabs() {
+    const container = document.getElementById("category-tabs");
+    const cats = ["all", ...Object.keys(GUIDE_CATEGORY_LABELS)];
+    container.innerHTML = cats
+      .map((c) => {
+        const label = c === "all" ? "All Guides" : GUIDE_CATEGORY_LABELS[c];
+        return `<button class="guide-filter-btn ${c === activeCategory ? "active" : ""}" data-cat="${c}">${escapeHtml(label)}</button>`;
+      })
       .join("");
-    pills.querySelectorAll("button").forEach((btn) => {
+    container.querySelectorAll(".guide-filter-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
         activeCategory = btn.dataset.cat;
-        renderPills();
-        renderGrid();
+        renderTabs();
+        renderContent();
       });
     });
   }
 
-  function renderGrid() {
+  function renderContent() {
+    const featuredSlot = document.getElementById("featured-slot");
     const grid = document.getElementById("guides-grid");
     const empty = document.getElementById("empty-state");
-    const filtered = activeCategory === "all" ? guides : guides.filter((g) => g.category === activeCategory);
+
+    const filtered = activeCategory === "all"
+      ? guides
+      : guides.filter((g) => g.category === activeCategory);
 
     if (!filtered.length) {
-      empty.hidden = false;
+      featuredSlot.innerHTML = "";
       grid.innerHTML = "";
+      empty.hidden = false;
       return;
     }
     empty.hidden = true;
 
-    grid.innerHTML = filtered
-      .map(
-        (g) => `<a class="house-card" href="entry.html?id=${g.id}">
-          <div class="thumb"><img src="${g.photos?.[0] || "../images/brand/searchdog.png"}" alt="${escapeHtml(g.title)}" loading="lazy"></div>
-          <div class="info">
-            <h3>${escapeHtml(g.title)}</h3>
-            <p class="source">${GUIDE_CATEGORY_LABELS[g.category] || g.category} · by ${escapeHtml(g.profiles?.display_name || "unknown")}</p>
+    const [featured, ...rest] = filtered;
+    const catClass = CAT_CLASS[featured.category] || "guide-cat-other";
+    const catLabel = GUIDE_CATEGORY_LABELS[featured.category] || featured.category;
+    const featuredPhoto = featured.photos?.[0] || "../images/brand/searchdog.png";
+
+    featuredSlot.innerHTML = `
+      <a class="guide-featured ${catClass}" href="entry.html?id=${featured.id}">
+        <div class="guide-featured-img">
+          <img src="${featuredPhoto}" alt="${escapeHtml(featured.title)}">
+          <div class="cat-stripe">
+            <span class="cat-pill">${escapeHtml(catLabel)}</span>
           </div>
-        </a>`
-      )
+        </div>
+        <div class="guide-featured-body">
+          <div>
+            <div class="featured-label">Featured Guide</div>
+            <h2>${escapeHtml(featured.title)}</h2>
+            <p class="guide-excerpt">${escapeHtml(featured.body?.slice(0, 180) || "")}</p>
+          </div>
+          <div class="guide-author-row">
+            ${avatarHtml(featured, "large")}
+            <span>by ${escapeHtml(featured.profiles?.display_name || "community member")}</span>
+          </div>
+        </div>
+      </a>`;
+
+    grid.innerHTML = rest
+      .map((g) => {
+        const cc = CAT_CLASS[g.category] || "guide-cat-other";
+        const cl = GUIDE_CATEGORY_LABELS[g.category] || g.category;
+        const photo = g.photos?.[0] || "../images/brand/searchdog.png";
+        return `
+        <a class="guide-card ${cc}" href="entry.html?id=${g.id}">
+          <img class="guide-card-img" src="${photo}" alt="${escapeHtml(g.title)}" loading="lazy">
+          <div class="guide-card-body">
+            <span class="cat-pill">${escapeHtml(cl)}</span>
+            <h3>${escapeHtml(g.title)}</h3>
+            <div class="guide-card-meta">
+              ${avatarHtml(g)}
+              <span>by ${escapeHtml(g.profiles?.display_name || "community member")}</span>
+            </div>
+          </div>
+        </a>`;
+      })
       .join("");
   }
 
   if (guides.length) {
-    const itemListScript = document.createElement("script");
-    itemListScript.type = "application/ld+json";
-    itemListScript.textContent = JSON.stringify({
+    const schema = document.createElement("script");
+    schema.type = "application/ld+json";
+    schema.textContent = JSON.stringify({
       "@context": "https://schema.org",
       "@type": "ItemList",
       itemListElement: guides.slice(0, 30).map((g, i) => ({
@@ -134,11 +538,11 @@
         url: `https://adoptmehousetrading.com/guides/entry.html?id=${g.id}`,
       })),
     });
-    document.head.appendChild(itemListScript);
+    document.head.appendChild(schema);
   }
 
-  renderPills();
-  renderGrid();
+  renderTabs();
+  renderContent();
 </script>
 </body>
 </html>
