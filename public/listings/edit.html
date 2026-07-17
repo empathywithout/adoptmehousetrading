@@ -380,8 +380,9 @@
     const title = document.getElementById("edit-title").value.trim();
     if (!title) { showError("Title is required."); return; }
 
-    if (listing.listing_type !== "looking_for" && photos.length < 5) {
-      showError("At least 5 photos are required.");
+    const minPhotos = Math.min(5, (listing.photos || []).length || 1);
+    if (listing.listing_type !== "looking_for" && photos.length < minPhotos) {
+      showError(`At least ${minPhotos} photo${minPhotos !== 1 ? 's' : ''} required.`);
       return;
     }
 

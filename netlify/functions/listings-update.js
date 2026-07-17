@@ -81,8 +81,10 @@ async function handlerImpl(event) {
   }
 
   const cleanPhotos = Array.isArray(photos) ? photos.filter((p) => typeof p === "string").slice(0, 8) : [];
-  if (existing.listing_type !== "looking_for" && cleanPhotos.length < 5) {
-    return json(400, { error: "At least 5 photos are required" });
+  const existingPhotoCount = Array.isArray(existing.photos) ? existing.photos.length : 0;
+  const minPhotos = Math.min(5, Math.max(1, existingPhotoCount));
+  if (existing.listing_type !== "looking_for" && cleanPhotos.length < minPhotos) {
+    return json(400, { error: `At least ${minPhotos} photo${minPhotos !== 1 ? "s" : ""} required` });
   }
 
   const cleanValueAmount = value_amount !== undefined && value_amount !== null && value_amount !== "" && !isNaN(Number(value_amount))
