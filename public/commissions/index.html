@@ -82,10 +82,18 @@
   const grid = document.getElementById("builders-grid");
   const empty = document.getElementById("empty-state");
 
-  let builders = await fetch("/.netlify/functions/builders-list").then((r) => r.json()).then((d) => d.builders || []);
-
+  let allBuilders = [];
   let activeStatus = "open";
   let activeTheme = "all";
+
+  async function fetchBuilders(status) {
+    const url = status === "all"
+      ? "/.netlify/functions/builders-list"
+      : "/.netlify/functions/builders-list?status=open";
+    return fetch(url).then((r) => r.json()).then((d) => d.builders || []);
+  }
+
+  allBuilders = await fetchBuilders("open");
 
   function escapeHtml(str) {
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -96,15 +104,18 @@
     .map((s) => `<button data-key="${s}" class="${s === activeStatus ? "active" : ""}">${s === "open" ? "Open for Commissions" : "All Builders"}</button>`)
     .join("");
   statusPillsEl.querySelectorAll("button").forEach((btn) => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", async () => {
       activeStatus = btn.dataset.key;
       statusPillsEl.querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
+      if (activeStatus === "all" && allBuilders.length && allBuilders.every(b => b.commission_status === "open")) {
+        allBuilders = await fetchBuilders("all");
+      }
       render();
     });
   });
 
   function renderThemePills() {
-    const themesInUse = [...new Set(builders.flatMap((b) => b.builder_themes || []))];
+    const themesInUse = [...new Set(allBuilders.flatMap((b) => b.builder_themes || []))];
     const themePillsEl = document.getElementById("theme-pills");
     if (!themesInUse.length) {
       themePillsEl.hidden = true;
@@ -124,7 +135,7 @@
   }
 
   function render() {
-    const filtered = builders.filter((b) => {
+    const filtered = allBuilders.filter((b) => {
       const matchesStatus = activeStatus === "all" || b.commission_status === activeStatus;
       const matchesTheme = activeTheme === "all" || (b.builder_themes || []).includes(activeTheme);
       return matchesStatus && matchesTheme;
@@ -159,13 +170,13 @@
   renderThemePills();
   render();
 
-  if (builders.length) {
+  if (allBuilders.length) {
     const itemListScript = document.createElement("script");
     itemListScript.type = "application/ld+json";
     itemListScript.textContent = JSON.stringify({
       "@context": "https://schema.org",
       "@type": "ItemList",
-      itemListElement: builders.slice(0, 30).map((b, i) => ({
+      itemListElement: allBuilders.slice(0, 30).map((b, i) => ({
         "@type": "ListItem",
         position: i + 1,
         name: b.display_name,
