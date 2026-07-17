@@ -2734,3 +2734,38 @@ textarea { resize: vertical; min-height: 90px; }
 
 .build-type-glitch.active { border-color: #7c3aed; background: rgba(124,58,237,0.08); }
 .build-type-glitch.active .build-type-label { color: #7c3aed; }
+
+/* ── Mobile fixes: post-glitch/filter updates ──────────────────── */
+@media (max-width: 640px) {
+
+  /* Build type grid: 2-col on mobile instead of 1 (3 cards fit better) */
+  .build-type-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* Filter toolbar: stack vertically, full width selects */
+  .listings-toolbar { flex-direction: column; align-items: stretch; gap: 8px; }
+  .listings-toolbar input[type="search"] { max-width: 100% !important; width: 100%; }
+  .filter-select { width: 100%; }
+  .listings-toolbar button { width: 100%; justify-content: center; }
+
+  /* Slideshow thumbs: slightly larger tap targets */
+  .slideshow-thumb { width: 56px !important; height: 56px !important; }
+
+  /* Glitch checkbox label: wrap text on small screens */
+  label:has(#is-glitch-build),
+  label:has(#edit-is-glitch) { flex-wrap: wrap; }
+
+  /* Report modal: full width on mobile */
+  #report-modal > div { max-width: 100% !important; margin: 0 12px; }
+
+  /* Trust row: prevent overflow when save btn present */
+  .trust-row { flex-wrap: wrap; gap: 4px; }
+  .trust-name-row { flex-wrap: wrap; }
+
+  /* Profile tabs: ensure guides tab visible */
+  .detail-tabs { padding-bottom: 2px; }
+}
+
+@media (max-width: 480px) {
+  /* Build type grid: single col on very small screens */
+  .build-type-grid { grid-template-columns: 1fr !important; }
+}
