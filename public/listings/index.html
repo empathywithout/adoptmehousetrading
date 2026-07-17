@@ -69,11 +69,12 @@
       <option value="all">All Themes</option>
     </select>
     <select id="clone-select" class="filter-select">
-      <option value="all">Build Type</option>
+      <option value="all">All Build Types</option>
       <option value="original">Original</option>
+      <option value="glitch_original">Glitch (Original)</option>
       <option value="speedbuild">Speedbuild</option>
-      <option value="glitch">Glitch Build</option>
       <option value="cloned">Cloned</option>
+      <option value="glitch_cloned">Glitch (Cloned)</option>
     </select>
     <button id="clear-filters-btn" hidden style="padding:7px 14px;border:1.5px solid var(--line);border-radius:8px;background:none;color:var(--muted);font-size:13px;cursor:pointer;white-space:nowrap;">✕ Clear</button>
   </div>
@@ -221,11 +222,7 @@
       const matchesHouse = activeHouseId === "all" || listing.house_id === activeHouseId;
       const matchesTheme = activeTheme === "all" || (listing.themes || []).includes(activeTheme);
       const matchesSearch = !searchTerm || listing.title.toLowerCase().includes(searchTerm);
-      const matchesClone = activeClone === "all" ||
-        (activeClone === "original" && listing.build_type === "original") ||
-        (activeClone === "speedbuild" && listing.build_type === "speedbuild") ||
-        (activeClone === "glitch" && (listing.build_type === "glitch_original" || listing.build_type === "glitch_cloned")) ||
-        (activeClone === "cloned" && listing.is_cloned);
+      const matchesClone = activeClone === "all" || listing.build_type === activeClone || (activeClone === "cloned" && listing.is_cloned && !listing.build_type?.startsWith("glitch"));
       return matchesType && matchesHouse && matchesTheme && matchesSearch && matchesClone;
     });
 
