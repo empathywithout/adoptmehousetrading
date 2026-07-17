@@ -130,7 +130,7 @@
     if (!listings || !listings.length) {
       document.getElementById("recent-listings-empty").hidden = false;
     } else {
-      grid.innerHTML = listings.slice(0, 8).map((listing) => {
+      grid.innerHTML = listings.slice(0, 8).map((listing) => { try {
         const house = houseById[listing.house_id];
         const photo = listing.photos?.[0] || house?.image || "images/brand/searchdog.png";
         const username = listing.profiles?.display_name || "unknown";
@@ -146,8 +146,8 @@
 
         const isSaved = savedIds.has(listing.id);
         const avatarHtml = listing.profiles?.rbx_avatar_url
-          ? '<img class="trust-row-avatar" src="' + listing.profiles.rbx_avatar_url + '" alt="">'
-          : '<span class="avatar-initial">' + escapeHtml(username[0]?.toUpperCase() || "?") + '</span>';
+          ? '<img class="trust-row-avatar" src="' + (listing.profiles?.rbx_avatar_url || '') + '" alt="">'
+          : '<span class="avatar-initial">' + escapeHtml((username[0] || '?').toUpperCase()) + '</span>';
         const saveBtnHtml = '<button class="save-btn' + (isSaved ? ' saved' : '') + '" data-listing-id="' + listing.id + '" title="' + (isSaved ? 'Saved — click to unsave' : 'Save this listing') + '" onclick="event.preventDefault()">' + (isSaved ? 'Saved' : 'Save') + '</button>';
         const badgeHtml = '<div class="card-badge ' + (BADGE_CLASS[listing.listing_type] || "house-trade") + '" title="' + (TYPE_LABELS[listing.listing_type] || "For Trade") + '"><div class="' + (BADGE_ICON[listing.listing_type] || "icon-sign") + '"></div></div>';
 
@@ -168,6 +168,7 @@
             themeLine +
           '</div>' +
         '</a>';
+      } catch(e) { console.error('Card error:', e, listing); return ''; }
       }).join("");
       // Delegated save handler
       document.getElementById("recent-listings-grid").addEventListener("click", async (e) => {
