@@ -58,7 +58,6 @@
     Custom Adopt Me house builds for hire — separate from trading an existing house. Browse builders by specialty (cottagecore, gothic, fantasy, custom themes, and more), check their portfolio of registered builds, and pay in Adopt Me items or value, same as everywhere else on this site.
   </p>
 
-  <div class="filter-pills" id="status-pills"></div>
   <div class="filter-pills" id="theme-pills"></div>
 
   <div id="empty-state" class="form-card" hidden>
@@ -82,37 +81,16 @@
   const grid = document.getElementById("builders-grid");
   const empty = document.getElementById("empty-state");
 
-  let allBuilders = [];
-  let activeStatus = "open";
-  let activeTheme = "all";
-
-  async function fetchBuilders(status) {
-    const url = status === "all"
-      ? "/.netlify/functions/builders-list"
-      : "/.netlify/functions/builders-list?status=open";
-    return fetch(url).then((r) => r.json()).then((d) => d.builders || []);
-  }
-
-  allBuilders = await fetchBuilders("open");
+  // Open builders only — closed builders never show on this page
+  let allBuilders = await fetch("/.netlify/functions/builders-list?status=open")
+    .then((r) => r.json()).then((d) => d.builders || []);
+  const activeTheme = "all";
 
   function escapeHtml(str) {
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
-  const statusPillsEl = document.getElementById("status-pills");
-  statusPillsEl.innerHTML = ["open", "all"]
-    .map((s) => `<button data-key="${s}" class="${s === activeStatus ? "active" : ""}">${s === "open" ? "Open for Commissions" : "All Builders"}</button>`)
-    .join("");
-  statusPillsEl.querySelectorAll("button").forEach((btn) => {
-    btn.addEventListener("click", async () => {
-      activeStatus = btn.dataset.key;
-      statusPillsEl.querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
-      if (activeStatus === "all" && allBuilders.length && allBuilders.every(b => b.commission_status === "open")) {
-        allBuilders = await fetchBuilders("all");
-      }
-      render();
-    });
-  });
+
 
   function renderThemePills() {
     const themesInUse = [...new Set(allBuilders.flatMap((b) => b.builder_themes || []))];
@@ -136,9 +114,8 @@
 
   function render() {
     const filtered = allBuilders.filter((b) => {
-      const matchesStatus = activeStatus === "all" || b.commission_status === activeStatus;
       const matchesTheme = activeTheme === "all" || (b.builder_themes || []).includes(activeTheme);
-      return matchesStatus && matchesTheme;
+      return matchesTheme;
     });
 
     if (!filtered.length) {
@@ -157,7 +134,7 @@
               <h3>${escapeHtml(b.display_name)}</h3>
               <div class="trust-row">
                 ${b.rbx_avatar_url ? `<img src="${b.rbx_avatar_url}" alt="" class="avatar-initial" style="object-fit:cover;">` : `<span class="avatar-initial">${escapeHtml(b.display_name[0]?.toUpperCase() || "?")}</span>`}
-                <span class="username">${b.commission_status === "open" ? "Open for commissions" : "Closed"}</span>
+                <span class="username">Open for commissions</span>
               </div>
               ${themesLine ? `<p class="lister" style="margin-top:2px;">${escapeHtml(themesLine)}</p>` : ""}
             </div>
