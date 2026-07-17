@@ -128,7 +128,12 @@
     <div id="included-items-field">
       <label class="field-label">Items included in this trade <span style="font-weight:400;color:var(--muted);">(optional)</span></label>
       <p class="hint" style="margin-top:-4px;margin-bottom:10px;">Any extra items you're throwing in alongside the house.</p>
-      <div id="item-picker-mount"></div>
+      <div id="item-picker-mount" class="item-picker">
+        <div class="category-tabs" id="editcategory-tabs"></div>
+        <input type="search" id="edititem-search" placeholder="Search items..." style="margin-bottom:10px;">
+        <div class="results" id="edititem-results"></div>
+        <div class="selected-items" id="editselected-items"></div>
+      </div>
     </div>
 
     <div style="display:flex;gap:10px;align-items:center;margin-top:24px;flex-wrap:wrap;">
