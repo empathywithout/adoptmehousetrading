@@ -201,13 +201,6 @@
   let buildTypeVal = "original";
   let unitVal = "shark";
 
-  if (!profile) {
-    document.getElementById("need-profile").hidden = false;
-  } else {
-    document.getElementById("listing-form").hidden = false;
-    init();
-  }
-
   const TYPE_DEFS = [
     { id: "house_trade", label: "House Trade", hint: "Offer for offer", iconClass: "house-trade", icon: "icon-sign", tip: "Trading a house you own for other items." },
     { id: "looking_for", label: "Looking For", hint: "You want this house", iconClass: "looking-for", icon: "icon-loop", tip: "You don't have this house yet — describe what you'll pay for it. No photos needed." },
@@ -215,6 +208,13 @@
 
   function escapeHtml(str) {
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  if (!profile) {
+    document.getElementById("need-profile").hidden = false;
+  } else {
+    document.getElementById("listing-form").hidden = false;
+    init();
   }
 
   async function init() {
