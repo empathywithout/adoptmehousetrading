@@ -181,3 +181,34 @@ if (raw) {
     loadNotifications();
   }
 }
+
+// Mobile hamburger — collapses nav to brand + menu button on small screens.
+// The button is injected into every page's HTML; this wires up the toggle.
+const hamburger = document.getElementById("nav-hamburger");
+const navEl = document.querySelector(".site-nav nav");
+if (hamburger && navEl) {
+  hamburger.addEventListener("click", () => {
+    const isOpen = navEl.classList.toggle("mobile-open");
+    hamburger.classList.toggle("open", isOpen);
+    // Prevent body scroll while menu is open
+    document.body.style.overflow = isOpen ? "hidden" : "";
+  });
+  // Close menu when a nav link is tapped
+  navEl.querySelectorAll("a").forEach(a => {
+    a.addEventListener("click", () => {
+      navEl.classList.remove("mobile-open");
+      hamburger.classList.remove("open");
+      document.body.style.overflow = "";
+    });
+  });
+  // Close menu on outside tap
+  document.addEventListener("click", (e) => {
+    if (navEl.classList.contains("mobile-open") &&
+        !navEl.contains(e.target) &&
+        e.target !== hamburger) {
+      navEl.classList.remove("mobile-open");
+      hamburger.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+  });
+}

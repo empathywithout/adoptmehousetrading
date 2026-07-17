@@ -2348,3 +2348,185 @@ textarea { resize: vertical; min-height: 90px; }
 
 .site-footer a { color: var(--accent); }
 .site-footer a:hover { color: var(--accent-dark); }
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE — 640px and below
+   Comprehensive pass: nav hamburger, grids, forms, cards, profile
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 640px) {
+
+  /* ── Global ── */
+  .wrap { padding: 0 16px; }
+
+  /* ── Nav: collapse to brand + hamburger ── */
+  .site-nav .wrap { height: 56px; gap: 10px; }
+
+  .site-nav nav {
+    display: none;
+    position: fixed;
+    inset: 56px 0 0 0;
+    background: var(--paper);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    padding: 8px 0 24px;
+    z-index: 99;
+    border-top: 1px solid var(--line);
+    overflow-y: auto;
+  }
+  .site-nav nav.mobile-open { display: flex; }
+  .site-nav nav a {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 16px;
+    border-bottom: none;
+  }
+  .nav-more { width: 100%; }
+  .nav-more-trigger {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 16px;
+    justify-content: flex-start;
+  }
+  .nav-more-dropdown {
+    position: static;
+    transform: none;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    background: var(--surface);
+    padding: 0;
+    min-width: 0;
+    width: 100%;
+  }
+  [data-theme="dark"] .nav-more-dropdown {
+    background: var(--surface-2);
+    box-shadow: none;
+  }
+  .nav-more-dropdown a { padding: 12px 20px 12px 32px; font-size: 15px; border-radius: 0; }
+
+  /* Hamburger button */
+  .nav-hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    margin-left: auto;
+    z-index: 100;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--ink);
+    border-radius: 2px;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Hide theme toggle + bell + CTA from nav-actions on mobile — bell stays */
+  .theme-toggle { display: none; }
+  .nav-actions .btn { display: none; }
+  .nav-bell-dropdown { right: -60px; width: 290px; }
+
+  /* ── Hero ── */
+  .hero-grid { padding: 28px 16px 32px; }
+  .hero-eyebrow { font-size: 10px; }
+
+  /* ── House grid: 2-col on mobile ── */
+  .house-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+  /* ── Listing cards ── */
+  .listing-card .body { padding: 10px 12px 12px; }
+  .listing-card .body h3 { font-size: 13px; }
+
+  /* ── Trades grid: 1-col ── */
+  .trades-grid { grid-template-columns: 1fr; }
+  .trade-card { flex-direction: column; gap: 10px; }
+
+  /* ── Filter pills: scrollable (already mostly works, just reduce gap) ── */
+  .filter-pills { gap: 6px; }
+  .filter-pills button { font-size: 12px; padding: 6px 12px; }
+
+  /* ── Section heads ── */
+  .section-head { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .section-head h1, .section-head h2 { font-size: 20px; }
+
+  /* ── Form cards ── */
+  .form-card { padding: 18px 16px; }
+
+  /* ── Segmented toggles: stack on very small screens if needed ── */
+  .segmented { flex-wrap: wrap; }
+  .segmented button { font-size: 12px; padding: 10px 12px; }
+
+  /* ── Stat grid: 2-col ── */
+  .stat-grid-card { grid-template-columns: 1fr 1fr; }
+  .stat-grid-card .full-row { grid-column: 1 / 3; }
+
+  /* ── Profile page ── */
+  .detail-tabs { overflow-x: auto; gap: 0; }
+  .detail-tabs .tab { font-size: 12.5px; padding: 10px 12px; white-space: nowrap; flex-shrink: 0; }
+  .manage-card { border-radius: 12px; }
+  .manage-head { padding: 12px; gap: 10px; }
+  .manage-thumb { width: 52px; height: 52px; }
+  .manage-offer-row { flex-direction: column; gap: 8px; align-items: flex-start; }
+  .manage-offer-row .left { width: 100%; }
+
+  /* ── Builder settings status cards ── */
+  .status-card-row { grid-template-columns: 1fr; max-width: 100%; }
+
+  /* ── Type card grid (list-a-house) ── */
+  .type-card-grid { grid-template-columns: 1fr 1fr !important; }
+
+  /* ── Photo slots ── */
+  .photo-slots { grid-template-columns: repeat(3, 1fr) !important; }
+
+  /* ── Item picker ── */
+  .item-picker { font-size: 13px; }
+  .category-tabs { gap: 4px; }
+  .category-tabs button { font-size: 11px; padding: 6px 8px; }
+
+  /* ── Guide submit layout: single column ── */
+  .submit-layout { grid-template-columns: 1fr; padding: 20px 16px 60px; }
+  .submit-sidebar { position: static; }
+  .guide-photo-grid { grid-template-columns: repeat(2, 1fr); }
+  .cat-selector { gap: 6px; }
+  .cat-btn { font-size: 12px; padding: 7px 12px; }
+
+  /* ── Commissions/Builder grid ── */
+  .builders-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* ── Registry grid ── */
+  .registry-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* ── Houses values grid ── */
+  .house-values-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* ── Guides grid: 1-col on mobile (cards are tall/text-heavy) ── */
+  .guides-grid { grid-template-columns: 1fr !important; }
+  .guide-featured { grid-template-columns: 1fr; min-height: auto; }
+  .guide-featured-img { min-height: 180px; }
+  .guide-featured-body { padding: 18px; }
+
+  /* ── Nav bell dropdown position ── */
+  .nav-bell-dropdown { right: -10px; width: calc(100vw - 24px); max-width: 320px; }
+
+  /* ── Player profile stats ── */
+  #player-stats-grid { grid-template-columns: 1fr 1fr; }
+
+  /* ── Footer ── */
+  .site-footer { padding: 24px 0; font-size: 12.5px; }
+}
+
+/* 480px and below — tighter pass */
+@media (max-width: 480px) {
+  .house-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .btn { padding: 10px 18px; font-size: 14px; }
+  .hero-grid h1 { font-size: 28px !important; }
+}
