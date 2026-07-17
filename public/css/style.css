@@ -912,6 +912,13 @@ img.trust-row-avatar {
   margin: 0 0 6px;
   letter-spacing: -0.3px;
 }
+.form-card h2 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  font-size: 22px;
+  margin: 0 0 6px;
+  letter-spacing: -0.3px;
+}
 .form-card .card-heading {
   font-family: var(--font-display);
   color: var(--ink);

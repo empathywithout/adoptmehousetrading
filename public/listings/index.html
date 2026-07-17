@@ -42,9 +42,10 @@
 
 <section class="wrap" style="padding: 40px 0 80px;">
   <div class="section-head">
-    <h2 id="listings-heading">Browse Houses</h2>
+    <h1 id="listings-heading">Browse Adopt Me House Trading Listings</h1>
     <a href="../list-a-house.html">+ List your house</a>
   </div>
+  <p class="hint" style="margin-top:-6px;margin-bottom:20px;max-width:680px;">Real houses listed by real Adopt Me players — filter by house type, theme, and whether you're offering a trade, looking for a specific house, or open to commissions. Every listing shows the lister's asking value in Shark, Frost, or Ride Pot, so you know what to offer before you commit.</p>
   <div class="house-filter-row" id="house-filter-row"></div>
   <div class="filter-pills" id="theme-pills"></div>
   <div class="filter-pills" id="type-pills"></div>
@@ -52,7 +53,7 @@
     <input type="search" id="search-input" placeholder="Search listings..." style="max-width:260px;">
   </div>
   <div id="empty-state" class="form-card" hidden>
-    <h1>No listings yet</h1>
+    <span class="card-heading">No listings yet</span>
     <p class="subtitle">Be the first to put a house up for trade.</p>
     <a class="btn btn-primary" href="../list-a-house.html">List a House</a>
   </div>
@@ -167,10 +168,10 @@
   function updateHeading() {
     const heading = document.getElementById("listings-heading");
     if (activeHouseId === "all") {
-      heading.textContent = "Browse Houses";
+      heading.textContent = "Browse Adopt Me House Trading Listings";
     } else {
       const house = houseById[activeHouseId];
-      heading.textContent = house ? `${house.name} Listings` : "Browse Houses";
+      heading.textContent = house ? `${house.name} Trading Listings` : "Browse Adopt Me House Trading Listings";
     }
   }
 

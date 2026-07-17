@@ -176,8 +176,8 @@ function buildHomepage() {
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <div class="hero-eyebrow">Adopt Me House Trading</div>
-      <h1>Trade houses.<br>Track real values.</h1>
-      <p class="lede" style="margin-left:0;">List your house, see real offers in Pets, Vehicles, Toys and more, and check verified trade values before you commit.</p>
+      <h1>Trade Adopt Me Houses.<br>Track Real Values.</h1>
+      <p class="lede" style="margin-left:0;">List your Adopt Me house, get real offers in Pets, Vehicles, Toys, and more from real Roblox players, and check verified trade values — not guesswork — before you commit.</p>
       <div class="hero-ctas" style="justify-content:flex-start;">
         <a class="btn btn-primary" href="listings/index.html">Browse Houses</a>
         <a class="btn btn-secondary" href="comps.html">See Recent Trades</a>
