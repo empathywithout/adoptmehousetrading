@@ -621,7 +621,7 @@
   }
 
   function buildSlideshow(photos, altPrefix) {
-    if (!photos || !photos.length) return '<p class="hint">No photos.</p>';
+    if (!photos || !photos.length) return '<div style="width:100%;aspect-ratio:4/3;background:var(--surface-2);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;">No photos added yet</div>';
     if (photos.length === 1) return '<img src="' + photos[0] + '" alt="' + altPrefix + ' photo 1" style="width:100%;border-radius:12px;display:block;">';
 
     const id = "ss" + Math.random().toString(36).slice(2, 7);
