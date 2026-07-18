@@ -150,6 +150,21 @@ async function handlerImpl(event) {
   const cleanThemeNote = theme_note ? String(theme_note).slice(0, 100) : null;
 
   const db = supabaseAdmin();
+
+  // Prevent duplicate active listings: same user + same house + same listing type
+  const { data: existing } = await db
+    .from("listings")
+    .select("id")
+    .eq("profile_id", profile.id)
+    .eq("house_id", house_id)
+    .eq("listing_type", cleanType)
+    .eq("status", "active")
+    .maybeSingle();
+
+  if (existing) {
+    return json(409, { error: "You already have an active listing for this house. Edit or remove it before posting a new one." });
+  }
+
   const { data, error } = await db
     .from("listings")
     .insert({
