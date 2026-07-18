@@ -273,18 +273,22 @@
       const [disputesData, applicationsData, contentData, statsData, dupesData] = await Promise.all([
         disputesRes.json(), applicationsRes.json(), contentRes.json(), statsRes.json(), dupesRes.json(),
       ]);
-      const failedRes = [disputesRes, applicationsRes, contentRes].find(r => !r.ok);
+      const failedRes = [disputesRes, applicationsRes, contentRes].find(r => r.status === 401);
       if (failedRes) {
         const fd = failedRes === disputesRes ? disputesData : failedRes === applicationsRes ? applicationsData : contentData;
-        throw new Error(fd?.error || "Login failed — check password or Netlify env vars");
+        throw new Error(fd?.error || "Incorrect admin password");
       }
       document.getElementById("login-screen").style.display = "none";
       document.getElementById("app").style.display = "block";
       renderStats(statsData.stats || {});
-      renderDisputes(disputesData.disputes || []);
-      renderApplications(applicationsData.applications || []);
-      renderContentSubmissions(contentData.submissions || []);
-      renderDupes(dupesData.groups || []);
+      renderDisputes(disputesRes.ok ? (disputesData.disputes || []) : []);
+      renderApplications(applicationsRes.ok ? (applicationsData.applications || []) : []);
+      renderContentSubmissions(contentRes.ok ? (contentData.submissions || []) : []);
+      renderDupes(dupesRes.ok ? (dupesData.groups || []) : []);
+      if (!disputesRes.ok)     console.error("Disputes failed:", disputesData?.error);
+      if (!applicationsRes.ok) console.error("Applications failed:", applicationsData?.error);
+      if (!contentRes.ok)      console.error("Guides failed:", contentData?.error);
+      if (!dupesRes.ok)        console.error("Dupes failed:", dupesData?.error);
     } catch (err) {
       sessionStorage.removeItem(SESSION_KEY);
       const el = document.getElementById("login-error");

@@ -14,7 +14,7 @@ async function handlerImpl(event) {
   const db = supabaseAdmin();
   const { data, error } = await db
     .from("content_submissions")
-    .select("*, profiles(display_name)")
+    .select("*, profiles(display_name, email)")
     .eq("status", "pending")
     .order("created_at", { ascending: true });
 
