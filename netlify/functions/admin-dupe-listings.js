@@ -18,13 +18,23 @@ async function handlerImpl(event) {
     // Fetch all active listings with profile + house info
     const { data: listings, error } = await db
       .from("listings")
-      .select("id, profile_id, house_id, listing_type, title, created_at, photos, profiles(display_name, rbx_avatar_url)")
+      .select("id, profile_id, house_id, listing_type, title, description, created_at, photos, profiles(display_name, rbx_avatar_url)")
       .eq("status", "active")
       .order("created_at", { ascending: true });
 
     if (error) {
       console.error(error);
       return json(500, { error: "Couldn't fetch listings" });
+    }
+
+    // Jaccard similarity on word sets — returns 0.0–1.0
+    function stringSimilarity(a, b) {
+      if (!a || !b) return 1; // if either has no description, don't penalize
+      const wordsA = new Set(a.toLowerCase().split(/\s+/).filter(Boolean));
+      const wordsB = new Set(b.toLowerCase().split(/\s+/).filter(Boolean));
+      const intersection = [...wordsA].filter(w => wordsB.has(w)).length;
+      const union = new Set([...wordsA, ...wordsB]).size;
+      return union === 0 ? 1 : intersection / union;
     }
 
     // Group by profile_id + house_id + listing_type + normalized title
@@ -36,8 +46,27 @@ async function handlerImpl(event) {
       groupMap[key].push(l);
     }
 
+    // Within each title group, further split if descriptions are too different
+    const dupeGroups = [];
+    for (const group of Object.values(groupMap)) {
+      if (group.length < 2) continue;
+      // Anchor to the oldest listing's description; any listing with <70% similarity
+      // to the anchor is treated as a different listing, not a dupe
+      const anchor = group[0];
+      const confirmed = [anchor];
+      const remainder = [];
+      for (const l of group.slice(1)) {
+        const sim = stringSimilarity(anchor.description || "", l.description || "");
+        if (sim >= 0.7) confirmed.push(l);
+        else remainder.push(l);
+      }
+      if (confirmed.length > 1) dupeGroups.push(confirmed);
+      // If anything got split off, try grouping it against itself too
+      if (remainder.length > 1) dupeGroups.push(remainder);
+    }
+
     // Only return groups with 2+ listings (actual dupes)
-    const groups = Object.values(groupMap)
+    const groups = dupeGroups
       .filter((g) => g.length > 1)
       .map((g) => ({
         profile_id: g[0].profile_id,
