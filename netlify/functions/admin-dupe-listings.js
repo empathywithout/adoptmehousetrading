@@ -27,10 +27,11 @@ async function handlerImpl(event) {
       return json(500, { error: "Couldn't fetch listings" });
     }
 
-    // Group by profile_id + house_id + listing_type
+    // Group by profile_id + house_id + listing_type + normalized title
     const groupMap = {};
     for (const l of listings) {
-      const key = `${l.profile_id}||${l.house_id}||${l.listing_type}`;
+      const normalizedTitle = l.title.trim().toLowerCase();
+      const key = `${l.profile_id}||${l.house_id}||${l.listing_type}||${normalizedTitle}`;
       if (!groupMap[key]) groupMap[key] = [];
       groupMap[key].push(l);
     }
