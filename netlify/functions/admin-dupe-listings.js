@@ -18,7 +18,7 @@ async function handlerImpl(event) {
     // Fetch all active listings with profile + house info
     const { data: listings, error } = await db
       .from("listings")
-      .select("id, profile_id, house_id, listing_type, title, created_at, photos, profiles(username), houses(name)")
+      .select("id, profile_id, house_id, listing_type, title, created_at, photos, profiles(display_name, rbx_avatar_url)")
       .eq("status", "active")
       .order("created_at", { ascending: true });
 
@@ -40,9 +40,9 @@ async function handlerImpl(event) {
       .filter((g) => g.length > 1)
       .map((g) => ({
         profile_id: g[0].profile_id,
-        username: g[0].profiles?.username || g[0].profile_id,
+        username: g[0].profiles?.display_name || g[0].profile_id,
         house_id: g[0].house_id,
-        house_name: g[0].houses?.name || g[0].house_id,
+        house_name: g[0].house_id,
         listing_type: g[0].listing_type,
         count: g.length,
         // oldest first — the first one is the "keeper"
