@@ -13,6 +13,23 @@ const BUCKET = "listing-photos";
 const ALLOWED_TYPES = ["image/png", "image/jpeg", "image/webp"];
 const MAX_BYTES = 5 * 1024 * 1024;
 
+// Magic bytes for each allowed image type.
+// We check the actual file header regardless of what contentType the
+// client claims — a renamed exe won't have JPEG bytes at the start.
+const MAGIC_BYTES = {
+  "image/jpeg": [[0xFF, 0xD8, 0xFF]],
+  "image/png":  [[0x89, 0x50, 0x4E, 0x47]],
+  "image/webp": [[0x52, 0x49, 0x46, 0x46]], // RIFF header (WEBP follows at bytes 8-11)
+};
+
+function validateMagicBytes(buffer, contentType) {
+  const signatures = MAGIC_BYTES[contentType];
+  if (!signatures) return false;
+  return signatures.some(sig =>
+    sig.every((byte, i) => buffer[i] === byte)
+  );
+}
+
 async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
     return json(405, { error: "Method not allowed" });
@@ -39,6 +56,11 @@ async function handlerImpl(event) {
   const buffer = Buffer.from(dataBase64 || "", "base64");
   if (buffer.length === 0 || buffer.length > MAX_BYTES) {
     return json(400, { error: "Image must be under 5MB" });
+  }
+
+  // Validate actual file header bytes — rejects files disguised as images
+  if (!validateMagicBytes(buffer, contentType)) {
+    return json(400, { error: "File doesn't appear to be a valid image" });
   }
 
   const ext = contentType.split("/")[1];

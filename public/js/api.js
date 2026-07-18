@@ -118,17 +118,52 @@ export const api = {
 };
 
 async function uploadPhoto(file) {
+  // Canvas re-encode: strips EXIF/metadata and normalises the file.
+  // Draw onto canvas and export as JPEG — output contains only pixel
+  // data, no GPS coordinates, device info, or hidden payloads.
+  // Also resizes to max 1600px to keep uploads reasonable.
+  const MAX_DIM = 1600;
+  const QUALITY = 0.88;
+
   const dataBase64 = await new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result.split(",")[1]);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
+    const img = new Image();
+    const objectUrl = URL.createObjectURL(file);
+
+    img.onload = () => {
+      URL.revokeObjectURL(objectUrl);
+      try {
+        let { width, height } = img;
+        if (width > MAX_DIM || height > MAX_DIM) {
+          const ratio = Math.min(MAX_DIM / width, MAX_DIM / height);
+          width  = Math.round(width  * ratio);
+          height = Math.round(height * ratio);
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width  = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+        // Always export as JPEG regardless of input format — strips metadata
+        const dataUrl = canvas.toDataURL("image/jpeg", QUALITY);
+        resolve(dataUrl.split(",")[1]);
+      } catch (err) {
+        reject(new Error("Image processing failed — try a different photo."));
+      }
+    };
+
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      reject(new Error("Couldn't read image — make sure it's a valid photo."));
+    };
+
+    img.src = objectUrl;
   });
 
   const { url } = await request("listings-upload-photo", {
     method: "POST",
     auth: true,
-    body: { filename: file.name, contentType: file.type, dataBase64 },
+    // Always send as JPEG since canvas re-encode normalises to JPEG
+    body: { filename: file.name, contentType: "image/jpeg", dataBase64 },
   });
   return url;
 }
