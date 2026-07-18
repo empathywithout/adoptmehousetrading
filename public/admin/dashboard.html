@@ -394,6 +394,7 @@
       if (btn) { btn.disabled = false; btn.textContent = "Delete"; }
     }
   }
+  window.deleteDupe = deleteDupe;
 
   document.getElementById("login-btn").addEventListener("click", async () => {
     const pw = document.getElementById("admin-password").value;
