@@ -9,7 +9,8 @@
 <link rel="canonical" href="https://adoptmehousetrading.com/listings/listing.html" id="canonical-link">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="../css/style.css">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-REW2CFBX6H"></script>
@@ -128,22 +129,19 @@
     }
 
     const { listing, offers } = data;
-    const houses = await fetch("../data/houses.json").then((r) => r.json());
-    const house = listing.house_id ? houses.find((h) => h.id === listing.house_id) : null;
     const isOwner = myProfile && myProfile.id === listing.profile_id;
-
-    // Load saved state for this listing
-    let isSaved = false;
     const token = localStorage.getItem("amht_token");
-    if (token && !isOwner) {
-      try {
-        const savedRes = await fetch("/.netlify/functions/listing-saves-me", {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        const savedData = await savedRes.json();
-        isSaved = (savedData.saved_ids || []).includes(listing.id);
-      } catch {}
-    }
+
+    // Parallelise: houses.json + saves check fire at the same time
+    const [houses, savedData] = await Promise.all([
+      fetch("../data/houses.json").then((r) => r.json()),
+      (token && !isOwner)
+        ? fetch("/.netlify/functions/listing-saves-me", { headers: { Authorization: `Bearer ${token}` } })
+            .then((r) => r.json()).catch(() => ({}))
+        : Promise.resolve({}),
+    ]);
+    const house = listing.house_id ? houses.find((h) => h.id === listing.house_id) : null;
+    const isSaved = (savedData.saved_ids || []).includes(listing.id);
 
     // Progressive enhancement: the static <head> tags are a reasonable
     // generic fallback for crawlers that don't execute JS; once we know
