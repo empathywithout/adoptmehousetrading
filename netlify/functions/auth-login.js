@@ -1,32 +1,45 @@
-// POST { email, password }
+// POST { identifier, password }
+// identifier: email address OR Roblox username
 // -> { token, profile: { id, display_name, rbx_username, rbx_avatar_url } }
+//
+// Disambiguation: if identifier contains '@' → email lookup (existing users unaffected)
+//                 otherwise              → rbx_username lookup (new no-email users)
+//
+// Deliberately the same error message for "not found" and "wrong password" —
+// distinguishing them tells an attacker which accounts exist.
+//
+// BACKWARD COMPAT: also accepts { email, password } from old clients
+// (the frontend sends { identifier } now, but any cached/bookmarked forms
+// sending { email } still work since email always contains '@').
 
 import { supabaseAdmin, newSessionToken, hashToken, verifySecret, json, safeHandler } from "./_lib/supabase.js";
 
 async function handlerImpl(event) {
-  if (event.httpMethod !== "POST") {
-    return json(405, { error: "Method not allowed" });
-  }
+  if (event.httpMethod !== "POST") return json(405, { error: "Method not allowed" });
 
   let body;
-  try {
-    body = JSON.parse(event.body || "{}");
-  } catch {
-    return json(400, { error: "Invalid JSON body" });
-  }
+  try { body = JSON.parse(event.body || "{}"); }
+  catch { return json(400, { error: "Invalid JSON body" }); }
 
-  const { email, password } = body;
-  if (!email || !password) {
-    return json(400, { error: "Email and password are required" });
+  // Accept both { identifier } (new) and { email } (legacy)
+  const identifier = String(body.identifier || body.email || "").trim();
+  const { password } = body;
+
+  if (!identifier || !password) {
+    return json(400, { error: "Username/email and password are required" });
   }
 
   const db = supabaseAdmin();
-  const { data: profile } = await db.from("profiles").select("*").eq("email", String(email).toLowerCase()).maybeSingle();
+  const isEmail = identifier.includes("@");
 
-  // Deliberately the same error for "no such email" and "wrong password" —
-  // distinguishing them tells an attacker which emails have accounts here.
+  // Look up by email or rbx_username depending on identifier format
+  const { data: profile } = isEmail
+    ? await db.from("profiles").select("*").eq("email", identifier.toLowerCase()).maybeSingle()
+    : await db.from("profiles").select("*").eq("rbx_username", identifier).maybeSingle();
+
+  // Same error for "not found" and "wrong password" — security by ambiguity
   if (!profile || !verifySecret(password, profile.password_salt, profile.password_hash)) {
-    return json(401, { error: "Incorrect email or password" });
+    return json(401, { error: "Incorrect username/email or password" });
   }
 
   const token = newSessionToken();
@@ -35,7 +48,7 @@ async function handlerImpl(event) {
     token_hash: hashToken(token),
   });
   if (sessionErr) {
-    console.error(sessionErr);
+    console.error("auth-login session error:", sessionErr);
     return json(500, { error: "Couldn't start session" });
   }
 

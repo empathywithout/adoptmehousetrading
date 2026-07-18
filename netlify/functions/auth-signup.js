@@ -1,64 +1,78 @@
-// POST { email, password, display_name, rbx_username, rbx_user_id, avatar_url }
+// POST { password, display_name, rbx_username, rbx_user_id, avatar_url, email? }
 // -> { token, profile: { id, display_name, rbx_username, rbx_avatar_url } }
 //
-// Email/password is a real account, hashed the same way the PIN it
-// replaces was. Roblox username is still just existence-checked via
-// roblox-lookup.js on the client first (not OAuth-verified ownership —
-// that's a separate, bigger thing) but is now PRIVATE: display_name is
-// what shows up everywhere public. The real rbx_username is only ever
-// revealed to a specific counterparty once a trade/commission with them
-// is accepted (see listings-get.js and profile-dashboard.js).
+// Email is optional. If omitted the user is warned they can't reset their password.
+// If provided it must be a valid address and is stored for password recovery only
+// (never shown publicly).
+//
+// Login identifier:
+//   - With email:    login with email + password
+//   - Without email: login with rbx_username + password
+//
+// Roblox username is still existence-checked via roblox-lookup.js on the client
+// before this endpoint is called. rbx_user_id is Roblox's stable numeric ID —
+// stored so that if a user later renames their Roblox account we can still
+// identify them.
 
 import { supabaseAdmin, newSessionToken, hashToken, newSecretSalt, hashSecret, json, safeHandler } from "./_lib/supabase.js";
 
 async function handlerImpl(event) {
-  if (event.httpMethod !== "POST") {
-    return json(405, { error: "Method not allowed" });
-  }
+  if (event.httpMethod !== "POST") return json(405, { error: "Method not allowed" });
 
   let body;
-  try {
-    body = JSON.parse(event.body || "{}");
-  } catch {
-    return json(400, { error: "Invalid JSON body" });
-  }
+  try { body = JSON.parse(event.body || "{}"); }
+  catch { return json(400, { error: "Invalid JSON body" }); }
 
   const { email, password, display_name, rbx_username, rbx_user_id, avatar_url } = body;
 
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return json(400, { error: "Enter a valid email address" });
-  }
+  // Password
   if (!password || String(password).length < 8) {
     return json(400, { error: "Password must be at least 8 characters" });
   }
+
+  // Display name
   const cleanDisplayName = String(display_name || "").trim();
   if (cleanDisplayName.length < 2 || cleanDisplayName.length > 24) {
-    return json(400, { error: "Display name must be 2-24 characters" });
+    return json(400, { error: "Display name must be 2–24 characters" });
   }
+
+  // Roblox username + user ID always required
   if (!rbx_username || !rbx_user_id) {
     return json(400, { error: "Missing rbx_username or rbx_user_id — look up the username first" });
   }
 
+  // Email: optional but must be valid if provided
+  const cleanEmail = email ? String(email).trim().toLowerCase() : null;
+  if (cleanEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
+    return json(400, { error: "Enter a valid email address" });
+  }
+
   const db = supabaseAdmin();
 
-  const { data: existingEmail } = await db.from("profiles").select("id").eq("email", email.toLowerCase()).maybeSingle();
-  if (existingEmail) {
+  // Uniqueness checks — run in parallel
+  const [emailCheck, nameCheck, rbxCheck] = await Promise.all([
+    cleanEmail
+      ? db.from("profiles").select("id").eq("email", cleanEmail).maybeSingle()
+      : Promise.resolve({ data: null }),
+    db.from("profiles").select("id").eq("display_name", cleanDisplayName).maybeSingle(),
+    db.from("profiles").select("id").eq("rbx_username", rbx_username).maybeSingle(),
+  ]);
+
+  if (emailCheck.data) {
     return json(409, { error: "An account with that email already exists — try logging in instead" });
   }
-  const { data: existingName } = await db.from("profiles").select("id").eq("display_name", cleanDisplayName).maybeSingle();
-  if (existingName) {
+  if (nameCheck.data) {
     return json(409, { error: "That display name is taken — try another" });
   }
-  const { data: existingRbx } = await db.from("profiles").select("id").eq("rbx_username", rbx_username).maybeSingle();
-  if (existingRbx) {
-    return json(409, { error: "That Roblox username is already linked to an account" });
+  if (rbxCheck.data) {
+    return json(409, { error: "That Roblox username is already linked to an account — try logging in instead" });
   }
 
   const salt = newSecretSalt();
   const { data: profile, error } = await db
     .from("profiles")
     .insert({
-      email: email.toLowerCase(),
+      email: cleanEmail,          // null if not provided — column is now nullable
       password_hash: hashSecret(password, salt),
       password_salt: salt,
       display_name: cleanDisplayName,
@@ -70,7 +84,7 @@ async function handlerImpl(event) {
     .single();
 
   if (error) {
-    console.error(error);
+    console.error("auth-signup error:", error);
     return json(500, { error: "Couldn't create account" });
   }
 
@@ -80,7 +94,7 @@ async function handlerImpl(event) {
     token_hash: hashToken(token),
   });
   if (sessionErr) {
-    console.error(sessionErr);
+    console.error("auth-signup session error:", sessionErr);
     return json(500, { error: "Couldn't start session" });
   }
 

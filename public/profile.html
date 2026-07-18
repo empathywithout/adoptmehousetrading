@@ -8,7 +8,8 @@
 <meta name="description" content="Set up your trading profile with your Roblox username.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="css/style.css">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-REW2CFBX6H"></script>
@@ -60,16 +61,24 @@
 
     <div id="signup-form">
       <h1>Create Profile</h1>
-      <p class="subtitle">A real account (email + password) plus your Roblox username. Your Roblox username stays private — other players see your display name until a trade is actually accepted.</p>
+      <p class="subtitle">Sign up with your Roblox username — no email required. Adding an email lets you reset your password if you forget it.</p>
+
       <label class="field-label" style="margin-top:0;" for="signup-display-name">Display name</label>
       <input type="text" id="signup-display-name" placeholder="What other players see" maxlength="24">
+
       <label class="field-label" for="username">Roblox username</label>
       <input type="text" id="username" placeholder="e.g. builds_by_ross" maxlength="20">
-      <p class="hint">We'll check this is a real Roblox account and pull your avatar. Kept private — see above.</p>
-      <label class="field-label" for="signup-email">Email</label>
-      <input type="email" id="signup-email" placeholder="you@example.com" autocomplete="email">
+      <p class="hint">We'll check this is a real Roblox account and pull your avatar. Kept private — only revealed to accepted trade partners.</p>
+
       <label class="field-label" for="signup-password">Password</label>
       <input type="password" id="signup-password" placeholder="At least 8 characters" autocomplete="new-password">
+
+      <label class="field-label" for="signup-email">
+        Email <span style="font-weight:400;color:var(--muted);">(optional — for password reset only)</span>
+      </label>
+      <input type="email" id="signup-email" placeholder="you@example.com" autocomplete="email">
+      <p class="hint" style="margin-top:4px;">Never shown publicly. Without an email you won't be able to reset your password if you forget it.</p>
+
       <div class="hero-ctas" style="justify-content: flex-start; margin-top: 20px;">
         <button class="btn btn-primary" id="create-btn">Create Account</button>
       </div>
@@ -77,9 +86,9 @@
 
     <div id="login-form" hidden>
       <h1>Log in</h1>
-      <p class="subtitle">Signing in on a new device doesn't sign you out anywhere else.</p>
-      <label class="field-label" style="margin-top:0;" for="login-email">Email</label>
-      <input type="email" id="login-email" placeholder="you@example.com" autocomplete="email">
+      <p class="subtitle">Use your email address or your Roblox username.</p>
+      <label class="field-label" style="margin-top:0;" for="login-identifier">Email or Roblox username</label>
+      <input type="text" id="login-identifier" placeholder="you@example.com or YourRobloxName" autocomplete="username">
       <label class="field-label" for="login-password">Password</label>
       <input type="password" id="login-password" placeholder="Your password" autocomplete="current-password">
       <div class="hero-ctas" style="justify-content: flex-start; margin-top: 20px;">
@@ -1189,14 +1198,17 @@
     const password = document.getElementById("signup-password").value;
 
     if (!displayName) return showError("Choose a display name.");
-    if (!username) return showError("Enter a Roblox username.");
-    if (!email) return showError("Enter an email address.");
+    if (!username) return showError("Enter your Roblox username.");
     if (password.length < 8) return showError("Password must be at least 8 characters.");
+    // Email is optional but must be valid if provided
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return showError("The email address doesn't look right — fix it or leave it blank.");
+    }
 
     try {
       const rbx = await api.lookupRoblox(username);
       const { token, profile } = await api.signup({
-        email,
+        email: email || undefined,   // omit entirely if blank — backend treats missing as null
         password,
         display_name: displayName,
         rbx_username: rbx.rbx_username,
@@ -1212,12 +1224,12 @@
 
   document.getElementById("login-btn").addEventListener("click", async () => {
     errorBox.hidden = true;
-    const email = document.getElementById("login-email").value.trim();
+    const identifier = document.getElementById("login-identifier").value.trim();
     const password = document.getElementById("login-password").value;
-    if (!email || !password) return showError("Enter your email and password.");
+    if (!identifier || !password) return showError("Enter your email or Roblox username and your password.");
 
     try {
-      const { token, profile } = await api.login(email, password);
+      const { token, profile } = await api.login(identifier, password);
       saveSession(token, profile);
       await render();
     } catch (err) {

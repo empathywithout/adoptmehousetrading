@@ -16,7 +16,9 @@ create extension if not exists "pgcrypto";
 create table profiles (
   id uuid primary key default gen_random_uuid(),
 
-  email text not null unique,
+  email text unique,               -- optional — used for password reset only, never shown publicly.
+                                     -- Login: email if provided, rbx_username if not.
+                                     -- NULL for users who signed up without email.
   password_hash text not null,        -- scrypt hash — same slow-hash reasoning as the PIN this
                                        -- replaces, just for a real password now.
   password_salt text not null,
