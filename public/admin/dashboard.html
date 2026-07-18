@@ -50,6 +50,13 @@
       <h1>No pending submissions</h1>
       <p class="subtitle">Nothing to review right now.</p>
     </div>
+
+    <div class="section-head" style="margin-top:36px;"><h2>Duplicate Listings</h2></div>
+    <div id="dupes-list"></div>
+    <div id="empty-dupes" class="form-card" hidden>
+      <h1>No duplicates found</h1>
+      <p class="subtitle">All listings look clean.</p>
+    </div>
   </div>
 
 </section>
@@ -69,16 +76,18 @@
     const pw = getAdminPassword();
     if (!pw) return;
     try {
-      const [disputesRes, applicationsRes, contentRes, statsRes] = await Promise.all([
+      const [disputesRes, applicationsRes, contentRes, statsRes, dupesRes] = await Promise.all([
         fetch("/.netlify/functions/admin-disputes-list", { headers: { "X-Admin-Password": pw } }),
         fetch("/.netlify/functions/admin-data-team-list", { headers: { "X-Admin-Password": pw } }),
         fetch("/.netlify/functions/admin-content-list", { headers: { "X-Admin-Password": pw } }),
         fetch("/.netlify/functions/admin-stats", { headers: { "X-Admin-Password": pw } }),
+        fetch("/.netlify/functions/admin-dupe-listings", { headers: { "X-Admin-Password": pw } }),
       ]);
       const disputesData = await disputesRes.json();
       const applicationsData = await applicationsRes.json();
       const contentData = await contentRes.json();
       const statsData = await statsRes.json();
+      const dupesData = await dupesRes.json();
       const failedRes = [disputesRes, applicationsRes, contentRes].find(r => !r.ok);
       const failedData = failedRes === disputesRes ? disputesData : failedRes === applicationsRes ? applicationsData : contentData;
       if (failedRes) throw new Error(failedData?.error || "Login failed — check password or Netlify env vars");
@@ -88,6 +97,7 @@
       renderDisputes(disputesData.disputes);
       renderApplications(applicationsData.applications || []);
       renderContentSubmissions(contentData.submissions || []);
+      renderDupes(dupesData.groups || []);
     } catch (err) {
       sessionStorage.removeItem(SESSION_KEY);
       document.getElementById("login-error").textContent = err.message;
@@ -329,6 +339,60 @@
         }
       });
     });
+  }
+
+  function renderDupes(groups) {
+    const container = document.getElementById("dupes-list");
+    const empty = document.getElementById("empty-dupes");
+    if (!groups.length) { empty.hidden = false; return; }
+    empty.hidden = true;
+    container.innerHTML = groups.map(g => `
+      <div class="form-card" style="margin-bottom:16px;" id="dupe-group-${g.profile_id}-${g.house_id}">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+          <div>
+            <strong>${escapeHtml(g.username)}</strong>
+            <span style="color:var(--muted);font-size:13px;"> · ${escapeHtml(g.house_name)} · ${g.listing_type === "house_trade" ? "For Trade" : "Looking For"} · ${g.count} duplicates</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          ${g.listings.map((l, i) => `
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;background:var(--bg);border:1px solid var(--line);border-radius:10px;" id="dupe-row-${l.id}">
+              ${l.thumbnail ? `<img src="${escapeHtml(l.thumbnail)}" style="width:48px;height:48px;object-fit:cover;border-radius:6px;flex-shrink:0;">` : `<div style="width:48px;height:48px;background:var(--surface);border-radius:6px;flex-shrink:0;"></div>`}
+              <div style="flex:1;min-width:0;">
+                <div style="font-weight:600;font-size:14px;">${escapeHtml(l.title)}</div>
+                <div style="font-size:12px;color:var(--muted);">${i === 0 ? "✓ Keeper (oldest)" : "Duplicate"} · Listed ${new Date(l.created_at).toLocaleString()}</div>
+              </div>
+              ${i === 0
+                ? `<span style="font-size:12px;color:var(--muted);padding:6px 10px;">Kept</span>`
+                : `<button class="btn btn-secondary" style="font-size:13px;padding:6px 14px;flex-shrink:0;" onclick="deleteDupe('${l.id}')">Delete</button>`
+              }
+              <a href="/listings/listing.html?id=${l.id}" target="_blank" style="font-size:12px;color:var(--accent);flex-shrink:0;">View →</a>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    `).join("");
+  }
+
+  async function deleteDupe(listingId) {
+    if (!confirm("Delete this duplicate listing? This cannot be undone.")) return;
+    const pw = getAdminPassword();
+    const btn = document.querySelector(`#dupe-row-${listingId} button`);
+    if (btn) { btn.disabled = true; btn.textContent = "Deleting…"; }
+    try {
+      const res = await fetch("/.netlify/functions/admin-dupe-listings", {
+        method: "POST",
+        headers: { "X-Admin-Password": pw, "Content-Type": "application/json" },
+        body: JSON.stringify({ listing_id: listingId }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Delete failed");
+      const row = document.getElementById(`dupe-row-${listingId}`);
+      if (row) row.remove();
+    } catch (err) {
+      alert("Error: " + err.message);
+      if (btn) { btn.disabled = false; btn.textContent = "Delete"; }
+    }
   }
 
   document.getElementById("login-btn").addEventListener("click", async () => {
