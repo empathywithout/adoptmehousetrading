@@ -117,30 +117,20 @@
     } catch {}
   }
 
-  // ── Sort pills ──────────────────────────────────────────────
-  const sortPills = document.createElement("div");
-  sortPills.className = "filter-pills";
-  sortPills.style.marginBottom = "8px";
-  sortPills.innerHTML = `
-    <button data-sort="recent" class="active">Most Recent</button>
-    <button data-sort="saves">Most Saved</button>`;
-  document.getElementById("theme-select").closest("div").insertAdjacentElement("beforebegin", sortPills);
-  sortPills.querySelectorAll("button").forEach(btn => {
-    btn.addEventListener("click", () => {
-      activeSort = btn.dataset.sort;
-      sortPills.querySelectorAll("button").forEach(b => b.classList.toggle("active", b === btn));
-      render();
-    });
-  });
-
-  // ── Pill filters ─────────────────────────────────────────────
+  // ── Pill filters (sort + build + theme) ─────────────────────
   function renderThemePills() {
     const themesInUse = [...new Set(entries.flatMap(e => e.themes || []))];
     const themes = themesInUse.map(t => ({ val: t, label: THEME_LABELS[t] || t }));
     mountPillFilters(document.getElementById("pf-container"), {
+      sort: true,
+      sorts: [
+        { val: "recent", label: "Most Recent" },
+        { val: "saves",  label: "Most Saved" },
+      ],
       build: true, theme: true,
       themes,
       onChange(state) {
+        activeSort  = state.sort;
         activeTheme = state.theme;
         activeClone = state.build;
         glitchOnly  = state.glitch;
