@@ -24,6 +24,13 @@ if (raw && pillEl) {
     const prefix = "../".repeat(Math.max(0, depth));
 
     pillEl.innerHTML = `<a href="${prefix}profile.html" class="nav-pill">${label}</a>`;
+
+    // The plain "Profile" text link is redundant once the pill (which also
+    // links to profile.html) is showing — hide it to avoid a cramped,
+    // confusing "Profile [pill]" cluster in the nav.
+    document.querySelectorAll('.site-nav nav a[href$="profile.html"]').forEach((link) => {
+      if (!link.classList.contains("nav-pill")) link.style.display = "none";
+    });
   } catch {
     // malformed stored profile — leave the pill empty rather than break the page
   }

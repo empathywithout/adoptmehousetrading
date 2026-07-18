@@ -266,7 +266,7 @@ img { max-width: 100%; display: block; }
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   flex-shrink: 0;
 }
 
@@ -276,12 +276,14 @@ img { max-width: 100%; display: block; }
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 999px;
-  padding: 8px 16px;
+  padding: 8px 14px;
   font-size: 13.5px;
   color: var(--ink);
   font-weight: 600;
   white-space: nowrap;
+  text-decoration: none;
 }
+.nav-pill:hover { background: var(--surface-2); }
 
 .theme-toggle {
   background: var(--surface);
@@ -291,14 +293,13 @@ img { max-width: 100%; display: block; }
   height: 36px;
   font-size: 16px;
   cursor: pointer;
-  margin-right: 8px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 .theme-toggle:hover { background: var(--surface-2); }
 
-.nav-bell-wrap { position: relative; display: inline-flex; margin-right: 8px; }
+.nav-bell-wrap { position: relative; display: inline-flex; }
 .nav-bell {
   background: none;
   border: none;
