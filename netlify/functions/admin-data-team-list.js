@@ -12,11 +12,13 @@ async function handlerImpl(event) {
   }
 
   const db = supabaseAdmin();
-  const { data, error } = await db
+  const showAll = event.queryStringParameters?.all === "1";
+  let query = db
     .from("data_team_applications")
     .select("*, profiles(display_name, email, created_at)")
-    .eq("status", "pending")
     .order("created_at", { ascending: true });
+  if (!showAll) query = query.eq("status", "pending");
+  const { data, error } = await query;
 
   if (error) {
     console.error("netlify/functions/admin-data-team-list.js error:", JSON.stringify(error));

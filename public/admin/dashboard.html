@@ -218,12 +218,12 @@
       <div id="empty-disputes" class="empty-state" hidden><strong>All clear</strong>No pending disputes.</div>
     </div>
     <div class="tab-panel" id="tab-applications">
-      <p class="section-title">Data Team Applications</p>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;"><p class="section-title" style="margin:0;">Data Team Applications</p><button class="act act-ghost" id="toggle-all-applications" style="font-size:12px;padding:6px 12px;">Show all statuses</button></div>
       <div id="applications-list"></div>
       <div id="empty-applications" class="empty-state" hidden><strong>Nothing to review</strong>No pending applications.</div>
     </div>
     <div class="tab-panel" id="tab-guides">
-      <p class="section-title">Guide Submissions</p>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;"><p class="section-title" style="margin:0;">Guide Submissions</p><button class="act act-ghost" id="toggle-all-guides" style="font-size:12px;padding:6px 12px;">Show all statuses</button></div>
       <div id="content-list"></div>
       <div id="empty-content" class="empty-state" hidden><strong>All caught up</strong>No pending guide submissions.</div>
     </div>
@@ -259,14 +259,17 @@
   });
 
   // ── Load ──
+  let showAllApplications = false;
+  let showAllGuides = false;
+
   async function tryLoad() {
     const pw = getAdminPassword();
     if (!pw) return;
     try {
       const [disputesRes, applicationsRes, contentRes, statsRes, dupesRes] = await Promise.all([
         fetch("/.netlify/functions/admin-disputes-list",  { headers: { "X-Admin-Password": pw } }),
-        fetch("/.netlify/functions/admin-data-team-list", { headers: { "X-Admin-Password": pw } }),
-        fetch("/.netlify/functions/admin-content-list",   { headers: { "X-Admin-Password": pw } }),
+        fetch(`/.netlify/functions/admin-data-team-list${showAllApplications ? "?all=1" : ""}`, { headers: { "X-Admin-Password": pw } }),
+        fetch(`/.netlify/functions/admin-content-list${showAllGuides ? "?all=1" : ""}`,   { headers: { "X-Admin-Password": pw } }),
         fetch("/.netlify/functions/admin-stats",          { headers: { "X-Admin-Password": pw } }),
         fetch("/.netlify/functions/admin-dupe-listings",  { headers: { "X-Admin-Password": pw } }),
       ]);
@@ -392,7 +395,7 @@
     empty.hidden = true;
     list.innerHTML = applications.map(a => `
       <div class="admin-card">
-        <div class="admin-card-title">${escapeHtml(a.profiles?.display_name || "unknown")}</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;"><div class="admin-card-title">${escapeHtml(a.profiles?.display_name || "unknown")}</div><span class="tag-pill${a.status !== "pending" ? " warn" : ""}">${escapeHtml(a.status)}</span></div>
         <div class="admin-card-meta">${escapeHtml(a.profiles?.email || "no email")} · Member since ${new Date(a.profiles?.created_at || a.created_at).toLocaleDateString()} · Applied ${new Date(a.created_at).toLocaleDateString()}</div>
         <p style="margin:0;font-size:14px;">${escapeHtml(a.message)}</p>
         <div class="action-row">
@@ -436,7 +439,7 @@
       return `
       <div class="admin-card">
         <span class="tag-pill" style="margin-bottom:8px;display:inline-block;">${GUIDE_CATEGORY_LABELS[s.category] || s.category}</span>
-        <div class="admin-card-title">${escapeHtml(s.title)}</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;"><div class="admin-card-title">${escapeHtml(s.title)}</div><span class="tag-pill${s.status !== "pending" ? " warn" : ""}">${escapeHtml(s.status)}</span></div>
         <div class="admin-card-meta">By ${escapeHtml(s.profiles?.display_name || "unknown")} (${escapeHtml(s.profiles?.email || "no email")})</div>
         ${s.photos?.length ? `<div style="display:flex;gap:8px;margin-bottom:10px;">${s.photos.map(p => `<img src="${p}" alt="" style="width:64px;height:64px;border-radius:8px;object-fit:cover;">`).join("")}</div>` : ""}
         <p data-body-preview="${s.id}" style="margin:0 0 6px;white-space:pre-wrap;font-size:14px;">${escapeHtml(preview)}</p>
@@ -552,6 +555,18 @@
     }
   }
   window.deleteDupe = deleteDupe;
+
+  document.getElementById("toggle-all-applications").addEventListener("click", async () => {
+    showAllApplications = !showAllApplications;
+    document.getElementById("toggle-all-applications").textContent = showAllApplications ? "Pending only" : "Show all statuses";
+    await tryLoad();
+  });
+
+  document.getElementById("toggle-all-guides").addEventListener("click", async () => {
+    showAllGuides = !showAllGuides;
+    document.getElementById("toggle-all-guides").textContent = showAllGuides ? "Pending only" : "Show all statuses";
+    await tryLoad();
+  });
 
   document.getElementById("login-btn").addEventListener("click", async () => {
     const pw = document.getElementById("admin-password").value;
