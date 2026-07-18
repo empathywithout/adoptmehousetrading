@@ -10,186 +10,470 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/style.css">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1156955048210674" crossorigin="anonymous"></script>
+<style>
+  * { box-sizing: border-box; }
+
+  body { margin: 0; background: var(--paper); }
+
+  /* ── Login ── */
+  #login-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  #login-box {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+  }
+  #login-box h1 { font-family: var(--font-display); font-size: 26px; margin: 0 0 4px; color: var(--ink); }
+  #login-box p  { font-size: 13px; color: var(--muted); margin: 0 0 28px; }
+  #login-box input {
+    width: 100%; padding: 11px 14px; border: 1.5px solid var(--line);
+    border-radius: 10px; background: var(--paper); color: var(--ink);
+    font-size: 15px; font-family: var(--font-body); margin-bottom: 12px;
+  }
+  #login-box input:focus { outline: none; border-color: var(--accent); }
+  #login-box button {
+    width: 100%; padding: 12px; background: var(--accent); color: #fff;
+    border: none; border-radius: 10px; font-size: 15px; font-weight: 700;
+    font-family: var(--font-body); cursor: pointer;
+  }
+  #login-box button:hover { background: var(--accent-dark); }
+  #login-error {
+    background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent);
+    border-radius: 8px; padding: 10px 14px; font-size: 13px; font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  /* ── Shell ── */
+  #app { display: none; min-height: 100vh; }
+
+  /* ── Top bar ── */
+  #topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 28px; height: 56px;
+    background: var(--surface); border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 10;
+  }
+  #topbar .logo { font-family: var(--font-display); font-size: 17px; font-weight: 800; color: var(--ink); }
+  #topbar .logo span { color: var(--accent); }
+  #topbar-nav { display: flex; gap: 4px; }
+  .tab-btn {
+    padding: 6px 14px; border: none; background: transparent; border-radius: 8px;
+    font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer;
+    font-family: var(--font-body); display: flex; align-items: center; gap: 6px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .tab-btn:hover { background: var(--surface-2); color: var(--ink); }
+  .tab-btn.active { background: var(--accent-soft); color: var(--accent); }
+  .tab-btn .badge {
+    background: var(--accent); color: #fff; border-radius: 999px;
+    font-size: 10px; font-weight: 800; padding: 1px 6px; min-width: 18px; text-align: center;
+  }
+  #logout-btn {
+    padding: 6px 14px; border: 1.5px solid var(--line); background: transparent;
+    border-radius: 8px; font-size: 13px; font-weight: 600; color: var(--muted);
+    cursor: pointer; font-family: var(--font-body);
+  }
+  #logout-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── Stats bar ── */
+  #stats-bar {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px;
+    padding: 20px 28px; border-bottom: 1px solid var(--line);
+    background: var(--paper);
+  }
+  .stat-card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px 16px; text-align: center;
+  }
+  .stat-card.alert { border-color: var(--accent); background: var(--accent-soft); }
+  .stat-val { font-family: var(--font-display); font-size: 26px; font-weight: 800; color: var(--ink); }
+  .stat-card.alert .stat-val { color: var(--accent); }
+  .stat-lbl { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; margin-top: 2px; }
+
+  /* ── Content area ── */
+  #content { padding: 28px; max-width: 900px; }
+
+  .section-title {
+    font-family: var(--font-display); font-size: 20px; font-weight: 800;
+    color: var(--ink); margin: 0 0 16px;
+  }
+
+  /* ── Cards ── */
+  .admin-card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 16px; padding: 20px; margin-bottom: 12px;
+  }
+  .admin-card-title { font-size: 16px; font-weight: 700; color: var(--ink); margin: 0 0 2px; }
+  .admin-card-meta  { font-size: 12px; color: var(--muted); margin: 0 0 12px; }
+
+  .empty-state {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+    padding: 32px; text-align: center; color: var(--muted); font-size: 14px;
+  }
+  .empty-state strong { display: block; font-size: 16px; color: var(--ink); margin-bottom: 4px; }
+
+  /* ── Action buttons ── */
+  .action-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  .act { padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; font-family: var(--font-body); }
+  .act-approve { background: var(--good); color: #fff; }
+  .act-approve:hover { opacity: 0.88; }
+  .act-reject  { background: var(--surface-2); color: var(--ink); border: 1.5px solid var(--line); }
+  .act-reject:hover  { border-color: var(--accent); color: var(--accent); }
+  .act-danger  { background: var(--accent-soft); color: var(--accent); border: 1.5px solid var(--accent); }
+  .act-danger:hover  { background: var(--accent); color: #fff; }
+  .act-ghost   { background: transparent; color: var(--muted); border: 1.5px solid var(--line); }
+  .act-ghost:hover   { border-color: var(--ink); color: var(--ink); }
+
+  /* ── Pill ── */
+  .tag-pill {
+    display: inline-block; padding: 2px 10px; border-radius: 999px;
+    font-size: 11px; font-weight: 700; background: var(--surface-2); color: var(--ink-soft);
+  }
+  .tag-pill.warn { background: #FEF3C7; color: #92400E; }
+
+  /* ── Dupe rows ── */
+  .dupe-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 12px; background: var(--paper);
+    border: 1px solid var(--line); border-radius: 10px; margin-bottom: 6px;
+  }
+  .dupe-row img, .dupe-thumb-empty {
+    width: 44px; height: 44px; border-radius: 8px; object-fit: cover; flex-shrink: 0;
+  }
+  .dupe-thumb-empty { background: var(--surface-2); }
+  .dupe-row-info { flex: 1; min-width: 0; }
+  .dupe-row-title { font-size: 14px; font-weight: 600; color: var(--ink); }
+  .dupe-row-meta  { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .keeper-badge {
+    font-size: 11px; font-weight: 700; color: var(--good);
+    background: var(--good-soft); padding: 3px 10px; border-radius: 999px; flex-shrink: 0;
+  }
+
+  /* ── Proof box ── */
+  .proof-box {
+    margin: 10px 0; padding: 10px 12px;
+    background: var(--accent-soft); border: 1px solid var(--accent); border-radius: 8px;
+  }
+  .proof-box-label { font-size: 10px; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .proof-box a { color: var(--accent); word-break: break-all; font-size: 13px; }
+  .no-proof {
+    margin: 10px 0; padding: 8px 12px;
+    background: var(--surface-2); border-radius: 8px; font-size: 12px; color: var(--muted);
+  }
+  .rebuttal-box {
+    margin-top: 12px; padding: 12px; background: var(--surface-2); border-radius: 8px;
+  }
+  .rebuttal-label { font-size: 10px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+
+  /* ── Tab panels ── */
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  @media (max-width: 700px) {
+    #stats-bar { grid-template-columns: repeat(3, 1fr); }
+    #topbar-nav .tab-btn span:not(.badge) { display: none; }
+  }
+</style>
 </head>
 <body>
-<section class="wrap" style="padding: 48px 0 80px;">
 
-  <div class="form-card" id="login-card">
-    <h1>Admin Dashboard</h1>
-    <p class="subtitle">Not linked from anywhere on the site — bookmark this page.</p>
-    <div id="login-error" class="error-box" hidden></div>
-    <label class="field-label" style="margin-top:0;" for="admin-password">Admin password</label>
-    <input type="password" id="admin-password" placeholder="••••••••">
-    <div class="hero-ctas" style="justify-content: flex-start; margin-top: 20px;">
-      <button class="btn btn-primary" id="login-btn">Log In</button>
-    </div>
+<!-- Login -->
+<div id="login-screen">
+  <div id="login-box">
+    <h1>Admin <span style="color:var(--accent)">Dashboard</span></h1>
+    <p>Not linked from anywhere — bookmark this page.</p>
+    <div id="login-error" hidden></div>
+    <input type="password" id="admin-password" placeholder="Admin password" autocomplete="current-password">
+    <button id="login-btn">Log In</button>
+  </div>
+</div>
+
+<!-- App shell -->
+<div id="app">
+  <div id="topbar">
+    <div class="logo">AMHT <span>Admin</span></div>
+    <nav id="topbar-nav">
+      <button class="tab-btn active" data-tab="disputes"><span>Disputes</span> <span class="badge" id="badge-disputes">0</span></button>
+      <button class="tab-btn" data-tab="applications"><span>Applications</span> <span class="badge" id="badge-applications">0</span></button>
+      <button class="tab-btn" data-tab="guides"><span>Guides</span> <span class="badge" id="badge-guides">0</span></button>
+      <button class="tab-btn" data-tab="dupes"><span>Duplicates</span> <span class="badge" id="badge-dupes">0</span></button>
+    </nav>
+    <button id="logout-btn">Log out</button>
   </div>
 
-  <div id="disputes-view" hidden>
-    <!-- Site stats snapshot -->
-    <div id="stats-bar" style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:28px;"></div>
+  <div id="stats-bar"></div>
 
-    <div class="section-head"><h2>Pending Disputes</h2></div>
-    <div id="disputes-list"></div>
-    <div id="empty-disputes" class="form-card" hidden>
-      <h1>No pending disputes</h1>
-      <p class="subtitle">Everything's resolved.</p>
+  <div id="content">
+    <div class="tab-panel active" id="tab-disputes">
+      <p class="section-title">Pending Disputes</p>
+      <div id="disputes-list"></div>
+      <div id="empty-disputes" class="empty-state" hidden><strong>All clear</strong>No pending disputes.</div>
     </div>
-
-    <div class="section-head" style="margin-top:36px;"><h2>Pending Data Team Applications</h2></div>
-    <div id="applications-list"></div>
-    <div id="empty-applications" class="form-card" hidden>
-      <h1>No pending applications</h1>
-      <p class="subtitle">Nothing to review right now.</p>
+    <div class="tab-panel" id="tab-applications">
+      <p class="section-title">Data Team Applications</p>
+      <div id="applications-list"></div>
+      <div id="empty-applications" class="empty-state" hidden><strong>Nothing to review</strong>No pending applications.</div>
     </div>
-
-    <div class="section-head" style="margin-top:36px;"><h2>Pending Guide Submissions</h2></div>
-    <div id="content-list"></div>
-    <div id="empty-content" class="form-card" hidden>
-      <h1>No pending submissions</h1>
-      <p class="subtitle">Nothing to review right now.</p>
+    <div class="tab-panel" id="tab-guides">
+      <p class="section-title">Guide Submissions</p>
+      <div id="content-list"></div>
+      <div id="empty-content" class="empty-state" hidden><strong>All caught up</strong>No pending guide submissions.</div>
     </div>
-
-    <div class="section-head" style="margin-top:36px;"><h2>Duplicate Listings</h2></div>
-    <div id="dupes-list"></div>
-    <div id="empty-dupes" class="form-card" hidden>
-      <h1>No duplicates found</h1>
-      <p class="subtitle">All listings look clean.</p>
+    <div class="tab-panel" id="tab-dupes">
+      <p class="section-title">Duplicate Listings</p>
+      <div id="dupes-list"></div>
+      <div id="empty-dupes" class="empty-state" hidden><strong>Listings look clean</strong>No duplicates found.</div>
     </div>
   </div>
-
-</section>
+</div>
 
 <script type="module">
   const SESSION_KEY = "amht_admin_password";
 
   function escapeHtml(str) {
-    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
   }
+  function getAdminPassword() { return sessionStorage.getItem(SESSION_KEY); }
 
-  function getAdminPassword() {
-    return sessionStorage.getItem(SESSION_KEY);
-  }
+  // ── Tab switching ──
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+      btn.classList.add("active");
+      document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
+    });
+  });
 
+  document.getElementById("logout-btn").addEventListener("click", () => {
+    sessionStorage.removeItem(SESSION_KEY);
+    location.reload();
+  });
+
+  // ── Load ──
   async function tryLoad() {
     const pw = getAdminPassword();
     if (!pw) return;
     try {
       const [disputesRes, applicationsRes, contentRes, statsRes, dupesRes] = await Promise.all([
-        fetch("/.netlify/functions/admin-disputes-list", { headers: { "X-Admin-Password": pw } }),
+        fetch("/.netlify/functions/admin-disputes-list",  { headers: { "X-Admin-Password": pw } }),
         fetch("/.netlify/functions/admin-data-team-list", { headers: { "X-Admin-Password": pw } }),
-        fetch("/.netlify/functions/admin-content-list", { headers: { "X-Admin-Password": pw } }),
-        fetch("/.netlify/functions/admin-stats", { headers: { "X-Admin-Password": pw } }),
-        fetch("/.netlify/functions/admin-dupe-listings", { headers: { "X-Admin-Password": pw } }),
+        fetch("/.netlify/functions/admin-content-list",   { headers: { "X-Admin-Password": pw } }),
+        fetch("/.netlify/functions/admin-stats",          { headers: { "X-Admin-Password": pw } }),
+        fetch("/.netlify/functions/admin-dupe-listings",  { headers: { "X-Admin-Password": pw } }),
       ]);
-      const disputesData = await disputesRes.json();
-      const applicationsData = await applicationsRes.json();
-      const contentData = await contentRes.json();
-      const statsData = await statsRes.json();
-      const dupesData = await dupesRes.json();
+      const [disputesData, applicationsData, contentData, statsData, dupesData] = await Promise.all([
+        disputesRes.json(), applicationsRes.json(), contentRes.json(), statsRes.json(), dupesRes.json(),
+      ]);
       const failedRes = [disputesRes, applicationsRes, contentRes].find(r => !r.ok);
-      const failedData = failedRes === disputesRes ? disputesData : failedRes === applicationsRes ? applicationsData : contentData;
-      if (failedRes) throw new Error(failedData?.error || "Login failed — check password or Netlify env vars");
-      document.getElementById("login-card").hidden = true;
-      document.getElementById("disputes-view").hidden = false;
+      if (failedRes) {
+        const fd = failedRes === disputesRes ? disputesData : failedRes === applicationsRes ? applicationsData : contentData;
+        throw new Error(fd?.error || "Login failed — check password or Netlify env vars");
+      }
+      document.getElementById("login-screen").style.display = "none";
+      document.getElementById("app").style.display = "block";
       renderStats(statsData.stats || {});
-      renderDisputes(disputesData.disputes);
+      renderDisputes(disputesData.disputes || []);
       renderApplications(applicationsData.applications || []);
       renderContentSubmissions(contentData.submissions || []);
       renderDupes(dupesData.groups || []);
     } catch (err) {
       sessionStorage.removeItem(SESSION_KEY);
-      document.getElementById("login-error").textContent = err.message;
-      document.getElementById("login-error").hidden = false;
+      const el = document.getElementById("login-error");
+      el.textContent = err.message;
+      el.hidden = false;
     }
   }
 
+  function setBadge(id, count) {
+    const el = document.getElementById(id);
+    el.textContent = count;
+    el.style.display = count > 0 ? "" : "none";
+  }
+
+  // ── Stats ──
   function renderStats(s) {
-    const statItems = [
-      { label: "Total Users", value: s.users ?? "—" },
-      { label: "Active Listings", value: s.active_listings ?? "—" },
-      { label: "Verified Trades", value: s.verified_trades ?? "—" },
-      { label: "Data Team", value: s.data_team_members ?? "—" },
-      { label: "Pending Guides", value: s.pending_guides ?? "—", highlight: s.pending_guides > 0 },
-      { label: "Pending Disputes", value: s.pending_disputes ?? "—", highlight: s.pending_disputes > 0 },
+    const items = [
+      { label: "Total Users",       value: s.users ?? "—" },
+      { label: "Active Listings",   value: s.active_listings ?? "—" },
+      { label: "Verified Trades",   value: s.verified_trades ?? "—" },
+      { label: "Data Team",         value: s.data_team_members ?? "—" },
+      { label: "Pending Guides",    value: s.pending_guides ?? "—",    alert: s.pending_guides > 0 },
+      { label: "Pending Disputes",  value: s.pending_disputes ?? "—",  alert: s.pending_disputes > 0 },
     ];
-    document.getElementById("stats-bar").innerHTML = statItems.map(item => `
-      <div style="background:var(--surface);border:1px solid ${item.highlight ? "var(--accent)" : "var(--line)"};border-radius:12px;padding:14px 16px;text-align:center;">
-        <div style="font-family:var(--font-display);font-size:24px;font-weight:800;color:${item.highlight ? "var(--accent)" : "var(--ink)"};">${item.value}</div>
-        <div style="font-size:11px;color:var(--muted);font-weight:600;margin-top:2px;text-transform:uppercase;letter-spacing:0.5px;">${item.label}</div>
+    document.getElementById("stats-bar").innerHTML = items.map(i => `
+      <div class="stat-card${i.alert ? " alert" : ""}">
+        <div class="stat-val">${i.value}</div>
+        <div class="stat-lbl">${i.label}</div>
       </div>`).join("");
   }
 
-  const GUIDE_CATEGORY_LABELS = { theme_build: "Theme Build Guide", budget_build: "Budget / Challenge Build", building_technique: "Building Technique", trading_guide: "Trading & Values Guide" };
+  // ── Disputes ──
+  const DISPUTE_TYPE_LABELS = {
+    i_am_original:      "Claims to be original creator",
+    this_is_clone:      "Claims this is a clone",
+    this_is_speedbuild: "Claims this is a speedbuild",
+    other:              "Other issue",
+  };
+
+  function renderDisputes(disputes) {
+    const list  = document.getElementById("disputes-list");
+    const empty = document.getElementById("empty-disputes");
+    setBadge("badge-disputes", disputes.length);
+    if (!disputes.length) { empty.hidden = false; list.innerHTML = ""; return; }
+    empty.hidden = true;
+    list.innerHTML = disputes.map(d => {
+      const entry = d.build_registry;
+      const photo = entry?.photos?.[0] || "../images/brand/searchdog.png";
+      const proofSection = d.proof_url
+        ? `<div class="proof-box"><div class="proof-box-label">📎 Proof Submitted</div><a href="${escapeHtml(d.proof_url)}" target="_blank" rel="noopener">${escapeHtml(d.proof_url)}</a></div>`
+        : `<div class="no-proof">⚠️ No proof URL submitted</div>`;
+      const rebuttalSection = d.rebuttal
+        ? `<div class="rebuttal-box"><div class="rebuttal-label">Builder's Response</div><p style="margin:0 0 6px;font-size:13px;">${escapeHtml(d.rebuttal)}</p>${d.rebuttal_proof_url ? `<a href="${escapeHtml(d.rebuttal_proof_url)}" target="_blank" rel="noopener" style="color:var(--accent);font-size:12px;">📎 Builder's proof ↗</a>` : ""}</div>`
+        : `<p style="font-size:12px;color:var(--muted);margin:8px 0 0;">No response from the builder yet.</p>`;
+      return `
+      <div class="admin-card">
+        <div style="display:flex;gap:16px;">
+          <img src="${photo}" alt="" style="width:72px;height:72px;border-radius:10px;object-fit:cover;flex-shrink:0;">
+          <div style="flex:1;min-width:0;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:2px;">
+              <div class="admin-card-title">${escapeHtml(entry?.title || "Unknown build")}</div>
+              <span class="tag-pill warn">${escapeHtml(DISPUTE_TYPE_LABELS[d.dispute_type] || "Dispute")}</span>
+            </div>
+            <div class="admin-card-meta">Registered by ${escapeHtml(entry?.profiles?.display_name || "unknown")} · <a href="../registry/entry.html?id=${entry?.id}" target="_blank" style="color:var(--accent);">View entry ↗</a></div>
+            <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">Claim — by ${escapeHtml(d.profiles?.display_name || "unknown")}</div>
+            <p style="margin:0;font-size:13px;line-height:1.5;">${escapeHtml(d.claim)}</p>
+            ${proofSection}${rebuttalSection}
+            <div class="action-row">
+              <button class="act act-danger" data-resolve="${d.id}" data-ruling="upheld">Uphold — Mark as Clone</button>
+              <button class="act act-approve" data-resolve="${d.id}" data-ruling="rejected">Reject — Confirm Original</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    }).join("");
+
+    list.querySelectorAll("[data-resolve]").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const label = btn.dataset.ruling === "upheld" ? "mark as confirmed clone" : "confirm as original";
+        if (!confirm(`Sure you want to ${label}? This can't be undone from here.`)) return;
+        try {
+          const res = await fetch("/.netlify/functions/admin-disputes-resolve", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "X-Admin-Password": getAdminPassword() },
+            body: JSON.stringify({ dispute_id: btn.dataset.resolve, ruling: btn.dataset.ruling }),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || "Couldn't resolve");
+          await tryLoad();
+        } catch (err) { alert(err.message); }
+      });
+    });
+  }
+
+  // ── Applications ──
+  function renderApplications(applications) {
+    const list  = document.getElementById("applications-list");
+    const empty = document.getElementById("empty-applications");
+    setBadge("badge-applications", applications.length);
+    if (!applications.length) { empty.hidden = false; list.innerHTML = ""; return; }
+    empty.hidden = true;
+    list.innerHTML = applications.map(a => `
+      <div class="admin-card">
+        <div class="admin-card-title">${escapeHtml(a.profiles?.display_name || "unknown")}</div>
+        <div class="admin-card-meta">${escapeHtml(a.profiles?.email || "no email")} · Member since ${new Date(a.profiles?.created_at || a.created_at).toLocaleDateString()} · Applied ${new Date(a.created_at).toLocaleDateString()}</div>
+        <p style="margin:0;font-size:14px;">${escapeHtml(a.message)}</p>
+        <div class="action-row">
+          <button class="act act-approve" data-review="${a.id}" data-decision="approved">Approve</button>
+          <button class="act act-reject"  data-review="${a.id}" data-decision="rejected">Reject</button>
+        </div>
+      </div>`).join("");
+
+    list.querySelectorAll("[data-review]").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        try {
+          const res = await fetch("/.netlify/functions/admin-data-team-approve", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "X-Admin-Password": getAdminPassword() },
+            body: JSON.stringify({ application_id: btn.dataset.review, decision: btn.dataset.decision }),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || "Couldn't update");
+          await tryLoad();
+        } catch (err) { alert(err.message); }
+      });
+    });
+  }
+
+  // ── Guides ──
+  const GUIDE_CATEGORY_LABELS = {
+    theme_build: "Theme Build Guide", budget_build: "Budget / Challenge Build",
+    building_technique: "Building Technique", trading_guide: "Trading & Values Guide",
+  };
 
   function renderContentSubmissions(submissions) {
-    const list = document.getElementById("content-list");
+    const list  = document.getElementById("content-list");
     const empty = document.getElementById("empty-content");
-
-    if (!submissions.length) {
-      empty.hidden = false;
-      list.innerHTML = "";
-      return;
-    }
+    setBadge("badge-guides", submissions.length);
+    if (!submissions.length) { empty.hidden = false; list.innerHTML = ""; return; }
     empty.hidden = true;
+    const PREVIEW_LEN = 400;
+    list.innerHTML = submissions.map(s => {
+      const needsToggle = s.body.length > PREVIEW_LEN;
+      const preview = needsToggle ? s.body.slice(0, PREVIEW_LEN) + "…" : s.body;
+      return `
+      <div class="admin-card">
+        <span class="tag-pill" style="margin-bottom:8px;display:inline-block;">${GUIDE_CATEGORY_LABELS[s.category] || s.category}</span>
+        <div class="admin-card-title">${escapeHtml(s.title)}</div>
+        <div class="admin-card-meta">By ${escapeHtml(s.profiles?.display_name || "unknown")} (${escapeHtml(s.profiles?.email || "no email")})</div>
+        ${s.photos?.length ? `<div style="display:flex;gap:8px;margin-bottom:10px;">${s.photos.map(p => `<img src="${p}" alt="" style="width:64px;height:64px;border-radius:8px;object-fit:cover;">`).join("")}</div>` : ""}
+        <p data-body-preview="${s.id}" style="margin:0 0 6px;white-space:pre-wrap;font-size:14px;">${escapeHtml(preview)}</p>
+        ${needsToggle ? `<button data-toggle-body="${s.id}" data-full="${encodeURIComponent(s.body)}" style="background:none;border:none;color:var(--accent);font-size:13px;font-weight:600;cursor:pointer;padding:0;margin-bottom:10px;">Show more ↓</button>` : ""}
+        <div data-editor-wrap="${s.id}" style="display:none;margin-bottom:12px;">
+          <p style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin:0 0 6px;">Edit before publishing</p>
+          <textarea data-editor="${s.id}" style="width:100%;min-height:240px;font-family:var(--font-body);font-size:13.5px;line-height:1.6;padding:10px;border:1.5px solid var(--line);border-radius:8px;resize:vertical;background:var(--paper);color:var(--ink);">${escapeHtml(s.body)}</textarea>
+        </div>
+        <div class="action-row">
+          <button class="act act-approve" data-content-review="${s.id}" data-decision="approved">Approve & Publish</button>
+          <button class="act act-ghost"   data-toggle-editor="${s.id}">Edit First</button>
+          <button class="act act-reject"  data-content-review="${s.id}" data-decision="rejected">Reject</button>
+        </div>
+      </div>`;
+    }).join("");
 
-    list.innerHTML = submissions
-      .map((s) => {
-        const PREVIEW_LEN = 400;
-        const needsToggle = s.body.length > PREVIEW_LEN;
-        const preview = needsToggle ? s.body.slice(0, PREVIEW_LEN) + "…" : s.body;
-        return `
-        <div class="form-card" style="max-width:none;margin-bottom:16px;">
-          <span class="pill" style="margin-bottom:8px;display:inline-block;">${GUIDE_CATEGORY_LABELS[s.category] || s.category}</span>
-          <h1 style="font-size:18px;">${escapeHtml(s.title)}</h1>
-          <p class="hint" style="margin:2px 0 10px;">By ${escapeHtml(s.profiles?.display_name || "unknown")} (${escapeHtml(s.profiles?.email || "no email")})</p>
-          ${s.photos?.length ? `<div style="display:flex;gap:8px;margin-bottom:10px;">${s.photos.map((p) => `<img src="${p}" alt="" style="width:70px;height:70px;border-radius:8px;object-fit:cover;">`).join("")}</div>` : ""}
-          <p data-body-preview="${s.id}" style="margin:0 0 8px;white-space:pre-wrap;">${escapeHtml(preview)}</p>
-          ${needsToggle ? `<button data-toggle-body="${s.id}" data-full="${encodeURIComponent(s.body)}" style="background:none;border:none;color:var(--accent);font-size:13px;font-weight:600;cursor:pointer;padding:0;margin-bottom:12px;">Show more ↓</button>` : ""}
-          <div data-editor-wrap="${s.id}" style="display:none;margin-bottom:12px;">
-            <p style="font-size:12px;font-weight:600;color:var(--muted);margin:0 0 6px;">Edit before publishing:</p>
-            <textarea data-editor="${s.id}" style="width:100%;min-height:260px;font-family:var(--font-body);font-size:13.5px;line-height:1.6;padding:10px;border:1.5px solid var(--line);border-radius:8px;resize:vertical;box-sizing:border-box;">${escapeHtml(s.body)}</textarea>
-          </div>
-          <div class="hero-ctas" style="justify-content:flex-start;margin-top:4px;flex-wrap:wrap;gap:8px;">
-            <button class="btn-sm accept" data-content-review="${s.id}" data-decision="approved">Approve & Publish</button>
-            <button data-toggle-editor="${s.id}" class="btn-sm" style="background:var(--surface-2);color:var(--ink);">Edit First</button>
-            <button class="btn-sm decline" data-content-review="${s.id}" data-decision="rejected">Reject</button>
-          </div>
-        </div>`;
-      })
-      .join("");
-
-    list.querySelectorAll("[data-toggle-body]").forEach((btn) => {
+    list.querySelectorAll("[data-toggle-body]").forEach(btn => {
       btn.addEventListener("click", () => {
         const id = btn.dataset.toggleBody;
         const preview = list.querySelector(`[data-body-preview="${id}"]`);
         const isExpanded = btn.dataset.expanded === "1";
         if (isExpanded) {
-          const PREVIEW_LEN = 400;
-          const full = decodeURIComponent(btn.dataset.full);
-          preview.textContent = full.slice(0, PREVIEW_LEN) + "…";
-          btn.textContent = "Show more ↓";
-          btn.dataset.expanded = "0";
+          preview.textContent = decodeURIComponent(btn.dataset.full).slice(0, PREVIEW_LEN) + "…";
+          btn.textContent = "Show more ↓"; btn.dataset.expanded = "0";
         } else {
           preview.textContent = decodeURIComponent(btn.dataset.full);
-          btn.textContent = "Show less ↑";
-          btn.dataset.expanded = "1";
+          btn.textContent = "Show less ↑"; btn.dataset.expanded = "1";
         }
       });
     });
 
-    list.querySelectorAll("[data-toggle-editor]").forEach((btn) => {
+    list.querySelectorAll("[data-toggle-editor]").forEach(btn => {
       btn.addEventListener("click", () => {
-        const id = btn.dataset.toggleEditor;
-        const wrap = list.querySelector(`[data-editor-wrap="${id}"]`);
+        const wrap = list.querySelector(`[data-editor-wrap="${btn.dataset.toggleEditor}"]`);
         const isOpen = wrap.style.display !== "none";
         wrap.style.display = isOpen ? "none" : "block";
         btn.textContent = isOpen ? "Edit First" : "Hide Editor";
       });
     });
 
-    list.querySelectorAll("[data-content-review]").forEach((btn) => {
+    list.querySelectorAll("[data-content-review]").forEach(btn => {
       btn.addEventListener("click", async () => {
         try {
           const res = await fetch("/.netlify/functions/admin-content-approve", {
@@ -206,178 +490,48 @@
           const data = await res.json();
           if (!res.ok) throw new Error(data.error || "Couldn't update");
           await tryLoad();
-        } catch (err) {
-          alert(err.message);
-        }
+        } catch (err) { alert(err.message); }
       });
     });
   }
 
-  function renderApplications(applications) {
-    const list = document.getElementById("applications-list");
-    const empty = document.getElementById("empty-applications");
-
-    if (!applications.length) {
-      empty.hidden = false;
-      list.innerHTML = "";
-      return;
-    }
-    empty.hidden = true;
-
-    list.innerHTML = applications
-      .map(
-        (a) => `
-        <div class="form-card" style="max-width:none;margin-bottom:16px;">
-          <h1 style="font-size:18px;">${escapeHtml(a.profiles?.display_name || "unknown")}</h1>
-          <p class="hint" style="margin:2px 0 10px;">${escapeHtml(a.profiles?.email || "no email on file")} · Member since ${new Date(a.profiles?.created_at || a.created_at).toLocaleDateString()} · Applied ${new Date(a.created_at).toLocaleDateString()}</p>
-          <p style="margin:0 0 10px;">${escapeHtml(a.message)}</p>
-          <div class="hero-ctas" style="justify-content:flex-start;">
-            <button class="btn-sm accept" data-review="${a.id}" data-decision="approved">Approve</button>
-            <button class="btn-sm decline" data-review="${a.id}" data-decision="rejected">Reject</button>
-          </div>
-        </div>`
-      )
-      .join("");
-
-    list.querySelectorAll("[data-review]").forEach((btn) => {
-      btn.addEventListener("click", async () => {
-        try {
-          const res = await fetch("/.netlify/functions/admin-data-team-approve", {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "X-Admin-Password": getAdminPassword() },
-            body: JSON.stringify({ application_id: btn.dataset.review, decision: btn.dataset.decision }),
-          });
-          const data = await res.json();
-          if (!res.ok) throw new Error(data.error || "Couldn't update");
-          await tryLoad();
-        } catch (err) {
-          alert(err.message);
-        }
-      });
-    });
-  }
-
-  const DISPUTE_TYPE_LABELS = {
-    i_am_original:      "Claims to be the original creator",
-    this_is_clone:      "Claims this is a clone of another build",
-    this_is_speedbuild: "Claims this is a speedbuild/template",
-    other:              "Other issue",
-  };
-
-  function renderDisputes(disputes) {
-    const list = document.getElementById("disputes-list");
-    const empty = document.getElementById("empty-disputes");
-
-    if (!disputes.length) {
-      empty.hidden = false;
-      list.innerHTML = "";
-      return;
-    }
-    empty.hidden = true;
-
-    list.innerHTML = disputes
-      .map((d) => {
-        const entry = d.build_registry;
-        const photo = entry?.photos?.[0] || "../images/brand/searchdog.png";
-        const disputeTypeLabel = DISPUTE_TYPE_LABELS[d.dispute_type] || "Dispute";
-        const proofSection = d.proof_url
-          ? `<div style="margin:10px 0;padding:10px 12px;background:var(--accent-soft);border:1px solid var(--accent);border-radius:8px;">
-              <div style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">📎 Proof Submitted</div>
-              <a href="${escapeHtml(d.proof_url)}" target="_blank" rel="noopener" style="color:var(--accent);word-break:break-all;font-size:13px;">${escapeHtml(d.proof_url)}</a>
-             </div>`
-          : `<div style="margin:10px 0;padding:8px 12px;background:var(--surface-2);border-radius:8px;font-size:12px;color:var(--muted);">⚠️ No proof URL submitted</div>`;
-        const rebuttalSection = d.rebuttal
-          ? `<div style="margin-top:12px;padding:12px;background:var(--surface-2);border-radius:8px;">
-              <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Builder's Response</div>
-              <p style="margin:0 0 8px;font-size:13px;">${escapeHtml(d.rebuttal)}</p>
-              ${d.rebuttal_proof_url ? `<a href="${escapeHtml(d.rebuttal_proof_url)}" target="_blank" rel="noopener" style="color:var(--accent);font-size:12px;">📎 Builder's proof link ↗</a>` : ""}
-             </div>`
-          : `<p class="hint" style="margin:8px 0 0;">No response from the builder yet.</p>`;
-
-        return `
-        <div class="form-card" style="max-width:none;margin-bottom:16px;">
-          <div style="display:flex;gap:16px;">
-            <img src="${photo}" alt="" style="width:80px;height:80px;border-radius:10px;object-fit:cover;flex-shrink:0;">
-            <div style="flex:1;min-width:0;">
-              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;flex-wrap:wrap;">
-                <h3 style="font-family:var(--font-display);font-size:17px;margin:0 0 2px;">${escapeHtml(entry?.title || "Unknown build")}</h3>
-                <span style="background:var(--butter);color:var(--ink);font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap;">${escapeHtml(disputeTypeLabel)}</span>
-              </div>
-              <p class="hint" style="margin:2px 0 10px;">Registered by ${escapeHtml(entry?.profiles?.display_name || "unknown")} · <a href="../registry/entry.html?id=${entry?.id}" target="_blank">View entry ↗</a></p>
-
-              <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">Claim — by ${escapeHtml(d.profiles?.display_name || "unknown")}</div>
-              <p style="margin:0;font-size:13px;line-height:1.5;">${escapeHtml(d.claim)}</p>
-
-              ${proofSection}
-              ${rebuttalSection}
-
-              <div class="hero-ctas" style="justify-content:flex-start;margin-top:14px;">
-                <button class="btn-sm decline" data-resolve="${d.id}" data-ruling="upheld">Uphold — Mark as Clone</button>
-                <button class="btn-sm accept" data-resolve="${d.id}" data-ruling="rejected">Reject — Confirm Original</button>
-              </div>
-            </div>
-          </div>
-        </div>`;
-      })
-      .join("");
-
-    list.querySelectorAll("[data-resolve]").forEach((btn) => {
-      btn.addEventListener("click", async () => {
-        const label = btn.dataset.ruling === "upheld" ? "mark this as a confirmed clone" : "confirm this as original";
-        if (!confirm(`Are you sure you want to ${label}? This can't be undone from here.`)) return;
-        try {
-          const res = await fetch("/.netlify/functions/admin-disputes-resolve", {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "X-Admin-Password": getAdminPassword() },
-            body: JSON.stringify({ dispute_id: btn.dataset.resolve, ruling: btn.dataset.ruling }),
-          });
-          const data = await res.json();
-          if (!res.ok) throw new Error(data.error || "Couldn't resolve");
-          await tryLoad();
-        } catch (err) {
-          alert(err.message);
-        }
-      });
-    });
-  }
-
+  // ── Dupes ──
   function renderDupes(groups) {
     const container = document.getElementById("dupes-list");
-    const empty = document.getElementById("empty-dupes");
-    if (!groups.length) { empty.hidden = false; return; }
+    const empty     = document.getElementById("empty-dupes");
+    setBadge("badge-dupes", groups.length);
+    if (!groups.length) { empty.hidden = false; container.innerHTML = ""; return; }
     empty.hidden = true;
     container.innerHTML = groups.map(g => `
-      <div class="form-card" style="margin-bottom:16px;" id="dupe-group-${g.profile_id}-${g.house_id}">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+      <div class="admin-card" id="dupe-group-${g.profile_id}-${g.house_id}">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
           <div>
-            <strong>${escapeHtml(g.username)}</strong>
-            <span style="color:var(--muted);font-size:13px;"> · ${escapeHtml(g.house_name)} · ${g.listing_type === "house_trade" ? "For Trade" : "Looking For"} · ${g.count} duplicates</span>
+            <span style="font-weight:700;font-size:15px;color:var(--ink);">${escapeHtml(g.username)}</span>
+            <span style="color:var(--muted);font-size:13px;"> · ${escapeHtml(g.house_name)} · ${g.listing_type === "house_trade" ? "For Trade" : "Looking For"}</span>
           </div>
+          <span class="tag-pill warn">${g.count} dupes</span>
         </div>
-        <div style="display:flex;flex-direction:column;gap:8px;">
-          ${g.listings.map((l, i) => `
-            <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;background:var(--bg);border:1px solid var(--line);border-radius:10px;" id="dupe-row-${l.id}">
-              ${l.thumbnail ? `<img src="${escapeHtml(l.thumbnail)}" style="width:48px;height:48px;object-fit:cover;border-radius:6px;flex-shrink:0;">` : `<div style="width:48px;height:48px;background:var(--surface);border-radius:6px;flex-shrink:0;"></div>`}
-              <div style="flex:1;min-width:0;">
-                <div style="font-weight:600;font-size:14px;">${escapeHtml(l.title)}</div>
-                <div style="font-size:12px;color:var(--muted);">${i === 0 ? "✓ Keeper (oldest)" : "Duplicate"} · Listed ${new Date(l.created_at).toLocaleString()}</div>
-              </div>
-              ${i === 0
-                ? `<span style="font-size:12px;color:var(--muted);padding:6px 10px;">Kept</span>`
-                : `<button class="btn btn-secondary" style="font-size:13px;padding:6px 14px;flex-shrink:0;" onclick="deleteDupe('${l.id}')">Delete</button>`
-              }
-              <a href="/listings/listing.html?id=${l.id}" target="_blank" style="font-size:12px;color:var(--accent);flex-shrink:0;">View →</a>
+        ${g.listings.map((l, i) => `
+          <div class="dupe-row" id="dupe-row-${l.id}">
+            ${l.thumbnail ? `<img src="${escapeHtml(l.thumbnail)}" alt="">` : `<div class="dupe-thumb-empty"></div>`}
+            <div class="dupe-row-info">
+              <div class="dupe-row-title">${escapeHtml(l.title)}</div>
+              <div class="dupe-row-meta">${new Date(l.created_at).toLocaleString()}</div>
             </div>
-          `).join("")}
-        </div>
-      </div>
-    `).join("");
+            ${i === 0
+              ? `<span class="keeper-badge">✓ Keeper</span>`
+              : `<button class="act act-danger" style="font-size:12px;padding:6px 12px;" onclick="deleteDupe('${l.id}')">Delete</button>`
+            }
+            <a href="/listings/listing.html?id=${l.id}" target="_blank" style="font-size:12px;color:var(--accent);flex-shrink:0;text-decoration:none;">View →</a>
+          </div>
+        `).join("")}
+      </div>`).join("");
   }
 
   async function deleteDupe(listingId) {
     if (!confirm("Delete this duplicate listing? This cannot be undone.")) return;
-    const pw = getAdminPassword();
-    const btn = document.querySelector(`#dupe-row-${listingId} button`);
+    const pw  = getAdminPassword();
+    const btn = document.querySelector(`#dupe-row-${listingId} .act-danger`);
     if (btn) { btn.disabled = true; btn.textContent = "Deleting…"; }
     try {
       const res = await fetch("/.netlify/functions/admin-dupe-listings", {
@@ -387,8 +541,7 @@
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Delete failed");
-      const row = document.getElementById(`dupe-row-${listingId}`);
-      if (row) row.remove();
+      document.getElementById(`dupe-row-${listingId}`)?.remove();
     } catch (err) {
       alert("Error: " + err.message);
       if (btn) { btn.disabled = false; btn.textContent = "Delete"; }
@@ -401,6 +554,10 @@
     sessionStorage.setItem(SESSION_KEY, pw);
     document.getElementById("login-error").hidden = true;
     await tryLoad();
+  });
+
+  document.getElementById("admin-password").addEventListener("keydown", e => {
+    if (e.key === "Enter") document.getElementById("login-btn").click();
   });
 
   await tryLoad();
