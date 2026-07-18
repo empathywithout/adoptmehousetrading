@@ -333,7 +333,7 @@
 
   function renderPhotos() {
     const container = document.getElementById("photo-slots");
-    const slots = Math.max(5, photos.length + 1);
+    const slots = Math.max(3, photos.length + 1);
     container.innerHTML = Array.from({ length: Math.min(slots, 8) }, (_, i) => {
       if (photos[i]) {
         return `<div class="photo-slot main" style="position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;">
@@ -381,7 +381,7 @@
     const title = document.getElementById("edit-title").value.trim();
     if (!title) { showError("Title is required."); return; }
 
-    const minPhotos = Math.min(5, (listing.photos || []).length || 1);
+    const minPhotos = Math.min(3, (listing.photos || []).length || 1);
     if (listing.listing_type !== "looking_for" && photos.length < minPhotos) {
       showError(`At least ${minPhotos} photo${minPhotos !== 1 ? 's' : ''} required.`);
       return;

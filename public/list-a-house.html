@@ -87,7 +87,7 @@
 
     <div id="photos-field" style="margin-bottom:28px;">
       <label class="field-label" style="margin-top:0;">Photos</label>
-      <p class="hint" style="margin-top:-4px;margin-bottom:12px;">At least 5 photos required — exterior plus interior shots. Listings with more photos get more offers.</p>
+      <p class="hint" style="margin-top:-4px;margin-bottom:12px;">At least 3 photos required — exterior plus interior shots. Listings with more photos get more offers.</p>
       <div class="photo-slots" id="photo-slots"></div>
     </div>
 
@@ -438,8 +438,8 @@
       errorBox.hidden = false;
       return;
     }
-    if (activeType !== "looking_for" && photos.length < 5) {
-      errorBox.textContent = `Add at least 5 photos (you have ${photos.length}).`;
+    if (activeType !== "looking_for" && photos.length < 3) {
+      errorBox.textContent = `Add at least 3 photos (you have ${photos.length}).`;
       errorBox.hidden = false;
       return;
     }

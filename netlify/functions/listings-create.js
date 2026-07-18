@@ -101,8 +101,8 @@ async function handlerImpl(event) {
 
   // A "looking_for" post doesn't have a house to photograph — the minimum
   // only applies where a real house/example build is actually being shown.
-  if (cleanType !== "looking_for" && cleanPhotos.length < 5) {
-    return json(400, { error: "At least 5 photos are required" });
+  if (cleanType !== "looking_for" && cleanPhotos.length < 3) {
+    return json(400, { error: "At least 3 photos are required" });
   }
 
   const cleanVideoUrl = video_url && /^https?:\/\//.test(video_url) ? String(video_url).slice(0, 500) : null;
