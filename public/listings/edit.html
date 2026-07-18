@@ -187,6 +187,8 @@
 <script type="module">
   import { api, getStoredProfile, THEME_LABELS, CATEGORY_LABELS } from "../js/api.js";
   import { mountItemPicker } from "../js/item-picker.js";
+  import { attachUnicodeEditor } from "../js/unicode-editor.js";
+  attachUnicodeEditor(document.getElementById('edit-description'));
 
   const myProfile = getStoredProfile();
   const params = new URLSearchParams(location.search);
