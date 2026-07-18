@@ -1,16 +1,13 @@
 // pill-filters.js
-// Mounts the new pill-based filter UI.
-// Usage: import { mountPillFilters } from './pill-filters.js';
+// Mounts the pill-based filter UI with multi-select theme search.
 //
-// mountPillFilters(container, options) where options = {
-//   type:   bool  — show listing type filter
-//   build:  bool  — show build type + glitch modifier
-//   theme:  bool  — show theme pills (pass themes array of {val, label} already in use)
-//   sort:   bool  — show sort pills (pass sorts array of {val, label})
-//   search: bool  — show search input
-//   onChange: fn(state) — called whenever any filter changes
+// Usage: mountPillFilters(container, options)
+// options = {
+//   type, build, theme, sort, search: bool
+//   themes: [{val, label}]
+//   sorts:  [{val, label}]
+//   onChange: fn(state) — state.themes is a Set of selected theme vals
 // }
-//
 // Returns { getState, reset }
 
 const THEME_EMOJI = {
@@ -22,11 +19,9 @@ const THEME_EMOJI = {
   custom_theme:'🎲',
 };
 
-const TOP_THEMES = ['cutecore','coquette','cottagecore','cozy','fairycore','gothic','fantasy','royal'];
-
 const CSS = `
 .pf-wrap{margin-bottom:18px;}
-.pf-active-bar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;min-height:0;}
+.pf-active-bar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
 .pf-active-bar:empty{display:none;}
 .pf-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;background:var(--accent-soft);border:1px solid var(--accent);color:var(--accent);font-size:12px;font-weight:600;}
 .pf-chip.glitch{background:#f3f0ff;border-color:#7c3aed;color:#5b21b6;}
@@ -45,8 +40,17 @@ const CSS = `
 .pf-glitch-dot{width:8px;height:8px;border-radius:50%;background:var(--line);flex-shrink:0;transition:background .12s;}
 .pf-glitch.active .pf-glitch-dot{background:#7c3aed;}
 .pf-glitch-hint{font-size:11px;color:var(--muted);margin-top:6px;display:none;}
-.pf-more{display:inline-flex;align-items:center;padding:7px 12px;border-radius:999px;border:1.5px dashed var(--line);background:transparent;color:var(--muted);font-size:13px;cursor:pointer;font-family:inherit;}
-.pf-more:hover{color:var(--ink);border-color:var(--ink-soft);}
+.pf-theme-search-wrap{position:relative;}
+.pf-theme-input{width:100%;padding:9px 34px 9px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font-size:14px;font-family:inherit;outline:none;transition:border-color .12s;}
+.pf-theme-input:focus{border-color:var(--accent);}
+.pf-theme-input::placeholder{color:var(--muted);}
+.pf-theme-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;line-height:1;padding:2px;display:none;}
+.pf-theme-clear:hover{color:var(--ink);}
+.pf-theme-results{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;min-height:0;}
+.pf-theme-result{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--muted);font-size:13px;cursor:pointer;white-space:nowrap;user-select:none;line-height:1;font-family:inherit;transition:all .12s;}
+.pf-theme-result:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);}
+.pf-theme-result.already{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);opacity:0.5;cursor:default;pointer-events:none;}
+.pf-theme-none{font-size:13px;color:var(--muted);padding:6px 2px;}
 .pf-bottom{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:4px;}
 .pf-clear{font-size:12px;color:var(--muted);background:none;border:1.5px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer;font-family:inherit;}
 .pf-clear:hover{color:var(--ink);border-color:var(--ink-soft);}
@@ -56,17 +60,16 @@ const CSS = `
 
 export function mountPillFilters(container, opts = {}) {
   const {
-    type: showType = false,
-    build: showBuild = false,
-    theme: showTheme = false,
-    sort: showSort = false,
+    type:   showType   = false,
+    build:  showBuild  = false,
+    theme:  showTheme  = false,
+    sort:   showSort   = false,
     search: showSearch = false,
     themes = [],
-    sorts = [],
+    sorts  = [],
     onChange = () => {},
   } = opts;
 
-  // Inject styles once
   if (!document.getElementById('pf-styles')) {
     const s = document.createElement('style');
     s.id = 'pf-styles';
@@ -74,19 +77,20 @@ export function mountPillFilters(container, opts = {}) {
     document.head.appendChild(s);
   }
 
-  const state = { type: 'all', build: 'all', glitch: false, theme: 'all', sort: sorts[0]?.val || 'recent', search: '' };
-  let themeExpanded = false;
-  const hiddenThemeVals = themes.filter(t => !TOP_THEMES.includes(t.val)).map(t => t.val);
-  const visibleThemes  = themes.filter(t => TOP_THEMES.includes(t.val));
-  const extraThemes    = themes.filter(t => !TOP_THEMES.includes(t.val));
+  const state = {
+    type: 'all', build: 'all', glitch: false,
+    themes: new Set(),
+    sort: sorts[0]?.val || 'recent',
+    search: '',
+  };
+  let themeQuery = '';
 
+  // ── HTML skeleton ──────────────────────────────────────────
   function html() {
     const parts = [];
 
-    // Active bar
     parts.push(`<div class="pf-active-bar" id="pf-active-bar"></div>`);
 
-    // Sort
     if (showSort && sorts.length) {
       parts.push(`<div class="pf-section">
         <div class="pf-row" id="pf-sort-row">
@@ -95,7 +99,6 @@ export function mountPillFilters(container, opts = {}) {
       </div>`);
     }
 
-    // Type
     if (showType) {
       parts.push(`<div class="pf-section">
         <div class="pf-label">Listing type</div>
@@ -107,7 +110,6 @@ export function mountPillFilters(container, opts = {}) {
       </div>`);
     }
 
-    // Build + glitch
     if (showBuild) {
       parts.push(`<div class="pf-section">
         <div class="pf-label">Build type</div>
@@ -119,28 +121,21 @@ export function mountPillFilters(container, opts = {}) {
           <div class="pf-divider"></div>
           <button class="pf-glitch${state.glitch?' active':''}" id="pf-glitch-btn"><span class="pf-glitch-dot"></span>🌀 Glitch only</button>
         </div>
-        <div class="pf-glitch-hint" id="pf-glitch-hint">Combine with Original or Cloned to narrow further</div>
+        <div class="pf-glitch-hint" id="pf-glitch-hint"${state.glitch?'':' style="display:none"'}>Combine with Original or Cloned to narrow further</div>
       </div>`);
     }
 
-    // Theme
-    if (showTheme && themes.length) {
-      const allThemePills = [
-        `<button class="pf-pill${state.theme==='all'?' active':''}" data-pf-theme="all">All themes</button>`,
-        ...visibleThemes.map(t => `<button class="pf-pill${state.theme===t.val?' active':''}" data-pf-theme="${t.val}">${THEME_EMOJI[t.val]||''} ${t.label}</button>`),
-        ...extraThemes.map(t => `<button class="pf-pill${state.theme===t.val?' active':''}" data-pf-theme="${t.val}" data-pf-hidden="1" style="display:${themeExpanded||state.theme===t.val?'inline-flex':'none'}">${THEME_EMOJI[t.val]||''} ${t.label}</button>`),
-      ];
-      const extraCount = extraThemes.length;
+    if (showTheme) {
       parts.push(`<div class="pf-section">
         <div class="pf-label">Theme</div>
-        <div class="pf-row" id="pf-theme-row">
-          ${allThemePills.join('')}
-          ${extraCount > 0 ? `<button class="pf-more" id="pf-more-btn">${themeExpanded?'− Show less':`+ ${extraCount} more`}</button>` : ''}
+        <div class="pf-theme-search-wrap">
+          <input class="pf-theme-input" id="pf-theme-input" placeholder="Search themes… try cozy, gothic, beach" autocomplete="off" value="${themeQuery}">
+          <button class="pf-theme-clear" id="pf-theme-clear" style="display:${themeQuery?'block':'none'}">×</button>
         </div>
+        <div class="pf-theme-results" id="pf-theme-results"></div>
       </div>`);
     }
 
-    // Bottom row
     const bottomParts = [];
     if (showSearch) bottomParts.push(`<input class="pf-search" id="pf-search" placeholder="Search listings..." value="${state.search}">`);
     bottomParts.push(`<button class="pf-clear" id="pf-clear">✕ Clear all</button>`);
@@ -149,107 +144,142 @@ export function mountPillFilters(container, opts = {}) {
     return parts.join('');
   }
 
-  function render() {
-    container.innerHTML = `<div class="pf-wrap">${html()}</div>`;
-    bind();
-    updateActiveBar();
+  function renderThemeResults() {
+    const resultsEl = container.querySelector('#pf-theme-results');
+    if (!resultsEl) return;
+    const q = themeQuery.toLowerCase().trim();
+    if (!q) { resultsEl.innerHTML = ''; return; }
+    const matches = themes.filter(t =>
+      t.label.toLowerCase().includes(q) || t.val.includes(q)
+    );
+    if (!matches.length) {
+      resultsEl.innerHTML = `<span class="pf-theme-none">No themes match "${q}"</span>`;
+      return;
+    }
+    resultsEl.innerHTML = matches.map(t => {
+      const already = state.themes.has(t.val);
+      return `<button class="pf-theme-result${already?' already':''}" data-pf-theme-pick="${t.val}">${THEME_EMOJI[t.val]||''} ${t.label}${already?' ✓':''}</button>`;
+    }).join('');
+    resultsEl.querySelectorAll('[data-pf-theme-pick]:not(.already)').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.themes.add(btn.dataset.pfThemePick);
+        themeQuery = '';
+        const inp = container.querySelector('#pf-theme-input');
+        const clr = container.querySelector('#pf-theme-clear');
+        if (inp) inp.value = '';
+        if (clr) clr.style.display = 'none';
+        resultsEl.innerHTML = '';
+        updateActiveBar();
+        onChange(exportState());
+      });
+    });
   }
 
   function updateActiveBar() {
     const bar = container.querySelector('#pf-active-bar');
     if (!bar) return;
     const chips = [];
-    const TYPE_LABELS = { house_trade: '🔄 For Trade', looking_for: '👀 Looking For' };
-    const BUILD_LABELS = { original: '⭐ Original', speedbuild: '⚡ Speedbuild', cloned: '◈ Cloned' };
-    if (state.type !== 'all')  chips.push({ label: TYPE_LABELS[state.type],  key: 'type' });
-    if (state.build !== 'all') chips.push({ label: BUILD_LABELS[state.build], key: 'build' });
-    if (state.glitch)          chips.push({ label: '🌀 Glitch only', key: 'glitch', cls: 'glitch' });
-    if (state.theme !== 'all') {
-      const t = themes.find(t => t.val === state.theme);
-      if (t) chips.push({ label: `${THEME_EMOJI[t.val]||''} ${t.label}`, key: 'theme' });
-    }
+    const TYPE_L  = { house_trade:'🔄 For Trade', looking_for:'👀 Looking For' };
+    const BUILD_L = { original:'⭐ Original', speedbuild:'⚡ Speedbuild', cloned:'◈ Cloned' };
+    if (state.type !== 'all')  chips.push({ label: TYPE_L[state.type],   key: 'type' });
+    if (state.build !== 'all') chips.push({ label: BUILD_L[state.build], key: 'build' });
+    if (state.glitch)          chips.push({ label: '🌀 Glitch only',     key: 'glitch', cls: 'glitch' });
+    state.themes.forEach(v => {
+      const t = themes.find(t => t.val === v);
+      if (t) chips.push({ label: `${THEME_EMOJI[v]||''} ${t.label}`, key: `theme:${v}` });
+    });
     bar.innerHTML = chips.map(c =>
-      `<span class="pf-chip${c.cls?' '+c.cls:''}">
-        ${c.label}
-        <button data-pf-remove="${c.key}" aria-label="Remove filter">✕</button>
-      </span>`
+      `<span class="pf-chip${c.cls?' '+c.cls:''}">${c.label}<button data-pf-remove="${c.key}" aria-label="Remove filter">✕</button></span>`
     ).join('');
+    bar.querySelectorAll('[data-pf-remove]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const k = btn.dataset.pfRemove;
+        if (k === 'glitch') {
+          state.glitch = false;
+          container.querySelector('#pf-glitch-btn')?.classList.remove('active');
+          const hint = container.querySelector('#pf-glitch-hint');
+          if (hint) hint.style.display = 'none';
+        } else if (k === 'type') {
+          state.type = 'all';
+          container.querySelectorAll('[data-pf-type]').forEach(p => p.classList.remove('active'));
+          container.querySelector('[data-pf-type="all"]')?.classList.add('active');
+        } else if (k === 'build') {
+          state.build = 'all';
+          container.querySelectorAll('[data-pf-build]').forEach(p => p.classList.remove('active'));
+          container.querySelector('[data-pf-build="all"]')?.classList.add('active');
+        } else if (k.startsWith('theme:')) {
+          state.themes.delete(k.slice(6));
+          renderThemeResults();
+        }
+        updateActiveBar();
+        onChange(exportState());
+      });
+    });
+  }
+
+  function exportState() {
+    return { ...state, themes: new Set(state.themes) };
+  }
+
+  function render() {
+    container.innerHTML = `<div class="pf-wrap">${html()}</div>`;
+    bind();
+    renderThemeResults();
+    updateActiveBar();
   }
 
   function bind() {
-    // Sort
     container.querySelectorAll('[data-pf-sort]').forEach(btn => {
-      btn.addEventListener('click', () => { state.sort = btn.dataset.pfSort; render(); onChange({...state}); });
+      btn.addEventListener('click', () => { state.sort = btn.dataset.pfSort; render(); onChange(exportState()); });
     });
-    // Type
     container.querySelectorAll('[data-pf-type]').forEach(btn => {
-      btn.addEventListener('click', () => { state.type = btn.dataset.pfType; render(); onChange({...state}); });
+      btn.addEventListener('click', () => { state.type = btn.dataset.pfType; render(); onChange(exportState()); });
     });
-    // Build
     container.querySelectorAll('[data-pf-build]').forEach(btn => {
       btn.addEventListener('click', () => {
         state.build = btn.dataset.pfBuild;
-        // Speedbuild can't be glitch
         if (state.glitch && state.build === 'speedbuild') state.glitch = false;
-        render(); onChange({...state});
+        render(); onChange(exportState());
       });
     });
-    // Glitch
-    const glitchBtn = container.querySelector('#pf-glitch-btn');
-    if (glitchBtn) {
-      glitchBtn.addEventListener('click', () => {
-        state.glitch = !state.glitch;
-        if (state.glitch && state.build === 'speedbuild') state.build = 'all';
-        render(); onChange({...state});
-      });
-    }
-    // Theme
-    container.querySelectorAll('[data-pf-theme]').forEach(btn => {
-      btn.addEventListener('click', () => { state.theme = btn.dataset.pfTheme; render(); onChange({...state}); });
+    container.querySelector('#pf-glitch-btn')?.addEventListener('click', () => {
+      state.glitch = !state.glitch;
+      if (state.glitch && state.build === 'speedbuild') state.build = 'all';
+      render(); onChange(exportState());
     });
-    // More themes
-    const moreBtn = container.querySelector('#pf-more-btn');
-    if (moreBtn) {
-      moreBtn.addEventListener('click', () => {
-        themeExpanded = !themeExpanded;
-        if (!themeExpanded && hiddenThemeVals.includes(state.theme)) {
-          state.theme = 'all';
-        }
-        render(); onChange({...state});
-      });
-    }
-    // Search
-    const searchEl = container.querySelector('#pf-search');
-    if (searchEl) {
-      searchEl.addEventListener('input', e => { state.search = e.target.value.toLowerCase(); onChange({...state}); });
-    }
-    // Remove chips
-    container.querySelectorAll('[data-pf-remove]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const k = btn.dataset.pfRemove;
-        if (k === 'glitch') state.glitch = false;
-        else if (k === 'type') state.type = 'all';
-        else if (k === 'build') state.build = 'all';
-        else if (k === 'theme') state.theme = 'all';
-        render(); onChange({...state});
-      });
+
+    // Theme search
+    const themeInput = container.querySelector('#pf-theme-input');
+    const themeClear = container.querySelector('#pf-theme-clear');
+    themeInput?.addEventListener('input', () => {
+      themeQuery = themeInput.value;
+      if (themeClear) themeClear.style.display = themeQuery ? 'block' : 'none';
+      renderThemeResults();
     });
-    // Clear
+    themeClear?.addEventListener('click', () => {
+      themeQuery = ''; themeInput.value = '';
+      themeClear.style.display = 'none';
+      renderThemeResults();
+    });
+
+    container.querySelector('#pf-search')?.addEventListener('input', e => {
+      state.search = e.target.value.toLowerCase(); onChange(exportState());
+    });
     container.querySelector('#pf-clear')?.addEventListener('click', () => {
-      state.type = 'all'; state.build = 'all'; state.glitch = false;
-      state.theme = 'all'; state.search = ''; themeExpanded = false;
-      render(); onChange({...state});
+      state.type='all'; state.build='all'; state.glitch=false;
+      state.themes.clear(); state.search=''; themeQuery='';
+      render(); onChange(exportState());
     });
   }
 
   render();
+
   return {
-    getState: () => ({...state}),
+    getState: () => exportState(),
     reset: () => {
       state.type='all'; state.build='all'; state.glitch=false;
-      state.theme='all'; state.search=''; themeExpanded=false;
-      render(); onChange({...state});
+      state.themes.clear(); state.search=''; themeQuery='';
+      render(); onChange(exportState());
     },
-    setThemes: (newThemes) => { opts.themes = newThemes; Object.assign(opts, {themes: newThemes}); themes.length=0; themes.push(...newThemes); render(); },
   };
 }

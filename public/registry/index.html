@@ -90,7 +90,7 @@
   }
 
   let activeSort = "recent"; // "recent" | "saves"
-  let activeTheme = "all";
+  let activeThemes = new Set();
   let activeClone = "all";
   let glitchOnly = false;
   let savedIds = new Set();
@@ -131,7 +131,7 @@
       themes,
       onChange(state) {
         activeSort  = state.sort;
-        activeTheme = state.theme;
+        activeThemes = state.themes;
         activeClone = state.build;
         glitchOnly  = state.glitch;
         render();
@@ -187,7 +187,7 @@
 
   // ── Main render ─────────────────────────────────────────────
   function render() {
-    let filtered = activeTheme === "all" ? [...entries] : entries.filter(e => (e.themes || []).includes(activeTheme));
+    let filtered = activeThemes.size === 0 ? [...entries] : entries.filter(e => (e.themes || []).some(t => activeThemes.has(t)));
     if (activeClone !== "all") {
       filtered = filtered.filter(e => {
         if (activeClone === "original") return e.build_type === "original" || (!e.build_type && !e.is_cloned);

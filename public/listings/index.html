@@ -102,7 +102,7 @@
 
   let activeFilter = "all";
   let activeHouseId = "all";
-  let activeTheme = "all";
+  let activeThemes = new Set(); // multi-select
   let activeClone = "all";
   let glitchOnly = false;
   let searchTerm = "";
@@ -151,7 +151,7 @@
       themes,
       onChange(state) {
         activeFilter  = state.type;
-        activeTheme   = state.theme;
+        activeThemes  = state.themes;
         activeClone   = state.build;
         glitchOnly    = state.glitch;
         searchTerm    = state.search;
@@ -176,7 +176,7 @@
     const filtered = listings.filter((listing) => {
       const matchesType = activeFilter === "all" || listing.listing_type === activeFilter;
       const matchesHouse = activeHouseId === "all" || listing.house_id === activeHouseId;
-      const matchesTheme = activeTheme === "all" || (listing.themes || []).includes(activeTheme);
+      const matchesTheme = activeThemes.size === 0 || (listing.themes || []).some(t => activeThemes.has(t));
       const matchesSearch = !searchTerm || listing.title.toLowerCase().includes(searchTerm);
       const isGlitchListing = listing.build_type === "glitch_original" || listing.build_type === "glitch_cloned";
       const baseType = isGlitchListing ? listing.build_type.replace("glitch_", "") : listing.build_type;
