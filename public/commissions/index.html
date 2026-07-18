@@ -60,7 +60,7 @@
     Custom Adopt Me house builds for hire — separate from trading an existing house. Browse builders by specialty (cottagecore, gothic, fantasy, custom themes, and more), check their portfolio of registered builds, and pay in Adopt Me items or value, same as everywhere else on this site.
   </p>
 
-  <div class="filter-pills" id="theme-pills"></div>
+  <div id="pf-container"></div>
 
   <div id="empty-state" class="form-card" hidden>
     <span class="card-heading">No builders open right now</span>
@@ -80,6 +80,7 @@
 
 <script type="module">
   import { THEME_LABELS } from "../js/api.js";
+  import { mountPillFilters } from "../js/pill-filters.js";
 
   const grid = document.getElementById("builders-grid");
   const empty = document.getElementById("empty-state");
@@ -87,7 +88,7 @@
   // Open builders only — closed builders never show on this page
   let allBuilders = await fetch("/.netlify/functions/builders-list?status=open")
     .then((r) => r.json()).then((d) => d.builders || []);
-  const activeTheme = "all";
+  let activeTheme = "all";
 
   function escapeHtml(str) {
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -97,21 +98,14 @@
 
   function renderThemePills() {
     const themesInUse = [...new Set(allBuilders.flatMap((b) => b.builder_themes || []))];
-    const themePillsEl = document.getElementById("theme-pills");
-    if (!themesInUse.length) {
-      themePillsEl.hidden = true;
-      return;
-    }
-    const entries = [{ key: "all", label: "All Themes" }, ...themesInUse.map((t) => ({ key: t, label: THEME_LABELS[t] || t }))];
-    themePillsEl.innerHTML = entries
-      .map((t) => `<button data-key="${t.key}" class="${t.key === activeTheme ? "active" : ""}">${t.label}</button>`)
-      .join("");
-    themePillsEl.querySelectorAll("button").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        activeTheme = btn.dataset.key;
-        themePillsEl.querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
+    const themes = themesInUse.map(t => ({ val: t, label: THEME_LABELS[t] || t }));
+    mountPillFilters(document.getElementById("pf-container"), {
+      theme: true,
+      themes,
+      onChange(state) {
+        activeTheme = state.theme;
         render();
-      });
+      }
     });
   }
 

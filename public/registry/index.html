@@ -61,19 +61,7 @@
     Builders spend thousands of Bucks and hours crafting unique houses, only to have cloners copy the design and sell it as their own. When the same build floods the market, original builders lose credit and traders get scammed paying original prices for dupes. The Build Registry is a public, timestamped record of who built what first. Register your build in seconds — if someone disputes your claim, the timestamp wins, but real proof of ownership like early screenshots or videos can override it. Builds go Verified after 30 days with no dispute, or get officially marked Original or Cloned after a real review. Know what you're trading for. Builders get the credit they're owed.
   </p>
 
-  <div class="listings-toolbar" style="flex-wrap:wrap;gap:10px;margin-bottom:12px;">
-    <select id="theme-select" class="filter-select">
-      <option value="all">All Themes</option>
-    </select>
-    <select id="clone-select" class="filter-select">
-      <option value="all">Build Type</option>
-      <option value="original">Original</option>
-      <option value="speedbuild">Speedbuild</option>
-      <option value="cloned">Cloned</option>
-    </select>
-    <button id="glitch-toggle-btn" style="padding:7px 14px;border:1.5px solid var(--line);border-radius:8px;background:none;color:var(--muted);font-size:13px;cursor:pointer;white-space:nowrap;">Glitch Build</button>
-    <button id="clear-filters-btn" hidden style="padding:7px 14px;border:1.5px solid var(--line);border-radius:8px;background:none;color:var(--muted);font-size:13px;cursor:pointer;white-space:nowrap;">✕ Clear</button>
-  </div>
+  <div id="pf-container"></div>
 
   <div id="empty-state" class="form-card" hidden>
     <span class="card-heading">No builds registered yet</span>
@@ -92,6 +80,7 @@
 
 <script type="module">
   import { api, getToken, THEME_LABELS } from "../js/api.js";
+  import { mountPillFilters } from "../js/pill-filters.js";
 
   const grid = document.getElementById("registry-grid");
   const empty = document.getElementById("empty-state");
@@ -144,34 +133,20 @@
     });
   });
 
-  // ── Theme + clone dropdowns ──────────────────────────────────
+  // ── Pill filters ─────────────────────────────────────────────
   function renderThemePills() {
     const themesInUse = [...new Set(entries.flatMap(e => e.themes || []))];
-    const sel = document.getElementById("theme-select");
-    sel.innerHTML = '<option value="all">All Themes</option>' +
-      themesInUse.map(t => `<option value="${t}">${THEME_LABELS[t] || t}</option>`).join("");
-    sel.addEventListener("change", (e) => { activeTheme = e.target.value; render(); });
-    document.getElementById("clone-select").addEventListener("change", (e) => { activeClone = e.target.value; updateClearBtn(); render(); });
-  document.getElementById("glitch-toggle-btn").addEventListener("click", () => {
-    glitchOnly = !glitchOnly;
-    const btn = document.getElementById("glitch-toggle-btn");
-    btn.style.background = glitchOnly ? "rgba(124,58,237,0.12)" : "none";
-    btn.style.color = glitchOnly ? "#7c3aed" : "var(--muted)";
-    btn.style.borderColor = glitchOnly ? "#7c3aed" : "var(--line)";
-    updateClearBtn(); render();
-  });
-
-  function updateClearBtn() {
-    document.getElementById("clear-filters-btn").hidden = activeTheme === "all" && activeClone === "all" && !glitchOnly;
-  }
-  document.getElementById("clear-filters-btn").addEventListener("click", () => {
-    activeTheme = "all"; activeClone = "all"; glitchOnly = false;
-    document.getElementById("theme-select").value = "all";
-    document.getElementById("clone-select").value = "all";
-    const gb = document.getElementById("glitch-toggle-btn");
-    gb.style.background = "none"; gb.style.color = "var(--muted)"; gb.style.borderColor = "var(--line)";
-    updateClearBtn(); render();
-  });
+    const themes = themesInUse.map(t => ({ val: t, label: THEME_LABELS[t] || t }));
+    mountPillFilters(document.getElementById("pf-container"), {
+      build: true, theme: true,
+      themes,
+      onChange(state) {
+        activeTheme = state.theme;
+        activeClone = state.build;
+        glitchOnly  = state.glitch;
+        render();
+      }
+    });
   }
 
   // ── Save button handler (delegated) ─────────────────────────

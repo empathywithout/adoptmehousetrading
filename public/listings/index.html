@@ -59,25 +59,7 @@
   </div>
   <p class="hint" style="margin-top:-6px;margin-bottom:20px;max-width:680px;">Real houses listed by real Adopt Me players — filter by house type, theme, and whether you're offering a trade or looking for a specific house. Every listing shows the lister's asking value in Shark, Frost, or Ride Pot, so you know what to offer before you commit.</p>
   <div class="house-filter-row" id="house-filter-row"></div>
-  <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
-    <input type="search" id="search-input" placeholder="Search listings..." style="padding:7px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:13.5px;min-width:180px;flex:1;max-width:240px;">
-    <select id="type-select" class="filter-select">
-      <option value="all">All Types</option>
-      <option value="house_trade">House Trade</option>
-      <option value="looking_for">Looking For</option>
-    </select>
-    <select id="theme-select" class="filter-select">
-      <option value="all">All Themes</option>
-    </select>
-    <select id="clone-select" class="filter-select">
-      <option value="all">Build Type</option>
-      <option value="original">Original</option>
-      <option value="speedbuild">Speedbuild</option>
-      <option value="cloned">Cloned</option>
-    </select>
-    <button id="glitch-toggle-btn" style="padding:7px 14px;border:1.5px solid var(--line);border-radius:8px;background:none;color:var(--muted);font-size:13px;cursor:pointer;white-space:nowrap;">Glitch Build</button>
-    <button id="clear-filters-btn" hidden style="padding:7px 14px;border:1.5px solid var(--line);border-radius:8px;background:none;color:var(--muted);font-size:13px;cursor:pointer;white-space:nowrap;">✕ Clear</button>
-  </div>
+  <div id="pf-container"></div>
   <div id="empty-state" class="form-card" hidden>
     <span class="card-heading">No listings yet</span>
     <p class="subtitle">Be the first to put a house up for trade.</p>
@@ -95,6 +77,7 @@
 
 <script type="module">
   import { THEME_LABELS } from "../js/api.js";
+  import { mountPillFilters } from "../js/pill-filters.js";
 
   const grid = document.getElementById("listings-grid");
   const empty = document.getElementById("empty-state");
@@ -117,11 +100,6 @@
   const BADGE_CLASS = { house_trade: "house-trade", looking_for: "looking-for" };
   const BADGE_ICON = { house_trade: "icon-sign", looking_for: "icon-loop", commission: "icon-hammer" };
 
-  const FILTERS = [
-    { key: "all", label: "All" },
-    { key: "house_trade", label: "House Trade" },
-    { key: "looking_for", label: "Looking For" },
-  ];
   let activeFilter = "all";
   let activeHouseId = "all";
   let activeTheme = "all";
@@ -129,49 +107,8 @@
   let glitchOnly = false;
   let searchTerm = "";
 
-  document.getElementById("type-select").addEventListener("change", (e) => {
-    activeFilter = e.target.value;
-    updateClearBtn();
-    renderGrid();
-  });
-  document.getElementById("clone-select").addEventListener("change", (e) => {
-    activeClone = e.target.value;
-    updateClearBtn();
-    renderGrid();
-  });
-
-  document.getElementById("glitch-toggle-btn").addEventListener("click", () => {
-    glitchOnly = !glitchOnly;
-    const btn = document.getElementById("glitch-toggle-btn");
-    btn.style.background = glitchOnly ? "rgba(124,58,237,0.12)" : "none";
-    btn.style.color = glitchOnly ? "#7c3aed" : "var(--muted)";
-    btn.style.borderColor = glitchOnly ? "#7c3aed" : "var(--line)";
-    updateClearBtn();
-    renderGrid();
-  });
-
-  function updateClearBtn() {
-    const active = activeFilter !== "all" || activeTheme !== "all" || activeClone !== "all" || activeHouseId !== "all" || searchTerm || glitchOnly;
-    document.getElementById("clear-filters-btn").hidden = !active;
-  }
-
-  document.getElementById("clear-filters-btn").addEventListener("click", () => {
-    activeFilter = "all"; activeTheme = "all"; activeClone = "all"; activeHouseId = "all"; searchTerm = ""; glitchOnly = false;
-    document.getElementById("type-select").value = "all";
-    document.getElementById("theme-select").value = "all";
-    document.getElementById("clone-select").value = "all";
-    document.getElementById("search-input").value = "";
-    const gb = document.getElementById("glitch-toggle-btn");
-    gb.style.background = "none"; gb.style.color = "var(--muted)"; gb.style.borderColor = "var(--line)";
-    document.querySelectorAll(".house-filter-pill").forEach(p => p.classList.toggle("active", p.dataset.house === "all"));
-    updateClearBtn();
-    renderGrid();
-  });
-
-  document.getElementById("search-input").addEventListener("input", (e) => {
-    searchTerm = e.target.value.toLowerCase();
-    renderGrid();
-  });
+  // Pill filters — mounted after listings load so we can pass themes in use
+  let pillFilter;
 
   // House-type filter row: only houses that actually appear among current
   // listings, not the full 51-house catalog — a real listings page is much
@@ -208,12 +145,18 @@
 
   function renderThemeFilterRow() {
     const themesInUse = [...new Set(listings.flatMap((l) => l.themes || []))];
-    const sel = document.getElementById("theme-select");
-    sel.innerHTML = '<option value="all">All Themes</option>' +
-      themesInUse.map((t) => `<option value="${t}">${THEME_LABELS[t] || t}</option>`).join("");
-    sel.addEventListener("change", (e) => {
-      activeTheme = e.target.value;
-      renderGrid();
+    const themes = themesInUse.map(t => ({ val: t, label: THEME_LABELS[t] || t }));
+    pillFilter = mountPillFilters(document.getElementById("pf-container"), {
+      type: true, build: true, theme: true, search: true,
+      themes,
+      onChange(state) {
+        activeFilter  = state.type;
+        activeTheme   = state.theme;
+        activeClone   = state.build;
+        glitchOnly    = state.glitch;
+        searchTerm    = state.search;
+        renderGrid();
+      }
     });
   }
 
