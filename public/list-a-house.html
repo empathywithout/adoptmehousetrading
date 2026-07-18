@@ -408,7 +408,10 @@
     });
   }
 
+  let submitting = false;
   async function submitListing() {
+    if (submitting) return;
+    const btn = document.getElementById("submit-btn");
     const errorBox = document.getElementById("error");
     const successBox = document.getElementById("success");
     errorBox.hidden = true;
@@ -458,6 +461,10 @@
       }
     }
 
+    submitting = true;
+    btn.disabled = true;
+    btn.textContent = "Posting…";
+
     try {
       const { listing } = await api.createListing({
         listing_type: activeType,
@@ -499,6 +506,9 @@
     } catch (err) {
       errorBox.textContent = err.message;
       errorBox.hidden = false;
+      submitting = false;
+      btn.disabled = false;
+      btn.textContent = "Publish Listing";
     }
   }
 
