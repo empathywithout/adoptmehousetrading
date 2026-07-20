@@ -96,15 +96,14 @@ async function handlerImpl(event) {
       photos: cleanPhotos,
       themes: cleanThemes,
       included_items: cleanIncludedItems,
-      updated_at: new Date().toISOString(),
     })
     .eq("id", id)
     .select()
     .single();
 
   if (error) {
-    console.error(error);
-    return json(500, { error: "Couldn't update entry" });
+    console.error("registry-update error:", JSON.stringify(error));
+    return json(500, { error: error.message || "Couldn't update entry" });
   }
 
   return json(200, { entry });
