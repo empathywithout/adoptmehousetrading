@@ -510,10 +510,6 @@
     return html;
   }
 
-  function escapeHtml(s) {
-    return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
-
   function mountEditPanel(entry) {
     // Remove any existing panel
     document.getElementById("registry-edit-panel")?.remove();
