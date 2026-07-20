@@ -42,7 +42,7 @@ async function handlerImpl(event) {
     if (originalIds.length) {
       const { data: origData } = await db
         .from("build_registry")
-        .select("id, title, created_at, profile_id")
+        .select("id, title, created_at, profile_id, photos")
         .in("id", originalIds);
       const origProfileIds = [...new Set((origData || []).map(o => o.profile_id))];
       let origProfiles = {};

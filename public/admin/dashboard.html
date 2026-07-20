@@ -585,18 +585,24 @@
     if (!entries.length) { empty.hidden = false; container.innerHTML = ""; return; }
     empty.hidden = true;
     container.innerHTML = entries.map(e => {
-      const photo = e.photos?.[0] || "";
       const orig = e.original_entry;
-      return `<div class="admin-card" style="margin-bottom:12px;">
-        <div class="admin-card-head" style="display:flex;gap:12px;align-items:flex-start;">
-          ${photo ? `<img src="${escapeHtml(photo)}" style="width:64px;height:64px;object-fit:cover;border-radius:8px;flex-shrink:0;">` : ""}
-          <div style="flex:1;">
-            <div class="admin-card-title"><a href="../registry/entry.html?id=${e.id}" target="_blank" style="color:inherit;">${escapeHtml(e.title)}</a></div>
-            <div class="admin-card-meta">by ${escapeHtml(e.profiles?.display_name || "unknown")} · Registered ${new Date(e.created_at).toLocaleDateString()}</div>
-            ${orig ? `<div class="admin-card-meta" style="margin-top:4px;">Flagged as duplicate of: <a href="../registry/entry.html?id=${orig.id}" target="_blank" style="color:var(--accent);">${escapeHtml(orig.title)}</a> by ${escapeHtml(orig.profiles?.display_name || "unknown")} (${new Date(orig.created_at).toLocaleDateString()})</div>` : ""}
+      const cardStyle = "flex:1;border:1px solid var(--line);border-radius:10px;padding:12px;min-width:0;";
+      return `<div class="admin-card" style="margin-bottom:16px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+          <div style="${cardStyle}">
+            <div style="font-size:10px;font-weight:700;color:var(--sign-red);letter-spacing:.05em;margin-bottom:6px;">FLAGGED AS DUPLICATE</div>
+            ${e.photos?.[0] ? `<img src="${escapeHtml(e.photos[0])}" style="width:100%;height:140px;object-fit:cover;border-radius:7px;margin-bottom:8px;">` : ""}
+            <div style="font-weight:600;font-size:13px;margin-bottom:2px;"><a href="../registry/entry.html?id=${e.id}" target="_blank" style="color:inherit;">${escapeHtml(e.title)}</a></div>
+            <div style="font-size:11px;color:var(--muted);">by ${escapeHtml(e.profiles?.display_name || "unknown")} · ${new Date(e.created_at).toLocaleDateString()}</div>
+          </div>
+          <div style="${cardStyle}">
+            <div style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:.05em;margin-bottom:6px;">ORIGINAL</div>
+            ${orig?.photos?.[0] ? `<img src="${escapeHtml(orig.photos[0])}" style="width:100%;height:140px;object-fit:cover;border-radius:7px;margin-bottom:8px;">` : "<div style='width:100%;height:140px;background:var(--surface);border-radius:7px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;'>No photo</div>"}
+            <div style="font-weight:600;font-size:13px;margin-bottom:2px;">${orig ? `<a href="../registry/entry.html?id=${orig.id}" target="_blank" style="color:inherit;">${escapeHtml(orig.title)}</a>` : "Unknown"}</div>
+            <div style="font-size:11px;color:var(--muted);">${orig ? `by ${escapeHtml(orig.profiles?.display_name || "unknown")} · ${new Date(orig.created_at).toLocaleDateString()}` : ""}</div>
           </div>
         </div>
-        <div style="display:flex;gap:8px;padding:10px 0 0;">
+        <div style="display:flex;gap:8px;">
           <button class="act act-approve" data-reg-dismiss="${e.id}">Dismiss Flag</button>
           <button class="act act-reject" data-reg-remove="${e.id}">Remove Entry</button>
         </div>
