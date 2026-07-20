@@ -16,29 +16,48 @@ async function handlerImpl(event) {
   if (event.httpMethod === "GET") {
     const { data, error } = await db
       .from("build_registry")
-      .select("id, title, created_at, status, photos, possible_duplicate_of, profile_id, profiles(display_name, rbx_avatar_url)")
+      .select("id, title, created_at, status, photos, possible_duplicate_of, profile_id")
       .neq("possible_duplicate_of", null)
       .neq("status", "removed")
       .order("created_at", { ascending: false });
 
     if (error) {
-      console.error(error);
+      console.error("registry-dupes query error:", JSON.stringify(error));
       return json(500, { error: "Couldn't fetch registry duplicates" });
     }
 
-    // Also fetch the "original" entries they're flagged against
+    // Fetch profile display names separately
+    const profileIds = [...new Set((data || []).map(e => e.profile_id))];
+    let profiles = {};
+    if (profileIds.length) {
+      const { data: profileData } = await db
+        .from("profiles")
+        .select("id, display_name, rbx_avatar_url")
+        .in("id", profileIds);
+      (profileData || []).forEach(p => { profiles[p.id] = p; });
+    }
+
     const originalIds = [...new Set((data || []).map(e => e.possible_duplicate_of))];
     let originals = {};
     if (originalIds.length) {
       const { data: origData } = await db
         .from("build_registry")
-        .select("id, title, created_at, profiles(display_name)")
+        .select("id, title, created_at, profile_id")
         .in("id", originalIds);
-      (origData || []).forEach(o => { originals[o.id] = o; });
+      const origProfileIds = [...new Set((origData || []).map(o => o.profile_id))];
+      let origProfiles = {};
+      if (origProfileIds.length) {
+        const { data: opData } = await db.from("profiles").select("id, display_name").in("id", origProfileIds);
+        (opData || []).forEach(p => { origProfiles[p.id] = p; });
+      }
+      (origData || []).forEach(o => {
+        originals[o.id] = { ...o, profiles: origProfiles[o.profile_id] || null };
+      });
     }
 
     const entries = (data || []).map(e => ({
       ...e,
+      profiles: profiles[e.profile_id] || null,
       original_entry: originals[e.possible_duplicate_of] || null,
     }));
 
