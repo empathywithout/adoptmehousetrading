@@ -95,37 +95,26 @@ async function handlerImpl(event) {
 
   const db = supabaseAdmin();
 
-  // Duplicate heuristic — flag the newer entry, earliest wins.
-  // Checks: (1) exact normalized title match, (2) same house_id + ≥2 overlapping themes.
+  // Duplicate heuristic — exact normalized title match only.
+  // Earliest entry wins; later one gets flagged.
   const normalized = normalizeTitle(title);
   let possibleDuplicateOf = null;
   try {
     const { data: candidates } = await db
       .from("build_registry")
-      .select("id, title, created_at, house_id, themes, profile_id")
+      .select("id, title, created_at, profile_id")
       .eq("status", "active")
       .order("created_at", { ascending: true });
 
     const list = candidates || [];
 
-    // 1. Exact normalized title match (case/punctuation insensitive)
-    const titleMatch = list.find((c) => normalizeTitle(c.title) === normalized);
-    if (titleMatch) {
-      possibleDuplicateOf = titleMatch.id;
-    }
+    // Exact normalized title match (case/punctuation insensitive)
+    const titleMatch = list.find((c) =>
+      c.id !== profile.id && normalizeTitle(c.title) === normalized
+    );
+    if (titleMatch) possibleDuplicateOf = titleMatch.id;
 
-    // 2. Same house_id + at least 2 overlapping themes (and not the same entry)
-    if (!possibleDuplicateOf && house_id) {
-      const themeMatch = list.find((c) => {
-        if (c.id === profile.id) return false; // skip own entries from same profile check below
-        if (c.house_id !== house_id) return false;
-        const overlap = (c.themes || []).filter((t) => cleanThemes.includes(t));
-        return overlap.length >= 2;
-      });
-      if (themeMatch) possibleDuplicateOf = themeMatch.id;
-    }
-
-    // 3. Same submitter, same normalized title (self-duplicate / resubmission)
+    // Same submitter resubmitting exact same title
     if (!possibleDuplicateOf) {
       const selfDupe = list.find(
         (c) => c.profile_id === profile.id && normalizeTitle(c.title) === normalized
