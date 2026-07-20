@@ -646,7 +646,14 @@
       saveBtn.textContent = "Saving...";
 
       try {
-        await api.updateRegistryBuild({ id: entry.id, title, description, themes, photos: editPhotos });
+        const token = getToken();
+        const res = await fetch("/.netlify/functions/registry-update", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+          body: JSON.stringify({ id: entry.id, title, description, themes, photos: editPhotos }),
+        });
+        const result = await res.json();
+        if (!res.ok) throw new Error(result.error || "Couldn't save changes.");
         successBox.textContent = "Saved! Reloading...";
         successBox.hidden = false;
         setTimeout(() => location.reload(), 900);
