@@ -70,9 +70,9 @@ async function handlerImpl(event) {
   if (!title?.trim()) {
     return json(400, { error: "Give your build a title" });
   }
-  const cleanPhotos = Array.isArray(photos) ? photos.filter((p) => typeof p === "string").slice(0, 8) : [];
-  if (cleanPhotos.length < 3) {
-    return json(400, { error: "At least 3 photos are required to register a build — help others verify your work" });
+  const cleanPhotos = Array.isArray(photos) ? photos.filter((p) => typeof p === "string" && p.startsWith("http")) : [];
+  if (cleanPhotos.length < 1) {
+    return json(400, { error: "At least 1 photo is required to register a build" });
   }
   const cleanThemes = Array.isArray(themes) ? themes.filter((t) => VALID_THEMES.includes(t)) : [];
   const VALID_BUILD_TYPES = ["original", "speedbuild", "cloned"];
@@ -95,19 +95,43 @@ async function handlerImpl(event) {
 
   const db = supabaseAdmin();
 
-  // Lightweight duplicate heuristic: same normalized title among active
-  // entries, earliest wins as the "original" reference point.
+  // Duplicate heuristic — flag the newer entry, earliest wins.
+  // Checks: (1) exact normalized title match, (2) same house_id + ≥2 overlapping themes.
   const normalized = normalizeTitle(title);
   let possibleDuplicateOf = null;
   try {
     const { data: candidates } = await db
       .from("build_registry")
-      .select("id, title, created_at")
+      .select("id, title, created_at, house_id, themes, profile_id")
       .eq("status", "active")
       .order("created_at", { ascending: true });
 
-    const match = (candidates || []).find((c) => normalizeTitle(c.title) === normalized);
-    if (match) possibleDuplicateOf = match.id;
+    const list = candidates || [];
+
+    // 1. Exact normalized title match (case/punctuation insensitive)
+    const titleMatch = list.find((c) => normalizeTitle(c.title) === normalized);
+    if (titleMatch) {
+      possibleDuplicateOf = titleMatch.id;
+    }
+
+    // 2. Same house_id + at least 2 overlapping themes (and not the same entry)
+    if (!possibleDuplicateOf && house_id) {
+      const themeMatch = list.find((c) => {
+        if (c.id === profile.id) return false; // skip own entries from same profile check below
+        if (c.house_id !== house_id) return false;
+        const overlap = (c.themes || []).filter((t) => cleanThemes.includes(t));
+        return overlap.length >= 2;
+      });
+      if (themeMatch) possibleDuplicateOf = themeMatch.id;
+    }
+
+    // 3. Same submitter, same normalized title (self-duplicate / resubmission)
+    if (!possibleDuplicateOf) {
+      const selfDupe = list.find(
+        (c) => c.profile_id === profile.id && normalizeTitle(c.title) === normalized
+      );
+      if (selfDupe) possibleDuplicateOf = selfDupe.id;
+    }
   } catch (err) {
     console.error("duplicate-check query failed (non-fatal):", err);
   }

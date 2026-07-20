@@ -970,6 +970,7 @@
             <div style="flex:1;">
               <div class="manage-title">${escapeHtml(entry.title)}</div>
               <p class="hint" style="margin:2px 0 0;">Registered ${new Date(entry.created_at).toLocaleDateString()}</p>
+              ${entry.possible_duplicate_of ? `<p class="hint" style="margin:4px 0 0;color:var(--sign-red);font-weight:600;">⚠ Flagged as possible duplicate</p>` : ""}
             </div>
             <span class="status-badge ${entry.status === "active" ? "active" : "traded"}">${STATUS_LABELS[entry.status] || entry.status}</span>
           </a>
