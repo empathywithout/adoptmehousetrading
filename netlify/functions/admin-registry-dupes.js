@@ -17,13 +17,13 @@ async function handlerImpl(event) {
     const { data, error } = await db
       .from("build_registry")
       .select("id, title, created_at, status, photos, possible_duplicate_of, profile_id")
-      .neq("possible_duplicate_of", null)
+      .filter("possible_duplicate_of", "not.is", "null")
       .neq("status", "removed")
       .order("created_at", { ascending: false });
 
     if (error) {
       console.error("registry-dupes query error:", JSON.stringify(error));
-      return json(500, { error: "Couldn't fetch registry duplicates" });
+      return json(500, { error: error.message || "Couldn't fetch registry duplicates" });
     }
 
     // Fetch profile display names separately
