@@ -17,7 +17,7 @@ async function handlerImpl(event) {
     const { data, error } = await db
       .from("build_registry")
       .select("id, title, created_at, status, photos, possible_duplicate_of, profile_id, profiles(display_name, rbx_avatar_url)")
-      .not("possible_duplicate_of", "is", null)
+      .neq("possible_duplicate_of", null)
       .neq("status", "removed")
       .order("created_at", { ascending: false });
 
