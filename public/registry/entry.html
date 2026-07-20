@@ -258,7 +258,7 @@
           ${rebuttalFormHtml}
           ${
             isSelf
-              ? `<div class="form-card"><span class="card-heading">This is your entry</span><p class="subtitle">${pendingOwnDispute ? "Respond to the dispute above." : "No pending disputes right now."}</p></div>`
+              ? `<div class="form-card"><span class="card-heading">This is your entry</span><p class="subtitle">${pendingOwnDispute ? "Respond to the dispute above." : "No pending disputes right now."}</p><button class="btn btn-primary" id="edit-entry-btn" style="margin-top:12px;">Edit Build</button></div>`
               : !myProfile
               ? `<div class="form-card"><span class="card-heading">Think this isn't right?</span><p class="subtitle"><a href="../profile.html">Set up your profile</a> to file a dispute.</p></div>`
               : `<div class="form-card" style="max-width:none;">
@@ -336,6 +336,12 @@
       ],
     });
     document.head.appendChild(breadcrumbScript);
+
+    // Edit build handler (isSelf only)
+    const editBtn = document.getElementById("edit-entry-btn");
+    if (editBtn && isSelf) {
+      editBtn.addEventListener("click", () => mountEditPanel(entry));
+    }
 
     // Save button handler
     const saveBtn = document.querySelector(".entry-save-btn");
@@ -502,6 +508,162 @@
     }, 0);
 
     return html;
+  }
+
+  function escapeHtml(s) {
+    return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function mountEditPanel(entry) {
+    // Remove any existing panel
+    document.getElementById("registry-edit-panel")?.remove();
+
+    let editPhotos = [...(entry.photos || [])];
+    let dragSrcIndex = null;
+
+    const panel = document.createElement("div");
+    panel.id = "registry-edit-panel";
+    panel.className = "form-card";
+    panel.style.cssText = "margin-top:20px;max-width:none;";
+
+    function renderPanel() {
+      panel.innerHTML = `
+        <h3 style="font-family:var(--font-display);color:var(--ink);margin:0 0 16px;">Edit Build</h3>
+        <div id="edit-reg-error" class="error-box" hidden></div>
+        <div id="edit-reg-success" class="success-box" hidden></div>
+
+        <label class="field-label" style="margin-top:0;">Title</label>
+        <input type="text" id="edit-reg-title" value="${escapeHtml(entry.title)}" maxlength="120" style="margin-bottom:16px;">
+
+        <label class="field-label">Description <span style="font-weight:400;color:var(--muted);">(optional)</span></label>
+        <textarea id="edit-reg-description" rows="4" maxlength="2000" style="margin-bottom:16px;">${escapeHtml(entry.description || "")}</textarea>
+
+        <label class="field-label">Themes</label>
+        <div class="checkbox-grid" id="edit-reg-themes" style="margin-bottom:16px;"></div>
+
+        <label class="field-label">Photos <span style="font-weight:400;color:var(--muted);font-size:12px;">(at least 1 — drag to reorder)</span></label>
+        <div class="photo-slots" id="edit-reg-photo-slots" style="margin-bottom:16px;"></div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;">
+          <button class="btn btn-primary" id="edit-reg-save-btn">Save Changes</button>
+          <button class="btn" id="edit-reg-cancel-btn" style="background:var(--surface-2);color:var(--ink);">Cancel</button>
+        </div>
+      `;
+
+      // Themes
+      const savedThemes = entry.themes || [];
+      const THEME_KEYS = ["cutecore","coquette","cottagecore","cozy","gothic","cutegoth","cottagegoth","realism","fairycore","nature","garden","japanese","modern","minimalist","medieval","dark_academia","royal","victorian","vintage","beach","tropical","farmhouse","autumn","winter_cabin","spring","fantasy","horror","holiday_seasonal","custom_theme"];
+      panel.querySelector("#edit-reg-themes").innerHTML = THEME_KEYS.map((key) =>
+        `<label><input type="checkbox" value="${key}" ${savedThemes.includes(key) ? "checked" : ""}>${escapeHtml(THEME_LABELS[key] || key)}</label>`
+      ).join("");
+
+      renderEditPhotos();
+
+      panel.querySelector("#edit-reg-cancel-btn").addEventListener("click", () => panel.remove());
+      panel.querySelector("#edit-reg-save-btn").addEventListener("click", saveEdit);
+    }
+
+    function renderEditPhotos() {
+      const container = panel.querySelector("#edit-reg-photo-slots");
+      container.innerHTML = "";
+      dragSrcIndex = null;
+
+      editPhotos.forEach((url, i) => {
+        const slot = document.createElement("div");
+        slot.className = "photo-slot " + (i === 0 ? "main" : "interior");
+        slot.draggable = true;
+        slot.style.cssText = "position:relative;cursor:grab;";
+        slot.innerHTML = `
+          <img src="${escapeHtml(url)}" style="pointer-events:none;">
+          ${i === 0 ? `<div style="position:absolute;bottom:5px;left:5px;background:rgba(0,0,0,0.6);color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;pointer-events:none;">COVER</div>` : ""}
+          <button title="Remove" style="position:absolute;top:5px;right:5px;background:rgba(0,0,0,0.65);color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;z-index:2;">✕</button>
+        `;
+        slot.querySelector("button").addEventListener("click", (e) => {
+          e.stopPropagation();
+          editPhotos.splice(i, 1);
+          renderEditPhotos();
+        });
+        slot.addEventListener("dragstart", (e) => {
+          dragSrcIndex = i;
+          e.dataTransfer.effectAllowed = "move";
+          setTimeout(() => slot.style.opacity = "0.4", 0);
+        });
+        slot.addEventListener("dragend", () => { slot.style.opacity = "1"; });
+        slot.addEventListener("dragover", (e) => { e.preventDefault(); slot.style.outline = "2px solid var(--accent)"; });
+        slot.addEventListener("dragleave", () => { slot.style.outline = ""; });
+        slot.addEventListener("drop", (e) => {
+          e.preventDefault();
+          slot.style.outline = "";
+          if (dragSrcIndex === null || dragSrcIndex === i) return;
+          const moved = editPhotos.splice(dragSrcIndex, 1)[0];
+          editPhotos.splice(i, 0, moved);
+          dragSrcIndex = null;
+          renderEditPhotos();
+        });
+        container.appendChild(slot);
+      });
+
+      // Add slot
+      const addSlot = document.createElement("div");
+      addSlot.className = "photo-slot interior";
+      addSlot.style.cursor = "pointer";
+      addSlot.innerHTML = `
+        <div class="plus-circle" style="background:var(--paper);border:1.5px solid var(--line);color:var(--muted);">+</div>
+        <div class="slot-label" style="color:var(--muted);font-weight:600;">Add Photo</div>
+        <input type="file" accept="image/png,image/jpeg,image/webp" style="display:none;" multiple>
+      `;
+      const fileInput = addSlot.querySelector("input[type=file]");
+      addSlot.addEventListener("click", () => fileInput.click());
+      fileInput.addEventListener("change", async (e) => {
+        for (const file of Array.from(e.target.files)) {
+          try {
+            const url = await api.uploadPhoto(file);
+            editPhotos.push(url);
+            renderEditPhotos();
+          } catch (err) {
+            alert("Upload failed: " + err.message);
+          }
+        }
+      });
+      container.appendChild(addSlot);
+    }
+
+    async function saveEdit() {
+      const errorBox = panel.querySelector("#edit-reg-error");
+      const successBox = panel.querySelector("#edit-reg-success");
+      errorBox.hidden = true;
+      successBox.hidden = true;
+
+      const title = panel.querySelector("#edit-reg-title").value.trim();
+      const description = panel.querySelector("#edit-reg-description").value.trim();
+      const themes = [...panel.querySelectorAll("#edit-reg-themes input:checked")].map((c) => c.value);
+
+      if (!title) { errorBox.textContent = "Title is required."; errorBox.hidden = false; return; }
+      if (editPhotos.length < 1) { errorBox.textContent = "At least 1 photo required."; errorBox.hidden = false; return; }
+
+      const saveBtn = panel.querySelector("#edit-reg-save-btn");
+      saveBtn.disabled = true;
+      saveBtn.textContent = "Saving...";
+
+      try {
+        await api.updateRegistryBuild({ id: entry.id, title, description, themes, photos: editPhotos });
+        successBox.textContent = "Saved! Reloading...";
+        successBox.hidden = false;
+        setTimeout(() => location.reload(), 900);
+      } catch (err) {
+        errorBox.textContent = err.message || "Couldn't save changes.";
+        errorBox.hidden = false;
+        saveBtn.disabled = false;
+        saveBtn.textContent = "Save Changes";
+      }
+    }
+
+    renderPanel();
+
+    // Insert after the "This is your entry" card
+    const entryBtn = document.getElementById("edit-entry-btn");
+    entryBtn?.closest(".form-card")?.after(panel);
+    panel.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
 </script>

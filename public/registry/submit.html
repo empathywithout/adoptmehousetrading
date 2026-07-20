@@ -126,8 +126,8 @@
     </div>
     <div class="selected-items" id="selected-items"></div>
 
-    <label class="field-label">Photos <span style="font-weight:600;color:var(--muted);font-size:12px;">(at least 3 required)</span></label>
-    <p class="hint" style="margin-top:-4px;margin-bottom:10px;">First photo is your main exterior shot. Add interior and detail photos — they're how other players verify it's genuinely your build, and what shows on your builder profile.</p>
+    <label class="field-label">Photos <span style="font-weight:600;color:var(--muted);font-size:12px;">(at least 1 required)</span></label>
+    <p class="hint" style="margin-top:-4px;margin-bottom:10px;">First photo is your main exterior shot. Add interior and detail photos — they're how other players verify it's genuinely your build. Drag to reorder.</p>
     <div class="photo-slots" id="photo-slots"></div>
 
     <div class="hero-ctas" style="justify-content: flex-start; margin-top: 24px;">
@@ -289,30 +289,68 @@
 
   function renderPhotoSlots() {
     const container = document.getElementById("photo-slots");
-    const slotCount = Math.max(5, uploadedPhotos.length + 1);
-    container.innerHTML = Array.from({ length: slotCount }, (_, i) => {
-      const url = uploadedPhotos[i];
-      return `<div class="photo-slot ${i === 0 ? "main" : "interior"}" data-slot="${i}">
-        ${url ? `<img src="${url}" alt="">` : `<div class="plus-circle">+</div><div class="slot-label">${i === 0 ? "Main Photo" : i < 3 ? `Photo ${i + 1} (required)` : `Photo ${i + 1}`}</div>`}
-        <input type="file" accept="image/png,image/jpeg,image/webp" data-slot-input="${i}" style="display:none;">
-      </div>`;
-    }).join("");
+    container.innerHTML = "";
+    let dragSrcIndex = null;
 
-    container.querySelectorAll(".photo-slot").forEach((slot) => {
-      const fileInput = slot.querySelector("input[type=file]");
-      slot.addEventListener("click", () => fileInput.click());
-      fileInput.addEventListener("change", async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
+    uploadedPhotos.forEach((url, i) => {
+      const slot = document.createElement("div");
+      slot.className = "photo-slot " + (i === 0 ? "main" : "interior");
+      slot.draggable = true;
+      slot.style.position = "relative";
+      slot.style.cursor = "grab";
+      slot.innerHTML = `
+        <img src="${escapeHtml(url)}" style="pointer-events:none;">
+        ${i === 0 ? `<div style="position:absolute;bottom:5px;left:5px;background:rgba(0,0,0,0.6);color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;pointer-events:none;">COVER</div>` : ""}
+        <button title="Remove" style="position:absolute;top:5px;right:5px;background:rgba(0,0,0,0.65);color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;z-index:2;">✕</button>
+      `;
+      slot.querySelector("button").addEventListener("click", (e) => {
+        e.stopPropagation();
+        uploadedPhotos.splice(i, 1);
+        renderPhotoSlots();
+      });
+      slot.addEventListener("dragstart", (e) => {
+        dragSrcIndex = i;
+        e.dataTransfer.effectAllowed = "move";
+        setTimeout(() => slot.style.opacity = "0.4", 0);
+      });
+      slot.addEventListener("dragend", () => { slot.style.opacity = "1"; });
+      slot.addEventListener("dragover", (e) => { e.preventDefault(); slot.style.outline = "2px solid var(--accent)"; });
+      slot.addEventListener("dragleave", () => { slot.style.outline = ""; });
+      slot.addEventListener("drop", (e) => {
+        e.preventDefault();
+        slot.style.outline = "";
+        if (dragSrcIndex === null || dragSrcIndex === i) return;
+        const moved = uploadedPhotos.splice(dragSrcIndex, 1)[0];
+        uploadedPhotos.splice(i, 0, moved);
+        dragSrcIndex = null;
+        renderPhotoSlots();
+      });
+      container.appendChild(slot);
+    });
+
+    // Add slot
+    const addSlot = document.createElement("div");
+    addSlot.className = "photo-slot interior";
+    addSlot.style.cursor = "pointer";
+    addSlot.innerHTML = `
+      <div class="plus-circle" style="background:var(--paper);border:1.5px solid var(--line);color:var(--muted);">+</div>
+      <div class="slot-label" style="color:var(--muted);font-weight:600;">Add Photo</div>
+      <input type="file" accept="image/png,image/jpeg,image/webp" style="display:none;" multiple>
+    `;
+    const fileInput = addSlot.querySelector("input[type=file]");
+    addSlot.addEventListener("click", () => fileInput.click());
+    fileInput.addEventListener("change", async (e) => {
+      for (const file of Array.from(e.target.files)) {
         try {
           const url = await api.uploadPhoto(file);
-          uploadedPhotos[Number(slot.dataset.slot)] = url;
+          uploadedPhotos.push(url);
           renderPhotoSlots();
         } catch (err) {
           alert("Upload failed: " + err.message);
         }
-      });
+      }
     });
+    container.appendChild(addSlot);
   }
 
   async function submitEntry() {
@@ -332,8 +370,8 @@
       errorBox.hidden = false;
       return;
     }
-    if (photos.length < 3) {
-      errorBox.textContent = "Add at least 3 photos — one main shot plus interior/detail photos help others verify your build.";
+    if (photos.length < 1) {
+      errorBox.textContent = "Add at least 1 photo.";
       errorBox.hidden = false;
       return;
     }
