@@ -17,7 +17,7 @@ const VALID_THEMES = [
 ];
 
 async function handlerImpl(event) {
-  if (event.httpMethod !== "PATCH") {
+  if (event.httpMethod !== "POST") {
     return json(405, { error: "Method not allowed" });
   }
 
