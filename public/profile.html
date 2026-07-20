@@ -973,7 +973,8 @@
             </div>
             <span class="status-badge ${entry.status === "active" ? "active" : "traded"}">${STATUS_LABELS[entry.status] || entry.status}</span>
           </a>
-          <div style="padding:10px 16px 14px;">
+          <div style="padding:10px 16px 14px;display:flex;gap:8px;">
+            <a class="btn-sm accept" href="registry/entry.html?id=${entry.id}&edit=1">Edit</a>
             <button class="btn-sm decline" data-remove-registry="${entry.id}">Remove</button>
           </div>
         </div>`;

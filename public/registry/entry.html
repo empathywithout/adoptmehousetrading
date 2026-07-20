@@ -341,6 +341,10 @@
     const editBtn = document.getElementById("edit-entry-btn");
     if (editBtn && isSelf) {
       editBtn.addEventListener("click", () => mountEditPanel(entry));
+      // Auto-open if coming from profile edit link
+      if (new URLSearchParams(location.search).get("edit") === "1") {
+        setTimeout(() => mountEditPanel(entry), 300);
+      }
     }
 
     // Save button handler
