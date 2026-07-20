@@ -206,6 +206,7 @@
       <button class="tab-btn" data-tab="applications"><span>Applications</span> <span class="badge" id="badge-applications">0</span></button>
       <button class="tab-btn" data-tab="guides"><span>Guides</span> <span class="badge" id="badge-guides">0</span></button>
       <button class="tab-btn" data-tab="dupes"><span>Duplicates</span> <span class="badge" id="badge-dupes">0</span></button>
+      <button class="tab-btn" data-tab="registry-dupes"><span>Registry Dupes</span> <span class="badge" id="badge-registry-dupes">0</span></button>
     </nav>
     <button id="logout-btn">Log out</button>
   </div>
@@ -232,6 +233,11 @@
       <p class="section-title">Duplicate Listings</p>
       <div id="dupes-list"></div>
       <div id="empty-dupes" class="empty-state" hidden><strong>Listings look clean</strong>No duplicates found.</div>
+    </div>
+    <div class="tab-panel" id="tab-registry-dupes">
+      <p class="section-title">Registry Duplicate Flags</p>
+      <div id="registry-dupes-list"></div>
+      <div id="empty-registry-dupes" class="empty-state" hidden><strong>No flagged registry entries.</strong></div>
     </div>
   </div>
 </div>
@@ -267,15 +273,16 @@
     const pw = getAdminPassword();
     if (!pw) return;
     try {
-      const [disputesRes, applicationsRes, contentRes, statsRes, dupesRes] = await Promise.all([
+      const [disputesRes, applicationsRes, contentRes, statsRes, dupesRes, registryDupesRes] = await Promise.all([
         fetch("/.netlify/functions/admin-disputes-list",  { headers: { "X-Admin-Password": pw } }),
         fetch(`/.netlify/functions/admin-data-team-list${showAllApplications ? "?all=1" : ""}`, { headers: { "X-Admin-Password": pw } }),
         fetch(`/.netlify/functions/admin-content-list${showAllGuides ? "?all=1" : ""}`,   { headers: { "X-Admin-Password": pw } }),
         fetch("/.netlify/functions/admin-stats",          { headers: { "X-Admin-Password": pw } }),
         fetch("/.netlify/functions/admin-dupe-listings",  { headers: { "X-Admin-Password": pw } }),
+        fetch("/.netlify/functions/admin-registry-dupes", { headers: { "X-Admin-Password": pw } }),
       ]);
-      const [disputesData, applicationsData, contentData, statsData, dupesData] = await Promise.all([
-        disputesRes.json(), applicationsRes.json(), contentRes.json(), statsRes.json(), dupesRes.json(),
+      const [disputesData, applicationsData, contentData, statsData, dupesData, registryDupesData] = await Promise.all([
+        disputesRes.json(), applicationsRes.json(), contentRes.json(), statsRes.json(), dupesRes.json(), registryDupesRes.json(),
       ]);
       const failedRes = [disputesRes, applicationsRes, contentRes].find(r => r.status === 401);
       if (failedRes) {
@@ -289,10 +296,12 @@
       renderApplications(applicationsRes.ok ? (applicationsData.applications || []) : []);
       renderContentSubmissions(contentRes.ok ? (contentData.submissions || []) : []);
       renderDupes(dupesRes.ok ? (dupesData.groups || []) : []);
-      if (!disputesRes.ok)     console.error("Disputes failed:", disputesData?.error);
-      if (!applicationsRes.ok) console.error("Applications failed:", applicationsData?.error);
-      if (!contentRes.ok)      console.error("Guides failed:", contentData?.error);
-      if (!dupesRes.ok)        console.error("Dupes failed:", dupesData?.error);
+      renderRegistryDupes(registryDupesRes.ok ? (registryDupesData.entries || []) : []);
+      if (!disputesRes.ok)      console.error("Disputes failed:", disputesData?.error);
+      if (!applicationsRes.ok)  console.error("Applications failed:", applicationsData?.error);
+      if (!contentRes.ok)       console.error("Guides failed:", contentData?.error);
+      if (!dupesRes.ok)         console.error("Dupes failed:", dupesData?.error);
+      if (!registryDupesRes.ok) console.error("Registry dupes failed:", registryDupesData?.error);
     } catch (err) {
       sessionStorage.removeItem(SESSION_KEY);
       const el = document.getElementById("login-error");
@@ -568,6 +577,58 @@
     document.getElementById("toggle-all-guides").textContent = showAllGuides ? "Pending only" : "Show all statuses";
     await tryLoad();
   });
+
+  function renderRegistryDupes(entries) {
+    const container = document.getElementById("registry-dupes-list");
+    const empty = document.getElementById("empty-registry-dupes");
+    setBadge("badge-registry-dupes", entries.length);
+    if (!entries.length) { empty.hidden = false; container.innerHTML = ""; return; }
+    empty.hidden = true;
+    container.innerHTML = entries.map(e => {
+      const photo = e.photos?.[0] || "";
+      const orig = e.original_entry;
+      return `<div class="admin-card" style="margin-bottom:12px;">
+        <div class="admin-card-head" style="display:flex;gap:12px;align-items:flex-start;">
+          ${photo ? `<img src="${escapeHtml(photo)}" style="width:64px;height:64px;object-fit:cover;border-radius:8px;flex-shrink:0;">` : ""}
+          <div style="flex:1;">
+            <div class="admin-card-title"><a href="../registry/entry.html?id=${e.id}" target="_blank" style="color:inherit;">${escapeHtml(e.title)}</a></div>
+            <div class="admin-card-meta">by ${escapeHtml(e.profiles?.display_name || "unknown")} · Registered ${new Date(e.created_at).toLocaleDateString()}</div>
+            ${orig ? `<div class="admin-card-meta" style="margin-top:4px;">Flagged as duplicate of: <a href="../registry/entry.html?id=${orig.id}" target="_blank" style="color:var(--accent);">${escapeHtml(orig.title)}</a> by ${escapeHtml(orig.profiles?.display_name || "unknown")} (${new Date(orig.created_at).toLocaleDateString()})</div>` : ""}
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;padding:10px 0 0;">
+          <button class="act act-approve" data-reg-dismiss="${e.id}">Dismiss Flag</button>
+          <button class="act act-reject" data-reg-remove="${e.id}">Remove Entry</button>
+        </div>
+      </div>`;
+    }).join("");
+
+    container.querySelectorAll("[data-reg-dismiss]").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        if (!confirm("Dismiss this duplicate flag? The entry will stay live.")) return;
+        const pw = getAdminPassword();
+        const res = await fetch("/.netlify/functions/admin-registry-dupes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "X-Admin-Password": pw },
+          body: JSON.stringify({ id: btn.dataset.regDismiss, action: "dismiss" }),
+        });
+        if (res.ok) await tryLoad(); else alert("Failed to dismiss.");
+      });
+    });
+
+    container.querySelectorAll("[data-reg-remove]").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        if (!confirm("Remove this registry entry? It will no longer be visible.")) return;
+        const pw = getAdminPassword();
+        const res = await fetch("/.netlify/functions/admin-registry-dupes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "X-Admin-Password": pw },
+          body: JSON.stringify({ id: btn.dataset.regRemove, action: "remove" }),
+        });
+        if (res.ok) await tryLoad(); else alert("Failed to remove.");
+      });
+    });
+  }
 
   document.getElementById("login-btn").addEventListener("click", async () => {
     const pw = document.getElementById("admin-password").value;
