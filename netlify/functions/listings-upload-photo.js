@@ -8,7 +8,7 @@
 // have the browser downscale/compress images before base64-encoding them.
 //
 // Images are stored in Cloudflare R2 (free egress) rather than Supabase
-// Storage to avoid burning through Supabase's egress quota.
+// Storage. Auth uses AWS Signature V4 against R2's S3-compatible endpoint.
 
 import { requireProfile, json, safeHandler } from "./_lib/supabase.js";
 import { createHash, createHmac } from "crypto";
@@ -16,13 +16,6 @@ import { createHash, createHmac } from "crypto";
 const ALLOWED_TYPES = ["image/png", "image/jpeg", "image/webp"];
 const MAX_BYTES = 5 * 1024 * 1024;
 
-const R2_ACCOUNT_ID   = process.env.R2_ACCOUNT_ID;
-const R2_ACCESS_KEY   = process.env.R2_ACCESS_KEY_ID;
-const R2_SECRET_KEY   = process.env.R2_SECRET_ACCESS_KEY;
-const R2_BUCKET       = process.env.R2_BUCKET_NAME;         // adoptme-listing-photos
-const R2_PUBLIC_URL   = process.env.R2_PUBLIC_URL;          // https://pub-xxx.r2.dev
-
-// Magic bytes for each allowed image type.
 const MAGIC_BYTES = {
   "image/jpeg": [[0xFF, 0xD8, 0xFF]],
   "image/png":  [[0x89, 0x50, 0x4E, 0x47]],
@@ -35,49 +28,56 @@ function validateMagicBytes(buffer, contentType) {
   return signatures.some(sig => sig.every((byte, i) => buffer[i] === byte));
 }
 
-// AWS Signature V4 helpers — R2 speaks S3-compatible auth.
-function sha256hex(data) {
-  return createHash("sha256").update(data).digest("hex");
-}
-
-function hmacSha256(key, data) {
+// AWS Signature V4 for R2's S3-compatible API.
+// R2 uses us-east-1 as the signing region regardless of bucket location.
+function hmac(key, data) {
   return createHmac("sha256", key).update(data).digest();
 }
 
-function getSigningKey(secretKey, dateStamp, region, service) {
-  const kDate    = hmacSha256(`AWS4${secretKey}`, dateStamp);
-  const kRegion  = hmacSha256(kDate, region);
-  const kService = hmacSha256(kRegion, service);
-  return hmacSha256(kService, "aws4_request");
+function signingKey(secret, date, region, service) {
+  const kDate    = hmac("AWS4" + secret, date);
+  const kRegion  = hmac(kDate, region);
+  const kService = hmac(kRegion, service);
+  return hmac(kService, "aws4_request");
 }
 
 async function uploadToR2(buffer, path, contentType) {
-  const region  = "auto";
-  const service = "s3";
-  const host    = `${R2_ACCOUNT_ID}.r2.cloudflarestorage.com`;
-  const endpoint = `https://${host}/${R2_BUCKET}/${path}`;
+  const accountId  = process.env.R2_ACCOUNT_ID;
+  const accessKey  = process.env.R2_ACCESS_KEY_ID;
+  const secretKey  = process.env.R2_SECRET_ACCESS_KEY;
+  const bucket     = process.env.R2_BUCKET;          // adoptme-listing-photos
 
-  const now = new Date();
-  const amzDate  = now.toISOString().replace(/[:-]|\.\d{3}/g, "").slice(0, 15) + "Z"; // 20260721T123456Z
+  if (!accountId || !accessKey || !secretKey || !bucket) {
+    throw new Error("Missing R2 environment variables");
+  }
+
+  const endpoint = `https://${accountId}.r2.cloudflarestorage.com`;
+  const region   = "auto";
+  const service  = "s3";
+
+  const now       = new Date();
+  const amzDate   = now.toISOString().replace(/[:-]|\.\d{3}/g, "").slice(0, 15) + "Z"; // 20260721T123456Z
   const dateStamp = amzDate.slice(0, 8); // 20260721
 
-  const payloadHash = sha256hex(buffer);
+  const bodyHash = createHash("sha256").update(buffer).digest("hex");
 
+  const host           = `${accountId}.r2.cloudflarestorage.com`;
+  const canonicalUri   = `/${bucket}/${path}`;
+  const canonicalQuery = "";
   const canonicalHeaders =
     `content-type:${contentType}\n` +
     `host:${host}\n` +
-    `x-amz-content-sha256:${payloadHash}\n` +
+    `x-amz-content-sha256:${bodyHash}\n` +
     `x-amz-date:${amzDate}\n`;
-
   const signedHeaders = "content-type;host;x-amz-content-sha256;x-amz-date";
 
   const canonicalRequest = [
     "PUT",
-    `/${R2_BUCKET}/${path}`,
-    "", // no query string
+    canonicalUri,
+    canonicalQuery,
     canonicalHeaders,
     signedHeaders,
-    payloadHash,
+    bodyHash,
   ].join("\n");
 
   const credentialScope = `${dateStamp}/${region}/${service}/aws4_request`;
@@ -85,23 +85,23 @@ async function uploadToR2(buffer, path, contentType) {
     "AWS4-HMAC-SHA256",
     amzDate,
     credentialScope,
-    sha256hex(canonicalRequest),
+    createHash("sha256").update(canonicalRequest).digest("hex"),
   ].join("\n");
 
-  const signingKey = getSigningKey(R2_SECRET_KEY, dateStamp, region, service);
-  const signature  = createHmac("sha256", signingKey).update(stringToSign).digest("hex");
+  const key       = signingKey(secretKey, dateStamp, region, service);
+  const signature = createHmac("sha256", key).update(stringToSign).digest("hex");
 
-  const authHeader =
-    `AWS4-HMAC-SHA256 Credential=${R2_ACCESS_KEY}/${credentialScope}, ` +
+  const authorization =
+    `AWS4-HMAC-SHA256 Credential=${accessKey}/${credentialScope}, ` +
     `SignedHeaders=${signedHeaders}, Signature=${signature}`;
 
-  const res = await fetch(endpoint, {
+  const res = await fetch(`${endpoint}${canonicalUri}`, {
     method: "PUT",
     headers: {
       "Content-Type":          contentType,
-      "x-amz-content-sha256":  payloadHash,
-      "x-amz-date":            amzDate,
-      "Authorization":          authHeader,
+      "x-amz-content-sha256": bodyHash,
+      "x-amz-date":           amzDate,
+      "Authorization":         authorization,
     },
     body: buffer,
   });
@@ -154,7 +154,9 @@ async function handlerImpl(event) {
     return json(500, { error: "Upload failed" });
   }
 
-  const url = `${R2_PUBLIC_URL.replace(/\/$/, "")}/${path}`;
+  const publicBase = process.env.R2_PUBLIC_URL; // https://pub-cba78cf9524643c2a7bff415bfed4d9d.r2.dev
+  const url = `${publicBase}/${path}`;
+
   return json(200, { url });
 }
 
