@@ -1,7 +1,7 @@
 // GET ?house_id=&status=
 // -> { listings: [...] } — each with profile.display_name attached
 
-import {  supabaseAdmin, json, safeHandler } from "./_lib/supabase.js";
+import { supabaseAdmin, json, safeHandler } from "./_lib/supabase.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "GET") {
@@ -39,7 +39,16 @@ async function handlerImpl(event) {
     return json(500, { error: "Couldn't load listings" });
   }
 
-  return json(200, { listings: data });
+  return {
+    statusCode: 200,
+    headers: {
+      "Content-Type": "application/json",
+      // Cache at the CDN edge for 60s — listings don't need to be real-time.
+      // Individual listing pages (listings-get.js) are auth-gated so no cache there.
+      "Cache-Control": "public, max-age=60, stale-while-revalidate=30",
+    },
+    body: JSON.stringify({ listings: data }),
+  };
 }
 
 export const handler = safeHandler(handlerImpl);
