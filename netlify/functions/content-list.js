@@ -2,12 +2,18 @@
 // -> { submissions: [...] } — approved only, with author display_name attached
 
 import { supabaseAdmin, json, safeHandler } from "./_lib/supabase.js";
+import { withCache } from "./_lib/cache.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "GET") {
     return json(405, { error: "Method not allowed" });
   }
 
+  const cacheKey = (e) => `content:list:${new URLSearchParams(e.queryStringParameters || {}).toString()}`;
+  return withCache(cacheKey, 300, fetchContent, event);
+}
+
+async function fetchContent(event) {
   const params = event.queryStringParameters || {};
   const db = supabaseAdmin();
 

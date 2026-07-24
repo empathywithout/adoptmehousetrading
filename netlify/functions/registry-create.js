@@ -11,6 +11,7 @@
 // complexity); it's a cheap first pass that catches the obvious cases.
 
 import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
+import { invalidate } from "./_lib/cache.js";
 
 const VALID_THEMES = [
   "cutecore",
@@ -146,6 +147,7 @@ async function handlerImpl(event) {
     return json(500, { error: "Couldn't register build" });
   }
 
+  await invalidate("registry:list:");
   return json(200, { entry });
 }
 

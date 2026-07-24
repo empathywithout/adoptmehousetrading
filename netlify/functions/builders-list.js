@@ -2,12 +2,18 @@
 // -> { builders: [...] } — each with a computed cover_photo
 
 import { supabaseAdmin, json, safeHandler } from "./_lib/supabase.js";
+import { withCache } from "./_lib/cache.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "GET") {
     return json(405, { error: "Method not allowed" });
   }
 
+  const cacheKey = (e) => `builders:list:${new URLSearchParams(e.queryStringParameters || {}).toString()}`;
+  return withCache(cacheKey, 300, fetchBuilders, event);
+}
+
+async function fetchBuilders(event) {
   const params = event.queryStringParameters || {};
   const db = supabaseAdmin();
 

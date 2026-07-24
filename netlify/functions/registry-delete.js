@@ -9,6 +9,7 @@
 // their public builder page) but the row itself stays intact.
 
 import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
+import { invalidate } from "./_lib/cache.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
@@ -51,6 +52,7 @@ async function handlerImpl(event) {
     return json(500, { error: "Couldn't remove this build" });
   }
 
+  await invalidate("registry:list:");
   return json(200, { ok: true });
 }
 

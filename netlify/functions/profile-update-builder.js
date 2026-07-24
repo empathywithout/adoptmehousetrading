@@ -3,6 +3,7 @@
 // -> { profile }
 
 import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
+import { invalidate } from "./_lib/cache.js";
 
 const VALID_THEMES = [
   "cutecore",
@@ -89,6 +90,7 @@ async function handlerImpl(event) {
     return json(500, { error: "Couldn't update builder settings" });
   }
 
+  await invalidate("builders:list:");
   return json(200, {
     profile: {
       id: data.id,

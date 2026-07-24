@@ -3,6 +3,7 @@
 // -> { submission }
 
 import { supabaseAdmin, requireAdmin, notify, json, safeHandler } from "./_lib/supabase.js";
+import { invalidate } from "./_lib/cache.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
@@ -59,6 +60,7 @@ async function handlerImpl(event) {
     decision === "approved" ? `guides/entry.html?id=${submission.id}` : "profile.html"
   );
 
+  await invalidate("content:list:");
   return json(200, { submission: data });
 }
 

@@ -2,6 +2,7 @@
 // -> { entries: [...] } — each with builder's display_name attached
 
 import { supabaseAdmin, json, safeHandler } from "./_lib/supabase.js";
+import { withCache } from "./_lib/cache.js";
 
 const VERIFY_AFTER_DAYS = 30;
 
@@ -10,6 +11,11 @@ async function handlerImpl(event) {
     return json(405, { error: "Method not allowed" });
   }
 
+  const cacheKey = (e) => `registry:list:${new URLSearchParams(e.queryStringParameters || {}).toString()}`;
+  return withCache(cacheKey, 60, fetchRegistry, event);
+}
+
+async function fetchRegistry(event) {
   const params = event.queryStringParameters || {};
   const db = supabaseAdmin();
 
@@ -47,7 +53,6 @@ async function handlerImpl(event) {
     statusCode: 200,
     headers: {
       "Content-Type": "application/json",
-      // Cache at the CDN edge for 60s — registry doesn't need to be real-time.
       "Cache-Control": "public, max-age=60, stale-while-revalidate=30",
     },
     body: JSON.stringify({ entries }),

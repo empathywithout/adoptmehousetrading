@@ -2,12 +2,18 @@
 // -> { listings: [...] } — each with profile.display_name attached
 
 import { supabaseAdmin, json, safeHandler } from "./_lib/supabase.js";
+import { withCache } from "./_lib/cache.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "GET") {
     return json(405, { error: "Method not allowed" });
   }
 
+  const cacheKey = (e) => `listings:list:${new URLSearchParams(e.queryStringParameters || {}).toString()}`;
+  return withCache(cacheKey, 60, fetchListings, event);
+}
+
+async function fetchListings(event) {
   const params = event.queryStringParameters || {};
   const db = supabaseAdmin();
 
@@ -43,8 +49,6 @@ async function handlerImpl(event) {
     statusCode: 200,
     headers: {
       "Content-Type": "application/json",
-      // Cache at the CDN edge for 60s — listings don't need to be real-time.
-      // Individual listing pages (listings-get.js) are auth-gated so no cache there.
       "Cache-Control": "public, max-age=60, stale-while-revalidate=30",
     },
     body: JSON.stringify({ listings: data }),

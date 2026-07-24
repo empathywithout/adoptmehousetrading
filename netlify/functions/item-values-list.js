@@ -6,6 +6,7 @@
 // until real corroborated single-item trades exist for that category.
 
 import { supabaseAdmin, json, safeHandler } from "./_lib/supabase.js";
+import { withCache } from "./_lib/cache.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "GET") {
@@ -17,6 +18,12 @@ async function handlerImpl(event) {
     return json(400, { error: "Missing category" });
   }
 
+  const cacheKey = () => `item-values:${category}`;
+  return withCache(cacheKey, 600, fetchValues, event);
+}
+
+async function fetchValues(event) {
+  const category = event.queryStringParameters?.category;
   const db = supabaseAdmin();
   const { data, error } = await db.from("item_values").select("*").eq("category", category);
 

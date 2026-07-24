@@ -7,6 +7,7 @@
 // offers which were made based on those facts.
 
 import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
+import { invalidate } from "./_lib/cache.js";
 import { validateVideoUrl } from "./_lib/oembed.js";
 
 const VALID_CATEGORIES = ["adopt_me_pets", "vehicles", "toys", "pet_wear", "stickers", "strollers", "foods"];
@@ -136,6 +137,7 @@ async function handlerImpl(event) {
     return json(500, { error: "Couldn't save changes: " + (updateErr.message || updateErr.code || JSON.stringify(updateErr)) });
   }
 
+  await invalidate("listings:list:");
   return json(200, { listing: updated });
 }
 

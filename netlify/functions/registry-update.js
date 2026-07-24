@@ -7,6 +7,7 @@
 // of the provenance claim and shouldn't be retroactively changeable.
 
 import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
+import { invalidate } from "./_lib/cache.js";
 
 const VALID_THEMES = [
   "cutecore", "coquette", "cottagecore", "cozy", "gothic", "cutegoth",
@@ -106,6 +107,7 @@ async function handlerImpl(event) {
     return json(500, { error: error.message || "Couldn't update entry" });
   }
 
+  await invalidate("registry:list:");
   return json(200, { entry });
 }
 

@@ -3,6 +3,7 @@
 // -> { listing }
 
 import {  supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
+import { invalidate } from "./_lib/cache.js";
 import { validateVideoUrl } from "./_lib/oembed.js";
 
 const VALID_CATEGORIES = [
@@ -193,6 +194,7 @@ async function handlerImpl(event) {
     return json(500, { error: "Couldn't create listing" });
   }
 
+  await invalidate("listings:list:");
   return json(200, { listing: data });
 }
 

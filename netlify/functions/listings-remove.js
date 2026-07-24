@@ -9,6 +9,7 @@
 // Listings, but the row itself (and any past offers on it) stays intact.
 
 import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
+import { invalidate } from "./_lib/cache.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
@@ -54,6 +55,7 @@ async function handlerImpl(event) {
   // Decline any still-pending offers on it — there's no listing left to accept them for.
   await db.from("offers").update({ status: "declined" }).eq("listing_id", listing_id).eq("status", "pending");
 
+  await invalidate("listings:list:");
   return json(200, { ok: true });
 }
 
