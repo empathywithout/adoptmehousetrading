@@ -186,6 +186,14 @@
     <div class="hero-ctas" style="justify-content: flex-start; margin-top: 28px;">
       <button class="btn btn-primary" id="submit-btn">Publish Listing</button>
     </div>
+    <div id="registry-prompt" hidden style="margin-top:20px;padding:16px;background:var(--surface-2);border-radius:12px;border:1.5px solid var(--border);">
+      <strong style="font-size:15px;">Listing posted!</strong>
+      <p style="margin:8px 0 12px;font-size:14px;color:var(--ink);">Want to also register this build in the Build Registry to claim credit for it?</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button id="yes-register-btn" class="btn btn-primary" style="font-size:13px;padding:8px 16px;">Yes, register this build</button>
+        <button id="no-register-btn" class="btn" style="font-size:13px;padding:8px 16px;background:var(--surface-2);color:var(--ink);">No thanks, view listing</button>
+      </div>
+    </div>
   </div>
 
 </section>
@@ -505,14 +513,11 @@
         value_unit: unitVal,
         bucks_invested: bucksRaw === "" ? null : bucksRaw,
       });
+      successBox.textContent = "Listing posted!";
       successBox.hidden = false;
-      successBox.innerHTML = `
-        <strong>Listing posted!</strong>
-        <p style="margin:10px 0 12px;font-size:14px;">Want to also register this build in the Build Registry to claim credit for it?</p>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          <button id="yes-register-btn" class="btn btn-primary" style="font-size:13px;padding:8px 16px;">Yes, register this build</button>
-          <button id="no-register-btn" class="btn" style="font-size:13px;padding:8px 16px;background:var(--surface-2);color:var(--ink);">No thanks, view listing</button>
-        </div>`;
+      const registryPrompt = document.getElementById("registry-prompt");
+      registryPrompt.hidden = false;
+      registryPrompt.scrollIntoView({ behavior: "smooth", block: "nearest" });
       document.getElementById("yes-register-btn").addEventListener("click", () => {
         sessionStorage.setItem("amht_portfolio_prefill", JSON.stringify({
           title: listing.title,
