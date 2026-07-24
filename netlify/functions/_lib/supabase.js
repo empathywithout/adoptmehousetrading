@@ -1,6 +1,17 @@
 import { createClient } from "@supabase/supabase-js";
 import { randomBytes, createHash, scryptSync, timingSafeEqual } from "crypto";
+import { Redis } from "@upstash/redis";
 import WebSocket from "ws";
+
+let _redis = null;
+function getRedis() {
+  if (_redis) return _redis;
+  const url   = process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token) return null;
+  _redis = new Redis({ url, token });
+  return _redis;
+}
 
 // Service-role client: server-side only, bypasses Row Level Security.
 // Never expose SUPABASE_SERVICE_ROLE_KEY to the browser.
@@ -51,6 +62,18 @@ export async function requireProfile(event) {
 
   const db = supabaseAdmin();
   const tokenHash = hashToken(token);
+  const cacheKey  = `session:${tokenHash}`;
+
+  // Check Redis cache first — avoids a Supabase round-trip on every authed request
+  const redis = getRedis();
+  if (redis) {
+    try {
+      const cached = await redis.get(cacheKey);
+      if (cached) return typeof cached === "string" ? JSON.parse(cached) : cached;
+    } catch (err) {
+      console.warn("Session cache read failed (non-fatal):", err.message);
+    }
+  }
 
   const { data: session } = await db
     .from("sessions")
@@ -59,6 +82,15 @@ export async function requireProfile(event) {
     .maybeSingle();
 
   if (!session?.profiles) return null;
+
+  // Cache for 5 minutes — short enough that profile changes propagate quickly
+  if (redis) {
+    try {
+      await redis.set(cacheKey, JSON.stringify(session.profiles), { ex: 300 });
+    } catch (err) {
+      console.warn("Session cache write failed (non-fatal):", err.message);
+    }
+  }
 
   db.from("sessions").update({ last_seen_at: new Date().toISOString() }).eq("token_hash", tokenHash).then(() => {});
   return session.profiles;
