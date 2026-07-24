@@ -151,7 +151,7 @@ async function handlerImpl(event) {
     await uploadToR2(buffer, path, contentType);
   } catch (err) {
     console.error(err);
-    return json(500, { error: `Upload failed: ${err.message}` });
+    return json(500, { error: "Upload failed" });
   }
 
   const publicBase = process.env.R2_PUBLIC_URL; // https://pub-cba78cf9524643c2a7bff415bfed4d9d.r2.dev
