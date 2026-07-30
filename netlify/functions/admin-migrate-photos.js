@@ -61,11 +61,9 @@ async function handlerImpl(event) {
   const stats = { listings: 0, registry: 0, errors: [] };
 
   try {
-    // Process listings -- 10 at a time
-    const offset = parseInt(event.queryStringParameters?.offset || "0");
+    // Process listings -- 10 at a time, always from the start (already migrated ones skip fast)
     const { rows: listings } = await pool.query(
-      `SELECT id, photos FROM listings WHERE photos::text LIKE '%supabase%' LIMIT 10 OFFSET $1`,
-      [offset]
+      `SELECT id, photos FROM listings WHERE photos::text LIKE '%supabase%' LIMIT 10`
     );
 
     for (const row of listings) {
@@ -83,8 +81,7 @@ async function handlerImpl(event) {
 
     // Process build_registry
     const { rows: entries } = await pool.query(
-      `SELECT id, photos FROM build_registry WHERE photos::text LIKE '%supabase%' LIMIT 10 OFFSET $1`,
-      [offset]
+      `SELECT id, photos FROM build_registry WHERE photos::text LIKE '%supabase%' LIMIT 10`
     );
 
     for (const row of entries) {
