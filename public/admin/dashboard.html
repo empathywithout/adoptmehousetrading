@@ -130,6 +130,8 @@
   .act-reject:hover  { border-color: var(--accent); color: var(--accent); }
   .act-danger  { background: var(--accent-soft); color: var(--accent); border: 1.5px solid var(--accent); }
   .act-danger:hover  { background: var(--accent); color: #fff; }
+  .act-ghost { background: var(--surface-2); color: var(--ink); border: 1.5px solid var(--line); }
+  .act-ghost:hover { border-color: var(--accent); color: var(--accent); }
   .act-ghost   { background: transparent; color: var(--muted); border: 1.5px solid var(--line); }
   .act-ghost:hover   { border-color: var(--ink); color: var(--ink); }
 
@@ -670,28 +672,53 @@
     list.innerHTML = trades.map(t => {
       const date = new Date(t.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
       const value = t.value_amount != null ? `${t.value_amount} ${VALUE_LABELS[t.value_unit] || t.value_unit}` : 'No value set';
-      const items = (t.items || []).map(it => {
-        const qty = it.qty > 1 ? `x${it.qty} ` : '';
-        const pet = it.variant && it.variant !== 'regular' ? ` (${it.variant}${it.potion && it.potion !== 'none' ? ' ' + it.potion : ''})` : '';
-        return `<span class="item-tag">${qty}${escapeHtml(it.name)}${pet}</span>`;
-      }).join(' ');
 
       const conf = t.confirmation;
-      const confStatus = !conf ? 'Not confirmed' :
-        conf.status === 'corroborated' ? 'Both confirmed' :
-        `Lister: ${conf.lister_confirmed ? 'yes' : 'no'} / Offerer: ${conf.offerer_confirmed ? 'yes' : 'no'}`;
-      const confClass = !conf ? 'badge-pending' : conf.status === 'corroborated' ? 'badge-approved' : 'badge-pending';
+      const confLabel = !conf ? 'Unconfirmed' : conf.status === 'corroborated' ? 'Both confirmed ✓' :
+        `${conf.lister_confirmed ? 'Lister ✓' : 'Lister ✗'} · ${conf.offerer_confirmed ? 'Offerer ✓' : 'Offerer ✗'}`;
+      const confWarn = !conf || conf.status !== 'corroborated';
 
-      return `<div class="card">
-        <div class="card-row">
-          <strong>${escapeHtml(t.listing_title)}</strong>
-          <span class="badge-pill ${confClass}">${confStatus}</span>
+      const itemsHtml = (t.items || []).map(it => {
+        const qty = it.qty > 1 ? `<span style="font-size:10px;font-weight:700;color:var(--muted);">x${it.qty}</span> ` : '';
+        const pet = it.variant && it.variant !== 'regular'
+          ? `<span style="font-size:10px;color:var(--muted);"> ${it.variant}${it.potion && it.potion !== 'none' ? ' · ' + it.potion : ''}</span>` : '';
+        const img = it.image
+          ? `<img src="${it.image}" alt="${escapeHtml(it.name)}" style="width:36px;height:36px;border-radius:8px;object-fit:cover;flex-shrink:0;" onerror="this.style.display='none'">`
+          : `<div style="width:36px;height:36px;border-radius:8px;background:var(--surface-2);flex-shrink:0;"></div>`;
+        return `<div style="display:flex;align-items:center;gap:8px;padding:8px;background:var(--paper);border:1px solid var(--line);border-radius:10px;">
+          ${img}
+          <div style="min-width:0;">
+            <div style="font-size:13px;font-weight:600;color:var(--ink);">${qty}${escapeHtml(it.name)}${pet}</div>
+            ${it.category ? `<div style="font-size:11px;color:var(--muted);">${escapeHtml(it.category.replace(/_/g,' '))}</div>` : ''}
+          </div>
+        </div>`;
+      }).join('');
+
+      return `<div class="admin-card">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:6px;">
+          <div class="admin-card-title">${escapeHtml(t.listing_title)}</div>
+          <span class="tag-pill${confWarn ? ' warn' : ''}" style="flex-shrink:0;">${confLabel}</span>
         </div>
-        <div class="card-meta">${date} &middot; Listed by <strong>${escapeHtml(t.lister)}</strong> &middot; Value: ${escapeHtml(value)}</div>
-        <div class="card-meta">Offer by <strong>${escapeHtml(t.offerer)}</strong></div>
-        ${items ? `<div class="card-meta items-row">Items offered: ${items}</div>` : '<div class="card-meta">No items listed</div>'}
-        <div class="card-actions">
-          <a href="/listings/listing.html?id=${t.listing_id}" target="_blank" class="btn-sm">View Listing</a>
+        <div class="admin-card-meta">
+          ${date} &middot; Value: <strong>${escapeHtml(value)}</strong>
+        </div>
+        <div style="display:flex;gap:24px;margin-bottom:12px;">
+          <div>
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:2px;">Lister</div>
+            <div style="font-size:14px;font-weight:600;color:var(--ink);">${escapeHtml(t.lister)}</div>
+          </div>
+          <div style="display:flex;align-items:center;color:var(--muted);font-size:18px;">⇄</div>
+          <div>
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:2px;">Offerer</div>
+            <div style="font-size:14px;font-weight:600;color:var(--ink);">${escapeHtml(t.offerer)}</div>
+          </div>
+        </div>
+        ${itemsHtml ? `<div style="margin-bottom:12px;">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:8px;">Items Offered</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">${itemsHtml}</div>
+        </div>` : ''}
+        <div class="action-row">
+          <a href="/listings/listing.html?id=${t.listing_id}" target="_blank" class="act act-ghost" style="text-decoration:none;font-size:12px;padding:6px 14px;">View Listing ↗</a>
         </div>
       </div>`;
     }).join('');
