@@ -43,7 +43,7 @@ async function migrateUrl(s3, url) {
   } catch {}
 
   // Download from Supabase and upload to R2
-  const resp = await fetch(url, { signal: AbortSignal.timeout(10000) });
+  const resp = await fetch(url, { signal: AbortSignal.timeout(5000) });
   if (!resp.ok) return url;
   const buffer = Buffer.from(await resp.arrayBuffer());
   const contentType = resp.headers.get("content-type") || "image/jpeg";
@@ -63,7 +63,7 @@ async function handlerImpl(event) {
   try {
     // Process listings -- 10 at a time, always from the start (already migrated ones skip fast)
     const { rows: listings } = await pool.query(
-      `SELECT id, photos FROM listings WHERE photos::text LIKE '%supabase%' LIMIT 3`
+      `SELECT id, photos FROM listings WHERE photos::text LIKE '%supabase%' LIMIT 1`
     );
 
     for (const row of listings) {
@@ -81,7 +81,7 @@ async function handlerImpl(event) {
 
     // Process build_registry
     const { rows: entries } = await pool.query(
-      `SELECT id, photos FROM build_registry WHERE photos::text LIKE '%supabase%' LIMIT 3`
+      `SELECT id, photos FROM build_registry WHERE photos::text LIKE '%supabase%' LIMIT 1`
     );
 
     for (const row of entries) {
