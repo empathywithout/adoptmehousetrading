@@ -63,13 +63,13 @@ async function handlerImpl(event) {
   try {
     // Process listings -- 10 at a time, always from the start (already migrated ones skip fast)
     const { rows: listings } = await pool.query(
-      `SELECT id, photos FROM listings WHERE photos::text LIKE '%supabase%' LIMIT 10`
+      `SELECT id, photos FROM listings WHERE photos::text LIKE '%supabase%' LIMIT 3`
     );
 
     for (const row of listings) {
       try {
         const photos = Array.isArray(row.photos) ? row.photos : JSON.parse(row.photos);
-        const newPhotos = await Promise.all(photos.map(u => migrateUrl(s3, u)));
+        const newPhotos = []; for (const u of photos) newPhotos.push(await migrateUrl(s3, u));
         if (JSON.stringify(newPhotos) !== JSON.stringify(photos)) {
           await pool.query(`UPDATE listings SET photos = $1 WHERE id = $2`, [JSON.stringify(newPhotos), row.id]);
           stats.listings++;
@@ -81,13 +81,13 @@ async function handlerImpl(event) {
 
     // Process build_registry
     const { rows: entries } = await pool.query(
-      `SELECT id, photos FROM build_registry WHERE photos::text LIKE '%supabase%' LIMIT 10`
+      `SELECT id, photos FROM build_registry WHERE photos::text LIKE '%supabase%' LIMIT 3`
     );
 
     for (const row of entries) {
       try {
         const photos = Array.isArray(row.photos) ? row.photos : JSON.parse(row.photos);
-        const newPhotos = await Promise.all(photos.map(u => migrateUrl(s3, u)));
+        const newPhotos = []; for (const u of photos) newPhotos.push(await migrateUrl(s3, u));
         if (JSON.stringify(newPhotos) !== JSON.stringify(photos)) {
           await pool.query(`UPDATE build_registry SET photos = $1 WHERE id = $2`, [JSON.stringify(newPhotos), row.id]);
           stats.registry++;
