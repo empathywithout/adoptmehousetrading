@@ -2,8 +2,10 @@
 // Trigger: GET /.netlify/functions/admin-migrate-photos?secret=ADMIN_PASSWORD
 // Delete this file after migration is confirmed complete.
 
-import { requireAdmin, json, safeHandler } from "./_lib/supabase.js";
+import { json, safeHandler } from "./_lib/supabase.js";
 import { S3Client, PutObjectCommand, HeadObjectCommand } from "@aws-sdk/client-s3";
+import pkg from "pg";
+const { Pool } = pkg;
 
 const R2_ACCOUNT_ID = "8edf48959988dcde96953a5dfd766c18";
 const R2_BUCKET = "adoptme-listing-photos";
@@ -20,115 +22,89 @@ function getS3() {
   });
 }
 
+function getPool() {
+  return new Pool({ connectionString: process.env.DATABASE_URL, max: 2 });
+}
+
 function getR2Key(supabaseUrl) {
   const match = supabaseUrl.match(/\/public\/(.+)/);
   return match ? match[1] : null;
 }
 
 async function migrateUrl(s3, url) {
-  if (!url || !url.includes("supabase")) return { url, migrated: false };
-
+  if (!url || !url.includes("supabase")) return url;
   const key = getR2Key(url);
-  if (!key) return { url, migrated: false, error: "Could not parse key" };
+  if (!key) return url;
 
   // Check if already in R2
   try {
     await s3.send(new HeadObjectCommand({ Bucket: R2_BUCKET, Key: key }));
-    return { url: `${R2_PUBLIC_BASE}/${key}`, migrated: false, alreadyExists: true };
+    return `${R2_PUBLIC_BASE}/${key}`;
   } catch {}
 
-  // Download from Supabase
-  const resp = await fetch(url, { signal: AbortSignal.timeout(15000) });
-  if (!resp.ok) return { url, migrated: false, error: `Download failed: ${resp.status}` };
-
+  // Download from Supabase and upload to R2
+  const resp = await fetch(url, { signal: AbortSignal.timeout(10000) });
+  if (!resp.ok) return url;
   const buffer = Buffer.from(await resp.arrayBuffer());
   const contentType = resp.headers.get("content-type") || "image/jpeg";
-
-  await s3.send(new PutObjectCommand({
-    Bucket: R2_BUCKET,
-    Key: key,
-    Body: buffer,
-    ContentType: contentType,
-  }));
-
-  return { url: `${R2_PUBLIC_BASE}/${key}`, migrated: true };
-}
-
-async function migrateArray(s3, photos) {
-  if (!Array.isArray(photos) || photos.length === 0) return { photos, changed: false };
-  const results = await Promise.all(photos.map(u => migrateUrl(s3, u)));
-  const changed = results.some(r => r.migrated);
-  return { photos: results.map(r => r.url), changed, details: results };
+  await s3.send(new PutObjectCommand({ Bucket: R2_BUCKET, Key: key, Body: buffer, ContentType: contentType }));
+  return `${R2_PUBLIC_BASE}/${key}`;
 }
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "GET") return json(405, { error: "GET only" });
-
-  // Auth via admin password in query string
   const secret = event.queryStringParameters?.secret;
-  const expected = process.env.ADMIN_PASSWORD;
-  if (!secret || secret !== expected) return json(401, { error: "Unauthorized" });
+  if (!secret || secret !== process.env.ADMIN_PASSWORD) return json(401, { error: "Unauthorized" });
 
-  const db = (await import("./_lib/supabase.js")).supabaseAdmin();
   const s3 = getS3();
+  const pool = getPool();
+  const stats = { listings: 0, registry: 0, errors: [] };
 
-  const stats = { listings: 0, registry: 0, commissions: 0, errors: [] };
+  try {
+    // Process listings -- 10 at a time
+    const offset = parseInt(event.queryStringParameters?.offset || "0");
+    const { rows: listings } = await pool.query(
+      `SELECT id, photos FROM listings WHERE photos::text LIKE '%supabase%' LIMIT 10 OFFSET $1`,
+      [offset]
+    );
 
-  // ── listings ──
-  const { data: listings } = await db.from("listings")
-    .select("id, photos")
-    .filter("photos", "not.is", "null");
-
-  for (const listing of listings || []) {
-    if (!JSON.stringify(listing.photos).includes("supabase")) continue;
-    try {
-      const { photos, changed } = await migrateArray(s3, listing.photos);
-      if (changed) {
-        await db.from("listings").update({ photos }).eq("id", listing.id);
-        stats.listings++;
+    for (const row of listings) {
+      try {
+        const photos = Array.isArray(row.photos) ? row.photos : JSON.parse(row.photos);
+        const newPhotos = await Promise.all(photos.map(u => migrateUrl(s3, u)));
+        if (JSON.stringify(newPhotos) !== JSON.stringify(photos)) {
+          await pool.query(`UPDATE listings SET photos = $1 WHERE id = $2`, [JSON.stringify(newPhotos), row.id]);
+          stats.listings++;
+        }
+      } catch (err) {
+        stats.errors.push(`listing ${row.id}: ${err.message}`);
       }
-    } catch (err) {
-      stats.errors.push(`listing ${listing.id}: ${err.message}`);
     }
-  }
 
-  // ── build_registry ──
-  const { data: entries } = await db.from("build_registry")
-    .select("id, photos")
-    .filter("photos", "not.is", "null");
+    // Process build_registry
+    const { rows: entries } = await pool.query(
+      `SELECT id, photos FROM build_registry WHERE photos::text LIKE '%supabase%' LIMIT 10 OFFSET $1`,
+      [offset]
+    );
 
-  for (const entry of entries || []) {
-    if (!JSON.stringify(entry.photos).includes("supabase")) continue;
-    try {
-      const { photos, changed } = await migrateArray(s3, entry.photos);
-      if (changed) {
-        await db.from("build_registry").update({ photos }).eq("id", entry.id);
-        stats.registry++;
+    for (const row of entries) {
+      try {
+        const photos = Array.isArray(row.photos) ? row.photos : JSON.parse(row.photos);
+        const newPhotos = await Promise.all(photos.map(u => migrateUrl(s3, u)));
+        if (JSON.stringify(newPhotos) !== JSON.stringify(photos)) {
+          await pool.query(`UPDATE build_registry SET photos = $1 WHERE id = $2`, [JSON.stringify(newPhotos), row.id]);
+          stats.registry++;
+        }
+      } catch (err) {
+        stats.errors.push(`registry ${row.id}: ${err.message}`);
       }
-    } catch (err) {
-      stats.errors.push(`registry ${entry.id}: ${err.message}`);
     }
+
+    const hasMore = listings.length === 10 || entries.length === 10;
+    return json(200, { ok: true, stats, hasMore, nextOffset: offset + 10 });
+  } finally {
+    await pool.end();
   }
-
-  // ── commission_requests ──
-  const { data: commissions } = await db.from("commission_requests")
-    .select("id, delivery_photos")
-    .filter("delivery_photos", "not.is", "null");
-
-  for (const req of commissions || []) {
-    if (!JSON.stringify(req.delivery_photos).includes("supabase")) continue;
-    try {
-      const { photos, changed } = await migrateArray(s3, req.delivery_photos);
-      if (changed) {
-        await db.from("commission_requests").update({ delivery_photos: photos }).eq("id", req.id);
-        stats.commissions++;
-      }
-    } catch (err) {
-      stats.errors.push(`commission ${req.id}: ${err.message}`);
-    }
-  }
-
-  return json(200, { ok: true, stats });
 }
 
 export const handler = safeHandler(handlerImpl);
