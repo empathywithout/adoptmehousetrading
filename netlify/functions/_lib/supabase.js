@@ -256,6 +256,14 @@ const FK_MAP = {
   "content_submissions.profiles": "profile_id",
   // trade_chat_messages -> profiles
   "trade_chat_messages.profiles": "profile_id",
+  // data_team_applications -> profiles
+  "data_team_applications.profiles": "profile_id",
+  // notifications -> profiles
+  "notifications.profiles": "profile_id",
+  // reports -> listings
+  "reports.listings": "listing_id",
+  // sessions -> profiles
+  "sessions.profiles": "profile_id",
 };
 
 // ─── QueryBuilder ─────────────────────────────────────────────────────────────
