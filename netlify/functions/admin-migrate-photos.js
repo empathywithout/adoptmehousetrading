@@ -98,7 +98,7 @@ async function handlerImpl(event) {
     }
 
     const hasMore = listings.length === 10 || entries.length === 10;
-    return json(200, { ok: true, stats, hasMore, nextOffset: offset + 10 });
+    return json(200, { ok: true, stats, hasMore });
   } finally {
     await pool.end();
   }
