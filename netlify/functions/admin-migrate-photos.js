@@ -97,7 +97,7 @@ async function handlerImpl(event) {
       }
     }
 
-    const hasMore = listings.length === 10 || entries.length === 10;
+    const hasMore = listings.length === 1 || entries.length === 1;
     return json(200, { ok: true, stats, hasMore });
   } finally {
     await pool.end();
