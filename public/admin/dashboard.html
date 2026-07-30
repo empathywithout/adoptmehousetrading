@@ -207,6 +207,7 @@
       <button class="tab-btn" data-tab="guides"><span>Guides</span> <span class="badge" id="badge-guides">0</span></button>
       <button class="tab-btn" data-tab="dupes"><span>Duplicates</span> <span class="badge" id="badge-dupes">0</span></button>
       <button class="tab-btn" data-tab="registry-dupes"><span>Registry Dupes</span> <span class="badge" id="badge-registry-dupes">0</span></button>
+      <button class="tab-btn" data-tab="trades"><span>Trades</span> <span class="badge" id="badge-trades">0</span></button>
     </nav>
     <button id="logout-btn">Log out</button>
   </div>
@@ -238,6 +239,12 @@
       <p class="section-title">Registry Duplicate Flags</p>
       <div id="registry-dupes-list"></div>
       <div id="empty-registry-dupes" class="empty-state" hidden><strong>No flagged registry entries.</strong></div>
+    </div>
+
+    <div class="tab-panel" id="tab-trades">
+      <p class="section-title">Accepted Trades</p>
+      <div id="trades-list"></div>
+      <div id="empty-trades" class="empty-state" hidden><strong>No accepted trades yet.</strong></div>
     </div>
   </div>
 </div>
@@ -273,16 +280,17 @@
     const pw = getAdminPassword();
     if (!pw) return;
     try {
-      const [disputesRes, applicationsRes, contentRes, statsRes, dupesRes, registryDupesRes] = await Promise.all([
+      const [disputesRes, applicationsRes, contentRes, statsRes, dupesRes, registryDupesRes, tradesRes] = await Promise.all([
         fetch("/.netlify/functions/admin-disputes-list",  { headers: { "X-Admin-Password": pw } }),
         fetch(`/.netlify/functions/admin-data-team-list${showAllApplications ? "?all=1" : ""}`, { headers: { "X-Admin-Password": pw } }),
         fetch(`/.netlify/functions/admin-content-list${showAllGuides ? "?all=1" : ""}`,   { headers: { "X-Admin-Password": pw } }),
         fetch("/.netlify/functions/admin-stats",          { headers: { "X-Admin-Password": pw } }),
         fetch("/.netlify/functions/admin-dupe-listings",  { headers: { "X-Admin-Password": pw } }),
         fetch("/.netlify/functions/admin-registry-dupes", { headers: { "X-Admin-Password": pw } }),
+        fetch("/.netlify/functions/admin-trades-list",    { headers: { "X-Admin-Password": pw } }),
       ]);
-      const [disputesData, applicationsData, contentData, statsData, dupesData, registryDupesData] = await Promise.all([
-        disputesRes.json(), applicationsRes.json(), contentRes.json(), statsRes.json(), dupesRes.json(), registryDupesRes.json(),
+      const [disputesData, applicationsData, contentData, statsData, dupesData, registryDupesData, tradesData] = await Promise.all([
+        disputesRes.json(), applicationsRes.json(), contentRes.json(), statsRes.json(), dupesRes.json(), registryDupesRes.json(), tradesRes.json(),
       ]);
       const failedRes = [disputesRes, applicationsRes, contentRes].find(r => r.status === 401);
       if (failedRes) {
@@ -297,6 +305,7 @@
       renderContentSubmissions(contentRes.ok ? (contentData.submissions || []) : []);
       renderDupes(dupesRes.ok ? (dupesData.groups || []) : []);
       renderRegistryDupes(registryDupesRes.ok ? (registryDupesData.entries || []) : []);
+      renderTrades(tradesRes.ok ? (tradesData.trades || []) : []);
       if (!disputesRes.ok)      console.error("Disputes failed:", disputesData?.error);
       if (!applicationsRes.ok)  console.error("Applications failed:", applicationsData?.error);
       if (!contentRes.ok)       console.error("Guides failed:", contentData?.error);
@@ -646,6 +655,47 @@
   document.getElementById("admin-password").addEventListener("keydown", e => {
     if (e.key === "Enter") document.getElementById("login-btn").click();
   });
+
+
+  // ── Trades ──
+  function renderTrades(trades) {
+    const list = document.getElementById('trades-list');
+    const empty = document.getElementById('empty-trades');
+    setBadge('badge-trades', trades.length);
+    if (!trades.length) { list.innerHTML = ''; empty.hidden = false; return; }
+    empty.hidden = true;
+
+    const VALUE_LABELS = { shark: 'Shark', frost: 'Frost', rp: 'RP' };
+
+    list.innerHTML = trades.map(t => {
+      const date = new Date(t.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      const value = t.value_amount != null ? `${t.value_amount} ${VALUE_LABELS[t.value_unit] || t.value_unit}` : 'No value set';
+      const items = (t.items || []).map(it => {
+        const qty = it.qty > 1 ? `x${it.qty} ` : '';
+        const pet = it.variant && it.variant !== 'regular' ? ` (${it.variant}${it.potion && it.potion !== 'none' ? ' ' + it.potion : ''})` : '';
+        return `<span class="item-tag">${qty}${escapeHtml(it.name)}${pet}</span>`;
+      }).join(' ');
+
+      const conf = t.confirmation;
+      const confStatus = !conf ? 'Not confirmed' :
+        conf.status === 'corroborated' ? 'Both confirmed' :
+        `Lister: ${conf.lister_confirmed ? 'yes' : 'no'} / Offerer: ${conf.offerer_confirmed ? 'yes' : 'no'}`;
+      const confClass = !conf ? 'badge-pending' : conf.status === 'corroborated' ? 'badge-approved' : 'badge-pending';
+
+      return `<div class="card">
+        <div class="card-row">
+          <strong>${escapeHtml(t.listing_title)}</strong>
+          <span class="badge-pill ${confClass}">${confStatus}</span>
+        </div>
+        <div class="card-meta">${date} &middot; Listed by <strong>${escapeHtml(t.lister)}</strong> &middot; Value: ${escapeHtml(value)}</div>
+        <div class="card-meta">Offer by <strong>${escapeHtml(t.offerer)}</strong></div>
+        ${items ? `<div class="card-meta items-row">Items offered: ${items}</div>` : '<div class="card-meta">No items listed</div>'}
+        <div class="card-actions">
+          <a href="/listings/listing.html?id=${t.listing_id}" target="_blank" class="btn-sm">View Listing</a>
+        </div>
+      </div>`;
+    }).join('');
+  }
 
   await tryLoad();
 </script>
