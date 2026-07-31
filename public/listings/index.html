@@ -232,7 +232,7 @@
               <div class="trust-row">
                 ${listing.profiles?.rbx_avatar_url ? `<img class="trust-row-avatar" src="${listing.profiles.rbx_avatar_url}" alt="">` : `<span class="avatar-initial">${escapeHtml(username[0]?.toUpperCase() || "?")}</span>`}
                 <span class="username">${escapeHtml(username)}</span>
-                ${(() => { const s=savedIds.has(listing.id); return myProfile?.id !== listing.profile_id ? '<button class="' + (s ? 'save-btn saved' : 'save-btn') + '" data-listing-id="' + listing.id + '" title="' + (s ? 'Saved — click to unsave' : 'Save this listing') + '" onclick="event.preventDefault()">' + (s ? 'Saved' : 'Save') + '</button>' : ''; })()}
+                ${(() => { const s=savedIds.has(listing.id); const sc=listing.save_count||0; return myProfile?.id !== listing.profile_id ? '<button class="' + (s ? 'save-btn saved' : 'save-btn') + '" data-listing-id="' + listing.id + '" title="' + (s ? 'Liked — click to unlike' : 'Like this listing') + '" onclick="event.preventDefault()">' + (s ? 'Liked' : 'Like') + (sc > 0 ? ' ' + sc : '') + '</button>' : (sc > 0 ? '<span style="font-size:11px;font-weight:700;color:var(--muted);">♥ ' + sc + '</span>' : ''); })()}
               </div>
               ${valueLine}
               ${themeLine}
@@ -249,7 +249,7 @@
     const btn = e.target.closest(".save-btn[data-listing-id]");
     if (!btn) return;
     e.preventDefault();
-    if (!token) { alert("Sign in to save listings."); return; }
+    if (!token) { alert("Sign in to like listings."); return; }
     const listingId = btn.dataset.listingId;
     btn.disabled = true;
     try {
@@ -262,8 +262,9 @@
       if (!res.ok) throw new Error(data.error || "Couldn't save");
       if (data.saved) { savedIds.add(listingId); } else { savedIds.delete(listingId); }
       btn.classList.toggle("saved", data.saved);
-      btn.title = data.saved ? "Saved — click to unsave" : "Save this listing";
-      btn.textContent = data.saved ? "Saved" : "Save";
+      btn.title = data.saved ? "Liked — click to unlike" : "Like this listing";
+      const sc = data.save_count || 0;
+      btn.textContent = (data.saved ? "Liked" : "Like") + (sc > 0 ? " " + sc : "");
     } catch (err) { alert(err.message); }
     finally { btn.disabled = false; }
   });

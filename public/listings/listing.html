@@ -229,7 +229,7 @@
               <div class="trust-name-row">
                 <span class="name">${escapeHtml(listing.profiles?.display_name || "unknown")}</span>
                 <span style="width:6px;height:6px;border-radius:50%;background:var(--good);"></span>
-                ${myProfile && !isOwner ? `<button id="save-listing-btn" class="save-btn ${isSaved ? "saved" : ""}" title="${isSaved ? "Saved — click to unsave" : "Save this listing"}">${isSaved ? "Saved" : "Save"}</button>` : ""}
+                ${myProfile && !isOwner ? `<button id="save-listing-btn" class="save-btn ${isSaved ? "saved" : ""}" title="${isSaved ? "Liked — click to unlike" : "Like this listing"}">${isSaved ? "Liked" : "Like"}${listing.save_count > 0 ? " " + listing.save_count : ""}</button>` : (listing.save_count > 0 ? `<span style="font-size:12px;font-weight:700;color:var(--muted);">♥ ${listing.save_count}</span>` : "")}
               </div>
               <div class="trust-sub">${listing.profiles?.rbx_username ? `Lister · Roblox: ${escapeHtml(listing.profiles.rbx_username)}` : "Lister"}</div>
             </div>
@@ -412,7 +412,7 @@
     document.getElementById("save-listing-btn")?.addEventListener("click", async () => {
       const btn = document.getElementById("save-listing-btn");
       const t = localStorage.getItem("amht_token");
-      if (!t) { alert("Sign in to save listings."); return; }
+      if (!t) { alert("Sign in to like listings."); return; }
       btn.disabled = true;
       try {
         const res = await fetch("/.netlify/functions/listing-save", {
@@ -424,8 +424,10 @@
         if (!res.ok) throw new Error(data.error || "Couldn't save");
         isSaved = data.saved;
         btn.classList.toggle("saved", isSaved);
+        const sc = data.save_count || 0;
+        btn.textContent = (isSaved ? "Liked" : "Like") + (sc > 0 ? " " + sc : "");
         btn.textContent = isSaved ? "Saved" : "Save";
-        btn.title = isSaved ? "Saved — click to unsave" : "Save this listing";
+        btn.title = isSaved ? "Liked — click to unlike" : "Like this listing";
       } catch (err) {
         alert(err.message);
       } finally {
