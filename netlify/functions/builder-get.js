@@ -16,7 +16,7 @@ async function handlerImpl(event) {
   const db = supabaseAdmin();
   const { data, error } = await db
     .from("profiles")
-    .select("id, display_name, rbx_avatar_url, builder_bio, commission_status, builder_themes, featured_registry_entry_id, is_builder")
+    .select("id, display_name, rbx_avatar_url, builder_avatar_url, builder_bio, commission_status, builder_themes, featured_registry_entry_id, is_builder")
     .eq("id", id)
     .maybeSingle();
 

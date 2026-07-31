@@ -135,8 +135,8 @@
         <div>
           <div class="trust-card" style="margin-bottom:20px;">
             ${
-              builder.rbx_avatar_url
-                ? `<img class="avatar-lg" src="${builder.rbx_avatar_url}" alt="" style="object-fit:cover;">`
+              (builder.builder_avatar_url || builder.rbx_avatar_url)
+                ? `<img class="avatar-lg" src="${builder.builder_avatar_url || builder.rbx_avatar_url}" alt="" style="object-fit:cover;">`
                 : `<div class="avatar-lg" style="display:flex;align-items:center;justify-content:center;">${escapeHtml(builder.display_name[0]?.toUpperCase() || "?")}</div>`
             }
             <div>

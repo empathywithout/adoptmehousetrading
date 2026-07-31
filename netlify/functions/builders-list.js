@@ -19,7 +19,7 @@ async function fetchBuilders(event) {
 
   let query = db
     .from("profiles")
-    .select("id, display_name, rbx_avatar_url, builder_bio, commission_status, builder_themes, featured_registry_entry_id, created_at")
+    .select("id, display_name, rbx_avatar_url, builder_avatar_url, builder_bio, commission_status, builder_themes, featured_registry_entry_id, created_at")
     .eq("is_builder", true)
     .order("created_at", { ascending: false });
 

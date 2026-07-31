@@ -54,13 +54,18 @@ async function handlerImpl(event) {
     return json(400, { error: "Invalid JSON body" });
   }
 
-  const { is_builder, builder_bio, commission_status, builder_themes, featured_registry_entry_id } = body;
+  const { is_builder, builder_bio, commission_status, builder_themes, featured_registry_entry_id, builder_avatar_url } = body;
 
   const patch = {};
   if (typeof is_builder === "boolean") patch.is_builder = is_builder;
   if (builder_bio !== undefined) patch.builder_bio = builder_bio ? String(builder_bio).slice(0, 500) : null;
   if (["open", "closed"].includes(commission_status)) patch.commission_status = commission_status;
   if (Array.isArray(builder_themes)) patch.builder_themes = builder_themes.filter((t) => VALID_THEMES.includes(t));
+  if (builder_avatar_url !== undefined) {
+    patch.builder_avatar_url = builder_avatar_url
+      ? String(builder_avatar_url).slice(0, 500)
+      : null;
+  }
 
   const db = supabaseAdmin();
 
@@ -96,6 +101,7 @@ async function handlerImpl(event) {
       id: data.id,
       rbx_username: data.rbx_username,
       rbx_avatar_url: data.rbx_avatar_url,
+      builder_avatar_url: data.builder_avatar_url || null,
       is_builder: data.is_builder,
       builder_bio: data.builder_bio,
       commission_status: data.commission_status,
