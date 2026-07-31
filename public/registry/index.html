@@ -62,6 +62,14 @@
     Builders spend thousands of Bucks and hours crafting unique houses, only to have cloners copy the design and sell it as their own. When the same build floods the market, original builders lose credit and traders get scammed paying original prices for dupes. The Build Registry is a public, timestamped record of who built what first. Register your build in seconds — if someone disputes your claim, the timestamp wins, but real proof of ownership like early screenshots or videos can override it. Builds go Verified after 30 days with no dispute, or get officially marked Original or Cloned after a real review. Know what you're trading for. Builders get the credit they're owed.
   </p>
 
+  <div id="featured-builds" style="display:none;margin-bottom:28px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+      <span style="font-size:18px;">♥</span>
+      <span style="font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);">Most Hearted Builds</span>
+    </div>
+    <div id="featured-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;"></div>
+  </div>
+
   <div id="pf-container"></div>
 
   <div id="empty-state" class="form-card" hidden>
@@ -126,7 +134,7 @@
       sort: true,
       sorts: [
         { val: "recent", label: "Most Recent" },
-        { val: "saves",  label: "Most Saved" },
+        { val: "saves",  label: "Most Hearted" },
       ],
       build: true, theme: true,
       themes,
@@ -279,6 +287,35 @@
 
   renderThemePills();
   render();
+
+  // ── Featured: top 3 most hearted builds ──────────────────────
+  const topHearted = [...entries]
+    .filter(e => (e.save_count || 0) > 0)
+    .sort((a, b) => (b.save_count || 0) - (a.save_count || 0))
+    .slice(0, 3);
+
+  if (topHearted.length) {
+    const featuredSection = document.getElementById("featured-builds");
+    const featuredGrid = document.getElementById("featured-grid");
+    featuredSection.style.display = "";
+    featuredGrid.innerHTML = topHearted.map((entry, rank) => {
+      const photo = entry.photos?.[0] || "https://pub-20ee170c554940ac8bfcce8af2da57a8.r2.dev/placeholder-house.jpg";
+      const medals = ["🥇", "🥈", "🥉"];
+      return `<a href="entry.html?id=${entry.id}" class="listing-card" style="text-decoration:none;">
+        <div class="photo" style="position:relative;">
+          <img src="${escapeHtml(photo)}" alt="${escapeHtml(entry.title)}" loading="lazy">
+          <span style="position:absolute;top:8px;left:8px;font-size:20px;line-height:1;">${medals[rank]}</span>
+        </div>
+        <div class="body">
+          <h3 style="font-size:13px;">${escapeHtml(entry.title)}</h3>
+          <div class="trust-row" style="justify-content:space-between;">
+            <span class="username">${escapeHtml(entry.profiles?.display_name || "unknown")}</span>
+            <span style="font-size:13px;font-weight:800;color:var(--accent);">♥ ${entry.save_count}</span>
+          </div>
+        </div>
+      </a>`;
+    }).join("");
+  }
 
   if (entries.length) {
     const schema = document.createElement("script");

@@ -375,6 +375,17 @@
           if (countEl && result.save_count != null) {
             countEl.innerHTML = result.save_count > 0 ? `<span style="font-size:18px;color:var(--accent);">♥</span> <span style="font-size:15px;font-weight:800;color:var(--ink);">${result.save_count}</span>` : "";
           }
+          // Share nudge after hearting
+          if (isSaved) {
+            const existing = document.getElementById("share-nudge");
+            if (!existing) {
+              const nudge = document.createElement("div");
+              nudge.id = "share-nudge";
+              nudge.style.cssText = "margin-top:10px;padding:10px 14px;background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;font-size:13px;display:flex;align-items:center;gap:10px;";
+              nudge.innerHTML = `<span style="font-size:18px;">♥</span><span style="flex:1;color:var(--ink);font-weight:600;">Love this build? Share it so the builder gets more hearts.</span><button onclick="navigator.clipboard.writeText(window.location.href).then(()=>{this.textContent='Copied!';setTimeout(()=>this.textContent='Copy Link',2000)})" style="background:var(--accent);color:#fff;border:none;border-radius:7px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;">Copy Link</button>`;
+              saveBtn.closest(".action-row") ? saveBtn.closest(".action-row").appendChild(nudge) : saveBtn.parentNode.appendChild(nudge);
+            }
+          }
         } catch { alert("Something went wrong"); }
         finally { saveBtn.dataset.loading = ""; saveBtn.style.opacity = ""; }
       });
