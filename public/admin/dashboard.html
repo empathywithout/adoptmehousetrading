@@ -815,8 +815,8 @@
     const meta  = document.getElementById("values-meta");
     setBadge("badge-values", values.length);
 
-    if (!values.length) { list.innerHTML = ""; empty.hidden = false; return; }
-    empty.hidden = true;
+    if (!values.length) { list.innerHTML = ""; empty.style.display = ""; return; }
+    empty.style.display = "none";
 
     const updated = values[0]?.updated_at ? new Date(values[0].updated_at).toLocaleDateString("en-US", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }) : "";
     meta.textContent = values.length + " values" + (updated ? " · last run " + updated : "");
