@@ -87,10 +87,9 @@ async function runTests(baseUrl, adminPassword) {
   });
 
   // ── Auth ──
-  // Roblox lookup first -- required before signup
-  let rbxUserId = null;
-  let rbxUsername = null;
-  let rbxAvatarUrl = null;
+  // Use a unique timestamp-based rbx_username so we never clash with existing accounts
+  const uniqueRbxUsername = `smoketest_${Date.now()}`;
+  const uniqueRbxUserId = Date.now(); // fake but unique numeric ID
 
   await test("roblox-lookup: looks up real username", async () => {
     const { status, data } = await api(baseUrl, "roblox-lookup", {
@@ -99,20 +98,16 @@ async function runTests(baseUrl, adminPassword) {
     });
     assert(status === 200, `Got ${status}: ${data.error || ""}`);
     assert(data.rbx_user_id, "Expected rbx_user_id");
-    rbxUserId = data.rbx_user_id;
-    rbxUsername = data.rbx_username;
-    rbxAvatarUrl = data.avatar_url;
   });
 
   await test("auth-signup: creates new user", async () => {
-    assert(rbxUserId, "No rbxUserId -- roblox-lookup failed");
     const { status, data } = await api(baseUrl, "auth-signup", {
       method: "POST",
       body: {
         display_name: TEST_DISPLAY_NAME,
-        rbx_username: rbxUsername,
-        rbx_user_id: rbxUserId,
-        avatar_url: rbxAvatarUrl,
+        rbx_username: uniqueRbxUsername,
+        rbx_user_id: uniqueRbxUserId,
+        avatar_url: null,
         password: TEST_PASSWORD,
       },
     });
@@ -124,12 +119,13 @@ async function runTests(baseUrl, adminPassword) {
   });
 
   await test("auth-signup: rejects duplicate display name", async () => {
+    assert(authToken, "No authToken -- previous signup failed");
     const { status } = await api(baseUrl, "auth-signup", {
       method: "POST",
       body: {
         display_name: TEST_DISPLAY_NAME,
-        rbx_username: "Builderman",
-        rbx_user_id: 156,
+        rbx_username: `smoketest_other_${Date.now()}`,
+        rbx_user_id: Date.now() + 1,
         avatar_url: null,
         password: TEST_PASSWORD,
       },
@@ -137,11 +133,11 @@ async function runTests(baseUrl, adminPassword) {
     assert(status === 409, `Expected 409, got ${status}`);
   });
 
-  await test("auth-login: logs in successfully", async () => {
-    assert(rbxUsername, "No rbxUsername -- roblox-lookup failed");
+  await test("auth-login: logs in with rbx_username", async () => {
+    assert(authToken, "No authToken -- signup failed");
     const { status, data } = await api(baseUrl, "auth-login", {
       method: "POST",
-      body: { identifier: rbxUsername, password: TEST_PASSWORD },
+      body: { identifier: uniqueRbxUsername, password: TEST_PASSWORD },
     });
     assert(status === 200, `Got ${status}: ${data.error || ""}`);
     assert(data.token, "Expected token");
@@ -149,10 +145,9 @@ async function runTests(baseUrl, adminPassword) {
   });
 
   await test("auth-login: rejects wrong password", async () => {
-    assert(rbxUsername, "No rbxUsername -- roblox-lookup failed");
     const { status } = await api(baseUrl, "auth-login", {
       method: "POST",
-      body: { identifier: rbxUsername, password: "wrongpassword" },
+      body: { identifier: uniqueRbxUsername, password: "wrongpassword" },
     });
     assert(status === 401, `Expected 401, got ${status}`);
   });
@@ -163,7 +158,7 @@ async function runTests(baseUrl, adminPassword) {
       headers: { Authorization: `Bearer ${authToken}` },
     });
     assert(status === 200, `Got ${status}: ${data.error || ""}`);
-    assert(data.profile?.display_name === TEST_DISPLAY_NAME, "Wrong display name");
+    assert(data.profile?.id === testProfileId, "Wrong profile id");
   });
 
   await test("profile-me: rejects unauthenticated", async () => {
@@ -243,7 +238,7 @@ async function runTests(baseUrl, adminPassword) {
     assert(status === 200, `Got ${status}`);
   });
 
-  await test("listing-save: saves a listing", async () => {
+  await test("listing-save: toggles save on listing", async () => {
     assert(listingId, "No listingId -- previous test failed");
     const { status } = await api(baseUrl, "listing-save", {
       method: "POST",
@@ -330,7 +325,7 @@ async function runTests(baseUrl, adminPassword) {
   await test("registry-update: updates entry", async () => {
     assert(registryEntryId, "No registryEntryId -- previous test failed");
     const { status } = await api(baseUrl, "registry-update", {
-      method: "PATCH",
+      method: "POST",
       headers: { Authorization: `Bearer ${authToken}` },
       body: {
         id: registryEntryId,
