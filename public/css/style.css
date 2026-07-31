@@ -1569,13 +1569,56 @@ textarea { resize: vertical; min-height: 90px; }
   gap: 10px;
 }
 
+.chip-img-wrap {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+}
+
 .selected-chip img {
   width: 38px;
   height: 38px;
   object-fit: contain;
   background: var(--surface);
   border-radius: 8px;
-  flex-shrink: 0;
+  display: block;
+}
+
+.chip-potion-badge {
+  position: absolute;
+  bottom: -3px;
+  right: -4px;
+  font-size: 11px;
+  line-height: 1;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 1px 2px;
+  pointer-events: none;
+}
+
+.chip-variant-badge {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  font-size: 8px;
+  font-weight: 800;
+  line-height: 1;
+  border-radius: 4px;
+  padding: 1px 3px;
+  pointer-events: none;
+  letter-spacing: 0.2px;
+}
+
+.chip-variant-neon {
+  background: #7c3aed;
+  color: #fff;
+}
+
+.chip-variant-mega {
+  background: linear-gradient(135deg, #f59e0b, #ec4899, #7c3aed);
+  color: #fff;
 }
 
 .selected-chip .chip-name {
