@@ -12,7 +12,7 @@ async function handlerImpl(event) {
 
   const { data: records, error } = await db
     .from("trade_records")
-    .select("id, logged_by, trade_date, source, confidence, notes, side_a, side_b, house, created_at")
+    .select("id, logged_by, trade_date, source, confidence, notes, side_a, side_b, created_at")
     .order("created_at", { ascending: false })
     .limit(200);
 
