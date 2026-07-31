@@ -28,8 +28,8 @@ async function handlerImpl(event) {
   const db = supabaseAdmin();
 
   const { data: submission } = await db.from("content_submissions").select("*").eq("id", submission_id).maybeSingle();
-  if (!submission || submission.status !== "pending") {
-    return json(400, { error: "This submission isn't pending" });
+  if (!submission) {
+    return json(404, { error: "Submission not found" });
   }
 
   const patch = { status: decision, reviewed_at: new Date().toISOString() };
