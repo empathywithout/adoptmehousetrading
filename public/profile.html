@@ -112,7 +112,7 @@
         </div>
         <div class="hint" style="margin-bottom:6px;">Roblox: <span id="rbx-username-display"></span> (private — only shown to accepted trade partners)</div>
         <div class="stat-line">
-          <span class="stat"><span class="num" id="stat-trades">0</span><span class="label">completed trades</span></span>
+          <span class="stat"><span class="num" id="stat-trades">0</span><span class="label">confirmed trades</span></span>
           <span class="stat"><span class="num" id="stat-listings">0</span><span class="label">active listings</span></span>
           <span class="member-since" id="stat-member-since"></span>
         </div>
@@ -526,7 +526,19 @@
     if (dash.profile.rbx_avatar_url) avatarImg.src = dash.profile.rbx_avatar_url;
     else avatarImg.textContent = dash.profile.display_name[0]?.toUpperCase() || "?";
 
-    document.getElementById("stat-trades").textContent = dash.stats.completed_trades;
+    const tradeCount = dash.stats.completed_trades || 0;
+    const tradeTier = tradeCount >= 100 ? "⭐ Elite Trader"
+      : tradeCount >= 25 ? "✅ Verified Trader"
+      : tradeCount >= 5  ? "🤝 Trusted"
+      : null;
+    const tradeEl = document.getElementById("stat-trades");
+    tradeEl.textContent = tradeCount;
+    if (tradeTier) {
+      const badge = document.createElement("span");
+      badge.style.cssText = "display:inline-block;font-size:10px;font-weight:700;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:1px 8px;color:var(--ink);margin-left:6px;vertical-align:middle;";
+      badge.textContent = tradeTier;
+      tradeEl.parentNode.appendChild(badge);
+    }
     document.getElementById("stat-listings").textContent = dash.stats.active_listings;
     document.getElementById("stat-member-since").textContent =
       "Member since " + new Date(dash.stats.member_since).getFullYear();
