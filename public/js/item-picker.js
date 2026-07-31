@@ -158,7 +158,7 @@ export function mountItemPicker(container, prefix = "") {
             : "";
         const potionBadges = (() => {
           if (it.category !== PET_CATEGORY || !it.potion || it.potion === "none") return "";
-          const icons = { ride: "🍖", fly: "🪶", fly_ride: "🪶🍖" };
+          const icons = { ride: "R", fly: "F", fly_ride: "FR" };
           return `<span class="chip-potion-badge" title="${POTION_LABELS[it.potion]}">${icons[it.potion]}</span>`;
         })();
         const variantBadge = (() => {

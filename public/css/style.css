@@ -1587,15 +1587,17 @@ textarea { resize: vertical; min-height: 90px; }
 
 .chip-potion-badge {
   position: absolute;
-  bottom: -3px;
-  right: -4px;
-  font-size: 11px;
+  bottom: -4px;
+  right: -5px;
+  font-size: 7px;
+  font-weight: 800;
   line-height: 1;
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: 5px;
+  background: #0ea5e9;
+  color: #fff;
+  border-radius: 3px;
   padding: 1px 2px;
   pointer-events: none;
+  letter-spacing: 0.2px;
 }
 
 .chip-variant-badge {
