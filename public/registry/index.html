@@ -178,7 +178,7 @@
       btn.classList.toggle("saved", data.saved);
       btn.title = data.saved ? "Saved — click to unsave" : "Save this build";
       const sc = data.save_count || 0;
-      btn.textContent = data.saved ? `Saved${sc > 0 ? " " + sc : ""}` : `Save${sc > 0 ? " " + sc : ""}`;
+      btn.textContent = data.saved ? `Hearted${sc > 0 ? " " + sc : ""}` : `Heart${sc > 0 ? " " + sc : ""}`;
     } catch (err) {
       btn.dataset.loading = "";
       btn.style.opacity = "";
@@ -234,9 +234,9 @@
       const isSaved = savedIds.has(entry.id);
       const isOwnBuild = myProfileId && entry.profile_id === myProfileId;
       const saveCount = entry.save_count || 0;
-      const saveLabel = isSaved ? `Saved ${saveCount > 0 ? saveCount : ""}` : `Save ${saveCount > 0 ? saveCount : ""}`;
+      const saveLabel = isSaved ? `Hearted ${saveCount > 0 ? saveCount : ""}` : `Heart ${saveCount > 0 ? saveCount : ""}`;
       const saveBtn = !isOwnBuild
-        ? `<button class="save-btn ${isSaved ? "saved" : ""}" data-id="${entry.id}" title="${isSaved ? "Click to unsave" : token ? "Save this build" : "Sign in to save"}">${saveLabel.trim()}</button>`
+        ? `<button class="save-btn ${isSaved ? "saved" : ""}" data-id="${entry.id}" title="${isSaved ? "Click to unheart" : token ? "Heart this build" : "Sign in to heart"}">${saveLabel.trim()}</button>`
         : saveCount > 0 ? `<span class="save-count-display">${saveCount}</span>` : "";
       const themesLine = (entry.themes || []).length
         ? `<div class="registry-theme-tags">${(entry.themes || []).map(t => `<span class="registry-theme-tag">${escapeHtml(THEME_LABELS[t] || t)}</span>`).join("")}</div>`

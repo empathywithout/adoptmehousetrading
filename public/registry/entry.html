@@ -250,7 +250,8 @@
             <div>
               <div class="trust-name-row">
                 <span class="name">${escapeHtml(entry.profiles?.display_name || "unknown")}</span>
-                ${!isSelf ? `<button class="save-btn entry-save-btn ${window._entrySavedIds?.has(entry.id) ? "saved" : ""}" data-id="${entry.id}" title="${window._entrySavedIds?.has(entry.id) ? "Saved — click to unsave" : "Save this build"}">${window._entrySavedIds?.has(entry.id) ? "Saved" : "Save"}</button>` : ""}
+                ${!isSelf ? `<button class="save-btn entry-save-btn ${window._entrySavedIds?.has(entry.id) ? "saved" : ""}" data-id="${entry.id}" title="${window._entrySavedIds?.has(entry.id) ? "Hearted — click to unheart" : "Heart this build"}">${window._entrySavedIds?.has(entry.id) ? "Hearted" : "Heart"}</button>` : ""}
+              <span class="entry-heart-count" id="entry-heart-count">${entry.save_count > 0 ? `<span style="font-size:18px;color:var(--accent);">♥</span> <span style="font-size:15px;font-weight:800;color:var(--ink);">${entry.save_count}</span>` : ""}</span>
               </div>
               <div class="trust-sub">Registered builder</div>
             </div>
@@ -368,8 +369,12 @@
           if (isSaved) window._entrySavedIds?.add(saveBtn.dataset.id);
           else window._entrySavedIds?.delete(saveBtn.dataset.id);
           saveBtn.classList.toggle("saved", isSaved);
-          saveBtn.textContent = isSaved ? "Saved" : "Save";
-          saveBtn.title = isSaved ? "Saved — click to unsave" : "Save this build";
+          saveBtn.textContent = isSaved ? "Hearted" : "Heart";
+          saveBtn.title = isSaved ? "Hearted — click to unheart" : "Heart this build";
+          const countEl = document.getElementById("entry-heart-count");
+          if (countEl && result.save_count != null) {
+            countEl.innerHTML = result.save_count > 0 ? `<span style="font-size:18px;color:var(--accent);">♥</span> <span style="font-size:15px;font-weight:800;color:var(--ink);">${result.save_count}</span>` : "";
+          }
         } catch { alert("Something went wrong"); }
         finally { saveBtn.dataset.loading = ""; saveBtn.style.opacity = ""; }
       });
