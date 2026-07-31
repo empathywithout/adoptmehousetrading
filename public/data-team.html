@@ -36,7 +36,12 @@
   /* Selected chips */
   .selected-items-list { min-height: 36px; display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
   .item-chip { display: flex; align-items: center; gap: 5px; background: var(--accent-soft); border: 1.5px solid var(--accent); border-radius: 8px; padding: 4px 8px; font-size: 12px; }
-  .item-chip img { width: 20px; height: 20px; border-radius: 3px; object-fit: cover; }
+  .item-chip img { width: 20px; height: 20px; border-radius: 3px; object-fit: cover; display: block; }
+  .chip-img-wrap-dt { position: relative; width: 20px; height: 20px; flex-shrink: 0; }
+  .chip-pot-badge-dt { position: absolute; bottom: -4px; right: -5px; font-size: 9px; line-height: 1; background: var(--paper); border: 1px solid var(--line); border-radius: 3px; padding: 0 1px; pointer-events: none; }
+  .chip-var-badge { position: absolute; top: -4px; left: -4px; font-size: 7px; font-weight: 800; border-radius: 3px; padding: 1px 2px; pointer-events: none; letter-spacing: 0.2px; }
+  .chip-var-neon { background: #7c3aed; color: #fff; }
+  .chip-var-mega { background: linear-gradient(135deg, #f59e0b, #ec4899, #7c3aed); color: #fff; }
   .item-chip-name { font-weight: 600; color: var(--accent); }
   .item-chip-remove { background: none; border: none; color: var(--accent); cursor: pointer; padding: 0; font-size: 14px; line-height: 1; opacity: 0.6; }
   .item-chip-remove:hover { opacity: 1; }
@@ -536,13 +541,24 @@ function renderSideItems(s) {
     container.innerHTML = `<span style="font-size:13px;color:var(--muted);">No items added yet</span>`;
     return;
   }
-  container.innerHTML = sides[s].items.map((item, i) => `
+  container.innerHTML = sides[s].items.map((item, i) => {
+    const potionIcon = item.type === "pet" && item.potion && item.potion !== "none"
+      ? { ride: "🍖", fly: "🪶", fly_ride: "🪶🍖" }[item.potion] : "";
+    const variantBadge = item.type === "pet" && item.variant && item.variant !== "regular"
+      ? `<span class="chip-var-badge ${item.variant === "mega_neon" ? "chip-var-mega" : "chip-var-neon"}" title="${item.variant === "mega_neon" ? "Mega Neon" : "Neon"}">${item.variant === "mega_neon" ? "MN" : "N"}</span>` : "";
+    const imgWrap = item.image
+      ? `<div class="chip-img-wrap-dt">
+           <img src="${escapeHtml(item.image)}" alt="">
+           ${potionIcon ? `<span class="chip-pot-badge-dt" title="${POTION_LABELS[item.potion]}">${potionIcon}</span>` : ""}
+           ${variantBadge}
+         </div>` : "";
+    return `
     <div class="item-chip">
-      ${item.image ? `<img src="${escapeHtml(item.image)}" alt="">` : ""}
+      ${imgWrap}
       <span class="item-chip-name">${escapeHtml(item.name)}</span>
       <button class="item-chip-remove" data-idx="${i}">×</button>
-    </div>
-  `).join("");
+    </div>`;
+  }).join("");
   container.querySelectorAll(".item-chip-remove").forEach(btn => {
     btn.addEventListener("click", () => {
       sides[s].items.splice(parseInt(btn.dataset.idx), 1);
