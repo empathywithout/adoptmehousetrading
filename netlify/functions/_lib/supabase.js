@@ -598,7 +598,16 @@ export async function requireProfile(event) {
   if (redis) {
     try {
       const cached = await redis.get(cacheKey);
-      if (cached) return typeof cached === "string" ? JSON.parse(cached) : cached;
+      if (cached) {
+        const p = typeof cached === "string" ? JSON.parse(cached) : cached;
+        // Always fetch is_data_team_member fresh — approval must reflect immediately
+        try {
+          const pool = getPool();
+          const r = await pool.query('SELECT is_data_team_member FROM "profiles" WHERE id = $1', [p.id]);
+          if (r.rows[0]) p.is_data_team_member = r.rows[0].is_data_team_member;
+        } catch {}
+        return p;
+      }
     } catch (err) {
       console.warn("Session cache read failed (non-fatal):", err.message);
     }
