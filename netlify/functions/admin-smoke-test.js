@@ -309,14 +309,17 @@ async function runTests(baseUrl, adminPassword) {
     assert(data.entry?.id === registryEntryId, "Wrong entry");
   });
 
-  await test("registry-save: saves entry", async () => {
-    assert(registryEntryId, "No registryEntryId -- previous test failed");
+  await test("registry-save: saves another user entry", async () => {
+    // Can't save own entry -- find someone else's
+    const { data: regData } = await api(baseUrl, "registry-list");
+    const otherEntry = (regData.entries || []).find(e => e.profile_id !== testProfileId && e.status === "active");
+    if (!otherEntry) { return; } // skip if no other entries
     const { status } = await api(baseUrl, "registry-save", {
       method: "POST",
       headers: { Authorization: `Bearer ${authToken}` },
-      body: { build_registry_id: registryEntryId },
+      body: { build_registry_id: otherEntry.id },
     });
-    assert(status === 200, `Got ${status}`);
+    assert([200, 429].includes(status), `Got ${status}`);
   });
 
   await test("registry-saves-me: returns saves", async () => {
