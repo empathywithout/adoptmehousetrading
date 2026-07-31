@@ -20,7 +20,7 @@ async function handlerImpl(event) {
     return json(400, { error: "Invalid JSON body" });
   }
 
-  const { submission_id, decision, edited_body } = body;
+  const { submission_id, decision, edited_body, edited_title } = body;
   if (!submission_id || !["approved", "rejected"].includes(decision)) {
     return json(400, { error: "submission_id and a valid decision are required" });
   }
@@ -37,6 +37,9 @@ async function handlerImpl(event) {
     patch.published_at = new Date().toISOString();
     if (edited_body && typeof edited_body === "string" && edited_body.trim()) {
       patch.body = edited_body.trim();
+    }
+    if (edited_title && typeof edited_title === "string" && edited_title.trim()) {
+      patch.title = edited_title.trim();
     }
   }
 

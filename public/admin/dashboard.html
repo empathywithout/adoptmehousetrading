@@ -496,6 +496,7 @@
         ${needsToggle ? `<button data-toggle-body="${s.id}" data-full="${encodeURIComponent(s.body)}" style="background:none;border:none;color:var(--accent);font-size:13px;font-weight:600;cursor:pointer;padding:0;margin-bottom:10px;">Show more ↓</button>` : ""}
         <div data-editor-wrap="${s.id}" style="display:none;margin-bottom:12px;">
           <p style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin:0 0 6px;">Edit before publishing</p>
+          <input type="text" data-title-editor="${s.id}" value="${escapeHtml(s.title)}" style="width:100%;padding:8px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font-size:14px;font-weight:600;margin-bottom:8px;">
           <textarea data-editor="${s.id}" style="width:100%;min-height:240px;font-family:var(--font-body);font-size:13.5px;line-height:1.6;padding:10px;border:1.5px solid var(--line);border-radius:8px;resize:vertical;background:var(--paper);color:var(--ink);">${escapeHtml(s.body)}</textarea>
         </div>
         <div class="action-row">
@@ -541,6 +542,9 @@
               decision: btn.dataset.decision,
               edited_body: btn.dataset.decision === "approved"
                 ? (list.querySelector(`[data-editor="${btn.dataset.contentReview}"]`)?.value || null)
+                : null,
+              edited_title: btn.dataset.decision === "approved"
+                ? (list.querySelector(`[data-title-editor="${btn.dataset.contentReview}"]`)?.value || null)
                 : null,
             }),
           });
