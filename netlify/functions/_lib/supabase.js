@@ -590,17 +590,26 @@ export async function requireProfile(event) {
     }
   }
 
+  // Use separate queries instead of join to avoid row_to_json issues
   const { data: session } = await db
     .from("sessions")
-    .select("profile_id, profiles(*)")
+    .select("profile_id")
     .eq("token_hash", tokenHash)
     .maybeSingle();
 
-  if (!session?.profiles) return null;
+  if (!session?.profile_id) return null;
+
+  const { data: profileData } = await db
+    .from("profiles")
+    .select("*")
+    .eq("id", session.profile_id)
+    .maybeSingle();
+
+  if (!profileData) return null;
 
   if (redis) {
     try {
-      await redis.set(cacheKey, JSON.stringify(session.profiles), { ex: 300 });
+      await redis.set(cacheKey, JSON.stringify(profileData), { ex: 300 });
     } catch (err) {
       console.warn("Session cache write failed (non-fatal):", err.message);
     }
@@ -611,7 +620,7 @@ export async function requireProfile(event) {
     .eq("token_hash", tokenHash)
     .then(() => {});
 
-  return session.profiles;
+  return profileData;
 }
 
 export function requireAdmin(event) {
