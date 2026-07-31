@@ -211,8 +211,14 @@ async function handlerImpl(event) {
     maxDelta = 0;
 
     // Prior confidence weight -- equivalent to this many "phantom trades"
-    // Below PRIOR_WEIGHT real trades: prior dominates. Above: data dominates.
-    const PRIOR_WEIGHT = 10;
+    // Potions have Robux-fixed costs so their priors are very strong
+    // For pets/eggs, prior confidence is moderate -- community data can override
+    const POTION_KEYS = new Set(["ride-a-pet-potion|potions","fly-a-pet-potion|potions","sugar-skull-potion|potions"]);
+    const EGG_KEYS = new Set(Object.keys(PRIORS).filter(k => k.includes("|eggs")));
+    const PRIOR_WEIGHT = key === anchorKey ? 9999
+      : POTION_KEYS.has(key) ? 50   // potions: Robux-fixed, very strong prior
+      : EGG_KEYS.has(key) ? 20      // eggs: community-known, strong prior
+      : 10;                          // pets: moderate prior, data can move these
 
     for (const key of allKeys) {
       if (key === anchorKey) continue; // anchor always fixed at 1.0
