@@ -180,13 +180,14 @@
   function looksLikeHeading(line) {
     const t = line.trim();
     if (!t || t.length > 100) return false;
-    if (t.match(/[.!?,]$/)) return false;
+    if (t.match(/[.!?,;]$/)) return false;
     if (t.startsWith("-") || t.startsWith("*") || t.startsWith(">")) return false;
     if (t.match(/^\*\*[^*]+\*\*$/)) return true; // **text**
     if (t.startsWith("#")) return true;
-    // Title case heuristic: 3+ words, each word starts with capital or is a short word
     const words = t.split(" ");
-    if (words.length < 2) return false;
+    // Single capitalised word (e.g. "Categories", "Speedbuild", "Commissioner")
+    if (words.length === 1 && t[0] === t[0].toUpperCase() && t[0] !== t[0].toLowerCase()) return true;
+    // Title case heuristic: 2-12 words, most start with capital
     const caps = words.filter(w => w[0] === w[0].toUpperCase() || w.length <= 3);
     return caps.length >= words.length * 0.7 && words.length <= 12;
   }
