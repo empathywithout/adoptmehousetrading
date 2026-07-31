@@ -84,22 +84,57 @@ async function handlerImpl(event) {
   const values = {};
   for (const k of allKeys) values[k] = k === anchorKey ? ANCHOR_RP : 10.0;
 
-  // Bootstrap pass: for any trade where one side is ONLY ride pots,
-  // directly set the other side's implied value
+  // Bootstrap pass: for any trade where one side is ONLY anchors,
+  // directly compute the other side's total implied value
   for (const r of trades) {
     const sideA = parseItems(r.side_a);
     const sideB = parseItems(r.side_b);
     const aIsOnlyAnchor = sideA.every(it => it.key === anchorKey);
     const bIsOnlyAnchor = sideB.every(it => it.key === anchorKey);
+    const confW = CONF_WEIGHT[r.confidence] || 0.5;
 
-    if (aIsOnlyAnchor && sideB.length === 1) {
-      const totalAnchor = sideA.reduce((s, it) => s + it.qty, 0);
-      const it = sideB[0];
-      values[it.key] = totalAnchor / it.qty;
-    } else if (bIsOnlyAnchor && sideA.length === 1) {
-      const totalAnchor = sideB.reduce((s, it) => s + it.qty, 0);
-      const it = sideA[0];
-      values[it.key] = totalAnchor / it.qty;
+    // One side is all anchors -- the other side's total value = anchor count
+    if (aIsOnlyAnchor || bIsOnlyAnchor) {
+      const anchorSide = aIsOnlyAnchor ? sideA : sideB;
+      const otherSide = aIsOnlyAnchor ? sideB : sideA;
+      const anchorTotal = anchorSide.reduce((s, it) => s + it.qty * ANCHOR_RP, 0);
+
+      if (otherSide.length === 1) {
+        // Single item on other side -- direct value
+        const it = otherSide[0];
+        if (it.key !== anchorKey) {
+          const implied = anchorTotal / it.qty;
+          // Weighted average with existing value
+          values[it.key] = (values[it.key] * 0.3 + implied * 0.7 * confW + implied * 0.3) / (0.3 + confW * 0.7 + 0.3);
+          values[it.key] = implied; // Just set directly for bootstrap
+        }
+      }
+    }
+  }
+
+  // Second bootstrap pass: propagate from known values one hop
+  for (let pass = 0; pass < 10; pass++) {
+    for (const r of trades) {
+      const sideA = parseItems(r.side_a);
+      const sideB = parseItems(r.side_b);
+      // If all items on one side have known (non-default) values, estimate unknowns on other side
+      const knownKeys = new Set([anchorKey, ...Object.entries(values).filter(([k,v]) => v !== 10.0).map(([k]) => k)]);
+      const aAllKnown = sideA.every(it => knownKeys.has(it.key));
+      const bAllKnown = sideB.every(it => knownKeys.has(it.key));
+      if (aAllKnown && !bAllKnown && sideB.filter(it => !knownKeys.has(it.key)).length === 1) {
+        const sumA = sideA.reduce((s, it) => s + it.qty * values[it.key], 0);
+        const knownB = sideB.filter(it => knownKeys.has(it.key)).reduce((s, it) => s + it.qty * values[it.key], 0);
+        const unknown = sideB.find(it => !knownKeys.has(it.key));
+        values[unknown.key] = Math.max(0.01, (sumA - knownB) / unknown.qty);
+        knownKeys.add(unknown.key);
+      }
+      if (bAllKnown && !aAllKnown && sideA.filter(it => !knownKeys.has(it.key)).length === 1) {
+        const sumB = sideB.reduce((s, it) => s + it.qty * values[it.key], 0);
+        const knownA = sideA.filter(it => knownKeys.has(it.key)).reduce((s, it) => s + it.qty * values[it.key], 0);
+        const unknown = sideA.find(it => !knownKeys.has(it.key));
+        values[unknown.key] = Math.max(0.01, (sumB - knownA) / unknown.qty);
+        knownKeys.add(unknown.key);
+      }
     }
   }
 
