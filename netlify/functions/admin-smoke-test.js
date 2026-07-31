@@ -200,6 +200,10 @@ async function runTests(baseUrl, adminPassword) {
     assert(status === 200, `Got ${status}: ${data.error || ""}`);
     assert(data.listing?.id, "Expected listing id");
     listingId = data.listing.id;
+    // Debug: verify listing is owned by our profile
+    const meCheck = await api(baseUrl, "profile-me", { headers: { Authorization: `Bearer ${authToken}` } });
+    const myProfileId = meCheck.data?.profile?.id;
+    assert(data.listing.profile_id === myProfileId, `Listing owned by ${data.listing.profile_id} but we are ${myProfileId}`);
   });
 
   await test("listings-get: returns listing by id", async () => {
