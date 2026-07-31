@@ -828,6 +828,8 @@
 
     var rows = "";
     values.forEach(function(v, i) {
+      var hi = parseFloat(v.value_high) || 0;
+      var lo = parseFloat(v.value_low)  || 0;
       var variant = VAR_LABELS[v.variant] || "";
       var potion  = POT_LABELS[v.potion]  || "";
       var tag = [variant, potion].filter(Boolean).join(" ");
@@ -839,8 +841,8 @@
       rows += '<tr style="border-bottom:1px solid var(--line);' + bg + '">';
       rows += '<td style="padding:8px 10px;font-weight:600;color:var(--ink);">' + label + " " + tagHtml + "</td>";
       rows += '<td style="padding:8px 10px;color:var(--muted);">' + escapeHtml(catLabel) + "</td>";
-      rows += '<td style="padding:8px 10px;text-align:right;font-weight:800;color:var(--accent);">' + v.value_high.toFixed(1) + " RP</td>";
-      rows += '<td style="padding:8px 10px;text-align:right;color:var(--muted);font-size:12px;">' + v.value_low.toFixed(1) + " - " + v.value_high.toFixed(1) + "</td>";
+      rows += '<td style="padding:8px 10px;text-align:right;font-weight:800;color:var(--accent);">' + hi.toFixed(1) + " RP</td>";
+      rows += '<td style="padding:8px 10px;text-align:right;color:var(--muted);font-size:12px;">' + lo.toFixed(1) + " - " + hi.toFixed(1) + "</td>";
       rows += '<td style="padding:8px 10px;text-align:right;color:var(--muted);">' + (v.sample_size || 0) + "</td>";
       rows += "</tr>";
     });
