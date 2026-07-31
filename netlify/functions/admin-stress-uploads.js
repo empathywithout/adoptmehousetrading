@@ -195,6 +195,155 @@ async function runStressTest(baseUrl, adminPassword) {
     uploadedUrls.push(...urls);
   });
 
+  // ── Bulk upload for listing/registry (8 photos) ────────────────────────
+
+  await test("upload: 8 photos for a listing (full listing workflow)", async () => {
+    // Upload 8 photos concurrently (the max for a listing)
+    const uploads = await Promise.all(
+      Array.from({ length: 8 }, (_, i) =>
+        api(baseUrl, "listings-upload-photo", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${authToken}` },
+          body: { filename: `listing_photo_${i}.jpg`, contentType: "image/jpeg", dataBase64: JPEG_1X1 },
+        })
+      )
+    );
+    const failures = uploads.filter(r => r.status !== 200);
+    assert(failures.length === 0, `${failures.length}/8 listing photos failed`);
+    const photoUrls = uploads.map(r => r.data.url);
+    uploadedUrls.push(...photoUrls);
+
+    // Now create a listing with all 8 photos
+    const { status, data } = await api(baseUrl, "listings-create", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${authToken}` },
+      body: {
+        listing_type: "house_trade",
+        house_id: "tiny-home",
+        title: "Upload Stress Test Listing",
+        description: "8 photo stress test",
+        photos: photoUrls,
+        looking_for: ["adopt_me_pets"],
+        themes: ["cozy"],
+        build_type: "original",
+        value_amount: 1,
+        value_unit: "shark",
+      },
+    });
+    assert(status === 200, `Listing create failed: ${data.error}`);
+    assert(data.listing?.photos?.length === 8, `Expected 8 photos on listing, got ${data.listing?.photos?.length}`);
+
+    // Clean up
+    if (data.listing?.id) {
+      await api(baseUrl, "listings-remove", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${authToken}` },
+        body: { listing_id: data.listing.id },
+      });
+    }
+  });
+
+  await test("upload: 9 photos truncated to 8 on listing", async () => {
+    // Upload 9 photos -- listing should cap at 8
+    const uploads = await Promise.all(
+      Array.from({ length: 9 }, (_, i) =>
+        api(baseUrl, "listings-upload-photo", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${authToken}` },
+          body: { filename: `extra_${i}.jpg`, contentType: "image/jpeg", dataBase64: JPEG_1X1 },
+        })
+      )
+    );
+    const photoUrls = uploads.filter(r => r.status === 200).map(r => r.data.url);
+    assert(photoUrls.length === 9, `Expected 9 uploads, got ${photoUrls.length}`);
+
+    const { status, data } = await api(baseUrl, "listings-create", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${authToken}` },
+      body: {
+        listing_type: "house_trade",
+        house_id: "castle",
+        title: "9 Photo Test",
+        description: "should truncate to 8",
+        photos: photoUrls,
+        looking_for: ["adopt_me_pets"],
+        themes: ["cozy"],
+        build_type: "original",
+        value_amount: 1,
+        value_unit: "shark",
+      },
+    });
+    assert(status === 200, `Listing create failed: ${data.error}`);
+    assert(data.listing?.photos?.length === 8, `Expected 8 photos (truncated), got ${data.listing?.photos?.length}`);
+
+    if (data.listing?.id) {
+      await api(baseUrl, "listings-remove", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${authToken}` },
+        body: { listing_id: data.listing.id },
+      });
+    }
+  });
+
+  await test("upload: 8 photos for registry entry (no cap)", async () => {
+    const uploads = await Promise.all(
+      Array.from({ length: 8 }, (_, i) =>
+        api(baseUrl, "listings-upload-photo", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${authToken}` },
+          body: { filename: `reg_photo_${i}.png`, contentType: "image/png", dataBase64: PNG_1X1 },
+        })
+      )
+    );
+    const failures = uploads.filter(r => r.status !== 200);
+    assert(failures.length === 0, `${failures.length}/8 registry photos failed`);
+    const photoUrls = uploads.map(r => r.data.url);
+
+    const { status, data } = await api(baseUrl, "registry-create", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${authToken}` },
+      body: {
+        title: "Upload Stress Test Build",
+        description: "8 photo registry test",
+        photos: photoUrls,
+        themes: ["cozy"],
+        house_id: "tiny-home",
+        included_items: [],
+      },
+    });
+    assert(status === 200, `Registry create failed: ${data.error}`);
+    assert(data.entry?.photos?.length === 8, `Expected 8 photos on registry entry, got ${data.entry?.photos?.length}`);
+
+    if (data.entry?.id) {
+      await api(baseUrl, "registry-delete", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${authToken}` },
+        body: { entry_id: data.entry.id },
+      });
+    }
+  });
+
+  await test("upload: listing rejects fewer than 3 photos", async () => {
+    const { status } = await api(baseUrl, "listings-create", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${authToken}` },
+      body: {
+        listing_type: "house_trade",
+        house_id: "tiny-home",
+        title: "Too Few Photos",
+        description: "only 2 photos",
+        photos: [
+          "https://pub-cba78cf9524643c2a7bff415bfed4d9d.r2.dev/fake1.jpg",
+          "https://pub-cba78cf9524643c2a7bff415bfed4d9d.r2.dev/fake2.jpg",
+        ],
+        looking_for: ["adopt_me_pets"],
+        themes: ["cozy"],
+        build_type: "original",
+      },
+    });
+    assert(status === 400, `Expected 400 for < 3 photos, got ${status}`);
+  });
+
   // ── URL accessibility ────────────────────────────────────────────────────
 
   await test("upload: uploaded files are publicly accessible", async () => {
