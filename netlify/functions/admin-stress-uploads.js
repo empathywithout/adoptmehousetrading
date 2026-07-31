@@ -197,10 +197,10 @@ async function runStressTest(baseUrl, adminPassword) {
 
   // ── Bulk upload for listing/registry (8 photos) ────────────────────────
 
-  await test("upload: 8 photos for a listing (full listing workflow)", async () => {
-    // Upload 8 photos concurrently (the max for a listing)
+  await test("upload: 12 photos for a listing (no cap)", async () => {
+    // Upload 12 photos concurrently -- backend has no hard cap
     const uploads = await Promise.all(
-      Array.from({ length: 8 }, (_, i) =>
+      Array.from({ length: 12 }, (_, i) =>
         api(baseUrl, "listings-upload-photo", {
           method: "POST",
           headers: { Authorization: `Bearer ${authToken}` },
@@ -209,11 +209,10 @@ async function runStressTest(baseUrl, adminPassword) {
       )
     );
     const failures = uploads.filter(r => r.status !== 200);
-    assert(failures.length === 0, `${failures.length}/8 listing photos failed`);
+    assert(failures.length === 0, `${failures.length}/12 listing photos failed`);
     const photoUrls = uploads.map(r => r.data.url);
     uploadedUrls.push(...photoUrls);
 
-    // Now create a listing with all 8 photos
     const { status, data } = await api(baseUrl, "listings-create", {
       method: "POST",
       headers: { Authorization: `Bearer ${authToken}` },
@@ -221,7 +220,7 @@ async function runStressTest(baseUrl, adminPassword) {
         listing_type: "house_trade",
         house_id: "tiny-home",
         title: "Upload Stress Test Listing",
-        description: "8 photo stress test",
+        description: "12 photo stress test",
         photos: photoUrls,
         looking_for: ["adopt_me_pets"],
         themes: ["cozy"],
@@ -231,50 +230,7 @@ async function runStressTest(baseUrl, adminPassword) {
       },
     });
     assert(status === 200, `Listing create failed: ${data.error}`);
-    assert(data.listing?.photos?.length === 8, `Expected 8 photos on listing, got ${data.listing?.photos?.length}`);
-
-    // Clean up
-    if (data.listing?.id) {
-      await api(baseUrl, "listings-remove", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${authToken}` },
-        body: { listing_id: data.listing.id },
-      });
-    }
-  });
-
-  await test("upload: 9 photos truncated to 8 on listing", async () => {
-    // Upload 9 photos -- listing should cap at 8
-    const uploads = await Promise.all(
-      Array.from({ length: 9 }, (_, i) =>
-        api(baseUrl, "listings-upload-photo", {
-          method: "POST",
-          headers: { Authorization: `Bearer ${authToken}` },
-          body: { filename: `extra_${i}.jpg`, contentType: "image/jpeg", dataBase64: JPEG_1X1 },
-        })
-      )
-    );
-    const photoUrls = uploads.filter(r => r.status === 200).map(r => r.data.url);
-    assert(photoUrls.length === 9, `Expected 9 uploads, got ${photoUrls.length}`);
-
-    const { status, data } = await api(baseUrl, "listings-create", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${authToken}` },
-      body: {
-        listing_type: "house_trade",
-        house_id: "castle",
-        title: "9 Photo Test",
-        description: "should truncate to 8",
-        photos: photoUrls,
-        looking_for: ["adopt_me_pets"],
-        themes: ["cozy"],
-        build_type: "original",
-        value_amount: 1,
-        value_unit: "shark",
-      },
-    });
-    assert(status === 200, `Listing create failed: ${data.error}`);
-    assert(data.listing?.photos?.length === 8, `Expected 8 photos (truncated), got ${data.listing?.photos?.length}`);
+    assert(data.listing?.photos?.length === 12, `Expected 12 photos on listing, got ${data.listing?.photos?.length}`);
 
     if (data.listing?.id) {
       await api(baseUrl, "listings-remove", {
@@ -285,9 +241,9 @@ async function runStressTest(baseUrl, adminPassword) {
     }
   });
 
-  await test("upload: 8 photos for registry entry (no cap)", async () => {
+  await test("upload: 12 photos for registry entry (no cap)", async () => {
     const uploads = await Promise.all(
-      Array.from({ length: 8 }, (_, i) =>
+      Array.from({ length: 12 }, (_, i) =>
         api(baseUrl, "listings-upload-photo", {
           method: "POST",
           headers: { Authorization: `Bearer ${authToken}` },
@@ -296,7 +252,7 @@ async function runStressTest(baseUrl, adminPassword) {
       )
     );
     const failures = uploads.filter(r => r.status !== 200);
-    assert(failures.length === 0, `${failures.length}/8 registry photos failed`);
+    assert(failures.length === 0, `${failures.length}/12 registry photos failed`);
     const photoUrls = uploads.map(r => r.data.url);
 
     const { status, data } = await api(baseUrl, "registry-create", {
@@ -304,7 +260,7 @@ async function runStressTest(baseUrl, adminPassword) {
       headers: { Authorization: `Bearer ${authToken}` },
       body: {
         title: "Upload Stress Test Build",
-        description: "8 photo registry test",
+        description: "12 photo registry test",
         photos: photoUrls,
         themes: ["cozy"],
         house_id: "tiny-home",
@@ -312,7 +268,7 @@ async function runStressTest(baseUrl, adminPassword) {
       },
     });
     assert(status === 200, `Registry create failed: ${data.error}`);
-    assert(data.entry?.photos?.length === 8, `Expected 8 photos on registry entry, got ${data.entry?.photos?.length}`);
+    assert(data.entry?.photos?.length === 12, `Expected 12 photos on registry entry, got ${data.entry?.photos?.length}`);
 
     if (data.entry?.id) {
       await api(baseUrl, "registry-delete", {
@@ -321,6 +277,62 @@ async function runStressTest(baseUrl, adminPassword) {
         body: { entry_id: data.entry.id },
       });
     }
+  });
+
+  await test("upload: listing update supports 12 photos", async () => {
+    // Create listing with 3 photos, then update to 12
+    const { data: createData } = await api(baseUrl, "listings-create", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${authToken}` },
+      body: {
+        listing_type: "house_trade",
+        house_id: "castle",
+        title: "Update Photo Test",
+        description: "will be updated to 12 photos",
+        photos: [
+          "https://pub-cba78cf9524643c2a7bff415bfed4d9d.r2.dev/t1.jpg",
+          "https://pub-cba78cf9524643c2a7bff415bfed4d9d.r2.dev/t2.jpg",
+          "https://pub-cba78cf9524643c2a7bff415bfed4d9d.r2.dev/t3.jpg",
+        ],
+        looking_for: ["adopt_me_pets"], themes: ["cozy"],
+        build_type: "original", value_amount: 1, value_unit: "shark",
+      },
+    });
+    assert(createData.listing?.id, `Create failed: ${createData.error}`);
+    const listingId = createData.listing.id;
+
+    // Upload 12 new photos
+    const uploads = await Promise.all(
+      Array.from({ length: 12 }, (_, i) =>
+        api(baseUrl, "listings-upload-photo", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${authToken}` },
+          body: { filename: `update_${i}.jpg`, contentType: "image/jpeg", dataBase64: JPEG_1X1 },
+        })
+      )
+    );
+    const photoUrls = uploads.filter(r => r.status === 200).map(r => r.data.url);
+    assert(photoUrls.length === 12, `Expected 12 uploads, got ${photoUrls.length}`);
+
+    const { status, data } = await api(baseUrl, `listings-update?id=${listingId}`, {
+      method: "PUT",
+      headers: { Authorization: `Bearer ${authToken}` },
+      body: {
+        title: "Update Photo Test",
+        description: "updated to 12 photos",
+        photos: photoUrls,
+        looking_for: ["adopt_me_pets"], themes: ["cozy"],
+        build_type: "original", value_amount: 1, value_unit: "shark",
+      },
+    });
+    assert(status === 200, `Update failed: ${data?.error}`);
+    assert(data.listing?.photos?.length === 12, `Expected 12 photos after update, got ${data.listing?.photos?.length}`);
+
+    await api(baseUrl, "listings-remove", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${authToken}` },
+      body: { listing_id: listingId },
+    });
   });
 
   await test("upload: listing rejects fewer than 3 photos", async () => {
