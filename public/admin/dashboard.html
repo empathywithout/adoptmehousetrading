@@ -825,32 +825,25 @@
     const VAR_LABELS = { regular: "", neon: "Neon", mega_neon: "MN" };
     const POT_LABELS = { none: "", ride: "R", fly: "F", fly_ride: "FR" };
 
-    list.innerHTML = '<table style="width:100%;border-collapse:collapse;font-size:13px;">'
-      + '<thead><tr style="border-bottom:2px solid var(--line);">'
-      + '<th style="text-align:left;padding:8px 10px;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">Item</th>'
-      + '<th style="text-align:left;padding:8px 10px;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">Type</th>'
-      + '<th style="text-align:right;padding:8px 10px;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">RP Value</th>'
-      + '<th style="text-align:right;padding:8px 10px;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">Range</th>'
-      + '<th style="text-align:right;padding:8px 10px;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">Samples</th>'
-      + '</tr></thead><tbody>'
-      + values.map(function(v, i) {
-          var variant = VAR_LABELS[v.variant] || "";
-          var potion  = POT_LABELS[v.potion]  || "";
-          var tag = [variant, potion].filter(Boolean).join(" ");
-          var label = escapeHtml(v.item_id.split("-").map(function(w){return w.charAt(0).toUpperCase()+w.slice(1);}).join(" ");
-          var catLabel = CAT_LABELS[v.category] || v.category;
-          var bg = i % 2 === 0 ? "background:var(--surface);" : "";
-          return '<tr style="border-bottom:1px solid var(--line);' + bg + '">'
-            + '<td style="padding:8px 10px;font-weight:600;color:var(--ink);">' + label
-            + (tag ? ' <span style="font-size:10px;font-weight:700;background:var(--accent-soft);color:var(--accent);border-radius:4px;padding:1px 5px;">' + escapeHtml(tag) + '</span>' : '')
-            + '</td>'
-            + '<td style="padding:8px 10px;color:var(--muted);">' + escapeHtml(catLabel) + '</td>'
-            + '<td style="padding:8px 10px;text-align:right;font-weight:800;color:var(--accent);">' + v.value_high.toFixed(1) + ' RP</td>'
-            + '<td style="padding:8px 10px;text-align:right;color:var(--muted);font-size:12px;">' + v.value_low.toFixed(1) + ' – ' + v.value_high.toFixed(1) + '</td>'
-            + '<td style="padding:8px 10px;text-align:right;color:var(--muted);">' + (v.sample_size || 0) + '</td>'
-            + '</tr>';
-        }).join("")
-      + '</tbody></table>';
+    var rows = "";
+    values.forEach(function(v, i) {
+      var variant = VAR_LABELS[v.variant] || "";
+      var potion  = POT_LABELS[v.potion]  || "";
+      var tag = [variant, potion].filter(Boolean).join(" ");
+      var words = v.item_id.split("-");
+      var label = escapeHtml(words.map(function(w){ return w.charAt(0).toUpperCase() + w.slice(1); }).join(" "));
+      var catLabel = CAT_LABELS[v.category] || v.category;
+      var bg = i % 2 === 0 ? "background:var(--surface);" : "";
+      var tagHtml = tag ? '<span style="font-size:10px;font-weight:700;background:var(--accent-soft);color:var(--accent);border-radius:4px;padding:1px 5px;">' + escapeHtml(tag) + '</span>' : "";
+      rows += '<tr style="border-bottom:1px solid var(--line);' + bg + '">';
+      rows += '<td style="padding:8px 10px;font-weight:600;color:var(--ink);">' + label + " " + tagHtml + "</td>";
+      rows += '<td style="padding:8px 10px;color:var(--muted);">' + escapeHtml(catLabel) + "</td>";
+      rows += '<td style="padding:8px 10px;text-align:right;font-weight:800;color:var(--accent);">' + v.value_high.toFixed(1) + " RP</td>";
+      rows += '<td style="padding:8px 10px;text-align:right;color:var(--muted);font-size:12px;">' + v.value_low.toFixed(1) + " - " + v.value_high.toFixed(1) + "</td>";
+      rows += '<td style="padding:8px 10px;text-align:right;color:var(--muted);">' + (v.sample_size || 0) + "</td>";
+      rows += "</tr>";
+    });
+    list.innerHTML = '<table style="width:100%;border-collapse:collapse;font-size:13px;"><thead><tr style="border-bottom:2px solid var(--line);"><th style="text-align:left;padding:8px 10px;color:var(--muted);font-size:11px;text-transform:uppercase;">Item</th><th style="text-align:left;padding:8px 10px;color:var(--muted);font-size:11px;text-transform:uppercase;">Type</th><th style="text-align:right;padding:8px 10px;color:var(--muted);font-size:11px;text-transform:uppercase;">RP Value</th><th style="text-align:right;padding:8px 10px;color:var(--muted);font-size:11px;text-transform:uppercase;">Range</th><th style="text-align:right;padding:8px 10px;color:var(--muted);font-size:11px;text-transform:uppercase;">Samples</th></tr></thead><tbody>' + rows + '</tbody></table>';
   }
 
   document.getElementById("btn-run-solver")?.addEventListener("click", async () => {
