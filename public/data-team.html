@@ -29,28 +29,41 @@
   .trade-vs { display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--muted); padding-top: 40px; }
 
   /* Item type toggle */
-  .item-type-toggle { display: flex; gap: 6px; margin-bottom: 12px; }
+  .item-type-toggle { display: flex; gap: 6px; margin-bottom: 10px; }
   .item-type-btn { flex: 1; padding: 7px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--muted); font-size: 12px; font-weight: 700; cursor: pointer; text-align: center; transition: all 0.15s; }
   .item-type-btn.active { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
 
-  /* Selected items display */
-  .selected-items-list { min-height: 48px; display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-  .item-chip { display: flex; align-items: center; gap: 6px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 5px 8px; font-size: 12px; }
-  .item-chip img { width: 24px; height: 24px; border-radius: 4px; object-fit: cover; }
-  .item-chip-name { font-weight: 600; color: var(--ink); }
-  .item-chip-meta { color: var(--muted); font-size: 11px; }
-  .item-chip-remove { background: none; border: none; color: var(--muted); cursor: pointer; padding: 0; font-size: 14px; line-height: 1; }
-  .item-chip-remove:hover { color: var(--accent); }
+  /* Selected chips */
+  .selected-items-list { min-height: 36px; display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+  .item-chip { display: flex; align-items: center; gap: 5px; background: var(--accent-soft); border: 1.5px solid var(--accent); border-radius: 8px; padding: 4px 8px; font-size: 12px; }
+  .item-chip img { width: 20px; height: 20px; border-radius: 3px; object-fit: cover; }
+  .item-chip-name { font-weight: 600; color: var(--accent); }
+  .item-chip-remove { background: none; border: none; color: var(--accent); cursor: pointer; padding: 0; font-size: 14px; line-height: 1; opacity: 0.6; }
+  .item-chip-remove:hover { opacity: 1; }
 
-  /* Pet/house search */
-  .item-search-wrap { position: relative; margin-bottom: 8px; }
-  .item-search-wrap input { width: 100%; padding: 8px 10px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); font-size: 13px; }
+  /* Rarity filter tabs */
+  .rarity-tabs { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 8px; }
+  .rarity-tab { padding: 3px 10px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--muted); font-size: 11px; font-weight: 700; cursor: pointer; }
+  .rarity-tab.active { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+  .rarity-tab.legendary { }
+  
+  /* Search */
+  .item-search-wrap { margin-bottom: 8px; }
+  .item-search-wrap input { width: 100%; padding: 7px 10px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); font-size: 13px; }
   .item-search-wrap input:focus { outline: none; border-color: var(--accent); }
-  .item-dropdown { position: absolute; top: 100%; left: 0; right: 0; background: var(--surface); border: 1.5px solid var(--line); border-radius: 10px; z-index: 50; max-height: 200px; overflow-y: auto; box-shadow: 0 4px 16px rgba(0,0,0,0.15); display: none; }
-  .item-dropdown.open { display: block; }
-  .item-dropdown-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; cursor: pointer; font-size: 13px; }
-  .item-dropdown-item:hover { background: var(--surface-2); }
-  .item-dropdown-item img { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; }
+
+  /* Pet grid */
+  .pet-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); gap: 5px; max-height: 220px; overflow-y: auto; padding: 4px 2px; }
+  .pet-card { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 6px 4px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--surface); cursor: pointer; transition: all 0.12s; text-align: center; }
+  .pet-card:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .pet-card.selected { border-color: var(--accent); background: var(--accent-soft); }
+  .pet-card img { width: 40px; height: 40px; object-fit: contain; }
+  .pet-card-name { font-size: 9px; font-weight: 600; color: var(--ink); line-height: 1.2; word-break: break-word; }
+  .pet-card-rarity { font-size: 8px; color: var(--muted); }
+  .rarity-L { color: #f59e0b; }
+  .rarity-R { color: #8b5cf6; }
+  .rarity-U { color: #3b82f6; }
+  .rarity-C { color: var(--muted); }
 
   /* Pet variant/potion selectors */
   .pet-options { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; padding: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
@@ -176,17 +189,24 @@
         <div class="trade-sides">
           <!-- Side A -->
           <div class="trade-side" id="side-a-panel">
-            <div class="trade-side-label">Side A — What was given</div>
+            <div class="trade-side-label">SIDE A — WHAT WAS GIVEN</div>
             <div class="item-type-toggle">
               <button class="item-type-btn active" data-side="a" data-type="pet">🐾 Pet</button>
               <button class="item-type-btn" data-side="a" data-type="house">🏠 House</button>
             </div>
             <div class="selected-items-list" id="side-a-items"></div>
-            <div class="item-search-wrap">
-              <input type="search" id="side-a-search" placeholder="Search pets or houses..." autocomplete="off">
-              <div class="item-dropdown" id="side-a-dropdown"></div>
+            <div class="rarity-tabs" id="side-a-rarity-tabs">
+              <button class="rarity-tab active" data-rarity="all">All</button>
+              <button class="rarity-tab" data-rarity="Legendary">✨ Legendary</button>
+              <button class="rarity-tab" data-rarity="Rare">Rare</button>
+              <button class="rarity-tab" data-rarity="Uncommon">Uncommon</button>
+              <button class="rarity-tab" data-rarity="Common">Common</button>
             </div>
-            <div id="side-a-pet-options" class="pet-options" style="display:none;">
+            <div class="item-search-wrap">
+              <input type="search" id="side-a-search" placeholder="Search..." autocomplete="off">
+            </div>
+            <div class="pet-grid" id="side-a-grid"></div>
+            <div id="side-a-pet-options" class="pet-options" style="display:none;margin-top:8px;">
               <div class="pet-options-label">Variant</div>
               <div class="pet-options-row" id="side-a-variant">
                 <button class="pet-opt-btn active" data-val="regular">Regular</button>
@@ -201,7 +221,7 @@
                 <button class="pet-opt-btn" data-val="fly_ride">Fly + Ride</button>
               </div>
             </div>
-            <div id="side-a-house-options" class="house-options" style="display:none;">
+            <div id="side-a-house-options" class="house-options" style="display:none;margin-top:8px;">
               <div class="house-opt-row">
                 <label>Build Type</label>
                 <div class="build-type-row" id="side-a-build-type">
@@ -216,7 +236,7 @@
                 <input type="number" id="side-a-bucks" placeholder="e.g. 45000" min="0">
               </div>
             </div>
-            <div class="value-row">
+            <div class="value-row" style="margin-top:8px;">
               <input type="number" id="side-a-value" placeholder="Value (Shark)" min="0" step="0.1">
               <div class="unit-toggle" id="side-a-unit">
                 <button class="unit-btn active" data-val="shark">Shark</button>
@@ -229,17 +249,24 @@
 
           <!-- Side B -->
           <div class="trade-side" id="side-b-panel">
-            <div class="trade-side-label">Side B — What was received</div>
+            <div class="trade-side-label">SIDE B — WHAT WAS RECEIVED</div>
             <div class="item-type-toggle">
               <button class="item-type-btn active" data-side="b" data-type="pet">🐾 Pet</button>
               <button class="item-type-btn" data-side="b" data-type="house">🏠 House</button>
             </div>
             <div class="selected-items-list" id="side-b-items"></div>
-            <div class="item-search-wrap">
-              <input type="search" id="side-b-search" placeholder="Search pets or houses..." autocomplete="off">
-              <div class="item-dropdown" id="side-b-dropdown"></div>
+            <div class="rarity-tabs" id="side-b-rarity-tabs">
+              <button class="rarity-tab active" data-rarity="all">All</button>
+              <button class="rarity-tab" data-rarity="Legendary">✨ Legendary</button>
+              <button class="rarity-tab" data-rarity="Rare">Rare</button>
+              <button class="rarity-tab" data-rarity="Uncommon">Uncommon</button>
+              <button class="rarity-tab" data-rarity="Common">Common</button>
             </div>
-            <div id="side-b-pet-options" class="pet-options" style="display:none;">
+            <div class="item-search-wrap">
+              <input type="search" id="side-b-search" placeholder="Search..." autocomplete="off">
+            </div>
+            <div class="pet-grid" id="side-b-grid"></div>
+            <div id="side-b-pet-options" class="pet-options" style="display:none;margin-top:8px;">
               <div class="pet-options-label">Variant</div>
               <div class="pet-options-row" id="side-b-variant">
                 <button class="pet-opt-btn active" data-val="regular">Regular</button>
@@ -254,7 +281,7 @@
                 <button class="pet-opt-btn" data-val="fly_ride">Fly + Ride</button>
               </div>
             </div>
-            <div id="side-b-house-options" class="house-options" style="display:none;">
+            <div id="side-b-house-options" class="house-options" style="display:none;margin-top:8px;">
               <div class="house-opt-row">
                 <label>Build Type</label>
                 <div class="build-type-row" id="side-b-build-type">
@@ -269,7 +296,7 @@
                 <input type="number" id="side-b-bucks" placeholder="e.g. 45000" min="0">
               </div>
             </div>
-            <div class="value-row">
+            <div class="value-row" style="margin-top:8px;">
               <input type="number" id="side-b-value" placeholder="Value (Shark)" min="0" step="0.1">
               <div class="unit-toggle" id="side-b-unit">
                 <button class="unit-btn active" data-val="shark">Shark</button>
@@ -395,7 +422,12 @@ const sides = {
 
 function getEl(id) { return document.getElementById(id); }
 
+const RARITY_SHORT = { Legendary: "L", Rare: "R", Uncommon: "U", Common: "C" };
+
 function setupSide(s) {
+  let activeRarity = "all";
+
+  // Type toggle
   const typeBtns = document.querySelectorAll(`.item-type-btn[data-side="${s}"]`);
   typeBtns.forEach(btn => btn.addEventListener("click", () => {
     sides[s].type = btn.dataset.type;
@@ -403,11 +435,22 @@ function setupSide(s) {
     typeBtns.forEach(b => b.classList.toggle("active", b === btn));
     getEl(`side-${s}-pet-options`).style.display = sides[s].type === "pet" ? "" : "none";
     getEl(`side-${s}-house-options`).style.display = sides[s].type === "house" ? "" : "none";
+    getEl(`side-${s}-rarity-tabs`).style.display = sides[s].type === "pet" ? "" : "none";
     renderSideItems(s);
-    getEl(`side-${s}-search`).value = "";
-    getEl(`side-${s}-dropdown`).innerHTML = "";
-    getEl(`side-${s}-dropdown`).classList.remove("open");
+    renderGrid(s);
   }));
+
+  // Rarity filter tabs
+  getEl(`side-${s}-rarity-tabs`).querySelectorAll(".rarity-tab").forEach(btn => {
+    btn.addEventListener("click", () => {
+      activeRarity = btn.dataset.rarity;
+      getEl(`side-${s}-rarity-tabs`).querySelectorAll(".rarity-tab").forEach(b => b.classList.toggle("active", b === btn));
+      renderGrid(s);
+    });
+  });
+
+  // Search
+  getEl(`side-${s}-search`).addEventListener("input", () => renderGrid(s));
 
   // Variant buttons
   getEl(`side-${s}-variant`).querySelectorAll(".pet-opt-btn").forEach(btn => {
@@ -440,37 +483,51 @@ function setupSide(s) {
     });
   });
 
-  // Search
-  const searchInput = getEl(`side-${s}-search`);
-  const dropdown = getEl(`side-${s}-dropdown`);
-
-  searchInput.addEventListener("input", () => {
-    const q = searchInput.value.trim().toLowerCase();
-    if (!q) { dropdown.classList.remove("open"); return; }
+  function renderGrid(s) {
+    const grid = getEl(`side-${s}-grid`);
+    const q = getEl(`side-${s}-search`).value.trim().toLowerCase();
     const catalog = sides[s].type === "pet" ? petCatalog : houseCatalog;
-    const matches = catalog.filter(item => item.name.toLowerCase().includes(q)).slice(0, 8);
-    if (!matches.length) { dropdown.classList.remove("open"); return; }
-    dropdown.innerHTML = matches.map(item => `
-      <div class="item-dropdown-item" data-id="${escapeHtml(item.id)}" data-name="${escapeHtml(item.name)}" data-img="${escapeHtml(item.image || "")}">
-        ${item.image ? `<img src="${escapeHtml(item.image)}" alt="">` : ""}
-        <span>${escapeHtml(item.name)}</span>
-      </div>
-    `).join("");
-    dropdown.classList.add("open");
-    dropdown.querySelectorAll(".item-dropdown-item").forEach(el => {
-      el.addEventListener("click", () => {
-        const item = { type: sides[s].type, id: el.dataset.id, name: el.dataset.name, image: el.dataset.img, qty: 1 };
+
+    let items = catalog;
+    if (q) items = items.filter(it => it.name.toLowerCase().includes(q));
+    if (sides[s].type === "pet" && activeRarity !== "all") items = items.filter(it => it.rarity === activeRarity);
+
+    // Sort: legendary first, then alphabetical
+    const RARITY_ORDER = { Legendary: 0, Rare: 1, Uncommon: 2, Common: 3 };
+    items = [...items].sort((a, b) => {
+      if (sides[s].type === "pet" && !q) {
+        const ro = (RARITY_ORDER[a.rarity] ?? 9) - (RARITY_ORDER[b.rarity] ?? 9);
+        if (ro !== 0) return ro;
+      }
+      return a.name.localeCompare(b.name);
+    });
+
+    if (!items.length) {
+      grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:16px;font-size:13px;color:var(--muted);">No results</div>`;
+      return;
+    }
+
+    grid.innerHTML = items.slice(0, 120).map(item => {
+      const rs = RARITY_SHORT[item.rarity] || "";
+      const img = item.image ? `<img src="${escapeHtml(item.image)}" alt="" onerror="this.style.display='none'">` : `<div style="width:40px;height:40px;"></div>`;
+      return `<div class="pet-card" data-id="${escapeHtml(item.id)}" data-name="${escapeHtml(item.name)}" data-img="${escapeHtml(item.image||"")}" data-rarity="${escapeHtml(item.rarity||"")}">
+        ${img}
+        <div class="pet-card-name">${escapeHtml(item.name)}</div>
+        ${rs ? `<div class="pet-card-rarity rarity-${rs}">${escapeHtml(item.rarity||"")}</div>` : ""}
+      </div>`;
+    }).join("");
+
+    grid.querySelectorAll(".pet-card").forEach(card => {
+      card.addEventListener("click", () => {
+        const item = { type: sides[s].type, id: card.dataset.id, name: card.dataset.name, image: card.dataset.img, qty: 1 };
         sides[s].items.push(item);
         renderSideItems(s);
-        searchInput.value = "";
-        dropdown.classList.remove("open");
       });
     });
-  });
+  }
 
-  document.addEventListener("click", e => {
-    if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) dropdown.classList.remove("open");
-  });
+  // Store renderGrid so init can call it
+  sides[s]._renderGrid = renderGrid;
 }
 
 function renderSideItems(s) {
@@ -644,6 +701,8 @@ async function init() {
   setupSide("b");
   renderSideItems("a");
   renderSideItems("b");
+  sides.a._renderGrid("a");
+  sides.b._renderGrid("b");
 
   getEl("submit-trade-btn").addEventListener("click", submitTrade);
   loadHistory();
