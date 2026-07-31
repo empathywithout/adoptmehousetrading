@@ -98,7 +98,7 @@ async function handlerImpl(event) {
     ? looking_for.filter((c) => VALID_CATEGORIES.includes(c))
     : [];
 
-  const cleanPhotos = Array.isArray(photos) ? photos.filter((p) => typeof p === "string").slice(0, 8) : [];
+  const cleanPhotos = Array.isArray(photos) ? photos.filter((p) => typeof p === "string") : [];
 
   // A "looking_for" post doesn't have a house to photograph — the minimum
   // only applies where a real house/example build is actually being shown.

@@ -370,6 +370,76 @@ async function runStressTest(baseUrl, adminPassword) {
     assert(allCorrect, `Some URLs don't point to R2: ${uploadedUrls.filter(u => !u.includes(R2_PUBLIC)).join(", ")}`);
   });
 
+  // ── Listing photo count (no 8-photo cap) ─────────────────────────────────
+
+  await test("listing: can save more than 8 photos", async () => {
+    // Upload 12 photos
+    const photoUrls = [];
+    for (let i = 0; i < 12; i++) {
+      const { status, data } = await api(baseUrl, "listings-upload-photo", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${authToken}` },
+        body: { filename: `bulk_${i}.jpg`, contentType: "image/jpeg", dataBase64: JPEG_1X1 },
+      });
+      assert(status === 200, `Upload ${i} failed: ${data.error}`);
+      photoUrls.push(data.url);
+    }
+    assert(photoUrls.length === 12, `Expected 12 URLs`);
+
+    // Create listing with all 12
+    const { status, data } = await api(baseUrl, "listings-create", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${authToken}` },
+      body: {
+        listing_type: "house_trade", house_id: "tiny-home",
+        title: "12 Photo Test Listing", description: "stress test",
+        photos: photoUrls,
+        looking_for: ["adopt_me_pets"], themes: ["cozy"],
+        build_type: "original", value_amount: 1, value_unit: "shark",
+      },
+    });
+    assert(status === 200, `Got ${status}: ${data.error}`);
+    assert(data.listing?.photos?.length === 12, `Expected 12 photos saved, got ${data.listing?.photos?.length}`);
+
+    // Cleanup
+    await api(baseUrl, "listings-remove", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${authToken}` },
+      body: { listing_id: data.listing.id },
+    });
+  });
+
+  await test("registry: can save more than 8 photos", async () => {
+    const photoUrls = [];
+    for (let i = 0; i < 10; i++) {
+      const { status, data } = await api(baseUrl, "listings-upload-photo", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${authToken}` },
+        body: { filename: `reg_${i}.png`, contentType: "image/png", dataBase64: PNG_1X1 },
+      });
+      assert(status === 200, `Upload ${i} failed`);
+      photoUrls.push(data.url);
+    }
+
+    const { status, data } = await api(baseUrl, "registry-create", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${authToken}` },
+      body: {
+        title: "10 Photo Registry Test", description: "stress test",
+        photos: photoUrls, themes: ["cozy"], house_id: "tiny-home", included_items: [],
+      },
+    });
+    assert(status === 200, `Got ${status}: ${data.error}`);
+    assert(data.entry?.photos?.length === 10, `Expected 10 photos saved, got ${data.entry?.photos?.length}`);
+
+    // Cleanup
+    await api(baseUrl, "registry-delete", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${authToken}` },
+      body: { entry_id: data.entry.id },
+    });
+  });
+
   return { results, uploadedUrls };
 }
 
