@@ -252,6 +252,7 @@ img { max-width: 100%; display: block; }
   color: var(--muted);
   padding: 4px 0;
   border-bottom: 2px solid transparent;
+  white-space: nowrap;
 }
 
 .site-nav nav a:hover {
@@ -2533,8 +2534,10 @@ textarea { resize: vertical; min-height: 90px; }
 
 /* ── Medium viewport: compress nav before full collapse ── */
 @media (max-width: 1060px) {
-  .site-nav nav { gap: 16px; font-size: 13.5px; }
-  .nav-actions { gap: 10px; }
+  .site-nav nav { gap: 12px; font-size: 13px; }
+  .nav-actions { gap: 8px; }
+  .brand { font-size: 16px; }
+  .nav-actions .btn-primary { font-size: 12px; padding: 6px 12px; }
 }
 
 @media (max-width: 900px) {
