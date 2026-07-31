@@ -105,6 +105,7 @@
           <div><div class="stat-label">Completed Trades</div><div class="stat-value accent">${p.completed_trades}</div></div>
           <div><div class="stat-label">Active Listings</div><div class="stat-value">${p.active_listings}</div></div>
           <div class="full-row" style="border-top:none;padding-top:0;"><div class="stat-label">Registered Builds</div><div class="stat-value">${p.registered_builds}</div></div>
+          ${p.total_hearts > 0 ? `<div class="full-row" style="padding-top:0;"><div class="stat-label">Hearts on Builds</div><div class="stat-value" style="color:var(--accent);">♥ ${p.total_hearts}</div></div>` : ""}
         </div>
         <div class="hero-ctas" style="justify-content:center;margin-top:20px;">
           ${p.is_builder ? `<a class="btn btn-primary" href="commissions/builder.html?id=${p.id}">View Builder Page</a>` : ""}

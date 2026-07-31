@@ -126,7 +126,7 @@
           const photo = b.cover_photo || "../images/brand/searchdog.png";
           const themesLine = (b.builder_themes || []).map((t) => THEME_LABELS[t] || t).join(", ");
           const prestigeLine = b.original_saves > 0
-            ? `<p class="lister" style="margin-top:2px;color:var(--accent);font-weight:700;">🔖 ${b.original_saves} save${b.original_saves !== 1 ? "s" : ""} on original builds</p>`
+            ? `<p class="lister" style="margin-top:2px;color:var(--accent);font-weight:800;">♥ ${b.original_saves} heart${b.original_saves !== 1 ? "s" : ""} on original builds</p>`
             : "";
           return `
           <a class="listing-card" href="builder.html?id=${b.id}">

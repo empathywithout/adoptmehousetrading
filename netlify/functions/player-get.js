@@ -57,6 +57,16 @@ async function handlerImpl(event) {
     .eq("profile_id", id)
     .neq("status", "removed");
 
+  // Sum total hearts across all this builder's original builds
+  const { data: heartData } = await db
+    .from("build_registry")
+    .select("save_count")
+    .eq("profile_id", id)
+    .eq("build_type", "original")
+    .neq("status", "removed");
+
+  const totalHearts = (heartData || []).reduce((sum, b) => sum + (b.save_count || 0), 0);
+
   return json(200, {
     player: {
       id: profile.id,
@@ -68,6 +78,7 @@ async function handlerImpl(event) {
       completed_trades: (asLister || 0) + (asOfferer || 0),
       active_listings: activeListings || 0,
       registered_builds: registeredBuilds || 0,
+      total_hearts: totalHearts,
     },
   });
 }

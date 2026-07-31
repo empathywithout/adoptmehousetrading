@@ -64,6 +64,9 @@ async function fetchBuilders(event) {
     b.original_build_count = originalBuilds.length;
   }
 
+  // Sort by hearts descending -- most hearted builders surface first
+  builders.sort((a, b) => (b.original_saves || 0) - (a.original_saves || 0));
+
   return json(200, { builders });
 }
 
