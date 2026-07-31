@@ -623,10 +623,20 @@ export async function requireProfile(event) {
 
   if (redis) {
     try {
-      await redis.set(cacheKey, JSON.stringify(profileData), { ex: 300 });
+      // Exclude is_data_team_member from cache — approval changes must reflect immediately
+      const { is_data_team_member, ...cacheable } = profileData;
+      await redis.set(cacheKey, JSON.stringify(cacheable), { ex: 300 });
     } catch (err) {
       console.warn("Session cache write failed (non-fatal):", err.message);
     }
+  }
+
+  // Always fetch is_data_team_member fresh from DB
+  if (profileData && !profileData.is_data_team_member) {
+    try {
+      const { data: fresh } = await db.from("profiles").select("is_data_team_member").eq("id", profileData.id).maybeSingle();
+      if (fresh) profileData.is_data_team_member = fresh.is_data_team_member;
+    } catch {}
   }
 
   db.from("sessions")
