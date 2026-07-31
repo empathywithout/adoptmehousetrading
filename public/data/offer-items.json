@@ -33618,5 +33618,447 @@
     "image": "/images/foods/Yule-Log-Treat-Common-from-Winter-2024-(Advent-Calendar).png",
     "value": null,
     "valueUnit": null
+  },
+  {
+    "id": "safari-egg",
+    "category": "eggs",
+    "name": "Safari Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "jungle-egg",
+    "category": "eggs",
+    "name": "Jungle Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "farm-egg",
+    "category": "eggs",
+    "name": "Farm Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "aussie-egg",
+    "category": "eggs",
+    "name": "Aussie Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "fossil-egg",
+    "category": "eggs",
+    "name": "Fossil Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ocean-egg",
+    "category": "eggs",
+    "name": "Ocean Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "mythic-egg",
+    "category": "eggs",
+    "name": "Mythic Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "woodland-egg",
+    "category": "eggs",
+    "name": "Woodland Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "japan-egg",
+    "category": "eggs",
+    "name": "Japan Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "southeast-asia-egg",
+    "category": "eggs",
+    "name": "Southeast Asia Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "danger-egg",
+    "category": "eggs",
+    "name": "Danger Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "urban-egg",
+    "category": "eggs",
+    "name": "Urban Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "desert-egg",
+    "category": "eggs",
+    "name": "Desert Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "garden-egg",
+    "category": "eggs",
+    "name": "Garden Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "moon-egg",
+    "category": "eggs",
+    "name": "Moon Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "aztec-egg",
+    "category": "eggs",
+    "name": "Aztec Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "fool-egg",
+    "category": "eggs",
+    "name": "Fool Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "christmas-egg",
+    "category": "eggs",
+    "name": "Christmas Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "christmas-future-egg",
+    "category": "eggs",
+    "name": "Christmas Future Egg",
+    "rarity": "Uncommon",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "easter-2020-egg",
+    "category": "eggs",
+    "name": "Easter 2020 Egg",
+    "rarity": "Common",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "wrapped-doll",
+    "category": "eggs",
+    "name": "Wrapped Doll",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "zodiac-minion-egg",
+    "category": "eggs",
+    "name": "Zodiac Minion Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "royal-desert-egg",
+    "category": "eggs",
+    "name": "Royal Desert Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "royal-moon-egg",
+    "category": "eggs",
+    "name": "Royal Moon Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "royal-aztec-egg",
+    "category": "eggs",
+    "name": "Royal Aztec Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "admin-abuse-egg",
+    "category": "eggs",
+    "name": "Admin Abuse Egg",
+    "rarity": "Legendary",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "golden-egg",
+    "category": "eggs",
+    "name": "Golden Egg",
+    "rarity": "Legendary",
+    "available": true,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "diamond-egg",
+    "category": "eggs",
+    "name": "Diamond Egg",
+    "rarity": "Legendary",
+    "available": true,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "blue-egg",
+    "category": "eggs",
+    "name": "Blue Egg",
+    "rarity": "Rare",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pink-egg",
+    "category": "eggs",
+    "name": "Pink Egg",
+    "rarity": "Rare",
+    "available": false,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "crystal-egg",
+    "category": "eggs",
+    "name": "Crystal Egg",
+    "rarity": "Legendary",
+    "available": true,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "endangered-egg",
+    "category": "eggs",
+    "name": "Endangered Egg",
+    "rarity": "Legendary",
+    "available": true,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "basic-egg",
+    "category": "eggs",
+    "name": "Basic Egg",
+    "rarity": "Common",
+    "available": true,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "royal-egg",
+    "category": "eggs",
+    "name": "Royal Egg",
+    "rarity": "Legendary",
+    "available": true,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "pet-egg",
+    "category": "eggs",
+    "name": "Pet Egg",
+    "rarity": "Rare",
+    "available": true,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "retired-egg",
+    "category": "eggs",
+    "name": "Retired Egg",
+    "rarity": "Rare",
+    "available": true,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cracked-egg",
+    "category": "eggs",
+    "name": "Cracked Egg",
+    "rarity": "Common",
+    "available": true,
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ride-a-pet-potion",
+    "category": "potions",
+    "name": "Ride-A-Pet Potion",
+    "rarity": "Legendary",
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "fly-a-pet-potion",
+    "category": "potions",
+    "name": "Fly-A-Pet Potion",
+    "rarity": "Legendary",
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "sugar-skull-potion",
+    "category": "potions",
+    "name": "Sugar Skull Potion",
+    "rarity": "Ultra-Rare",
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "super-age-up-potion",
+    "category": "potions",
+    "name": "Super Age-Up Potion",
+    "rarity": "Legendary",
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "snowflake-potion",
+    "category": "potions",
+    "name": "Snowflake Potion",
+    "rarity": "Legendary",
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "teleportation-potion",
+    "category": "potions",
+    "name": "Teleportation Potion",
+    "rarity": "Legendary",
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cure-all-potion",
+    "category": "potions",
+    "name": "Cure All Potion",
+    "rarity": "Legendary",
+    "image": null,
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "heart-potion",
+    "category": "potions",
+    "name": "Heart Potion",
+    "rarity": "Legendary",
+    "image": null,
+    "value": null,
+    "valueUnit": null
   }
 ]

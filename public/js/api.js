@@ -194,6 +194,8 @@ export const QUICK_REPLIES = [
 
 export const CATEGORY_LABELS = {
   adopt_me_pets: "Pets",
+  eggs: "Eggs",
+  potions: "Potions",
   vehicles: "Vehicles",
   toys: "Toys",
   pet_wear: "Pet Wear",
