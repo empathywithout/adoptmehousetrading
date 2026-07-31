@@ -176,64 +176,62 @@
   // Markdown: **bold**, *italic*, # H2, ## H3, - lists, > blockquote
   // Auto-heading: a short line (under 80 chars) that ends without punctuation
   //   and is surrounded by blank lines is treated as an h2
-  function looksLikeHeading(line, prevBlank, nextBlank) {
-    if (!line.trim()) return false;
-    if (line.trim().length > 80) return false;
-    if (line.match(/[.!?,;:]$/)) return false; // ends with punctuation = sentence
-    if (line.startsWith("-") || line.startsWith("*") || line.startsWith(">")) return false;
-    return prevBlank; // preceded by blank line (nextBlank check is done at flush)
+  // Known heading patterns for this guide
+  function looksLikeHeading(line) {
+    const t = line.trim();
+    if (!t || t.length > 100) return false;
+    if (t.match(/[.!?,]$/)) return false;
+    if (t.startsWith("-") || t.startsWith("*") || t.startsWith(">")) return false;
+    if (t.match(/^\*\*[^*]+\*\*$/)) return true; // **text**
+    if (t.startsWith("#")) return true;
+    // Title case heuristic: 3+ words, each word starts with capital or is a short word
+    const words = t.split(" ");
+    if (words.length < 2) return false;
+    const caps = words.filter(w => w[0] === w[0].toUpperCase() || w.length <= 3);
+    return caps.length >= words.length * 0.7 && words.length <= 12;
   }
 
   function renderBody(raw) {
+    // Pre-process: insert blank line before heading-like lines that don't already have one
     const rawLines = raw.split("\n");
-    // Pad with blanks so boundary checks work
-    const lines = ["", ...rawLines, ""];
+    const preprocessed = [];
+    for (let i = 0; i < rawLines.length; i++) {
+      const prev = i > 0 ? rawLines[i-1] : "";
+      if (looksLikeHeading(rawLines[i]) && prev.trim() !== "") {
+        preprocessed.push(""); // insert blank before heading
+      }
+      preprocessed.push(rawLines[i]);
+      // insert blank after heading if next line isn't blank
+      if (looksLikeHeading(rawLines[i]) && i+1 < rawLines.length && rawLines[i+1].trim() !== "") {
+        preprocessed.push("");
+      }
+    }
+
+    const lines = ["", ...preprocessed, ""];
     const blocks = [];
     let currentPara = [];
     let prevWasBlank = true;
 
     function flushPara() {
-      if (currentPara.length) {
-        // If the paragraph is a single short line that looks like a heading, promote it
-        if (currentPara.length === 1 && looksLikeHeading(currentPara[0], prevWasBlank, true)) {
-          blocks.push({ type: "h2", text: currentPara[0].replace(/\*\*/g, "") });
-        } else {
-          blocks.push({ type: "p", text: currentPara.join("\n") });
-        }
-        currentPara = [];
+      if (!currentPara.length) return;
+      if (currentPara.length === 1 && looksLikeHeading(currentPara[0])) {
+        const text = currentPara[0].replace(/^#+\s*/, "").replace(/\*\*/g, "");
+        blocks.push({ type: "h2", text });
+      } else {
+        blocks.push({ type: "p", text: currentPara.join("\n") });
       }
+      currentPara = [];
     }
 
     for (let i = 1; i < lines.length - 1; i++) {
       const line = lines[i];
       const isBlank = !line.trim();
-
-      if (isBlank) {
-        flushPara();
-        prevWasBlank = true;
-        continue;
-      }
-      if (line.startsWith("## ")) {
-        flushPara();
-        blocks.push({ type: "h3", text: line.slice(3) });
-        prevWasBlank = false;
-      } else if (line.startsWith("# ") || line.match(/^\*\*[^*]+\*\*$/)) {
-        flushPara();
-        const text = line.startsWith("# ") ? line.slice(2) : line.replace(/\*\*/g, "");
-        blocks.push({ type: "h2", text });
-        prevWasBlank = false;
-      } else if (line.startsWith("- ") || line.startsWith("* ")) {
-        flushPara();
-        blocks.push({ type: "li", text: line.slice(2) });
-        prevWasBlank = false;
-      } else if (line.startsWith("> ")) {
-        flushPara();
-        blocks.push({ type: "blockquote", text: line.slice(2) });
-        prevWasBlank = false;
-      } else {
-        currentPara.push(line);
-        prevWasBlank = false;
-      }
+      if (isBlank) { flushPara(); prevWasBlank = true; continue; }
+      if (line.startsWith("## ")) { flushPara(); blocks.push({ type: "h3", text: line.slice(3) }); prevWasBlank = false; }
+      else if (line.startsWith("# ")) { flushPara(); blocks.push({ type: "h2", text: line.slice(2) }); prevWasBlank = false; }
+      else if (line.startsWith("- ") || line.startsWith("* ")) { flushPara(); blocks.push({ type: "li", text: line.slice(2) }); prevWasBlank = false; }
+      else if (line.startsWith("> ")) { flushPara(); blocks.push({ type: "blockquote", text: line.slice(2) }); prevWasBlank = false; }
+      else { currentPara.push(line); prevWasBlank = false; }
     }
     flushPara();
 
