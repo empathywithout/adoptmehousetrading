@@ -47,7 +47,9 @@ async function handlerImpl(event) {
   const params = new URL(event.rawUrl || `http://x${event.path}?${event.rawQuery || ""}`).searchParams;
   const pw = params.get("pw");
   const expected = process.env.ADMIN_PASSWORD;
-  if (!expected || pw !== expected) return json(403, { error: "Forbidden" });
+  // Support both query param (browser URL) and X-Admin-Password header (dashboard button)
+  const headerPw = event.headers?.["x-admin-password"] || event.headers?.["X-Admin-Password"];
+  if (!expected || (pw !== expected && headerPw !== expected)) return json(403, { error: "Forbidden" });
 
   const dryRun = params.get("dry") === "true";
   const excludeFake = params.get("exclude_fake") !== "false"; // default true

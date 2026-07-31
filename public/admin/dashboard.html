@@ -211,6 +211,7 @@
       <button class="tab-btn" data-tab="registry-dupes"><span>Registry Dupes</span> <span class="badge" id="badge-registry-dupes">0</span></button>
       <button class="tab-btn" data-tab="trades"><span>Trades</span> <span class="badge" id="badge-trades">0</span></button>
       <button class="tab-btn" data-tab="trade-records"><span>Trade Records</span> <span class="badge" id="badge-trade-records">0</span></button>
+      <button class="tab-btn" data-tab="values"><span>Values</span> <span class="badge" id="badge-values">0</span></button>
     </nav>
     <button id="logout-btn">Log out</button>
   </div>
@@ -248,6 +249,18 @@
       <p class="section-title">Accepted Trades</p>
       <div id="trades-list"></div>
       <div id="empty-trades" class="empty-state" hidden><strong>No accepted trades yet.</strong></div>
+    </div>
+
+    <div class="tab-panel" id="tab-values">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+        <p class="section-title" style="margin:0;">Computed RP Values</p>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span id="values-meta" style="font-size:12px;color:var(--muted);"></span>
+          <button class="act act-ghost" id="btn-run-solver" style="font-size:12px;padding:6px 12px;">Run Solver</button>
+        </div>
+      </div>
+      <div id="values-list"></div>
+      <div id="empty-values" class="empty-state" hidden><strong>No computed values yet. Run the solver to generate values from trade records.</strong></div>
     </div>
 
     <div class="tab-panel" id="tab-trade-records">
@@ -292,7 +305,7 @@
     const pw = getAdminPassword();
     if (!pw) return;
     try {
-      const [disputesRes, applicationsRes, contentRes, statsRes, dupesRes, registryDupesRes, tradesRes, tradeRecordsRes] = await Promise.all([
+      const [disputesRes, applicationsRes, contentRes, statsRes, dupesRes, registryDupesRes, tradesRes, tradeRecordsRes, valuesRes] = await Promise.all([
         fetch("/.netlify/functions/admin-disputes-list",  { headers: { "X-Admin-Password": pw } }),
         fetch(`/.netlify/functions/admin-data-team-list${showAllApplications ? "?all=1" : ""}`, { headers: { "X-Admin-Password": pw } }),
         fetch(`/.netlify/functions/admin-content-list${showAllGuides ? "?all=1" : ""}`,   { headers: { "X-Admin-Password": pw } }),
@@ -301,9 +314,10 @@
         fetch("/.netlify/functions/admin-registry-dupes", { headers: { "X-Admin-Password": pw } }),
         fetch("/.netlify/functions/admin-trades-list",    { headers: { "X-Admin-Password": pw } }),
         fetch("/.netlify/functions/admin-trade-records",  { headers: { "X-Admin-Password": pw } }),
+        fetch("/.netlify/functions/admin-values-list",       { headers: { "X-Admin-Password": pw } }),
       ]);
       const [disputesData, applicationsData, contentData, statsData, dupesData, registryDupesData, tradesData, tradeRecordsData] = await Promise.all([
-        disputesRes.json(), applicationsRes.json(), contentRes.json(), statsRes.json(), dupesRes.json(), registryDupesRes.json(), tradesRes.json(), tradeRecordsRes.json(),
+        disputesRes.json(), applicationsRes.json(), contentRes.json(), statsRes.json(), dupesRes.json(), registryDupesRes.json(), tradesRes.json(), tradeRecordsRes.json(), valuesRes.json(),
       ]);
       const failedRes = [disputesRes, applicationsRes, contentRes].find(r => r.status === 401);
       if (failedRes) {
@@ -320,6 +334,7 @@
       renderRegistryDupes(registryDupesRes.ok ? (registryDupesData.entries || []) : []);
       renderTrades(tradesRes.ok ? (tradesData.trades || []) : []);
       renderTradeRecords(tradeRecordsRes.ok ? (tradeRecordsData.records || []) : []);
+      renderValues(valuesRes.ok ? (valuesData.values || []) : []);
       if (!disputesRes.ok)      console.error("Disputes failed:", disputesData?.error);
       if (!applicationsRes.ok)  console.error("Applications failed:", applicationsData?.error);
       if (!contentRes.ok)       console.error("Guides failed:", contentData?.error);
@@ -791,6 +806,70 @@
         + '</div>';
     }).join("");
   }
+
+  function renderValues(values) {
+    const list  = document.getElementById("values-list");
+    const empty = document.getElementById("empty-values");
+    const meta  = document.getElementById("values-meta");
+    setBadge("badge-values", values.length);
+
+    if (!values.length) { list.innerHTML = ""; empty.hidden = false; return; }
+    empty.hidden = true;
+
+    const updated = values[0]?.updated_at ? new Date(values[0].updated_at).toLocaleDateString("en-US", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }) : "";
+    meta.textContent = values.length + " values" + (updated ? " · last run " + updated : "");
+
+    const CAT_LABELS = { adopt_me_pets: "Pet", eggs: "Egg", potions: "Potion" };
+    const VAR_LABELS = { regular: "", neon: "Neon", mega_neon: "MN" };
+    const POT_LABELS = { none: "", ride: "R", fly: "F", fly_ride: "FR" };
+
+    list.innerHTML = '<table style="width:100%;border-collapse:collapse;font-size:13px;">'
+      + '<thead><tr style="border-bottom:2px solid var(--line);">'
+      + '<th style="text-align:left;padding:8px 10px;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">Item</th>'
+      + '<th style="text-align:left;padding:8px 10px;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">Type</th>'
+      + '<th style="text-align:right;padding:8px 10px;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">RP Value</th>'
+      + '<th style="text-align:right;padding:8px 10px;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">Range</th>'
+      + '<th style="text-align:right;padding:8px 10px;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">Samples</th>'
+      + '</tr></thead><tbody>'
+      + values.map(function(v, i) {
+          var variant = VAR_LABELS[v.variant] || "";
+          var potion  = POT_LABELS[v.potion]  || "";
+          var tag = [variant, potion].filter(Boolean).join(" ");
+          var label = escapeHtml(v.item_id.replace(/-/g, " ").replace(/\w/g, function(c) { return c.toUpperCase(); }));
+          var catLabel = CAT_LABELS[v.category] || v.category;
+          var bg = i % 2 === 0 ? "background:var(--surface);" : "";
+          return '<tr style="border-bottom:1px solid var(--line);' + bg + '">'
+            + '<td style="padding:8px 10px;font-weight:600;color:var(--ink);">' + label
+            + (tag ? ' <span style="font-size:10px;font-weight:700;background:var(--accent-soft);color:var(--accent);border-radius:4px;padding:1px 5px;">' + escapeHtml(tag) + '</span>' : '')
+            + '</td>'
+            + '<td style="padding:8px 10px;color:var(--muted);">' + escapeHtml(catLabel) + '</td>'
+            + '<td style="padding:8px 10px;text-align:right;font-weight:800;color:var(--accent);">' + v.value_high.toFixed(1) + ' RP</td>'
+            + '<td style="padding:8px 10px;text-align:right;color:var(--muted);font-size:12px;">' + v.value_low.toFixed(1) + ' – ' + v.value_high.toFixed(1) + '</td>'
+            + '<td style="padding:8px 10px;text-align:right;color:var(--muted);">' + (v.sample_size || 0) + '</td>'
+            + '</tr>';
+        }).join("")
+      + '</tbody></table>';
+  }
+
+  document.getElementById("btn-run-solver")?.addEventListener("click", async () => {
+    const pw = getAdminPassword();
+    if (!pw) return;
+    const btn = document.getElementById("btn-run-solver");
+    btn.disabled = true;
+    btn.textContent = "Running...";
+    try {
+      const res = await fetch("/.netlify/functions/admin-solve-values?exclude_fake=true", { headers: { "X-Admin-Password": pw } });
+      const data = await res.json();
+      if (!res.ok) { alert(data.error || "Solver failed"); return; }
+      alert("Solver complete: " + data.written + " values written (" + data.items_solved + " items, " + data.iterations + " iterations)");
+      await tryLoad();
+    } catch (err) {
+      alert("Solver error: " + err.message);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Run Solver";
+    }
+  });
 
   await tryLoad();
 </script>
