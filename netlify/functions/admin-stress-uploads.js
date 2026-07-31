@@ -466,58 +466,18 @@ async function handlerImpl(event) {
   const passed = results.filter(r => r.status === "pass").length;
   const failed = results.filter(r => r.status === "fail").length;
 
-  const html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Upload Stress Test — AMHT</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #0f1117; color: #e2e8f0; padding: 32px; }
-    h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
-    .subtitle { font-size: 13px; color: #64748b; margin-bottom: 24px; }
-    .summary { display: flex; gap: 12px; margin-bottom: 28px; }
-    .pill { padding: 6px 16px; border-radius: 999px; font-size: 13px; font-weight: 700; }
-    .pill.pass { background: #14532d; color: #4ade80; }
-    .pill.fail { background: #450a0a; color: #f87171; }
-    .test { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border-radius: 10px; margin-bottom: 6px; background: #1e2433; border: 1px solid #2d3748; }
-    .test.fail { border-color: #7f1d1d; background: #1a0f0f; }
-    .test.pass { border-color: #14532d; }
-    .icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-    .name { font-size: 13px; font-weight: 600; color: #e2e8f0; }
-    .error { font-size: 12px; color: #f87171; margin-top: 3px; font-family: monospace; }
-    .ms { font-size: 11px; color: #4a5568; margin-left: auto; flex-shrink: 0; padding-left: 12px; }
-    .urls { margin-top: 24px; background: #1e2433; border: 1px solid #2d3748; border-radius: 10px; padding: 16px; }
-    .urls h3 { font-size: 13px; font-weight: 700; color: #64748b; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
-    .url { font-size: 11px; color: #4ade80; font-family: monospace; margin-bottom: 4px; word-break: break-all; }
-  </style>
-</head>
-<body>
-  <h1>📤 Upload Stress Test</h1>
-  <div class="subtitle">adoptmehousetrading.com — ${new Date().toLocaleString()}</div>
-  <div class="summary">
-    <span class="pill pass">✅ ${passed} passed</span>
-    <span class="pill fail">❌ ${failed} failed</span>
-  </div>
-  ${results.map(r => `
-  <div class="test ${r.status}">
-    <span class="icon">${r.status === "pass" ? "✅" : "❌"}</span>
-    <div style="flex:1;min-width:0;">
-      <div class="name">${r.name}</div>
-      ${r.error ? `<div class="error">${r.error}</div>` : ""}
-    </div>
-    <span class="ms">${r.ms}ms</span>
-  </div>`).join("")}
-  ${uploadedUrls.length ? `
-  <div class="urls">
-    <h3>${uploadedUrls.length} files uploaded to R2</h3>
-    ${uploadedUrls.map(u => `<div class="url">${u}</div>`).join("")}
-  </div>` : ""}
-</body>
-</html>`;
-
-  return { statusCode: 200, headers: { "Content-Type": "text/html" }, body: html };
+  return json(200, {
+    passed,
+    failed,
+    total: results.length,
+    filesUploaded: uploadedUrls.length,
+    results: results.map(r => ({
+      name: r.name,
+      status: r.status,
+      ms: r.ms,
+      ...(r.error ? { error: r.error } : {}),
+    })),
+  });
 }
 
 export const handler = safeHandler(handlerImpl);
