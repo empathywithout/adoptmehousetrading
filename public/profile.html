@@ -198,6 +198,24 @@
           <p class="hint" style="margin-top:-4px;margin-bottom:10px;">Pick which registered build shows on your Commissions card — click one below. Defaults to your most recent if you don't pick one.</p>
           <div id="cover-photo-picker" class="house-grid cover-photo-picker" style="margin-bottom:24px;padding:14px;background:var(--surface);border-radius:12px;"></div>
 
+          <!-- Profile Photo -->
+          <label class="field-label">Profile Photo</label>
+          <p class="hint" style="margin-top:-4px;margin-bottom:10px;">Upload a custom photo for your builder profile. Square images work best.</p>
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+            <div id="builder-avatar-preview" style="width:72px;height:72px;border-radius:50%;background:var(--surface-2);border:2px solid var(--line);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+              <span id="builder-avatar-initial" style="font-size:24px;font-weight:700;color:var(--muted);"></span>
+              <img id="builder-avatar-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;display:none;">
+            </div>
+            <div style="flex:1;">
+              <label class="btn btn-ghost" style="cursor:pointer;display:inline-block;margin-bottom:6px;">
+                <input type="file" id="builder-avatar-input" accept="image/jpeg,image/png,image/webp" style="display:none;">
+                Upload Photo
+              </label>
+              <button id="builder-avatar-remove" class="btn btn-ghost" style="margin-left:8px;display:none;" type="button">Remove</button>
+              <p class="hint" style="margin:4px 0 0;">JPG, PNG or WebP. Max 5MB.</p>
+            </div>
+          </div>
+
           <!-- Bio -->
           <label class="field-label" for="builder-bio">Bio</label>
           <textarea id="builder-bio" placeholder="What you build, your style, turnaround time..."></textarea>
@@ -715,6 +733,7 @@
     }
 
     document.getElementById("builder-bio").value = profile.builder_bio || "";
+    initBuilderAvatar(profile.builder_avatar_url || null);
     selectedFeaturedId = profile.featured_registry_entry_id || null;
 
     const statusVal = profile.commission_status || "closed";
@@ -767,6 +786,49 @@
     });
   }
 
+  // ── Builder avatar ──────────────────────────────────────────────────────────
+  let pendingBuilderAvatarUrl = undefined; // undefined = no change, null = remove, string = new URL
+
+  function initBuilderAvatar(currentUrl) {
+    pendingBuilderAvatarUrl = undefined;
+    const img = document.getElementById("builder-avatar-img");
+    const initial = document.getElementById("builder-avatar-initial");
+    const removeBtn = document.getElementById("builder-avatar-remove");
+
+    function showAvatar(url) {
+      if (url) {
+        img.src = url;
+        img.style.display = "block";
+        initial.style.display = "none";
+        removeBtn.style.display = "";
+      } else {
+        img.style.display = "none";
+        initial.style.display = "";
+        removeBtn.style.display = "none";
+      }
+    }
+
+    showAvatar(currentUrl);
+
+    document.getElementById("builder-avatar-input").addEventListener("change", async (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      try {
+        const url = await api.uploadPhoto(file);
+        pendingBuilderAvatarUrl = url;
+        showAvatar(url);
+      } catch (err) {
+        alert(err.message);
+      }
+      e.target.value = "";
+    });
+
+    document.getElementById("builder-avatar-remove").addEventListener("click", () => {
+      pendingBuilderAvatarUrl = null;
+      showAvatar(null);
+    });
+  }
+
   async function saveBuilderSettings() {
     const isBuilder = document.getElementById("is-builder-toggle").checked;
     const builderBio = document.getElementById("builder-bio").value.trim();
@@ -774,13 +836,18 @@
     const builderThemes = Array.from(document.querySelectorAll("#builder-themes-grid input:checked")).map((el) => el.value);
 
     try {
-      await api.updateBuilder({
+      const builderUpdate = {
         is_builder: isBuilder,
         builder_bio: builderBio,
         commission_status: commissionStatus,
         builder_themes: builderThemes,
         featured_registry_entry_id: selectedFeaturedId,
-      });
+      };
+      if (pendingBuilderAvatarUrl !== undefined) {
+        builderUpdate.builder_avatar_url = pendingBuilderAvatarUrl;
+      }
+      await api.updateBuilder(builderUpdate);
+      pendingBuilderAvatarUrl = undefined;
       const successBox = document.getElementById("builder-save-success");
       successBox.textContent = "Saved!";
       successBox.hidden = false;
