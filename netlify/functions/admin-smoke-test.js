@@ -5,11 +5,10 @@
 
 import { json, safeHandler } from "./_lib/supabase.js";
 
-const TEST_USER = {
-  display_name: `SmokeTest_${Date.now()}`,
-  rbx_username: `smoketest${Date.now()}`,
-  password: "SmokeTest123!",
-};
+// Uses a real Roblox account for signup testing (Roblox's own test account)
+const TEST_DISPLAY_NAME = `SmokeTest_${Date.now()}`;
+const TEST_PASSWORD = "SmokeTest123!";
+const TEST_RBX_USERNAME = "Roblox"; // official Roblox account, always exists
 
 async function api(baseUrl, path, opts = {}) {
   const url = `${baseUrl}/.netlify/functions/${path}`;
@@ -87,10 +86,34 @@ async function runTests(baseUrl, adminPassword) {
   });
 
   // ── Auth ──
+  // Roblox lookup first -- required before signup
+  let rbxUserId = null;
+  let rbxUsername = null;
+  let rbxAvatarUrl = null;
+
+  await test("roblox-lookup: looks up real username", async () => {
+    const { status, data } = await api(baseUrl, "roblox-lookup", {
+      method: "POST",
+      body: { username: TEST_RBX_USERNAME },
+    });
+    assert(status === 200, `Got ${status}: ${data.error || ""}`);
+    assert(data.rbx_user_id, "Expected rbx_user_id");
+    rbxUserId = data.rbx_user_id;
+    rbxUsername = data.rbx_username;
+    rbxAvatarUrl = data.avatar_url;
+  });
+
   await test("auth-signup: creates new user", async () => {
+    assert(rbxUserId, "No rbxUserId -- roblox-lookup failed");
     const { status, data } = await api(baseUrl, "auth-signup", {
       method: "POST",
-      body: TEST_USER,
+      body: {
+        display_name: TEST_DISPLAY_NAME,
+        rbx_username: rbxUsername,
+        rbx_user_id: rbxUserId,
+        avatar_url: rbxAvatarUrl,
+        password: TEST_PASSWORD,
+      },
     });
     assert(status === 200, `Got ${status}: ${data.error || ""}`);
     assert(data.token, "Expected token");
@@ -99,17 +122,25 @@ async function runTests(baseUrl, adminPassword) {
   });
 
   await test("auth-signup: rejects duplicate", async () => {
+    assert(rbxUserId, "No rbxUserId -- roblox-lookup failed");
     const { status } = await api(baseUrl, "auth-signup", {
       method: "POST",
-      body: { display_name: `Other_${Date.now()}`, rbx_username: TEST_USER.rbx_username, password: TEST_USER.password },
+      body: {
+        display_name: `Other_${Date.now()}`,
+        rbx_username: rbxUsername,
+        rbx_user_id: rbxUserId,
+        avatar_url: rbxAvatarUrl,
+        password: TEST_PASSWORD,
+      },
     });
     assert(status === 409, `Expected 409, got ${status}`);
   });
 
   await test("auth-login: logs in successfully", async () => {
+    assert(rbxUsername, "No rbxUsername -- roblox-lookup failed");
     const { status, data } = await api(baseUrl, "auth-login", {
       method: "POST",
-      body: { identifier: TEST_USER.rbx_username, password: TEST_USER.password },
+      body: { identifier: rbxUsername, password: TEST_PASSWORD },
     });
     assert(status === 200, `Got ${status}: ${data.error || ""}`);
     assert(data.token, "Expected token");
@@ -117,9 +148,10 @@ async function runTests(baseUrl, adminPassword) {
   });
 
   await test("auth-login: rejects wrong password", async () => {
+    assert(rbxUsername, "No rbxUsername -- roblox-lookup failed");
     const { status } = await api(baseUrl, "auth-login", {
       method: "POST",
-      body: { identifier: TEST_USER.rbx_username, password: "wrongpassword" },
+      body: { identifier: rbxUsername, password: "wrongpassword" },
     });
     assert(status === 401, `Expected 401, got ${status}`);
   });
@@ -130,7 +162,7 @@ async function runTests(baseUrl, adminPassword) {
       headers: { Authorization: `Bearer ${authToken}` },
     });
     assert(status === 200, `Got ${status}: ${data.error || ""}`);
-    assert(data.profile?.display_name === TEST_USER.display_name, "Wrong display name");
+    assert(data.profile?.display_name === TEST_DISPLAY_NAME, "Wrong display name");
   });
 
   await test("profile-me: rejects unauthenticated", async () => {
@@ -147,9 +179,10 @@ async function runTests(baseUrl, adminPassword) {
   });
 
   await test("player-get: returns public profile", async () => {
-    const { status, data } = await api(baseUrl, `player-get?identifier=${TEST_USER.rbx_username}`);
+    assert(rbxUsername, "No rbxUsername -- roblox-lookup failed");
+    const { status, data } = await api(baseUrl, `player-get?identifier=${rbxUsername}`);
     assert(status === 200, `Got ${status}: ${data.error || ""}`);
-    assert(data.profile?.display_name === TEST_USER.display_name, "Wrong profile");
+    assert(data.profile?.display_name === TEST_DISPLAY_NAME, "Wrong profile");
   });
 
   // ── Listings ──
