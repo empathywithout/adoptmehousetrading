@@ -343,24 +343,35 @@ const SOURCE_LABELS = { own_trade: "My own trade", witnessed: "Witnessed", reddi
 
 function escapeHtml(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 
-// ── Auth check ─────────────────────────────────────────────────────────────
-const profile = getStoredProfile();
-if (!profile) {
+// ── Auth check — always fetch fresh from server ───────────────────────────
+const stored = getStoredProfile();
+if (!stored) {
   document.getElementById("not-signed-in").hidden = false;
-} else if (!profile.is_data_team_member) {
-  document.getElementById("not-member").hidden = false;
-  // Update nav
-  document.getElementById("nav-sign-in").hidden = true;
-  const navProfile = document.getElementById("nav-profile-link");
-  navProfile.hidden = false;
-  navProfile.textContent = profile.display_name;
 } else {
-  document.getElementById("dt-app").hidden = false;
+  // Update nav immediately with cached data
   document.getElementById("nav-sign-in").hidden = true;
   const navProfile = document.getElementById("nav-profile-link");
   navProfile.hidden = false;
-  navProfile.textContent = profile.display_name;
-  init();
+  navProfile.textContent = stored.display_name;
+
+  // Then fetch fresh profile from server to get latest is_data_team_member
+  try {
+    const fresh = await api.me();
+    if (!fresh?.profile?.is_data_team_member) {
+      document.getElementById("not-member").hidden = false;
+    } else {
+      document.getElementById("dt-app").hidden = false;
+      init();
+    }
+  } catch {
+    // Fallback to cached
+    if (!stored.is_data_team_member) {
+      document.getElementById("not-member").hidden = false;
+    } else {
+      document.getElementById("dt-app").hidden = false;
+      init();
+    }
+  }
 }
 
 // ── Catalogs ───────────────────────────────────────────────────────────────
