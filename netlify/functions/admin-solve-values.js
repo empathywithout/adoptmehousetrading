@@ -79,10 +79,58 @@ async function handlerImpl(event) {
     }
   }
 
-  // Initialize values from anchor trades first -- find all single-item-vs-ride-pot trades
-  // to bootstrap scale, then fill the rest with 10.0
+  // Initialize with known market priors (RP = ride pot = 1.0)
+  // Solver refines from these starting points rather than discovering from scratch
+  const PRIORS = {
+    "ride-a-pet-potion|potions":           1,
+    "fly-a-pet-potion|potions":            2,
+    "sugar-skull-potion|potions":          4,
+    "ocean-egg|eggs":                      6,
+    "fossil-egg|eggs":                     8,
+    "jungle-egg|eggs":                     10,
+    "aussie-egg|eggs":                     12,
+    "farm-egg|eggs":                       15,
+    "safari-egg|eggs":                     18,
+    "wolf|adopt_me_pets|regular|none":     5,
+    "dragon|adopt_me_pets|regular|none":   3,
+    "unicorn|adopt_me_pets|regular|none":  3,
+    "capybara|adopt_me_pets|regular|none": 8,
+    "axolotl|adopt_me_pets|regular|none":  20,
+    "monkey|adopt_me_pets|regular|none":   20,
+    "albino-monkey|adopt_me_pets|regular|none": 25,
+    "arctic-reindeer|adopt_me_pets|regular|none": 30,
+    "snow-owl|adopt_me_pets|regular|none": 35,
+    "kangaroo|adopt_me_pets|regular|none": 35,
+    "turtle|adopt_me_pets|regular|none":   40,
+    "t-rex|adopt_me_pets|regular|none":    45,
+    "crow|adopt_me_pets|regular|none":     50,
+    "dodo|adopt_me_pets|regular|none":     55,
+    "parrot|adopt_me_pets|regular|none":   60,
+    "owl|adopt_me_pets|regular|none":      75,
+    "evil-unicorn|adopt_me_pets|regular|none": 150,
+    "frost-dragon|adopt_me_pets|regular|none": 300,
+    "giraffe|adopt_me_pets|regular|none":  450,
+    "shadow-dragon|adopt_me_pets|regular|none": 700,
+    "bat-dragon|adopt_me_pets|regular|none": 900,
+  };
+  const PM = { none: 1.0, ride: 1.08, fly: 1.10, fly_ride: 1.15 };
+  const VM = { regular: 1.0, neon: 3.2, mega_neon: 10.0 };
+
   const values = {};
-  for (const k of allKeys) values[k] = k === anchorKey ? ANCHOR_RP : 10.0;
+  for (const k of allKeys) {
+    if (PRIORS[k] !== undefined) {
+      values[k] = PRIORS[k];
+    } else {
+      const parts = k.split("|");
+      if (parts.length === 4) {
+        const baseKey = parts[0] + "|adopt_me_pets|regular|none";
+        const base = PRIORS[baseKey];
+        values[k] = base ? base * (VM[parts[2]] || 1) * (PM[parts[3]] || 1) : 10.0;
+      } else {
+        values[k] = PRIORS[k] || 10.0;
+      }
+    }
+  }
 
   // Bootstrap pass: for any trade where one side is ONLY anchors,
   // directly compute the other side's total implied value
