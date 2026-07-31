@@ -393,6 +393,16 @@ class QueryBuilder {
 
   // ── Query execution ────────────────────────────────────────────────────────
 
+  // Serialize a value for pg parameterized queries
+  // pg doesn't auto-serialize arrays/objects to JSONB -- we must do it
+  _serialize(val) {
+    if (val === null || val === undefined) return val;
+    if (Array.isArray(val) || (typeof val === 'object' && !(val instanceof Date))) {
+      return JSON.stringify(val);
+    }
+    return val;
+  }
+
   async _execute() {
     const pool = this._pool;
     let sql, params;
@@ -455,21 +465,21 @@ class QueryBuilder {
     } else if (this._op === "insert") {
       const data  = this._insertData;
       const keys  = Object.keys(data);
-      const vals  = keys.map(k => nextPh(data[k]));
+      const vals  = keys.map(k => nextPh(this._serialize(data[k])));
       const ret   = this._returning || this._single || this._maybeSingle ? "RETURNING *" : "";
       sql = `INSERT INTO "${this._table}" (${keys.map(k => `"${k}"`).join(", ")}) VALUES (${vals.join(", ")}) ${ret}`;
 
     } else if (this._op === "update") {
       const data  = this._updateData;
       const keys  = Object.keys(data);
-      const sets  = keys.map(k => `"${k}" = ${nextPh(data[k])}`).join(", ");
+      const sets  = keys.map(k => `"${k}" = ${nextPh(this._serialize(data[k]))}`).join(", ");
       const ret   = this._returning || this._single || this._maybeSingle ? "RETURNING *" : "";
       sql = `UPDATE "${this._table}" SET ${sets} ${where} ${ret}`;
 
     } else if (this._op === "upsert") {
       const data    = this._insertData;
       const keys    = Object.keys(data);
-      const vals    = keys.map(k => nextPh(data[k]));
+      const vals    = keys.map(k => nextPh(this._serialize(data[k])));
       const conflict = this._upsertConflict ? `("${this._upsertConflict}")` : "";
       const updates  = keys.filter(k => k !== this._upsertConflict)
                            .map(k => `"${k}" = EXCLUDED."${k}"`).join(", ");
