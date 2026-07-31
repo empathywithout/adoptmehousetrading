@@ -525,6 +525,10 @@ function setupSide(s) {
     grid.querySelectorAll(".pet-card").forEach(card => {
       card.addEventListener("click", () => {
         const item = { type: sides[s].type, id: card.dataset.id, name: card.dataset.name, image: card.dataset.img, qty: 1 };
+        if (sides[s].type === "pet") {
+          item.variant = sides[s].variant;
+          item.potion = sides[s].potion;
+        }
         sides[s].items.push(item);
         renderSideItems(s);
       });
