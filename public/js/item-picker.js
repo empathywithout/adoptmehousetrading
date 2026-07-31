@@ -156,24 +156,11 @@ export function mountItemPicker(container, prefix = "") {
                 </label>
               </div>`
             : "";
-        const potionBadges = (() => {
-          if (it.category !== PET_CATEGORY || !it.potion || it.potion === "none") return "";
-          const icons = { ride: "R", fly: "F", fly_ride: "FR" };
-          return `<span class="chip-potion-badge" title="${POTION_LABELS[it.potion]}">${icons[it.potion]}</span>`;
-        })();
-        const variantBadge = (() => {
-          if (it.category !== PET_CATEGORY || !it.variant || it.variant === "regular") return "";
-          return `<span class="chip-variant-badge ${it.variant === "mega_neon" ? "chip-variant-mega" : "chip-variant-neon"}" title="${VARIANT_LABELS[it.variant]}">${it.variant === "mega_neon" ? "MN" : "N"}</span>`;
-        })();
         return `
         <div class="selected-chip">
           <div class="chip-top">
-            <div class="chip-img-wrap">
-              <img src="${it.image}" alt="">
-              ${potionBadges}
-              ${variantBadge}
-            </div>
-            <span class="chip-name">${escapeHtml(it.name)}</span>
+            <img src="${it.image}" alt="">
+            <span class="chip-name">${escapeHtml(variantPrefix(it) + it.name)}</span>
             <button data-i="${i}" data-action="remove" class="chip-remove" title="Remove">×</button>
           </div>
           ${petControls}
