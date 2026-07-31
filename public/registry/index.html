@@ -65,7 +65,7 @@
   <div id="featured-builds" style="display:none;margin-bottom:28px;">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
       <span style="font-size:18px;">♥</span>
-      <span style="font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);">Most Hearted Builds</span>
+      <span style="font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);">Most Liked Builds</span>
     </div>
     <div id="featured-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;"></div>
   </div>
@@ -134,7 +134,7 @@
       sort: true,
       sorts: [
         { val: "recent", label: "Most Recent" },
-        { val: "saves",  label: "Most Hearted" },
+        { val: "saves",  label: "Most Liked" },
       ],
       build: true, theme: true,
       themes,
@@ -242,9 +242,9 @@
       const isSaved = savedIds.has(entry.id);
       const isOwnBuild = myProfileId && entry.profile_id === myProfileId;
       const saveCount = entry.save_count || 0;
-      const saveLabel = isSaved ? `Hearted ${saveCount > 0 ? saveCount : ""}` : `Heart ${saveCount > 0 ? saveCount : ""}`;
+      const saveLabel = isSaved ? `♥ Liked ${saveCount > 0 ? saveCount : ""}` : `♥ Like ${saveCount > 0 ? saveCount : ""}`;
       const saveBtn = !isOwnBuild
-        ? `<button class="save-btn ${isSaved ? "saved" : ""}" data-id="${entry.id}" title="${isSaved ? "Click to unheart" : token ? "Heart this build" : "Sign in to heart"}">${saveLabel.trim()}</button>`
+        ? `<button class="save-btn ${isSaved ? "saved" : ""}" data-id="${entry.id}" title="${isSaved ? "Click to unlike" : token ? "Like this build" : "Sign in to like"}">${saveLabel.trim()}</button>`
         : saveCount > 0 ? `<span class="save-count-display">${saveCount}</span>` : "";
       const themesLine = (entry.themes || []).length
         ? `<div class="registry-theme-tags">${(entry.themes || []).map(t => `<span class="registry-theme-tag">${escapeHtml(THEME_LABELS[t] || t)}</span>`).join("")}</div>`

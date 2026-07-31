@@ -250,7 +250,7 @@
             <div>
               <div class="trust-name-row">
                 <span class="name">${escapeHtml(entry.profiles?.display_name || "unknown")}</span>
-                ${!isSelf ? `<button class="save-btn entry-save-btn ${window._entrySavedIds?.has(entry.id) ? "saved" : ""}" data-id="${entry.id}" title="${window._entrySavedIds?.has(entry.id) ? "Hearted — click to unheart" : "Heart this build"}">${window._entrySavedIds?.has(entry.id) ? "Hearted" : "Heart"}</button>` : ""}
+                ${!isSelf ? `<button class="save-btn entry-save-btn ${window._entrySavedIds?.has(entry.id) ? "saved" : ""}" data-id="${entry.id}" title="${window._entrySavedIds?.has(entry.id) ? "Liked — click to unlike" : "Like this build"}">${window._entrySavedIds?.has(entry.id) ? "♥ Liked" : "♥ Like"}</button>` : ""}
               <span class="entry-heart-count" id="entry-heart-count">${entry.save_count > 0 ? `<span style="font-size:18px;color:var(--accent);">♥</span> <span style="font-size:15px;font-weight:800;color:var(--ink);">${entry.save_count}</span>` : ""}</span>
               </div>
               <div class="trust-sub">Registered builder</div>
@@ -369,8 +369,8 @@
           if (isSaved) window._entrySavedIds?.add(saveBtn.dataset.id);
           else window._entrySavedIds?.delete(saveBtn.dataset.id);
           saveBtn.classList.toggle("saved", isSaved);
-          saveBtn.textContent = isSaved ? "Hearted" : "Heart";
-          saveBtn.title = isSaved ? "Hearted — click to unheart" : "Heart this build";
+          saveBtn.textContent = isSaved ? "♥ Liked" : "♥ Like";
+          saveBtn.title = isSaved ? "Liked — click to unlike" : "Like this build";
           const countEl = document.getElementById("entry-heart-count");
           if (countEl && result.save_count != null) {
             countEl.innerHTML = result.save_count > 0 ? `<span style="font-size:18px;color:var(--accent);">♥</span> <span style="font-size:15px;font-weight:800;color:var(--ink);">${result.save_count}</span>` : "";
@@ -382,7 +382,7 @@
               const nudge = document.createElement("div");
               nudge.id = "share-nudge";
               nudge.style.cssText = "margin-top:10px;padding:10px 14px;background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;font-size:13px;display:flex;align-items:center;gap:10px;";
-              nudge.innerHTML = `<span style="font-size:18px;">♥</span><span style="flex:1;color:var(--ink);font-weight:600;">Love this build? Share it so the builder gets more hearts.</span><button onclick="navigator.clipboard.writeText(window.location.href).then(()=>{this.textContent='Copied!';setTimeout(()=>this.textContent='Copy Link',2000)})" style="background:var(--accent);color:#fff;border:none;border-radius:7px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;">Copy Link</button>`;
+              nudge.innerHTML = `<span style="font-size:18px;">♥</span><span style="flex:1;color:var(--ink);font-weight:600;">Love this build? Share it so the builder gets more likes.</span><button onclick="navigator.clipboard.writeText(window.location.href).then(()=>{this.textContent='Copied!';setTimeout(()=>this.textContent='Copy Link',2000)})" style="background:var(--accent);color:#fff;border:none;border-radius:7px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;">Copy Link</button>`;
               saveBtn.closest(".action-row") ? saveBtn.closest(".action-row").appendChild(nudge) : saveBtn.parentNode.appendChild(nudge);
             }
           }

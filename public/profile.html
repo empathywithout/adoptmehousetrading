@@ -714,7 +714,7 @@
         prestigeEl.innerHTML = `<div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;margin-bottom:20px;">
           <span style="font-size:28px;">♥</span>
           <div>
-            <div style="font-weight:800;color:var(--accent);font-size:18px;">${originalSaves} heart${originalSaves !== 1 ? "s" : ""}</div>
+            <div style="font-weight:800;color:var(--accent);font-size:18px;">♥ ${originalSaves} like${originalSaves !== 1 ? "s" : ""}</div>
             <div style="font-size:12px;color:var(--muted);">From ${originalBuilds.length} original build${originalBuilds.length !== 1 ? "s" : ""}</div>
             ${milestoneHtml}
           </div>
@@ -995,7 +995,7 @@
           <div class="info">
             <h3>${escapeHtml(entry.title)}</h3>
             <p class="source">by ${escapeHtml(builderName)}</p>
-            <p class="source">🔖 ${entry.save_count || 0} saves</p>
+            <p class="source">♥ ${entry.save_count || 0} likes</p>
           </div>
         </a>`;
       }).join("");
