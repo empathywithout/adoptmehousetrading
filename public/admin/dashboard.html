@@ -210,6 +210,7 @@
       <button class="tab-btn" data-tab="dupes"><span>Duplicates</span> <span class="badge" id="badge-dupes">0</span></button>
       <button class="tab-btn" data-tab="registry-dupes"><span>Registry Dupes</span> <span class="badge" id="badge-registry-dupes">0</span></button>
       <button class="tab-btn" data-tab="trades"><span>Trades</span> <span class="badge" id="badge-trades">0</span></button>
+      <button class="tab-btn" data-tab="trade-records"><span>Trade Records</span> <span class="badge" id="badge-trade-records">0</span></button>
     </nav>
     <button id="logout-btn">Log out</button>
   </div>
@@ -248,6 +249,15 @@
       <div id="trades-list"></div>
       <div id="empty-trades" class="empty-state" hidden><strong>No accepted trades yet.</strong></div>
     </div>
+
+    <div class="tab-panel" id="tab-trade-records">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+        <p class="section-title" style="margin:0;">Data Team Trade Records</p>
+        <span id="trade-records-count" style="font-size:12px;color:var(--muted);"></span>
+      </div>
+      <div id="trade-records-list"></div>
+      <div id="empty-trade-records" class="empty-state" hidden><strong>No trade records yet.</strong></div>
+    </div>
   </div>
 </div>
 
@@ -282,7 +292,7 @@
     const pw = getAdminPassword();
     if (!pw) return;
     try {
-      const [disputesRes, applicationsRes, contentRes, statsRes, dupesRes, registryDupesRes, tradesRes] = await Promise.all([
+      const [disputesRes, applicationsRes, contentRes, statsRes, dupesRes, registryDupesRes, tradesRes, tradeRecordsRes] = await Promise.all([
         fetch("/.netlify/functions/admin-disputes-list",  { headers: { "X-Admin-Password": pw } }),
         fetch(`/.netlify/functions/admin-data-team-list${showAllApplications ? "?all=1" : ""}`, { headers: { "X-Admin-Password": pw } }),
         fetch(`/.netlify/functions/admin-content-list${showAllGuides ? "?all=1" : ""}`,   { headers: { "X-Admin-Password": pw } }),
@@ -290,9 +300,10 @@
         fetch("/.netlify/functions/admin-dupe-listings",  { headers: { "X-Admin-Password": pw } }),
         fetch("/.netlify/functions/admin-registry-dupes", { headers: { "X-Admin-Password": pw } }),
         fetch("/.netlify/functions/admin-trades-list",    { headers: { "X-Admin-Password": pw } }),
+        fetch("/.netlify/functions/admin-trade-records",  { headers: { "X-Admin-Password": pw } }),
       ]);
-      const [disputesData, applicationsData, contentData, statsData, dupesData, registryDupesData, tradesData] = await Promise.all([
-        disputesRes.json(), applicationsRes.json(), contentRes.json(), statsRes.json(), dupesRes.json(), registryDupesRes.json(), tradesRes.json(),
+      const [disputesData, applicationsData, contentData, statsData, dupesData, registryDupesData, tradesData, tradeRecordsData] = await Promise.all([
+        disputesRes.json(), applicationsRes.json(), contentRes.json(), statsRes.json(), dupesRes.json(), registryDupesRes.json(), tradesRes.json(), tradeRecordsRes.json(),
       ]);
       const failedRes = [disputesRes, applicationsRes, contentRes].find(r => r.status === 401);
       if (failedRes) {
@@ -308,6 +319,7 @@
       renderDupes(dupesRes.ok ? (dupesData.groups || []) : []);
       renderRegistryDupes(registryDupesRes.ok ? (registryDupesData.entries || []) : []);
       renderTrades(tradesRes.ok ? (tradesData.trades || []) : []);
+      renderTradeRecords(tradeRecordsRes.ok ? (tradeRecordsData.records || []) : []);
       if (!disputesRes.ok)      console.error("Disputes failed:", disputesData?.error);
       if (!applicationsRes.ok)  console.error("Applications failed:", applicationsData?.error);
       if (!contentRes.ok)       console.error("Guides failed:", contentData?.error);
@@ -722,6 +734,57 @@
         </div>
       </div>`;
     }).join('');
+  }
+
+  function renderTradeRecords(records) {
+    const list  = document.getElementById("trade-records-list");
+    const empty = document.getElementById("empty-trade-records");
+    const count = document.getElementById("trade-records-count");
+    setBadge("badge-trade-records", records.length);
+    count.textContent = records.length + " record" + (records.length !== 1 ? "s" : "");
+    if (!records.length) { list.innerHTML = ""; empty.hidden = false; return; }
+    empty.hidden = true;
+    const VL = { regular: "", neon: "Neon", mega_neon: "MN" };
+    const PL = { none: "", ride: "R", fly: "F", fly_ride: "FR" };
+    function renderSide(items) {
+      if (!items || !items.length) return '<em style="color:var(--muted);font-size:12px;">empty</em>';
+      return items.map(function(it) {
+        var variant = VL[it.variant] || "";
+        var potion  = PL[it.potion]  || "";
+        var tag     = [variant, potion].filter(Boolean).join(" ");
+        return '<div style="display:flex;align-items:center;gap:6px;padding:5px 8px;background:var(--surface);border:1px solid var(--line);border-radius:8px;">'
+          + '<span style="font-size:12px;font-weight:600;color:var(--ink);">' + escapeHtml(it.name) + '</span>'
+          + (tag ? '<span style="font-size:10px;font-weight:700;background:var(--accent-soft);color:var(--accent);border-radius:4px;padding:1px 5px;">' + escapeHtml(tag) + '</span>' : "")
+          + (it.qty > 1 ? '<span style="font-size:10px;color:var(--muted);">x' + it.qty + '</span>' : "")
+          + '</div>';
+      }).join("");
+    }
+    list.innerHTML = records.map(function(r) {
+      var date      = new Date(r.trade_date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+      var submitted = new Date(r.created_at).toLocaleDateString("en-US",  { month: "short", day: "numeric" });
+      var isFake    = r.notes === "__seeded_fake__";
+      var conf      = r.confidence || "medium";
+      var confColor = conf === "high" ? "#16a34a" : conf === "low" ? "#d97706" : "var(--accent)";
+      return '<div class="admin-card" style="' + (isFake ? "opacity:0.55;border-style:dashed;" : "") + '">'
+        + '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px;">'
+        + '<div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);">Trade Date</div>'
+        + '<div style="font-size:15px;font-weight:700;color:var(--ink);">' + date + '</div></div>'
+        + '<div style="display:flex;gap:6px;align-items:center;flex-shrink:0;">'
+        + (isFake ? '<span class="tag-pill warn">SEED</span>' : "")
+        + '<span class="tag-pill" style="border-color:' + confColor + ';color:' + confColor + ';">' + conf + '</span>'
+        + '<span class="tag-pill">' + escapeHtml((r.source || "unknown").replace(/_/g," ")) + '</span>'
+        + '</div></div>'
+        + '<div style="display:grid;grid-template-columns:1fr 24px 1fr;gap:8px;align-items:start;margin-bottom:10px;">'
+        + '<div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:6px;">SIDE A — GIVEN</div>'
+        + '<div style="display:flex;flex-wrap:wrap;gap:4px;">' + renderSide(r.side_a) + '</div></div>'
+        + '<div style="font-size:16px;color:var(--muted);text-align:center;padding-top:18px;">&#x21C4;</div>'
+        + '<div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:6px;">SIDE B — RECEIVED</div>'
+        + '<div style="display:flex;flex-wrap:wrap;gap:4px;">' + renderSide(r.side_b) + '</div></div>'
+        + '</div>'
+        + '<div style="font-size:11px;color:var(--muted);">Submitted by <strong>' + escapeHtml(r.logged_by_name || "unknown") + '</strong> &middot; ' + submitted
+        + (r.notes && !isFake ? " &middot; " + escapeHtml(r.notes) : "") + '</div>'
+        + '</div>';
+    }).join("");
   }
 
   await tryLoad();
