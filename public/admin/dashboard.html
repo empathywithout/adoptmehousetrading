@@ -316,7 +316,7 @@
         fetch("/.netlify/functions/admin-trade-records",  { headers: { "X-Admin-Password": pw } }),
         fetch("/.netlify/functions/admin-values-list",       { headers: { "X-Admin-Password": pw } }),
       ]);
-      const [disputesData, applicationsData, contentData, statsData, dupesData, registryDupesData, tradesData, tradeRecordsData] = await Promise.all([
+      const [disputesData, applicationsData, contentData, statsData, dupesData, registryDupesData, tradesData, tradeRecordsData, valuesData] = await Promise.all([
         disputesRes.json(), applicationsRes.json(), contentRes.json(), statsRes.json(), dupesRes.json(), registryDupesRes.json(), tradesRes.json(), tradeRecordsRes.json(), valuesRes.json(),
       ]);
       const failedRes = [disputesRes, applicationsRes, contentRes].find(r => r.status === 401);
