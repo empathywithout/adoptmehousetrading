@@ -115,6 +115,8 @@ async function runTests(baseUrl, adminPassword) {
     assert(data.profile?.id, "Expected profile");
     authToken = data.token;
     testProfileId = data.profile.id;
+    // Debug: log what we got
+
   });
 
   await test("auth-signup: rejects missing required fields", async () => {
@@ -176,7 +178,7 @@ async function runTests(baseUrl, adminPassword) {
   });
 
   // ── Listings ──
-  await test("listings-create: creates listing", async () => {
+  await test(`listings-create (token=${authToken?.slice(0,8)} profile=${testProfileId?.slice(0,8)})`, async () => {
     const { status, data } = await api(baseUrl, "listings-create", {
       method: "POST",
       headers: { Authorization: `Bearer ${authToken}` },
