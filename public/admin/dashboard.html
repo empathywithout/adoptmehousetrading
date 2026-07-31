@@ -835,7 +835,7 @@
           var variant = VAR_LABELS[v.variant] || "";
           var potion  = POT_LABELS[v.potion]  || "";
           var tag = [variant, potion].filter(Boolean).join(" ");
-          var label = escapeHtml(v.item_id.replace(/-/g, " ").replace(/\w/g, function(c) { return c.toUpperCase(); }));
+          var label = escapeHtml(v.item_id.split("-").map(function(w){return w.charAt(0).toUpperCase()+w.slice(1);}).join(" ");
           var catLabel = CAT_LABELS[v.category] || v.category;
           var bg = i % 2 === 0 ? "background:var(--surface);" : "";
           return '<tr style="border-bottom:1px solid var(--line);' + bg + '">'
