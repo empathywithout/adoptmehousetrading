@@ -212,6 +212,7 @@ async function handlerImpl(event) {
 
     for (const key of allKeys) {
       if (key === anchorKey) continue; // anchor is fixed
+      if (PRIORS[key] !== undefined) continue; // known market values are fixed priors -- don't move them
 
       let weightedSum = 0;
       let totalWeight = 0;
@@ -250,8 +251,11 @@ async function handlerImpl(event) {
 
       if (totalWeight > 0) {
         const estimate = weightedSum / totalWeight;
-        // Dampen updates to avoid oscillation: 70% new estimate, 30% old
-        newValues[key] = 0.85 * estimate + 0.15 * values[key];
+        // Heavy damping -- 30% new estimate, 70% old to prevent divergence
+        const rawNew = 0.30 * estimate + 0.70 * values[key];
+        // Sanity cap: value can't exceed 10x the highest known prior
+        const maxAllowed = 900 * 12; // bat dragon * MN multiplier
+        newValues[key] = Math.min(maxAllowed, Math.max(0.01, rawNew));
         maxDelta = Math.max(maxDelta, Math.abs(newValues[key] - values[key]));
       }
     }
