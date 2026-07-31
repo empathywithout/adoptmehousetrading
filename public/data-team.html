@@ -84,12 +84,7 @@
   .build-type-row { display: flex; flex-wrap: wrap; gap: 4px; }
 
   /* Value input */
-  .value-row { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
-  .value-row input { flex: 1; padding: 7px 10px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); font-size: 13px; }
-  .value-row input:focus { outline: none; border-color: var(--accent); }
-  .unit-toggle { display: flex; border: 1.5px solid var(--line); border-radius: 8px; overflow: hidden; }
-  .unit-btn { padding: 7px 10px; border: none; background: var(--surface); color: var(--muted); font-size: 12px; font-weight: 700; cursor: pointer; }
-  .unit-btn.active { background: var(--accent); color: #fff; }
+  .unit-toggle { display: none; }
 
   /* Trade context */
   .trade-context { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
@@ -241,13 +236,7 @@
                 <input type="number" id="side-a-bucks" placeholder="e.g. 45000" min="0">
               </div>
             </div>
-            <div class="value-row" style="margin-top:8px;">
-              <input type="number" id="side-a-value" placeholder="Value (Shark)" min="0" step="0.1">
-              <div class="unit-toggle" id="side-a-unit">
-                <button class="unit-btn active" data-val="shark">Shark</button>
-                <button class="unit-btn" data-val="frost">Frost</button>
-              </div>
-            </div>
+
           </div>
 
           <div class="trade-vs">⇄</div>
@@ -301,13 +290,7 @@
                 <input type="number" id="side-b-bucks" placeholder="e.g. 45000" min="0">
               </div>
             </div>
-            <div class="value-row" style="margin-top:8px;">
-              <input type="number" id="side-b-value" placeholder="Value (Shark)" min="0" step="0.1">
-              <div class="unit-toggle" id="side-b-unit">
-                <button class="unit-btn active" data-val="shark">Shark</button>
-                <button class="unit-btn" data-val="frost">Frost</button>
-              </div>
-            </div>
+
           </div>
         </div>
 
@@ -481,12 +464,7 @@ function setupSide(s) {
     });
   });
 
-  // Unit toggle
-  getEl(`side-${s}-unit`).querySelectorAll(".unit-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      getEl(`side-${s}-unit`).querySelectorAll(".unit-btn").forEach(b => b.classList.toggle("active", b === btn));
-    });
-  });
+
 
   function renderGrid(s) {
     const grid = getEl(`side-${s}-grid`);
@@ -588,8 +566,8 @@ async function submitTrade() {
     return sides[s].items.map(item => {
       const base = { type: item.type, id: item.id, name: item.name, qty: item.qty || 1 };
       if (item.type === "pet") {
-        base.variant = sides[s].variant;
-        base.potion = sides[s].potion;
+        base.variant = item.variant || "regular";
+        base.potion = item.potion || "none";
       }
       if (item.type === "house") {
         base.build_type = sides[s].buildType;
@@ -599,14 +577,6 @@ async function submitTrade() {
     });
   }
 
-  function getSideValue(s) {
-    const raw = getEl(`side-${s}-value`).value.trim();
-    if (!raw || isNaN(Number(raw))) return null;
-    const unit = getEl(`side-${s}-unit`).querySelector(".unit-btn.active").dataset.val;
-    const val = Number(raw);
-    return unit === "frost" ? val * 100 : val; // normalize to Shark
-  }
-
   const payload = {
     trade_date: getEl("trade-date").value || new Date().toISOString().slice(0, 10),
     source: getEl("trade-source").value,
@@ -614,9 +584,7 @@ async function submitTrade() {
     confidence: getEl("trade-confidence").value,
     notes: getEl("trade-notes").value.trim() || null,
     side_a: buildSidePayload("a"),
-    side_a_value_shark: getSideValue("a"),
     side_b: buildSidePayload("b"),
-    side_b_value_shark: getSideValue("b"),
   };
 
   const btn = getEl("submit-trade-btn");
@@ -630,8 +598,6 @@ async function submitTrade() {
     // Reset form
     sides.a.items = []; sides.b.items = [];
     renderSideItems("a"); renderSideItems("b");
-    getEl("side-a-value").value = "";
-    getEl("side-b-value").value = "";
     getEl("side-a-bucks").value = "";
     getEl("side-b-bucks").value = "";
     getEl("trade-source-url").value = "";
