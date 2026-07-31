@@ -719,6 +719,9 @@ async function init() {
   await loadCatalogs();
   setupSide("a");
   setupSide("b");
+  // Pet is the default type — show variant/potion panels immediately
+  getEl("side-a-pet-options").style.display = "";
+  getEl("side-b-pet-options").style.display = "";
   renderSideItems("a");
   renderSideItems("b");
   sides.a._renderGrid("a");
