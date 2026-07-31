@@ -81,7 +81,7 @@ async function handlerImpl(event) {
     return json(400, { error: "Title must be 3–120 characters" });
   }
 
-  const cleanPhotos = Array.isArray(photos) ? photos.filter((p) => typeof p === "string").slice(0, 8) : [];
+  const cleanPhotos = Array.isArray(photos) ? photos.filter((p) => typeof p === "string") : [];
   const existingPhotoCount = Array.isArray(existing.photos) ? existing.photos.length : 0;
   const minPhotos = Math.min(5, Math.max(1, existingPhotoCount));
   if (existing.listing_type !== "looking_for" && cleanPhotos.length < minPhotos) {

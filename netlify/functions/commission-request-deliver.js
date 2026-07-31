@@ -39,7 +39,7 @@ async function handlerImpl(event) {
     return json(400, { error: "Only an accepted request can be marked delivered" });
   }
 
-  const cleanPhotos = Array.isArray(delivery_photos) ? delivery_photos.filter((p) => typeof p === "string").slice(0, 8) : [];
+  const cleanPhotos = Array.isArray(delivery_photos) ? delivery_photos.filter((p) => typeof p === "string") : [];
 
   const { data, error } = await db
     .from("commission_requests")
