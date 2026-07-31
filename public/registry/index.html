@@ -126,7 +126,7 @@
       sort: true,
       sorts: [
         { val: "recent", label: "Most Recent" },
-        { val: "saves",  label: "Most Saved" },
+        { val: "saves",  label: "Most Hearted" },
       ],
       build: true, theme: true,
       themes,
@@ -140,7 +140,7 @@
     });
   }
 
-  // ── Save button handler (delegated) ─────────────────────────
+  // ── Heart button handler (delegated) ─────────────────────────
   grid.addEventListener("click", async (e) => {
     const btn = e.target.closest(".save-btn");
     if (!btn || btn.dataset.loading) return;
@@ -176,9 +176,9 @@
       btn.dataset.loading = "";
       btn.style.opacity = "";
       btn.classList.toggle("saved", data.saved);
-      btn.title = data.saved ? "Saved — click to unsave" : "Save this build";
+      btn.title = data.saved ? "Hearted — click to unheart" : "Heart this build";
       const sc = data.save_count || 0;
-      btn.textContent = data.saved ? `Saved${sc > 0 ? " " + sc : ""}` : `Save${sc > 0 ? " " + sc : ""}`;
+      btn.textContent = data.saved ? `❤️ ${sc > 0 ? sc : ""}`.trim() : `🤍 ${sc > 0 ? sc : ""}`.trim();
     } catch (err) {
       btn.dataset.loading = "";
       btn.style.opacity = "";
@@ -234,10 +234,10 @@
       const isSaved = savedIds.has(entry.id);
       const isOwnBuild = myProfileId && entry.profile_id === myProfileId;
       const saveCount = entry.save_count || 0;
-      const saveLabel = isSaved ? `Saved ${saveCount > 0 ? saveCount : ""}` : `Save ${saveCount > 0 ? saveCount : ""}`;
+      const heartLabel = isSaved ? `❤️ ${saveCount > 0 ? saveCount : ""}`.trim() : `🤍 ${saveCount > 0 ? saveCount : ""}`.trim();
       const saveBtn = !isOwnBuild
-        ? `<button class="save-btn ${isSaved ? "saved" : ""}" data-id="${entry.id}" title="${isSaved ? "Click to unsave" : token ? "Save this build" : "Sign in to save"}">${saveLabel.trim()}</button>`
-        : saveCount > 0 ? `<span class="save-count-display">${saveCount}</span>` : "";
+        ? `<button class="save-btn ${isSaved ? "saved" : ""}" data-id="${entry.id}" title="${isSaved ? "Click to unheart" : token ? "Heart this build" : "Sign in to heart"}">${heartLabel}</button>`
+        : `<span class="save-count-display">${saveCount > 0 ? "❤️ " + saveCount : ""}</span>`;
       const themesLine = (entry.themes || []).length
         ? `<div class="registry-theme-tags">${(entry.themes || []).map(t => `<span class="registry-theme-tag">${escapeHtml(THEME_LABELS[t] || t)}</span>`).join("")}</div>`
         : "";

@@ -250,7 +250,10 @@
             <div>
               <div class="trust-name-row">
                 <span class="name">${escapeHtml(entry.profiles?.display_name || "unknown")}</span>
-                ${!isSelf ? `<button class="save-btn entry-save-btn ${window._entrySavedIds?.has(entry.id) ? "saved" : ""}" data-id="${entry.id}" title="${window._entrySavedIds?.has(entry.id) ? "Saved — click to unsave" : "Save this build"}">${window._entrySavedIds?.has(entry.id) ? "Saved" : "Save"}</button>` : ""}
+                `<div class="heart-row">
+                  ${!isSelf ? `<button class="save-btn entry-save-btn heart-btn ${window._entrySavedIds?.has(entry.id) ? "saved" : ""}" data-id="${entry.id}" title="${window._entrySavedIds?.has(entry.id) ? "Hearted — click to unheart" : "Heart this build"}">${window._entrySavedIds?.has(entry.id) ? "❤️ Hearted" : "🤍 Heart"}</button>` : ""}
+                  ${entry.save_count > 0 ? `<span class="heart-count-display">${isSelf ? "❤️ " : ""}${entry.save_count} ${entry.save_count === 1 ? "heart" : "hearts"}</span>` : ""}
+                </div>`
               </div>
               <div class="trust-sub">Registered builder</div>
             </div>
@@ -368,8 +371,8 @@
           if (isSaved) window._entrySavedIds?.add(saveBtn.dataset.id);
           else window._entrySavedIds?.delete(saveBtn.dataset.id);
           saveBtn.classList.toggle("saved", isSaved);
-          saveBtn.textContent = isSaved ? "Saved" : "Save";
-          saveBtn.title = isSaved ? "Saved — click to unsave" : "Save this build";
+          saveBtn.textContent = isSaved ? "❤️ Hearted" : "🤍 Heart";
+          saveBtn.title = isSaved ? "Hearted — click to unheart" : "Heart this build";
         } catch { alert("Something went wrong"); }
         finally { saveBtn.dataset.loading = ""; saveBtn.style.opacity = ""; }
       });
