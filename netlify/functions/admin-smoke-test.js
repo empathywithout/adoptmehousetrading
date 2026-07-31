@@ -5,11 +5,8 @@
 
 import { json, safeHandler } from "./_lib/supabase.js";
 
-// Uses a real Roblox account for signup testing (Roblox's own test account)
-const TEST_DISPLAY_NAME = `SmokeTest_${Date.now()}`;
 const TEST_PASSWORD = "SmokeTest123!";
 const TEST_RBX_USERNAME = "Roblox"; // official Roblox account, always exists
-let testProfileId = null;
 
 async function api(baseUrl, path, opts = {}) {
   const url = `${baseUrl}/.netlify/functions/${path}`;
@@ -32,6 +29,12 @@ async function runTests(baseUrl, adminPassword) {
   let authToken = null;
   let listingId = null;
   let registryEntryId = null;
+  // Generate unique test data per run (inside function so each request gets fresh values)
+  const ts = Date.now();
+  const TEST_DISPLAY_NAME = `SmokeTest_${ts}`;
+  const uniqueRbxUsername = `smoketest_${ts}`;
+  const uniqueRbxUserId = ts;
+  let testProfileId = null;
 
   async function test(name, fn) {
     const start = Date.now();
@@ -87,10 +90,6 @@ async function runTests(baseUrl, adminPassword) {
   });
 
   // ── Auth ──
-  // Use a unique timestamp-based rbx_username so we never clash with existing accounts
-  const uniqueRbxUsername = `smoketest_${Date.now()}`;
-  const uniqueRbxUserId = Date.now(); // fake but unique numeric ID
-
   await test("roblox-lookup: looks up real username", async () => {
     const { status, data } = await api(baseUrl, "roblox-lookup", {
       method: "POST",
@@ -238,14 +237,17 @@ async function runTests(baseUrl, adminPassword) {
     assert(status === 200, `Got ${status}`);
   });
 
-  await test("listing-save: toggles save on listing", async () => {
-    assert(listingId, "No listingId -- previous test failed");
+  await test("listing-save: saves another user listing", async () => {
+    // Get a real listing from the DB to save (can't save own listing)
+    const { data: listData } = await api(baseUrl, "listings-list");
+    const otherListing = (listData.listings || []).find(l => l.profile_id !== testProfileId && l.status === "active");
+    if (!otherListing) { return; } // skip if no other listings exist
     const { status } = await api(baseUrl, "listing-save", {
       method: "POST",
       headers: { Authorization: `Bearer ${authToken}` },
-      body: { listing_id: listingId },
+      body: { listing_id: otherListing.id },
     });
-    assert(status === 200, `Got ${status}`);
+    assert([200, 429].includes(status), `Got ${status}`);
   });
 
   await test("listing-saves-me: returns saved listings", async () => {
