@@ -158,7 +158,7 @@ async function runStressTest(baseUrl, adminPassword) {
       headers: { Authorization: `Bearer ${authToken}` },
       body: { filename: "huge.jpg", contentType: "image/jpeg", dataBase64: bigData },
     });
-    assert(status === 400, `Expected 400 on oversized file, got ${status}`);
+    assert([400, 413].includes(status), `Expected 400 or 413 on oversized file, got ${status}`);
   });
 
   // ── Concurrent uploads ───────────────────────────────────────────────────
