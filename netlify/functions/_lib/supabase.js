@@ -264,6 +264,16 @@ const FK_MAP = {
   "reports.listings": "listing_id",
   // sessions -> profiles
   "sessions.profiles": "profile_id",
+  // offers -> listings (FK is listing_id not listings_id)
+  "offers.listings": "listing_id",
+  // listing_saves -> listings
+  "listing_saves.listings": "listing_id",
+  // completed_trades -> listings (already present but ensure)
+  // registry_saves -> build_registry (already present)
+  // build_registry_disputes -> profiles (disputer)
+  "build_registry_disputes.profiles": "disputer_profile_id",
+  // trade_chat_messages -> profiles (sender)
+  "trade_chat_messages.profiles": "sender_profile_id",
 };
 
 // ─── QueryBuilder ─────────────────────────────────────────────────────────────
