@@ -336,7 +336,7 @@
 
       // Values fetched separately so it can't crash the main load
       fetch("/.netlify/functions/admin-values-list", { headers: { "X-Admin-Password": pw } })
-        .then(r => r.json()).then(d => renderValues(d.values || [])).catch(() => renderValues([]));
+        .then(r => r.json()).then(d => { console.log("values response:", d); renderValues(d.values || []); }).catch(e => { console.error("values fetch error:", e); renderValues([]); });
       if (!disputesRes.ok)      console.error("Disputes failed:", disputesData?.error);
       if (!applicationsRes.ok)  console.error("Applications failed:", applicationsData?.error);
       if (!contentRes.ok)       console.error("Guides failed:", contentData?.error);
@@ -814,6 +814,7 @@
     const empty = document.getElementById("empty-values");
     const meta  = document.getElementById("values-meta");
     setBadge("badge-values", values.length);
+    console.log("renderValues called with", values.length, "values");
 
     if (!values.length) { list.innerHTML = ""; empty.style.display = ""; return; }
     empty.style.display = "none";
