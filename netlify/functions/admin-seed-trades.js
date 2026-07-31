@@ -67,6 +67,23 @@ function pot(id) {
 // Potions used as individual adds (1 slot each), max a few per side.
 
 const TRADES = [
+  // ── ANCHOR TRADES (pin scale to ride pot = 1.0) ─────────────────────
+  // These must stay -- solver needs direct ride-pot references to anchor scale
+  // Fly pot for 2 ride pots (2 vs 2)
+  [[pot("fly-a-pet-potion")], [pot("ride-a-pet-potion"), pot("ride-a-pet-potion")], "high"],
+  // Sugar skull for 4 ride pots (4 vs 4)
+  [[pot("sugar-skull-potion")], [pot("ride-a-pet-potion"), pot("ride-a-pet-potion"), pot("ride-a-pet-potion"), pot("ride-a-pet-potion")], "high"],
+  // Fly + ride for sugar skull (3 vs 4 -- common slight under)
+  [[pot("fly-a-pet-potion"), pot("ride-a-pet-potion")], [pot("sugar-skull-potion")], "medium"],
+  // Fossil egg for 8 ride pots (8 vs 8)
+  [[egg("fossil-egg")], [pot("ride-a-pet-potion"), pot("ride-a-pet-potion"), pot("ride-a-pet-potion"), pot("ride-a-pet-potion"), pot("ride-a-pet-potion"), pot("ride-a-pet-potion"), pot("ride-a-pet-potion"), pot("ride-a-pet-potion")], "high"],
+  // Ocean egg for 6 ride pots (6 vs 6)
+  [[egg("ocean-egg")], [pot("ride-a-pet-potion"), pot("ride-a-pet-potion"), pot("ride-a-pet-potion"), pot("ride-a-pet-potion"), pot("ride-a-pet-potion"), pot("ride-a-pet-potion")], "high"],
+  // Wolf for 5 ride pots (5 vs 5)
+  [[pet("wolf")], [pot("ride-a-pet-potion"), pot("ride-a-pet-potion"), pot("ride-a-pet-potion"), pot("ride-a-pet-potion"), pot("ride-a-pet-potion")], "high"],
+  // Dragon for 3 ride pots (3 vs 3)
+  [[pet("dragon")], [pot("ride-a-pet-potion"), pot("ride-a-pet-potion"), pot("ride-a-pet-potion")], "high"],
+
   // ── Potion-only trades ────────────────────────────────────────────────
   // 2 fly pots for sugar skull (4 vs 4)
   [[pot("fly-a-pet-potion"), pot("fly-a-pet-potion")], [pot("sugar-skull-potion")], "high"],
