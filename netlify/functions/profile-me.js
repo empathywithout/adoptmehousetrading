@@ -20,6 +20,8 @@ async function handlerImpl(event) {
       rbx_username: profile.rbx_username,
       rbx_user_id: profile.rbx_user_id,
       rbx_avatar_url: profile.rbx_avatar_url,
+      is_data_team_member: profile.is_data_team_member || false,
+      is_builder: profile.is_builder || false,
     },
   });
 }
