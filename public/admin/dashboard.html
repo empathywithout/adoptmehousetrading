@@ -305,7 +305,7 @@
     const pw = getAdminPassword();
     if (!pw) return;
     try {
-      const [disputesRes, applicationsRes, contentRes, statsRes, dupesRes, registryDupesRes, tradesRes, tradeRecordsRes, valuesRes] = await Promise.all([
+      const [disputesRes, applicationsRes, contentRes, statsRes, dupesRes, registryDupesRes, tradesRes, tradeRecordsRes] = await Promise.all([
         fetch("/.netlify/functions/admin-disputes-list",  { headers: { "X-Admin-Password": pw } }),
         fetch(`/.netlify/functions/admin-data-team-list${showAllApplications ? "?all=1" : ""}`, { headers: { "X-Admin-Password": pw } }),
         fetch(`/.netlify/functions/admin-content-list${showAllGuides ? "?all=1" : ""}`,   { headers: { "X-Admin-Password": pw } }),
@@ -314,10 +314,9 @@
         fetch("/.netlify/functions/admin-registry-dupes", { headers: { "X-Admin-Password": pw } }),
         fetch("/.netlify/functions/admin-trades-list",    { headers: { "X-Admin-Password": pw } }),
         fetch("/.netlify/functions/admin-trade-records",  { headers: { "X-Admin-Password": pw } }),
-        fetch("/.netlify/functions/admin-values-list",       { headers: { "X-Admin-Password": pw } }),
       ]);
-      const [disputesData, applicationsData, contentData, statsData, dupesData, registryDupesData, tradesData, tradeRecordsData, valuesData] = await Promise.all([
-        disputesRes.json(), applicationsRes.json(), contentRes.json(), statsRes.json(), dupesRes.json(), registryDupesRes.json(), tradesRes.json(), tradeRecordsRes.json(), valuesRes.json(),
+      const [disputesData, applicationsData, contentData, statsData, dupesData, registryDupesData, tradesData, tradeRecordsData] = await Promise.all([
+        disputesRes.json(), applicationsRes.json(), contentRes.json(), statsRes.json(), dupesRes.json(), registryDupesRes.json(), tradesRes.json(), tradeRecordsRes.json(),
       ]);
       const failedRes = [disputesRes, applicationsRes, contentRes].find(r => r.status === 401);
       if (failedRes) {
@@ -334,7 +333,10 @@
       renderRegistryDupes(registryDupesRes.ok ? (registryDupesData.entries || []) : []);
       renderTrades(tradesRes.ok ? (tradesData.trades || []) : []);
       renderTradeRecords(tradeRecordsRes.ok ? (tradeRecordsData.records || []) : []);
-      renderValues(valuesRes.ok ? (valuesData.values || []) : []);
+
+      // Values fetched separately so it can't crash the main load
+      fetch("/.netlify/functions/admin-values-list", { headers: { "X-Admin-Password": pw } })
+        .then(r => r.json()).then(d => renderValues(d.values || [])).catch(() => renderValues([]));
       if (!disputesRes.ok)      console.error("Disputes failed:", disputesData?.error);
       if (!applicationsRes.ok)  console.error("Applications failed:", applicationsData?.error);
       if (!contentRes.ok)       console.error("Guides failed:", contentData?.error);
