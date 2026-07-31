@@ -119,7 +119,7 @@ async function runTests(baseUrl, adminPassword) {
 
   await test("auth-signup: rejects duplicate display name", async () => {
     assert(authToken, "No authToken -- previous signup failed");
-    const { status } = await api(baseUrl, "auth-signup", {
+    const { status, data } = await api(baseUrl, "auth-signup", {
       method: "POST",
       body: {
         display_name: TEST_DISPLAY_NAME,
@@ -129,7 +129,7 @@ async function runTests(baseUrl, adminPassword) {
         password: TEST_PASSWORD,
       },
     });
-    assert(status === 409, `Expected 409, got ${status}`);
+    assert(status === 409, `Expected 409, got ${status} (display_name=${TEST_DISPLAY_NAME}, error=${data?.error})`);
   });
 
   await test("auth-login: logs in with rbx_username", async () => {
