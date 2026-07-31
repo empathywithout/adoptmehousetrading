@@ -1112,6 +1112,7 @@ textarea { resize: vertical; min-height: 90px; }
   gap: 4px;
   transition: border-color 0.12s, color 0.12s, background 0.12s;
 }
+.save-btn::before { content: "♥"; margin-right: 3px; }
 .save-btn:hover { border-color: #e11d48; color: #e11d48; }
 .save-btn.saved { border-color: #e11d48; color: #e11d48; background: #fff1f2; }
 .save-count-display {

@@ -242,7 +242,7 @@
       const isSaved = savedIds.has(entry.id);
       const isOwnBuild = myProfileId && entry.profile_id === myProfileId;
       const saveCount = entry.save_count || 0;
-      const saveLabel = isSaved ? `♥ Liked ${saveCount > 0 ? saveCount : ""}` : `♥ Like ${saveCount > 0 ? saveCount : ""}`;
+      const saveLabel = isSaved ? `Liked${saveCount > 0 ? " " + saveCount : ""}` : `Like${saveCount > 0 ? " " + saveCount : ""}`;
       const saveBtn = !isOwnBuild
         ? `<button class="save-btn ${isSaved ? "saved" : ""}" data-id="${entry.id}" title="${isSaved ? "Click to unlike" : token ? "Like this build" : "Sign in to like"}">${saveLabel.trim()}</button>`
         : saveCount > 0 ? `<span class="save-count-display">${saveCount}</span>` : "";

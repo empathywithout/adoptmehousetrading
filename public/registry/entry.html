@@ -250,7 +250,7 @@
             <div>
               <div class="trust-name-row">
                 <span class="name">${escapeHtml(entry.profiles?.display_name || "unknown")}</span>
-                ${!isSelf ? `<button class="save-btn entry-save-btn ${window._entrySavedIds?.has(entry.id) ? "saved" : ""}" data-id="${entry.id}" title="${window._entrySavedIds?.has(entry.id) ? "Liked — click to unlike" : "Like this build"}">${window._entrySavedIds?.has(entry.id) ? "♥ Liked" : "♥ Like"}</button>` : ""}
+                ${!isSelf ? `<button class="save-btn entry-save-btn ${window._entrySavedIds?.has(entry.id) ? "saved" : ""}" data-id="${entry.id}" title="${window._entrySavedIds?.has(entry.id) ? "Liked — click to unlike" : "Like this build"}">${window._entrySavedIds?.has(entry.id) ? "Liked" : "Like"}</button>` : ""}
               <span class="entry-heart-count" id="entry-heart-count">${entry.save_count > 0 ? `<span style="font-size:18px;color:var(--accent);">♥</span> <span style="font-size:15px;font-weight:800;color:var(--ink);">${entry.save_count}</span>` : ""}</span>
               </div>
               <div class="trust-sub">Registered builder</div>
@@ -369,7 +369,7 @@
           if (isSaved) window._entrySavedIds?.add(saveBtn.dataset.id);
           else window._entrySavedIds?.delete(saveBtn.dataset.id);
           saveBtn.classList.toggle("saved", isSaved);
-          saveBtn.textContent = isSaved ? "♥ Liked" : "♥ Like";
+          saveBtn.textContent = isSaved ? "Liked" : "Like";
           saveBtn.title = isSaved ? "Liked — click to unlike" : "Like this build";
           const countEl = document.getElementById("entry-heart-count");
           if (countEl && result.save_count != null) {
