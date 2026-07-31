@@ -144,7 +144,7 @@ async function handlerImpl(event) {
 
   if (error) {
     console.error(error);
-    return json(500, { error: "Couldn't register build" });
+    return json(500, { error: `Couldn't register build: ${error.message || JSON.stringify(error)}` });
   }
 
   await invalidate("registry:list:");
