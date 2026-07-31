@@ -4,23 +4,123 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-<title>Guide — AdoptMeHouseTrading.com</title>
-<meta name="description" content="Community-submitted Adopt Me guide.">
+<title>Adopt Me Guide — AdoptMeHouseTrading.com</title>
+<meta name="description" content="Community-submitted Adopt Me guide on house trading, building, and values.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="../css/style.css">
+<style>
+  .guide-body h2 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 28px 0 8px;
+  }
+  .guide-body h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 20px 0 6px;
+  }
+  .guide-body p {
+    margin: 0 0 16px;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+  .guide-body strong { font-weight: 700; }
+  .guide-body em { font-style: italic; }
+  .guide-body ul, .guide-body ol {
+    margin: 0 0 16px 20px;
+    line-height: 1.75;
+  }
+  .guide-body li { margin-bottom: 4px; }
+  .guide-body blockquote {
+    border-left: 3px solid var(--accent);
+    padding: 8px 16px;
+    margin: 0 0 16px;
+    background: var(--surface);
+    border-radius: 0 8px 8px 0;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .guide-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .guide-meta-divider { color: var(--line); }
+  .reading-time { font-size: 13px; color: var(--muted); }
+  .guide-cta {
+    background: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 40px 0 0;
+    text-align: center;
+  }
+  .guide-cta h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+  .guide-cta p { color: var(--muted); font-size: 14px; margin: 0 0 16px; }
+  .related-guides {
+    margin-top: 48px;
+    border-top: 1.5px solid var(--line);
+    padding-top: 32px;
+  }
+  .related-guides h2 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    margin: 0 0 16px;
+    color: var(--ink);
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .related-card {
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: border-color 0.15s;
+  }
+  .related-card:hover { border-color: var(--accent); }
+  .related-card-cat {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .related-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+</style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-REW2CFBX6H"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-REW2CFBX6H');
 </script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1156955048210674" crossorigin="anonymous"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1156955048210674" crossorigin="anonymous"></script>
 </head>
 <body>
 <header class="site-nav">
@@ -52,9 +152,10 @@
 </header>
 <script type="module" src="../js/nav.js"></script>
 
-<section class="wrap" style="padding: 32px 0 64px;max-width:760px;">
-  <div class="breadcrumb">Guides &nbsp;/&nbsp; <span class="current" id="breadcrumb-current"></span></div>
-  <div id="content"></div>
+<section class="wrap" style="padding:32px 0 64px;max-width:780px;">
+  <div class="breadcrumb"><a href="index.html" style="color:var(--accent);text-decoration:none;">Guides</a> &nbsp;/&nbsp; <span class="current" id="breadcrumb-current"></span></div>
+  <div id="content" style="margin-top:24px;"></div>
+  <div id="related" style="margin-top:0;"></div>
 </section>
 
 <footer class="site-footer">
@@ -71,9 +172,89 @@
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
+  // Lightweight markdown-ish renderer
+  // Supports: **bold**, *italic*, # H2, ## H3, - lists, > blockquote, blank line = paragraph
+  function renderBody(raw) {
+    const lines = raw.split("\n");
+    const blocks = [];
+    let currentPara = [];
+
+    function flushPara() {
+      if (currentPara.length) {
+        blocks.push({ type: "p", text: currentPara.join("\n") });
+        currentPara = [];
+      }
+    }
+
+    for (const line of lines) {
+      if (!line.trim()) {
+        flushPara();
+        continue;
+      }
+      if (line.startsWith("## ")) {
+        flushPara();
+        blocks.push({ type: "h3", text: line.slice(3) });
+      } else if (line.startsWith("# ") || line.match(/^\*\*[^*]+\*\*$/)) {
+        flushPara();
+        const text = line.startsWith("# ") ? line.slice(2) : line.replace(/\*\*/g, "");
+        blocks.push({ type: "h2", text });
+      } else if (line.startsWith("- ") || line.startsWith("* ")) {
+        flushPara();
+        blocks.push({ type: "li", text: line.slice(2) });
+      } else if (line.startsWith("> ")) {
+        flushPara();
+        blocks.push({ type: "blockquote", text: line.slice(2) });
+      } else {
+        currentPara.push(line);
+      }
+    }
+    flushPara();
+
+    // Merge consecutive li into ul
+    const merged = [];
+    for (let i = 0; i < blocks.length; i++) {
+      if (blocks[i].type === "li") {
+        const items = [];
+        while (i < blocks.length && blocks[i].type === "li") {
+          items.push(blocks[i].text);
+          i++;
+        }
+        i--;
+        merged.push({ type: "ul", items });
+      } else {
+        merged.push(blocks[i]);
+      }
+    }
+
+    function inline(text) {
+      return escapeHtml(text)
+        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+        .replace(/\*(.+?)\*/g, "<em>$1</em>")
+        .replace(/\n/g, "<br>");
+    }
+
+    return merged.map(b => {
+      switch (b.type) {
+        case "h2": return `<h2>${escapeHtml(b.text)}</h2>`;
+        case "h3": return `<h3>${escapeHtml(b.text)}</h3>`;
+        case "p":  return `<p>${inline(b.text)}</p>`;
+        case "blockquote": return `<blockquote>${inline(b.text)}</blockquote>`;
+        case "ul": return `<ul>${b.items.map(t => `<li>${inline(t)}</li>`).join("")}</ul>`;
+        default: return "";
+      }
+    }).join("");
+  }
+
+  function readingTime(text) {
+    const words = text.trim().split(/\s+/).length;
+    const mins = Math.max(1, Math.round(words / 200));
+    return `${mins} min read`;
+  }
+
   const params = new URLSearchParams(location.search);
   const id = params.get("id");
   const content = document.getElementById("content");
+  const related = document.getElementById("related");
 
   if (!id) {
     content.innerHTML = `<div class="form-card"><h1>Guide not found</h1></div>`;
@@ -84,7 +265,7 @@
   async function load() {
     let data;
     try {
-      data = await fetch(`/.netlify/functions/content-get?id=${id}`).then((r) => r.json());
+      data = await fetch(`/.netlify/functions/content-get?id=${id}`).then(r => r.json());
     } catch {
       content.innerHTML = `<div class="form-card"><h1>Couldn't load this guide</h1></div>`;
       return;
@@ -95,45 +276,120 @@
     }
 
     const g = data.submission;
+
+    // Update page title + meta
+    const catLabel = GUIDE_CATEGORY_LABELS[g.category] || "Guide";
+    document.title = `${g.title} — Adopt Me ${catLabel} | AdoptMeHouseTrading.com`;
+    document.querySelector('meta[name="description"]').setAttribute("content",
+      `${g.title} — an Adopt Me ${catLabel.toLowerCase()} from the AdoptMeHouseTrading.com community.`);
+
+    // Breadcrumb
     document.getElementById("breadcrumb-current").textContent = g.title;
-    document.title = `${g.title} — Adopt Me ${GUIDE_CATEGORY_LABELS[g.category] || "Guide"} | AdoptMeHouseTrading.com`;
-    const breadcrumbScript = document.createElement("script");
-    breadcrumbScript.type = "application/ld+json";
-    breadcrumbScript.textContent = JSON.stringify({
+
+    // Article schema
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": g.title,
+      "description": `${g.title} — an Adopt Me ${catLabel.toLowerCase()}.`,
+      "datePublished": g.published_at || g.created_at,
+      "dateModified": g.published_at || g.created_at,
+      "author": {
+        "@type": "Person",
+        "name": g.profiles?.display_name || "Community Member"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "AdoptMeHouseTrading.com",
+        "url": "https://adoptmehousetrading.com"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": `https://adoptmehousetrading.com/guides/entry.html?id=${g.id}`
+      }
+    };
+    const schemaScript = document.createElement("script");
+    schemaScript.type = "application/ld+json";
+    schemaScript.textContent = JSON.stringify(schema);
+    document.head.appendChild(schemaScript);
+
+    // Breadcrumb schema
+    const breadcrumbSchema = {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: "https://adoptmehousetrading.com/" },
         { "@type": "ListItem", position: 2, name: "Guides", item: "https://adoptmehousetrading.com/guides/index.html" },
         { "@type": "ListItem", position: 3, name: g.title, item: `https://adoptmehousetrading.com/guides/entry.html?id=${g.id}` },
-      ],
-    });
+      ]
+    };
+    const breadcrumbScript = document.createElement("script");
+    breadcrumbScript.type = "application/ld+json";
+    breadcrumbScript.textContent = JSON.stringify(breadcrumbSchema);
     document.head.appendChild(breadcrumbScript);
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) metaDesc.setAttribute("content", `${g.title} — a community-submitted Adopt Me ${(GUIDE_CATEGORY_LABELS[g.category] || "guide").toLowerCase()} by ${g.profiles?.display_name || "a community member"}.`);
 
+    // Photos
     const photosHtml = g.photos?.length
-      ? g.photos.map((url, i) => `<img src="${url}" alt="${escapeHtml(g.title)} photo ${i + 1}" ${i > 0 ? 'loading="lazy" ' : ''}style="width:100%;border-radius:10px;margin-bottom:10px;">`).join("")
+      ? `<div style="margin-bottom:24px;">${g.photos.map((url, i) =>
+          `<img src="${url}" alt="${escapeHtml(g.title)} photo ${i+1}" ${i > 0 ? 'loading="lazy" ' : ''}style="width:100%;border-radius:10px;margin-bottom:8px;">`
+        ).join("")}</div>`
       : "";
 
-    // Body is stored as plain text with blank-line paragraph breaks — not
-    // rich HTML, so this stays a straightforward escape-then-linebreak
-    // render rather than needing a markdown renderer.
-    const bodyHtml = g.body
-      .split(/\n{2,}/)
-      .map((para) => `<p style="margin:0 0 16px;line-height:1.7;">${escapeHtml(para).replace(/\n/g, "<br>")}</p>`)
-      .join("");
+    // Body
+    const bodyHtml = renderBody(g.body || "");
+    const rt = readingTime(g.body || "");
+    const pubDate = new Date(g.published_at || g.created_at).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+    const authorLink = g.profile_id
+      ? `<a href="../player.html?id=${g.profile_id}" style="color:var(--accent);text-decoration:none;font-weight:600;">${escapeHtml(g.profiles?.display_name || "Community Member")}</a>`
+      : escapeHtml(g.profiles?.display_name || "Community Member");
 
     content.innerHTML = `
-      <span class="pill" style="margin-bottom:12px;display:inline-block;">${GUIDE_CATEGORY_LABELS[g.category] || g.category}</span>
-      <h1 style="font-family:var(--font-display);color:var(--ink);margin:6px 0 6px;">${escapeHtml(g.title)}</h1>
-      <div class="trust-row" style="margin-bottom:20px;">
-        <img class="avatar-initial" src="${g.profiles?.rbx_avatar_url || ""}" alt="" onerror="this.style.visibility='hidden'">
-        <span>By ${g.profile_id ? `<a href="../player.html?id=${g.profile_id}" style="color:var(--accent);text-decoration:none;font-weight:600;">${escapeHtml(g.profiles?.display_name || "a community member")}</a>` : escapeHtml(g.profiles?.display_name || "a community member")} · ${new Date(g.published_at || g.created_at).toLocaleDateString()}</span>
+      <span class="pill" style="margin-bottom:12px;display:inline-block;">${escapeHtml(catLabel)}</span>
+      <h1 style="font-family:var(--font-display);font-size:1.8rem;color:var(--ink);margin:6px 0 16px;line-height:1.25;">${escapeHtml(g.title)}</h1>
+      <div class="guide-meta">
+        <img class="avatar-initial" src="${g.profiles?.rbx_avatar_url || ""}" alt="" onerror="this.style.visibility='hidden'" style="width:32px;height:32px;border-radius:50%;object-fit:cover;">
+        <span style="font-size:13px;color:var(--muted);">By ${authorLink}</span>
+        <span class="guide-meta-divider">·</span>
+        <span class="reading-time">${pubDate}</span>
+        <span class="guide-meta-divider">·</span>
+        <span class="reading-time">${rt}</span>
       </div>
       ${photosHtml}
-      ${bodyHtml}
+      <div class="guide-body">${bodyHtml}</div>
+      <div class="guide-cta">
+        <h3>Ready to trade your house?</h3>
+        <p>List it on AdoptMeHouseTrading.com and get real offers from real players — even while you're offline.</p>
+        <a href="../listings/index.html" class="btn btn-primary" style="margin-right:8px;">Browse Houses</a>
+        <a href="../profile.html" class="btn" style="border:1.5px solid var(--line);">List My House</a>
+      </div>
     `;
+
+    // Load related guides
+    loadRelated(g.category, g.id);
+  }
+
+  async function loadRelated(category, excludeId) {
+    try {
+      const data = await fetch(`/.netlify/functions/content-list?category=${category}&exclude=${excludeId}&limit=3`).then(r => r.json());
+      const guides = data.guides || [];
+      if (!guides.length) return;
+
+      related.innerHTML = `
+        <div class="related-guides">
+          <h2>More ${GUIDE_CATEGORY_LABELS[category] || "Guides"}</h2>
+          <div class="related-grid">
+            ${guides.map(g => `
+              <a href="entry.html?id=${g.id}" class="related-card">
+                <div class="related-card-cat">${escapeHtml(GUIDE_CATEGORY_LABELS[g.category] || g.category)}</div>
+                <div class="related-card-title">${escapeHtml(g.title)}</div>
+              </a>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    } catch {
+      // Related guides are non-critical, fail silently
+    }
   }
 </script>
 </body>
