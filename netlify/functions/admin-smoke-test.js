@@ -229,7 +229,10 @@ async function runTests(baseUrl, adminPassword) {
         value_unit: "shark",
       },
     });
-    assert(status === 200, `Got ${status}: ${data?.error} (listingId=${listingId}, authToken=${authToken?.slice(0,8)}...)`);
+    // Debug: check what profile-me returns for this token
+    const meRes = await api(baseUrl, "profile-me", { headers: { Authorization: `Bearer ${authToken}` } });
+    const profileId = meRes.data?.profile?.id;
+    assert(status === 200, `Got ${status}: ${data?.error} (listingId=${listingId}, profileId=${profileId}, authToken=${authToken?.slice(0,8)}...)`);
   });
 
   await test("listing-save: saves another user listing", async () => {
