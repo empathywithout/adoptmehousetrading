@@ -192,6 +192,8 @@
             <div class="trade-side-label">SIDE A — WHAT WAS GIVEN</div>
             <div class="item-type-toggle">
               <button class="item-type-btn active" data-side="a" data-type="pet">🐾 Pet</button>
+              <button class="item-type-btn" data-side="a" data-type="egg">🥚 Egg</button>
+              <button class="item-type-btn" data-side="a" data-type="potion">🧪 Potion</button>
               <button class="item-type-btn" data-side="a" data-type="house">🏠 House</button>
             </div>
             <div class="selected-items-list" id="side-a-items"></div>
@@ -246,6 +248,8 @@
             <div class="trade-side-label">SIDE B — WHAT WAS RECEIVED</div>
             <div class="item-type-toggle">
               <button class="item-type-btn active" data-side="b" data-type="pet">🐾 Pet</button>
+              <button class="item-type-btn" data-side="b" data-type="egg">🥚 Egg</button>
+              <button class="item-type-btn" data-side="b" data-type="potion">🧪 Potion</button>
               <button class="item-type-btn" data-side="b" data-type="house">🏠 House</button>
             </div>
             <div class="selected-items-list" id="side-b-items"></div>
@@ -392,14 +396,19 @@ if (!stored) {
 // ── Catalogs ───────────────────────────────────────────────────────────────
 let petCatalog = [];
 let houseCatalog = [];
+let eggCatalog = [];
+let potionCatalog = [];
 
 async function loadCatalogs() {
-  const [petsRes, housesRes] = await Promise.all([
+  const [petsRes, housesRes, offerItemsRes] = await Promise.all([
     fetch("data/adopt_me_pets.json").then(r => r.json()).catch(() => []),
     fetch("data/houses.json").then(r => r.json()).catch(() => []),
+    fetch("data/offer-items.json").then(r => r.json()).catch(() => []),
   ]);
   petCatalog = petsRes;
   houseCatalog = housesRes.map(h => ({ ...h, category: "house" }));
+  eggCatalog = offerItemsRes.filter(it => it.category === "eggs");
+  potionCatalog = offerItemsRes.filter(it => it.category === "potions");
 }
 
 // ── Side state ─────────────────────────────────────────────────────────────
@@ -407,6 +416,14 @@ const sides = {
   a: { type: "pet", items: [], variant: "regular", potion: "none", buildType: "original", bucks: null },
   b: { type: "pet", items: [], variant: "regular", potion: "none", buildType: "original", bucks: null },
 };
+
+function getCatalog(type) {
+  if (type === "pet")    return petCatalog;
+  if (type === "egg")    return eggCatalog;
+  if (type === "potion") return potionCatalog;
+  if (type === "house")  return houseCatalog;
+  return [];
+}
 
 function getEl(id) { return document.getElementById(id); }
 
@@ -423,7 +440,7 @@ function setupSide(s) {
     typeBtns.forEach(b => b.classList.toggle("active", b === btn));
     getEl(`side-${s}-pet-options`).style.display = sides[s].type === "pet" ? "" : "none";
     getEl(`side-${s}-house-options`).style.display = sides[s].type === "house" ? "" : "none";
-    getEl(`side-${s}-rarity-tabs`).style.display = sides[s].type === "pet" ? "" : "none";
+    getEl(`side-${s}-rarity-tabs`).style.display = ["pet","egg"].includes(sides[s].type) ? "" : "none";
     renderSideItems(s);
     renderGrid(s);
   }));
@@ -469,16 +486,16 @@ function setupSide(s) {
   function renderGrid(s) {
     const grid = getEl(`side-${s}-grid`);
     const q = getEl(`side-${s}-search`).value.trim().toLowerCase();
-    const catalog = sides[s].type === "pet" ? petCatalog : houseCatalog;
+    const catalog = getCatalog(sides[s].type);
 
     let items = catalog;
     if (q) items = items.filter(it => it.name.toLowerCase().includes(q));
-    if (sides[s].type === "pet" && activeRarity !== "all") items = items.filter(it => it.rarity === activeRarity);
+    if (["pet","egg"].includes(sides[s].type) && activeRarity !== "all") items = items.filter(it => it.rarity === activeRarity);
 
     // Sort: legendary first, then alphabetical
     const RARITY_ORDER = { Legendary: 0, Rare: 1, Uncommon: 2, Common: 3 };
     items = [...items].sort((a, b) => {
-      if (sides[s].type === "pet" && !q) {
+      if (!q) {
         const ro = (RARITY_ORDER[a.rarity] ?? 9) - (RARITY_ORDER[b.rarity] ?? 9);
         if (ro !== 0) return ro;
       }
@@ -507,6 +524,7 @@ function setupSide(s) {
           item.variant = sides[s].variant;
           item.potion = sides[s].potion;
         }
+        // eggs and potions: no modifiers, but allow qty stacking
         sides[s].items.push(item);
         renderSideItems(s);
       });
@@ -685,9 +703,11 @@ async function init() {
   await loadCatalogs();
   setupSide("a");
   setupSide("b");
-  // Pet is the default type — show variant/potion panels immediately
+  // Pet is the default type — show variant/potion panels and rarity tabs immediately
   getEl("side-a-pet-options").style.display = "";
   getEl("side-b-pet-options").style.display = "";
+  getEl("side-a-rarity-tabs").style.display = "";
+  getEl("side-b-rarity-tabs").style.display = "";
   renderSideItems("a");
   renderSideItems("b");
   sides.a._renderGrid("a");
