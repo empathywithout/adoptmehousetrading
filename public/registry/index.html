@@ -186,7 +186,7 @@
       btn.classList.toggle("saved", data.saved);
       btn.title = data.saved ? "Saved — click to unsave" : "Save this build";
       const sc = data.save_count || 0;
-      btn.textContent = data.saved ? `Hearted${sc > 0 ? " " + sc : ""}` : `Heart${sc > 0 ? " " + sc : ""}`;
+      btn.textContent = data.saved ? `Liked${sc > 0 ? " " + sc : ""}` : `Like${sc > 0 ? " " + sc : ""}`;
     } catch (err) {
       btn.dataset.loading = "";
       btn.style.opacity = "";
@@ -288,17 +288,17 @@
   renderThemePills();
   render();
 
-  // ── Featured: top 3 most hearted builds ──────────────────────
-  const topHearted = [...entries]
+  // ── Featured: top 3 most liked builds ──────────────────────
+  const topLiked = [...entries]
     .filter(e => (e.save_count || 0) > 0)
     .sort((a, b) => (b.save_count || 0) - (a.save_count || 0))
     .slice(0, 3);
 
-  if (topHearted.length) {
+  if (topLiked.length) {
     const featuredSection = document.getElementById("featured-builds");
     const featuredGrid = document.getElementById("featured-grid");
     featuredSection.style.display = "";
-    featuredGrid.innerHTML = topHearted.map((entry, rank) => {
+    featuredGrid.innerHTML = topLiked.map((entry, rank) => {
       const photo = entry.photos?.[0] || "https://pub-20ee170c554940ac8bfcce8af2da57a8.r2.dev/placeholder-house.jpg";
       const medals = ["🥇", "🥈", "🥉"];
       return `<a href="entry.html?id=${entry.id}" class="listing-card" style="text-decoration:none;">
