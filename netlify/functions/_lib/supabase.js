@@ -488,10 +488,6 @@ class QueryBuilder {
 
   // Make QueryBuilder thenable (await db.from(...).select()...)
   then(resolve, reject) {
-    // Detect chained .select() after insert/update (means RETURNING *)
-    if ((this._op === "insert" || this._op === "update" || this._op === "upsert") && this._select !== "*") {
-      this._returning = true;
-    }
     return this._execute().then(resolve, reject);
   }
 }
@@ -518,20 +514,18 @@ class NeonDB {
 
     qb.insert = (data) => {
       origInsert(data);
-      const origSelect = qb.select.bind(qb);
-      qb.select = (cols, opts) => { qb._returning = true; return origSelect(cols, opts); };
+      // Override select() so it sets _returning WITHOUT resetting _op to "select"
+      qb.select = (cols) => { qb._returning = true; qb._select = cols || "*"; return qb; };
       return qb;
     };
     qb.update = (patch) => {
       origUpdate(patch);
-      const origSelect = qb.select.bind(qb);
-      qb.select = (cols, opts) => { qb._returning = true; return origSelect(cols, opts); };
+      qb.select = (cols) => { qb._returning = true; qb._select = cols || "*"; return qb; };
       return qb;
     };
     qb.upsert = (data, opts) => {
       origUpsert(data, opts);
-      const origSelect = qb.select.bind(qb);
-      qb.select = (cols, opts2) => { qb._returning = true; return origSelect(cols, opts2); };
+      qb.select = (cols) => { qb._returning = true; qb._select = cols || "*"; return qb; };
       return qb;
     };
 
