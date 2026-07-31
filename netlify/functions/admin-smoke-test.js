@@ -117,19 +117,20 @@ async function runTests(baseUrl, adminPassword) {
     testProfileId = data.profile.id;
   });
 
-  await test("auth-signup: rejects duplicate display name", async () => {
+  await test("auth-signup: rejects duplicate rbx_username", async () => {
+    // Try to re-register the exact same username -- must fail
     assert(authToken, "No authToken -- previous signup failed");
-    const { status, data } = await api(baseUrl, "auth-signup", {
+    const { status } = await api(baseUrl, "auth-signup", {
       method: "POST",
       body: {
-        display_name: TEST_DISPLAY_NAME,
-        rbx_username: `smoketest_other_${Date.now()}`,
-        rbx_user_id: Date.now() + 1,
+        display_name: `DifferentName_${Date.now()}`,
+        rbx_username: uniqueRbxUsername,
+        rbx_user_id: uniqueRbxUserId,
         avatar_url: null,
         password: TEST_PASSWORD,
       },
     });
-    assert(status === 409, `Expected 409, got ${status} (display_name=${TEST_DISPLAY_NAME}, error=${data?.error})`);
+    assert(status === 409, `Expected 409, got ${status}`);
   });
 
   await test("auth-login: logs in with rbx_username", async () => {
