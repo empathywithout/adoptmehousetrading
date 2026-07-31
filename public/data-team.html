@@ -381,12 +381,6 @@ if (!localStorage.getItem("amht_token")) {
 if (!stored) {
   document.getElementById("not-signed-in").hidden = false;
 } else {
-  // Update nav immediately with cached data
-  document.getElementById("nav-sign-in").hidden = true;
-  const navProfile = document.getElementById("nav-profile-link");
-  navProfile.hidden = false;
-  navProfile.textContent = stored.display_name;
-
   // Then fetch fresh profile from server to get latest is_data_team_member
   try {
     const fresh = await api.me();
