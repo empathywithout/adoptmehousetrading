@@ -210,15 +210,23 @@ async function handlerImpl(event) {
     const newValues = { ...values };
     maxDelta = 0;
 
+    // Prior confidence weight -- equivalent to this many "phantom trades"
+    // Below PRIOR_WEIGHT real trades: prior dominates. Above: data dominates.
+    const PRIOR_WEIGHT = 10;
+
     for (const key of allKeys) {
-      if (key === anchorKey) continue; // anchor is fixed
-      if (PRIORS[key] !== undefined) continue; // known market values are fixed priors -- don't move them
+      if (key === anchorKey) continue; // anchor always fixed at 1.0
 
       let weightedSum = 0;
       let totalWeight = 0;
 
+      // Inject prior as phantom trades -- prior confidence decays as real data accumulates
+      if (PRIORS[key] !== undefined) {
+        weightedSum += PRIOR_WEIGHT * PRIORS[key];
+        totalWeight += PRIOR_WEIGHT;
+      }
+
       for (const { sideA, sideB, weight } of constraints) {
-        // Check if this item appears on side A
         const aItems = sideA.filter(it => it.key === key);
         const bItems = sideB.filter(it => it.key === key);
 
@@ -230,7 +238,7 @@ async function handlerImpl(event) {
           const sumB = sideB.reduce((s, it) => s + it.qty * (values[it.key] || 1), 0);
           const sumOtherA = sideA.filter(it => it.key !== key).reduce((s, it) => s + it.qty * (values[it.key] || 1), 0);
           const implied = (sumB - sumOtherA) / qtyA;
-          if (implied > 0) {
+          if (implied > 0 && implied < 900 * 12) {
             weightedSum += weight * implied;
             totalWeight += weight;
           }
@@ -242,7 +250,7 @@ async function handlerImpl(event) {
           const sumA = sideA.reduce((s, it) => s + it.qty * (values[it.key] || 1), 0);
           const sumOtherB = sideB.filter(it => it.key !== key).reduce((s, it) => s + it.qty * (values[it.key] || 1), 0);
           const implied = (sumA - sumOtherB) / qtyB;
-          if (implied > 0) {
+          if (implied > 0 && implied < 900 * 12) {
             weightedSum += weight * implied;
             totalWeight += weight;
           }
@@ -251,11 +259,9 @@ async function handlerImpl(event) {
 
       if (totalWeight > 0) {
         const estimate = weightedSum / totalWeight;
-        // Heavy damping -- 30% new estimate, 70% old to prevent divergence
-        const rawNew = 0.30 * estimate + 0.70 * values[key];
-        // Sanity cap: value can't exceed 10x the highest known prior
-        const maxAllowed = 900 * 12; // bat dragon * MN multiplier
-        newValues[key] = Math.min(maxAllowed, Math.max(0.01, rawNew));
+        // Moderate damping -- converges but stays stable
+        const rawNew = 0.40 * estimate + 0.60 * values[key];
+        newValues[key] = Math.min(900 * 12, Math.max(0.01, rawNew));
         maxDelta = Math.max(maxDelta, Math.abs(newValues[key] - values[key]));
       }
     }
