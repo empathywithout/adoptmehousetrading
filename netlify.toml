@@ -44,3 +44,13 @@
   from = "/admin/disputes"
   to = "/admin/dashboard.html"
   status = 301
+
+[[redirects]]
+  from = "/comps"
+  to = "/recent-trades.html"
+  status = 301
+
+[[redirects]]
+  from = "/comps.html"
+  to = "/recent-trades.html"
+  status = 301
