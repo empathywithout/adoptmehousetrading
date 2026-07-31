@@ -91,27 +91,27 @@ async function handlerImpl(event) {
     "aussie-egg|eggs":                     12,
     "farm-egg|eggs":                       15,
     "safari-egg|eggs":                     18,
-    "wolf|adopt_me_pets|regular|none":     5,
-    "dragon|adopt_me_pets|regular|none":   3,
-    "unicorn|adopt_me_pets|regular|none":  3,
-    "capybara|adopt_me_pets|regular|none": 8,
-    "axolotl|adopt_me_pets|regular|none":  20,
-    "monkey|adopt_me_pets|regular|none":   20,
-    "albino-monkey|adopt_me_pets|regular|none": 25,
-    "arctic-reindeer|adopt_me_pets|regular|none": 30,
-    "snow-owl|adopt_me_pets|regular|none": 35,
-    "kangaroo|adopt_me_pets|regular|none": 35,
-    "turtle|adopt_me_pets|regular|none":   40,
-    "t-rex|adopt_me_pets|regular|none":    45,
-    "crow|adopt_me_pets|regular|none":     50,
-    "dodo|adopt_me_pets|regular|none":     55,
-    "parrot|adopt_me_pets|regular|none":   60,
-    "owl|adopt_me_pets|regular|none":      75,
-    "evil-unicorn|adopt_me_pets|regular|none": 150,
-    "frost-dragon|adopt_me_pets|regular|none": 300,
-    "giraffe|adopt_me_pets|regular|none":  450,
-    "shadow-dragon|adopt_me_pets|regular|none": 700,
-    "bat-dragon|adopt_me_pets|regular|none": 900,
+    "wolf|regular|none":          5,
+    "dragon|regular|none":        3,
+    "unicorn|regular|none":       3,
+    "capybara|regular|none":      8,
+    "axolotl|regular|none":       20,
+    "monkey|regular|none":        20,
+    "albino-monkey|regular|none": 25,
+    "arctic-reindeer|regular|none": 30,
+    "snow-owl|regular|none":      35,
+    "kangaroo|regular|none":      35,
+    "turtle|regular|none":        40,
+    "t-rex|regular|none":         45,
+    "crow|regular|none":          50,
+    "dodo|regular|none":          55,
+    "parrot|regular|none":        60,
+    "owl|regular|none":           75,
+    "evil-unicorn|regular|none":  150,
+    "frost-dragon|regular|none":  300,
+    "giraffe|regular|none":       450,
+    "shadow-dragon|regular|none": 700,
+    "bat-dragon|regular|none":    900,
   };
   const PM = { none: 1.0, ride: 1.08, fly: 1.10, fly_ride: 1.15 };
   const VM = { regular: 1.0, neon: 3.2, mega_neon: 10.0 };
@@ -123,7 +123,7 @@ async function handlerImpl(event) {
     } else {
       const parts = k.split("|");
       if (parts.length === 4) {
-        const baseKey = parts[0] + "|adopt_me_pets|regular|none";
+        const baseKey = parts[0] + "|regular|none";
         const base = PRIORS[baseKey];
         values[k] = base ? base * (VM[parts[2]] || 1) * (PM[parts[3]] || 1) : 10.0;
       } else {
