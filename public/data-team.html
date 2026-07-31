@@ -29,9 +29,11 @@
   .trade-vs { display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--muted); padding-top: 40px; }
 
   /* Item type toggle */
-  .item-type-toggle { display: flex; gap: 6px; margin-bottom: 10px; }
-  .item-type-btn { flex: 1; padding: 7px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--muted); font-size: 12px; font-weight: 700; cursor: pointer; text-align: center; transition: all 0.15s; }
-  .item-type-btn.active { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+  .cat-tabs { display: flex; gap: 4px; margin-bottom: 8px; flex-wrap: wrap; }
+  .cat-tab { padding: 4px 10px; border: 1.5px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--muted); font-size: 11px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .cat-tab.active { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+  .house-trade-section { margin-top: 16px; padding: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+  .house-trade-label { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
 
   /* Selected chips */
   .selected-items-list { min-height: 36px; display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
@@ -190,26 +192,24 @@
           <!-- Side A -->
           <div class="trade-side" id="side-a-panel">
             <div class="trade-side-label">SIDE A — WHAT WAS GIVEN</div>
-            <div class="item-type-toggle">
-              <button class="item-type-btn active" data-side="a" data-type="pet">🐾 Pet</button>
-              <button class="item-type-btn" data-side="a" data-type="egg">🥚 Egg</button>
-              <button class="item-type-btn" data-side="a" data-type="potion">🧪 Potion</button>
-              <button class="item-type-btn" data-side="a" data-type="house">🏠 House</button>
-            </div>
             <div class="selected-items-list" id="side-a-items"></div>
-            <div class="rarity-tabs" id="side-a-rarity-tabs">
-              <button class="rarity-tab active" data-rarity="all">All</button>
-              <button class="rarity-tab" data-rarity="Legendary">✨ Legendary</button>
-              <button class="rarity-tab" data-rarity="Rare">Rare</button>
-              <button class="rarity-tab" data-rarity="Uncommon">Uncommon</button>
-              <button class="rarity-tab" data-rarity="Common">Common</button>
+            <div class="cat-tabs" id="side-a-cat-tabs">
+              <button class="cat-tab active" data-cat="all">All</button>
+              <button class="cat-tab" data-cat="adopt_me_pets">Pets</button>
+              <button class="cat-tab" data-cat="eggs">Eggs</button>
+              <button class="cat-tab" data-cat="potions">Potions</button>
+              <button class="cat-tab" data-cat="vehicles">Vehicles</button>
+              <button class="cat-tab" data-cat="toys">Toys</button>
+              <button class="cat-tab" data-cat="pet_wear">Pet Wear</button>
+              <button class="cat-tab" data-cat="strollers">Strollers</button>
+              <button class="cat-tab" data-cat="foods">Food</button>
             </div>
             <div class="item-search-wrap">
-              <input type="search" id="side-a-search" placeholder="Search..." autocomplete="off">
+              <input type="search" id="side-a-search" placeholder="Search all items..." autocomplete="off">
             </div>
             <div class="pet-grid" id="side-a-grid"></div>
             <div id="side-a-pet-options" class="pet-options" style="display:none;margin-top:8px;">
-              <div class="pet-options-label">Variant</div>
+              <div class="pet-options-label">Next pet — Variant</div>
               <div class="pet-options-row" id="side-a-variant">
                 <button class="pet-opt-btn active" data-val="regular">Regular</button>
                 <button class="pet-opt-btn" data-val="neon">Neon</button>
@@ -223,22 +223,6 @@
                 <button class="pet-opt-btn" data-val="fly_ride">Fly + Ride</button>
               </div>
             </div>
-            <div id="side-a-house-options" class="house-options" style="display:none;margin-top:8px;">
-              <div class="house-opt-row">
-                <label>Build Type</label>
-                <div class="build-type-row" id="side-a-build-type">
-                  <button class="pet-opt-btn active" data-val="original">Original</button>
-                  <button class="pet-opt-btn" data-val="speedbuild">Speedbuild</button>
-                  <button class="pet-opt-btn" data-val="cloned">Cloned</button>
-                  <button class="pet-opt-btn" data-val="glitch">Glitch</button>
-                </div>
-              </div>
-              <div class="house-opt-row">
-                <label>Bucks Invested (optional)</label>
-                <input type="number" id="side-a-bucks" placeholder="e.g. 45000" min="0">
-              </div>
-            </div>
-
           </div>
 
           <div class="trade-vs">⇄</div>
@@ -246,26 +230,24 @@
           <!-- Side B -->
           <div class="trade-side" id="side-b-panel">
             <div class="trade-side-label">SIDE B — WHAT WAS RECEIVED</div>
-            <div class="item-type-toggle">
-              <button class="item-type-btn active" data-side="b" data-type="pet">🐾 Pet</button>
-              <button class="item-type-btn" data-side="b" data-type="egg">🥚 Egg</button>
-              <button class="item-type-btn" data-side="b" data-type="potion">🧪 Potion</button>
-              <button class="item-type-btn" data-side="b" data-type="house">🏠 House</button>
-            </div>
             <div class="selected-items-list" id="side-b-items"></div>
-            <div class="rarity-tabs" id="side-b-rarity-tabs">
-              <button class="rarity-tab active" data-rarity="all">All</button>
-              <button class="rarity-tab" data-rarity="Legendary">✨ Legendary</button>
-              <button class="rarity-tab" data-rarity="Rare">Rare</button>
-              <button class="rarity-tab" data-rarity="Uncommon">Uncommon</button>
-              <button class="rarity-tab" data-rarity="Common">Common</button>
+            <div class="cat-tabs" id="side-b-cat-tabs">
+              <button class="cat-tab active" data-cat="all">All</button>
+              <button class="cat-tab" data-cat="adopt_me_pets">Pets</button>
+              <button class="cat-tab" data-cat="eggs">Eggs</button>
+              <button class="cat-tab" data-cat="potions">Potions</button>
+              <button class="cat-tab" data-cat="vehicles">Vehicles</button>
+              <button class="cat-tab" data-cat="toys">Toys</button>
+              <button class="cat-tab" data-cat="pet_wear">Pet Wear</button>
+              <button class="cat-tab" data-cat="strollers">Strollers</button>
+              <button class="cat-tab" data-cat="foods">Food</button>
             </div>
             <div class="item-search-wrap">
-              <input type="search" id="side-b-search" placeholder="Search..." autocomplete="off">
+              <input type="search" id="side-b-search" placeholder="Search all items..." autocomplete="off">
             </div>
             <div class="pet-grid" id="side-b-grid"></div>
             <div id="side-b-pet-options" class="pet-options" style="display:none;margin-top:8px;">
-              <div class="pet-options-label">Variant</div>
+              <div class="pet-options-label">Next pet — Variant</div>
               <div class="pet-options-row" id="side-b-variant">
                 <button class="pet-opt-btn active" data-val="regular">Regular</button>
                 <button class="pet-opt-btn" data-val="neon">Neon</button>
@@ -279,22 +261,31 @@
                 <button class="pet-opt-btn" data-val="fly_ride">Fly + Ride</button>
               </div>
             </div>
-            <div id="side-b-house-options" class="house-options" style="display:none;margin-top:8px;">
-              <div class="house-opt-row">
-                <label>Build Type</label>
-                <div class="build-type-row" id="side-b-build-type">
-                  <button class="pet-opt-btn active" data-val="original">Original</button>
-                  <button class="pet-opt-btn" data-val="speedbuild">Speedbuild</button>
-                  <button class="pet-opt-btn" data-val="cloned">Cloned</button>
-                  <button class="pet-opt-btn" data-val="glitch">Glitch</button>
-                </div>
-              </div>
-              <div class="house-opt-row">
-                <label>Bucks Invested (optional)</label>
-                <input type="number" id="side-b-bucks" placeholder="e.g. 45000" min="0">
-              </div>
-            </div>
+          </div>
+        </div>
 
+        <!-- House involved (separate mechanic) -->
+        <div class="house-trade-section">
+          <div class="house-trade-label">🏠 Was a house involved?</div>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+            <select id="house-involved" style="flex:1;min-width:180px;padding:7px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:13px;">
+              <option value="">No house involved</option>
+              <option value="side_a">Side A gave a house</option>
+              <option value="side_b">Side B gave a house</option>
+            </select>
+            <div id="house-detail" style="display:none;flex:1;min-width:180px;">
+              <select id="house-id-select" style="width:100%;padding:7px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:13px;">
+                <option value="">Select house...</option>
+              </select>
+            </div>
+          </div>
+          <div id="house-build-options" style="display:none;margin-top:8px;">
+            <div class="pet-options-row" id="house-build-type" style="gap:4px;">
+              <button class="pet-opt-btn active" data-val="original">Original</button>
+              <button class="pet-opt-btn" data-val="speedbuild">Speedbuild</button>
+              <button class="pet-opt-btn" data-val="cloned">Cloned</button>
+              <button class="pet-opt-btn" data-val="glitch">Glitch</button>
+            </div>
           </div>
         </div>
 
@@ -407,49 +398,37 @@ async function loadCatalogs() {
   ]);
   petCatalog = petsRes;
   houseCatalog = housesRes.map(h => ({ ...h, category: "house" }));
+  offerItemsCatalog = offerItemsRes;
   eggCatalog = offerItemsRes.filter(it => it.category === "eggs");
   potionCatalog = offerItemsRes.filter(it => it.category === "potions");
 }
 
 // ── Side state ─────────────────────────────────────────────────────────────
 const sides = {
-  a: { type: "pet", items: [], variant: "regular", potion: "none", buildType: "original", bucks: null },
-  b: { type: "pet", items: [], variant: "regular", potion: "none", buildType: "original", bucks: null },
+  a: { items: [], activeCat: "all", variant: "regular", potion: "none" },
+  b: { items: [], activeCat: "all", variant: "regular", potion: "none" },
 };
-
-function getCatalog(type) {
-  if (type === "pet")    return petCatalog;
-  if (type === "egg")    return eggCatalog;
-  if (type === "potion") return potionCatalog;
-  if (type === "house")  return houseCatalog;
-  return [];
-}
 
 function getEl(id) { return document.getElementById(id); }
 
 const RARITY_SHORT = { Legendary: "L", Rare: "R", Uncommon: "U", Common: "C" };
+const ALL_ITEMS_CATALOG = () => [
+  ...petCatalog.map(it => ({ ...it, category: "adopt_me_pets" })),
+  ...eggCatalog,
+  ...potionCatalog,
+  ...(offerItemsCatalog || []).filter(it => !["adopt_me_pets","eggs","potions"].includes(it.category)),
+];
+
+let offerItemsCatalog = [];
 
 function setupSide(s) {
-  let activeRarity = "all";
-
-  // Type toggle
-  const typeBtns = document.querySelectorAll(`.item-type-btn[data-side="${s}"]`);
-  typeBtns.forEach(btn => btn.addEventListener("click", () => {
-    sides[s].type = btn.dataset.type;
-    sides[s].items = [];
-    typeBtns.forEach(b => b.classList.toggle("active", b === btn));
-    getEl(`side-${s}-pet-options`).style.display = sides[s].type === "pet" ? "" : "none";
-    getEl(`side-${s}-house-options`).style.display = sides[s].type === "house" ? "" : "none";
-    getEl(`side-${s}-rarity-tabs`).style.display = ["pet","egg"].includes(sides[s].type) ? "" : "none";
-    renderSideItems(s);
-    renderGrid(s);
-  }));
-
-  // Rarity filter tabs
-  getEl(`side-${s}-rarity-tabs`).querySelectorAll(".rarity-tab").forEach(btn => {
+  // Category tabs
+  getEl(`side-${s}-cat-tabs`).querySelectorAll(".cat-tab").forEach(btn => {
     btn.addEventListener("click", () => {
-      activeRarity = btn.dataset.rarity;
-      getEl(`side-${s}-rarity-tabs`).querySelectorAll(".rarity-tab").forEach(b => b.classList.toggle("active", b === btn));
+      sides[s].activeCat = btn.dataset.cat;
+      getEl(`side-${s}-cat-tabs`).querySelectorAll(".cat-tab").forEach(b => b.classList.toggle("active", b === btn));
+      // Show pet options only when pets category active
+      getEl(`side-${s}-pet-options`).style.display = sides[s].activeCat === "adopt_me_pets" ? "" : "none";
       renderGrid(s);
     });
   });
@@ -473,26 +452,26 @@ function setupSide(s) {
     });
   });
 
-  // Build type buttons
-  getEl(`side-${s}-build-type`).querySelectorAll(".pet-opt-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      sides[s].buildType = btn.dataset.val;
-      getEl(`side-${s}-build-type`).querySelectorAll(".pet-opt-btn").forEach(b => b.classList.toggle("active", b === btn));
-    });
-  });
-
-
-
   function renderGrid(s) {
     const grid = getEl(`side-${s}-grid`);
     const q = getEl(`side-${s}-search`).value.trim().toLowerCase();
-    const catalog = getCatalog(sides[s].type);
+    const cat = sides[s].activeCat;
 
-    let items = catalog;
+    let items;
+    if (cat === "all") {
+      items = ALL_ITEMS_CATALOG();
+    } else if (cat === "adopt_me_pets") {
+      items = petCatalog.map(it => ({ ...it, category: "adopt_me_pets" }));
+    } else if (cat === "eggs") {
+      items = eggCatalog;
+    } else if (cat === "potions") {
+      items = potionCatalog;
+    } else {
+      items = (offerItemsCatalog || []).filter(it => it.category === cat);
+    }
+
     if (q) items = items.filter(it => it.name.toLowerCase().includes(q));
-    if (["pet","egg"].includes(sides[s].type) && activeRarity !== "all") items = items.filter(it => it.rarity === activeRarity);
 
-    // Sort: legendary first, then alphabetical
     const RARITY_ORDER = { Legendary: 0, Rare: 1, Uncommon: 2, Common: 3 };
     items = [...items].sort((a, b) => {
       if (!q) {
@@ -509,8 +488,8 @@ function setupSide(s) {
 
     grid.innerHTML = items.slice(0, 120).map(item => {
       const rs = RARITY_SHORT[item.rarity] || "";
-      const img = item.image ? `<img src="${escapeHtml(item.image)}" alt="" onerror="this.style.display='none'">` : `<div style="width:40px;height:40px;"></div>`;
-      return `<div class="pet-card" data-id="${escapeHtml(item.id)}" data-name="${escapeHtml(item.name)}" data-img="${escapeHtml(item.image||"")}" data-rarity="${escapeHtml(item.rarity||"")}">
+      const img = item.image ? `<img src="${escapeHtml(item.image)}" alt="" onerror="this.style.display='none'">` : `<div style="width:40px;height:40px;background:var(--surface-2);border-radius:6px;"></div>`;
+      return `<div class="pet-card" data-id="${escapeHtml(item.id)}" data-name="${escapeHtml(item.name)}" data-img="${escapeHtml(item.image||"")}" data-rarity="${escapeHtml(item.rarity||"")}" data-cat="${escapeHtml(item.category||"")}">
         ${img}
         <div class="pet-card-name">${escapeHtml(item.name)}</div>
         ${rs ? `<div class="pet-card-rarity rarity-${rs}">${escapeHtml(item.rarity||"")}</div>` : ""}
@@ -519,19 +498,18 @@ function setupSide(s) {
 
     grid.querySelectorAll(".pet-card").forEach(card => {
       card.addEventListener("click", () => {
-        const item = { type: sides[s].type, id: card.dataset.id, name: card.dataset.name, image: card.dataset.img, qty: 1 };
-        if (sides[s].type === "pet") {
+        const isPet = card.dataset.cat === "adopt_me_pets";
+        const item = { type: isPet ? "pet" : card.dataset.cat, category: card.dataset.cat, id: card.dataset.id, name: card.dataset.name, image: card.dataset.img, qty: 1 };
+        if (isPet) {
           item.variant = sides[s].variant;
           item.potion = sides[s].potion;
         }
-        // eggs and potions: no modifiers, but allow qty stacking
         sides[s].items.push(item);
         renderSideItems(s);
       });
     });
   }
 
-  // Store renderGrid so init can call it
   sides[s]._renderGrid = renderGrid;
 }
 
@@ -582,17 +560,23 @@ async function submitTrade() {
 
   function buildSidePayload(s) {
     return sides[s].items.map(item => {
-      const base = { type: item.type, id: item.id, name: item.name, qty: item.qty || 1 };
+      const base = { type: item.type || "item", category: item.category, id: item.id, name: item.name, qty: item.qty || 1 };
       if (item.type === "pet") {
         base.variant = item.variant || "regular";
         base.potion = item.potion || "none";
       }
-      if (item.type === "house") {
-        base.build_type = sides[s].buildType;
-        base.bucks_invested = getEl(`side-${s}-bucks`)?.value ? Number(getEl(`side-${s}-bucks`).value) : null;
-      }
       return base;
     });
+  }
+
+  // House section
+  const houseInvolved = getEl("house-involved").value;
+  let housePayload = null;
+  if (houseInvolved && getEl("house-id-select").value) {
+    const houseId = getEl("house-id-select").value;
+    const house = houseCatalog.find(h => h.id === houseId);
+    const buildType = getEl("house-build-type").querySelector(".pet-opt-btn.active")?.dataset.val || "original";
+    housePayload = { side: houseInvolved, id: houseId, name: house?.name || houseId, build_type: buildType };
   }
 
   const payload = {
@@ -603,6 +587,7 @@ async function submitTrade() {
     notes: getEl("trade-notes").value.trim() || null,
     side_a: buildSidePayload("a"),
     side_b: buildSidePayload("b"),
+    house: housePayload,
   };
 
   const btn = getEl("submit-trade-btn");
@@ -616,8 +601,9 @@ async function submitTrade() {
     // Reset form
     sides.a.items = []; sides.b.items = [];
     renderSideItems("a"); renderSideItems("b");
-    getEl("side-a-bucks").value = "";
-    getEl("side-b-bucks").value = "";
+    getEl("house-involved").value = "";
+    getEl("house-detail").style.display = "none";
+    getEl("house-build-options").style.display = "none";
     getEl("trade-source-url").value = "";
     getEl("trade-notes").value = "";
     loadHistory();
@@ -703,15 +689,36 @@ async function init() {
   await loadCatalogs();
   setupSide("a");
   setupSide("b");
-  // Pet is the default type — show variant/potion panels and rarity tabs immediately
+  // Show pet options since All tab is default and pets are the main item
   getEl("side-a-pet-options").style.display = "";
   getEl("side-b-pet-options").style.display = "";
-  getEl("side-a-rarity-tabs").style.display = "";
-  getEl("side-b-rarity-tabs").style.display = "";
   renderSideItems("a");
   renderSideItems("b");
   sides.a._renderGrid("a");
   sides.b._renderGrid("b");
+
+  // House involved toggle
+  getEl("house-involved").addEventListener("change", () => {
+    const val = getEl("house-involved").value;
+    getEl("house-detail").style.display = val ? "" : "none";
+    getEl("house-build-options").style.display = val ? "" : "none";
+  });
+
+  // Populate house select
+  const houseSelect = getEl("house-id-select");
+  houseCatalog.forEach(h => {
+    const opt = document.createElement("option");
+    opt.value = h.id;
+    opt.textContent = h.name;
+    houseSelect.appendChild(opt);
+  });
+
+  // House build type
+  getEl("house-build-type").querySelectorAll(".pet-opt-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      getEl("house-build-type").querySelectorAll(".pet-opt-btn").forEach(b => b.classList.toggle("active", b === btn));
+    });
+  });
 
   getEl("submit-trade-btn").addEventListener("click", submitTrade);
   loadHistory();
