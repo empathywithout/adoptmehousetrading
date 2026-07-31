@@ -112,6 +112,9 @@ export const api = {
 
   applyForDataTeam: (message) => request("data-team-apply", { method: "POST", body: { message }, auth: true }),
   submitDataTeamValue: (payload) => request("data-team-submit-trade", { method: "POST", body: payload, auth: true }),
+  submitTradeRecord: (payload) => request("trade-record-create", { method: "POST", body: payload, auth: true }),
+  getMyTradeRecords: () => request("trade-records-mine", { auth: true }),
+  deleteTradeRecord: (id) => request("trade-record-delete", { method: "POST", body: { id }, auth: true }),
   submitGuide: (payload) => request("content-submit", { method: "POST", body: payload, auth: true }),
   removeRegistryEntry: (entry_id) => request("registry-delete", { method: "POST", body: { entry_id }, auth: true }),
   removeListing: (listing_id) => request("listings-remove", { method: "POST", body: { listing_id }, auth: true }),

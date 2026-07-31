@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Data Team — AdoptMeHouseTrading.com</title>
+<meta name="description" content="Log real Adopt Me trade data to help build community-sourced values.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .dt-wrap { max-width: 900px; margin: 0 auto; padding: 40px 20px 80px; }
+  .dt-header { margin-bottom: 32px; }
+  .dt-header h1 { font-family: var(--font-display); font-size: 28px; font-weight: 800; color: var(--ink); margin: 0 0 6px; }
+  .dt-header p { font-size: 14px; color: var(--muted); margin: 0; }
+
+  /* Trade form */
+  .trade-form { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; margin-bottom: 28px; }
+  .trade-form h2 { font-family: var(--font-display); font-size: 18px; font-weight: 800; color: var(--ink); margin: 0 0 20px; }
+
+  /* Two-sided trade layout */
+  .trade-sides { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: start; margin-bottom: 20px; }
+  @media (max-width: 640px) { .trade-sides { grid-template-columns: 1fr; } .trade-vs { text-align: center; } }
+  .trade-side { background: var(--paper); border: 1.5px solid var(--line); border-radius: 12px; padding: 16px; }
+  .trade-side-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); margin-bottom: 12px; }
+  .trade-vs { display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--muted); padding-top: 40px; }
+
+  /* Item type toggle */
+  .item-type-toggle { display: flex; gap: 6px; margin-bottom: 12px; }
+  .item-type-btn { flex: 1; padding: 7px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--muted); font-size: 12px; font-weight: 700; cursor: pointer; text-align: center; transition: all 0.15s; }
+  .item-type-btn.active { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+
+  /* Selected items display */
+  .selected-items-list { min-height: 48px; display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .item-chip { display: flex; align-items: center; gap: 6px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 5px 8px; font-size: 12px; }
+  .item-chip img { width: 24px; height: 24px; border-radius: 4px; object-fit: cover; }
+  .item-chip-name { font-weight: 600; color: var(--ink); }
+  .item-chip-meta { color: var(--muted); font-size: 11px; }
+  .item-chip-remove { background: none; border: none; color: var(--muted); cursor: pointer; padding: 0; font-size: 14px; line-height: 1; }
+  .item-chip-remove:hover { color: var(--accent); }
+
+  /* Pet/house search */
+  .item-search-wrap { position: relative; margin-bottom: 8px; }
+  .item-search-wrap input { width: 100%; padding: 8px 10px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); font-size: 13px; }
+  .item-search-wrap input:focus { outline: none; border-color: var(--accent); }
+  .item-dropdown { position: absolute; top: 100%; left: 0; right: 0; background: var(--surface); border: 1.5px solid var(--line); border-radius: 10px; z-index: 50; max-height: 200px; overflow-y: auto; box-shadow: 0 4px 16px rgba(0,0,0,0.15); display: none; }
+  .item-dropdown.open { display: block; }
+  .item-dropdown-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; cursor: pointer; font-size: 13px; }
+  .item-dropdown-item:hover { background: var(--surface-2); }
+  .item-dropdown-item img { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; }
+
+  /* Pet variant/potion selectors */
+  .pet-options { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; padding: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+  .pet-options-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .pet-options-row { display: flex; flex-wrap: wrap; gap: 4px; }
+  .pet-opt-btn { padding: 3px 10px; border: 1.5px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--muted); font-size: 11px; font-weight: 600; cursor: pointer; }
+  .pet-opt-btn.active { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+
+  /* House options */
+  .house-options { margin-top: 8px; padding: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; display: flex; flex-direction: column; gap: 8px; }
+  .house-opt-row { display: flex; flex-direction: column; gap: 4px; }
+  .house-opt-row label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .build-type-row { display: flex; flex-wrap: wrap; gap: 4px; }
+
+  /* Value input */
+  .value-row { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
+  .value-row input { flex: 1; padding: 7px 10px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); font-size: 13px; }
+  .value-row input:focus { outline: none; border-color: var(--accent); }
+  .unit-toggle { display: flex; border: 1.5px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .unit-btn { padding: 7px 10px; border: none; background: var(--surface); color: var(--muted); font-size: 12px; font-weight: 700; cursor: pointer; }
+  .unit-btn.active { background: var(--accent); color: #fff; }
+
+  /* Trade context */
+  .trade-context { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  @media (max-width: 500px) { .trade-context { grid-template-columns: 1fr; } }
+  .field-group label { display: block; font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .field-group select, .field-group input[type="date"], .field-group input[type="url"], .field-group textarea {
+    width: 100%; padding: 8px 10px; border: 1.5px solid var(--line); border-radius: 8px;
+    background: var(--surface); color: var(--ink); font-size: 13px; font-family: var(--font-body);
+  }
+  .field-group select:focus, .field-group input:focus, .field-group textarea:focus { outline: none; border-color: var(--accent); }
+  .field-group textarea { resize: vertical; min-height: 60px; }
+
+  /* Status messages */
+  .form-error { background: var(--accent-soft); border: 1px solid var(--accent); border-radius: 8px; padding: 10px 14px; font-size: 13px; color: var(--accent); margin-bottom: 12px; display: none; }
+  .form-success { background: #d1fae5; border: 1px solid #10b981; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #065f46; margin-bottom: 12px; display: none; }
+
+  /* Submission history */
+  .history-section { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
+  .history-section h2 { font-family: var(--font-display); font-size: 18px; font-weight: 800; color: var(--ink); margin: 0 0 16px; }
+  .record-card { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 14px; margin-bottom: 10px; }
+  .record-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .record-meta { font-size: 12px; color: var(--muted); }
+  .record-trade { display: flex; align-items: flex-start; gap: 12px; }
+  .record-side { flex: 1; }
+  .record-side-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 4px; }
+  .record-items { display: flex; flex-wrap: wrap; gap: 4px; }
+  .record-item-tag { font-size: 12px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px; padding: 2px 8px; color: var(--ink); }
+  .record-value { font-size: 12px; font-weight: 700; color: var(--accent); margin-top: 4px; }
+  .record-vs { color: var(--muted); font-size: 16px; padding-top: 18px; }
+  .record-delete-btn { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 13px; padding: 2px 6px; border-radius: 4px; }
+  .record-delete-btn:hover { color: var(--accent); background: var(--accent-soft); }
+  .confidence-badge { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .confidence-high { background: #d1fae5; color: #065f46; }
+  .confidence-medium { background: #fef3c7; color: #92400e; }
+  .confidence-low { background: var(--surface-2); color: var(--muted); }
+
+  .empty-state { text-align: center; padding: 32px; color: var(--muted); font-size: 14px; }
+
+  /* Not a member state */
+  .not-member { text-align: center; padding: 60px 20px; }
+  .not-member h2 { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--ink); margin: 0 0 8px; }
+  .not-member p { color: var(--muted); font-size: 14px; margin: 0 0 20px; }
+</style>
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="signpost-mini"></span>
+      AdoptMeHouseTrading
+    </a>
+    <nav>
+      <a href="listings/index.html">Browse Houses</a>
+      <a href="commissions/index.html">Find a Builder</a>
+      <a href="recent-trades.html">Recent Trades</a>
+      <div class="nav-more">
+        <button type="button" class="nav-more-trigger">More <span class="nav-more-caret"></span></button>
+        <div class="nav-more-dropdown" hidden>
+          <a href="houses/index.html">Values</a>
+          <a href="registry/index.html">Build Registry</a>
+          <a href="guides/index.html">Guides</a>
+          <a href="recent-trades.html">Recent Trades</a>
+          <a href="about.html">About</a>
+        </div>
+      </div>
+    </nav>
+    <div class="nav-actions">
+      <a href="profile.html" id="nav-profile-link" hidden class="btn btn-ghost btn-sm">Profile</a>
+      <a href="profile.html" id="nav-sign-in" class="btn btn-primary btn-sm">Sign In</a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="dt-wrap">
+
+    <div id="not-signed-in" hidden class="not-member">
+      <h2>Sign In Required</h2>
+      <p>You need to be signed in to access the Data Team tools.</p>
+      <a href="profile.html" class="btn btn-primary">Sign In</a>
+    </div>
+
+    <div id="not-member" hidden class="not-member">
+      <h2>Data Team Members Only</h2>
+      <p>These tools are for approved Data Team members. If you know Adopt Me house trading values well, apply from your profile.</p>
+      <a href="profile.html#data-team" class="btn btn-primary">Apply on Profile</a>
+    </div>
+
+    <div id="dt-app" hidden>
+      <div class="dt-header">
+        <h1>📊 Data Team</h1>
+        <p>Log real Adopt Me trades to build community-sourced values for pets and houses. Every trade you submit helps the whole community trade smarter.</p>
+      </div>
+
+      <!-- Trade Form -->
+      <div class="trade-form">
+        <h2>Log a Trade</h2>
+
+        <div id="form-error" class="form-error"></div>
+        <div id="form-success" class="form-success"></div>
+
+        <div class="trade-sides">
+          <!-- Side A -->
+          <div class="trade-side" id="side-a-panel">
+            <div class="trade-side-label">Side A — What was given</div>
+            <div class="item-type-toggle">
+              <button class="item-type-btn active" data-side="a" data-type="pet">🐾 Pet</button>
+              <button class="item-type-btn" data-side="a" data-type="house">🏠 House</button>
+            </div>
+            <div class="selected-items-list" id="side-a-items"></div>
+            <div class="item-search-wrap">
+              <input type="search" id="side-a-search" placeholder="Search pets or houses..." autocomplete="off">
+              <div class="item-dropdown" id="side-a-dropdown"></div>
+            </div>
+            <div id="side-a-pet-options" class="pet-options" style="display:none;">
+              <div class="pet-options-label">Variant</div>
+              <div class="pet-options-row" id="side-a-variant">
+                <button class="pet-opt-btn active" data-val="regular">Regular</button>
+                <button class="pet-opt-btn" data-val="neon">Neon</button>
+                <button class="pet-opt-btn" data-val="mega_neon">Mega Neon</button>
+              </div>
+              <div class="pet-options-label" style="margin-top:6px;">Potion</div>
+              <div class="pet-options-row" id="side-a-potion">
+                <button class="pet-opt-btn active" data-val="none">No Potion</button>
+                <button class="pet-opt-btn" data-val="ride">Ride</button>
+                <button class="pet-opt-btn" data-val="fly">Fly</button>
+                <button class="pet-opt-btn" data-val="fly_ride">Fly + Ride</button>
+              </div>
+            </div>
+            <div id="side-a-house-options" class="house-options" style="display:none;">
+              <div class="house-opt-row">
+                <label>Build Type</label>
+                <div class="build-type-row" id="side-a-build-type">
+                  <button class="pet-opt-btn active" data-val="original">Original</button>
+                  <button class="pet-opt-btn" data-val="speedbuild">Speedbuild</button>
+                  <button class="pet-opt-btn" data-val="cloned">Cloned</button>
+                  <button class="pet-opt-btn" data-val="glitch">Glitch</button>
+                </div>
+              </div>
+              <div class="house-opt-row">
+                <label>Bucks Invested (optional)</label>
+                <input type="number" id="side-a-bucks" placeholder="e.g. 45000" min="0">
+              </div>
+            </div>
+            <div class="value-row">
+              <input type="number" id="side-a-value" placeholder="Value (Shark)" min="0" step="0.1">
+              <div class="unit-toggle" id="side-a-unit">
+                <button class="unit-btn active" data-val="shark">Shark</button>
+                <button class="unit-btn" data-val="frost">Frost</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="trade-vs">⇄</div>
+
+          <!-- Side B -->
+          <div class="trade-side" id="side-b-panel">
+            <div class="trade-side-label">Side B — What was received</div>
+            <div class="item-type-toggle">
+              <button class="item-type-btn active" data-side="b" data-type="pet">🐾 Pet</button>
+              <button class="item-type-btn" data-side="b" data-type="house">🏠 House</button>
+            </div>
+            <div class="selected-items-list" id="side-b-items"></div>
+            <div class="item-search-wrap">
+              <input type="search" id="side-b-search" placeholder="Search pets or houses..." autocomplete="off">
+              <div class="item-dropdown" id="side-b-dropdown"></div>
+            </div>
+            <div id="side-b-pet-options" class="pet-options" style="display:none;">
+              <div class="pet-options-label">Variant</div>
+              <div class="pet-options-row" id="side-b-variant">
+                <button class="pet-opt-btn active" data-val="regular">Regular</button>
+                <button class="pet-opt-btn" data-val="neon">Neon</button>
+                <button class="pet-opt-btn" data-val="mega_neon">Mega Neon</button>
+              </div>
+              <div class="pet-options-label" style="margin-top:6px;">Potion</div>
+              <div class="pet-options-row" id="side-b-potion">
+                <button class="pet-opt-btn active" data-val="none">No Potion</button>
+                <button class="pet-opt-btn" data-val="ride">Ride</button>
+                <button class="pet-opt-btn" data-val="fly">Fly</button>
+                <button class="pet-opt-btn" data-val="fly_ride">Fly + Ride</button>
+              </div>
+            </div>
+            <div id="side-b-house-options" class="house-options" style="display:none;">
+              <div class="house-opt-row">
+                <label>Build Type</label>
+                <div class="build-type-row" id="side-b-build-type">
+                  <button class="pet-opt-btn active" data-val="original">Original</button>
+                  <button class="pet-opt-btn" data-val="speedbuild">Speedbuild</button>
+                  <button class="pet-opt-btn" data-val="cloned">Cloned</button>
+                  <button class="pet-opt-btn" data-val="glitch">Glitch</button>
+                </div>
+              </div>
+              <div class="house-opt-row">
+                <label>Bucks Invested (optional)</label>
+                <input type="number" id="side-b-bucks" placeholder="e.g. 45000" min="0">
+              </div>
+            </div>
+            <div class="value-row">
+              <input type="number" id="side-b-value" placeholder="Value (Shark)" min="0" step="0.1">
+              <div class="unit-toggle" id="side-b-unit">
+                <button class="unit-btn active" data-val="shark">Shark</button>
+                <button class="unit-btn" data-val="frost">Frost</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trade context -->
+        <div class="trade-context">
+          <div class="field-group">
+            <label>Trade Date</label>
+            <input type="date" id="trade-date">
+          </div>
+          <div class="field-group">
+            <label>Source</label>
+            <select id="trade-source">
+              <option value="own_trade">My own trade</option>
+              <option value="witnessed">I witnessed this trade</option>
+              <option value="reddit">Reddit post</option>
+              <option value="discord">Discord</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Confidence</label>
+            <select id="trade-confidence">
+              <option value="high">High — I'm certain of the value</option>
+              <option value="medium" selected>Medium — approximately right</option>
+              <option value="low">Low — rough estimate</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Screenshot / Link (optional)</label>
+            <input type="url" id="trade-source-url" placeholder="https://...">
+          </div>
+        </div>
+        <div class="field-group" style="margin-bottom:16px;">
+          <label>Notes (optional)</label>
+          <textarea id="trade-notes" placeholder="Any extra context about this trade..."></textarea>
+        </div>
+
+        <button class="btn btn-primary" id="submit-trade-btn">Submit Trade</button>
+      </div>
+
+      <!-- Submission history -->
+      <div class="history-section">
+        <h2>Your Submissions</h2>
+        <div id="history-list"><div class="empty-state">Loading...</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community.
+    <div style="margin-top:8px;"><a href="rules.html" style="color:var(--sign-red);">Community Rules</a> · <a href="privacy.html" style="color:var(--sign-red);">Privacy Policy</a></div>
+  </div>
+</footer>
+
+<script type="module">
+import { api, getStoredProfile } from "./js/api.js";
+
+const UNIT_LABELS = { shark: "Shark", frost: "Frost" };
+const BUILD_TYPE_LABELS = { original: "Original", speedbuild: "Speedbuild", cloned: "Cloned", glitch: "Glitch", glitch_original: "Glitch Original", glitch_cloned: "Glitch Cloned" };
+const VARIANT_LABELS = { regular: "Regular", neon: "Neon", mega_neon: "Mega Neon" };
+const POTION_LABELS = { none: "No Potion", ride: "Ride", fly: "Fly", fly_ride: "Fly + Ride" };
+const SOURCE_LABELS = { own_trade: "My own trade", witnessed: "Witnessed", reddit: "Reddit", discord: "Discord", site_confirmed: "Site confirmed" };
+
+function escapeHtml(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+// ── Auth check ─────────────────────────────────────────────────────────────
+const profile = getStoredProfile();
+if (!profile) {
+  document.getElementById("not-signed-in").hidden = false;
+} else if (!profile.is_data_team_member) {
+  document.getElementById("not-member").hidden = false;
+  // Update nav
+  document.getElementById("nav-sign-in").hidden = true;
+  const navProfile = document.getElementById("nav-profile-link");
+  navProfile.hidden = false;
+  navProfile.textContent = profile.display_name;
+} else {
+  document.getElementById("dt-app").hidden = false;
+  document.getElementById("nav-sign-in").hidden = true;
+  const navProfile = document.getElementById("nav-profile-link");
+  navProfile.hidden = false;
+  navProfile.textContent = profile.display_name;
+  init();
+}
+
+// ── Catalogs ───────────────────────────────────────────────────────────────
+let petCatalog = [];
+let houseCatalog = [];
+
+async function loadCatalogs() {
+  const [petsRes, housesRes] = await Promise.all([
+    fetch("data/adopt_me_pets.json").then(r => r.json()).catch(() => []),
+    fetch("data/houses.json").then(r => r.json()).catch(() => []),
+  ]);
+  petCatalog = petsRes;
+  houseCatalog = housesRes.map(h => ({ ...h, category: "house" }));
+}
+
+// ── Side state ─────────────────────────────────────────────────────────────
+const sides = {
+  a: { type: "pet", items: [], variant: "regular", potion: "none", buildType: "original", bucks: null },
+  b: { type: "pet", items: [], variant: "regular", potion: "none", buildType: "original", bucks: null },
+};
+
+function getEl(id) { return document.getElementById(id); }
+
+function setupSide(s) {
+  const typeBtns = document.querySelectorAll(`.item-type-btn[data-side="${s}"]`);
+  typeBtns.forEach(btn => btn.addEventListener("click", () => {
+    sides[s].type = btn.dataset.type;
+    sides[s].items = [];
+    typeBtns.forEach(b => b.classList.toggle("active", b === btn));
+    getEl(`side-${s}-pet-options`).style.display = sides[s].type === "pet" ? "" : "none";
+    getEl(`side-${s}-house-options`).style.display = sides[s].type === "house" ? "" : "none";
+    renderSideItems(s);
+    getEl(`side-${s}-search`).value = "";
+    getEl(`side-${s}-dropdown`).innerHTML = "";
+    getEl(`side-${s}-dropdown`).classList.remove("open");
+  }));
+
+  // Variant buttons
+  getEl(`side-${s}-variant`).querySelectorAll(".pet-opt-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      sides[s].variant = btn.dataset.val;
+      getEl(`side-${s}-variant`).querySelectorAll(".pet-opt-btn").forEach(b => b.classList.toggle("active", b === btn));
+    });
+  });
+
+  // Potion buttons
+  getEl(`side-${s}-potion`).querySelectorAll(".pet-opt-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      sides[s].potion = btn.dataset.val;
+      getEl(`side-${s}-potion`).querySelectorAll(".pet-opt-btn").forEach(b => b.classList.toggle("active", b === btn));
+    });
+  });
+
+  // Build type buttons
+  getEl(`side-${s}-build-type`).querySelectorAll(".pet-opt-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      sides[s].buildType = btn.dataset.val;
+      getEl(`side-${s}-build-type`).querySelectorAll(".pet-opt-btn").forEach(b => b.classList.toggle("active", b === btn));
+    });
+  });
+
+  // Unit toggle
+  getEl(`side-${s}-unit`).querySelectorAll(".unit-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      getEl(`side-${s}-unit`).querySelectorAll(".unit-btn").forEach(b => b.classList.toggle("active", b === btn));
+    });
+  });
+
+  // Search
+  const searchInput = getEl(`side-${s}-search`);
+  const dropdown = getEl(`side-${s}-dropdown`);
+
+  searchInput.addEventListener("input", () => {
+    const q = searchInput.value.trim().toLowerCase();
+    if (!q) { dropdown.classList.remove("open"); return; }
+    const catalog = sides[s].type === "pet" ? petCatalog : houseCatalog;
+    const matches = catalog.filter(item => item.name.toLowerCase().includes(q)).slice(0, 8);
+    if (!matches.length) { dropdown.classList.remove("open"); return; }
+    dropdown.innerHTML = matches.map(item => `
+      <div class="item-dropdown-item" data-id="${escapeHtml(item.id)}" data-name="${escapeHtml(item.name)}" data-img="${escapeHtml(item.image || "")}">
+        ${item.image ? `<img src="${escapeHtml(item.image)}" alt="">` : ""}
+        <span>${escapeHtml(item.name)}</span>
+      </div>
+    `).join("");
+    dropdown.classList.add("open");
+    dropdown.querySelectorAll(".item-dropdown-item").forEach(el => {
+      el.addEventListener("click", () => {
+        const item = { type: sides[s].type, id: el.dataset.id, name: el.dataset.name, image: el.dataset.img, qty: 1 };
+        sides[s].items.push(item);
+        renderSideItems(s);
+        searchInput.value = "";
+        dropdown.classList.remove("open");
+      });
+    });
+  });
+
+  document.addEventListener("click", e => {
+    if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) dropdown.classList.remove("open");
+  });
+}
+
+function renderSideItems(s) {
+  const container = getEl(`side-${s}-items`);
+  if (!sides[s].items.length) {
+    container.innerHTML = `<span style="font-size:13px;color:var(--muted);">No items added yet</span>`;
+    return;
+  }
+  container.innerHTML = sides[s].items.map((item, i) => `
+    <div class="item-chip">
+      ${item.image ? `<img src="${escapeHtml(item.image)}" alt="">` : ""}
+      <span class="item-chip-name">${escapeHtml(item.name)}</span>
+      <button class="item-chip-remove" data-idx="${i}">×</button>
+    </div>
+  `).join("");
+  container.querySelectorAll(".item-chip-remove").forEach(btn => {
+    btn.addEventListener("click", () => {
+      sides[s].items.splice(parseInt(btn.dataset.idx), 1);
+      renderSideItems(s);
+    });
+  });
+}
+
+// ── Submit ─────────────────────────────────────────────────────────────────
+async function submitTrade() {
+  const errorBox = getEl("form-error");
+  const successBox = getEl("form-success");
+  errorBox.style.display = "none";
+  successBox.style.display = "none";
+
+  if (!sides.a.items.length || !sides.b.items.length) {
+    errorBox.textContent = "Add at least one item to each side of the trade.";
+    errorBox.style.display = "block";
+    return;
+  }
+
+  function buildSidePayload(s) {
+    return sides[s].items.map(item => {
+      const base = { type: item.type, id: item.id, name: item.name, qty: item.qty || 1 };
+      if (item.type === "pet") {
+        base.variant = sides[s].variant;
+        base.potion = sides[s].potion;
+      }
+      if (item.type === "house") {
+        base.build_type = sides[s].buildType;
+        base.bucks_invested = getEl(`side-${s}-bucks`)?.value ? Number(getEl(`side-${s}-bucks`).value) : null;
+      }
+      return base;
+    });
+  }
+
+  function getSideValue(s) {
+    const raw = getEl(`side-${s}-value`).value.trim();
+    if (!raw || isNaN(Number(raw))) return null;
+    const unit = getEl(`side-${s}-unit`).querySelector(".unit-btn.active").dataset.val;
+    const val = Number(raw);
+    return unit === "frost" ? val * 100 : val; // normalize to Shark
+  }
+
+  const payload = {
+    trade_date: getEl("trade-date").value || new Date().toISOString().slice(0, 10),
+    source: getEl("trade-source").value,
+    source_url: getEl("trade-source-url").value.trim() || null,
+    confidence: getEl("trade-confidence").value,
+    notes: getEl("trade-notes").value.trim() || null,
+    side_a: buildSidePayload("a"),
+    side_a_value_shark: getSideValue("a"),
+    side_b: buildSidePayload("b"),
+    side_b_value_shark: getSideValue("b"),
+  };
+
+  const btn = getEl("submit-trade-btn");
+  btn.disabled = true;
+  btn.textContent = "Submitting...";
+
+  try {
+    await api.submitTradeRecord(payload);
+    successBox.textContent = "Trade logged! Thank you for contributing.";
+    successBox.style.display = "block";
+    // Reset form
+    sides.a.items = []; sides.b.items = [];
+    renderSideItems("a"); renderSideItems("b");
+    getEl("side-a-value").value = "";
+    getEl("side-b-value").value = "";
+    getEl("side-a-bucks").value = "";
+    getEl("side-b-bucks").value = "";
+    getEl("trade-source-url").value = "";
+    getEl("trade-notes").value = "";
+    loadHistory();
+  } catch (err) {
+    errorBox.textContent = err.message;
+    errorBox.style.display = "block";
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Submit Trade";
+  }
+}
+
+// ── History ────────────────────────────────────────────────────────────────
+async function loadHistory() {
+  const container = getEl("history-list");
+  try {
+    const { records } = await api.getMyTradeRecords();
+    if (!records.length) {
+      container.innerHTML = `<div class="empty-state">No submissions yet. Log your first trade above!</div>`;
+      return;
+    }
+    container.innerHTML = records.map(r => {
+      const sideANames = (r.side_a || []).map(it => {
+        let label = it.name;
+        if (it.type === "pet" && it.variant !== "regular") label += ` (${VARIANT_LABELS[it.variant] || it.variant})`;
+        if (it.type === "pet" && it.potion !== "none") label += ` ${POTION_LABELS[it.potion] || it.potion}`;
+        if (it.type === "house" && it.build_type) label += ` — ${BUILD_TYPE_LABELS[it.build_type] || it.build_type}`;
+        return label;
+      });
+      const sideBNames = (r.side_b || []).map(it => {
+        let label = it.name;
+        if (it.type === "pet" && it.variant !== "regular") label += ` (${VARIANT_LABELS[it.variant] || it.variant})`;
+        if (it.type === "pet" && it.potion !== "none") label += ` ${POTION_LABELS[it.potion] || it.potion}`;
+        if (it.type === "house" && it.build_type) label += ` — ${BUILD_TYPE_LABELS[it.build_type] || it.build_type}`;
+        return label;
+      });
+
+      const date = new Date(r.trade_date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+      const aVal = r.side_a_value_shark != null ? `${r.side_a_value_shark} Shark` : "";
+      const bVal = r.side_b_value_shark != null ? `${r.side_b_value_shark} Shark` : "";
+
+      return `<div class="record-card">
+        <div class="record-card-header">
+          <div class="record-meta">${date} · ${escapeHtml(SOURCE_LABELS[r.source] || r.source)} · <span class="confidence-badge confidence-${r.confidence}">${r.confidence}</span></div>
+          <button class="record-delete-btn" data-id="${r.id}">Remove</button>
+        </div>
+        <div class="record-trade">
+          <div class="record-side">
+            <div class="record-side-label">Side A</div>
+            <div class="record-items">${sideANames.map(n => `<span class="record-item-tag">${escapeHtml(n)}</span>`).join("")}</div>
+            ${aVal ? `<div class="record-value">${escapeHtml(aVal)}</div>` : ""}
+          </div>
+          <div class="record-vs">⇄</div>
+          <div class="record-side">
+            <div class="record-side-label">Side B</div>
+            <div class="record-items">${sideBNames.map(n => `<span class="record-item-tag">${escapeHtml(n)}</span>`).join("")}</div>
+            ${bVal ? `<div class="record-value">${escapeHtml(bVal)}</div>` : ""}
+          </div>
+        </div>
+        ${r.notes ? `<div style="margin-top:8px;font-size:12px;color:var(--muted);">${escapeHtml(r.notes)}</div>` : ""}
+      </div>`;
+    }).join("");
+
+    container.querySelectorAll(".record-delete-btn").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        if (!confirm("Remove this trade record?")) return;
+        try {
+          await api.deleteTradeRecord(btn.dataset.id);
+          loadHistory();
+        } catch (err) { alert(err.message); }
+      });
+    });
+  } catch (err) {
+    container.innerHTML = `<div class="empty-state">Couldn't load submissions.</div>`;
+  }
+}
+
+// ── Init ───────────────────────────────────────────────────────────────────
+async function init() {
+  // Set today's date
+  getEl("trade-date").value = new Date().toISOString().slice(0, 10);
+
+  await loadCatalogs();
+  setupSide("a");
+  setupSide("b");
+  renderSideItems("a");
+  renderSideItems("b");
+
+  getEl("submit-trade-btn").addEventListener("click", submitTrade);
+  loadHistory();
+}
+</script>
+</body>
+</html>
