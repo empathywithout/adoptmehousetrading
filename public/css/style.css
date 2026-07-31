@@ -2531,6 +2531,25 @@ textarea { resize: vertical; min-height: 90px; }
   .site-nav nav { display: flex !important; position: static !important; background: none !important; flex-direction: row !important; }
 }
 
+/* ── Medium viewport: compress nav before full collapse ── */
+@media (max-width: 1060px) {
+  .site-nav nav { gap: 16px; font-size: 13.5px; }
+  .nav-actions { gap: 10px; }
+}
+
+@media (max-width: 900px) {
+  .site-nav nav { gap: 10px; font-size: 13px; }
+  .site-nav nav a:not(.nav-more-trigger) { white-space: nowrap; }
+  /* Shrink username pill to just initials width */
+  .nav-pill { max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; padding: 4px 8px; }
+}
+
+@media (max-width: 780px) {
+  /* Hide Browse Houses label, show just icon-sized space */
+  .site-nav nav { gap: 8px; }
+  .nav-actions .btn-primary { font-size: 12px; padding: 6px 12px; }
+}
+
 /* ═══════════════════════════════════════════════════════════════
    MOBILE RESPONSIVE — 640px and below
    Comprehensive pass: nav hamburger, grids, forms, cards, profile
