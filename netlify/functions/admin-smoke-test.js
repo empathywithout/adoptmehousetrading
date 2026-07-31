@@ -115,8 +115,7 @@ async function runTests(baseUrl, adminPassword) {
     assert(data.profile?.id, "Expected profile");
     authToken = data.token;
     testProfileId = data.profile.id;
-    // Debug: log what we got
-
+    assert(data.profile.display_name === TEST_DISPLAY_NAME, `Signup returned wrong profile: ${data.profile.display_name} vs ${TEST_DISPLAY_NAME}`);
   });
 
   await test("auth-signup: rejects missing required fields", async () => {
