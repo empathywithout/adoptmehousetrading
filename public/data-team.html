@@ -267,24 +267,42 @@
         <!-- House involved (separate mechanic) -->
         <div class="house-trade-section">
           <div class="house-trade-label">🏠 Was a house involved?</div>
-          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-            <select id="house-involved" style="flex:1;min-width:180px;padding:7px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:13px;">
-              <option value="">No house involved</option>
-              <option value="side_a">Side A gave a house</option>
-              <option value="side_b">Side B gave a house</option>
-            </select>
-            <div id="house-detail" style="display:none;flex:1;min-width:180px;">
-              <select id="house-id-select" style="width:100%;padding:7px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:13px;">
-                <option value="">Select house...</option>
+          <select id="house-involved" style="width:100%;padding:7px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:13px;margin-bottom:10px;">
+            <option value="">No house involved</option>
+            <option value="side_a">Side A gave a house</option>
+            <option value="side_b">Side B gave a house</option>
+          </select>
+
+          <div id="house-detail" style="display:none;">
+            <div style="display:flex;gap:8px;margin-bottom:10px;">
+              <select id="house-id-select" style="flex:1;padding:7px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:13px;">
+                <option value="">Select house type...</option>
               </select>
             </div>
-          </div>
-          <div id="house-build-options" style="display:none;margin-top:8px;">
-            <div class="pet-options-row" id="house-build-type" style="gap:4px;">
-              <button class="pet-opt-btn active" data-val="original">Original</button>
-              <button class="pet-opt-btn" data-val="speedbuild">Speedbuild</button>
-              <button class="pet-opt-btn" data-val="cloned">Cloned</button>
-              <button class="pet-opt-btn" data-val="glitch">Glitch</button>
+
+            <div style="margin-bottom:10px;">
+              <div class="pet-options-label" style="margin-bottom:6px;">Build Type</div>
+              <div class="pet-options-row" id="house-build-type" style="gap:4px;">
+                <button class="pet-opt-btn active" data-val="original">Original</button>
+                <button class="pet-opt-btn" data-val="speedbuild">Speedbuild</button>
+                <button class="pet-opt-btn" data-val="cloned">Cloned</button>
+                <button class="pet-opt-btn" data-val="glitch">Glitch</button>
+              </div>
+            </div>
+
+            <div style="margin-bottom:10px;">
+              <div class="pet-options-label" style="margin-bottom:6px;">Photos <span style="font-weight:400;color:var(--muted);">(required — at least 1, up to 5)</span></div>
+              <div id="house-photo-previews" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;"></div>
+              <label id="house-photo-upload-label" style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border:1.5px dashed var(--line);border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;color:var(--muted);">
+                <span style="font-size:16px;">+</span> Add Photo
+                <input type="file" id="house-photo-input" accept="image/jpeg,image/png,image/webp" multiple style="display:none;">
+              </label>
+              <div id="house-photo-error" style="font-size:12px;color:var(--accent);margin-top:4px;display:none;"></div>
+            </div>
+
+            <div>
+              <div class="pet-options-label" style="margin-bottom:4px;">Notes <span style="font-weight:400;color:var(--muted);">(optional — describe the build)</span></div>
+              <textarea id="house-notes" placeholder="e.g. fully decorated, rainbow theme, 200k bucks invested..." style="width:100%;padding:8px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:13px;font-family:var(--font-body);resize:vertical;min-height:60px;"></textarea>
             </div>
           </div>
         </div>
@@ -576,7 +594,19 @@ async function submitTrade() {
     const houseId = getEl("house-id-select").value;
     const house = houseCatalog.find(h => h.id === houseId);
     const buildType = getEl("house-build-type").querySelector(".pet-opt-btn.active")?.dataset.val || "original";
-    housePayload = { side: houseInvolved, id: houseId, name: house?.name || houseId, build_type: buildType };
+    if (housePhotos.length === 0) {
+      errorBox.textContent = "Please add at least one photo of the house.";
+      errorBox.style.display = "block";
+      return;
+    }
+    housePayload = {
+      side: houseInvolved,
+      id: houseId,
+      name: house?.name || houseId,
+      build_type: buildType,
+      photos: housePhotos.map(p => p.url),
+      notes: getEl("house-notes").value.trim() || null,
+    };
   }
 
   const payload = {
@@ -603,7 +633,9 @@ async function submitTrade() {
     renderSideItems("a"); renderSideItems("b");
     getEl("house-involved").value = "";
     getEl("house-detail").style.display = "none";
-    getEl("house-build-options").style.display = "none";
+    housePhotos.length = 0;
+    renderHousePhotoPreviews();
+    getEl("house-notes").value = "";
     getEl("trade-source-url").value = "";
     getEl("trade-notes").value = "";
     loadHistory();
@@ -697,11 +729,56 @@ async function init() {
   sides.a._renderGrid("a");
   sides.b._renderGrid("b");
 
+  // House photo state
+  const housePhotos = []; // { url, previewUrl }
+  const MAX_HOUSE_PHOTOS = 5;
+
+  function renderHousePhotoPreviews() {
+    const container = getEl("house-photo-previews");
+    container.innerHTML = housePhotos.map((p, i) => `
+      <div style="position:relative;width:72px;height:72px;flex-shrink:0;">
+        <img src="${p.previewUrl}" style="width:72px;height:72px;object-fit:cover;border-radius:8px;border:1.5px solid var(--line);">
+        <button data-remove-photo="${i}" style="position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;border:none;background:var(--accent);color:#fff;font-size:11px;font-weight:700;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">×</button>
+      </div>`).join("");
+    container.querySelectorAll("[data-remove-photo]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        housePhotos.splice(parseInt(btn.dataset.removePhoto), 1);
+        renderHousePhotoPreviews();
+      });
+    });
+    // Hide upload button if max reached
+    getEl("house-photo-upload-label").style.display = housePhotos.length >= MAX_HOUSE_PHOTOS ? "none" : "";
+  }
+
+  getEl("house-photo-input").addEventListener("change", async (e) => {
+    const files = [...e.target.files];
+    e.target.value = "";
+    const errorEl = getEl("house-photo-error");
+    errorEl.style.display = "none";
+
+    for (const file of files) {
+      if (housePhotos.length >= MAX_HOUSE_PHOTOS) break;
+      try {
+        errorEl.textContent = "Uploading...";
+        errorEl.style.display = "block";
+        errorEl.style.color = "var(--muted)";
+        const url = await api.uploadPhoto(file);
+        const previewUrl = URL.createObjectURL(file);
+        housePhotos.push({ url, previewUrl });
+        renderHousePhotoPreviews();
+        errorEl.style.display = "none";
+      } catch (err) {
+        errorEl.textContent = err.message || "Upload failed";
+        errorEl.style.color = "var(--accent)";
+        errorEl.style.display = "block";
+      }
+    }
+  });
+
   // House involved toggle
   getEl("house-involved").addEventListener("change", () => {
     const val = getEl("house-involved").value;
     getEl("house-detail").style.display = val ? "" : "none";
-    getEl("house-build-options").style.display = val ? "" : "none";
   });
 
   // Populate house select

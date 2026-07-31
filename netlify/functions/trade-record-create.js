@@ -44,8 +44,7 @@ async function handlerImpl(event) {
   try { body = JSON.parse(event.body || "{}"); }
   catch { return json(400, { error: "Invalid JSON" }); }
 
-  const { trade_date, source, source_url, confidence, notes, side_a, side_b,
-          side_a_value_shark, side_b_value_shark } = body;
+  const { trade_date, source, source_url, confidence, notes, side_a, side_b, house } = body;
 
   if (!VALID_SOURCES.includes(source)) return json(400, { error: "Invalid source" });
 
@@ -65,9 +64,15 @@ async function handlerImpl(event) {
     confidence: VALID_CONFIDENCE.includes(confidence) ? confidence : "medium",
     notes: notes ? String(notes).slice(0, 500) : null,
     side_a: cleanSideA,
-    side_a_value_shark: side_a_value_shark > 0 ? Number(side_a_value_shark) : null,
     side_b: cleanSideB,
-    side_b_value_shark: side_b_value_shark > 0 ? Number(side_b_value_shark) : null,
+    house: house && house.id && house.side ? {
+      side: ["side_a", "side_b"].includes(house.side) ? house.side : null,
+      id: String(house.id).slice(0, 100),
+      name: house.name ? String(house.name).slice(0, 100) : null,
+      build_type: ["original","speedbuild","cloned","glitch"].includes(house.build_type) ? house.build_type : null,
+      photos: Array.isArray(house.photos) ? house.photos.slice(0, 5).map(u => String(u).slice(0, 500)) : [],
+      notes: house.notes ? String(house.notes).slice(0, 500) : null,
+    } : null,
   }).select().single();
 
   if (error) { console.error(error); return json(500, { error: "Couldn't save trade record" }); }
