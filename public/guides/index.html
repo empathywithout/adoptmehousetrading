@@ -516,7 +516,13 @@
     const [featured, ...rest] = filtered;
     const catClass = CAT_CLASS[featured.category] || "guide-cat-other";
     const catLabel = GUIDE_CATEGORY_LABELS[featured.category] || featured.category;
-    const featuredPhoto = featured.photos?.[0] || "../images/brand/searchdog.png";
+    const GUIDE_DEFAULT_IMG_F = {
+      trading_guide:      "../images/brand/guide-trading.svg",
+      theme_build:        "../images/brand/guide-theme.svg",
+      building_technique: "../images/brand/guide-technique.svg",
+      budget_build:       "../images/brand/guide-budget.svg",
+    };
+    const featuredPhoto = featured.photos?.[0] || GUIDE_DEFAULT_IMG_F[featured.category] || "../images/brand/guide-theme.svg";
 
     featuredSlot.innerHTML = `
       <a class="guide-featured ${catClass}" href="entry.html?id=${featured.id}">
@@ -543,7 +549,13 @@
       .map((g) => {
         const cc = CAT_CLASS[g.category] || "guide-cat-other";
         const cl = GUIDE_CATEGORY_LABELS[g.category] || g.category;
-        const photo = g.photos?.[0] || "../images/brand/searchdog.png";
+        const GUIDE_DEFAULT_IMG = {
+      trading_guide:      "../images/brand/guide-trading.svg",
+      theme_build:        "../images/brand/guide-theme.svg",
+      building_technique: "../images/brand/guide-technique.svg",
+      budget_build:       "../images/brand/guide-budget.svg",
+    };
+    const photo = g.photos?.[0] || GUIDE_DEFAULT_IMG[g.category] || "../images/brand/guide-theme.svg";
         return `
         <a class="guide-card ${cc}" href="entry.html?id=${g.id}">
           <img class="guide-card-img" src="${photo}" alt="${escapeHtml(g.title)}" loading="lazy">

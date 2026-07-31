@@ -1,0 +1,20 @@
+<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a0d"/>
+      <stop offset="100%" style="stop-color:#0d0d05"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="260" fill="url(#bg)"/>
+  <!-- Bucks coin stack -->
+  <ellipse cx="200" cy="185" rx="55" ry="16" fill="#b8860b" opacity="0.6"/>
+  <rect x="145" y="155" width="110" height="30" rx="0" fill="#daa520" opacity="0.5"/>
+  <ellipse cx="200" cy="155" rx="55" ry="16" fill="#ffd700" opacity="0.7"/>
+  <rect x="145" y="125" width="110" height="30" fill="#daa520" opacity="0.6"/>
+  <ellipse cx="200" cy="125" rx="55" ry="16" fill="#ffd700" opacity="0.85"/>
+  <!-- B symbol -->
+  <text x="200" y="133" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="800" fill="#7a5a00">B$</text>
+  <!-- House outline above -->
+  <polygon points="155,115 200,82 245,115" fill="none" stroke="#ffd700" stroke-width="2" opacity="0.5"/>
+  <text x="200" y="235" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#8a7a00" letter-spacing="2">BUDGET BUILD</text>
+</svg>

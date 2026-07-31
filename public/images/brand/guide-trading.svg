@@ -1,0 +1,27 @@
+<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a2a1a"/>
+      <stop offset="100%" style="stop-color:#0d1a0d"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8543a"/>
+      <stop offset="100%" style="stop-color:#c43d24"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="260" fill="url(#bg)"/>
+  <!-- House left -->
+  <rect x="60" y="130" width="80" height="70" rx="4" fill="#2a3a2a" stroke="#3a5a3a" stroke-width="1.5"/>
+  <polygon points="60,130 100,95 140,130" fill="#e8543a" opacity="0.8"/>
+  <rect x="85" y="155" width="30" height="45" rx="3" fill="#1a2a1a"/>
+  <!-- Arrow right -->
+  <path d="M165 165 L195 165 M185 155 L197 165 L185 175" stroke="#e8543a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Arrow left -->
+  <path d="M235 145 L205 145 M215 135 L203 145 L215 155" stroke="#5a9a5a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Pet orb right -->
+  <circle cx="270" cy="155" r="38" fill="#2a3a2a" stroke="#3a5a3a" stroke-width="1.5"/>
+  <circle cx="270" cy="150" r="22" fill="#e8543a" opacity="0.15"/>
+  <text x="270" y="158" text-anchor="middle" font-size="28" fill="#e8543a" opacity="0.9">🐾</text>
+  <!-- Label -->
+  <text x="200" y="230" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#5a9a5a" letter-spacing="2" text-transform="uppercase">TRADING GUIDE</text>
+</svg>
