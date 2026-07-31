@@ -226,11 +226,15 @@ async function handlerImpl(event) {
   }
 
   // ── Write to DB ───────────────────────────────────────────────────────────
+  // Delete all existing computed values then insert fresh
+  const { error: delErr } = await db.from("item_values").delete().eq("source", "computed");
+  if (delErr) return json(500, { error: "Failed to clear old computed values: " + delErr.message });
+
   let written = 0;
   const writeErrors = [];
 
   for (const r of results) {
-    const { error } = await db.from("item_values").upsert({
+    const { error } = await db.from("item_values").insert({
       category: r.category,
       item_id: r.id,
       variant: r.variant,
@@ -241,7 +245,7 @@ async function handlerImpl(event) {
       value_high: r.value_high,
       sample_size: r.sample_size,
       updated_at: new Date().toISOString(),
-    }, { onConflict: "category,item_id,variant,potion,value_unit,source" });
+    });
 
     if (error) writeErrors.push(`${r.id}: ${error.message}`);
     else written++;
