@@ -393,6 +393,16 @@ class QueryBuilder {
 
   // ── Query execution ────────────────────────────────────────────────────────
 
+  // Serialize a value for pg parameterized queries
+  // pg doesn't auto-serialize arrays/objects to JSONB -- we must do it
+  _serialize(val) {
+    if (val === null || val === undefined) return val;
+    if (Array.isArray(val) || (typeof val === 'object' && !(val instanceof Date))) {
+      return JSON.stringify(val);
+    }
+    return val;
+  }
+
   async _execute() {
     const pool = this._pool;
     let sql, params;
@@ -455,21 +465,21 @@ class QueryBuilder {
     } else if (this._op === "insert") {
       const data  = this._insertData;
       const keys  = Object.keys(data);
-      const vals  = keys.map(k => nextPh(data[k]));
+      const vals  = keys.map(k => nextPh(this._serialize(data[k])));
       const ret   = this._returning || this._single || this._maybeSingle ? "RETURNING *" : "";
       sql = `INSERT INTO "${this._table}" (${keys.map(k => `"${k}"`).join(", ")}) VALUES (${vals.join(", ")}) ${ret}`;
 
     } else if (this._op === "update") {
       const data  = this._updateData;
       const keys  = Object.keys(data);
-      const sets  = keys.map(k => `"${k}" = ${nextPh(data[k])}`).join(", ");
+      const sets  = keys.map(k => `"${k}" = ${nextPh(this._serialize(data[k]))}`).join(", ");
       const ret   = this._returning || this._single || this._maybeSingle ? "RETURNING *" : "";
       sql = `UPDATE "${this._table}" SET ${sets} ${where} ${ret}`;
 
     } else if (this._op === "upsert") {
       const data    = this._insertData;
       const keys    = Object.keys(data);
-      const vals    = keys.map(k => nextPh(data[k]));
+      const vals    = keys.map(k => nextPh(this._serialize(data[k])));
       const conflict = this._upsertConflict ? `("${this._upsertConflict}")` : "";
       const updates  = keys.filter(k => k !== this._upsertConflict)
                            .map(k => `"${k}" = EXCLUDED."${k}"`).join(", ");
@@ -488,10 +498,6 @@ class QueryBuilder {
 
   // Make QueryBuilder thenable (await db.from(...).select()...)
   then(resolve, reject) {
-    // Detect chained .select() after insert/update (means RETURNING *)
-    if ((this._op === "insert" || this._op === "update" || this._op === "upsert") && this._select !== "*") {
-      this._returning = true;
-    }
     return this._execute().then(resolve, reject);
   }
 }
@@ -518,20 +524,18 @@ class NeonDB {
 
     qb.insert = (data) => {
       origInsert(data);
-      const origSelect = qb.select.bind(qb);
-      qb.select = (cols, opts) => { qb._returning = true; return origSelect(cols, opts); };
+      // Override select() so it sets _returning WITHOUT resetting _op to "select"
+      qb.select = (cols) => { qb._returning = true; qb._select = cols || "*"; return qb; };
       return qb;
     };
     qb.update = (patch) => {
       origUpdate(patch);
-      const origSelect = qb.select.bind(qb);
-      qb.select = (cols, opts) => { qb._returning = true; return origSelect(cols, opts); };
+      qb.select = (cols) => { qb._returning = true; qb._select = cols || "*"; return qb; };
       return qb;
     };
     qb.upsert = (data, opts) => {
       origUpsert(data, opts);
-      const origSelect = qb.select.bind(qb);
-      qb.select = (cols, opts2) => { qb._returning = true; return origSelect(cols, opts2); };
+      qb.select = (cols) => { qb._returning = true; qb._select = cols || "*"; return qb; };
       return qb;
     };
 
@@ -590,17 +594,26 @@ export async function requireProfile(event) {
     }
   }
 
+  // Use separate queries instead of join to avoid row_to_json issues
   const { data: session } = await db
     .from("sessions")
-    .select("profile_id, profiles(*)")
+    .select("profile_id")
     .eq("token_hash", tokenHash)
     .maybeSingle();
 
-  if (!session?.profiles) return null;
+  if (!session?.profile_id) return null;
+
+  const { data: profileData } = await db
+    .from("profiles")
+    .select("*")
+    .eq("id", session.profile_id)
+    .maybeSingle();
+
+  if (!profileData) return null;
 
   if (redis) {
     try {
-      await redis.set(cacheKey, JSON.stringify(session.profiles), { ex: 300 });
+      await redis.set(cacheKey, JSON.stringify(profileData), { ex: 300 });
     } catch (err) {
       console.warn("Session cache write failed (non-fatal):", err.message);
     }
@@ -611,7 +624,7 @@ export async function requireProfile(event) {
     .eq("token_hash", tokenHash)
     .then(() => {});
 
-  return session.profiles;
+  return profileData;
 }
 
 export function requireAdmin(event) {

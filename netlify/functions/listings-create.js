@@ -191,7 +191,7 @@ async function handlerImpl(event) {
 
   if (error) {
     console.error(error);
-    return json(500, { error: "Couldn't create listing" });
+    return json(500, { error: `Couldn't create listing: ${error.message || JSON.stringify(error)}` });
   }
 
   await invalidate("listings:list:");
