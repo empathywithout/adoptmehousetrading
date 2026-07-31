@@ -9,8 +9,8 @@ import { supabaseAdmin, requireAdmin, json, safeHandler } from "./_lib/supabase.
 const ANCHOR = { id: "ride-a-pet-potion", category: "potions", variant: null, potion: null };
 const ANCHOR_RP = 1.0;
 
-const ITERATIONS = 100;
-const CONVERGENCE_THRESHOLD = 0.0001;
+const ITERATIONS = 500;
+const CONVERGENCE_THRESHOLD = 0.001;
 
 // Confidence weights
 const CONF_WEIGHT = { high: 1.0, medium: 0.7, low: 0.4 };
@@ -77,9 +77,29 @@ async function handlerImpl(event) {
     }
   }
 
-  // Initialize values: anchor = 1.0, everything else = 10.0 (neutral starting guess)
+  // Initialize values from anchor trades first -- find all single-item-vs-ride-pot trades
+  // to bootstrap scale, then fill the rest with 10.0
   const values = {};
   for (const k of allKeys) values[k] = k === anchorKey ? ANCHOR_RP : 10.0;
+
+  // Bootstrap pass: for any trade where one side is ONLY ride pots,
+  // directly set the other side's implied value
+  for (const r of trades) {
+    const sideA = parseItems(r.side_a);
+    const sideB = parseItems(r.side_b);
+    const aIsOnlyAnchor = sideA.every(it => it.key === anchorKey);
+    const bIsOnlyAnchor = sideB.every(it => it.key === anchorKey);
+
+    if (aIsOnlyAnchor && sideB.length === 1) {
+      const totalAnchor = sideA.reduce((s, it) => s + it.qty, 0);
+      const it = sideB[0];
+      values[it.key] = totalAnchor / it.qty;
+    } else if (bIsOnlyAnchor && sideA.length === 1) {
+      const totalAnchor = sideB.reduce((s, it) => s + it.qty, 0);
+      const it = sideA[0];
+      values[it.key] = totalAnchor / it.qty;
+    }
+  }
 
   // ── Build trade constraints ───────────────────────────────────────────────
   // Each trade is: sum(qty * value[item]) side_a == sum(qty * value[item]) side_b
@@ -146,7 +166,7 @@ async function handlerImpl(event) {
       if (totalWeight > 0) {
         const estimate = weightedSum / totalWeight;
         // Dampen updates to avoid oscillation: 70% new estimate, 30% old
-        newValues[key] = 0.7 * estimate + 0.3 * values[key];
+        newValues[key] = 0.85 * estimate + 0.15 * values[key];
         maxDelta = Math.max(maxDelta, Math.abs(newValues[key] - values[key]));
       }
     }
