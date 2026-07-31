@@ -858,7 +858,7 @@
     btn.disabled = true;
     btn.textContent = "Running...";
     try {
-      const res = await fetch("/.netlify/functions/admin-solve-values?exclude_fake=true", { headers: { "X-Admin-Password": pw } });
+      const res = await fetch("/.netlify/functions/admin-solve-values?exclude_fake=false", { headers: { "X-Admin-Password": pw } });
       const data = await res.json();
       if (!res.ok) { alert(data.error || "Solver failed"); return; }
       alert("Solver complete: " + data.written + " values written (" + data.items_solved + " items, " + data.iterations + " iterations)");
