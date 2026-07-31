@@ -152,8 +152,8 @@
       </div>
     </nav>
     <div class="nav-actions">
-      <a href="profile.html" id="nav-profile-link" hidden class="btn btn-ghost btn-sm">Profile</a>
-      <a href="profile.html" id="nav-sign-in" class="btn btn-primary btn-sm">Sign In</a>
+      <span id="nav-profile-pill"></span>
+      <a href="profile.html" class="btn btn-primary btn-sm" id="nav-sign-in-btn" style="display:none;">Sign In</a>
     </div>
   </div>
 </header>
@@ -359,6 +359,7 @@
   </div>
 </footer>
 
+<script src="js/nav.js"></script>
 <script type="module">
 import { api, getStoredProfile } from "./js/api.js";
 
@@ -372,6 +373,11 @@ function escapeHtml(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&l
 
 // ── Auth check — always fetch fresh from server ───────────────────────────
 const stored = getStoredProfile();
+// Show sign in button if not logged in
+if (!localStorage.getItem("amht_token")) {
+  document.getElementById("nav-sign-in-btn").style.display = "";
+}
+
 if (!stored) {
   document.getElementById("not-signed-in").hidden = false;
 } else {
