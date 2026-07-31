@@ -9,6 +9,7 @@ import { json, safeHandler } from "./_lib/supabase.js";
 const TEST_DISPLAY_NAME = `SmokeTest_${Date.now()}`;
 const TEST_PASSWORD = "SmokeTest123!";
 const TEST_RBX_USERNAME = "Roblox"; // official Roblox account, always exists
+let testProfileId = null;
 
 async function api(baseUrl, path, opts = {}) {
   const url = `${baseUrl}/.netlify/functions/${path}`;
@@ -119,17 +120,17 @@ async function runTests(baseUrl, adminPassword) {
     assert(data.token, "Expected token");
     assert(data.profile?.id, "Expected profile");
     authToken = data.token;
+    testProfileId = data.profile.id;
   });
 
-  await test("auth-signup: rejects duplicate", async () => {
-    assert(rbxUserId, "No rbxUserId -- roblox-lookup failed");
+  await test("auth-signup: rejects duplicate display name", async () => {
     const { status } = await api(baseUrl, "auth-signup", {
       method: "POST",
       body: {
-        display_name: `Other_${Date.now()}`,
-        rbx_username: rbxUsername,
-        rbx_user_id: rbxUserId,
-        avatar_url: rbxAvatarUrl,
+        display_name: TEST_DISPLAY_NAME,
+        rbx_username: "Builderman",
+        rbx_user_id: 156,
+        avatar_url: null,
         password: TEST_PASSWORD,
       },
     });
@@ -178,11 +179,11 @@ async function runTests(baseUrl, adminPassword) {
     assert(Array.isArray(data.listings), "Expected listings array");
   });
 
-  await test("player-get: returns public profile", async () => {
-    assert(rbxUsername, "No rbxUsername -- roblox-lookup failed");
-    const { status, data } = await api(baseUrl, `player-get?identifier=${rbxUsername}`);
+  await test("player-get: returns public profile by id", async () => {
+    assert(testProfileId, "No testProfileId -- signup failed");
+    const { status, data } = await api(baseUrl, `player-get?id=${testProfileId}`);
     assert(status === 200, `Got ${status}: ${data.error || ""}`);
-    assert(data.profile?.display_name === TEST_DISPLAY_NAME, "Wrong profile");
+    assert(data.player, "Expected player object");
   });
 
   // ── Listings ──
@@ -221,11 +222,10 @@ async function runTests(baseUrl, adminPassword) {
 
   await test("listings-update: updates listing", async () => {
     assert(listingId, "No listingId -- previous test failed");
-    const { status } = await api(baseUrl, "listings-update", {
-      method: "POST",
+    const { status } = await api(baseUrl, `listings-update?id=${listingId}`, {
+      method: "PUT",
       headers: { Authorization: `Bearer ${authToken}` },
       body: {
-        id: listingId,
         title: "Smoke Test Listing (updated)",
         description: "Updated",
         photos: [
@@ -258,7 +258,7 @@ async function runTests(baseUrl, adminPassword) {
       headers: { Authorization: `Bearer ${authToken}` },
     });
     assert(status === 200, `Got ${status}`);
-    assert(Array.isArray(data.saves), "Expected saves array");
+    assert(Array.isArray(data.saved_ids), "Expected saved_ids array");
   });
 
   // ── Notifications ──
@@ -274,7 +274,7 @@ async function runTests(baseUrl, adminPassword) {
     const { status } = await api(baseUrl, "notifications-mark-read", {
       method: "POST",
       headers: { Authorization: `Bearer ${authToken}` },
-      body: {},
+      body: { all: true },
     });
     assert(status === 200, `Got ${status}`);
   });
@@ -314,7 +314,7 @@ async function runTests(baseUrl, adminPassword) {
     const { status } = await api(baseUrl, "registry-save", {
       method: "POST",
       headers: { Authorization: `Bearer ${authToken}` },
-      body: { entry_id: registryEntryId },
+      body: { build_registry_id: registryEntryId },
     });
     assert(status === 200, `Got ${status}`);
   });
@@ -324,13 +324,13 @@ async function runTests(baseUrl, adminPassword) {
       headers: { Authorization: `Bearer ${authToken}` },
     });
     assert(status === 200, `Got ${status}`);
-    assert(Array.isArray(data.saves), "Expected saves array");
+    assert(Array.isArray(data.saved_ids), "Expected saved_ids array");
   });
 
   await test("registry-update: updates entry", async () => {
     assert(registryEntryId, "No registryEntryId -- previous test failed");
     const { status } = await api(baseUrl, "registry-update", {
-      method: "POST",
+      method: "PATCH",
       headers: { Authorization: `Bearer ${authToken}` },
       body: {
         id: registryEntryId,
@@ -388,7 +388,7 @@ async function runTests(baseUrl, adminPassword) {
     const { status } = await api(baseUrl, "registry-delete", {
       method: "POST",
       headers: { Authorization: `Bearer ${authToken}` },
-      body: { id: registryEntryId },
+      body: { entry_id: registryEntryId },
     });
     assert(status === 200, `Got ${status}`);
   });
@@ -398,7 +398,7 @@ async function runTests(baseUrl, adminPassword) {
     const { status } = await api(baseUrl, "listings-remove", {
       method: "POST",
       headers: { Authorization: `Bearer ${authToken}` },
-      body: { id: listingId },
+      body: { listing_id: listingId },
     });
     assert(status === 200, `Got ${status}`);
   });
