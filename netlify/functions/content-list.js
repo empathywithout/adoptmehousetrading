@@ -10,7 +10,7 @@ async function handlerImpl(event) {
 
   let query = db
     .from("content_submissions")
-    .select("id, category, title, created_at, published_at, profile_id, profiles(display_name, rbx_avatar_url)")
+    .select("id, category, title, photos, created_at, published_at, profile_id, profiles(display_name, rbx_avatar_url)")
     .eq("status", "approved")
     .order("published_at", { ascending: false })
     .limit(parseInt(limit) || 6);

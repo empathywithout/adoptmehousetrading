@@ -472,7 +472,7 @@
   try {
     const res = await fetch("/.netlify/functions/content-list");
     const data = await res.json();
-    guides = data.submissions || [];
+    guides = data.guides || data.submissions || [];
   } catch {
     guides = [];
   }
