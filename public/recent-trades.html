@@ -145,45 +145,56 @@
         const buyer = trade.offers?.profiles?.display_name || "unknown";
 
         return `
-        <div class="trade-card" style="cursor:pointer;" data-trade-id="${trade.id}">
-          <div class="trade-head">
-            <span class="verified-badge">Verified</span>
-            <span class="trade-time">${timeAgo(trade.created_at)}</span>
-          </div>
-          <div class="trade-swap">
-            <div class="side">
-              ${(() => {
-                const coverPhoto = listing?.photos?.[0];
-                const fallbackImg = house?.image;
-                return coverPhoto
-                  ? `<img src="${coverPhoto}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">`
-                  : fallbackImg
-                    ? `<img src="${fallbackImg}" alt="" loading="lazy">`
-                    : `<div class="placeholder">house</div>`;
-              })()}
-              <div class="label">${house ? escapeHtml(house.name) : listing?.title ? escapeHtml(listing.title) : "Unknown house"}</div>
+        <div class="trade-card" style="cursor:pointer;padding:0;overflow:hidden;" data-trade-id="${trade.id}">
+          <!-- Cover photo -->
+          <div style="position:relative;width:100%;height:160px;background:#111;overflow:hidden;">
+            ${(() => {
+              const coverPhoto = listing?.photos?.[0];
+              const fallbackImg = house?.image;
+              return coverPhoto
+                ? `<img src="${coverPhoto}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;">`
+                : fallbackImg
+                  ? `<img src="${fallbackImg}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;">`
+                  : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:48px;">🏠</div>`;
+            })()}
+            <div style="position:absolute;top:8px;left:8px;">
+              <span class="verified-badge">Verified</span>
             </div>
-            <div class="swap-arrow"></div>
-            <div class="side">
-              <div class="placeholder">${escapeHtml(itemsSummary)}</div>
-              <div class="label">${items.length} item${items.length === 1 ? "" : "s"}</div>
-            </div>
+            <div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.55);border-radius:6px;padding:3px 7px;font-size:10px;color:rgba(255,255,255,0.8);font-weight:600;">${timeAgo(trade.created_at)}</div>
           </div>
-          <div style="border-top:1px solid var(--line);padding-top:10px;display:flex;flex-direction:column;gap:8px;">
-            <a class="trust-row" style="margin-bottom:0;text-decoration:none;color:inherit;" href="player.html?id=${listing?.profile_id || ""}">
-              ${listing?.profiles?.rbx_avatar_url ? `<img class="trust-row-avatar" src="${listing.profiles.rbx_avatar_url}" alt="">` : `<span class="avatar-initial">${escapeHtml(seller[0]?.toUpperCase() || "?")}</span>`}
-              <span class="username">${escapeHtml(seller)}</span>
-              <span class="online-dot"></span>
-              <span style="font-size:10.5px;color:var(--muted);">lister</span>
-            </a>
-            <a class="trust-row" style="margin-bottom:0;text-decoration:none;color:inherit;" href="player.html?id=${trade.offers?.offering_profile_id || ""}">
-              ${trade.offers?.profiles?.rbx_avatar_url ? `<img class="trust-row-avatar" src="${trade.offers.profiles.rbx_avatar_url}" alt="">` : `<span class="avatar-initial">${escapeHtml(buyer[0]?.toUpperCase() || "?")}</span>`}
-              <span class="username">${escapeHtml(buyer)}</span>
-              <span class="online-dot"></span>
-              <span style="font-size:10.5px;color:var(--muted);">offerer</span>
-            </a>
+          <!-- Card body -->
+          <div style="padding:12px 14px;">
+            <div style="font-size:14px;font-weight:800;color:var(--ink);margin-bottom:8px;">${house ? escapeHtml(house.name) : listing?.title ? escapeHtml(listing.title) : "Unknown house"}</div>
+            <!-- Pet chips -->
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;">
+              ${items.slice(0, 4).map(it => {
+                const pet = itemByName[it.name?.toLowerCase()] || itemByName[it.name?.toLowerCase().replace(/-/g, " ")] || itemById[it.id];
+                const fallbackIcon = it.category === "potions" ? "🧪" : it.category === "eggs" ? "🥚" : "🐾";
+                const img = pet?.image
+                  ? `<img src="${pet.image}" alt="" style="width:22px;height:22px;object-fit:contain;">`
+                  : `<span style="font-size:14px;">${fallbackIcon}</span>`;
+                const prefix = petPrefix(it);
+                const qty = it.qty && it.qty > 1 ? `<span style="font-size:9px;font-weight:700;color:var(--sign-red);">×${it.qty}</span>` : "";
+                return `<div style="display:flex;align-items:center;gap:4px;background:var(--surface-2);border-radius:6px;padding:3px 7px;font-size:10.5px;color:var(--ink);font-weight:600;">${img}${escapeHtml(prefix + it.name)}${qty}</div>`;
+              }).join("")}
+              ${items.length > 4 ? `<div style="background:var(--surface-2);border-radius:6px;padding:3px 7px;font-size:10.5px;color:var(--muted);font-weight:600;">+${items.length - 4} more</div>` : ""}
+            </div>
+            <!-- Lister/offerer -->
+            <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:8px;">
+              <div style="display:flex;align-items:center;gap:5px;">
+                ${listing?.profiles?.rbx_avatar_url ? `<img src="${listing.profiles.rbx_avatar_url}" style="width:20px;height:20px;border-radius:50%;object-fit:cover;">` : `<span class="avatar-initial" style="width:20px;height:20px;font-size:9px;">${escapeHtml(seller[0]?.toUpperCase() || "?")}</span>`}
+                <span style="font-size:11px;font-weight:600;color:var(--ink);">${escapeHtml(seller)}</span>
+                <span style="font-size:10px;color:var(--muted);">lister</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:5px;">
+                ${trade.offers?.profiles?.rbx_avatar_url ? `<img src="${trade.offers.profiles.rbx_avatar_url}" style="width:20px;height:20px;border-radius:50%;object-fit:cover;">` : `<span class="avatar-initial" style="width:20px;height:20px;font-size:9px;">${escapeHtml(buyer[0]?.toUpperCase() || "?")}</span>`}
+                <span style="font-size:11px;font-weight:600;color:var(--ink);">${escapeHtml(buyer)}</span>
+                <span style="font-size:10px;color:var(--muted);">offerer</span>
+              </div>
+            </div>
           </div>
         </div>`;
+              <span class="username">${escapeHtml(buyer)}</span>
       })
       .join("");
   }
