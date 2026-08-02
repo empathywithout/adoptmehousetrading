@@ -20,10 +20,10 @@
     "valueUnit": null
   },
   {
-    "id": "2022-birthday-cake-ultra",
+    "id": "2022-birthday-cake",
     "category": "pet_wear",
-    "name": "2022 Birthday Cake Ultra",
-    "rarity": "Rare",
+    "name": "2022 Birthday Cake",
+    "rarity": "Ultra Rare",
     "source": "Adopt Me 5th Birthday",
     "image": "/images/pet_wear/2022-Birthday-Cake-Ultra-Rare-from-Adopt-Me-5th-Birthday.png",
     "value": null,
@@ -50,10 +50,10 @@
     "valueUnit": null
   },
   {
-    "id": "2022-birthday-cupcake-shoes-ultra",
+    "id": "2022-birthday-cupcake-shoes",
     "category": "pet_wear",
-    "name": "2022 Birthday Cupcake Shoes Ultra",
-    "rarity": "Rare",
+    "name": "2022 Birthday Cupcake Shoes",
+    "rarity": "Ultra Rare",
     "source": "Adopt Me 5th Birthday",
     "image": "/images/pet_wear/2022-Birthday-Cupcake-Shoes-Ultra-Rare-from-Adopt-Me-5th-Birthday.png",
     "value": null,
@@ -170,10 +170,10 @@
     "valueUnit": null
   },
   {
-    "id": "adventurer-s-sword-ultra",
+    "id": "adventurer-s-sword",
     "category": "pet_wear",
-    "name": "Adventurer's Sword Ultra",
-    "rarity": "Rare",
+    "name": "Adventurer's Sword",
+    "rarity": "Ultra Rare",
     "source": "Robux (Hat Shop)",
     "image": "/images/pet_wear/Adventurer's-Sword-Ultra-Rare-from-Robux-(Hat-Shop).png",
     "value": null,
@@ -260,10 +260,10 @@
     "valueUnit": null
   },
   {
-    "id": "angry-eyebrows-ultra",
+    "id": "angry-eyebrows",
     "category": "pet_wear",
-    "name": "Angry Eyebrows Ultra",
-    "rarity": "Rare",
+    "name": "Angry Eyebrows",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Angry-Eyebrows-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -280,10 +280,10 @@
     "valueUnit": null
   },
   {
-    "id": "ar-headset-ultra",
+    "id": "ar-headset",
     "category": "pet_wear",
-    "name": "AR Headset Ultra",
-    "rarity": "Rare",
+    "name": "AR Headset",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/AR-Headset-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -310,10 +310,10 @@
     "valueUnit": null
   },
   {
-    "id": "aviator-hat-ultra",
+    "id": "aviator-hat",
     "category": "pet_wear",
-    "name": "Aviator Hat Ultra",
-    "rarity": "Rare",
+    "name": "Aviator Hat",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Aviator-Hat-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -330,20 +330,20 @@
     "valueUnit": null
   },
   {
-    "id": "aztec-crown-ultra",
+    "id": "aztec-crown",
     "category": "pet_wear",
-    "name": "Aztec Crown Ultra",
-    "rarity": "Rare",
+    "name": "Aztec Crown",
+    "rarity": "Ultra Rare",
     "source": "Aztec Temple Trek Event",
     "image": "/images/pet_wear/Aztec-Crown-Ultra-Rare-from-Aztec-Temple-Trek-Event.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "aztec-mask-ultra",
+    "id": "aztec-mask",
     "category": "pet_wear",
-    "name": "Aztec Mask Ultra",
-    "rarity": "Rare",
+    "name": "Aztec Mask",
+    "rarity": "Ultra Rare",
     "source": "Aztec Temple Trek Event",
     "image": "/images/pet_wear/Aztec-Mask-Ultra-Rare-from-Aztec-Temple-Trek-Event.png",
     "value": null,
@@ -430,20 +430,20 @@
     "valueUnit": null
   },
   {
-    "id": "banana-hat-ultra",
+    "id": "banana-hat",
     "category": "pet_wear",
-    "name": "Banana Hat Ultra",
-    "rarity": "Rare",
+    "name": "Banana Hat",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Banana-Hat-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "bat-backpack-ultra",
+    "id": "bat-backpack",
     "category": "pet_wear",
-    "name": "Bat Backpack Ultra",
-    "rarity": "Rare",
+    "name": "Bat Backpack",
+    "rarity": "Ultra Rare",
     "source": "Halloween 2022",
     "image": "/images/pet_wear/Bat-Backpack-Ultra-Rare-from-Halloween-2022.png",
     "value": null,
@@ -460,10 +460,10 @@
     "valueUnit": null
   },
   {
-    "id": "bat-wings-ultra",
+    "id": "bat-wings",
     "category": "pet_wear",
-    "name": "Bat Wings Ultra",
-    "rarity": "Rare",
+    "name": "Bat Wings",
+    "rarity": "Ultra Rare",
     "source": "Hat Shop",
     "image": "/images/pet_wear/Bat-Wings-Ultra-Rare-from-Hat-Shop.png",
     "value": null,
@@ -580,10 +580,10 @@
     "valueUnit": null
   },
   {
-    "id": "bee-wings-ultra",
+    "id": "bee-wings",
     "category": "pet_wear",
-    "name": "Bee Wings Ultra",
-    "rarity": "Rare",
+    "name": "Bee Wings",
+    "rarity": "Ultra Rare",
     "source": "Hat Shop",
     "image": "/images/pet_wear/Bee-Wings-Ultra-Rare-from-Hat-Shop.png",
     "value": null,
@@ -600,10 +600,10 @@
     "valueUnit": null
   },
   {
-    "id": "bell-flower-hat-ultra",
+    "id": "bell-flower-hat",
     "category": "pet_wear",
-    "name": "Bell Flower Hat Ultra",
-    "rarity": "Rare",
+    "name": "Bell Flower Hat",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Bell-Flower-Hat-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -650,10 +650,10 @@
     "valueUnit": null
   },
   {
-    "id": "bionic-arms-ultra",
+    "id": "bionic-arms",
     "category": "pet_wear",
-    "name": "Bionic Arms Ultra",
-    "rarity": "Rare",
+    "name": "Bionic Arms",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Bionic-Arms-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -720,10 +720,10 @@
     "valueUnit": null
   },
   {
-    "id": "black-designer-backpack-ultra",
+    "id": "black-designer-backpack",
     "category": "pet_wear",
-    "name": "Black Designer Backpack Ultra",
-    "rarity": "Rare",
+    "name": "Black Designer Backpack",
+    "rarity": "Ultra Rare",
     "source": "Hat Shop",
     "image": "/images/pet_wear/Black-Designer-Backpack-Ultra-Rare-from-Hat-Shop.png",
     "value": null,
@@ -750,10 +750,10 @@
     "valueUnit": null
   },
   {
-    "id": "black-hightops-ultra",
+    "id": "black-hightops",
     "category": "pet_wear",
-    "name": "Black Hightops Ultra",
-    "rarity": "Rare",
+    "name": "Black Hightops",
+    "rarity": "Ultra Rare",
     "source": "Hat Shop",
     "image": "/images/pet_wear/Black-Hightops-Ultra-Rare-from-Hat-Shop.png",
     "value": null,
@@ -800,20 +800,20 @@
     "valueUnit": null
   },
   {
-    "id": "blue-butterfly-wings-ultra",
+    "id": "blue-butterfly-wings",
     "category": "pet_wear",
-    "name": "Blue Butterfly Wings Ultra",
-    "rarity": "Rare",
+    "name": "Blue Butterfly Wings",
+    "rarity": "Ultra Rare",
     "source": "Hat Shop",
     "image": "/images/pet_wear/Blue-Butterfly-Wings-Ultra-Rare-from-Hat-Shop.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "blue-cat-ear-headphones-ultra",
+    "id": "blue-cat-ear-headphones",
     "category": "pet_wear",
-    "name": "Blue Cat Ear Headphones Ultra",
-    "rarity": "Rare",
+    "name": "Blue Cat Ear Headphones",
+    "rarity": "Ultra Rare",
     "source": "Hat Shop",
     "image": "/images/pet_wear/Blue-Cat-Ear-Headphones-Ultra-Rare-from-Hat-Shop.png",
     "value": null,
@@ -880,10 +880,10 @@
     "valueUnit": null
   },
   {
-    "id": "bow-tie-ultra",
+    "id": "bow-tie",
     "category": "pet_wear",
-    "name": "Bow Tie Ultra",
-    "rarity": "Rare",
+    "name": "Bow Tie",
+    "rarity": "Ultra Rare",
     "source": "Albino Gorilla",
     "image": "/images/pet_wear/Bow-Tie-Ultra-Rare-from-Albino-Gorilla.png",
     "value": null,
@@ -1370,20 +1370,20 @@
     "valueUnit": null
   },
   {
-    "id": "cat-backpack-ultra",
+    "id": "cat-backpack",
     "category": "pet_wear",
-    "name": "Cat Backpack Ultra",
-    "rarity": "Rare",
+    "name": "Cat Backpack",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Cat-Backpack-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "cat-hood-ultra",
+    "id": "cat-hood",
     "category": "pet_wear",
-    "name": "Cat Hood Ultra",
-    "rarity": "Rare",
+    "name": "Cat Hood",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Cat-Hood-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -1440,10 +1440,10 @@
     "valueUnit": null
   },
   {
-    "id": "chef-hat-from-chef-gorilla-ultra",
+    "id": "chef-hat-from-chef-gorilla",
     "category": "pet_wear",
-    "name": "Chef Hat from Chef Gorilla Ultra",
-    "rarity": "Rare",
+    "name": "Chef Hat from Chef Gorilla",
+    "rarity": "Ultra Rare",
     "source": "Chef Gorilla",
     "image": "/images/pet_wear/Chef-Hat-from-Chef-Gorilla-Ultra-Rare-from-Chef-Gorilla.png",
     "value": null,
@@ -1490,10 +1490,10 @@
     "valueUnit": null
   },
   {
-    "id": "chest-monster-ultra",
+    "id": "chest-monster",
     "category": "pet_wear",
-    "name": "Chest Monster Ultra",
-    "rarity": "Rare",
+    "name": "Chest Monster",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Chest-Monster-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -1560,10 +1560,10 @@
     "valueUnit": null
   },
   {
-    "id": "christmas-boots-ultra",
+    "id": "christmas-boots",
     "category": "pet_wear",
-    "name": "Christmas Boots Ultra",
-    "rarity": "Rare",
+    "name": "Christmas Boots",
+    "rarity": "Ultra Rare",
     "source": "Winter 2023 (Advent Calendar)",
     "image": "/images/pet_wear/Christmas-Boots-Ultra-Rare-from-Winter-2023-(Advent-Calendar).png",
     "value": null,
@@ -1610,10 +1610,10 @@
     "valueUnit": null
   },
   {
-    "id": "clan-banner-ultra",
+    "id": "clan-banner",
     "category": "pet_wear",
-    "name": "Clan Banner Ultra",
-    "rarity": "Rare",
+    "name": "Clan Banner",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Clan-Banner-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -1640,20 +1640,20 @@
     "valueUnit": null
   },
   {
-    "id": "clockwork-wings-ultra",
+    "id": "clockwork-wings",
     "category": "pet_wear",
-    "name": "Clockwork Wings Ultra",
-    "rarity": "Rare",
+    "name": "Clockwork Wings",
+    "rarity": "Ultra Rare",
     "source": "Regal Wing Chest",
     "image": "/images/pet_wear/Clockwork-Wings-Ultra-Rare-from-Regal-Wing-Chest.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "cloud-wings-ultra",
+    "id": "cloud-wings",
     "category": "pet_wear",
-    "name": "Cloud Wings Ultra",
-    "rarity": "Rare",
+    "name": "Cloud Wings",
+    "rarity": "Ultra Rare",
     "source": "Regal Wing Chest",
     "image": "/images/pet_wear/Cloud-Wings-Ultra-Rare-from-Regal-Wing-Chest.png",
     "value": null,
@@ -1680,10 +1680,10 @@
     "valueUnit": null
   },
   {
-    "id": "clubtail-dragonfly-wings-ultra",
+    "id": "clubtail-dragonfly-wings",
     "category": "pet_wear",
-    "name": "Clubtail Dragonfly Wings Ultra",
-    "rarity": "Rare",
+    "name": "Clubtail Dragonfly Wings",
+    "rarity": "Ultra Rare",
     "source": "Summer Camp 2026",
     "image": "/images/pet_wear/Clubtail-Dragonfly-Wings-Ultra-Rare-from-Summer-Camp-2026.png",
     "value": null,
@@ -1700,10 +1700,10 @@
     "valueUnit": null
   },
   {
-    "id": "cocoadile-hat-ultra",
+    "id": "cocoadile-hat",
     "category": "pet_wear",
-    "name": "Cocoadile Hat Ultra",
-    "rarity": "Rare",
+    "name": "Cocoadile Hat",
+    "rarity": "Ultra Rare",
     "source": "Sugar Festival 2026",
     "image": "/images/pet_wear/Cocoadile-Hat-Ultra-Rare-from-Sugar-Festival-2026.png",
     "value": null,
@@ -1740,10 +1740,10 @@
     "valueUnit": null
   },
   {
-    "id": "constellation-cape-ultra",
+    "id": "constellation-cape",
     "category": "pet_wear",
-    "name": "Constellation Cape Ultra",
-    "rarity": "Rare",
+    "name": "Constellation Cape",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Constellation-Cape-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -1800,10 +1800,10 @@
     "valueUnit": null
   },
   {
-    "id": "cosy-snow-hat-ultra",
+    "id": "cosy-snow-hat",
     "category": "pet_wear",
-    "name": "Cosy Snow Hat Ultra",
-    "rarity": "Rare",
+    "name": "Cosy Snow Hat",
+    "rarity": "Ultra Rare",
     "source": "Snow Weather Update",
     "image": "/images/pet_wear/Cosy-Snow-Hat-Ultra-Rare-from-Snow-Weather-Update.png",
     "value": null,
@@ -1820,10 +1820,10 @@
     "valueUnit": null
   },
   {
-    "id": "cotton-candy-hat-ultra",
+    "id": "cotton-candy-hat",
     "category": "pet_wear",
-    "name": "Cotton Candy Hat Ultra",
-    "rarity": "Rare",
+    "name": "Cotton Candy Hat",
+    "rarity": "Ultra Rare",
     "source": "Summer State Fair 2024",
     "image": "/images/pet_wear/Cotton-Candy-Hat-Ultra-Rare-from-Summer-State-Fair-2024.png",
     "value": null,
@@ -1860,10 +1860,10 @@
     "valueUnit": null
   },
   {
-    "id": "cowboy-saddle-ultra",
+    "id": "cowboy-saddle",
     "category": "pet_wear",
-    "name": "Cowboy Saddle Ultra",
-    "rarity": "Rare",
+    "name": "Cowboy Saddle",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Cowboy-Saddle-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -1920,10 +1920,10 @@
     "valueUnit": null
   },
   {
-    "id": "culinary-wizard-hat-ultra",
+    "id": "culinary-wizard-hat",
     "category": "pet_wear",
-    "name": "Culinary Wizard Hat Ultra",
-    "rarity": "Rare",
+    "name": "Culinary Wizard Hat",
+    "rarity": "Ultra Rare",
     "source": "Potions Update 2026",
     "image": "/images/pet_wear/Culinary-Wizard-Hat-Ultra-Rare-from-Potions-Update-2026.png",
     "value": null,
@@ -1940,20 +1940,20 @@
     "valueUnit": null
   },
   {
-    "id": "cupcake-sprinkle-wings-ultra",
+    "id": "cupcake-sprinkle-wings",
     "category": "pet_wear",
-    "name": "Cupcake Sprinkle Wings Ultra",
-    "rarity": "Rare",
+    "name": "Cupcake Sprinkle Wings",
+    "rarity": "Ultra Rare",
     "source": "Easter 2024",
     "image": "/images/pet_wear/Cupcake-Sprinkle-Wings-Ultra-Rare-from-Easter-2024.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "curved-bow-ultra",
+    "id": "curved-bow",
     "category": "pet_wear",
-    "name": "Curved Bow Ultra",
-    "rarity": "Rare",
+    "name": "Curved Bow",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Curved-Bow-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -2060,10 +2060,10 @@
     "valueUnit": null
   },
   {
-    "id": "death-cloak-ultra",
+    "id": "death-cloak",
     "category": "pet_wear",
-    "name": "Death Cloak Ultra",
-    "rarity": "Rare",
+    "name": "Death Cloak",
+    "rarity": "Ultra Rare",
     "source": "Halloween 2023",
     "image": "/images/pet_wear/Death-Cloak-Ultra-Rare-from-Halloween-2023.png",
     "value": null,
@@ -2120,10 +2120,10 @@
     "valueUnit": null
   },
   {
-    "id": "diamond-glasses-ultra",
+    "id": "diamond-glasses",
     "category": "pet_wear",
-    "name": "Diamond Glasses Ultra",
-    "rarity": "Rare",
+    "name": "Diamond Glasses",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Diamond-Glasses-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -2160,10 +2160,10 @@
     "valueUnit": null
   },
   {
-    "id": "dog-backpack-ultra",
+    "id": "dog-backpack",
     "category": "pet_wear",
-    "name": "Dog Backpack Ultra",
-    "rarity": "Rare",
+    "name": "Dog Backpack",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Dog-Backpack-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -2260,10 +2260,10 @@
     "valueUnit": null
   },
   {
-    "id": "duck-floatie-ultra",
+    "id": "duck-floatie",
     "category": "pet_wear",
-    "name": "Duck Floatie Ultra",
-    "rarity": "Rare",
+    "name": "Duck Floatie",
+    "rarity": "Ultra Rare",
     "source": "Summer Festival 2023",
     "image": "/images/pet_wear/Duck-Floatie-Ultra-Rare-from-Summer-Festival-2023.png",
     "value": null,
@@ -2280,10 +2280,10 @@
     "valueUnit": null
   },
   {
-    "id": "dumpling-friend-hat-ultra",
+    "id": "dumpling-friend-hat",
     "category": "pet_wear",
-    "name": "Dumpling Friend Hat Ultra",
-    "rarity": "Rare",
+    "name": "Dumpling Friend Hat",
+    "rarity": "Ultra Rare",
     "source": "Lunar New Year 2023",
     "image": "/images/pet_wear/Dumpling-Friend-Hat-Ultra-Rare-from-Lunar-New-Year-2023.png",
     "value": null,
@@ -2380,20 +2380,20 @@
     "valueUnit": null
   },
   {
-    "id": "eco-brown-branch-headphones-ultra",
+    "id": "eco-brown-branch-headphones",
     "category": "pet_wear",
-    "name": "Eco Brown Branch Headphones Ultra",
-    "rarity": "Rare",
+    "name": "Eco Brown Branch Headphones",
+    "rarity": "Ultra Rare",
     "source": "Hat Shop",
     "image": "/images/pet_wear/Eco-Brown-Branch-Headphones-Ultra-Rare-from-Hat-Shop.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "eco-brown-earth-wizard-hat-ultra",
+    "id": "eco-brown-earth-wizard-hat",
     "category": "pet_wear",
-    "name": "Eco Brown Earth Wizard Hat Ultra",
-    "rarity": "Rare",
+    "name": "Eco Brown Earth Wizard Hat",
+    "rarity": "Ultra Rare",
     "source": "Hat Shop",
     "image": "/images/pet_wear/Eco-Brown-Earth-Wizard-Hat-Ultra-Rare-from-Hat-Shop.png",
     "value": null,
@@ -2510,10 +2510,10 @@
     "valueUnit": null
   },
   {
-    "id": "eco-orange-maple-cape-ultra",
+    "id": "eco-orange-maple-cape",
     "category": "pet_wear",
-    "name": "Eco Orange Maple Cape Ultra",
-    "rarity": "Rare",
+    "name": "Eco Orange Maple Cape",
+    "rarity": "Ultra Rare",
     "source": "Hat Shop",
     "image": "/images/pet_wear/Eco-Orange-Maple-Cape-Ultra-Rare-from-Hat-Shop.png",
     "value": null,
@@ -2570,10 +2570,10 @@
     "valueUnit": null
   },
   {
-    "id": "eco-orange-pumpkin-pie-wings-ultra",
+    "id": "eco-orange-pumpkin-pie-wings",
     "category": "pet_wear",
-    "name": "Eco Orange Pumpkin Pie Wings Ultra",
-    "rarity": "Rare",
+    "name": "Eco Orange Pumpkin Pie Wings",
+    "rarity": "Ultra Rare",
     "source": "Hat Shop",
     "image": "/images/pet_wear/Eco-Orange-Pumpkin-Pie-Wings-Ultra-Rare-from-Hat-Shop.png",
     "value": null,
@@ -2640,10 +2640,10 @@
     "valueUnit": null
   },
   {
-    "id": "edible-candy-collar-ultra",
+    "id": "edible-candy-collar",
     "category": "pet_wear",
-    "name": "Edible Candy Collar Ultra",
-    "rarity": "Rare",
+    "name": "Edible Candy Collar",
+    "rarity": "Ultra Rare",
     "source": "Sugar Festival 2026",
     "image": "/images/pet_wear/Edible-Candy-Collar-Ultra-Rare-from-Sugar-Festival-2026.png",
     "value": null,
@@ -2660,10 +2660,10 @@
     "valueUnit": null
   },
   {
-    "id": "egg-glasses-ultra",
+    "id": "egg-glasses",
     "category": "pet_wear",
-    "name": "Egg Glasses Ultra",
-    "rarity": "Rare",
+    "name": "Egg Glasses",
+    "rarity": "Ultra Rare",
     "source": "Easter 2021",
     "image": "/images/pet_wear/Egg-Glasses-Ultra-Rare-from-Easter-2021.png",
     "value": null,
@@ -2740,10 +2740,10 @@
     "valueUnit": null
   },
   {
-    "id": "energy-wings-ultra",
+    "id": "energy-wings",
     "category": "pet_wear",
-    "name": "Energy Wings Ultra",
-    "rarity": "Rare",
+    "name": "Energy Wings",
+    "rarity": "Ultra Rare",
     "source": "Cherry Blossom Festival 2025",
     "image": "/images/pet_wear/Energy-Wings-Ultra-Rare-from-Cherry-Blossom-Festival-2025.png",
     "value": null,
@@ -2900,10 +2900,10 @@
     "valueUnit": null
   },
   {
-    "id": "fantastical-wings-ultra",
+    "id": "fantastical-wings",
     "category": "pet_wear",
-    "name": "Fantastical Wings Ultra",
-    "rarity": "Rare",
+    "name": "Fantastical Wings",
+    "rarity": "Ultra Rare",
     "source": "Standard Wing Chest",
     "image": "/images/pet_wear/Fantastical-Wings-Ultra-Rare-from-Standard-Wing-Chest.png",
     "value": null,
@@ -2970,20 +2970,20 @@
     "valueUnit": null
   },
   {
-    "id": "festive-beard-ultra",
+    "id": "festive-beard",
     "category": "pet_wear",
-    "name": "Festive Beard Ultra",
-    "rarity": "Rare",
+    "name": "Festive Beard",
+    "rarity": "Ultra Rare",
     "source": "Winter 2023",
     "image": "/images/pet_wear/Festive-Beard-Ultra-Rare-from-Winter-2023.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "festive-light-crown-ultra",
+    "id": "festive-light-crown",
     "category": "pet_wear",
-    "name": "Festive Light Crown Ultra",
-    "rarity": "Rare",
+    "name": "Festive Light Crown",
+    "rarity": "Ultra Rare",
     "source": "Winter 2023",
     "image": "/images/pet_wear/Festive-Light-Crown-Ultra-Rare-from-Winter-2023.png",
     "value": null,
@@ -3050,10 +3050,10 @@
     "valueUnit": null
   },
   {
-    "id": "fez-hat-ultra",
+    "id": "fez-hat",
     "category": "pet_wear",
-    "name": "Fez Hat Ultra",
-    "rarity": "Rare",
+    "name": "Fez Hat",
+    "rarity": "Ultra Rare",
     "source": "Monkey Fairground",
     "image": "/images/pet_wear/Fez-Hat-Ultra-Rare-from-Monkey-Fairground.png",
     "value": null,
@@ -3240,10 +3240,10 @@
     "valueUnit": null
   },
   {
-    "id": "floating-cloud-ultra",
+    "id": "floating-cloud",
     "category": "pet_wear",
-    "name": "Floating Cloud Ultra",
-    "rarity": "Rare",
+    "name": "Floating Cloud",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Floating-Cloud-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -3270,10 +3270,10 @@
     "valueUnit": null
   },
   {
-    "id": "flower-beret-ultra",
+    "id": "flower-beret",
     "category": "pet_wear",
-    "name": "Flower Beret Ultra",
-    "rarity": "Rare",
+    "name": "Flower Beret",
+    "rarity": "Ultra Rare",
     "source": "Spring Fest 2023",
     "image": "/images/pet_wear/Flower-Beret-Ultra-Rare-from-Spring-Fest-2023.png",
     "value": null,
@@ -3340,20 +3340,20 @@
     "valueUnit": null
   },
   {
-    "id": "flower-hair-ultra",
+    "id": "flower-hair",
     "category": "pet_wear",
-    "name": "Flower Hair Ultra",
-    "rarity": "Rare",
+    "name": "Flower Hair",
+    "rarity": "Ultra Rare",
     "source": "Easter 2024",
     "image": "/images/pet_wear/Flower-Hair-Ultra-Rare-from-Easter-2024.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "flower-heels-ultra",
+    "id": "flower-heels",
     "category": "pet_wear",
-    "name": "Flower Heels Ultra",
-    "rarity": "Rare",
+    "name": "Flower Heels",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Flower-Heels-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -3470,10 +3470,10 @@
     "valueUnit": null
   },
   {
-    "id": "folded-paper-wings-ultra",
+    "id": "folded-paper-wings",
     "category": "pet_wear",
-    "name": "Folded Paper Wings Ultra",
-    "rarity": "Rare",
+    "name": "Folded Paper Wings",
+    "rarity": "Ultra Rare",
     "source": "Gibbon Boxes",
     "image": "/images/pet_wear/Folded-Paper-Wings-Ultra-Rare-from-Gibbon-Boxes.png",
     "value": null,
@@ -3520,30 +3520,30 @@
     "valueUnit": null
   },
   {
-    "id": "forgotten-flower-ultra",
+    "id": "forgotten-flower",
     "category": "pet_wear",
-    "name": "Forgotten Flower Ultra",
-    "rarity": "Rare",
+    "name": "Forgotten Flower",
+    "rarity": "Ultra Rare",
     "source": "Fossil Isle Excavation",
     "image": "/images/pet_wear/Forgotten-Flower-Ultra-Rare-from-Fossil-Isle-Excavation.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "formal-big-bow-hat-ultra",
+    "id": "formal-big-bow-hat",
     "category": "pet_wear",
-    "name": "Formal Big Bow Hat Ultra",
-    "rarity": "Rare",
+    "name": "Formal Big Bow Hat",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Formal-Big-Bow-Hat-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "fortune-teller-hood-ultra",
+    "id": "fortune-teller-hood",
     "category": "pet_wear",
-    "name": "Fortune Teller Hood Ultra",
-    "rarity": "Rare",
+    "name": "Fortune Teller Hood",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Fortune-Teller-Hood-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -3610,10 +3610,10 @@
     "valueUnit": null
   },
   {
-    "id": "frigid-hat-ultra",
+    "id": "frigid-hat",
     "category": "pet_wear",
-    "name": "Frigid Hat Ultra",
-    "rarity": "Rare",
+    "name": "Frigid Hat",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Frigid-Hat-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -3800,10 +3800,10 @@
     "valueUnit": null
   },
   {
-    "id": "ghost-kitty-backpack-ultra",
+    "id": "ghost-kitty-backpack",
     "category": "pet_wear",
-    "name": "Ghost Kitty Backpack Ultra",
-    "rarity": "Rare",
+    "name": "Ghost Kitty Backpack",
+    "rarity": "Ultra Rare",
     "source": "Halloween 2022",
     "image": "/images/pet_wear/Ghost-Kitty-Backpack-Ultra-Rare-from-Halloween-2022.png",
     "value": null,
@@ -3830,10 +3830,10 @@
     "valueUnit": null
   },
   {
-    "id": "gingerbread-star-eye-patch-ultra",
+    "id": "gingerbread-star-eye-patch",
     "category": "pet_wear",
-    "name": "Gingerbread Star Eye Patch Ultra",
-    "rarity": "Rare",
+    "name": "Gingerbread Star Eye Patch",
+    "rarity": "Ultra Rare",
     "source": "Winter 2022",
     "image": "/images/pet_wear/Gingerbread-Star-Eye-Patch-Ultra-Rare-from-Winter-2022.png",
     "value": null,
@@ -3960,10 +3960,10 @@
     "valueUnit": null
   },
   {
-    "id": "gold-coin-monocle-ultra",
+    "id": "gold-coin-monocle",
     "category": "pet_wear",
-    "name": "Gold Coin Monocle Ultra",
-    "rarity": "Rare",
+    "name": "Gold Coin Monocle",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Gold-Coin-Monocle-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -4100,20 +4100,20 @@
     "valueUnit": null
   },
   {
-    "id": "goth-spike-boots-ultra",
+    "id": "goth-spike-boots",
     "category": "pet_wear",
-    "name": "Goth Spike Boots Ultra",
-    "rarity": "Rare",
+    "name": "Goth Spike Boots",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Goth-Spike-Boots-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "gothic-horns-ultra",
+    "id": "gothic-horns",
     "category": "pet_wear",
-    "name": "Gothic Horns Ultra",
-    "rarity": "Rare",
+    "name": "Gothic Horns",
+    "rarity": "Ultra Rare",
     "source": "Halloween 2024",
     "image": "/images/pet_wear/Gothic-Horns-Ultra-Rare-from-Halloween-2024.png",
     "value": null,
@@ -4230,10 +4230,10 @@
     "valueUnit": null
   },
   {
-    "id": "gummy-aviator-scarf-ultra",
+    "id": "gummy-aviator-scarf",
     "category": "pet_wear",
-    "name": "Gummy Aviator Scarf Ultra",
-    "rarity": "Rare",
+    "name": "Gummy Aviator Scarf",
+    "rarity": "Ultra Rare",
     "source": "Sugar Festival 2026",
     "image": "/images/pet_wear/Gummy-Aviator-Scarf-Ultra-Rare-from-Sugar-Festival-2026.png",
     "value": null,
@@ -4260,20 +4260,20 @@
     "valueUnit": null
   },
   {
-    "id": "half-skirt-ultra",
+    "id": "half-skirt",
     "category": "pet_wear",
-    "name": "Half Skirt Ultra",
-    "rarity": "Rare",
+    "name": "Half Skirt",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Half-Skirt-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "halloween-black-axe-guitar-accessory-ultra",
+    "id": "halloween-black-axe-guitar-accessory",
     "category": "pet_wear",
-    "name": "Halloween Black Axe Guitar Accessory Ultra",
-    "rarity": "Rare",
+    "name": "Halloween Black Axe Guitar Accessory",
+    "rarity": "Ultra Rare",
     "source": "Halloween 2021",
     "image": "/images/pet_wear/Halloween-Black-Axe-Guitar-Accessory-Ultra-Rare-from-Halloween-2021.png",
     "value": null,
@@ -4300,10 +4300,10 @@
     "valueUnit": null
   },
   {
-    "id": "halloween-green-zombie-bat-wings-ultra",
+    "id": "halloween-green-zombie-bat-wings",
     "category": "pet_wear",
-    "name": "Halloween Green Zombie Bat Wings Ultra",
-    "rarity": "Rare",
+    "name": "Halloween Green Zombie Bat Wings",
+    "rarity": "Ultra Rare",
     "source": "Halloween 2021",
     "image": "/images/pet_wear/Halloween-Green-Zombie-Bat-Wings-Ultra-Rare-from-Halloween-2021.png",
     "value": null,
@@ -4420,10 +4420,10 @@
     "valueUnit": null
   },
   {
-    "id": "headband-from-karate-gorilla-ultra",
+    "id": "headband-from-karate-gorilla",
     "category": "pet_wear",
-    "name": "Headband from Karate Gorilla Ultra",
-    "rarity": "Rare",
+    "name": "Headband from Karate Gorilla",
+    "rarity": "Ultra Rare",
     "source": "Karate Gorilla",
     "image": "/images/pet_wear/Headband-from-Karate-Gorilla-Ultra-Rare-from-Karate-Gorilla.png",
     "value": null,
@@ -4440,10 +4440,10 @@
     "valueUnit": null
   },
   {
-    "id": "heart-bow-ultra",
+    "id": "heart-bow",
     "category": "pet_wear",
-    "name": "Heart Bow Ultra",
-    "rarity": "Rare",
+    "name": "Heart Bow",
+    "rarity": "Ultra Rare",
     "source": "Valentine's Event 2025",
     "image": "/images/pet_wear/Heart-Bow-Ultra-Rare-from-Valentine's-Event-2025.png",
     "value": null,
@@ -4690,10 +4690,10 @@
     "valueUnit": null
   },
   {
-    "id": "ice-cream-heels-ultra",
+    "id": "ice-cream-heels",
     "category": "pet_wear",
-    "name": "Ice Cream Heels Ultra",
-    "rarity": "Rare",
+    "name": "Ice Cream Heels",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Ice-Cream-Heels-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -4750,20 +4750,20 @@
     "valueUnit": null
   },
   {
-    "id": "ice-tiara-ultra",
+    "id": "ice-tiara",
     "category": "pet_wear",
-    "name": "Ice Tiara Ultra",
-    "rarity": "Rare",
+    "name": "Ice Tiara",
+    "rarity": "Ultra Rare",
     "source": "Winter",
     "image": "/images/pet_wear/Ice-Tiara-Ultra-Rare-from-Winter.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "ice-wings-ultra",
+    "id": "ice-wings",
     "category": "pet_wear",
-    "name": "Ice Wings Ultra",
-    "rarity": "Rare",
+    "name": "Ice Wings",
+    "rarity": "Ultra Rare",
     "source": "Christmas 2020",
     "image": "/images/pet_wear/Ice-Wings-Ultra-Rare-from-Christmas-2020.png",
     "value": null,
@@ -4780,10 +4780,10 @@
     "valueUnit": null
   },
   {
-    "id": "influencer-hair-ultra",
+    "id": "influencer-hair",
     "category": "pet_wear",
-    "name": "Influencer Hair Ultra",
-    "rarity": "Rare",
+    "name": "Influencer Hair",
+    "rarity": "Ultra Rare",
     "source": "Influencer Gibbon",
     "image": "/images/pet_wear/Influencer-Hair-Ultra-Rare-from-Influencer-Gibbon.png",
     "value": null,
@@ -4810,10 +4810,10 @@
     "valueUnit": null
   },
   {
-    "id": "inspector-siren-collar-ultra",
+    "id": "inspector-siren-collar",
     "category": "pet_wear",
-    "name": "Inspector Siren Collar Ultra",
-    "rarity": "Rare",
+    "name": "Inspector Siren Collar",
+    "rarity": "Ultra Rare",
     "source": "Inspector Shepherd Event",
     "image": "/images/pet_wear/Inspector-Siren-Collar-Ultra-Rare-from-Inspector-Shepherd-Event.png",
     "value": null,
@@ -4880,10 +4880,10 @@
     "valueUnit": null
   },
   {
-    "id": "jade-moth-wings-ultra",
+    "id": "jade-moth-wings",
     "category": "pet_wear",
-    "name": "Jade Moth Wings Ultra",
-    "rarity": "Rare",
+    "name": "Jade Moth Wings",
+    "rarity": "Ultra Rare",
     "source": "Hat Shop",
     "image": "/images/pet_wear/Jade-Moth-Wings-Ultra-Rare-from-Hat-Shop.png",
     "value": null,
@@ -4910,30 +4910,30 @@
     "valueUnit": null
   },
   {
-    "id": "jester-hat-ultra",
+    "id": "jester-hat",
     "category": "pet_wear",
-    "name": "Jester Hat Ultra",
-    "rarity": "Rare",
+    "name": "Jester Hat",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Jester-Hat-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "jetpack-ultra",
+    "id": "jetpack",
     "category": "pet_wear",
-    "name": "Jetpack Ultra",
-    "rarity": "Rare",
+    "name": "Jetpack",
+    "rarity": "Ultra Rare",
     "source": "Astronaut Gorilla",
     "image": "/images/pet_wear/Jetpack-Ultra-Rare-from-Astronaut-Gorilla.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "jetpack-ultra",
+    "id": "jetpack",
     "category": "pet_wear",
-    "name": "Jetpack Ultra",
-    "rarity": "Rare",
+    "name": "Jetpack",
+    "rarity": "Ultra Rare",
     "source": "Hat Shop",
     "image": "/images/pet_wear/Jetpack-Ultra-Rare-from-Hat-Shop.png",
     "value": null,
@@ -4990,10 +4990,10 @@
     "valueUnit": null
   },
   {
-    "id": "kage-cape-ultra",
+    "id": "kage-cape",
     "category": "pet_wear",
-    "name": "Kage Cape Ultra",
-    "rarity": "Rare",
+    "name": "Kage Cape",
+    "rarity": "Ultra Rare",
     "source": "Cherry Blossom Festival 2025",
     "image": "/images/pet_wear/Kage-Cape-Ultra-Rare-from-Cherry-Blossom-Festival-2025.png",
     "value": null,
@@ -5020,10 +5020,10 @@
     "valueUnit": null
   },
   {
-    "id": "katana-set-ultra",
+    "id": "katana-set",
     "category": "pet_wear",
-    "name": "Katana Set Ultra",
-    "rarity": "Rare",
+    "name": "Katana Set",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Katana-Set-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -5100,10 +5100,10 @@
     "valueUnit": null
   },
   {
-    "id": "knitted-pumpkin-hat-ultra",
+    "id": "knitted-pumpkin-hat",
     "category": "pet_wear",
-    "name": "Knitted Pumpkin Hat Ultra",
-    "rarity": "Rare",
+    "name": "Knitted Pumpkin Hat",
+    "rarity": "Ultra Rare",
     "source": "Fall Weather Update",
     "image": "/images/pet_wear/Knitted-Pumpkin-Hat-Ultra-Rare-from-Fall-Weather-Update.png",
     "value": null,
@@ -5190,10 +5190,10 @@
     "valueUnit": null
   },
   {
-    "id": "laurel-wreath-ultra",
+    "id": "laurel-wreath",
     "category": "pet_wear",
-    "name": "Laurel Wreath Ultra",
-    "rarity": "Rare",
+    "name": "Laurel Wreath",
+    "rarity": "Ultra Rare",
     "source": "Sunshine Games 2024",
     "image": "/images/pet_wear/Laurel-Wreath-Ultra-Rare-from-Sunshine-Games-2024.png",
     "value": null,
@@ -5240,10 +5240,10 @@
     "valueUnit": null
   },
   {
-    "id": "leaf-wings-ultra",
+    "id": "leaf-wings",
     "category": "pet_wear",
-    "name": "Leaf Wings Ultra",
-    "rarity": "Rare",
+    "name": "Leaf Wings",
+    "rarity": "Ultra Rare",
     "source": "Hat Shop",
     "image": "/images/pet_wear/Leaf-Wings-Ultra-Rare-from-Hat-Shop.png",
     "value": null,
@@ -5290,10 +5290,10 @@
     "valueUnit": null
   },
   {
-    "id": "leprechaun-tophat-ultra",
+    "id": "leprechaun-tophat",
     "category": "pet_wear",
-    "name": "Leprechaun Tophat Ultra",
-    "rarity": "Rare",
+    "name": "Leprechaun Tophat",
+    "rarity": "Ultra Rare",
     "source": "St Patrick's Day 2025",
     "image": "/images/pet_wear/Leprechaun-Tophat-Ultra-Rare-from-St-Patrick's-Day-2025.png",
     "value": null,
@@ -5340,10 +5340,10 @@
     "valueUnit": null
   },
   {
-    "id": "lighthouse-hat-ultra",
+    "id": "lighthouse-hat",
     "category": "pet_wear",
-    "name": "Lighthouse Hat Ultra",
-    "rarity": "Rare",
+    "name": "Lighthouse Hat",
+    "rarity": "Ultra Rare",
     "source": "Summer Festival 2025",
     "image": "/images/pet_wear/Lighthouse-Hat-Ultra-Rare-from-Summer-Festival-2025.png",
     "value": null,
@@ -5360,10 +5360,10 @@
     "valueUnit": null
   },
   {
-    "id": "living-wizard-hat-ultra",
+    "id": "living-wizard-hat",
     "category": "pet_wear",
-    "name": "Living Wizard Hat Ultra",
-    "rarity": "Rare",
+    "name": "Living Wizard Hat",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Living-Wizard-Hat-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -5380,10 +5380,10 @@
     "valueUnit": null
   },
   {
-    "id": "long-bangs-ultra",
+    "id": "long-bangs",
     "category": "pet_wear",
-    "name": "Long Bangs Ultra",
-    "rarity": "Rare",
+    "name": "Long Bangs",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Long-Bangs-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -5590,10 +5590,10 @@
     "valueUnit": null
   },
   {
-    "id": "magpie-wings-ultra",
+    "id": "magpie-wings",
     "category": "pet_wear",
-    "name": "Magpie Wings Ultra",
-    "rarity": "Rare",
+    "name": "Magpie Wings",
+    "rarity": "Ultra Rare",
     "source": "Regal Wing Chest",
     "image": "/images/pet_wear/Magpie-Wings-Ultra-Rare-from-Regal-Wing-Chest.png",
     "value": null,
@@ -5610,10 +5610,10 @@
     "valueUnit": null
   },
   {
-    "id": "mandarin-s-hat-ultra",
+    "id": "mandarin-s-hat",
     "category": "pet_wear",
-    "name": "Mandarin's Hat Ultra",
-    "rarity": "Rare",
+    "name": "Mandarin's Hat",
+    "rarity": "Ultra Rare",
     "source": "Lunar New Year 2022",
     "image": "/images/pet_wear/Mandarin's-Hat-Ultra-Rare-from-Lunar-New-Year-2022.png",
     "value": null,
@@ -5650,30 +5650,30 @@
     "valueUnit": null
   },
   {
-    "id": "midnight-wings-ultra",
+    "id": "midnight-wings",
     "category": "pet_wear",
-    "name": "Midnight Wings Ultra",
-    "rarity": "Rare",
+    "name": "Midnight Wings",
+    "rarity": "Ultra Rare",
     "source": "Halloween 2024",
     "image": "/images/pet_wear/Midnight-Wings-Ultra-Rare-from-Halloween-2024.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "mobile-phone-ultra",
+    "id": "mobile-phone",
     "category": "pet_wear",
-    "name": "Mobile Phone Ultra",
-    "rarity": "Rare",
+    "name": "Mobile Phone",
+    "rarity": "Ultra Rare",
     "source": "Influencer Gibbon",
     "image": "/images/pet_wear/Mobile-Phone-Ultra-Rare-from-Influencer-Gibbon.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "modern-jetpack-ultra",
+    "id": "modern-jetpack",
     "category": "pet_wear",
-    "name": "Modern Jetpack Ultra",
-    "rarity": "Rare",
+    "name": "Modern Jetpack",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Modern-Jetpack-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -5690,10 +5690,10 @@
     "valueUnit": null
   },
   {
-    "id": "monkey-king-crown-ultra",
+    "id": "monkey-king-crown",
     "category": "pet_wear",
-    "name": "Monkey King Crown Ultra",
-    "rarity": "Rare",
+    "name": "Monkey King Crown",
+    "rarity": "Ultra Rare",
     "source": "Monkey Fairground",
     "image": "/images/pet_wear/Monkey-King-Crown-Ultra-Rare-from-Monkey-Fairground.png",
     "value": null,
@@ -5720,10 +5720,10 @@
     "valueUnit": null
   },
   {
-    "id": "monster-hat-ultra",
+    "id": "monster-hat",
     "category": "pet_wear",
-    "name": "Monster Hat Ultra",
-    "rarity": "Rare",
+    "name": "Monster Hat",
+    "rarity": "Ultra Rare",
     "source": "Halloween 2023",
     "image": "/images/pet_wear/Monster-Hat-Ultra-Rare-from-Halloween-2023.png",
     "value": null,
@@ -5760,10 +5760,10 @@
     "valueUnit": null
   },
   {
-    "id": "moon-tome-ultra",
+    "id": "moon-tome",
     "category": "pet_wear",
-    "name": "Moon Tome Ultra",
-    "rarity": "Rare",
+    "name": "Moon Tome",
+    "rarity": "Ultra Rare",
     "source": "Hat Shop",
     "image": "/images/pet_wear/Moon-Tome-Ultra-Rare-from-Hat-Shop.png",
     "value": null,
@@ -5780,10 +5780,10 @@
     "valueUnit": null
   },
   {
-    "id": "moth-hair-clip-ultra",
+    "id": "moth-hair-clip",
     "category": "pet_wear",
-    "name": "Moth Hair Clip Ultra",
-    "rarity": "Rare",
+    "name": "Moth Hair Clip",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Moth-Hair-Clip-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -5810,10 +5810,10 @@
     "valueUnit": null
   },
   {
-    "id": "mystic-wing-crown-ultra",
+    "id": "mystic-wing-crown",
     "category": "pet_wear",
-    "name": "Mystic Wing Crown Ultra",
-    "rarity": "Rare",
+    "name": "Mystic Wing Crown",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Mystic-Wing-Crown-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -5880,10 +5880,10 @@
     "valueUnit": null
   },
   {
-    "id": "nemes-ultra",
+    "id": "nemes",
     "category": "pet_wear",
-    "name": "Nemes Ultra",
-    "rarity": "Rare",
+    "name": "Nemes",
+    "rarity": "Ultra Rare",
     "source": "Desert Weather Map",
     "image": "/images/pet_wear/Nemes-Ultra-Rare-from-Desert-Weather-Map.png",
     "value": null,
@@ -5940,10 +5940,10 @@
     "valueUnit": null
   },
   {
-    "id": "ninja-collar-ultra",
+    "id": "ninja-collar",
     "category": "pet_wear",
-    "name": "Ninja Collar Ultra",
-    "rarity": "Rare",
+    "name": "Ninja Collar",
+    "rarity": "Ultra Rare",
     "source": "Cherry Blossom Festival 2025",
     "image": "/images/pet_wear/Ninja-Collar-Ultra-Rare-from-Cherry-Blossom-Festival-2025.png",
     "value": null,
@@ -6010,10 +6010,10 @@
     "valueUnit": null
   },
   {
-    "id": "oni-samurai-hat-ultra",
+    "id": "oni-samurai-hat",
     "category": "pet_wear",
-    "name": "Oni Samurai Hat Ultra",
-    "rarity": "Rare",
+    "name": "Oni Samurai Hat",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Oni-Samurai-Hat-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -6050,10 +6050,10 @@
     "valueUnit": null
   },
   {
-    "id": "owl-wings-ultra",
+    "id": "owl-wings",
     "category": "pet_wear",
-    "name": "Owl Wings Ultra",
-    "rarity": "Rare",
+    "name": "Owl Wings",
+    "rarity": "Ultra Rare",
     "source": "Standard Wing Chest",
     "image": "/images/pet_wear/Owl-Wings-Ultra-Rare-from-Standard-Wing-Chest.png",
     "value": null,
@@ -6200,10 +6200,10 @@
     "valueUnit": null
   },
   {
-    "id": "pink-butterfly-wings-ultra",
+    "id": "pink-butterfly-wings",
     "category": "pet_wear",
-    "name": "Pink Butterfly Wings Ultra",
-    "rarity": "Rare",
+    "name": "Pink Butterfly Wings",
+    "rarity": "Ultra Rare",
     "source": "Robux (Hat Shop)",
     "image": "/images/pet_wear/Pink-Butterfly-Wings-Ultra-Rare-from-Robux-(Hat-Shop).png",
     "value": null,
@@ -6220,20 +6220,20 @@
     "valueUnit": null
   },
   {
-    "id": "pink-cat-ear-headphones-ultra",
+    "id": "pink-cat-ear-headphones",
     "category": "pet_wear",
-    "name": "Pink Cat Ear Headphones Ultra",
-    "rarity": "Rare",
+    "name": "Pink Cat Ear Headphones",
+    "rarity": "Ultra Rare",
     "source": "Hat Shop",
     "image": "/images/pet_wear/Pink-Cat-Ear-Headphones-Ultra-Rare-from-Hat-Shop.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "pink-cowboy-hat-ultra",
+    "id": "pink-cowboy-hat",
     "category": "pet_wear",
-    "name": "Pink Cowboy Hat Ultra",
-    "rarity": "Rare",
+    "name": "Pink Cowboy Hat",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Pink-Cowboy-Hat-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -6260,10 +6260,10 @@
     "valueUnit": null
   },
   {
-    "id": "pink-hightops-ultra",
+    "id": "pink-hightops",
     "category": "pet_wear",
-    "name": "Pink Hightops Ultra",
-    "rarity": "Rare",
+    "name": "Pink Hightops",
+    "rarity": "Ultra Rare",
     "source": "Robux (Hat Shop)",
     "image": "/images/pet_wear/Pink-Hightops-Ultra-Rare-from-Robux-(Hat-Shop).png",
     "value": null,
@@ -6330,10 +6330,10 @@
     "valueUnit": null
   },
   {
-    "id": "pirate-eye-patch-ultra",
+    "id": "pirate-eye-patch",
     "category": "pet_wear",
-    "name": "Pirate Eye Patch Ultra",
-    "rarity": "Rare",
+    "name": "Pirate Eye Patch",
+    "rarity": "Ultra Rare",
     "source": "Summer Festival 2025",
     "image": "/images/pet_wear/Pirate-Eye-Patch-Ultra-Rare-from-Summer-Festival-2025.png",
     "value": null,
@@ -6350,10 +6350,10 @@
     "valueUnit": null
   },
   {
-    "id": "pirate-hat-friend-ultra",
+    "id": "pirate-hat-friend",
     "category": "pet_wear",
-    "name": "Pirate Hat & Friend Ultra",
-    "rarity": "Rare",
+    "name": "Pirate Hat & Friend",
+    "rarity": "Ultra Rare",
     "source": "Robux (Hat Shop)",
     "image": "/images/pet_wear/Pirate-Hat-&-Friend-Ultra-Rare-from-Robux-(Hat-Shop).png",
     "value": null,
@@ -6430,10 +6430,10 @@
     "valueUnit": null
   },
   {
-    "id": "ponytail-ultra",
+    "id": "ponytail",
     "category": "pet_wear",
-    "name": "Ponytail Ultra",
-    "rarity": "Rare",
+    "name": "Ponytail",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Ponytail-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -6560,10 +6560,10 @@
     "valueUnit": null
   },
   {
-    "id": "puddleducks-hood-ultra",
+    "id": "puddleducks-hood",
     "category": "pet_wear",
-    "name": "Puddleducks Hood Ultra",
-    "rarity": "Rare",
+    "name": "Puddleducks Hood",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Puddleducks-Hood-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -6630,10 +6630,10 @@
     "valueUnit": null
   },
   {
-    "id": "purple-rose-ultra",
+    "id": "purple-rose",
     "category": "pet_wear",
-    "name": "Purple Rose Ultra",
-    "rarity": "Rare",
+    "name": "Purple Rose",
+    "rarity": "Ultra Rare",
     "source": "Hat Shop",
     "image": "/images/pet_wear/Purple-Rose-Ultra-Rare-from-Hat-Shop.png",
     "value": null,
@@ -6700,10 +6700,10 @@
     "valueUnit": null
   },
   {
-    "id": "rain-leaf-wings-ultra",
+    "id": "rain-leaf-wings",
     "category": "pet_wear",
-    "name": "Rain Leaf Wings Ultra",
-    "rarity": "Rare",
+    "name": "Rain Leaf Wings",
+    "rarity": "Ultra Rare",
     "source": "Rain Weather Update",
     "image": "/images/pet_wear/Rain-Leaf-Wings-Ultra-Rare-from-Rain-Weather-Update.png",
     "value": null,
@@ -6730,10 +6730,10 @@
     "valueUnit": null
   },
   {
-    "id": "rainbow-dragon-hat-ultra",
+    "id": "rainbow-dragon-hat",
     "category": "pet_wear",
-    "name": "Rainbow Dragon Hat Ultra",
-    "rarity": "Rare",
+    "name": "Rainbow Dragon Hat",
+    "rarity": "Ultra Rare",
     "source": "Lunar New Year Gift Boxes",
     "image": "/images/pet_wear/Rainbow-Dragon-Hat-Ultra-Rare-from-Lunar-New-Year-Gift-Boxes.png",
     "value": null,
@@ -6760,10 +6760,10 @@
     "valueUnit": null
   },
   {
-    "id": "rake-wings-ultra",
+    "id": "rake-wings",
     "category": "pet_wear",
-    "name": "Rake Wings Ultra",
-    "rarity": "Rare",
+    "name": "Rake Wings",
+    "rarity": "Ultra Rare",
     "source": "Fall Weather Update",
     "image": "/images/pet_wear/Rake-Wings-Ultra-Rare-from-Fall-Weather-Update.png",
     "value": null,
@@ -6910,10 +6910,10 @@
     "valueUnit": null
   },
   {
-    "id": "red-panda-bag-ultra",
+    "id": "red-panda-bag",
     "category": "pet_wear",
-    "name": "Red Panda Bag Ultra",
-    "rarity": "Rare",
+    "name": "Red Panda Bag",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Red-Panda-Bag-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -7180,10 +7180,10 @@
     "valueUnit": null
   },
   {
-    "id": "royal-crown-pillow-ultra",
+    "id": "royal-crown-pillow",
     "category": "pet_wear",
-    "name": "Royal Crown Pillow Ultra",
-    "rarity": "Rare",
+    "name": "Royal Crown Pillow",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Royal-Crown-Pillow-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -7200,20 +7200,20 @@
     "valueUnit": null
   },
   {
-    "id": "rubber-ducks-ultra",
+    "id": "rubber-ducks",
     "category": "pet_wear",
-    "name": "Rubber Ducks Ultra",
-    "rarity": "Rare",
+    "name": "Rubber Ducks",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Rubber-Ducks-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "ruby-necklace-ultra",
+    "id": "ruby-necklace",
     "category": "pet_wear",
-    "name": "Ruby Necklace Ultra",
-    "rarity": "Rare",
+    "name": "Ruby Necklace",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Ruby-Necklace-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -7230,10 +7230,10 @@
     "valueUnit": null
   },
   {
-    "id": "sack-of-cash-ultra",
+    "id": "sack-of-cash",
     "category": "pet_wear",
-    "name": "Sack of Cash Ultra",
-    "rarity": "Rare",
+    "name": "Sack of Cash",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Sack-of-Cash-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -7280,10 +7280,10 @@
     "valueUnit": null
   },
   {
-    "id": "sakura-scythe-ultra",
+    "id": "sakura-scythe",
     "category": "pet_wear",
-    "name": "Sakura Scythe Ultra",
-    "rarity": "Rare",
+    "name": "Sakura Scythe",
+    "rarity": "Ultra Rare",
     "source": "Cherry Blossom Festival 2025",
     "image": "/images/pet_wear/Sakura-Scythe-Ultra-Rare-from-Cherry-Blossom-Festival-2025.png",
     "value": null,
@@ -7320,20 +7320,20 @@
     "valueUnit": null
   },
   {
-    "id": "santa-hat-ultra",
+    "id": "santa-hat",
     "category": "pet_wear",
-    "name": "Santa Hat Ultra",
-    "rarity": "Rare",
+    "name": "Santa Hat",
+    "rarity": "Ultra Rare",
     "source": "Santa Dog",
     "image": "/images/pet_wear/Santa-Hat-Ultra-Rare-from-Santa-Dog.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "santa-s-bow-ultra",
+    "id": "santa-s-bow",
     "category": "pet_wear",
-    "name": "Santa's Bow Ultra",
-    "rarity": "Rare",
+    "name": "Santa's Bow",
+    "rarity": "Ultra Rare",
     "source": "Winter 2024",
     "image": "/images/pet_wear/Santa's-Bow-Ultra-Rare-from-Winter-2024.png",
     "value": null,
@@ -7460,10 +7460,10 @@
     "valueUnit": null
   },
   {
-    "id": "shark-swimcap-ultra",
+    "id": "shark-swimcap",
     "category": "pet_wear",
-    "name": "Shark Swimcap Ultra",
-    "rarity": "Rare",
+    "name": "Shark Swimcap",
+    "rarity": "Ultra Rare",
     "source": "Summer Festival 2023",
     "image": "/images/pet_wear/Shark-Swimcap-Ultra-Rare-from-Summer-Festival-2023.png",
     "value": null,
@@ -7570,10 +7570,10 @@
     "valueUnit": null
   },
   {
-    "id": "silly-duck-hat-ultra",
+    "id": "silly-duck-hat",
     "category": "pet_wear",
-    "name": "Silly Duck Hat Ultra",
-    "rarity": "Rare",
+    "name": "Silly Duck Hat",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Silly-Duck-Hat-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -7670,10 +7670,10 @@
     "valueUnit": null
   },
   {
-    "id": "sky-wings-ultra",
+    "id": "sky-wings",
     "category": "pet_wear",
-    "name": "Sky Wings Ultra",
-    "rarity": "Rare",
+    "name": "Sky Wings",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Sky-Wings-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -7730,10 +7730,10 @@
     "valueUnit": null
   },
   {
-    "id": "snow-cloud-wings-ultra",
+    "id": "snow-cloud-wings",
     "category": "pet_wear",
-    "name": "Snow Cloud Wings Ultra",
-    "rarity": "Rare",
+    "name": "Snow Cloud Wings",
+    "rarity": "Ultra Rare",
     "source": "Snow Weather Update",
     "image": "/images/pet_wear/Snow-Cloud-Wings-Ultra-Rare-from-Snow-Weather-Update.png",
     "value": null,
@@ -7790,10 +7790,10 @@
     "valueUnit": null
   },
   {
-    "id": "snowstorm-hat-ultra",
+    "id": "snowstorm-hat",
     "category": "pet_wear",
-    "name": "Snowstorm Hat Ultra",
-    "rarity": "Rare",
+    "name": "Snowstorm Hat",
+    "rarity": "Ultra Rare",
     "source": "Winter 2025 (Advent Calendar)",
     "image": "/images/pet_wear/Snowstorm-Hat-Ultra-Rare-from-Winter-2025-(Advent-Calendar).png",
     "value": null,
@@ -7840,10 +7840,10 @@
     "valueUnit": null
   },
   {
-    "id": "solar-system-necklace-ultra",
+    "id": "solar-system-necklace",
     "category": "pet_wear",
-    "name": "Solar System Necklace Ultra",
-    "rarity": "Rare",
+    "name": "Solar System Necklace",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Solar-System-Necklace-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -7870,10 +7870,10 @@
     "valueUnit": null
   },
   {
-    "id": "sorcerer-hat-ultra",
+    "id": "sorcerer-hat",
     "category": "pet_wear",
-    "name": "Sorcerer Hat Ultra",
-    "rarity": "Rare",
+    "name": "Sorcerer Hat",
+    "rarity": "Ultra Rare",
     "source": "Halloween 2024",
     "image": "/images/pet_wear/Sorcerer-Hat-Ultra-Rare-from-Halloween-2024.png",
     "value": null,
@@ -7930,10 +7930,10 @@
     "valueUnit": null
   },
   {
-    "id": "spiderweb-coffin-backpack-ultra",
+    "id": "spiderweb-coffin-backpack",
     "category": "pet_wear",
-    "name": "Spiderweb Coffin Backpack Ultra",
-    "rarity": "Rare",
+    "name": "Spiderweb Coffin Backpack",
+    "rarity": "Ultra Rare",
     "source": "Halloween 2025",
     "image": "/images/pet_wear/Spiderweb-Coffin-Backpack-Ultra-Rare-from-Halloween-2025.png",
     "value": null,
@@ -7970,10 +7970,10 @@
     "valueUnit": null
   },
   {
-    "id": "spiky-blue-hair-ultra",
+    "id": "spiky-blue-hair",
     "category": "pet_wear",
-    "name": "Spiky Blue Hair Ultra",
-    "rarity": "Rare",
+    "name": "Spiky Blue Hair",
+    "rarity": "Ultra Rare",
     "source": "Cherry Blossom Festival 2025",
     "image": "/images/pet_wear/Spiky-Blue-Hair-Ultra-Rare-from-Cherry-Blossom-Festival-2025.png",
     "value": null,
@@ -8270,10 +8270,10 @@
     "valueUnit": null
   },
   {
-    "id": "strawberry-shortcake-bow-ultra",
+    "id": "strawberry-shortcake-bow",
     "category": "pet_wear",
-    "name": "Strawberry Shortcake Bow Ultra",
-    "rarity": "Rare",
+    "name": "Strawberry Shortcake Bow",
+    "rarity": "Ultra Rare",
     "source": "Winter 2022",
     "image": "/images/pet_wear/Strawberry-Shortcake-Bow-Ultra-Rare-from-Winter-2022.png",
     "value": null,
@@ -8310,10 +8310,10 @@
     "valueUnit": null
   },
   {
-    "id": "strongperson-barbell-ultra",
+    "id": "strongperson-barbell",
     "category": "pet_wear",
-    "name": "Strongperson Barbell Ultra",
-    "rarity": "Rare",
+    "name": "Strongperson Barbell",
+    "rarity": "Ultra Rare",
     "source": "Summer State Fair 2024",
     "image": "/images/pet_wear/Strongperson-Barbell-Ultra-Rare-from-Summer-State-Fair-2024.png",
     "value": null,
@@ -8330,10 +8330,10 @@
     "valueUnit": null
   },
   {
-    "id": "stylish-messenger-bag-ultra",
+    "id": "stylish-messenger-bag",
     "category": "pet_wear",
-    "name": "Stylish Messenger Bag Ultra",
-    "rarity": "Rare",
+    "name": "Stylish Messenger Bag",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Stylish-Messenger-Bag-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -8390,20 +8390,20 @@
     "valueUnit": null
   },
   {
-    "id": "sun-tome-ultra",
+    "id": "sun-tome",
     "category": "pet_wear",
-    "name": "Sun Tome Ultra",
-    "rarity": "Rare",
+    "name": "Sun Tome",
+    "rarity": "Ultra Rare",
     "source": "Hat Shop",
     "image": "/images/pet_wear/Sun-Tome-Ultra-Rare-from-Hat-Shop.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "sun-wings-ultra",
+    "id": "sun-wings",
     "category": "pet_wear",
-    "name": "Sun Wings Ultra",
-    "rarity": "Rare",
+    "name": "Sun Wings",
+    "rarity": "Ultra Rare",
     "source": "Desert Weather Map",
     "image": "/images/pet_wear/Sun-Wings-Ultra-Rare-from-Desert-Weather-Map.png",
     "value": null,
@@ -8430,10 +8430,10 @@
     "valueUnit": null
   },
   {
-    "id": "super-hero-hair-ultra",
+    "id": "super-hero-hair",
     "category": "pet_wear",
-    "name": "Super Hero Hair Ultra",
-    "rarity": "Rare",
+    "name": "Super Hero Hair",
+    "rarity": "Ultra Rare",
     "source": "Hero Gibbon",
     "image": "/images/pet_wear/Super-Hero-Hair-Ultra-Rare-from-Hero-Gibbon.png",
     "value": null,
@@ -8520,10 +8520,10 @@
     "valueUnit": null
   },
   {
-    "id": "theatrical-hat-ultra",
+    "id": "theatrical-hat",
     "category": "pet_wear",
-    "name": "Theatrical Hat Ultra",
-    "rarity": "Rare",
+    "name": "Theatrical Hat",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Theatrical-Hat-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -8560,10 +8560,10 @@
     "valueUnit": null
   },
   {
-    "id": "tiny-wings-ultra",
+    "id": "tiny-wings",
     "category": "pet_wear",
-    "name": "Tiny Wings Ultra",
-    "rarity": "Rare",
+    "name": "Tiny Wings",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Tiny-Wings-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -8610,10 +8610,10 @@
     "valueUnit": null
   },
   {
-    "id": "top-hat-ultra",
+    "id": "top-hat",
     "category": "pet_wear",
-    "name": "Top Hat Ultra",
-    "rarity": "Rare",
+    "name": "Top Hat",
+    "rarity": "Ultra Rare",
     "source": "Albino Gorilla",
     "image": "/images/pet_wear/Top-Hat-Ultra-Rare-from-Albino-Gorilla.png",
     "value": null,
@@ -8660,10 +8660,10 @@
     "valueUnit": null
   },
   {
-    "id": "tree-skirt-ultra",
+    "id": "tree-skirt",
     "category": "pet_wear",
-    "name": "Tree Skirt Ultra",
-    "rarity": "Rare",
+    "name": "Tree Skirt",
+    "rarity": "Ultra Rare",
     "source": "Winter",
     "image": "/images/pet_wear/Tree-Skirt-Ultra-Rare-from-Winter.png",
     "value": null,
@@ -8730,10 +8730,10 @@
     "valueUnit": null
   },
   {
-    "id": "tutu-ultra",
+    "id": "tutu",
     "category": "pet_wear",
-    "name": "Tutu Ultra",
-    "rarity": "Rare",
+    "name": "Tutu",
+    "rarity": "Ultra Rare",
     "source": "Capuchin Boxes",
     "image": "/images/pet_wear/Tutu-Ultra-Rare-from-Capuchin-Boxes.png",
     "value": null,
@@ -8760,10 +8760,10 @@
     "valueUnit": null
   },
   {
-    "id": "ugly-holiday-cape-ultra",
+    "id": "ugly-holiday-cape",
     "category": "pet_wear",
-    "name": "Ugly Holiday Cape Ultra",
-    "rarity": "Rare",
+    "name": "Ugly Holiday Cape",
+    "rarity": "Ultra Rare",
     "source": "Winter 2023",
     "image": "/images/pet_wear/Ugly-Holiday-Cape-Ultra-Rare-from-Winter-2023.png",
     "value": null,
@@ -8800,10 +8800,10 @@
     "valueUnit": null
   },
   {
-    "id": "unicorn-horn-ultra",
+    "id": "unicorn-horn",
     "category": "pet_wear",
-    "name": "Unicorn Horn Ultra",
-    "rarity": "Rare",
+    "name": "Unicorn Horn",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Unicorn-Horn-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -8850,30 +8850,30 @@
     "valueUnit": null
   },
   {
-    "id": "viking-helmet-ultra",
+    "id": "viking-helmet",
     "category": "pet_wear",
-    "name": "Viking Helmet Ultra",
-    "rarity": "Rare",
+    "name": "Viking Helmet",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Viking-Helmet-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "viking-shield-ultra",
+    "id": "viking-shield",
     "category": "pet_wear",
-    "name": "Viking Shield Ultra",
-    "rarity": "Rare",
+    "name": "Viking Shield",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Viking-Shield-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "villainous-eyebrows-ultra",
+    "id": "villainous-eyebrows",
     "category": "pet_wear",
-    "name": "Villainous Eyebrows Ultra",
-    "rarity": "Rare",
+    "name": "Villainous Eyebrows",
+    "rarity": "Ultra Rare",
     "source": "Villain Gibbon",
     "image": "/images/pet_wear/Villainous-Eyebrows-Ultra-Rare-from-Villain-Gibbon.png",
     "value": null,
@@ -8900,10 +8900,10 @@
     "valueUnit": null
   },
   {
-    "id": "volcano-hat-ultra",
+    "id": "volcano-hat",
     "category": "pet_wear",
-    "name": "Volcano Hat Ultra",
-    "rarity": "Rare",
+    "name": "Volcano Hat",
+    "rarity": "Ultra Rare",
     "source": "Campfire Cookie",
     "image": "/images/pet_wear/Volcano-Hat-Ultra-Rare-from-Campfire-Cookie.png",
     "value": null,
@@ -8940,10 +8940,10 @@
     "valueUnit": null
   },
   {
-    "id": "waffle-top-hat-ultra",
+    "id": "waffle-top-hat",
     "category": "pet_wear",
-    "name": "Waffle Top Hat Ultra",
-    "rarity": "Rare",
+    "name": "Waffle Top Hat",
+    "rarity": "Ultra Rare",
     "source": "Sugar Festival 2026",
     "image": "/images/pet_wear/Waffle-Top-Hat-Ultra-Rare-from-Sugar-Festival-2026.png",
     "value": null,
@@ -8960,10 +8960,10 @@
     "valueUnit": null
   },
   {
-    "id": "walking-cane-ultra",
+    "id": "walking-cane",
     "category": "pet_wear",
-    "name": "Walking Cane Ultra",
-    "rarity": "Rare",
+    "name": "Walking Cane",
+    "rarity": "Ultra Rare",
     "source": "Albino Gorilla",
     "image": "/images/pet_wear/Walking-Cane-Ultra-Rare-from-Albino-Gorilla.png",
     "value": null,
@@ -8980,10 +8980,10 @@
     "valueUnit": null
   },
   {
-    "id": "water-can-ultra",
+    "id": "water-can",
     "category": "pet_wear",
-    "name": "Water Can Ultra",
-    "rarity": "Rare",
+    "name": "Water Can",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Water-Can-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -9110,10 +9110,10 @@
     "valueUnit": null
   },
   {
-    "id": "whipped-cream-hat-ultra",
+    "id": "whipped-cream-hat",
     "category": "pet_wear",
-    "name": "Whipped Cream Hat Ultra",
-    "rarity": "Rare",
+    "name": "Whipped Cream Hat",
+    "rarity": "Ultra Rare",
     "source": "Sugar Festival 2026",
     "image": "/images/pet_wear/Whipped-Cream-Hat-Ultra-Rare-from-Sugar-Festival-2026.png",
     "value": null,
@@ -9150,10 +9150,10 @@
     "valueUnit": null
   },
   {
-    "id": "white-designer-backpack-ultra",
+    "id": "white-designer-backpack",
     "category": "pet_wear",
-    "name": "White Designer Backpack Ultra",
-    "rarity": "Rare",
+    "name": "White Designer Backpack",
+    "rarity": "Ultra Rare",
     "source": "Hat Shop",
     "image": "/images/pet_wear/White-Designer-Backpack-Ultra-Rare-from-Hat-Shop.png",
     "value": null,
@@ -9230,6 +9230,16 @@
     "valueUnit": null
   },
   {
+    "id": "winged-cap",
+    "category": "pet_wear",
+    "name": "Winged Cap",
+    "rarity": "Ultra Rare",
+    "source": "Accessory Chest",
+    "image": "/images/pet_wear/Winged-Cap-Ultra-Rare-from-Accessory-Chest.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "winged-cap-2",
     "category": "pet_wear",
     "name": "Winged Cap 2",
@@ -9240,20 +9250,10 @@
     "valueUnit": null
   },
   {
-    "id": "winged-cap-ultra",
+    "id": "winged-heels",
     "category": "pet_wear",
-    "name": "Winged Cap Ultra",
-    "rarity": "Rare",
-    "source": "Accessory Chest",
-    "image": "/images/pet_wear/Winged-Cap-Ultra-Rare-from-Accessory-Chest.png",
-    "value": null,
-    "valueUnit": null
-  },
-  {
-    "id": "winged-heels-ultra",
-    "category": "pet_wear",
-    "name": "Winged Heels Ultra",
-    "rarity": "Rare",
+    "name": "Winged Heels",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Winged-Heels-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -9280,10 +9280,10 @@
     "valueUnit": null
   },
   {
-    "id": "winter-bow-wings-ultra",
+    "id": "winter-bow-wings",
     "category": "pet_wear",
-    "name": "Winter Bow Wings Ultra",
-    "rarity": "Rare",
+    "name": "Winter Bow Wings",
+    "rarity": "Ultra Rare",
     "source": "Winter 2024",
     "image": "/images/pet_wear/Winter-Bow-Wings-Ultra-Rare-from-Winter-2024.png",
     "value": null,
@@ -9380,10 +9380,10 @@
     "valueUnit": null
   },
   {
-    "id": "y2k-shades-ultra",
+    "id": "y2k-shades",
     "category": "pet_wear",
-    "name": "Y2K Shades Ultra",
-    "rarity": "Rare",
+    "name": "Y2K Shades",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Y2K-Shades-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,
@@ -9470,10 +9470,10 @@
     "valueUnit": null
   },
   {
-    "id": "zebra-backpack-ultra",
+    "id": "zebra-backpack",
     "category": "pet_wear",
-    "name": "Zebra Backpack Ultra",
-    "rarity": "Rare",
+    "name": "Zebra Backpack",
+    "rarity": "Ultra Rare",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Zebra-Backpack-Ultra-Rare-from-Accessory-Chest.png",
     "value": null,

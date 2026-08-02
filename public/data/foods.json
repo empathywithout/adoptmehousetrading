@@ -60,10 +60,10 @@
     "valueUnit": null
   },
   {
-    "id": "baked-alaska-bait-ultra",
+    "id": "baked-alaska-bait",
     "category": "foods",
-    "name": "Baked Alaska Bait Ultra",
-    "rarity": "Rare",
+    "name": "Baked Alaska Bait",
+    "rarity": "Ultra Rare",
     "source": "Fire Dimension 2024 (Robux)",
     "image": "/images/foods/Baked-Alaska-Bait-Ultra-Rare-from-Fire-Dimension-2024-(Robux).png",
     "value": null,
@@ -100,10 +100,10 @@
     "valueUnit": null
   },
   {
-    "id": "bluebell-flower-ultra",
+    "id": "bluebell-flower",
     "category": "foods",
-    "name": "Bluebell Flower Ultra",
-    "rarity": "Rare",
+    "name": "Bluebell Flower",
+    "rarity": "Ultra Rare",
     "source": "Butterfly Sanctuary 2025",
     "image": "/images/foods/Bluebell-Flower-Ultra-Rare-from-Butterfly-Sanctuary-2025.png",
     "value": null,
@@ -300,10 +300,10 @@
     "valueUnit": null
   },
   {
-    "id": "christmas-pudding-pup-bait-ultra",
+    "id": "christmas-pudding-pup-bait",
     "category": "foods",
-    "name": "Christmas Pudding Pup Bait Ultra",
-    "rarity": "Rare",
+    "name": "Christmas Pudding Pup Bait",
+    "rarity": "Ultra Rare",
     "source": "Winter 2023 (Advent Calendar)",
     "image": "/images/foods/Christmas-Pudding-Pup-Bait-Ultra-Rare-from-Winter-2023-(Advent-Calendar).png",
     "value": null,
@@ -780,10 +780,10 @@
     "valueUnit": null
   },
   {
-    "id": "leaf-ultra",
+    "id": "leaf",
     "category": "foods",
-    "name": "Leaf Ultra",
-    "rarity": "Rare",
+    "name": "Leaf",
+    "rarity": "Ultra Rare",
     "source": "Butterfly Sanctuary",
     "image": "/images/foods/Leaf-Ultra-Rare-from-Butterfly-Sanctuary.png",
     "value": null,
@@ -810,10 +810,10 @@
     "valueUnit": null
   },
   {
-    "id": "levitation-potion-ultra",
+    "id": "levitation-potion",
     "category": "foods",
-    "name": "Levitation Potion Ultra",
-    "rarity": "Rare",
+    "name": "Levitation Potion",
+    "rarity": "Ultra Rare",
     "source": "Sky Castle",
     "image": "/images/foods/Levitation-Potion-Ultra-Rare-from-Sky-Castle.png",
     "value": null,
@@ -970,10 +970,10 @@
     "valueUnit": null
   },
   {
-    "id": "polymorph-potion-ultra",
+    "id": "polymorph-potion",
     "category": "foods",
-    "name": "Polymorph Potion Ultra",
-    "rarity": "Rare",
+    "name": "Polymorph Potion",
+    "rarity": "Ultra Rare",
     "source": "Potions Update 2026",
     "image": "/images/foods/Polymorph-Potion-Ultra-Rare-from-Potions-Update-2026.png",
     "value": null,
@@ -990,10 +990,10 @@
     "valueUnit": null
   },
   {
-    "id": "preferred-potion-ultra",
+    "id": "preferred-potion",
     "category": "foods",
-    "name": "Preferred Potion Ultra",
-    "rarity": "Rare",
+    "name": "Preferred Potion",
+    "rarity": "Ultra Rare",
     "source": "Potions Update 2026",
     "image": "/images/foods/Preferred-Potion-Ultra-Rare-from-Potions-Update-2026.png",
     "value": null,
@@ -1190,10 +1190,10 @@
     "valueUnit": null
   },
   {
-    "id": "sugar-skull-potion-ultra",
+    "id": "sugar-skull-potion",
     "category": "foods",
-    "name": "Sugar Skull Potion Ultra",
-    "rarity": "Rare",
+    "name": "Sugar Skull Potion",
+    "rarity": "Ultra Rare",
     "source": "Halloween 2024 (Robux)",
     "image": "/images/foods/Sugar-Skull-Potion-Ultra-Rare-from-Halloween-2024-(Robux).png",
     "value": null,
@@ -1300,10 +1300,10 @@
     "valueUnit": null
   },
   {
-    "id": "winter-deer-bait-ultra",
+    "id": "winter-deer-bait",
     "category": "foods",
-    "name": "Winter Deer Bait Ultra",
-    "rarity": "Rare",
+    "name": "Winter Deer Bait",
+    "rarity": "Ultra Rare",
     "source": "Winter 2024",
     "image": "/images/foods/Winter-Deer-Bait-Ultra-Rare-from-Winter-2024.png",
     "value": null,

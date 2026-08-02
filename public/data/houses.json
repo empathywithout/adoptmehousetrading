@@ -4,7 +4,7 @@
     "category": "houses",
     "name": "Beehive House",
     "rarity": "Common",
-    "source": "Bee Pass 2026 (5,450 Bucks)",
+    "source": "Bee Pass 2026",
     "image": "/images/houses/Beehive-House-Common-from-Bee-Pass-2026.webp",
     "value": null,
     "valueUnit": null,
@@ -37,7 +37,6 @@
     "value": null,
     "valueUnit": null,
     "availability": "limited",
-    "bucksPrice": null,
     "floors": 2,
     "expandable": false
   },
@@ -65,7 +64,6 @@
     "value": null,
     "valueUnit": null,
     "availability": "robux",
-    "bucksPrice": null,
     "floors": 3,
     "expandable": false
   },
@@ -79,7 +77,6 @@
     "value": null,
     "valueUnit": null,
     "availability": "limited",
-    "bucksPrice": null,
     "floors": 2,
     "expandable": false
   },
@@ -107,7 +104,6 @@
     "value": null,
     "valueUnit": null,
     "availability": "robux",
-    "bucksPrice": null,
     "floors": 2,
     "expandable": false
   },
@@ -121,7 +117,6 @@
     "value": null,
     "valueUnit": null,
     "availability": "limited",
-    "bucksPrice": null,
     "floors": 2,
     "expandable": false
   },
@@ -247,7 +242,6 @@
     "value": null,
     "valueUnit": null,
     "availability": "limited",
-    "bucksPrice": null,
     "floors": 2,
     "expandable": false
   },
@@ -303,7 +297,6 @@
     "value": null,
     "valueUnit": null,
     "availability": "limited",
-    "bucksPrice": null,
     "floors": 3,
     "expandable": false
   },
@@ -317,7 +310,6 @@
     "value": null,
     "valueUnit": null,
     "availability": "limited",
-    "bucksPrice": null,
     "floors": 3,
     "expandable": false
   },
@@ -345,7 +337,6 @@
     "value": null,
     "valueUnit": null,
     "availability": "robux",
-    "bucksPrice": null,
     "floors": 3,
     "expandable": false
   },
@@ -359,7 +350,6 @@
     "value": null,
     "valueUnit": null,
     "availability": "limited",
-    "bucksPrice": null,
     "floors": 2,
     "expandable": false
   },
@@ -373,7 +363,6 @@
     "value": null,
     "valueUnit": null,
     "availability": "limited",
-    "bucksPrice": null,
     "floors": 1,
     "expandable": false
   },
@@ -387,7 +376,6 @@
     "value": null,
     "valueUnit": null,
     "availability": "limited",
-    "bucksPrice": null,
     "floors": 2,
     "expandable": false
   },
@@ -401,7 +389,6 @@
     "value": null,
     "valueUnit": null,
     "availability": "limited",
-    "bucksPrice": null,
     "floors": 2,
     "expandable": false
   },
@@ -457,7 +444,6 @@
     "value": null,
     "valueUnit": null,
     "availability": "robux",
-    "bucksPrice": null,
     "floors": 3,
     "expandable": false
   },
@@ -471,7 +457,6 @@
     "value": null,
     "valueUnit": null,
     "availability": "robux",
-    "bucksPrice": null,
     "floors": 2,
     "expandable": false
   },
@@ -597,7 +582,6 @@
     "value": null,
     "valueUnit": null,
     "availability": "limited",
-    "bucksPrice": null,
     "floors": 2,
     "expandable": false
   },
@@ -625,7 +609,6 @@
     "value": null,
     "valueUnit": null,
     "availability": "limited",
-    "bucksPrice": null,
     "floors": 3,
     "expandable": false
   },
@@ -639,7 +622,6 @@
     "value": null,
     "valueUnit": null,
     "availability": "robux",
-    "bucksPrice": null,
     "floors": 2,
     "expandable": false
   },
@@ -667,7 +649,6 @@
     "value": null,
     "valueUnit": null,
     "availability": "limited",
-    "bucksPrice": null,
     "floors": 2,
     "expandable": false
   },
@@ -681,7 +662,6 @@
     "value": null,
     "valueUnit": null,
     "availability": "robux",
-    "bucksPrice": null,
     "floors": 3,
     "expandable": false
   },
@@ -709,7 +689,6 @@
     "value": null,
     "valueUnit": null,
     "availability": "limited",
-    "bucksPrice": null,
     "floors": 2,
     "expandable": false
   },
