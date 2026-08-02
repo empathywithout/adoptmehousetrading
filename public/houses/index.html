@@ -3,18 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Adopt Me House Values & Trading Prices (2026) — AdoptMeHouseTrading.com</title>
-<meta name="description" content="Adopt Me house values and trading prices for every house in 2026. See what each house is worth before you trade — Queenslander, Tiny Home, Mansion, and more.">
+<title>Adopt Me House Values — AdoptMeHouseTrading.com</title>
+<meta name="description" content="Reference values for every tradeable house in Adopt Me.">
 <link rel="canonical" href="https://adoptmehousetrading.com/houses/index.html">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-<meta property="og:title" content="Adopt Me House Values & Trading Prices (2026) — AdoptMeHouseTrading.com">
-<meta property="og:description" content="Adopt Me house values and trading prices for every house in 2026. See what each house is worth before you trade.">
+<meta property="og:title" content="Adopt Me House Values — AdoptMeHouseTrading.com">
+<meta property="og:description" content="Reference values for every tradeable house in Adopt Me.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://adoptmehousetrading.com/houses/index.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/style.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://adoptmehousetrading.com/#organization","name":"AdoptMeHouseTrading.com","url":"https://adoptmehousetrading.com","description":"A fan-made resource for Roblox's Adopt Me! house trading community — house values, live trade listings, builder commissions, and a build registry. Not affiliated with Adopt Me or Roblox Corporation."},{"@type":"WebSite","@id":"https://adoptmehousetrading.com/#website","url":"https://adoptmehousetrading.com","name":"AdoptMeHouseTrading.com","publisher":{"@id":"https://adoptmehousetrading.com/#organization"}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://adoptmehousetrading.com/"},{"@type":"ListItem","position":2,"name":"Values","item":"https://adoptmehousetrading.com/houses/index.html"}]}</script>
@@ -39,7 +38,7 @@
     <nav>
       <a href="../listings/index.html" class="">Browse Houses</a>
       <a href="../commissions/index.html" class="">Find a Builder</a>
-      <a href="../recent-trades.html" class="">Recent Trades</a>
+      <a href="../comps.html" class="">Recent Trades</a>
       <div class="nav-more">
         <button type="button" class="nav-more-trigger active">More <span class="nav-more-caret"></span></button>
         <div class="nav-more-dropdown" hidden>
@@ -59,423 +58,500 @@
 </header>
 <script type="module" src="../js/nav.js"></script>
 
+<style>
+.values-search-bar { display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap; align-items:center; }
+.values-search-bar input { flex:1; min-width:200px; padding:10px 14px; border:1.5px solid var(--line); border-radius:10px; font-size:14px; background:var(--surface); color:var(--ink); outline:none; }
+.values-search-bar input:focus { border-color:var(--accent); }
+.filter-tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+.filter-tab { padding:6px 14px; border-radius:20px; border:1.5px solid var(--line); background:var(--surface); color:var(--ink-soft); font-size:13px; font-weight:600; cursor:pointer; transition:all .15s; }
+.filter-tab:hover, .filter-tab.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+.avail-tag { position:absolute; top:8px; left:8px; font-size:10px; font-weight:700; padding:2px 7px; border-radius:20px; letter-spacing:.4px; text-transform:uppercase; }
+.avail-tag.limited { background:#f0483e; color:#fff; }
+.avail-tag.robux { background:#00a2ff; color:#fff; }
+.avail-tag.obtainable { background:#22c55e; color:#fff; }
+.house-card .thumb { position:relative; }
+.no-results { display:none; padding:40px; text-align:center; color:var(--ink-soft); font-size:15px; }
+</style>
 <section class="wrap">
   <div class="section-head" style="margin-top:40px;">
-    <h1>House Values (51)</h1>
+    <h1>All Houses (52)</h1>
     <a href="../listings/index.html">Looking to trade? Browse live listings →</a>
   </div>
-  <p class="hint" style="margin-bottom:20px;">Reference values for every house type in Adopt Me. To actually trade, head to <a href="../listings/index.html" style="color:var(--accent);">Browse Houses</a> to see real listings from real players.</p>
-  <div class="house-grid">
-    <a class="house-card" href="biodome-home.html">
-  <div class="thumb"><img src="../images/houses/Biodome-Home-Common-from-House.png" alt="Biodome Home" loading="lazy"></div>
+  <p class="hint" style="margin-bottom:16px;">Every house in Adopt Me with trading values. <span style="display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap;"><span class="avail-tag obtainable" style="position:static;">Obtainable</span> = buyable now &nbsp; <span class="avail-tag robux" style="position:static;">Robux</span> = paid gamepass &nbsp; <span class="avail-tag limited" style="position:static;">Limited</span> = trade only</span></p>
+  <div class="values-search-bar">
+    <input type="search" id="house-search" placeholder="Search houses..." aria-label="Search houses">
+  </div>
+  <div class="filter-tabs" id="filter-tabs">
+    <button class="filter-tab active" data-filter="all">All (52)</button>
+    <button class="filter-tab" data-filter="obtainable">Obtainable</button>
+    <button class="filter-tab" data-filter="robux">Robux / Gamepass</button>
+    <button class="filter-tab" data-filter="limited">Limited</button>
+  </div>
+  <div class="house-grid" id="house-grid">
+    <a class="house-card" href="beehive-house.html" data-name="beehive house" data-source="bee pass 2026 (5,450 bucks)">
+  <div class="thumb"><img src="../images/houses/Beehive-House-Common-from-Bee-Pass-2026.png" alt="Beehive House" loading="lazy"><span class="avail-tag limited">Limited</span></div>
+  <div class="info">
+    <h3>Beehive House</h3>
+    <p class="source">Bee Pass 2026 (5,450 Bucks)</p>
+    <div class="card-value"><span class="unit">Value TBD</span></div>
+  </div>
+</a>
+<a class="house-card" href="biodome-home.html" data-name="biodome home" data-source="house">
+  <div class="thumb"><img src="../images/houses/Biodome-Home-Common-from-House.png" alt="Biodome Home" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Biodome Home</h3>
-    <p class="source">from House</p>
+    <p class="source">House</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="bunker-house.html">
-  <div class="thumb"><img src="../images/houses/Bunker-House-Common-from-Bunker-House-Update.png" alt="Bunker House" loading="lazy"></div>
+<a class="house-card" href="bunker-house.html" data-name="bunker house" data-source="bunker house update">
+  <div class="thumb"><img src="../images/houses/Bunker-House-Common-from-Bunker-House-Update.png" alt="Bunker House" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Bunker House</h3>
-    <p class="source">from Bunker House Update</p>
+    <p class="source">Bunker House Update</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="castle.html">
-  <div class="thumb"><img src="../images/houses/Castle-Common-from-Build-House-Menu.png" alt="Castle" loading="lazy"></div>
+<a class="house-card" href="castle.html" data-name="castle" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Castle-Common-from-Build-House-Menu.png" alt="Castle" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Castle</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="celebrity-mansion.html">
-  <div class="thumb"><img src="../images/houses/Celebrity-Mansion-Common-from-Celebrity-Mansion-Gamepass-(Robux).png" alt="Celebrity Mansion" loading="lazy"></div>
+<a class="house-card" href="celebrity-mansion.html" data-name="celebrity mansion" data-source="celebrity mansion gamepass (robux)">
+  <div class="thumb"><img src="../images/houses/Celebrity-Mansion-Common-from-Celebrity-Mansion-Gamepass-(Robux).png" alt="Celebrity Mansion" loading="lazy"><span class="avail-tag robux">Robux</span></div>
   <div class="info">
     <h3>Celebrity Mansion</h3>
-    <p class="source">from Celebrity Mansion Gamepass (Robux)</p>
+    <p class="source">Celebrity Mansion Gamepass (Robux)</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="christmas-pudding-house.html">
-  <div class="thumb"><img src="../images/houses/Christmas-Pudding-House-Common-from-Winter-2025.png" alt="Christmas Pudding House" loading="lazy"></div>
+<a class="house-card" href="christmas-pudding-house.html" data-name="christmas pudding house" data-source="winter 2025">
+  <div class="thumb"><img src="../images/houses/Christmas-Pudding-House-Common-from-Winter-2025.png" alt="Christmas Pudding House" loading="lazy"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Christmas Pudding House</h3>
-    <p class="source">from Winter 2025</p>
+    <p class="source">Winter 2025</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="container-home.html">
-  <div class="thumb"><img src="../images/houses/Container-Home-Common-from-Build-House-Menu.png" alt="Container Home" loading="lazy"></div>
+<a class="house-card" href="container-home.html" data-name="container home" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Container-Home-Common-from-Build-House-Menu.png" alt="Container Home" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Container Home</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="cozy-cabin.html">
-  <div class="thumb"><img src="../images/houses/Cozy-Cabin-Common-from-Cozy-Cabin-&-Snowmobile-Gamepass-(Robux).png" alt="Cozy Cabin" loading="lazy"></div>
+<a class="house-card" href="cozy-cabin.html" data-name="cozy cabin" data-source="cozy cabin &amp; snowmobile gamepass (robux)">
+  <div class="thumb"><img src="../images/houses/Cozy-Cabin-Common-from-Cozy-Cabin-&-Snowmobile-Gamepass-(Robux).png" alt="Cozy Cabin" loading="lazy"><span class="avail-tag robux">Robux</span></div>
   <div class="info">
     <h3>Cozy Cabin</h3>
-    <p class="source">from Cozy Cabin &amp; Snowmobile Gamepass (Robux)</p>
+    <p class="source">Cozy Cabin &amp; Snowmobile Gamepass (Robux)</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="crooked-house.html">
-  <div class="thumb"><img src="../images/houses/Crooked-House-Common-from-Artsy-Update.png" alt="Crooked House" loading="lazy"></div>
+<a class="house-card" href="crooked-house.html" data-name="crooked house" data-source="artsy update">
+  <div class="thumb"><img src="../images/houses/Crooked-House-Common-from-Artsy-Update.png" alt="Crooked House" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Crooked House</h3>
-    <p class="source">from Artsy Update</p>
+    <p class="source">Artsy Update</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="donut-shop.html">
-  <div class="thumb"><img src="../images/houses/Donut-Shop-Common-from-Build-House-Menu.png" alt="Donut Shop" loading="lazy"></div>
+<a class="house-card" href="donut-shop.html" data-name="donut shop" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Donut-Shop-Common-from-Build-House-Menu.png" alt="Donut Shop" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Donut Shop</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="dragon-s-castle.html">
-  <div class="thumb"><img src="../images/houses/Dragon's-Castle-Common-from-Build-House-Menu.png" alt="Dragon's Castle" loading="lazy"></div>
+<a class="house-card" href="dragon-s-castle.html" data-name="dragon's castle" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Dragon's-Castle-Common-from-Build-House-Menu.png" alt="Dragon's Castle" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Dragon's Castle</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="eco-natural-earth-house.html">
-  <div class="thumb"><img src="../images/houses/Eco-Natural-Earth-House-Common-from-Build-House-Menu.png" alt="Eco Natural Earth House" loading="lazy"></div>
+<a class="house-card" href="eco-natural-earth-house.html" data-name="eco natural earth house" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Eco-Natural-Earth-House-Common-from-Build-House-Menu.png" alt="Eco Natural Earth House" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Eco Natural Earth House</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="estate.html">
-  <div class="thumb"><img src="../images/houses/Estate-Common-from-Build-House-Menu.png" alt="Estate" loading="lazy"></div>
+<a class="house-card" href="estate.html" data-name="estate" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Estate-Common-from-Build-House-Menu.png" alt="Estate" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Estate</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="expandable-dino-house.html">
-  <div class="thumb"><img src="../images/houses/Expandable-Dino-House-Common-from-Fossil-Isle-2024.png" alt="Expandable Dino House" loading="lazy"></div>
+<a class="house-card" href="expandable-dino-house.html" data-name="expandable dino house" data-source="fossil isle 2024">
+  <div class="thumb"><img src="../images/houses/Expandable-Dino-House-Common-from-Fossil-Isle-2024.png" alt="Expandable Dino House" loading="lazy"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Expandable Dino House</h3>
-    <p class="source">from Fossil Isle 2024</p>
+    <p class="source">Fossil Isle 2024</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="expandable-friendly-home.html">
-  <div class="thumb"><img src="../images/houses/Expandable-Friendly-Home-Common-from-Build-House-Menu.png" alt="Expandable Friendly Home" loading="lazy"></div>
+<a class="house-card" href="expandable-friendly-home.html" data-name="expandable friendly home" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Expandable-Friendly-Home-Common-from-Build-House-Menu.png" alt="Expandable Friendly Home" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Expandable Friendly Home</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="expandable-hillside-mansion.html">
-  <div class="thumb"><img src="../images/houses/Expandable-Hillside-Mansion-Common-from-Build-House-Menu.png" alt="Expandable Hillside Mansion" loading="lazy"></div>
+<a class="house-card" href="expandable-hillside-mansion.html" data-name="expandable hillside mansion" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Expandable-Hillside-Mansion-Common-from-Build-House-Menu.png" alt="Expandable Hillside Mansion" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Expandable Hillside Mansion</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="expandable-luxury-mansion.html">
-  <div class="thumb"><img src="../images/houses/Expandable-Luxury-Mansion-Common-from-Build-House-Menu.png" alt="Expandable Luxury Mansion" loading="lazy"></div>
+<a class="house-card" href="expandable-luxury-mansion.html" data-name="expandable luxury mansion" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Expandable-Luxury-Mansion-Common-from-Build-House-Menu.png" alt="Expandable Luxury Mansion" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Expandable Luxury Mansion</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="fairy-house.html">
-  <div class="thumb"><img src="../images/houses/Fairy-House-Common-from-Fairy-Update-2019.png" alt="Fairy House" loading="lazy"></div>
+<a class="house-card" href="fairy-house.html" data-name="fairy house" data-source="fairy update 2019">
+  <div class="thumb"><img src="../images/houses/Fairy-House-Common-from-Fairy-Update-2019.png" alt="Fairy House" loading="lazy"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Fairy House</h3>
-    <p class="source">from Fairy Update 2019</p>
+    <p class="source">Fairy Update 2019</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="family-home.html">
-  <div class="thumb"><img src="../images/houses/Family-Home-Common-from-Starter-Pack.png" alt="Family Home" loading="lazy"></div>
+<a class="house-card" href="family-home.html" data-name="family home" data-source="starter pack">
+  <div class="thumb"><img src="../images/houses/Family-Home-Common-from-Starter-Pack.png" alt="Family Home" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Family Home</h3>
-    <p class="source">from Starter Pack</p>
+    <p class="source">Starter Pack</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="futuristic-house.html">
-  <div class="thumb"><img src="../images/houses/Futuristic-House-Common-from-Build-House-Menu.png" alt="Futuristic House" loading="lazy"></div>
+<a class="house-card" href="futuristic-house.html" data-name="futuristic house" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Futuristic-House-Common-from-Build-House-Menu.png" alt="Futuristic House" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Futuristic House</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="gingerbread-house.html">
-  <div class="thumb"><img src="../images/houses/Gingerbread-House-Common-from-Christmas-2019.png" alt="Gingerbread House" loading="lazy"></div>
+<a class="house-card" href="gingerbread-house.html" data-name="gingerbread house" data-source="christmas 2019">
+  <div class="thumb"><img src="../images/houses/Gingerbread-House-Common-from-Christmas-2019.png" alt="Gingerbread House" loading="lazy"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Gingerbread House</h3>
-    <p class="source">from Christmas 2019</p>
+    <p class="source">Christmas 2019</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="halloween-hotel.html">
-  <div class="thumb"><img src="../images/houses/Halloween-Hotel-Common-from-September-2025.png" alt="Halloween Hotel" loading="lazy"></div>
+<a class="house-card" href="halloween-hotel.html" data-name="halloween hotel" data-source="september 2025">
+  <div class="thumb"><img src="../images/houses/Halloween-Hotel-Common-from-September-2025.png" alt="Halloween Hotel" loading="lazy"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Halloween Hotel</h3>
-    <p class="source">from September 2025</p>
+    <p class="source">September 2025</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="haunted-house.html">
-  <div class="thumb"><img src="../images/houses/Haunted-House-Common-from-Halloween-2023.png" alt="Haunted House" loading="lazy"></div>
+<a class="house-card" href="haunted-house.html" data-name="haunted house" data-source="halloween 2023">
+  <div class="thumb"><img src="../images/houses/Haunted-House-Common-from-Halloween-2023.png" alt="Haunted House" loading="lazy"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Haunted House</h3>
-    <p class="source">from Halloween 2023</p>
+    <p class="source">Halloween 2023</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="hollywood-house.html">
-  <div class="thumb"><img src="../images/houses/Hollywood-House-Common-from-Build-House-Menu.png" alt="Hollywood House" loading="lazy"></div>
+<a class="house-card" href="hollywood-house.html" data-name="hollywood house" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Hollywood-House-Common-from-Build-House-Menu.png" alt="Hollywood House" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Hollywood House</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="hospital-home.html">
-  <div class="thumb"><img src="../images/houses/Hospital-Home-Common-from-School-and-Hospital-Houses-(Robux).png" alt="Hospital Home" loading="lazy"></div>
+<a class="house-card" href="hospital-home.html" data-name="hospital home" data-source="school and hospital houses (robux)">
+  <div class="thumb"><img src="../images/houses/Hospital-Home-Common-from-School-and-Hospital-Houses-(Robux).png" alt="Hospital Home" loading="lazy"><span class="avail-tag robux">Robux</span></div>
   <div class="info">
     <h3>Hospital Home</h3>
-    <p class="source">from School and Hospital Houses (Robux)</p>
+    <p class="source">School and Hospital Houses (Robux)</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="ice-cream-house.html">
-  <div class="thumb"><img src="../images/houses/Ice-Cream-House-Common-from-February-2025.png" alt="Ice Cream House" loading="lazy"></div>
+<a class="house-card" href="ice-cream-house.html" data-name="ice cream house" data-source="february 2025">
+  <div class="thumb"><img src="../images/houses/Ice-Cream-House-Common-from-February-2025.png" alt="Ice Cream House" loading="lazy"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Ice Cream House</h3>
-    <p class="source">from February 2025</p>
+    <p class="source">February 2025</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="igloo-home.html">
-  <div class="thumb"><img src="../images/houses/Igloo-Home-Common-from-Winter-2022.png" alt="Igloo Home" loading="lazy"></div>
+<a class="house-card" href="igloo-home.html" data-name="igloo home" data-source="winter 2022">
+  <div class="thumb"><img src="../images/houses/Igloo-Home-Common-from-Winter-2022.png" alt="Igloo Home" loading="lazy"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Igloo Home</h3>
-    <p class="source">from Winter 2022</p>
+    <p class="source">Winter 2022</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="korean-house.html">
-  <div class="thumb"><img src="../images/houses/Korean-House-Common-from-Lunar-New-Year-2024.png" alt="Korean House" loading="lazy"></div>
+<a class="house-card" href="korean-house.html" data-name="korean house" data-source="lunar new year 2024">
+  <div class="thumb"><img src="../images/houses/Korean-House-Common-from-Lunar-New-Year-2024.png" alt="Korean House" loading="lazy"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Korean House</h3>
-    <p class="source">from Lunar New Year 2024</p>
+    <p class="source">Lunar New Year 2024</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="lunar-house.html">
-  <div class="thumb"><img src="../images/houses/Lunar-House-Common-from-Lunar-New-Year-2021.png" alt="Lunar House" loading="lazy"></div>
+<a class="house-card" href="lunar-house.html" data-name="lunar house" data-source="lunar new year 2021">
+  <div class="thumb"><img src="../images/houses/Lunar-House-Common-from-Lunar-New-Year-2021.png" alt="Lunar House" loading="lazy"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Lunar House</h3>
-    <p class="source">from Lunar New Year 2021</p>
+    <p class="source">Lunar New Year 2021</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="luxury-apartments.html">
-  <div class="thumb"><img src="../images/houses/Luxury-Apartments-Common-from-Build-House-Menu.png" alt="Luxury Apartments" loading="lazy"></div>
+<a class="house-card" href="luxury-apartments.html" data-name="luxury apartments" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Luxury-Apartments-Common-from-Build-House-Menu.png" alt="Luxury Apartments" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Luxury Apartments</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="mansion.html">
-  <div class="thumb"><img src="../images/houses/Mansion-Common-from-Build-House-Menu.png" alt="Mansion" loading="lazy"></div>
+<a class="house-card" href="mansion.html" data-name="mansion" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Mansion-Common-from-Build-House-Menu.png" alt="Mansion" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Mansion</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="mermaid-mansion.html">
-  <div class="thumb"><img src="../images/houses/Mermaid-Mansion-Common-from-Build-House-Menu.png" alt="Mermaid Mansion" loading="lazy"></div>
+<a class="house-card" href="mermaid-mansion.html" data-name="mermaid mansion" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Mermaid-Mansion-Common-from-Build-House-Menu.png" alt="Mermaid Mansion" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Mermaid Mansion</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="millionaire-mansion.html">
-  <div class="thumb"><img src="../images/houses/Millionaire-Mansion-Common-from-Millionaire-Pack-(Robux).png" alt="Millionaire Mansion" loading="lazy"></div>
+<a class="house-card" href="millionaire-mansion.html" data-name="millionaire mansion" data-source="millionaire pack (robux)">
+  <div class="thumb"><img src="../images/houses/Millionaire-Mansion-Common-from-Millionaire-Pack-(Robux).png" alt="Millionaire Mansion" loading="lazy"><span class="avail-tag robux">Robux</span></div>
   <div class="info">
     <h3>Millionaire Mansion</h3>
-    <p class="source">from Millionaire Pack (Robux)</p>
+    <p class="source">Millionaire Pack (Robux)</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="modern-mansion.html">
-  <div class="thumb"><img src="../images/houses/Modern-Mansion-Common-from-Modern-Mansion-Gamepass-(Robux).png" alt="Modern Mansion" loading="lazy"></div>
+<a class="house-card" href="modern-mansion.html" data-name="modern mansion" data-source="modern mansion gamepass (robux)">
+  <div class="thumb"><img src="../images/houses/Modern-Mansion-Common-from-Modern-Mansion-Gamepass-(Robux).png" alt="Modern Mansion" loading="lazy"><span class="avail-tag robux">Robux</span></div>
   <div class="info">
     <h3>Modern Mansion</h3>
-    <p class="source">from Modern Mansion Gamepass (Robux)</p>
+    <p class="source">Modern Mansion Gamepass (Robux)</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="mountain-house.html">
-  <div class="thumb"><img src="../images/houses/Mountain-House-Common-from-Build-House-Menu.png" alt="Mountain House" loading="lazy"></div>
+<a class="house-card" href="mountain-house.html" data-name="mountain house" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Mountain-House-Common-from-Build-House-Menu.png" alt="Mountain House" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Mountain House</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="party-house.html">
-  <div class="thumb"><img src="../images/houses/Party-House-Common-from-Build-House-Menu.png" alt="Party House" loading="lazy"></div>
+<a class="house-card" href="party-house.html" data-name="party house" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Party-House-Common-from-Build-House-Menu.png" alt="Party House" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Party House</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="pirate-ship-house.html">
-  <div class="thumb"><img src="../images/houses/Pirate-Ship-House-Common-from-Build-House-Menu.png" alt="Pirate Ship House" loading="lazy"></div>
+<a class="house-card" href="pirate-ship-house.html" data-name="pirate ship house" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Pirate-Ship-House-Common-from-Build-House-Menu.png" alt="Pirate Ship House" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Pirate Ship House</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="pizza-place.html">
-  <div class="thumb"><img src="../images/houses/Pizza-Place-Common-from-Own-A-Shop-Update.png" alt="Pizza Place" loading="lazy"></div>
+<a class="house-card" href="pizza-place.html" data-name="pizza place" data-source="own a shop update">
+  <div class="thumb"><img src="../images/houses/Pizza-Place-Common-from-Own-A-Shop-Update.png" alt="Pizza Place" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Pizza Place</h3>
-    <p class="source">from Own A Shop Update</p>
+    <p class="source">Own A Shop Update</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="queenslander-house.html">
-  <div class="thumb"><img src="../images/houses/Queenslander-House-Common-from-Build-House-Menu.png" alt="Queenslander House" loading="lazy"></div>
+<a class="house-card" href="queenslander-house.html" data-name="queenslander house" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Queenslander-House-Common-from-Build-House-Menu.png" alt="Queenslander House" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Queenslander House</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="racetrack-house.html">
-  <div class="thumb"><img src="../images/houses/Racetrack-House-Common-from-Build-House-Menu.png" alt="Racetrack House" loading="lazy"></div>
+<a class="house-card" href="racetrack-house.html" data-name="racetrack house" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Racetrack-House-Common-from-Build-House-Menu.png" alt="Racetrack House" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Racetrack House</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="royal-palace.html">
-  <div class="thumb"><img src="../images/houses/Royal-Palace-Common-from-Build-House-Menu.png" alt="Royal Palace" loading="lazy"></div>
+<a class="house-card" href="royal-palace.html" data-name="royal palace" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Royal-Palace-Common-from-Build-House-Menu.png" alt="Royal Palace" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Royal Palace</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="ruler-s-castle.html">
-  <div class="thumb"><img src="../images/houses/Ruler's-Castle-Common-from-Build-House-Menu.png" alt="Ruler's Castle" loading="lazy"></div>
+<a class="house-card" href="ruler-s-castle.html" data-name="ruler's castle" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Ruler's-Castle-Common-from-Build-House-Menu.png" alt="Ruler's Castle" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Ruler's Castle</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="safari-home.html">
-  <div class="thumb"><img src="../images/houses/Safari-Home-Common-from-Safari-Update-2023.png" alt="Safari Home" loading="lazy"></div>
+<a class="house-card" href="safari-home.html" data-name="safari home" data-source="safari update 2023">
+  <div class="thumb"><img src="../images/houses/Safari-Home-Common-from-Safari-Update-2023.png" alt="Safari Home" loading="lazy"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Safari Home</h3>
-    <p class="source">from Safari Update 2023</p>
+    <p class="source">Safari Update 2023</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="sandbox-island.html">
-  <div class="thumb"><img src="../images/houses/Sandbox-Island-Common-from-Build-House-Menu.png" alt="Sandbox Island" loading="lazy"></div>
+<a class="house-card" href="sandbox-island.html" data-name="sandbox island" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Sandbox-Island-Common-from-Build-House-Menu.png" alt="Sandbox Island" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Sandbox Island</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="scary-house.html">
-  <div class="thumb"><img src="../images/houses/Scary-House-Common-from-Halloween-2021.png" alt="Scary House" loading="lazy"></div>
+<a class="house-card" href="scary-house.html" data-name="scary house" data-source="halloween 2021">
+  <div class="thumb"><img src="../images/houses/Scary-House-Common-from-Halloween-2021.png" alt="Scary House" loading="lazy"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Scary House</h3>
-    <p class="source">from Halloween 2021</p>
+    <p class="source">Halloween 2021</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="schoolhouse-home.html">
-  <div class="thumb"><img src="../images/houses/Schoolhouse-Home-Common-from-School-and-Hospital-Houses-(Robux).png" alt="Schoolhouse Home" loading="lazy"></div>
+<a class="house-card" href="schoolhouse-home.html" data-name="schoolhouse home" data-source="school and hospital houses (robux)">
+  <div class="thumb"><img src="../images/houses/Schoolhouse-Home-Common-from-School-and-Hospital-Houses-(Robux).png" alt="Schoolhouse Home" loading="lazy"><span class="avail-tag robux">Robux</span></div>
   <div class="info">
     <h3>Schoolhouse Home</h3>
-    <p class="source">from School and Hospital Houses (Robux)</p>
+    <p class="source">School and Hospital Houses (Robux)</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="shop-house.html">
-  <div class="thumb"><img src="../images/houses/Shop-House-Common-from-Build-House-Menu.png" alt="Shop House" loading="lazy"></div>
+<a class="house-card" href="shop-house.html" data-name="shop house" data-source="build house menu">
+  <div class="thumb"><img src="../images/houses/Shop-House-Common-from-Build-House-Menu.png" alt="Shop House" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Shop House</h3>
-    <p class="source">from Build House Menu</p>
+    <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="soccer-stadium.html">
-  <div class="thumb"><img src="../images/houses/Soccer-Stadium-Common-from-Soccer-Update-2024.png" alt="Soccer Stadium" loading="lazy"></div>
+<a class="house-card" href="soccer-stadium.html" data-name="soccer stadium" data-source="soccer update 2024">
+  <div class="thumb"><img src="../images/houses/Soccer-Stadium-Common-from-Soccer-Update-2024.png" alt="Soccer Stadium" loading="lazy"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Soccer Stadium</h3>
-    <p class="source">from Soccer Update 2024</p>
+    <p class="source">Soccer Update 2024</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="space-fleet-house.html">
-  <div class="thumb"><img src="../images/houses/Space-Fleet-House-Common-from-Space-Bundle-Gamepass.png" alt="Space Fleet House" loading="lazy"></div>
+<a class="house-card" href="space-fleet-house.html" data-name="space fleet house" data-source="space bundle gamepass">
+  <div class="thumb"><img src="../images/houses/Space-Fleet-House-Common-from-Space-Bundle-Gamepass.png" alt="Space Fleet House" loading="lazy"><span class="avail-tag robux">Gamepass</span></div>
   <div class="info">
     <h3>Space Fleet House</h3>
-    <p class="source">from Space Bundle Gamepass</p>
+    <p class="source">Space Bundle Gamepass</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="tiny-home.html">
-  <div class="thumb"><img src="../images/houses/Tiny-Home-Common-from-Default-House.png" alt="Tiny Home" loading="lazy"></div>
+<a class="house-card" href="tiny-home.html" data-name="tiny home" data-source="default house">
+  <div class="thumb"><img src="../images/houses/Tiny-Home-Common-from-Default-House.png" alt="Tiny Home" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Tiny Home</h3>
-    <p class="source">from Default House</p>
+    <p class="source">Default House</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="toyshop-house.html">
-  <div class="thumb"><img src="../images/houses/Toyshop-House-Common-from-September-2023.png" alt="Toyshop House" loading="lazy"></div>
+<a class="house-card" href="toyshop-house.html" data-name="toyshop house" data-source="september 2023">
+  <div class="thumb"><img src="../images/houses/Toyshop-House-Common-from-September-2023.png" alt="Toyshop House" loading="lazy"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Toyshop House</h3>
-    <p class="source">from September 2023</p>
+    <p class="source">September 2023</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
-<a class="house-card" href="treehouse-update.html">
-  <div class="thumb"><img src="../images/houses/Treehouse-Update-Common-from-Treehouse-Update.png" alt="Treehouse Update" loading="lazy"></div>
+<a class="house-card" href="treehouse-update.html" data-name="treehouse update" data-source="treehouse update">
+  <div class="thumb"><img src="../images/houses/Treehouse-Update-Common-from-Treehouse-Update.png" alt="Treehouse Update" loading="lazy"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Treehouse Update</h3>
-    <p class="source">from Treehouse Update</p>
+    <p class="source">Treehouse Update</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
   </div>
+  <p class="no-results" id="no-results">No houses match your search.</p>
 </section>
+<script>
+(function() {
+  const grid = document.getElementById('house-grid');
+  const cards = Array.from(grid.querySelectorAll('.house-card'));
+  const searchInput = document.getElementById('house-search');
+  const tabs = document.querySelectorAll('.filter-tab');
+  const noResults = document.getElementById('no-results');
+  let activeFilter = 'all';
+
+  function getAvailability(card) {
+    const tag = card.querySelector('.avail-tag');
+    if (!tag) return 'obtainable';
+    if (tag.classList.contains('limited')) return 'limited';
+    if (tag.classList.contains('robux')) return 'robux';
+    return 'obtainable';
+  }
+
+  function applyFilters() {
+    const q = searchInput.value.trim().toLowerCase();
+    let visible = 0;
+    cards.forEach(card => {
+      const name = card.dataset.name || '';
+      const source = card.dataset.source || '';
+      const avail = getAvailability(card);
+      const matchSearch = !q || name.includes(q) || source.includes(q);
+      const matchFilter = activeFilter === 'all' || avail === activeFilter;
+      const show = matchSearch && matchFilter;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    noResults.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  searchInput.addEventListener('input', applyFilters);
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      activeFilter = tab.dataset.filter;
+      applyFilters();
+    });
+  });
+})();
+</script>
 <footer class="site-footer">
   <div class="wrap">
     AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community — house values, live trade listings, builder commissions, and a build registry for verifying who built a house first. Not affiliated with, endorsed by, or sponsored by Adopt Me, Uplift Games, or Roblox Corporation.

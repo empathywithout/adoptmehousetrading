@@ -1,5 +1,15 @@
 [
   {
+    "id": "beehive-house",
+    "category": "houses",
+    "name": "Beehive House",
+    "rarity": "Common",
+    "source": "Bee Pass 2026 (5,450 Bucks)",
+    "image": "/images/houses/Beehive-House-Common-from-Bee-Pass-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "biodome-home",
     "category": "houses",
     "name": "Biodome Home",

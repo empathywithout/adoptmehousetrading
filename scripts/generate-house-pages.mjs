@@ -170,11 +170,23 @@ function houseCard(house, context) {
   const linkPrefix = context === "root" ? "houses/" : "";
   const imgPrefix = context === "root" ? "" : "../";
   const priced = house.value !== null;
-  return `<a class="house-card" href="${linkPrefix}${house.id}.html">
-  <div class="thumb"><img src="${imgPrefix}${house.image.slice(1)}" alt="${escapeHtml(house.name)}" loading="lazy"></div>
+  // Determine availability tag for values grid
+  const src = house.source || "";
+  const isLimited = /\d{4}|christmas|winter|halloween|lunar|summer|spring|fall|event|pass/i.test(src) && !/build house menu|gamepass|robux|starter|default|update$/i.test(src);
+  const isRobux = /robux/i.test(src);
+  const isGamepass = /gamepass/i.test(src) && !/robux/i.test(src);
+  let availTag = "";
+  if (context === "houses") {
+    if (isLimited) availTag = `<span class="avail-tag limited">Limited</span>`;
+    else if (isRobux) availTag = `<span class="avail-tag robux">Robux</span>`;
+    else if (isGamepass) availTag = `<span class="avail-tag robux">Gamepass</span>`;
+    else availTag = `<span class="avail-tag obtainable">Obtainable</span>`;
+  }
+  return `<a class="house-card" href="${linkPrefix}${house.id}.html" data-name="${escapeHtml(house.name.toLowerCase())}" data-source="${escapeHtml(src.toLowerCase())}">
+  <div class="thumb"><img src="${imgPrefix}${house.image.slice(1)}" alt="${escapeHtml(house.name)}" loading="lazy">${availTag}</div>
   <div class="info">
     <h3>${escapeHtml(house.name)}</h3>
-    <p class="source">from ${escapeHtml(house.source)}</p>
+    <p class="source">${escapeHtml(src)}</p>
     <div class="card-value">${priced ? `<span class="amount">${house.value}</span><span class="unit">${house.valueUnit}</span>` : `<span class="unit">Value TBD</span>`}</div>
   </div>
 </a>`;
@@ -339,16 +351,85 @@ function buildHomepage() {
 
 function buildBrowsePage() {
   const body = `
+<style>
+.values-search-bar { display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap; align-items:center; }
+.values-search-bar input { flex:1; min-width:200px; padding:10px 14px; border:1.5px solid var(--line); border-radius:10px; font-size:14px; background:var(--surface); color:var(--ink); outline:none; }
+.values-search-bar input:focus { border-color:var(--accent); }
+.filter-tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+.filter-tab { padding:6px 14px; border-radius:20px; border:1.5px solid var(--line); background:var(--surface); color:var(--ink-soft); font-size:13px; font-weight:600; cursor:pointer; transition:all .15s; }
+.filter-tab:hover, .filter-tab.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+.avail-tag { position:absolute; top:8px; left:8px; font-size:10px; font-weight:700; padding:2px 7px; border-radius:20px; letter-spacing:.4px; text-transform:uppercase; }
+.avail-tag.limited { background:#f0483e; color:#fff; }
+.avail-tag.robux { background:#00a2ff; color:#fff; }
+.avail-tag.obtainable { background:#22c55e; color:#fff; }
+.house-card .thumb { position:relative; }
+.no-results { display:none; padding:40px; text-align:center; color:var(--ink-soft); font-size:15px; }
+</style>
 <section class="wrap">
   <div class="section-head" style="margin-top:40px;">
-    <h1>House Values (${houses.length})</h1>
+    <h1>All Houses (${houses.length})</h1>
     <a href="../listings/index.html">Looking to trade? Browse live listings →</a>
   </div>
-  <p class="hint" style="margin-bottom:20px;">Reference values for every house type in Adopt Me. To actually trade, head to <a href="../listings/index.html" style="color:var(--accent);">Browse Houses</a> to see real listings from real players.</p>
-  <div class="house-grid">
+  <p class="hint" style="margin-bottom:16px;">Every house in Adopt Me with trading values. <span style="display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap;"><span class="avail-tag obtainable" style="position:static;">Obtainable</span> = buyable now &nbsp; <span class="avail-tag robux" style="position:static;">Robux</span> = paid gamepass &nbsp; <span class="avail-tag limited" style="position:static;">Limited</span> = trade only</span></p>
+  <div class="values-search-bar">
+    <input type="search" id="house-search" placeholder="Search houses..." aria-label="Search houses">
+  </div>
+  <div class="filter-tabs" id="filter-tabs">
+    <button class="filter-tab active" data-filter="all">All (${houses.length})</button>
+    <button class="filter-tab" data-filter="obtainable">Obtainable</button>
+    <button class="filter-tab" data-filter="robux">Robux / Gamepass</button>
+    <button class="filter-tab" data-filter="limited">Limited</button>
+  </div>
+  <div class="house-grid" id="house-grid">
     ${houses.map((h) => houseCard(h, "houses")).join("\n")}
   </div>
-</section>`;
+  <p class="no-results" id="no-results">No houses match your search.</p>
+</section>
+<script>
+(function() {
+  const grid = document.getElementById('house-grid');
+  const cards = Array.from(grid.querySelectorAll('.house-card'));
+  const searchInput = document.getElementById('house-search');
+  const tabs = document.querySelectorAll('.filter-tab');
+  const noResults = document.getElementById('no-results');
+  let activeFilter = 'all';
+
+  function getAvailability(card) {
+    const tag = card.querySelector('.avail-tag');
+    if (!tag) return 'obtainable';
+    if (tag.classList.contains('limited')) return 'limited';
+    if (tag.classList.contains('robux')) return 'robux';
+    return 'obtainable';
+  }
+
+  function applyFilters() {
+    const q = searchInput.value.trim().toLowerCase();
+    let visible = 0;
+    cards.forEach(card => {
+      const name = card.dataset.name || '';
+      const source = card.dataset.source || '';
+      const avail = getAvailability(card);
+      const matchSearch = !q || name.includes(q) || source.includes(q);
+      const matchFilter = activeFilter === 'all' || avail === activeFilter;
+      const show = matchSearch && matchFilter;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    noResults.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  searchInput.addEventListener('input', applyFilters);
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      activeFilter = tab.dataset.filter;
+      applyFilters();
+    });
+  });
+})();
+</script>`;
 
   return layout({
     title: "Adopt Me House Values — AdoptMeHouseTrading.com",
