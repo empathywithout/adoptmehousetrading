@@ -3735,7 +3735,7 @@
     "name": "Irish Setter",
     "rarity": "Rare",
     "source": "Summer Camp 2026",
-    "image": "/images/adopt_me_pets/Irish-Setter-Uncommon-from-Summer-Camp-2026.png",
+    "image": "/images/adopt_me_pets/Irish-Setter-Rare-from-Summer-Camp-2026.png",
     "value": null,
     "valueUnit": null
   },
@@ -5725,7 +5725,7 @@
     "name": "Rainbow Karp",
     "rarity": "Ultra Rare",
     "source": "Summer Camp 2026",
-    "image": "/images/adopt_me_pets/Rainbow-Karp-Ultra-Rare-from-Summer-Camp-2026.png",
+    "image": "/images/adopt_me_pets/Rainbow-Karp-Ultra-Rare-from-Summer-Camp-2026.svg",
     "value": null,
     "valueUnit": null
   },
@@ -7025,7 +7025,7 @@
     "name": "Sunflower Friend",
     "rarity": "Rare",
     "source": "Bee Pass 2026",
-    "image": "/images/adopt_me_pets/Sunflower-Friend-Rare-from-Bee-Pass-2026.png",
+    "image": "/images/adopt_me_pets/Sunflower-Friend-Rare-from-Bee-Pass-2026.svg",
     "value": null,
     "valueUnit": null
   },
@@ -7545,7 +7545,7 @@
     "name": "Violet Friend",
     "rarity": "Rare",
     "source": "Bee Pass 2026",
-    "image": "/images/adopt_me_pets/Violet-Friend-Rare-from-Bee-Pass-2026.png",
+    "image": "/images/adopt_me_pets/Violet-Friend-Rare-from-Bee-Pass-2026.svg",
     "value": null,
     "valueUnit": null
   },
