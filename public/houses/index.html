@@ -73,6 +73,10 @@
 .no-results { display:none; padding:40px; text-align:center; color:var(--ink-soft); font-size:15px; }
 .card-meta { display:flex; gap:5px; align-items:center; flex-wrap:wrap; margin:3px 0 2px; }
 .pill-sm { font-size:10px; font-weight:700; padding:2px 7px; border-radius:20px; background:var(--line); color:var(--ink-soft); }
+.pill-sm.expandable { background:#d1fae5; color:#065f46; }
+.info-chips { display:flex; gap:5px; flex-wrap:wrap; margin:4px 0 3px; }
+.info-chip { font-size:11px; font-weight:600; padding:2px 8px; border-radius:20px; background:var(--surface-alt,#f3f4f6); color:var(--ink-soft); border:1px solid var(--line); }
+.info-chip.price-chip { color:var(--accent); border-color:var(--accent); background:var(--accent-soft,#f0f0ff); }
 .source-label { font-weight:700; color:var(--ink-soft); }
 </style>
 <section class="wrap">
@@ -96,7 +100,8 @@
   <div class="info">
     <h3>Beehive House</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
-    <p class="source"><span class="source-label">From:</span> Bee Pass 2026 (5,450 Bucks)</p>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 5,450 Bucks</span><span class="info-chip">🏠 3 floors</span></div>
+    <p class="source"><span class="source-label">From:</span> Bee Pass 2026</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
@@ -105,6 +110,7 @@
   <div class="info">
     <h3>Biodome Home</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 3,500 Bucks</span><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> House</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -114,6 +120,7 @@
   <div class="info">
     <h3>Bunker House</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Bunker House Update</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -123,6 +130,7 @@
   <div class="info">
     <h3>Castle</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 6,899 Bucks</span><span class="info-chip">🏠 3 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -132,6 +140,7 @@
   <div class="info">
     <h3>Celebrity Mansion</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 Robux</span><span class="info-chip">🏠 3 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Celebrity Mansion Gamepass (Robux)</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -141,6 +150,7 @@
   <div class="info">
     <h3>Christmas Pudding House</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Winter 2025</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -150,6 +160,7 @@
   <div class="info">
     <h3>Container Home</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 1,200 Bucks</span><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -159,6 +170,7 @@
   <div class="info">
     <h3>Cozy Cabin</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 Robux</span><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Cozy Cabin &amp; Snowmobile Gamepass (Robux)</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -168,6 +180,7 @@
   <div class="info">
     <h3>Crooked House</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Artsy Update</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -177,6 +190,7 @@
   <div class="info">
     <h3>Donut Shop</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 1,500 Bucks</span><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -186,6 +200,7 @@
   <div class="info">
     <h3>Dragon's Castle</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 4,500 Bucks</span><span class="info-chip">🏠 3 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -195,6 +210,7 @@
   <div class="info">
     <h3>Eco Natural Earth House</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 2,000 Bucks</span><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -204,6 +220,7 @@
   <div class="info">
     <h3>Estate</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 972 Bucks</span><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -212,7 +229,8 @@
   <div class="thumb"><img src="../images/houses/Expandable-Dino-House-Common-from-Fossil-Isle-2024.png" alt="Expandable Dino House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Expandable Dino House</h3>
-    <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="card-meta"><span class="pill-sm">Common</span><span class="pill-sm expandable">Expandable</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 800 Bucks</span><span class="info-chip">🏠 1 floor</span></div>
     <p class="source"><span class="source-label">From:</span> Fossil Isle 2024</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -221,7 +239,8 @@
   <div class="thumb"><img src="../images/houses/Expandable-Friendly-Home-Common-from-Build-House-Menu.png" alt="Expandable Friendly Home" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Expandable Friendly Home</h3>
-    <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="card-meta"><span class="pill-sm">Common</span><span class="pill-sm expandable">Expandable</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 675 Bucks</span><span class="info-chip">🏠 1 floor</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -230,7 +249,8 @@
   <div class="thumb"><img src="../images/houses/Expandable-Hillside-Mansion-Common-from-Build-House-Menu.png" alt="Expandable Hillside Mansion" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Expandable Hillside Mansion</h3>
-    <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="card-meta"><span class="pill-sm">Common</span><span class="pill-sm expandable">Expandable</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 1,200 Bucks</span><span class="info-chip">🏠 1 floor</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -239,7 +259,8 @@
   <div class="thumb"><img src="../images/houses/Expandable-Luxury-Mansion-Common-from-Build-House-Menu.png" alt="Expandable Luxury Mansion" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Expandable Luxury Mansion</h3>
-    <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="card-meta"><span class="pill-sm">Common</span><span class="pill-sm expandable">Expandable</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 1,600 Bucks</span><span class="info-chip">🏠 1 floor</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -249,6 +270,7 @@
   <div class="info">
     <h3>Fairy House</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Fairy Update 2019</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -258,6 +280,7 @@
   <div class="info">
     <h3>Family Home</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 489 Bucks</span><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Starter Pack</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -267,6 +290,7 @@
   <div class="info">
     <h3>Futuristic House</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 4,000 Bucks</span><span class="info-chip">🏠 3 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -276,6 +300,7 @@
   <div class="info">
     <h3>Gingerbread House</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 1,850 Bucks</span><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Christmas 2019</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -285,6 +310,7 @@
   <div class="info">
     <h3>Halloween Hotel</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip">🏠 3 floors</span></div>
     <p class="source"><span class="source-label">From:</span> September 2025</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -294,6 +320,7 @@
   <div class="info">
     <h3>Haunted House</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip">🏠 3 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Halloween 2023</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -303,6 +330,7 @@
   <div class="info">
     <h3>Hollywood House</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 4,500 Bucks</span><span class="info-chip">🏠 3 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -312,6 +340,7 @@
   <div class="info">
     <h3>Hospital Home</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 Robux</span><span class="info-chip">🏠 3 floors</span></div>
     <p class="source"><span class="source-label">From:</span> School and Hospital Houses (Robux)</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -321,6 +350,7 @@
   <div class="info">
     <h3>Ice Cream House</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> February 2025</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -330,6 +360,7 @@
   <div class="info">
     <h3>Igloo Home</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip">🏠 1 floor</span></div>
     <p class="source"><span class="source-label">From:</span> Winter 2022</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -339,6 +370,7 @@
   <div class="info">
     <h3>Korean House</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Lunar New Year 2024</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -348,6 +380,7 @@
   <div class="info">
     <h3>Lunar House</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Lunar New Year 2021</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -357,6 +390,7 @@
   <div class="info">
     <h3>Luxury Apartments</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 3,500 Bucks</span><span class="info-chip">🏠 3 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -366,6 +400,7 @@
   <div class="info">
     <h3>Mansion</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 1,060 Bucks</span><span class="info-chip">🏠 3 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -375,6 +410,7 @@
   <div class="info">
     <h3>Mermaid Mansion</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 2,800 Bucks</span><span class="info-chip">🏠 3 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -384,6 +420,7 @@
   <div class="info">
     <h3>Millionaire Mansion</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 Robux</span><span class="info-chip">🏠 3 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Millionaire Pack (Robux)</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -393,6 +430,7 @@
   <div class="info">
     <h3>Modern Mansion</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 Robux</span><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Modern Mansion Gamepass (Robux)</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -402,6 +440,7 @@
   <div class="info">
     <h3>Mountain House</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 2,000 Bucks</span><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -411,6 +450,7 @@
   <div class="info">
     <h3>Party House</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 1,200 Bucks</span><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -420,6 +460,7 @@
   <div class="info">
     <h3>Pirate Ship House</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 2,000 Bucks</span><span class="info-chip">🏠 3 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -429,6 +470,7 @@
   <div class="info">
     <h3>Pizza Place</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 500 Bucks</span><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Own A Shop Update</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -438,6 +480,7 @@
   <div class="info">
     <h3>Queenslander House</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 1,800 Bucks</span><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -447,6 +490,7 @@
   <div class="info">
     <h3>Racetrack House</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 3,000 Bucks</span><span class="info-chip">🏠 1 floor</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -456,6 +500,7 @@
   <div class="info">
     <h3>Royal Palace</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 5,000 Bucks</span><span class="info-chip">🏠 3 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -465,6 +510,7 @@
   <div class="info">
     <h3>Ruler's Castle</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 4,000 Bucks</span><span class="info-chip">🏠 3 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -474,6 +520,7 @@
   <div class="info">
     <h3>Safari Home</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Safari Update 2023</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -483,6 +530,7 @@
   <div class="info">
     <h3>Sandbox Island</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 1,200 Bucks</span><span class="info-chip">🏠 1 floor</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -492,6 +540,7 @@
   <div class="info">
     <h3>Scary House</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip">🏠 3 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Halloween 2021</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -501,6 +550,7 @@
   <div class="info">
     <h3>Schoolhouse Home</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 Robux</span><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> School and Hospital Houses (Robux)</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -510,6 +560,7 @@
   <div class="info">
     <h3>Shop House</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 1,750 Bucks</span><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -519,6 +570,7 @@
   <div class="info">
     <h3>Soccer Stadium</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Soccer Update 2024</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -528,6 +580,7 @@
   <div class="info">
     <h3>Space Fleet House</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 Robux</span><span class="info-chip">🏠 3 floors</span></div>
     <p class="source"><span class="source-label">From:</span> Space Bundle Gamepass</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -537,6 +590,7 @@
   <div class="info">
     <h3>Tiny Home</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 Free (Starter)</span><span class="info-chip">🏠 1 floor</span></div>
     <p class="source"><span class="source-label">From:</span> Default House</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -546,6 +600,7 @@
   <div class="info">
     <h3>Toyshop House</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip">🏠 2 floors</span></div>
     <p class="source"><span class="source-label">From:</span> September 2023</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -555,6 +610,7 @@
   <div class="info">
     <h3>Treehouse Update</h3>
     <div class="card-meta"><span class="pill-sm">Common</span></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 800 Bucks</span><span class="info-chip">🏠 1 floor</span></div>
     <p class="source"><span class="source-label">From:</span> Treehouse Update</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>

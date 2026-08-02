@@ -187,15 +187,28 @@ function houseCard(house, context) {
   }
 
   const rarityPill = house.rarity ? `<span class="pill-sm">${escapeHtml(house.rarity)}</span>` : "";
-  // Show source as "From: X" — keep full string including price so context is clear
-  const fromLabel = src ? `<p class="source"><span class="source-label">From:</span> ${escapeHtml(src)}</p>` : "";
+  const expandBadge = house.expandable ? `<span class="pill-sm expandable">Expandable</span>` : "";
+
+  // Price line: use bucksPrice field if present, else extract from source
+  let priceStr = "";
+  if (house.bucksPrice === 0) priceStr = "Free (Starter)";
+  else if (house.bucksPrice) priceStr = `${house.bucksPrice.toLocaleString()} Bucks`;
+  else if (avail === "robux") priceStr = "Robux";
+  const priceLine = priceStr ? `<span class="info-chip price-chip">🪙 ${priceStr}</span>` : "";
+
+  const floorsLine = house.floors ? `<span class="info-chip">🏠 ${house.floors} floor${house.floors > 1 ? "s" : ""}</span>` : "";
+
+  // Source label — strip price since we show it separately
+  const srcClean = src.replace(/\s*\([\d,]+\s*Bucks\)/i, "").trim();
+  const fromLine = srcClean ? `<p class="source"><span class="source-label">From:</span> ${escapeHtml(srcClean)}</p>` : "";
 
   return `<a class="house-card" href="${linkPrefix}${house.id}.html" data-name="${escapeHtml(house.name.toLowerCase())}" data-source="${escapeHtml(src.toLowerCase())}" data-avail="${avail}">
   <div class="thumb"><img src="${imgPrefix}${house.image.slice(1)}" alt="${escapeHtml(house.name)}" loading="lazy" onerror="this.style.opacity='.3'">${availTag}</div>
   <div class="info">
     <h3>${escapeHtml(house.name)}</h3>
-    <div class="card-meta">${rarityPill}</div>
-    ${fromLabel}
+    <div class="card-meta">${rarityPill}${expandBadge}</div>
+    <div class="info-chips">${priceLine}${floorsLine}</div>
+    ${fromLine}
     <div class="card-value">${priced ? `<span class="amount">${house.value}</span><span class="unit">${house.valueUnit}</span>` : `<span class="unit">Value TBD</span>`}</div>
   </div>
 </a>`;
@@ -375,6 +388,10 @@ function buildBrowsePage() {
 .no-results { display:none; padding:40px; text-align:center; color:var(--ink-soft); font-size:15px; }
 .card-meta { display:flex; gap:5px; align-items:center; flex-wrap:wrap; margin:3px 0 2px; }
 .pill-sm { font-size:10px; font-weight:700; padding:2px 7px; border-radius:20px; background:var(--line); color:var(--ink-soft); }
+.pill-sm.expandable { background:#d1fae5; color:#065f46; }
+.info-chips { display:flex; gap:5px; flex-wrap:wrap; margin:4px 0 3px; }
+.info-chip { font-size:11px; font-weight:600; padding:2px 8px; border-radius:20px; background:var(--surface-alt,#f3f4f6); color:var(--ink-soft); border:1px solid var(--line); }
+.info-chip.price-chip { color:var(--accent); border-color:var(--accent); background:var(--accent-soft,#f0f0ff); }
 .source-label { font-weight:700; color:var(--ink-soft); }
 </style>
 <section class="wrap">

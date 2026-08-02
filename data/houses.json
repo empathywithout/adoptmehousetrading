@@ -8,7 +8,10 @@
     "image": "/images/houses/Beehive-House-Common-from-Bee-Pass-2026.webp",
     "value": null,
     "valueUnit": null,
-    "availability": "limited"
+    "availability": "limited",
+    "bucksPrice": 5450,
+    "floors": 3,
+    "expandable": false
   },
   {
     "id": "biodome-home",
@@ -19,7 +22,10 @@
     "image": "/images/houses/Biodome-Home-Common-from-House.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 3500,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "bunker-house",
@@ -30,7 +36,10 @@
     "image": "/images/houses/Bunker-House-Common-from-Bunker-House-Update.png",
     "value": null,
     "valueUnit": null,
-    "availability": "limited"
+    "availability": "limited",
+    "bucksPrice": null,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "castle",
@@ -41,7 +50,10 @@
     "image": "/images/houses/Castle-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 6899,
+    "floors": 3,
+    "expandable": false
   },
   {
     "id": "celebrity-mansion",
@@ -52,7 +64,10 @@
     "image": "/images/houses/Celebrity-Mansion-Common-from-Celebrity-Mansion-Gamepass-(Robux).png",
     "value": null,
     "valueUnit": null,
-    "availability": "robux"
+    "availability": "robux",
+    "bucksPrice": null,
+    "floors": 3,
+    "expandable": false
   },
   {
     "id": "christmas-pudding-house",
@@ -63,7 +78,10 @@
     "image": "/images/houses/Christmas-Pudding-House-Common-from-Winter-2025.png",
     "value": null,
     "valueUnit": null,
-    "availability": "limited"
+    "availability": "limited",
+    "bucksPrice": null,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "container-home",
@@ -74,7 +92,10 @@
     "image": "/images/houses/Container-Home-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 1200,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "cozy-cabin",
@@ -85,7 +106,10 @@
     "image": "/images/houses/Cozy-Cabin-Common-from-Cozy-Cabin-&-Snowmobile-Gamepass-(Robux).png",
     "value": null,
     "valueUnit": null,
-    "availability": "robux"
+    "availability": "robux",
+    "bucksPrice": null,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "crooked-house",
@@ -96,7 +120,10 @@
     "image": "/images/houses/Crooked-House-Common-from-Artsy-Update.png",
     "value": null,
     "valueUnit": null,
-    "availability": "limited"
+    "availability": "limited",
+    "bucksPrice": null,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "donut-shop",
@@ -107,7 +134,10 @@
     "image": "/images/houses/Donut-Shop-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 1500,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "dragon-s-castle",
@@ -118,7 +148,10 @@
     "image": "/images/houses/Dragon's-Castle-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 4500,
+    "floors": 3,
+    "expandable": false
   },
   {
     "id": "eco-natural-earth-house",
@@ -129,7 +162,10 @@
     "image": "/images/houses/Eco-Natural-Earth-House-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 2000,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "estate",
@@ -140,7 +176,10 @@
     "image": "/images/houses/Estate-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 972,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "expandable-dino-house",
@@ -151,7 +190,10 @@
     "image": "/images/houses/Expandable-Dino-House-Common-from-Fossil-Isle-2024.png",
     "value": null,
     "valueUnit": null,
-    "availability": "limited"
+    "availability": "limited",
+    "bucksPrice": 800,
+    "floors": 1,
+    "expandable": true
   },
   {
     "id": "expandable-friendly-home",
@@ -162,7 +204,10 @@
     "image": "/images/houses/Expandable-Friendly-Home-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 675,
+    "floors": 1,
+    "expandable": true
   },
   {
     "id": "expandable-hillside-mansion",
@@ -173,7 +218,10 @@
     "image": "/images/houses/Expandable-Hillside-Mansion-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 1200,
+    "floors": 1,
+    "expandable": true
   },
   {
     "id": "expandable-luxury-mansion",
@@ -184,7 +232,10 @@
     "image": "/images/houses/Expandable-Luxury-Mansion-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 1600,
+    "floors": 1,
+    "expandable": true
   },
   {
     "id": "fairy-house",
@@ -195,7 +246,10 @@
     "image": "/images/houses/Fairy-House-Common-from-Fairy-Update-2019.png",
     "value": null,
     "valueUnit": null,
-    "availability": "limited"
+    "availability": "limited",
+    "bucksPrice": null,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "family-home",
@@ -206,7 +260,10 @@
     "image": "/images/houses/Family-Home-Common-from-Starter-Pack.png",
     "value": null,
     "valueUnit": null,
-    "availability": "robux"
+    "availability": "robux",
+    "bucksPrice": 489,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "futuristic-house",
@@ -217,7 +274,10 @@
     "image": "/images/houses/Futuristic-House-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 4000,
+    "floors": 3,
+    "expandable": false
   },
   {
     "id": "gingerbread-house",
@@ -228,7 +288,10 @@
     "image": "/images/houses/Gingerbread-House-Common-from-Christmas-2019.png",
     "value": null,
     "valueUnit": null,
-    "availability": "limited"
+    "availability": "limited",
+    "bucksPrice": 1850,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "halloween-hotel",
@@ -239,7 +302,10 @@
     "image": "/images/houses/Halloween-Hotel-Common-from-September-2025.png",
     "value": null,
     "valueUnit": null,
-    "availability": "limited"
+    "availability": "limited",
+    "bucksPrice": null,
+    "floors": 3,
+    "expandable": false
   },
   {
     "id": "haunted-house",
@@ -250,7 +316,10 @@
     "image": "/images/houses/Haunted-House-Common-from-Halloween-2023.png",
     "value": null,
     "valueUnit": null,
-    "availability": "limited"
+    "availability": "limited",
+    "bucksPrice": null,
+    "floors": 3,
+    "expandable": false
   },
   {
     "id": "hollywood-house",
@@ -261,7 +330,10 @@
     "image": "/images/houses/Hollywood-House-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 4500,
+    "floors": 3,
+    "expandable": false
   },
   {
     "id": "hospital-home",
@@ -272,7 +344,10 @@
     "image": "/images/houses/Hospital-Home-Common-from-School-and-Hospital-Houses-(Robux).png",
     "value": null,
     "valueUnit": null,
-    "availability": "robux"
+    "availability": "robux",
+    "bucksPrice": null,
+    "floors": 3,
+    "expandable": false
   },
   {
     "id": "ice-cream-house",
@@ -283,7 +358,10 @@
     "image": "/images/houses/Ice-Cream-House-Common-from-February-2025.png",
     "value": null,
     "valueUnit": null,
-    "availability": "limited"
+    "availability": "limited",
+    "bucksPrice": null,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "igloo-home",
@@ -294,7 +372,10 @@
     "image": "/images/houses/Igloo-Home-Common-from-Winter-2022.png",
     "value": null,
     "valueUnit": null,
-    "availability": "limited"
+    "availability": "limited",
+    "bucksPrice": null,
+    "floors": 1,
+    "expandable": false
   },
   {
     "id": "korean-house",
@@ -305,7 +386,10 @@
     "image": "/images/houses/Korean-House-Common-from-Lunar-New-Year-2024.png",
     "value": null,
     "valueUnit": null,
-    "availability": "limited"
+    "availability": "limited",
+    "bucksPrice": null,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "lunar-house",
@@ -316,7 +400,10 @@
     "image": "/images/houses/Lunar-House-Common-from-Lunar-New-Year-2021.png",
     "value": null,
     "valueUnit": null,
-    "availability": "limited"
+    "availability": "limited",
+    "bucksPrice": null,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "luxury-apartments",
@@ -327,7 +414,10 @@
     "image": "/images/houses/Luxury-Apartments-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 3500,
+    "floors": 3,
+    "expandable": false
   },
   {
     "id": "mansion",
@@ -338,7 +428,10 @@
     "image": "/images/houses/Mansion-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 1060,
+    "floors": 3,
+    "expandable": false
   },
   {
     "id": "mermaid-mansion",
@@ -349,7 +442,10 @@
     "image": "/images/houses/Mermaid-Mansion-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 2800,
+    "floors": 3,
+    "expandable": false
   },
   {
     "id": "millionaire-mansion",
@@ -360,7 +456,10 @@
     "image": "/images/houses/Millionaire-Mansion-Common-from-Millionaire-Pack-(Robux).png",
     "value": null,
     "valueUnit": null,
-    "availability": "robux"
+    "availability": "robux",
+    "bucksPrice": null,
+    "floors": 3,
+    "expandable": false
   },
   {
     "id": "modern-mansion",
@@ -371,7 +470,10 @@
     "image": "/images/houses/Modern-Mansion-Common-from-Modern-Mansion-Gamepass-(Robux).png",
     "value": null,
     "valueUnit": null,
-    "availability": "robux"
+    "availability": "robux",
+    "bucksPrice": null,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "mountain-house",
@@ -382,7 +484,10 @@
     "image": "/images/houses/Mountain-House-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 2000,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "party-house",
@@ -393,7 +498,10 @@
     "image": "/images/houses/Party-House-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 1200,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "pirate-ship-house",
@@ -404,7 +512,10 @@
     "image": "/images/houses/Pirate-Ship-House-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 2000,
+    "floors": 3,
+    "expandable": false
   },
   {
     "id": "pizza-place",
@@ -415,7 +526,10 @@
     "image": "/images/houses/Pizza-Place-Common-from-Own-A-Shop-Update.png",
     "value": null,
     "valueUnit": null,
-    "availability": "limited"
+    "availability": "limited",
+    "bucksPrice": 500,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "queenslander-house",
@@ -426,7 +540,10 @@
     "image": "/images/houses/Queenslander-House-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 1800,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "racetrack-house",
@@ -437,7 +554,10 @@
     "image": "/images/houses/Racetrack-House-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 3000,
+    "floors": 1,
+    "expandable": false
   },
   {
     "id": "royal-palace",
@@ -448,7 +568,10 @@
     "image": "/images/houses/Royal-Palace-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 5000,
+    "floors": 3,
+    "expandable": false
   },
   {
     "id": "ruler-s-castle",
@@ -459,7 +582,10 @@
     "image": "/images/houses/Ruler's-Castle-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 4000,
+    "floors": 3,
+    "expandable": false
   },
   {
     "id": "safari-home",
@@ -470,7 +596,10 @@
     "image": "/images/houses/Safari-Home-Common-from-Safari-Update-2023.png",
     "value": null,
     "valueUnit": null,
-    "availability": "limited"
+    "availability": "limited",
+    "bucksPrice": null,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "sandbox-island",
@@ -481,7 +610,10 @@
     "image": "/images/houses/Sandbox-Island-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 1200,
+    "floors": 1,
+    "expandable": false
   },
   {
     "id": "scary-house",
@@ -492,7 +624,10 @@
     "image": "/images/houses/Scary-House-Common-from-Halloween-2021.png",
     "value": null,
     "valueUnit": null,
-    "availability": "limited"
+    "availability": "limited",
+    "bucksPrice": null,
+    "floors": 3,
+    "expandable": false
   },
   {
     "id": "schoolhouse-home",
@@ -503,7 +638,10 @@
     "image": "/images/houses/Schoolhouse-Home-Common-from-School-and-Hospital-Houses-(Robux).png",
     "value": null,
     "valueUnit": null,
-    "availability": "robux"
+    "availability": "robux",
+    "bucksPrice": null,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "shop-house",
@@ -514,7 +652,10 @@
     "image": "/images/houses/Shop-House-Common-from-Build-House-Menu.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 1750,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "soccer-stadium",
@@ -525,7 +666,10 @@
     "image": "/images/houses/Soccer-Stadium-Common-from-Soccer-Update-2024.png",
     "value": null,
     "valueUnit": null,
-    "availability": "limited"
+    "availability": "limited",
+    "bucksPrice": null,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "space-fleet-house",
@@ -536,7 +680,10 @@
     "image": "/images/houses/Space-Fleet-House-Common-from-Space-Bundle-Gamepass.png",
     "value": null,
     "valueUnit": null,
-    "availability": "robux"
+    "availability": "robux",
+    "bucksPrice": null,
+    "floors": 3,
+    "expandable": false
   },
   {
     "id": "tiny-home",
@@ -547,7 +694,10 @@
     "image": "/images/houses/Tiny-Home-Common-from-Default-House.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 0,
+    "floors": 1,
+    "expandable": false
   },
   {
     "id": "toyshop-house",
@@ -558,7 +708,10 @@
     "image": "/images/houses/Toyshop-House-Common-from-September-2023.png",
     "value": null,
     "valueUnit": null,
-    "availability": "limited"
+    "availability": "limited",
+    "bucksPrice": null,
+    "floors": 2,
+    "expandable": false
   },
   {
     "id": "treehouse-update",
@@ -569,6 +722,9 @@
     "image": "/images/houses/Treehouse-Update-Common-from-Treehouse-Update.png",
     "value": null,
     "valueUnit": null,
-    "availability": "obtainable"
+    "availability": "obtainable",
+    "bucksPrice": 800,
+    "floors": 1,
+    "expandable": false
   }
 ]
