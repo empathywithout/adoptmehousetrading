@@ -170,23 +170,31 @@ function houseCard(house, context) {
   const linkPrefix = context === "root" ? "houses/" : "";
   const imgPrefix = context === "root" ? "" : "../";
   const priced = house.value !== null;
-  // Determine availability tag for values grid
   const src = house.source || "";
-  const isLimited = /\d{4}|christmas|winter|halloween|lunar|summer|spring|fall|event|pass/i.test(src) && !/build house menu|gamepass|robux|starter|default|update$/i.test(src);
-  const isRobux = /robux/i.test(src);
-  const isGamepass = /gamepass/i.test(src) && !/robux/i.test(src);
+
+  // Use availability field if present, otherwise fall back to source heuristic
+  let avail = house.availability;
+  if (!avail) {
+    const isLimited = /\d{4}|christmas|winter|halloween|lunar|summer|spring|fall|event|pass/i.test(src) && !/build house menu|gamepass|robux|starter|default|update$/i.test(src);
+    const isRobux = /robux|gamepass/i.test(src);
+    avail = isLimited ? "limited" : isRobux ? "robux" : "obtainable";
+  }
+
   let availTag = "";
   if (context === "houses") {
-    if (isLimited) availTag = `<span class="avail-tag limited">Limited</span>`;
-    else if (isRobux) availTag = `<span class="avail-tag robux">Robux</span>`;
-    else if (isGamepass) availTag = `<span class="avail-tag robux">Gamepass</span>`;
-    else availTag = `<span class="avail-tag obtainable">Obtainable</span>`;
+    const tagLabel = avail === "robux" ? "Gamepass" : avail === "limited" ? "Limited" : "Obtainable";
+    availTag = `<span class="avail-tag ${avail}">${tagLabel}</span>`;
   }
-  return `<a class="house-card" href="${linkPrefix}${house.id}.html" data-name="${escapeHtml(house.name.toLowerCase())}" data-source="${escapeHtml(src.toLowerCase())}">
-  <div class="thumb"><img src="${imgPrefix}${house.image.slice(1)}" alt="${escapeHtml(house.name)}" loading="lazy">${availTag}</div>
+
+  // Extra info line: price from source field if present
+  const priceMatch = src.match(/[\d,]+\s*Bucks/i);
+  const priceHint = priceMatch ? `<span class="card-price">${priceMatch[0]}</span>` : "";
+
+  return `<a class="house-card" href="${linkPrefix}${house.id}.html" data-name="${escapeHtml(house.name.toLowerCase())}" data-source="${escapeHtml(src.toLowerCase())}" data-avail="${avail}">
+  <div class="thumb"><img src="${imgPrefix}${house.image.slice(1)}" alt="${escapeHtml(house.name)}" loading="lazy" onerror="this.style.opacity='.3'">${availTag}</div>
   <div class="info">
     <h3>${escapeHtml(house.name)}</h3>
-    <p class="source">${escapeHtml(src)}</p>
+    <p class="source">${escapeHtml(src)}${priceHint}</p>
     <div class="card-value">${priced ? `<span class="amount">${house.value}</span><span class="unit">${house.valueUnit}</span>` : `<span class="unit">Value TBD</span>`}</div>
   </div>
 </a>`;
@@ -364,6 +372,7 @@ function buildBrowsePage() {
 .avail-tag.obtainable { background:#22c55e; color:#fff; }
 .house-card .thumb { position:relative; }
 .no-results { display:none; padding:40px; text-align:center; color:var(--ink-soft); font-size:15px; }
+.card-price { display:inline-block; margin-left:6px; font-size:11px; font-weight:700; color:var(--accent); background:var(--accent-soft,#f0f0ff); border-radius:6px; padding:1px 6px; }
 </style>
 <section class="wrap">
   <div class="section-head" style="margin-top:40px;">
@@ -376,9 +385,9 @@ function buildBrowsePage() {
   </div>
   <div class="filter-tabs" id="filter-tabs">
     <button class="filter-tab active" data-filter="all">All (${houses.length})</button>
-    <button class="filter-tab" data-filter="obtainable">Obtainable</button>
-    <button class="filter-tab" data-filter="robux">Robux / Gamepass</button>
-    <button class="filter-tab" data-filter="limited">Limited</button>
+    <button class="filter-tab" data-filter="obtainable">Obtainable (${houses.filter(h => (h.availability || "obtainable") === "obtainable").length})</button>
+    <button class="filter-tab" data-filter="robux">Robux / Gamepass (${houses.filter(h => h.availability === "robux").length})</button>
+    <button class="filter-tab" data-filter="limited">Limited (${houses.filter(h => h.availability === "limited").length})</button>
   </div>
   <div class="house-grid" id="house-grid">
     ${houses.map((h) => houseCard(h, "houses")).join("\n")}
@@ -394,21 +403,13 @@ function buildBrowsePage() {
   const noResults = document.getElementById('no-results');
   let activeFilter = 'all';
 
-  function getAvailability(card) {
-    const tag = card.querySelector('.avail-tag');
-    if (!tag) return 'obtainable';
-    if (tag.classList.contains('limited')) return 'limited';
-    if (tag.classList.contains('robux')) return 'robux';
-    return 'obtainable';
-  }
-
   function applyFilters() {
     const q = searchInput.value.trim().toLowerCase();
     let visible = 0;
     cards.forEach(card => {
       const name = card.dataset.name || '';
       const source = card.dataset.source || '';
-      const avail = getAvailability(card);
+      const avail = card.dataset.avail || 'obtainable';
       const matchSearch = !q || name.includes(q) || source.includes(q);
       const matchFilter = activeFilter === 'all' || avail === activeFilter;
       const show = matchSearch && matchFilter;
