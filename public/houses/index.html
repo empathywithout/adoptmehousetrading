@@ -71,7 +71,9 @@
 .avail-tag.obtainable { background:#22c55e; color:#fff; }
 .house-card .thumb { position:relative; }
 .no-results { display:none; padding:40px; text-align:center; color:var(--ink-soft); font-size:15px; }
-.card-price { display:inline-block; margin-left:6px; font-size:11px; font-weight:700; color:var(--accent); background:var(--accent-soft,#f0f0ff); border-radius:6px; padding:1px 6px; }
+.card-meta { display:flex; gap:5px; align-items:center; flex-wrap:wrap; margin:3px 0 2px; }
+.pill-sm { font-size:10px; font-weight:700; padding:2px 7px; border-radius:20px; background:var(--line); color:var(--ink-soft); }
+.card-price { display:inline-flex; align-items:center; font-size:11px; font-weight:700; color:var(--accent); background:var(--accent-soft,#f0f0ff); border-radius:6px; padding:2px 6px; }
 </style>
 <section class="wrap">
   <div class="section-head" style="margin-top:40px;">
@@ -93,7 +95,8 @@
   <div class="thumb"><img src="../images/houses/Beehive-House-Common-from-Bee-Pass-2026.webp" alt="Beehive House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Beehive House</h3>
-    <p class="source">Bee Pass 2026 (5,450 Bucks)<span class="card-price">5,450 Bucks</span></p>
+    <div class="card-meta"><span class="pill-sm">Common</span><span class="card-price">5,450 Bucks</span></div>
+    <p class="source">Bee Pass 2026</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
 </a>
@@ -101,6 +104,7 @@
   <div class="thumb"><img src="../images/houses/Biodome-Home-Common-from-House.png" alt="Biodome Home" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Biodome Home</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">House</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -109,6 +113,7 @@
   <div class="thumb"><img src="../images/houses/Bunker-House-Common-from-Bunker-House-Update.png" alt="Bunker House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Bunker House</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Bunker House Update</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -117,6 +122,7 @@
   <div class="thumb"><img src="../images/houses/Castle-Common-from-Build-House-Menu.png" alt="Castle" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Castle</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -125,6 +131,7 @@
   <div class="thumb"><img src="../images/houses/Celebrity-Mansion-Common-from-Celebrity-Mansion-Gamepass-(Robux).png" alt="Celebrity Mansion" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag robux">Gamepass</span></div>
   <div class="info">
     <h3>Celebrity Mansion</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Celebrity Mansion Gamepass (Robux)</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -133,6 +140,7 @@
   <div class="thumb"><img src="../images/houses/Christmas-Pudding-House-Common-from-Winter-2025.png" alt="Christmas Pudding House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Christmas Pudding House</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Winter 2025</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -141,6 +149,7 @@
   <div class="thumb"><img src="../images/houses/Container-Home-Common-from-Build-House-Menu.png" alt="Container Home" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Container Home</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -149,6 +158,7 @@
   <div class="thumb"><img src="../images/houses/Cozy-Cabin-Common-from-Cozy-Cabin-&-Snowmobile-Gamepass-(Robux).png" alt="Cozy Cabin" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag robux">Gamepass</span></div>
   <div class="info">
     <h3>Cozy Cabin</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Cozy Cabin &amp; Snowmobile Gamepass (Robux)</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -157,6 +167,7 @@
   <div class="thumb"><img src="../images/houses/Crooked-House-Common-from-Artsy-Update.png" alt="Crooked House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Crooked House</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Artsy Update</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -165,6 +176,7 @@
   <div class="thumb"><img src="../images/houses/Donut-Shop-Common-from-Build-House-Menu.png" alt="Donut Shop" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Donut Shop</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -173,6 +185,7 @@
   <div class="thumb"><img src="../images/houses/Dragon's-Castle-Common-from-Build-House-Menu.png" alt="Dragon's Castle" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Dragon's Castle</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -181,6 +194,7 @@
   <div class="thumb"><img src="../images/houses/Eco-Natural-Earth-House-Common-from-Build-House-Menu.png" alt="Eco Natural Earth House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Eco Natural Earth House</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -189,6 +203,7 @@
   <div class="thumb"><img src="../images/houses/Estate-Common-from-Build-House-Menu.png" alt="Estate" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Estate</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -197,6 +212,7 @@
   <div class="thumb"><img src="../images/houses/Expandable-Dino-House-Common-from-Fossil-Isle-2024.png" alt="Expandable Dino House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Expandable Dino House</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Fossil Isle 2024</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -205,6 +221,7 @@
   <div class="thumb"><img src="../images/houses/Expandable-Friendly-Home-Common-from-Build-House-Menu.png" alt="Expandable Friendly Home" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Expandable Friendly Home</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -213,6 +230,7 @@
   <div class="thumb"><img src="../images/houses/Expandable-Hillside-Mansion-Common-from-Build-House-Menu.png" alt="Expandable Hillside Mansion" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Expandable Hillside Mansion</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -221,6 +239,7 @@
   <div class="thumb"><img src="../images/houses/Expandable-Luxury-Mansion-Common-from-Build-House-Menu.png" alt="Expandable Luxury Mansion" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Expandable Luxury Mansion</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -229,6 +248,7 @@
   <div class="thumb"><img src="../images/houses/Fairy-House-Common-from-Fairy-Update-2019.png" alt="Fairy House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Fairy House</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Fairy Update 2019</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -237,6 +257,7 @@
   <div class="thumb"><img src="../images/houses/Family-Home-Common-from-Starter-Pack.png" alt="Family Home" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag robux">Gamepass</span></div>
   <div class="info">
     <h3>Family Home</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Starter Pack</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -245,6 +266,7 @@
   <div class="thumb"><img src="../images/houses/Futuristic-House-Common-from-Build-House-Menu.png" alt="Futuristic House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Futuristic House</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -253,6 +275,7 @@
   <div class="thumb"><img src="../images/houses/Gingerbread-House-Common-from-Christmas-2019.png" alt="Gingerbread House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Gingerbread House</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Christmas 2019</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -261,6 +284,7 @@
   <div class="thumb"><img src="../images/houses/Halloween-Hotel-Common-from-September-2025.png" alt="Halloween Hotel" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Halloween Hotel</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">September 2025</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -269,6 +293,7 @@
   <div class="thumb"><img src="../images/houses/Haunted-House-Common-from-Halloween-2023.png" alt="Haunted House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Haunted House</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Halloween 2023</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -277,6 +302,7 @@
   <div class="thumb"><img src="../images/houses/Hollywood-House-Common-from-Build-House-Menu.png" alt="Hollywood House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Hollywood House</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -285,6 +311,7 @@
   <div class="thumb"><img src="../images/houses/Hospital-Home-Common-from-School-and-Hospital-Houses-(Robux).png" alt="Hospital Home" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag robux">Gamepass</span></div>
   <div class="info">
     <h3>Hospital Home</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">School and Hospital Houses (Robux)</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -293,6 +320,7 @@
   <div class="thumb"><img src="../images/houses/Ice-Cream-House-Common-from-February-2025.png" alt="Ice Cream House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Ice Cream House</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">February 2025</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -301,6 +329,7 @@
   <div class="thumb"><img src="../images/houses/Igloo-Home-Common-from-Winter-2022.png" alt="Igloo Home" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Igloo Home</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Winter 2022</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -309,6 +338,7 @@
   <div class="thumb"><img src="../images/houses/Korean-House-Common-from-Lunar-New-Year-2024.png" alt="Korean House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Korean House</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Lunar New Year 2024</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -317,6 +347,7 @@
   <div class="thumb"><img src="../images/houses/Lunar-House-Common-from-Lunar-New-Year-2021.png" alt="Lunar House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Lunar House</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Lunar New Year 2021</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -325,6 +356,7 @@
   <div class="thumb"><img src="../images/houses/Luxury-Apartments-Common-from-Build-House-Menu.png" alt="Luxury Apartments" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Luxury Apartments</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -333,6 +365,7 @@
   <div class="thumb"><img src="../images/houses/Mansion-Common-from-Build-House-Menu.png" alt="Mansion" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Mansion</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -341,6 +374,7 @@
   <div class="thumb"><img src="../images/houses/Mermaid-Mansion-Common-from-Build-House-Menu.png" alt="Mermaid Mansion" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Mermaid Mansion</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -349,6 +383,7 @@
   <div class="thumb"><img src="../images/houses/Millionaire-Mansion-Common-from-Millionaire-Pack-(Robux).png" alt="Millionaire Mansion" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag robux">Gamepass</span></div>
   <div class="info">
     <h3>Millionaire Mansion</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Millionaire Pack (Robux)</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -357,6 +392,7 @@
   <div class="thumb"><img src="../images/houses/Modern-Mansion-Common-from-Modern-Mansion-Gamepass-(Robux).png" alt="Modern Mansion" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag robux">Gamepass</span></div>
   <div class="info">
     <h3>Modern Mansion</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Modern Mansion Gamepass (Robux)</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -365,6 +401,7 @@
   <div class="thumb"><img src="../images/houses/Mountain-House-Common-from-Build-House-Menu.png" alt="Mountain House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Mountain House</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -373,6 +410,7 @@
   <div class="thumb"><img src="../images/houses/Party-House-Common-from-Build-House-Menu.png" alt="Party House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Party House</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -381,6 +419,7 @@
   <div class="thumb"><img src="../images/houses/Pirate-Ship-House-Common-from-Build-House-Menu.png" alt="Pirate Ship House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Pirate Ship House</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -389,6 +428,7 @@
   <div class="thumb"><img src="../images/houses/Pizza-Place-Common-from-Own-A-Shop-Update.png" alt="Pizza Place" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Pizza Place</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Own A Shop Update</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -397,6 +437,7 @@
   <div class="thumb"><img src="../images/houses/Queenslander-House-Common-from-Build-House-Menu.png" alt="Queenslander House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Queenslander House</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -405,6 +446,7 @@
   <div class="thumb"><img src="../images/houses/Racetrack-House-Common-from-Build-House-Menu.png" alt="Racetrack House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Racetrack House</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -413,6 +455,7 @@
   <div class="thumb"><img src="../images/houses/Royal-Palace-Common-from-Build-House-Menu.png" alt="Royal Palace" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Royal Palace</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -421,6 +464,7 @@
   <div class="thumb"><img src="../images/houses/Ruler's-Castle-Common-from-Build-House-Menu.png" alt="Ruler's Castle" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Ruler's Castle</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -429,6 +473,7 @@
   <div class="thumb"><img src="../images/houses/Safari-Home-Common-from-Safari-Update-2023.png" alt="Safari Home" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Safari Home</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Safari Update 2023</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -437,6 +482,7 @@
   <div class="thumb"><img src="../images/houses/Sandbox-Island-Common-from-Build-House-Menu.png" alt="Sandbox Island" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Sandbox Island</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -445,6 +491,7 @@
   <div class="thumb"><img src="../images/houses/Scary-House-Common-from-Halloween-2021.png" alt="Scary House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Scary House</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Halloween 2021</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -453,6 +500,7 @@
   <div class="thumb"><img src="../images/houses/Schoolhouse-Home-Common-from-School-and-Hospital-Houses-(Robux).png" alt="Schoolhouse Home" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag robux">Gamepass</span></div>
   <div class="info">
     <h3>Schoolhouse Home</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">School and Hospital Houses (Robux)</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -461,6 +509,7 @@
   <div class="thumb"><img src="../images/houses/Shop-House-Common-from-Build-House-Menu.png" alt="Shop House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Shop House</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Build House Menu</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -469,6 +518,7 @@
   <div class="thumb"><img src="../images/houses/Soccer-Stadium-Common-from-Soccer-Update-2024.png" alt="Soccer Stadium" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Soccer Stadium</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Soccer Update 2024</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -477,6 +527,7 @@
   <div class="thumb"><img src="../images/houses/Space-Fleet-House-Common-from-Space-Bundle-Gamepass.png" alt="Space Fleet House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag robux">Gamepass</span></div>
   <div class="info">
     <h3>Space Fleet House</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Space Bundle Gamepass</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -485,6 +536,7 @@
   <div class="thumb"><img src="../images/houses/Tiny-Home-Common-from-Default-House.png" alt="Tiny Home" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Tiny Home</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Default House</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -493,6 +545,7 @@
   <div class="thumb"><img src="../images/houses/Toyshop-House-Common-from-September-2023.png" alt="Toyshop House" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag limited">Limited</span></div>
   <div class="info">
     <h3>Toyshop House</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">September 2023</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
@@ -501,6 +554,7 @@
   <div class="thumb"><img src="../images/houses/Treehouse-Update-Common-from-Treehouse-Update.png" alt="Treehouse Update" loading="lazy" onerror="this.style.opacity='.3'"><span class="avail-tag obtainable">Obtainable</span></div>
   <div class="info">
     <h3>Treehouse Update</h3>
+    <div class="card-meta"><span class="pill-sm">Common</span></div>
     <p class="source">Treehouse Update</p>
     <div class="card-value"><span class="unit">Value TBD</span></div>
   </div>
