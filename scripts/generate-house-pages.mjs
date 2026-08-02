@@ -186,19 +186,16 @@ function houseCard(house, context) {
     availTag = `<span class="avail-tag ${avail}">${tagLabel}</span>`;
   }
 
-  // Extract price from source e.g. "Bee Pass 2026 (5,450 Bucks)" -> "5,450 Bucks"
-  const priceMatch = src.match(/([\d,]+\s*Bucks)/i);
-  const priceHint = priceMatch ? `<span class="card-price">${priceMatch[1]}</span>` : "";
-  // Source without price for cleaner display
-  const srcClean = src.replace(/\s*\([\d,]+\s*Bucks\)/i, "").trim();
   const rarityPill = house.rarity ? `<span class="pill-sm">${escapeHtml(house.rarity)}</span>` : "";
+  // Show source as "From: X" — keep full string including price so context is clear
+  const fromLabel = src ? `<p class="source"><span class="source-label">From:</span> ${escapeHtml(src)}</p>` : "";
 
   return `<a class="house-card" href="${linkPrefix}${house.id}.html" data-name="${escapeHtml(house.name.toLowerCase())}" data-source="${escapeHtml(src.toLowerCase())}" data-avail="${avail}">
   <div class="thumb"><img src="${imgPrefix}${house.image.slice(1)}" alt="${escapeHtml(house.name)}" loading="lazy" onerror="this.style.opacity='.3'">${availTag}</div>
   <div class="info">
     <h3>${escapeHtml(house.name)}</h3>
-    <div class="card-meta">${rarityPill}${priceHint}</div>
-    <p class="source">${escapeHtml(srcClean)}</p>
+    <div class="card-meta">${rarityPill}</div>
+    ${fromLabel}
     <div class="card-value">${priced ? `<span class="amount">${house.value}</span><span class="unit">${house.valueUnit}</span>` : `<span class="unit">Value TBD</span>`}</div>
   </div>
 </a>`;
@@ -378,7 +375,7 @@ function buildBrowsePage() {
 .no-results { display:none; padding:40px; text-align:center; color:var(--ink-soft); font-size:15px; }
 .card-meta { display:flex; gap:5px; align-items:center; flex-wrap:wrap; margin:3px 0 2px; }
 .pill-sm { font-size:10px; font-weight:700; padding:2px 7px; border-radius:20px; background:var(--line); color:var(--ink-soft); }
-.card-price { display:inline-flex; align-items:center; font-size:11px; font-weight:700; color:var(--accent); background:var(--accent-soft,#f0f0ff); border-radius:6px; padding:2px 6px; }
+.source-label { font-weight:700; color:var(--ink-soft); }
 </style>
 <section class="wrap">
   <div class="section-head" style="margin-top:40px;">
