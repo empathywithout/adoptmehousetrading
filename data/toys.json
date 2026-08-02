@@ -30,10 +30,10 @@
     "valueUnit": null
   },
   {
-    "id": "accordion-ultra",
+    "id": "accordion",
     "category": "toys",
-    "name": "Accordion Ultra",
-    "rarity": "Rare",
+    "name": "Accordion",
+    "rarity": "Ultra Rare",
     "source": "Summer Festival 2025",
     "image": "/images/toys/Accordion-Ultra-Rare-from-Summer-Festival-2025.png",
     "value": null,
@@ -100,10 +100,10 @@
     "valueUnit": null
   },
   {
-    "id": "airplane-propeller-ultra",
+    "id": "airplane-propeller",
     "category": "toys",
-    "name": "Airplane Propeller Ultra",
-    "rarity": "Rare",
+    "name": "Airplane Propeller",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Airplane-Propeller-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -120,10 +120,10 @@
     "valueUnit": null
   },
   {
-    "id": "amethyst-skies-mega-neon-paint-ultra",
+    "id": "amethyst-skies-mega-neon-paint",
     "category": "toys",
-    "name": "Amethyst Skies Mega Neon Paint Ultra",
-    "rarity": "Rare",
+    "name": "Amethyst Skies Mega Neon Paint",
+    "rarity": "Ultra Rare",
     "source": "Robux Shop Menu",
     "image": "/images/toys/Amethyst-Skies-Mega-Neon-Paint-Ultra-Rare-from-Robux-Shop-Menu.png",
     "value": null,
@@ -180,20 +180,20 @@
     "valueUnit": null
   },
   {
-    "id": "angelic-propeller-ultra",
+    "id": "angelic-propeller",
     "category": "toys",
-    "name": "Angelic Propeller Ultra",
-    "rarity": "Rare",
+    "name": "Angelic Propeller",
+    "rarity": "Ultra Rare",
     "source": "Star Rewards",
     "image": "/images/toys/Angelic-Propeller-Ultra-Rare-from-Star-Rewards.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "anhk-pogostick-ultra",
+    "id": "anhk-pogostick",
     "category": "toys",
-    "name": "Anhk Pogostick Ultra",
-    "rarity": "Rare",
+    "name": "Anhk Pogostick",
+    "rarity": "Ultra Rare",
     "source": "Desert Weather Map",
     "image": "/images/toys/Anhk-Pogostick-Ultra-Rare-from-Desert-Weather-Map.png",
     "value": null,
@@ -270,10 +270,10 @@
     "valueUnit": null
   },
   {
-    "id": "astro-ball-ultra",
+    "id": "astro-ball",
     "category": "toys",
-    "name": "Astro Ball Ultra",
-    "rarity": "Rare",
+    "name": "Astro Ball",
+    "rarity": "Ultra Rare",
     "source": "Pet Shop",
     "image": "/images/toys/Astro-Ball-Ultra-Rare-from-Pet-Shop.png",
     "value": null,
@@ -700,10 +700,10 @@
     "valueUnit": null
   },
   {
-    "id": "bumblebee-grappling-hook-ultra",
+    "id": "bumblebee-grappling-hook",
     "category": "toys",
-    "name": "Bumblebee Grappling Hook Ultra",
-    "rarity": "Rare",
+    "name": "Bumblebee Grappling Hook",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Bumblebee-Grappling-Hook-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -780,10 +780,10 @@
     "valueUnit": null
   },
   {
-    "id": "cactus-balloon-ultra",
+    "id": "cactus-balloon",
     "category": "toys",
-    "name": "Cactus Balloon Ultra",
-    "rarity": "Rare",
+    "name": "Cactus Balloon",
+    "rarity": "Ultra Rare",
     "source": "Desert Weather Map",
     "image": "/images/toys/Cactus-Balloon-Ultra-Rare-from-Desert-Weather-Map.png",
     "value": null,
@@ -920,10 +920,10 @@
     "valueUnit": null
   },
   {
-    "id": "candihorn-instrument-ultra",
+    "id": "candihorn-instrument",
     "category": "toys",
-    "name": "Candihorn Instrument Ultra",
-    "rarity": "Rare",
+    "name": "Candihorn Instrument",
+    "rarity": "Ultra Rare",
     "source": "Sugar Festival 2026",
     "image": "/images/toys/Candihorn-Instrument-Ultra-Rare-from-Sugar-Festival-2026.png",
     "value": null,
@@ -1010,20 +1010,20 @@
     "valueUnit": null
   },
   {
-    "id": "candy-flare-mega-neon-paint-ultra",
+    "id": "candy-flare-mega-neon-paint",
     "category": "toys",
-    "name": "Candy Flare Mega Neon Paint Ultra",
-    "rarity": "Rare",
+    "name": "Candy Flare Mega Neon Paint",
+    "rarity": "Ultra Rare",
     "source": "Robux Shop Menu",
     "image": "/images/toys/Candy-Flare-Mega-Neon-Paint-Ultra-Rare-from-Robux-Shop-Menu.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "candy-skewer-ultra",
+    "id": "candy-skewer",
     "category": "toys",
-    "name": "Candy Skewer Ultra",
-    "rarity": "Rare",
+    "name": "Candy Skewer",
+    "rarity": "Ultra Rare",
     "source": "Halloween 2023",
     "image": "/images/toys/Candy-Skewer-Ultra-Rare-from-Halloween-2023.png",
     "value": null,
@@ -1050,10 +1050,10 @@
     "valueUnit": null
   },
   {
-    "id": "carousel-propeller-ultra",
+    "id": "carousel-propeller",
     "category": "toys",
-    "name": "Carousel Propeller Ultra",
-    "rarity": "Rare",
+    "name": "Carousel Propeller",
+    "rarity": "Ultra Rare",
     "source": "Gorilla Box",
     "image": "/images/toys/Carousel-Propeller-Ultra-Rare-from-Gorilla-Box.png",
     "value": null,
@@ -1140,10 +1140,10 @@
     "valueUnit": null
   },
   {
-    "id": "celebration-firework-launcher-ultra",
+    "id": "celebration-firework-launcher",
     "category": "toys",
-    "name": "Celebration Firework Launcher Ultra",
-    "rarity": "Rare",
+    "name": "Celebration Firework Launcher",
+    "rarity": "Ultra Rare",
     "source": "Winter 2023 (Robux)",
     "image": "/images/toys/Celebration-Firework-Launcher-Ultra-Rare-from-Winter-2023-(Robux).png",
     "value": null,
@@ -1170,10 +1170,10 @@
     "valueUnit": null
   },
   {
-    "id": "celestial-propeller-ultra",
+    "id": "celestial-propeller",
     "category": "toys",
-    "name": "Celestial Propeller Ultra",
-    "rarity": "Rare",
+    "name": "Celestial Propeller",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Celestial-Propeller-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -1210,10 +1210,10 @@
     "valueUnit": null
   },
   {
-    "id": "chandelier-pogo-stick-ultra",
+    "id": "chandelier-pogo-stick",
     "category": "toys",
-    "name": "Chandelier Pogo Stick Ultra",
-    "rarity": "Rare",
+    "name": "Chandelier Pogo Stick",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Chandelier-Pogo-Stick-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -1380,10 +1380,10 @@
     "valueUnit": null
   },
   {
-    "id": "classic-trade-stand-ultra",
+    "id": "classic-trade-stand",
     "category": "toys",
-    "name": "Classic Trade Stand Ultra",
-    "rarity": "Rare",
+    "name": "Classic Trade Stand",
+    "rarity": "Ultra Rare",
     "source": "March 2024",
     "image": "/images/toys/Classic-Trade-Stand-Ultra-Rare-from-March-2024.png",
     "value": null,
@@ -1520,10 +1520,10 @@
     "valueUnit": null
   },
   {
-    "id": "cotton-candy-stand-ultra",
+    "id": "cotton-candy-stand",
     "category": "toys",
-    "name": "Cotton Candy Stand Ultra",
-    "rarity": "Rare",
+    "name": "Cotton Candy Stand",
+    "rarity": "Ultra Rare",
     "source": "Cotton Candy Stand Gamepass (Robux)",
     "image": "/images/toys/Cotton-Candy-Stand-Ultra-Rare-from-Cotton-Candy-Stand-Gamepass-(Robux).png",
     "value": null,
@@ -1590,10 +1590,10 @@
     "valueUnit": null
   },
   {
-    "id": "crossbow-grappling-hook-ultra",
+    "id": "crossbow-grappling-hook",
     "category": "toys",
-    "name": "Crossbow Grappling Hook Ultra",
-    "rarity": "Rare",
+    "name": "Crossbow Grappling Hook",
+    "rarity": "Ultra Rare",
     "source": "Halloween 2019",
     "image": "/images/toys/Crossbow-Grappling-Hook-Ultra-Rare-from-Halloween-2019.png",
     "value": null,
@@ -1640,20 +1640,20 @@
     "valueUnit": null
   },
   {
-    "id": "cupid-s-bow-grappling-hook-ultra",
+    "id": "cupid-s-bow-grappling-hook",
     "category": "toys",
-    "name": "Cupid's Bow Grappling Hook Ultra",
-    "rarity": "Rare",
+    "name": "Cupid's Bow Grappling Hook",
+    "rarity": "Ultra Rare",
     "source": "Valentine's Event 2025",
     "image": "/images/toys/Cupid's-Bow-Grappling-Hook-Ultra-Rare-from-Valentine's-Event-2025.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "cursed-skull-balloon-ultra",
+    "id": "cursed-skull-balloon",
     "category": "toys",
-    "name": "Cursed Skull Balloon Ultra",
-    "rarity": "Rare",
+    "name": "Cursed Skull Balloon",
+    "rarity": "Ultra Rare",
     "source": "Summer Festival 2025",
     "image": "/images/toys/Cursed-Skull-Balloon-Ultra-Rare-from-Summer-Festival-2025.png",
     "value": null,
@@ -1690,10 +1690,10 @@
     "valueUnit": null
   },
   {
-    "id": "dance-arcade-stand-ultra",
+    "id": "dance-arcade-stand",
     "category": "toys",
-    "name": "Dance Arcade Stand Ultra",
-    "rarity": "Rare",
+    "name": "Dance Arcade Stand",
+    "rarity": "Ultra Rare",
     "source": "Cherry Blossom Festival 2025 (Robux)",
     "image": "/images/toys/Dance-Arcade-Stand-Ultra-Rare-from-Cherry-Blossom-Festival-2025-(Robux).png",
     "value": null,
@@ -1710,10 +1710,10 @@
     "valueUnit": null
   },
   {
-    "id": "dandelion-propeller-ultra",
+    "id": "dandelion-propeller",
     "category": "toys",
-    "name": "Dandelion Propeller Ultra",
-    "rarity": "Rare",
+    "name": "Dandelion Propeller",
+    "rarity": "Ultra Rare",
     "source": "Spring Festival 2020",
     "image": "/images/toys/Dandelion-Propeller-Ultra-Rare-from-Spring-Festival-2020.png",
     "value": null,
@@ -1760,10 +1760,10 @@
     "valueUnit": null
   },
   {
-    "id": "dice-throw-toy-ultra",
+    "id": "dice-throw-toy",
     "category": "toys",
-    "name": "Dice Throw Toy Ultra",
-    "rarity": "Rare",
+    "name": "Dice Throw Toy",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Dice-Throw-Toy-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -1800,10 +1800,10 @@
     "valueUnit": null
   },
   {
-    "id": "discosplosion-ultra",
+    "id": "discosplosion",
     "category": "toys",
-    "name": "Discosplosion Ultra",
-    "rarity": "Rare",
+    "name": "Discosplosion",
+    "rarity": "Ultra Rare",
     "source": "Robux",
     "image": "/images/toys/Discosplosion-Ultra-Rare-from-Robux.png",
     "value": null,
@@ -1870,10 +1870,10 @@
     "valueUnit": null
   },
   {
-    "id": "donut-throw-toy-ultra",
+    "id": "donut-throw-toy",
     "category": "toys",
-    "name": "Donut Throw Toy Ultra",
-    "rarity": "Rare",
+    "name": "Donut Throw Toy",
+    "rarity": "Ultra Rare",
     "source": "Pet Shop",
     "image": "/images/toys/Donut-Throw-Toy-Ultra-Rare-from-Pet-Shop.png",
     "value": null,
@@ -1890,10 +1890,10 @@
     "valueUnit": null
   },
   {
-    "id": "drone-balloon-ultra",
+    "id": "drone-balloon",
     "category": "toys",
-    "name": "Drone Balloon Ultra",
-    "rarity": "Rare",
+    "name": "Drone Balloon",
+    "rarity": "Ultra Rare",
     "source": "Winter 2024",
     "image": "/images/toys/Drone-Balloon-Ultra-Rare-from-Winter-2024.png",
     "value": null,
@@ -1910,10 +1910,10 @@
     "valueUnit": null
   },
   {
-    "id": "drooping-orchid-propeller-ultra",
+    "id": "drooping-orchid-propeller",
     "category": "toys",
-    "name": "Drooping Orchid Propeller Ultra",
-    "rarity": "Rare",
+    "name": "Drooping Orchid Propeller",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Drooping-Orchid-Propeller-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -2000,20 +2000,20 @@
     "valueUnit": null
   },
   {
-    "id": "elasmosaurus-fossil-ultra",
+    "id": "elasmosaurus-fossil",
     "category": "toys",
-    "name": "Elasmosaurus Fossil Ultra",
-    "rarity": "Rare",
+    "name": "Elasmosaurus Fossil",
+    "rarity": "Ultra Rare",
     "source": "Fossil Isle 2024",
     "image": "/images/toys/Elasmosaurus-Fossil-Ultra-Rare-from-Fossil-Isle-2024.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "electric-tide-mega-neon-paint-ultra",
+    "id": "electric-tide-mega-neon-paint",
     "category": "toys",
-    "name": "Electric Tide Mega Neon Paint Ultra",
-    "rarity": "Rare",
+    "name": "Electric Tide Mega Neon Paint",
+    "rarity": "Ultra Rare",
     "source": "Robux Shop Menu",
     "image": "/images/toys/Electric-Tide-Mega-Neon-Paint-Ultra-Rare-from-Robux-Shop-Menu.png",
     "value": null,
@@ -2300,20 +2300,20 @@
     "valueUnit": null
   },
   {
-    "id": "fire-ring-propeller-ultra",
+    "id": "fire-ring-propeller",
     "category": "toys",
-    "name": "Fire Ring Propeller Ultra",
-    "rarity": "Rare",
+    "name": "Fire Ring Propeller",
+    "rarity": "Ultra Rare",
     "source": "Capuchin Boxes",
     "image": "/images/toys/Fire-Ring-Propeller-Ultra-Rare-from-Capuchin-Boxes.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "firecrackers-ultra",
+    "id": "firecrackers",
     "category": "toys",
-    "name": "Firecrackers Ultra",
-    "rarity": "Rare",
+    "name": "Firecrackers",
+    "rarity": "Ultra Rare",
     "source": "Box of Jokes",
     "image": "/images/toys/Firecrackers-Ultra-Rare-from-Box-of-Jokes.png",
     "value": null,
@@ -2590,10 +2590,10 @@
     "valueUnit": null
   },
   {
-    "id": "frog-in-a-pitcher-leash-ultra",
+    "id": "frog-in-a-pitcher-leash",
     "category": "toys",
-    "name": "Frog in a Pitcher Leash Ultra",
-    "rarity": "Rare",
+    "name": "Frog in a Pitcher Leash",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Frog-in-a-Pitcher-Leash-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -2660,20 +2660,20 @@
     "valueUnit": null
   },
   {
-    "id": "futuristic-grapple-ultra",
+    "id": "futuristic-grapple",
     "category": "toys",
-    "name": "Futuristic Grapple Ultra",
-    "rarity": "Rare",
+    "name": "Futuristic Grapple",
+    "rarity": "Ultra Rare",
     "source": "Star Rewards",
     "image": "/images/toys/Futuristic-Grapple-Ultra-Rare-from-Star-Rewards.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "futuristic-turbine-propeller-ultra",
+    "id": "futuristic-turbine-propeller",
     "category": "toys",
-    "name": "Futuristic Turbine Propeller Ultra",
-    "rarity": "Rare",
+    "name": "Futuristic Turbine Propeller",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Futuristic-Turbine-Propeller-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -2690,10 +2690,10 @@
     "valueUnit": null
   },
   {
-    "id": "galaxy-propeller-ultra",
+    "id": "galaxy-propeller",
     "category": "toys",
-    "name": "Galaxy Propeller Ultra",
-    "rarity": "Rare",
+    "name": "Galaxy Propeller",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Galaxy-Propeller-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -2790,10 +2790,10 @@
     "valueUnit": null
   },
   {
-    "id": "gift-sack-pogo-ultra",
+    "id": "gift-sack-pogo",
     "category": "toys",
-    "name": "Gift Sack Pogo Ultra",
-    "rarity": "Rare",
+    "name": "Gift Sack Pogo",
+    "rarity": "Ultra Rare",
     "source": "Winter 2024",
     "image": "/images/toys/Gift-Sack-Pogo-Ultra-Rare-from-Winter-2024.png",
     "value": null,
@@ -2960,10 +2960,10 @@
     "valueUnit": null
   },
   {
-    "id": "glider-ultra",
+    "id": "glider",
     "category": "toys",
-    "name": "Glider Ultra",
-    "rarity": "Rare",
+    "name": "Glider",
+    "rarity": "Ultra Rare",
     "source": "Robux",
     "image": "/images/toys/Glider-Ultra-Rare-from-Robux.png",
     "value": null,
@@ -2990,10 +2990,10 @@
     "valueUnit": null
   },
   {
-    "id": "gold-star-ultra",
+    "id": "gold-star",
     "category": "toys",
-    "name": "Gold Star Ultra",
-    "rarity": "Rare",
+    "name": "Gold Star",
+    "rarity": "Ultra Rare",
     "source": "Gorilla Box",
     "image": "/images/toys/Gold-Star-Ultra-Rare-from-Gorilla-Box.png",
     "value": null,
@@ -3010,10 +3010,10 @@
     "valueUnit": null
   },
   {
-    "id": "golden-maned-unicorn-rattle-ultra",
+    "id": "golden-maned-unicorn-rattle",
     "category": "toys",
-    "name": "Golden Maned Unicorn Rattle Ultra",
-    "rarity": "Rare",
+    "name": "Golden Maned Unicorn Rattle",
+    "rarity": "Ultra Rare",
     "source": "Baby Shop",
     "image": "/images/toys/Golden-Maned-Unicorn-Rattle-Ultra-Rare-from-Baby-Shop.png",
     "value": null,
@@ -3050,20 +3050,20 @@
     "valueUnit": null
   },
   {
-    "id": "grapplenana-ultra",
+    "id": "grapplenana",
     "category": "toys",
-    "name": "Grapplenana Ultra",
-    "rarity": "Rare",
+    "name": "Grapplenana",
+    "rarity": "Ultra Rare",
     "source": "Rain Weather Update",
     "image": "/images/toys/Grapplenana-Ultra-Rare-from-Rain-Weather-Update.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "grappling-hook-ultra",
+    "id": "grappling-hook",
     "category": "toys",
-    "name": "Grappling Hook Ultra",
-    "rarity": "Rare",
+    "name": "Grappling Hook",
+    "rarity": "Ultra Rare",
     "source": "Toy Shop",
     "image": "/images/toys/Grappling-Hook-Ultra-Rare-from-Toy-Shop.png",
     "value": null,
@@ -3080,10 +3080,10 @@
     "valueUnit": null
   },
   {
-    "id": "griffin-propeller-ultra",
+    "id": "griffin-propeller",
     "category": "toys",
-    "name": "Griffin Propeller Ultra",
-    "rarity": "Rare",
+    "name": "Griffin Propeller",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Griffin-Propeller-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -3230,10 +3230,10 @@
     "valueUnit": null
   },
   {
-    "id": "harmonica-ultra",
+    "id": "harmonica",
     "category": "toys",
-    "name": "Harmonica Ultra",
-    "rarity": "Rare",
+    "name": "Harmonica",
+    "rarity": "Ultra Rare",
     "source": "Summer Camp 2026",
     "image": "/images/toys/Harmonica-Ultra-Rare-from-Summer-Camp-2026.png",
     "value": null,
@@ -3310,20 +3310,20 @@
     "valueUnit": null
   },
   {
-    "id": "homeing-rocket-ultra",
+    "id": "homeing-rocket",
     "category": "toys",
-    "name": "Homeing Rocket Ultra",
-    "rarity": "Rare",
+    "name": "Homeing Rocket",
+    "rarity": "Ultra Rare",
     "source": "Jokes Update 2024 (Robux)",
     "image": "/images/toys/Homeing-Rocket-Ultra-Rare-from-Jokes-Update-2024-(Robux).png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "honey-dipper-rattle-ultra",
+    "id": "honey-dipper-rattle",
     "category": "toys",
-    "name": "Honey Dipper Rattle Ultra",
-    "rarity": "Rare",
+    "name": "Honey Dipper Rattle",
+    "rarity": "Ultra Rare",
     "source": "Spring Fest 2023",
     "image": "/images/toys/Honey-Dipper-Rattle-Ultra-Rare-from-Spring-Fest-2023.png",
     "value": null,
@@ -3350,20 +3350,20 @@
     "valueUnit": null
   },
   {
-    "id": "hot-cocoa-stand-ultra",
+    "id": "hot-cocoa-stand",
     "category": "toys",
-    "name": "Hot Cocoa Stand Ultra",
-    "rarity": "Rare",
+    "name": "Hot Cocoa Stand",
+    "rarity": "Ultra Rare",
     "source": "Winter 2023 (Robux)",
     "image": "/images/toys/Hot-Cocoa-Stand-Ultra-Rare-from-Winter-2023-(Robux).png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "hotdog-stand-ultra",
+    "id": "hotdog-stand",
     "category": "toys",
-    "name": "Hotdog Stand Ultra",
-    "rarity": "Rare",
+    "name": "Hotdog Stand",
+    "rarity": "Ultra Rare",
     "source": "Robux",
     "image": "/images/toys/Hotdog-Stand-Ultra-Rare-from-Robux.png",
     "value": null,
@@ -3460,10 +3460,10 @@
     "valueUnit": null
   },
   {
-    "id": "ice-pick-grappling-hook-ultra",
+    "id": "ice-pick-grappling-hook",
     "category": "toys",
-    "name": "Ice Pick Grappling Hook Ultra",
-    "rarity": "Rare",
+    "name": "Ice Pick Grappling Hook",
+    "rarity": "Ultra Rare",
     "source": "Christmas 2019",
     "image": "/images/toys/Ice-Pick-Grappling-Hook-Ultra-Rare-from-Christmas-2019.png",
     "value": null,
@@ -3660,10 +3660,10 @@
     "valueUnit": null
   },
   {
-    "id": "kazoo-ultra",
+    "id": "kazoo",
     "category": "toys",
-    "name": "Kazoo Ultra",
-    "rarity": "Rare",
+    "name": "Kazoo",
+    "rarity": "Ultra Rare",
     "source": "Summer State Fair 2024",
     "image": "/images/toys/Kazoo-Ultra-Rare-from-Summer-State-Fair-2024.png",
     "value": null,
@@ -3700,10 +3700,10 @@
     "valueUnit": null
   },
   {
-    "id": "kitty-propeller-ultra",
+    "id": "kitty-propeller",
     "category": "toys",
-    "name": "Kitty Propeller Ultra",
-    "rarity": "Rare",
+    "name": "Kitty Propeller",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Kitty-Propeller-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -3820,10 +3820,10 @@
     "valueUnit": null
   },
   {
-    "id": "lemonade-stand-ultra",
+    "id": "lemonade-stand",
     "category": "toys",
-    "name": "Lemonade Stand Ultra",
-    "rarity": "Rare",
+    "name": "Lemonade Stand",
+    "rarity": "Ultra Rare",
     "source": "Robux",
     "image": "/images/toys/Lemonade-Stand-Ultra-Rare-from-Robux.png",
     "value": null,
@@ -3860,10 +3860,10 @@
     "valueUnit": null
   },
   {
-    "id": "light-spinner-throw-toy-ultra",
+    "id": "light-spinner-throw-toy",
     "category": "toys",
-    "name": "Light Spinner Throw Toy Ultra",
-    "rarity": "Rare",
+    "name": "Light Spinner Throw Toy",
+    "rarity": "Ultra Rare",
     "source": "Summer State Fair 2024",
     "image": "/images/toys/Light-Spinner-Throw-Toy-Ultra-Rare-from-Summer-State-Fair-2024.png",
     "value": null,
@@ -3880,10 +3880,10 @@
     "valueUnit": null
   },
   {
-    "id": "lime-slice-propeller-ultra",
+    "id": "lime-slice-propeller",
     "category": "toys",
-    "name": "Lime Slice Propeller Ultra",
-    "rarity": "Rare",
+    "name": "Lime Slice Propeller",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Lime-Slice-Propeller-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -3960,10 +3960,10 @@
     "valueUnit": null
   },
   {
-    "id": "lunar-lantern-ultra",
+    "id": "lunar-lantern",
     "category": "toys",
-    "name": "Lunar Lantern Ultra",
-    "rarity": "Rare",
+    "name": "Lunar Lantern",
+    "rarity": "Ultra Rare",
     "source": "Lunar New Year 2023",
     "image": "/images/toys/Lunar-Lantern-Ultra-Rare-from-Lunar-New-Year-2023.png",
     "value": null,
@@ -4060,10 +4060,10 @@
     "valueUnit": null
   },
   {
-    "id": "magic-house-door-ultra",
+    "id": "magic-house-door",
     "category": "toys",
-    "name": "Magic House Door Ultra",
-    "rarity": "Rare",
+    "name": "Magic House Door",
+    "rarity": "Ultra Rare",
     "source": "Robux",
     "image": "/images/toys/Magic-House-Door-Ultra-Rare-from-Robux.png",
     "value": null,
@@ -4080,10 +4080,10 @@
     "valueUnit": null
   },
   {
-    "id": "magic-staff-light-ultra",
+    "id": "magic-staff-light",
     "category": "toys",
-    "name": "Magic Staff Light Ultra",
-    "rarity": "Rare",
+    "name": "Magic Staff Light",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Magic-Staff-Light-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -4160,10 +4160,10 @@
     "valueUnit": null
   },
   {
-    "id": "marshmallow-stand-ultra",
+    "id": "marshmallow-stand",
     "category": "toys",
-    "name": "Marshmallow Stand Ultra",
-    "rarity": "Rare",
+    "name": "Marshmallow Stand",
+    "rarity": "Ultra Rare",
     "source": "Camping Kit (Robux)",
     "image": "/images/toys/Marshmallow-Stand-Ultra-Rare-from-Camping-Kit-(Robux).png",
     "value": null,
@@ -4240,10 +4240,10 @@
     "valueUnit": null
   },
   {
-    "id": "midnight-dragon-kite-ultra",
+    "id": "midnight-dragon-kite",
     "category": "toys",
-    "name": "Midnight Dragon Kite Ultra",
-    "rarity": "Rare",
+    "name": "Midnight Dragon Kite",
+    "rarity": "Ultra Rare",
     "source": "Lunar New Year Gift Boxes",
     "image": "/images/toys/Midnight-Dragon-Kite-Ultra-Rare-from-Lunar-New-Year-Gift-Boxes.png",
     "value": null,
@@ -4280,10 +4280,10 @@
     "valueUnit": null
   },
   {
-    "id": "money-rattle-ultra",
+    "id": "money-rattle",
     "category": "toys",
-    "name": "Money Rattle Ultra",
-    "rarity": "Rare",
+    "name": "Money Rattle",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Money-Rattle-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -4300,20 +4300,20 @@
     "valueUnit": null
   },
   {
-    "id": "monkey-propeller-ultra",
+    "id": "monkey-propeller",
     "category": "toys",
-    "name": "Monkey Propeller Ultra",
-    "rarity": "Rare",
+    "name": "Monkey Propeller",
+    "rarity": "Ultra Rare",
     "source": "Monkey Fairground",
     "image": "/images/toys/Monkey-Propeller-Ultra-Rare-from-Monkey-Fairground.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "moon-viewing-bench-ultra",
+    "id": "moon-viewing-bench",
     "category": "toys",
-    "name": "Moon Viewing Bench Ultra",
-    "rarity": "Rare",
+    "name": "Moon Viewing Bench",
+    "rarity": "Ultra Rare",
     "source": "Lunar New Year 2022",
     "image": "/images/toys/Moon-Viewing-Bench-Ultra-Rare-from-Lunar-New-Year-2022.png",
     "value": null,
@@ -4360,20 +4360,20 @@
     "valueUnit": null
   },
   {
-    "id": "mushroom-pogo-ultra",
+    "id": "mushroom-pogo",
     "category": "toys",
-    "name": "Mushroom Pogo Ultra",
-    "rarity": "Rare",
+    "name": "Mushroom Pogo",
+    "rarity": "Ultra Rare",
     "source": "Fall Weather Update",
     "image": "/images/toys/Mushroom-Pogo-Ultra-Rare-from-Fall-Weather-Update.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "nature-s-crossbow-ultra",
+    "id": "nature-s-crossbow",
     "category": "toys",
-    "name": "Nature's Crossbow Ultra",
-    "rarity": "Rare",
+    "name": "Nature's Crossbow",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Nature's-Crossbow-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -4420,10 +4420,10 @@
     "valueUnit": null
   },
   {
-    "id": "noob-voodoo-doll-chew-toy-ultra",
+    "id": "noob-voodoo-doll-chew-toy",
     "category": "toys",
-    "name": "Noob Voodoo Doll Chew Toy Ultra",
-    "rarity": "Rare",
+    "name": "Noob Voodoo Doll Chew Toy",
+    "rarity": "Ultra Rare",
     "source": "Halloween 2025",
     "image": "/images/toys/Noob-Voodoo-Doll-Chew-Toy-Ultra-Rare-from-Halloween-2025.png",
     "value": null,
@@ -4530,10 +4530,10 @@
     "valueUnit": null
   },
   {
-    "id": "paintbrush-leash-ultra",
+    "id": "paintbrush-leash",
     "category": "toys",
-    "name": "Paintbrush Leash Ultra",
-    "rarity": "Rare",
+    "name": "Paintbrush Leash",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Paintbrush-Leash-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -4590,10 +4590,10 @@
     "valueUnit": null
   },
   {
-    "id": "paper-plane-launcher-grappling-hook-ultra",
+    "id": "paper-plane-launcher-grappling-hook",
     "category": "toys",
-    "name": "Paper Plane Launcher Grappling Hook Ultra",
-    "rarity": "Rare",
+    "name": "Paper Plane Launcher Grappling Hook",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Paper-Plane-Launcher-Grappling-Hook-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -4710,10 +4710,10 @@
     "valueUnit": null
   },
   {
-    "id": "phoenix-plush-ultra",
+    "id": "phoenix-plush",
     "category": "toys",
-    "name": "Phoenix Plush Ultra",
-    "rarity": "Rare",
+    "name": "Phoenix Plush",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Phoenix-Plush-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -4730,10 +4730,10 @@
     "valueUnit": null
   },
   {
-    "id": "pineapple-plush-ultra",
+    "id": "pineapple-plush",
     "category": "toys",
-    "name": "Pineapple Plush Ultra",
-    "rarity": "Rare",
+    "name": "Pineapple Plush",
+    "rarity": "Ultra Rare",
     "source": "Summer Festival 2023",
     "image": "/images/toys/Pineapple-Plush-Ultra-Rare-from-Summer-Festival-2023.png",
     "value": null,
@@ -4780,10 +4780,10 @@
     "valueUnit": null
   },
   {
-    "id": "pinwheel-propeller-ultra",
+    "id": "pinwheel-propeller",
     "category": "toys",
-    "name": "Pinwheel Propeller Ultra",
-    "rarity": "Rare",
+    "name": "Pinwheel Propeller",
+    "rarity": "Ultra Rare",
     "source": "Summer Festival 2023",
     "image": "/images/toys/Pinwheel-Propeller-Ultra-Rare-from-Summer-Festival-2023.png",
     "value": null,
@@ -4850,20 +4850,20 @@
     "valueUnit": null
   },
   {
-    "id": "pluboneium-chew-toy-ultra",
+    "id": "pluboneium-chew-toy",
     "category": "toys",
-    "name": "Pluboneium Chew Toy Ultra",
-    "rarity": "Rare",
+    "name": "Pluboneium Chew Toy",
+    "rarity": "Ultra Rare",
     "source": "Gibbon Boxes",
     "image": "/images/toys/Pluboneium-Chew-Toy-Ultra-Rare-from-Gibbon-Boxes.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "plunger-grappling-hook-ultra",
+    "id": "plunger-grappling-hook",
     "category": "toys",
-    "name": "Plunger Grappling Hook Ultra",
-    "rarity": "Rare",
+    "name": "Plunger Grappling Hook",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Plunger-Grappling-Hook-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -4940,30 +4940,30 @@
     "valueUnit": null
   },
   {
-    "id": "premium-camping-tent-ultra",
+    "id": "premium-camping-tent",
     "category": "toys",
-    "name": "Premium Camping Tent Ultra",
-    "rarity": "Rare",
+    "name": "Premium Camping Tent",
+    "rarity": "Ultra Rare",
     "source": "Camping Kit (Robux)",
     "image": "/images/toys/Premium-Camping-Tent-Ultra-Rare-from-Camping-Kit-(Robux).png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "premium-fire-pit-ultra",
+    "id": "premium-fire-pit",
     "category": "toys",
-    "name": "Premium Fire Pit Ultra",
-    "rarity": "Rare",
+    "name": "Premium Fire Pit",
+    "rarity": "Ultra Rare",
     "source": "Camping Kit (Robux)",
     "image": "/images/toys/Premium-Fire-Pit-Ultra-Rare-from-Camping-Kit-(Robux).png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "premium-log-bench-ultra",
+    "id": "premium-log-bench",
     "category": "toys",
-    "name": "Premium Log Bench Ultra",
-    "rarity": "Rare",
+    "name": "Premium Log Bench",
+    "rarity": "Ultra Rare",
     "source": "Camp",
     "image": "/images/toys/Premium-Log-Bench-Ultra-Rare-from-Camp.png",
     "value": null,
@@ -5050,10 +5050,10 @@
     "valueUnit": null
   },
   {
-    "id": "psionic-magic-grappling-hook-ultra",
+    "id": "psionic-magic-grappling-hook",
     "category": "toys",
-    "name": "Psionic Magic Grappling Hook Ultra",
-    "rarity": "Rare",
+    "name": "Psionic Magic Grappling Hook",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Psionic-Magic-Grappling-Hook-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -5140,10 +5140,10 @@
     "valueUnit": null
   },
   {
-    "id": "rainbow-dragon-kite-ultra",
+    "id": "rainbow-dragon-kite",
     "category": "toys",
-    "name": "Rainbow Dragon Kite Ultra",
-    "rarity": "Rare",
+    "name": "Rainbow Dragon Kite",
+    "rarity": "Ultra Rare",
     "source": "Lunar New Year Gift Boxes",
     "image": "/images/toys/Rainbow-Dragon-Kite-Ultra-Rare-from-Lunar-New-Year-Gift-Boxes.png",
     "value": null,
@@ -5230,10 +5230,10 @@
     "valueUnit": null
   },
   {
-    "id": "recycled-banjo-ultra",
+    "id": "recycled-banjo",
     "category": "toys",
-    "name": "Recycled Banjo Ultra",
-    "rarity": "Rare",
+    "name": "Recycled Banjo",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Recycled-Banjo-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -5350,10 +5350,10 @@
     "valueUnit": null
   },
   {
-    "id": "rib-guitar-ultra",
+    "id": "rib-guitar",
     "category": "toys",
-    "name": "Rib Guitar Ultra",
-    "rarity": "Rare",
+    "name": "Rib Guitar",
+    "rarity": "Ultra Rare",
     "source": "Halloween 2020",
     "image": "/images/toys/Rib-Guitar-Ultra-Rare-from-Halloween-2020.png",
     "value": null,
@@ -5460,10 +5460,10 @@
     "valueUnit": null
   },
   {
-    "id": "rose-quartz-glow-mega-neon-paint-ultra",
+    "id": "rose-quartz-glow-mega-neon-paint",
     "category": "toys",
-    "name": "Rose Quartz Glow Mega Neon Paint Ultra",
-    "rarity": "Rare",
+    "name": "Rose Quartz Glow Mega Neon Paint",
+    "rarity": "Ultra Rare",
     "source": "Robux Shop Menu",
     "image": "/images/toys/Rose-Quartz-Glow-Mega-Neon-Paint-Ultra-Rare-from-Robux-Shop-Menu.png",
     "value": null,
@@ -5560,10 +5560,10 @@
     "valueUnit": null
   },
   {
-    "id": "santa-ornament-ultra",
+    "id": "santa-ornament",
     "category": "toys",
-    "name": "Santa Ornament Ultra",
-    "rarity": "Rare",
+    "name": "Santa Ornament",
+    "rarity": "Ultra Rare",
     "source": "Christmas 2019",
     "image": "/images/toys/Santa-Ornament-Ultra-Rare-from-Christmas-2019.png",
     "value": null,
@@ -5620,10 +5620,10 @@
     "valueUnit": null
   },
   {
-    "id": "saturn-balloon-ultra",
+    "id": "saturn-balloon",
     "category": "toys",
-    "name": "Saturn Balloon Ultra",
-    "rarity": "Rare",
+    "name": "Saturn Balloon",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Saturn-Balloon-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -5640,10 +5640,10 @@
     "valueUnit": null
   },
   {
-    "id": "scroll-ingredient-ultra",
+    "id": "scroll-ingredient",
     "category": "toys",
-    "name": "Scroll Ingredient Ultra",
-    "rarity": "Rare",
+    "name": "Scroll Ingredient",
+    "rarity": "Ultra Rare",
     "source": "Monkey Fairground",
     "image": "/images/toys/Scroll-Ingredient-Ultra-Rare-from-Monkey-Fairground.png",
     "value": null,
@@ -5670,10 +5670,10 @@
     "valueUnit": null
   },
   {
-    "id": "shadow-dragon-sabre-ultra",
+    "id": "shadow-dragon-sabre",
     "category": "toys",
-    "name": "Shadow Dragon Sabre Ultra",
-    "rarity": "Rare",
+    "name": "Shadow Dragon Sabre",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Shadow-Dragon-Sabre-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -5730,10 +5730,10 @@
     "valueUnit": null
   },
   {
-    "id": "shuttle-pogo-ultra",
+    "id": "shuttle-pogo",
     "category": "toys",
-    "name": "Shuttle Pogo Ultra",
-    "rarity": "Rare",
+    "name": "Shuttle Pogo",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Shuttle-Pogo-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -5770,20 +5770,20 @@
     "valueUnit": null
   },
   {
-    "id": "ski-pole-pogo-ultra",
+    "id": "ski-pole-pogo",
     "category": "toys",
-    "name": "Ski Pole Pogo Ultra",
-    "rarity": "Rare",
+    "name": "Ski Pole Pogo",
+    "rarity": "Ultra Rare",
     "source": "Snow Weather Update",
     "image": "/images/toys/Ski-Pole-Pogo-Ultra-Rare-from-Snow-Weather-Update.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "skull-drum-ultra",
+    "id": "skull-drum",
     "category": "toys",
-    "name": "Skull Drum Ultra",
-    "rarity": "Rare",
+    "name": "Skull Drum",
+    "rarity": "Ultra Rare",
     "source": "Halloween 2020",
     "image": "/images/toys/Skull-Drum-Ultra-Rare-from-Halloween-2020.png",
     "value": null,
@@ -5840,20 +5840,20 @@
     "valueUnit": null
   },
   {
-    "id": "snow-balloon-ultra",
+    "id": "snow-balloon",
     "category": "toys",
-    "name": "Snow Balloon Ultra",
-    "rarity": "Rare",
+    "name": "Snow Balloon",
+    "rarity": "Ultra Rare",
     "source": "Snow Weather Update",
     "image": "/images/toys/Snow-Balloon-Ultra-Rare-from-Snow-Weather-Update.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "snow-cone-stand-ultra",
+    "id": "snow-cone-stand",
     "category": "toys",
-    "name": "Snow Cone Stand Ultra",
-    "rarity": "Rare",
+    "name": "Snow Cone Stand",
+    "rarity": "Ultra Rare",
     "source": "February 2025",
     "image": "/images/toys/Snow-Cone-Stand-Ultra-Rare-from-February-2025.png",
     "value": null,
@@ -5900,10 +5900,10 @@
     "valueUnit": null
   },
   {
-    "id": "snowflake-propeller-ultra",
+    "id": "snowflake-propeller",
     "category": "toys",
-    "name": "Snowflake Propeller Ultra",
-    "rarity": "Rare",
+    "name": "Snowflake Propeller",
+    "rarity": "Ultra Rare",
     "source": "Winter 2023",
     "image": "/images/toys/Snowflake-Propeller-Ultra-Rare-from-Winter-2023.png",
     "value": null,
@@ -5990,10 +5990,10 @@
     "valueUnit": null
   },
   {
-    "id": "sour-glider-ultra",
+    "id": "sour-glider",
     "category": "toys",
-    "name": "Sour Glider Ultra",
-    "rarity": "Rare",
+    "name": "Sour Glider",
+    "rarity": "Ultra Rare",
     "source": "Sugar Festival 2026",
     "image": "/images/toys/Sour-Glider-Ultra-Rare-from-Sugar-Festival-2026.png",
     "value": null,
@@ -6090,20 +6090,20 @@
     "valueUnit": null
   },
   {
-    "id": "sprinkler-propeller-ultra",
+    "id": "sprinkler-propeller",
     "category": "toys",
-    "name": "Sprinkler Propeller Ultra",
-    "rarity": "Rare",
+    "name": "Sprinkler Propeller",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Sprinkler-Propeller-Ultra-Rare-from-Gifts.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "sprout-pogo-stick-ultra",
+    "id": "sprout-pogo-stick",
     "category": "toys",
-    "name": "Sprout Pogo Stick Ultra",
-    "rarity": "Rare",
+    "name": "Sprout Pogo Stick",
+    "rarity": "Ultra Rare",
     "source": "Spring Fest 2023",
     "image": "/images/toys/Sprout-Pogo-Stick-Ultra-Rare-from-Spring-Fest-2023.png",
     "value": null,
@@ -6180,10 +6180,10 @@
     "valueUnit": null
   },
   {
-    "id": "standard-grappling-hook-ultra",
+    "id": "standard-grappling-hook",
     "category": "toys",
-    "name": "Standard Grappling Hook Ultra",
-    "rarity": "Rare",
+    "name": "Standard Grappling Hook",
+    "rarity": "Ultra Rare",
     "source": "Toy Shop",
     "image": "/images/toys/Standard-Grappling-Hook-Ultra-Rare-from-Toy-Shop.png",
     "value": null,
@@ -6310,10 +6310,10 @@
     "valueUnit": null
   },
   {
-    "id": "stormy-grappling-hook-ultra",
+    "id": "stormy-grappling-hook",
     "category": "toys",
-    "name": "Stormy Grappling Hook Ultra",
-    "rarity": "Rare",
+    "name": "Stormy Grappling Hook",
+    "rarity": "Ultra Rare",
     "source": "Summer Camp 2026",
     "image": "/images/toys/Stormy-Grappling-Hook-Ultra-Rare-from-Summer-Camp-2026.png",
     "value": null,
@@ -6380,10 +6380,10 @@
     "valueUnit": null
   },
   {
-    "id": "strawberry-sandwich-chew-toy-ultra",
+    "id": "strawberry-sandwich-chew-toy",
     "category": "toys",
-    "name": "Strawberry Sandwich Chew Toy Ultra",
-    "rarity": "Rare",
+    "name": "Strawberry Sandwich Chew Toy",
+    "rarity": "Ultra Rare",
     "source": "Winter 2022",
     "image": "/images/toys/Strawberry-Sandwich-Chew-Toy-Ultra-Rare-from-Winter-2022.png",
     "value": null,
@@ -6400,20 +6400,20 @@
     "valueUnit": null
   },
   {
-    "id": "strawberry-toast-flying-disc-ultra",
+    "id": "strawberry-toast-flying-disc",
     "category": "toys",
-    "name": "Strawberry Toast Flying Disc Ultra",
-    "rarity": "Rare",
+    "name": "Strawberry Toast Flying Disc",
+    "rarity": "Ultra Rare",
     "source": "Winter 2022",
     "image": "/images/toys/Strawberry-Toast-Flying-Disc-Ultra-Rare-from-Winter-2022.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "stygian-hang-glider-ultra",
+    "id": "stygian-hang-glider",
     "category": "toys",
-    "name": "Stygian Hang Glider Ultra",
-    "rarity": "Rare",
+    "name": "Stygian Hang Glider",
+    "rarity": "Ultra Rare",
     "source": "Summer",
     "image": "/images/toys/Stygian-Hang-Glider-Ultra-Rare-from-Summer.png",
     "value": null,
@@ -6540,10 +6540,10 @@
     "valueUnit": null
   },
   {
-    "id": "tea-party-chair-ultra",
+    "id": "tea-party-chair",
     "category": "toys",
-    "name": "Tea Party Chair Ultra",
-    "rarity": "Rare",
+    "name": "Tea Party Chair",
+    "rarity": "Ultra Rare",
     "source": "Royal Tea Party 2022",
     "image": "/images/toys/Tea-Party-Chair-Ultra-Rare-from-Royal-Tea-Party-2022.png",
     "value": null,
@@ -6610,10 +6610,10 @@
     "valueUnit": null
   },
   {
-    "id": "thor-s-grappling-hammer-ultra",
+    "id": "thor-s-grappling-hammer",
     "category": "toys",
-    "name": "Thor's Grappling Hammer Ultra",
-    "rarity": "Rare",
+    "name": "Thor's Grappling Hammer",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Thor's-Grappling-Hammer-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -6640,10 +6640,10 @@
     "valueUnit": null
   },
   {
-    "id": "top-hat-flying-disc-ultra",
+    "id": "top-hat-flying-disc",
     "category": "toys",
-    "name": "Top Hat Flying Disc Ultra",
-    "rarity": "Rare",
+    "name": "Top Hat Flying Disc",
+    "rarity": "Ultra Rare",
     "source": "Christmas 2019",
     "image": "/images/toys/Top-Hat-Flying-Disc-Ultra-Rare-from-Christmas-2019.png",
     "value": null,
@@ -6670,10 +6670,10 @@
     "valueUnit": null
   },
   {
-    "id": "toy-sword-ultra",
+    "id": "toy-sword",
     "category": "toys",
-    "name": "Toy Sword Ultra",
-    "rarity": "Rare",
+    "name": "Toy Sword",
+    "rarity": "Ultra Rare",
     "source": "Winter 2023",
     "image": "/images/toys/Toy-Sword-Ultra-Rare-from-Winter-2023.png",
     "value": null,
@@ -6730,10 +6730,10 @@
     "valueUnit": null
   },
   {
-    "id": "trident-throw-toy-ultra",
+    "id": "trident-throw-toy",
     "category": "toys",
-    "name": "Trident Throw Toy Ultra",
-    "rarity": "Rare",
+    "name": "Trident Throw Toy",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Trident-Throw-Toy-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -6750,10 +6750,10 @@
     "valueUnit": null
   },
   {
-    "id": "tropical-surge-mega-neon-paint-ultra",
+    "id": "tropical-surge-mega-neon-paint",
     "category": "toys",
-    "name": "Tropical Surge Mega Neon Paint Ultra",
-    "rarity": "Rare",
+    "name": "Tropical Surge Mega Neon Paint",
+    "rarity": "Ultra Rare",
     "source": "Robux Shop Menu",
     "image": "/images/toys/Tropical-Surge-Mega-Neon-Paint-Ultra-Rare-from-Robux-Shop-Menu.png",
     "value": null,
@@ -6830,20 +6830,20 @@
     "valueUnit": null
   },
   {
-    "id": "unicorn-leash-ultra",
+    "id": "unicorn-leash",
     "category": "toys",
-    "name": "Unicorn Leash Ultra",
-    "rarity": "Rare",
+    "name": "Unicorn Leash",
+    "rarity": "Ultra Rare",
     "source": "Pet Shop",
     "image": "/images/toys/Unicorn-Leash-Ultra-Rare-from-Pet-Shop.png",
     "value": null,
     "valueUnit": null
   },
   {
-    "id": "unicorn-plush-ultra",
+    "id": "unicorn-plush",
     "category": "toys",
-    "name": "Unicorn Plush Ultra",
-    "rarity": "Rare",
+    "name": "Unicorn Plush",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Unicorn-Plush-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -6870,10 +6870,10 @@
     "valueUnit": null
   },
   {
-    "id": "vampire-chew-toy-ultra",
+    "id": "vampire-chew-toy",
     "category": "toys",
-    "name": "Vampire Chew Toy Ultra",
-    "rarity": "Rare",
+    "name": "Vampire Chew Toy",
+    "rarity": "Ultra Rare",
     "source": "Halloween 2023",
     "image": "/images/toys/Vampire-Chew-Toy-Ultra-Rare-from-Halloween-2023.png",
     "value": null,
@@ -6910,10 +6910,10 @@
     "valueUnit": null
   },
   {
-    "id": "velvet-fuchsia-mega-neon-paint-ultra",
+    "id": "velvet-fuchsia-mega-neon-paint",
     "category": "toys",
-    "name": "Velvet Fuchsia Mega Neon Paint Ultra",
-    "rarity": "Rare",
+    "name": "Velvet Fuchsia Mega Neon Paint",
+    "rarity": "Ultra Rare",
     "source": "Robux Shop Menu",
     "image": "/images/toys/Velvet-Fuchsia-Mega-Neon-Paint-Ultra-Rare-from-Robux-Shop-Menu.png",
     "value": null,
@@ -7040,10 +7040,10 @@
     "valueUnit": null
   },
   {
-    "id": "wing-hang-glider-ultra",
+    "id": "wing-hang-glider",
     "category": "toys",
-    "name": "Wing Hang Glider Ultra",
-    "rarity": "Rare",
+    "name": "Wing Hang Glider",
+    "rarity": "Ultra Rare",
     "source": "Cherry Blossom Festival 2025",
     "image": "/images/toys/Wing-Hang-Glider-Ultra-Rare-from-Cherry-Blossom-Festival-2025.png",
     "value": null,
@@ -7080,10 +7080,10 @@
     "valueUnit": null
   },
   {
-    "id": "witch-claw-grapple-ultra",
+    "id": "witch-claw-grapple",
     "category": "toys",
-    "name": "Witch Claw Grapple Ultra",
-    "rarity": "Rare",
+    "name": "Witch Claw Grapple",
+    "rarity": "Ultra Rare",
     "source": "Halloween 2024",
     "image": "/images/toys/Witch-Claw-Grapple-Ultra-Rare-from-Halloween-2024.png",
     "value": null,
@@ -7110,10 +7110,10 @@
     "valueUnit": null
   },
   {
-    "id": "wooden-pan-flute-ultra",
+    "id": "wooden-pan-flute",
     "category": "toys",
-    "name": "Wooden Pan Flute Ultra",
-    "rarity": "Rare",
+    "name": "Wooden Pan Flute",
+    "rarity": "Ultra Rare",
     "source": "Gifts",
     "image": "/images/toys/Wooden-Pan-Flute-Ultra-Rare-from-Gifts.png",
     "value": null,
@@ -7210,10 +7210,10 @@
     "valueUnit": null
   },
   {
-    "id": "yarn-apple-ultra",
+    "id": "yarn-apple",
     "category": "toys",
-    "name": "Yarn Apple Ultra",
-    "rarity": "Rare",
+    "name": "Yarn Apple",
+    "rarity": "Ultra Rare",
     "source": "Halloween 2025",
     "image": "/images/toys/Yarn-Apple-Ultra-Rare-from-Halloween-2025.png",
     "value": null,

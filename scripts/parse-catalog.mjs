@@ -5,7 +5,7 @@
 //
 // Filename convention: {Name}-{Rarity}-from-{Source}.png
 
-import { readdirSync, writeFileSync, mkdirSync, existsSync } from "fs";
+import { readdirSync, writeFileSync, readFileSync, mkdirSync, existsSync } from "fs";
 import path from "path";
 
 const IMAGES_ROOT = path.join(process.cwd(), "public", "images");
@@ -23,14 +23,14 @@ const CATEGORIES = {
   foods: { dir: "foods", label: "Food" },
 };
 
-const KNOWN_RARITIES = ["Common", "Uncommon", "Rare", "Ultra-Rare", "Legendary"];
+const KNOWN_RARITIES = ["Common", "Uncommon", "Ultra-Rare", "Rare", "Legendary"];
 
 function slugify(str) {
   return str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
 
 function parseFilename(filename, categoryKey) {
-  const base = filename.replace(/\.png$/i, "");
+  const base = filename.replace(/\.(png|webp|svg)$/i, "");
 
   let match = null;
   for (const rarity of KNOWN_RARITIES) {
@@ -72,11 +72,44 @@ function parseCategory(categoryKey) {
     return [];
   }
 
-  const files = readdirSync(imagesDir).filter((f) => f.toLowerCase().endsWith(".png"));
+  const SUPPORTED_EXTS = [".png", ".webp", ".svg"];
+  const EXT_PRIORITY = { ".webp": 0, ".png": 1, ".svg": 2 };
+  const allFiles = readdirSync(imagesDir).filter((f) =>
+    SUPPORTED_EXTS.some((ext) => f.toLowerCase().endsWith(ext))
+  );
+  // De-duplicate: for same base name, prefer webp > png > svg
+  const bestByBase = {};
+  for (const f of allFiles) {
+    const ext = f.slice(f.lastIndexOf(".")).toLowerCase();
+    const base = f.slice(0, f.lastIndexOf("."));
+    if (!bestByBase[base] || EXT_PRIORITY[ext] < EXT_PRIORITY[bestByBase[base].slice(bestByBase[base].lastIndexOf(".")).toLowerCase()]) {
+      bestByBase[base] = f;
+    }
+  }
+  const files = Object.values(bestByBase);
   const items = files
     .map((f) => parseFilename(f, categoryKey))
     .filter(Boolean)
     .sort((a, b) => a.name.localeCompare(b.name));
+
+  // Merge extra fields (availability, bucksPrice, floors, expandable, value, valueUnit)
+  // from the existing JSON so manual enrichment survives re-parses
+  const existingPath = path.join(DATA_DIR, `${categoryKey}.json`);
+  if (existsSync(existingPath)) {
+    const existing = JSON.parse(readFileSync(existingPath, "utf-8"));
+    const existingById = Object.fromEntries(existing.map((e) => [e.id, e]));
+    const PRESERVE_FIELDS = ["availability", "bucksPrice", "floors", "expandable", "value", "valueUnit"];
+    for (const item of items) {
+      const prev = existingById[item.id];
+      if (prev) {
+        for (const field of PRESERVE_FIELDS) {
+          if (prev[field] !== undefined && prev[field] !== null) {
+            item[field] = prev[field];
+          }
+        }
+      }
+    }
+  }
 
   return items;
 }
