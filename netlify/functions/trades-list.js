@@ -24,7 +24,7 @@ async function handlerImpl(event) {
   const listingIds = [...new Set(trades.map(t => t.listing_id))];
   const { data: listings } = await db
     .from("listings")
-    .select("id, house_id, title, value_amount, value_unit, is_cloned, profile_id")
+    .select("id, house_id, title, value_amount, value_unit, is_cloned, profile_id, photos")
     .in("id", listingIds);
 
   const listingMap = {};
