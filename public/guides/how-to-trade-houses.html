@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<title>How to Trade Houses in Adopt Me — Complete Guide | AdoptMeHouseTrading.com</title>
+<meta name="description" content="Learn how Adopt Me house trading works, what determines a house's value, how RP pricing works, and tips for getting fair trades. A complete guide from the community.">
+<link rel="canonical" href="https://adoptmehousetrading.com/guides/how-to-trade-houses.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  .guide-body h2 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 32px 0 8px;
+  }
+  .guide-body h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 22px 0 6px;
+  }
+  .guide-body p {
+    margin: 0 0 16px;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+  .guide-body strong { font-weight: 700; }
+  .guide-body em { font-style: italic; }
+  .guide-body ul, .guide-body ol {
+    margin: 0 0 16px 20px;
+    line-height: 1.75;
+  }
+  .guide-body li { margin-bottom: 6px; }
+  .guide-body blockquote {
+    border-left: 3px solid var(--accent);
+    padding: 8px 16px;
+    margin: 0 0 16px;
+    background: var(--surface);
+    border-radius: 0 8px 8px 0;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .guide-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .guide-meta-divider { color: var(--line); }
+  .guide-toc {
+    background: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 0 0 32px;
+  }
+  .guide-toc h4 {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--muted);
+    margin: 0 0 10px;
+  }
+  .guide-toc ol {
+    margin: 0;
+    padding-left: 18px;
+  }
+  .guide-toc li {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .guide-toc a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .guide-toc a:hover { text-decoration: underline; }
+
+  .rp-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 20px;
+    font-size: 14px;
+    overflow-x: auto;
+    display: block;
+  }
+  .rp-table th {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 700;
+    font-family: var(--font-display);
+    white-space: nowrap;
+  }
+  .rp-table td {
+    border: 1px solid var(--line);
+    padding: 9px 14px;
+    white-space: nowrap;
+  }
+  .rp-table tr:nth-child(even) td { background: var(--surface); }
+  .rp-table .mono { font-variant-numeric: tabular-nums; }
+
+  .guide-cta {
+    background: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 40px 0 0;
+    text-align: center;
+  }
+  .guide-cta h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+  .guide-cta p { color: var(--muted); font-size: 14px; margin: 0 0 16px; }
+
+  .tip-box {
+    background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+    border: 1.5px solid color-mix(in srgb, var(--accent) 30%, var(--line));
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 0 0 20px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+  .tip-box strong { color: var(--accent); }
+
+  .warn-box {
+    background: color-mix(in srgb, var(--sign-red, #e54) 8%, var(--surface));
+    border: 1.5px solid color-mix(in srgb, var(--sign-red, #e54) 25%, var(--line));
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 0 0 20px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+</style>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Trade Houses in Adopt Me — Complete Guide",
+  "description": "A complete guide to Adopt Me house trading: how trades work, what drives value, the RP pricing system, and tips for getting fair deals.",
+  "datePublished": "2026-09-01",
+  "dateModified": "2026-09-01",
+  "author": {"@type": "Organization", "name": "AdoptMeHouseTrading.com"},
+  "publisher": {"@type": "Organization", "name": "AdoptMeHouseTrading.com", "url": "https://adoptmehousetrading.com"},
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://adoptmehousetrading.com/guides/how-to-trade-houses.html"}
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://adoptmehousetrading.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://adoptmehousetrading.com/guides/index.html"},
+    {"@type": "ListItem", "position": 3, "name": "How to Trade Houses in Adopt Me", "item": "https://adoptmehousetrading.com/guides/how-to-trade-houses.html"}
+  ]
+}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-REW2CFBX6H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-REW2CFBX6H');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1156955048210674" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="signpost-mini"></span>
+      AdoptMeHouseTrading
+    </a>
+    <nav>
+      <a href="../listings/index.html">Browse Houses</a>
+      <a href="../commissions/index.html">Find a Builder</a>
+      <a href="../recent-trades.html">Recent Trades</a>
+      <div class="nav-more">
+        <button type="button" class="nav-more-trigger active">More <span class="nav-more-caret"></span></button>
+        <div class="nav-more-dropdown" hidden>
+          <a href="../houses/index.html">Values</a>
+          <a href="../registry/index.html">Build Registry</a>
+          <a href="index.html">Guides</a>
+        </div>
+      </div>
+      <a href="../profile.html">Profile</a>
+    </nav>
+    <div class="nav-actions">
+      <span id="nav-profile-pill"></span>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      <a href="submit.html" class="btn btn-primary">Submit a Guide</a>
+    </div>
+  </div>
+</header>
+<script type="module" src="../js/nav.js"></script>
+
+<section class="wrap" style="padding:32px 0 64px;max-width:780px;">
+  <div class="breadcrumb">
+    <a href="index.html" style="color:var(--accent);text-decoration:none;">Guides</a>
+    &nbsp;/&nbsp;
+    <span class="current">How to Trade Houses in Adopt Me</span>
+  </div>
+
+  <div style="margin-top:24px;">
+    <span class="pill" style="margin-bottom:12px;display:inline-block;">How-To</span>
+    <h1 style="font-family:var(--font-display);font-size:clamp(1.5rem,4vw,2rem);color:var(--ink);margin:6px 0 16px;line-height:1.2;letter-spacing:-0.3px;">How to Trade Houses in Adopt Me</h1>
+
+    <div class="guide-meta">
+      <span>By AdoptMeHouseTrading.com</span>
+      <span class="guide-meta-divider">·</span>
+      <span>September 2026</span>
+      <span class="guide-meta-divider">·</span>
+      <span>6 min read</span>
+    </div>
+
+    <div class="guide-toc">
+      <h4>In this guide</h4>
+      <ol>
+        <li><a href="#how-trading-works">How house trading works</a></li>
+        <li><a href="#what-drives-value">What drives a house's value</a></li>
+        <li><a href="#rp-system">Understanding the RP pricing system</a></li>
+        <li><a href="#tips">Tips for getting fair trades</a></li>
+        <li><a href="#red-flags">Red flags to watch out for</a></li>
+      </ol>
+    </div>
+
+    <div class="guide-body">
+
+      <h2 id="how-trading-works">How House Trading Works</h2>
+
+      <p>In Adopt Me, houses are tradeable items just like pets — you can offer one in the trade window, receive it in a trade, and then place it on any available plot. Unlike pets, every house you own starts completely undecorated when you place it, which means two players can own the exact same house type but have very different builds on their plots. This distinction matters a lot for trading, because <strong>what you're trading is always the bare house shell, not whatever furniture or decorations are currently inside it.</strong></p>
+
+      <p>To trade a house, both players open the trade window (the button on the left side of the screen) and drag the house from their inventory. Houses show up alongside pets, toys, and food in your inventory — look for the building icon. Once both sides confirm, the house transfers immediately and appears in the new owner's inventory ready to be placed.</p>
+
+      <p>A few things worth knowing before your first trade:</p>
+      <ul>
+        <li>You keep all your existing furniture when a house is traded away — it just gets removed from the plot and goes back into your inventory</li>
+        <li>If you receive a house that's larger than your current plot allows, you may need to upgrade your plot or use the house on a different server</li>
+        <li>Some houses were only available for a limited time and can no longer be obtained fresh, which is part of what makes them valuable to trade for</li>
+        <li>A house traded for pets is just as valid as house-for-house — the trade window accepts anything from your inventory on either side</li>
+      </ul>
+
+      <h2 id="what-drives-value">What Drives a House's Value</h2>
+
+      <p>House values in Adopt Me aren't set by the developers — they emerge from community supply and demand, and they shift over time. Understanding what the community weighs when valuing a house will help you recognize a fair offer when you see one.</p>
+
+      <h3>Availability</h3>
+
+      <p><strong>Limited houses</strong> — ones that are no longer obtainable through the shop or game passes — are almost always worth more than currently available ones. When the developer vaults a house, the existing supply can only shrink (players quit, accounts get reset, etc.), which pushes prices up over time. The Candy Castle, Haunted House, and Sky Castle are examples where limited availability is a major driver of value.</p>
+
+      <p><strong>Robux houses</strong> occupy a middle ground. They're buyable by anyone with Roblox premium or who purchases Robux, so supply is effectively unlimited — but they're out of reach for free-to-play players, which creates real demand on the trade market. The Millionaire Mansion (1,250 R$) and Celebrity Mansion (800 R$) are among the most traded Robux houses precisely because they're impressive-looking but not everyone wants to spend real money.</p>
+
+      <p><strong>Bucks houses</strong> (earned through in-game currency) are the most obtainable and generally carry the lowest trade values, though limited bucks houses that have been vaulted can still command solid prices.</p>
+
+      <h3>Build Quality and Theme</h3>
+
+      <p>This is where house trading gets more nuanced than pet trading. A Fairy House with a stunning fairy-garden build will trade for significantly more than a bare Fairy House shell, even though they're technically the same item. The community values the build quality on top of the base house value.</p>
+
+      <p>That said, when people talk about "the value of a Fairy House," they almost always mean the value of an <em>undecorated</em> shell — the baseline. Any premium for a good build is negotiated on top. That's why you'll see listings here with photos: the seller is demonstrating that their specific house is worth more than the baseline.</p>
+
+      <h3>Theme Popularity</h3>
+
+      <p>Demand fluctuates with trends. After a Halloween update, spooky-themed houses see a spike. When a new Adopt Me location launches, houses that match its aesthetic get more attention. The Treehouse, Fairy House, and Castle consistently hold demand because their themes are perennially popular, while more niche themes may sit at a lower value even if supply is limited.</p>
+
+      <h3>Plot Size</h3>
+
+      <p>Larger houses need larger plots. If the majority of players still have starter plots, a huge house that requires multiple plot upgrades will have fewer potential buyers — which can suppress its price relative to rarity. When more players unlock bigger plots, prices for large houses tend to catch up.</p>
+
+      <h2 id="rp-system">Understanding the RP Pricing System</h2>
+
+      <p>Because Adopt Me's in-game currency (Bucks) can't be directly traded between players, the community developed a common reference point: <strong>Ride Potions</strong>, usually abbreviated as RP. A Ride Potion lets you make any pet "rideable," which makes it tradeable for a predictable range of pets — which is why it became a de facto unit of exchange.</p>
+
+      <div class="tip-box">
+        <strong>Quick reference:</strong> 1 RP ≈ the value of a common/uncommon pet bundle. Think of it like a dollar sign for Adopt Me trades — not literal currency, but a shared measuring stick the community agrees on.
+      </div>
+
+      <p>Here's a rough orientation table so you can calibrate how RP values compare to pets you already know:</p>
+
+      <table class="rp-table">
+        <thead>
+          <tr>
+            <th>RP Value</th>
+            <th>Rough equivalent (illustrative)</th>
+            <th>Example houses in this range</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mono">0.1 – 0.5 RP</td>
+            <td>A few common pets</td>
+            <td>Tiny Shack, Brick House, Log Cabin</td>
+          </tr>
+          <tr>
+            <td class="mono">0.5 – 2 RP</td>
+            <td>Uncommon to rare pets</td>
+            <td>Cozy Cabin, Fairy House, Treehouse</td>
+          </tr>
+          <tr>
+            <td class="mono">2 – 10 RP</td>
+            <td>Rare / ultra-rare pets</td>
+            <td>Castle, Sky Castle, Haunted House</td>
+          </tr>
+          <tr>
+            <td class="mono">10 – 50 RP</td>
+            <td>Legendary-tier pets</td>
+            <td>Candy Castle, Egyptian Pyramid</td>
+          </tr>
+          <tr>
+            <td class="mono">50+ RP</td>
+            <td>High-end legendaries</td>
+            <td>Top limited houses</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>You can look up the current community RP value for any specific house on the <a href="../houses/index.html" style="color:var(--accent);text-decoration:none;font-weight:600;">Values page</a> — all values are sourced from adoptmetradingvalues.com and updated regularly. Use them as a starting point for negotiation, not as a hard price tag. The actual trade value is whatever two players agree on.</p>
+
+      <h3>Converting RP to Pet Offers</h3>
+
+      <p>When someone says a house is "worth 1.5 RP," they mean you could fairly offer pets totaling around 1.5 Ride Potions worth of value. In practice this means checking what the pet equivalent of a Ride Potion currently is, then building an offer from there. This can feel circular at first — RP values shift based on pet prices too — but the community maintains active tier lists that keep everything reasonably calibrated.</p>
+
+      <p>If you're newer to trading, the simplest approach is to offer a single item you know the value of and see if the other player accepts, counters, or declines. A decline with a counter is useful information — it tells you roughly where the other player sees the value, which you can cross-check against the values page.</p>
+
+      <h2 id="tips">Tips for Getting Fair Trades</h2>
+
+      <h3>1. Screenshot your trade before confirming</h3>
+      <p>Once you confirm, the trade is final. Get in the habit of pausing to look at both sides of the offer window before hitting the final confirm. Check that the items shown match what was discussed in chat, and that nothing was swapped at the last second.</p>
+
+      <h3>2. Use the Build Registry for high-value houses</h3>
+      <p>If you're buying a house with an impressive build at a premium price, check the <a href="../registry/index.html" style="color:var(--accent);text-decoration:none;font-weight:600;">Build Registry</a> to confirm the build history. A registry entry shows who originally built the house and when — which helps you verify the seller's story and avoid paying a premium for a knockoff build.</p>
+
+      <h3>3. Cross-check values before negotiating</h3>
+      <p>Look up both sides of the trade, not just your house. If you're offering a Fairy House (0.18 RP) for someone's Candy Castle (~12 RP), the math doesn't work — and knowing that going in lets you either add more to your offer or walk away cleanly. The <a href="../houses/index.html" style="color:var(--accent);text-decoration:none;font-weight:600;">Values page</a> has every house in one place with sortable values so you can compare quickly.</p>
+
+      <h3>4. Don't rush — and watch for artificial urgency</h3>
+      <p>Good traders are patient. If someone is pushing you to confirm immediately ("quick trade, I'm about to leave the server"), that pressure is a tactic, not a fact. You always have time to check values, and a legitimate trader won't mind waiting thirty seconds while you look something up.</p>
+
+      <h3>5. Trade history signals intent</h3>
+      <p>Players with lots of active listings on a trading site, a visible profile, and a history of completed trades are less likely to lowball you than someone with no history. You're not just evaluating the offer — you're evaluating who's making it.</p>
+
+      <h3>6. Know whether you're buying or selling</h3>
+      <p>Being honest with yourself about which side of the market you're on helps you set the right price. Buyers should expect to offer at or slightly above market value to be competitive. Sellers should expect offers below market and decide in advance how low they'll go, rather than deciding in the moment under social pressure.</p>
+
+      <h2 id="red-flags">Red Flags to Watch Out For</h2>
+
+      <div class="warn-box">
+        ⚠️ <strong>Scam attempts in Adopt Me house trading are real.</strong> Knowing the common patterns protects you.
+      </div>
+
+      <p><strong>The last-second swap.</strong> This is the most common scam in Adopt Me trading. The scammer shows you a valuable item in the trade window, you agree, and then at the final moment they remove it and replace it with something nearly worthless — hoping you'll confirm out of habit. Always read the final confirmation screen, not just the pre-confirm screen.</p>
+
+      <p><strong>Fake "limited" pressure.</strong> "I only have a second before this trade expires" or "someone else just offered more, decide now" — these are manipulation tactics. There is no expiring trade timer. Walk away from anyone who uses this language.</p>
+
+      <p><strong>Misspelled or look-alike house names.</strong> If someone is offering a "Haunted Housé" or "Sky Castlé" with unusual characters, they may be trying to pass off a different item. Read carefully.</p>
+
+      <p><strong>Overpayment followed by a favor.</strong> If someone offers you way more than your house is worth for seemingly no reason, expect a follow-up ask. This is a setup: they'll say there was a "mistake" and ask you to trade back, returning only part of what they gave you, or they'll ask for something unrelated.</p>
+
+      <p>If a trade feels off, trust that instinct. There are always more trading opportunities, and nothing in Adopt Me is worth getting scammed for.</p>
+
+    </div><!-- /.guide-body -->
+
+    <div class="guide-cta">
+      <h3>Ready to find your next house?</h3>
+      <p>Browse community RP values for all 52 tradeable houses — or list yours and get real offers from players, even while you're offline.</p>
+      <a href="../houses/index.html" class="btn btn-primary" style="margin-right:8px;">Check House Values</a>
+      <a href="../listings/index.html" class="btn" style="border:1.5px solid var(--line);">Browse Listings</a>
+    </div>
+
+    <div style="margin-top:48px;border-top:1.5px solid var(--line);padding-top:32px;">
+      <div style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin:0 0 16px;color:var(--ink);">More Guides</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">
+        <a href="index.html" style="border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;text-decoration:none;color:inherit;display:block;transition:border-color 0.15s;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:4px;">Community</div>
+          <div style="font-size:14px;font-weight:600;color:var(--ink);line-height:1.4;">Browse all guides</div>
+        </a>
+        <a href="../houses/index.html" style="border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;text-decoration:none;color:inherit;display:block;transition:border-color 0.15s;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:4px;">Reference</div>
+          <div style="font-size:14px;font-weight:600;color:var(--ink);line-height:1.4;">House Values & RP Prices</div>
+        </a>
+        <a href="../registry/index.html" style="border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;text-decoration:none;color:inherit;display:block;transition:border-color 0.15s;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:4px;">Tools</div>
+          <div style="font-size:14px;font-weight:600;color:var(--ink);line-height:1.4;">Build Registry & Verification</div>
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community — house values, live trade listings, builder commissions, and a build registry for verifying who built a house first. Not affiliated with, endorsed by, or sponsored by Adopt Me, Uplift Games, or Roblox Corporation.
+    <div style="margin-top:8px;"><a href="../rules.html" style="color:var(--sign-red);">Community Rules</a> · <a href="../privacy.html" style="color:var(--sign-red);">Privacy Policy</a> · <a href="https://www.reddit.com/r/adoptmehousetrading/" style="color:var(--sign-red);" target="_blank" rel="noopener">Reddit</a></div>
+  </div>
+</footer>
+</body>
+</html>

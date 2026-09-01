@@ -80,7 +80,8 @@
     "expandable": false,
     "description": "The Celebrity Mansion is a Robux-exclusive three-story house obtained through the Celebrity Mansion Gamepass, featuring a Hollywood-inspired exterior with a rooftop pool area, sweeping staircases, and a glamorous star-worthy layout. Its prestige look signals luxury status in the trading community.",
     "tradingNotes": "Since it requires Robux to obtain, it's less common than Bucks-buyable houses, which typically gives decorated builds stronger trade leverage. Hollywood, luxury, and celebrity-themed interiors perform especially well.",
-    "demandLevel": "medium"
+    "demandLevel": "medium",
+    "robuxPrice": 800
   },
   {
     "id": "christmas-pudding-house",
@@ -129,7 +130,8 @@
     "expandable": false,
     "description": "The Cozy Cabin is a Robux-exclusive house bundled with the Cozy Cabin & Snowmobile Gamepass, featuring warm wood-paneled walls, a snowy alpine exterior, and a classic mountain-cabin design across two floors. Its warm, rustic aesthetic has made it a go-to for winter and cozy-home themed builds.",
     "tradingNotes": "The Robux requirement means it's less commonly owned than Bucks-purchased houses. Festive, cabin, and winter-aesthetic builds attract motivated buyers, particularly in the lead-up to seasonal events.",
-    "demandLevel": "medium"
+    "demandLevel": "medium",
+    "robuxPrice": 849
   },
   {
     "id": "crooked-house",
@@ -314,7 +316,8 @@
     "expandable": false,
     "description": "The Family Home is the classic Adopt Me starter house obtained through the Starter Pack, featuring a traditional two-story suburban layout with a recognizable pastel exterior that most players know from their earliest days in the game. It holds nostalgic significance as the house many players started their Adopt Me journey in.",
     "tradingNotes": "Extremely common since many players began with the Starter Pack, so bare trade value is minimal. A well-decorated traditional, family home, or cozy suburban build can occasionally attract buyers looking for that classic Adopt Me aesthetic.",
-    "demandLevel": "low"
+    "demandLevel": "low",
+    "robuxPrice": 89
   },
   {
     "id": "futuristic-house",
@@ -413,7 +416,8 @@
     "expandable": false,
     "description": "The Hospital Home is a Robux-exclusive three-story house from the School and Hospital Houses gamepass, designed as a medical facility with a clinical white exterior, red cross emblem, and recognizable hospital aesthetics. Despite its institutional theme, many players repurpose it creatively for roleplay and themed builds.",
     "tradingNotes": "Robux exclusivity gives it moderate scarcity. Its three-floor layout adds versatility for creative decorators, and it's popular for medical roleplay builds and unique concept builds that subvert the hospital theme.",
-    "demandLevel": "low"
+    "demandLevel": "low",
+    "robuxPrice": 600
   },
   {
     "id": "ice-cream-house",
@@ -544,7 +548,8 @@
     "expandable": false,
     "description": "The Millionaire Mansion is a prestigious Robux-exclusive three-story estate from the Millionaire Pack gamepass, designed as an ultra-luxury property with gold accents, an opulent exterior, and an architectural presence that signals extreme wealth. It's among the most lavish-looking houses in Adopt Me.",
     "tradingNotes": "The Robux barrier keeps this mansion uncommon. Its gold-accented prestige exterior and three-floor layout make it attractive for luxury builds, and traders typically expect high-value offers to part with one.",
-    "demandLevel": "medium"
+    "demandLevel": "medium",
+    "robuxPrice": 1250
   },
   {
     "id": "modern-mansion",
@@ -560,7 +565,8 @@
     "expandable": false,
     "description": "The Modern Mansion is a Robux-exclusive house from the Modern Mansion Gamepass featuring a sleek, minimalist two-story design with floor-to-ceiling windows, clean geometric lines, and a contemporary architectural style that feels like a luxury real estate listing. Its understated elegance is a departure from the game's more colorful options.",
     "tradingNotes": "Less common than Bucks-purchased houses due to the Robux requirement. Its minimal contemporary design translates beautifully to high-end interior design builds, and traders often seek it for sophisticated, modern setups.",
-    "demandLevel": "medium"
+    "demandLevel": "medium",
+    "robuxPrice": 350
   },
   {
     "id": "mountain-house",
@@ -761,7 +767,8 @@
     "expandable": false,
     "description": "The Schoolhouse Home is a Robux-exclusive two-story house from the School and Hospital Houses gamepass, designed as a classic American schoolhouse with a bell tower, red brick exterior, and traditional educational-building styling. Many players repurpose its distinctive architecture for creative roleplay and community-themed builds.",
     "tradingNotes": "Robux exclusivity gives it moderate scarcity. Its unique schoolhouse architecture makes it popular for roleplay, learning-center, and community-themed builds — and it's the only school-style house in the game.",
-    "demandLevel": "low"
+    "demandLevel": "low",
+    "robuxPrice": 600
   },
   {
     "id": "shop-house",
@@ -810,7 +817,8 @@
     "expandable": false,
     "description": "The Space Fleet House is a Robux-exclusive three-story property from the Space Bundle Gamepass, featuring a dramatic spacecraft-inspired exterior with metallic paneling, galactic lighting elements, and a futuristic design that stands apart from every other house in the game. It's the most space-themed house available.",
     "tradingNotes": "Robux exclusivity plus a three-floor layout and a design that pairs naturally with space pets, rocket vehicles, and futuristic items. Space-themed builds on this house are popular among players who have invested in space-related item collections.",
-    "demandLevel": "medium"
+    "demandLevel": "medium",
+    "robuxPrice": 1250
   },
   {
     "id": "tiny-home",
