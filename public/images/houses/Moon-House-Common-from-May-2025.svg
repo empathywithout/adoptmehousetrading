@@ -1,6 +1,41 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="280" height="200" viewBox="0 0 280 200">
-  <rect width="280" height="200" fill="#0f172a" rx="12"/>
-  <text x="140" y="85" font-family="sans-serif" font-size="40" fill="#c4b5fd" text-anchor="middle" dominant-baseline="middle">🌙</text>
-  <text x="140" y="140" font-family="sans-serif" font-size="13" font-weight="600" fill="#e2e8f0" text-anchor="middle" dominant-baseline="middle">Moon House</text>
-  <text x="140" y="163" font-family="sans-serif" font-size="10" fill="#64748b" text-anchor="middle">Image coming soon</text>
+  <defs>
+    <radialGradient id="sky" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#0a0a1a"/>
+    </radialGradient>
+    <radialGradient id="moon" cx="40%" cy="35%" r="55%">
+      <stop offset="0%" stop-color="#f1f5f9"/>
+      <stop offset="100%" stop-color="#cbd5e1"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#818cf8" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#818cf8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="280" height="200" fill="url(#sky)" rx="12"/>
+  <circle cx="30" cy="20" r="1" fill="white" opacity="0.8"/>
+  <circle cx="55" cy="12" r="1.5" fill="white" opacity="0.6"/>
+  <circle cx="90" cy="25" r="1" fill="white" opacity="0.9"/>
+  <circle cx="140" cy="10" r="1" fill="white" opacity="0.7"/>
+  <circle cx="180" cy="18" r="1.5" fill="white" opacity="0.5"/>
+  <circle cx="220" cy="8" r="1" fill="white" opacity="0.8"/>
+  <circle cx="255" cy="22" r="1" fill="white" opacity="0.6"/>
+  <circle cx="15" cy="45" r="1" fill="white" opacity="0.5"/>
+  <circle cx="265" cy="40" r="1.5" fill="white" opacity="0.7"/>
+  <circle cx="240" cy="55" r="1" fill="white" opacity="0.4"/>
+  <circle cx="140" cy="82" r="52" fill="url(#glow)"/>
+  <circle cx="140" cy="82" r="36" fill="url(#moon)"/>
+  <circle cx="125" cy="72" r="5" fill="#e2e8f0" opacity="0.5"/>
+  <circle cx="152" cy="88" r="3.5" fill="#e2e8f0" opacity="0.4"/>
+  <circle cx="133" cy="96" r="2.5" fill="#e2e8f0" opacity="0.35"/>
+  <ellipse cx="140" cy="192" rx="120" ry="22" fill="#1e2a4a"/>
+  <ellipse cx="55" cy="182" rx="38" ry="14" fill="#1a2240"/>
+  <ellipse cx="220" cy="184" rx="30" ry="11" fill="#1a2240"/>
+  <rect x="111" y="148" width="58" height="36" fill="#312e81" rx="3"/>
+  <polygon points="108,150 140,128 172,150" fill="#3730a3"/>
+  <rect x="129" y="163" width="15" height="21" fill="#6366f1" rx="2"/>
+  <rect x="116" y="155" width="10" height="9" fill="#c7d2fe" rx="1"/>
+  <rect x="154" y="155" width="10" height="9" fill="#c7d2fe" rx="1"/>
+  <text x="140" y="196" font-family="sans-serif" font-size="8" font-weight="600" fill="#6366f1" text-anchor="middle" letter-spacing="1">IMAGE COMING SOON</text>
 </svg>
