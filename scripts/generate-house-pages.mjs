@@ -466,11 +466,14 @@ function buildBrowsePage() {
 
     // Sort cards
     const sorted = [...cards].sort((a, b) => {
-      if (sortMode === 'value-desc') return parseFloat(b.dataset.value) - parseFloat(a.dataset.value);
+      if (sortMode === 'value-desc') {
+        const av = parseFloat(a.dataset.value) || 0, bv = parseFloat(b.dataset.value) || 0;
+        return bv - av;
+      }
       if (sortMode === 'value-asc') {
-        const av = parseFloat(a.dataset.value), bv = parseFloat(b.dataset.value);
-        if (av < 0 && bv >= 0) return 1;
-        if (bv < 0 && av >= 0) return -1;
+        const av = parseFloat(a.dataset.value) || 0, bv = parseFloat(b.dataset.value) || 0;
+        if (av <= 0 && bv > 0) return 1;
+        if (bv <= 0 && av > 0) return -1;
         return av - bv;
       }
       return (a.dataset.name || '').localeCompare(b.dataset.name || '');
@@ -688,7 +691,7 @@ function buildHousePage(house) {
         { name: "Values", path: "houses/index.html" },
         { name: house.name, path: `houses/${house.id}.html` },
       ]),
-      JSON.stringify({
+      {
         "@context": "https://schema.org",
         "@type": "ItemPage",
         "name": `${house.name} — Adopt Me House`,
@@ -710,7 +713,7 @@ function buildHousePage(house) {
             }
           } : {}),
         }
-      }),
+      },
     ],
     body,
   });
