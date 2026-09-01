@@ -586,6 +586,23 @@
     "demandLevel": "low"
   },
   {
+    "id": "moon-house",
+    "category": "houses",
+    "name": "Moon House",
+    "rarity": "Common",
+    "source": "May 2025 Update",
+    "image": "/images/houses/Moon-House-Common-from-May-2025.svg",
+    "value": 0.5,
+    "valueUnit": "RP",
+    "availability": "obtainable",
+    "bucksPrice": 4000,
+    "floors": 1,
+    "expandable": false,
+    "description": "The Moon House is a space-themed single-story house added on May 9, 2025, featuring a lunar landscape exterior complete with rocky crater terrain, a glowing portal entrance, and low-gravity interior design details. Its out-of-this-world aesthetic makes it a standout pick for space, sci-fi, and celestial-themed builds.",
+    "tradingNotes": "Permanently available for 4,000 Bucks, the Moon House is a mid-range option with a distinctive space theme that sets it apart from most other permanent houses. Its unique aesthetic draws interest from players building space stations, alien worlds, and cosmic retreats.",
+    "demandLevel": "medium"
+  },
+  {
     "id": "party-house",
     "category": "houses",
     "name": "Party House",
