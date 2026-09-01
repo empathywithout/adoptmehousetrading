@@ -920,6 +920,16 @@
     "valueUnit": null
   },
   {
+    "id": "budgie-witch",
+    "category": "adopt_me_pets",
+    "name": "Budgie Witch",
+    "rarity": "Uncommon",
+    "source": "Fairytale Egg",
+    "image": "/images/adopt_me_pets/Budgie-Witch-Uncommon-from-Fairytale-Egg.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "buffalo",
     "category": "adopt_me_pets",
     "name": "Buffalo",
@@ -1430,6 +1440,16 @@
     "valueUnit": null
   },
   {
+    "id": "clumpty",
+    "category": "adopt_me_pets",
+    "name": "Clumpty",
+    "rarity": "Rare",
+    "source": "Fairytale Egg",
+    "image": "/images/adopt_me_pets/Clumpty-Rare-from-Fairytale-Egg.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "cobra",
     "category": "adopt_me_pets",
     "name": "Cobra",
@@ -1556,6 +1576,16 @@
     "rarity": "Common",
     "source": "Nursery",
     "image": "/images/adopt_me_pets/Cracked-Egg-Common-from-Nursery.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "crimson-cape",
+    "category": "adopt_me_pets",
+    "name": "Crimson Cape",
+    "rarity": "Ultra Rare",
+    "source": "Fairytale Egg",
+    "image": "/images/adopt_me_pets/Crimson-Cape-Ultra-Rare-from-Fairytale-Egg.png",
     "value": null,
     "valueUnit": null
   },
@@ -3160,6 +3190,16 @@
     "valueUnit": null
   },
   {
+    "id": "granny-wolf",
+    "category": "adopt_me_pets",
+    "name": "Granny Wolf",
+    "rarity": "Rare",
+    "source": "Fairytale Egg",
+    "image": "/images/adopt_me_pets/Granny-Wolf-Rare-from-Fairytale-Egg.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "grave-owl",
     "category": "adopt_me_pets",
     "name": "Grave Owl",
@@ -3566,6 +3606,16 @@
     "rarity": "Ultra Rare",
     "source": "Golden Petunia",
     "image": "/images/adopt_me_pets/Hummingbird-Ultra-Rare-from-Golden-Petunia.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "huntsman-robin",
+    "category": "adopt_me_pets",
+    "name": "Huntsman Robin",
+    "rarity": "Legendary",
+    "source": "Fairytale Egg",
+    "image": "/images/adopt_me_pets/Huntsman-Robin-Legendary-from-Fairytale-Egg.png",
     "value": null,
     "valueUnit": null
   },
@@ -4210,6 +4260,16 @@
     "valueUnit": null
   },
   {
+    "id": "little-lamb",
+    "category": "adopt_me_pets",
+    "name": "Little Lamb",
+    "rarity": "Ultra Rare",
+    "source": "Fairytale Egg",
+    "image": "/images/adopt_me_pets/Little-Lamb-Ultra-Rare-from-Fairytale-Egg.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "llama",
     "category": "adopt_me_pets",
     "name": "Llama",
@@ -4746,6 +4806,16 @@
     "rarity": "Ultra Rare",
     "source": "Winter 2025 (Advent Calendar)",
     "image": "/images/adopt_me_pets/Mrs-Whiskerpips-Ultra-Rare-from-Winter-2025-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ms-muffet",
+    "category": "adopt_me_pets",
+    "name": "Ms. Muffet",
+    "rarity": "Common",
+    "source": "Fairytale Egg",
+    "image": "/images/adopt_me_pets/Ms-Muffet-Common-from-Fairytale-Egg.png",
     "value": null,
     "valueUnit": null
   },
@@ -5380,6 +5450,16 @@
     "valueUnit": null
   },
   {
+    "id": "pinkypillar",
+    "category": "adopt_me_pets",
+    "name": "Pinkypillar",
+    "rarity": "Common",
+    "source": "Fairytale Egg",
+    "image": "/images/adopt_me_pets/Pinkypillar-Common-from-Fairytale-Egg.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "piranha",
     "category": "adopt_me_pets",
     "name": "Piranha",
@@ -5536,6 +5616,16 @@
     "rarity": "Legendary",
     "source": "Capuchin Boxes",
     "image": "/images/adopt_me_pets/Princess-Capuchin-Monkey-Legendary-from-Capuchin-Boxes.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "princess-mare",
+    "category": "adopt_me_pets",
+    "name": "Princess Mare",
+    "rarity": "Uncommon",
+    "source": "Fairytale Egg",
+    "image": "/images/adopt_me_pets/Princess-Mare-Uncommon-from-Fairytale-Egg.png",
     "value": null,
     "valueUnit": null
   },
@@ -7246,6 +7336,16 @@
     "rarity": "Rare",
     "source": "Desert Egg",
     "image": "/images/adopt_me_pets/Thorny-Devil-Rare-from-Desert-Egg.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "three-blind-mice",
+    "category": "adopt_me_pets",
+    "name": "Three Blind Mice",
+    "rarity": "Legendary",
+    "source": "Fairytale Egg",
+    "image": "/images/adopt_me_pets/Three-Blind-Mice-Legendary-from-Fairytale-Egg.png",
     "value": null,
     "valueUnit": null
   },
