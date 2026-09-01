@@ -396,10 +396,11 @@ function buildBrowsePage() {
 </style>
 <section class="wrap">
   <div class="section-head" style="margin-top:40px;">
-    <h1>All Houses (${houses.length})</h1>
+    <h1>All Adopt Me Houses (${houses.length})</h1>
     <a href="../listings/index.html">Looking to trade? Browse live listings →</a>
   </div>
-  <p class="hint" style="margin-bottom:16px;">Every house in Adopt Me with trading values. <span style="display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap;"><span class="avail-tag obtainable" style="position:static;">Obtainable</span> = buyable now &nbsp; <span class="avail-tag robux" style="position:static;">Robux</span> = paid gamepass &nbsp; <span class="avail-tag limited" style="position:static;">Limited</span> = trade only</span></p>
+  <p class="hint" style="margin-bottom:8px;">Every house in Adopt Me, with availability status and trade notes. Click any house for full value context, trading tips, and a currency reference guide.</p>
+  <p class="hint" style="margin-bottom:16px;font-size:13px;">Note: house values in Adopt Me are <strong>build-specific</strong> — the same house type can trade for very different amounts depending on decoration quality and theme. <a href="../guides/index.html" style="color:var(--accent);">Read our trading guides</a> to understand how to evaluate a house's real trade value. &nbsp;<span style="display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap;"><span class="avail-tag obtainable" style="position:static;">Obtainable</span> = buyable now &nbsp; <span class="avail-tag robux" style="position:static;">Robux</span> = paid gamepass &nbsp; <span class="avail-tag limited" style="position:static;">Limited</span> = trade only</span></p>
   <div class="values-search-bar">
     <input type="search" id="house-search" placeholder="Search houses..." aria-label="Search houses">
   </div>
@@ -453,8 +454,8 @@ function buildBrowsePage() {
 </script>`;
 
   return layout({
-    title: "Adopt Me House Values — AdoptMeHouseTrading.com",
-    description: "Reference values for every tradeable house in Adopt Me.",
+    title: "Adopt Me House Values — All 52 Houses Ranked by Trade Value",
+    description: `All ${houses.length} tradeable houses in Adopt Me with availability, specs, and trading context. Find out which houses are limited, which are obtainable, and what makes each one worth trading for.`,
     path: "houses/index",
     depth: 1,
     jsonLd: [breadcrumbJsonLd([{ name: "Home", path: "" }, { name: "Values", path: "houses/index.html" }])],
@@ -464,41 +465,167 @@ function buildBrowsePage() {
 
 // ---------- Detail pages ----------
 
+function availLabel(avail) {
+  if (avail === "robux") return "Robux / Gamepass";
+  if (avail === "limited") return "Limited (trade only)";
+  return "Obtainable";
+}
+
+function demandBadge(level) {
+  if (!level) return "";
+  const map = { high: ["🔥", "High demand"], medium: ["📈", "Moderate demand"], low: ["➖", "Lower demand"] };
+  const [icon, label] = map[level] || ["", level];
+  return `<span class="demand-badge demand-${level}">${icon} ${label}</span>`;
+}
+
 function buildHousePage(house) {
   const priced = house.value !== null;
+  const avail = house.availability || "obtainable";
+
+  // Spec chips
+  const specs = [];
+  if (house.floors) specs.push(`<div class="spec-item"><span class="spec-label">Floors</span><span class="spec-val">${house.floors}</span></div>`);
+  if (house.expandable) specs.push(`<div class="spec-item"><span class="spec-label">Expandable</span><span class="spec-val">Yes</span></div>`);
+  const availChip = `<div class="spec-item"><span class="spec-label">Availability</span><span class="spec-val">${availLabel(avail)}</span></div>`;
+  const sourceChip = `<div class="spec-item"><span class="spec-label">From</span><span class="spec-val">${escapeHtml(house.source)}</span></div>`;
+  if (house.bucksPrice === 0) specs.push(`<div class="spec-item"><span class="spec-label">Price</span><span class="spec-val">Free (starter)</span></div>`);
+  else if (house.bucksPrice) specs.push(`<div class="spec-item"><span class="spec-label">Price</span><span class="spec-val">${house.bucksPrice.toLocaleString()} Bucks</span></div>`);
+  else if (avail === "robux") specs.push(`<div class="spec-item"><span class="spec-label">Price</span><span class="spec-val">Robux</span></div>`);
+
+  // Related: different availability category houses, then same category, capped at 4 total
+  const related = [
+    ...houses.filter(h => h.id !== house.id && h.availability !== avail).slice(0, 2),
+    ...houses.filter(h => h.id !== house.id && h.availability === avail).slice(0, 2),
+  ].slice(0, 4);
+
+  // Truncated description for meta (first sentence)
+  const metaDesc = house.description
+    ? house.description.replace(/\.\s.*/, ".").slice(0, 155)
+    : `${house.name} (from ${house.source}) — current Adopt Me house trading value, specs, and trading tips.`;
+
   const body = `
-<section class="wrap house-detail">
-  <div class="photo">
+<style>
+.house-detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start; padding:40px 0 20px; }
+@media(max-width:680px){.house-detail-grid{grid-template-columns:1fr;gap:24px;}}
+.house-detail-photo { border-radius:16px; overflow:hidden; background:var(--surface); border:1px solid var(--line); }
+.house-detail-photo img { width:100%; display:block; }
+.house-detail-meta h1 { font-family:'Baloo 2',sans-serif; font-size:clamp(22px,4vw,32px); font-weight:800; margin:0 0 10px; }
+.meta-pills { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+.avail-pill { font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; letter-spacing:.3px; text-transform:uppercase; }
+.avail-pill.limited { background:#fde8e8; color:#b91c1c; }
+.avail-pill.robux { background:#dbeafe; color:#1d4ed8; }
+.avail-pill.obtainable { background:#dcfce7; color:#15803d; }
+.demand-badge { font-size:12px; font-weight:600; padding:3px 10px; border-radius:20px; background:var(--surface-alt,#f3f4f6); color:var(--ink-soft); border:1px solid var(--line); }
+.value-box { background:var(--surface); border:1.5px solid var(--line); border-radius:12px; padding:16px 20px; margin:16px 0; }
+.value-box .label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:var(--ink-soft); margin-bottom:4px; }
+.value-box .amount { font-family:'Baloo 2',sans-serif; font-size:22px; font-weight:800; color:var(--accent); }
+.value-box .amount.unpriced { color:var(--ink-soft); font-size:16px; font-weight:600; }
+.value-subtext { font-size:12px; color:var(--ink-soft); margin-top:6px; line-height:1.5; }
+.spec-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:10px; margin-top:12px; }
+.spec-item { background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:10px 12px; }
+.spec-label { display:block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.4px; color:var(--ink-soft); margin-bottom:2px; }
+.spec-val { font-size:13px; font-weight:600; color:var(--ink); }
+.content-section { padding:32px 0; border-top:1px solid var(--line); }
+.content-section h2 { font-family:'Baloo 2',sans-serif; font-size:20px; font-weight:800; margin:0 0 12px; }
+.content-section p { font-size:15px; line-height:1.7; color:var(--ink-soft); margin:0 0 12px; }
+.content-section p:last-child { margin-bottom:0; }
+.rp-table { width:100%; border-collapse:collapse; font-size:14px; margin:12px 0; }
+.rp-table th { text-align:left; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.4px; color:var(--ink-soft); padding:6px 12px; border-bottom:1.5px solid var(--line); }
+.rp-table td { padding:9px 12px; border-bottom:1px solid var(--line); color:var(--ink); }
+.rp-table tr:last-child td { border-bottom:none; }
+.rp-table .val-col { font-weight:700; color:var(--accent); }
+.trading-notes { background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:0 10px 10px 0; padding:14px 16px; font-size:14px; line-height:1.65; color:var(--ink); margin:12px 0; }
+.cta-strip { display:flex; gap:12px; align-items:center; flex-wrap:wrap; padding:16px 20px; background:var(--accent-soft,#f0f0ff); border:1px solid var(--accent); border-radius:12px; }
+.cta-strip p { font-size:14px; color:var(--ink); margin:0; flex:1; }
+.cta-strip a { font-size:13px; font-weight:700; color:var(--accent); white-space:nowrap; text-decoration:none; padding:8px 16px; background:var(--accent); color:#fff; border-radius:8px; }
+.factors-list { list-style:none; padding:0; margin:12px 0; display:flex; flex-direction:column; gap:8px; }
+.factors-list li { display:flex; gap:10px; align-items:flex-start; font-size:14px; color:var(--ink-soft); line-height:1.55; }
+.factors-list li::before { content:""; flex-shrink:0; width:6px; height:6px; border-radius:50%; background:var(--accent); margin-top:7px; }
+</style>
+
+<div class="wrap house-detail-grid">
+  <div class="house-detail-photo">
     <img src="../${house.image.slice(1)}" alt="${escapeHtml(house.name)}">
   </div>
-  <div>
-    <div class="signpost-badge">
-      ${SIGNPOST_SVG.replace('viewBox="0 0 100 100"', 'viewBox="0 0 100 100"')}
-      <h1>${escapeHtml(house.name)}</h1>
+  <div class="house-detail-meta">
+    <div class="meta-pills">
+      <span class="avail-pill ${avail}">${availLabel(avail)}</span>
+      ${house.demandLevel ? demandBadge(house.demandLevel) : ""}
     </div>
-    <div class="meta-row">
-      <span class="pill">${escapeHtml(house.rarity)}</span>
-      <span class="pill">From: ${escapeHtml(house.source)}</span>
+    <h1>${escapeHtml(house.name)}</h1>
+    <div class="spec-grid">
+      ${sourceChip}
+      ${availChip}
+      ${specs.join("")}
     </div>
     <div class="value-box">
       <div class="label">Trading Value</div>
-      <div class="amount ${priced ? "" : "unpriced"}">${priced ? `${house.value} ${house.valueUnit}` : "Not yet valued"}</div>
+      <div class="amount ${priced ? "" : "unpriced"}">${priced ? `${house.value} ${house.valueUnit}` : "Community value pending"}</div>
+      <p class="value-subtext">${priced
+        ? "Community-observed trade value. Decorated builds may trade higher — check live listings for current offers."
+        : "House values in Adopt Me are build-specific — the same house type can trade for very different amounts depending on decorations, theme quality, and demand. Browse live listings to see what similar builds are actually trading for."}</p>
+    </div>
+    <a class="btn btn-primary" href="../listings/index.html" style="display:inline-block;text-decoration:none;margin-top:4px;">Browse listings for this house →</a>
+  </div>
+</div>
+
+<div class="wrap">
+  ${house.description ? `
+  <div class="content-section">
+    <h2>About the ${escapeHtml(house.name)}</h2>
+    <p>${escapeHtml(house.description)}</p>
+    ${house.tradingNotes ? `<div class="trading-notes">${escapeHtml(house.tradingNotes)}</div>` : ""}
+  </div>` : ""}
+
+  <div class="content-section">
+    <h2>How Adopt Me House Values Work</h2>
+    <p>Unlike pets, which have fixed rarity-based values, Adopt Me house values are <strong>build-specific</strong> — meaning the same house type can trade for vastly different amounts depending on the quality and theme of the build inside. A bare, undecorated ${escapeHtml(house.name)} and a highly decorated, fully furnished version of the same house are valued completely differently in the trading community.</p>
+    <p>When evaluating a house trade, the community looks at several key factors:</p>
+    <ul class="factors-list">
+      <li><strong>House rarity and availability</strong> — Limited and Robux houses are inherently more valuable than freely buyable ones, since supply is fixed.</li>
+      <li><strong>Build quality and theme</strong> — A cohesive, well-executed theme (matching furniture, colors, and layout) commands a significant premium over a sparse or unthemed interior.</li>
+      <li><strong>Current demand</strong> — Seasonal houses spike in value around relevant events; popular aesthetic themes (cozy, gothic, luxury) hold steady year-round.</li>
+      <li><strong>Original vs. cloned build</strong> — Original builds (where the lister personally decorated the house) typically trade above copies of the same design.</li>
+    </ul>
+  </div>
+
+  <div class="content-section">
+    <h2>Understanding Trade Offers (RP Reference)</h2>
+    <p>Most Adopt Me house trades happen through direct negotiation, with offers quoted in common in-game items rather than Robux. The standard community trading unit is the <strong>Ride Potion (RP)</strong>. When a seller lists a house at "50 Sharks" or "2 Frosts," they're expressing its value relative to these items. Here's a quick reference for the most commonly cited trade currencies:</p>
+    <table class="rp-table">
+      <thead><tr><th>Item</th><th>Approx. RP Value</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Ride Potion</td><td class="val-col">1 RP</td><td>Base unit — most values are expressed relative to this</td></tr>
+        <tr><td>Shark (regular)</td><td class="val-col">~1.36 RP</td><td>Commonly used for smaller trades; "10 Sharks" ≈ 14 RP</td></tr>
+        <tr><td>Frost Dragon</td><td class="val-col">~274 RP</td><td>A major benchmark — often used for mid-to-high value houses</td></tr>
+        <tr><td>Neon Frost Dragon</td><td class="val-col">~1,096 RP</td><td>Four times a regular Frost; used for premium decorated builds</td></tr>
+        <tr><td>Mega Neon Frost Dragon</td><td class="val-col">~4,384 RP</td><td>Top-tier trades; exceptionally decorated or rare houses</td></tr>
+      </tbody>
+    </table>
+    <p>These values shift with community sentiment — for the most current pet and item values, the community references <a href="https://elvebredd.com" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">elvebredd.com</a> and <a href="https://adoptmetradingvalues.com" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">adoptmetradingvalues.com</a>.</p>
+  </div>
+
+  <div class="content-section">
+    <div class="cta-strip">
+      <p>See what real players are offering for ${escapeHtml(house.name)} builds right now — browse live house listings and make offers directly.</p>
+      <a href="../listings/index.html">Browse live listings</a>
     </div>
   </div>
-</section>
-<section class="wrap">
-  <div class="section-head">
-    <h2>More Houses</h2>
-    <a href="index.html">Browse all →</a>
+
+  <div class="content-section">
+    <div class="section-head" style="border-top:none;padding-top:0;">
+      <h2>More Houses</h2>
+      <a href="index.html">Browse all →</a>
+    </div>
+    <div class="house-grid">
+      ${related.map((h) => houseCard(h, "houses")).join("\n")}
+    </div>
   </div>
-  <div class="house-grid">
-    ${houses.filter((h) => h.id !== house.id).slice(0, 4).map((h) => houseCard(h, "houses")).join("\n")}
-  </div>
-</section>`;
+</div>`;
 
   return layout({
-    title: `${house.name} — Adopt Me House Value | AdoptMeHouseTrading.com`,
-    description: `${house.name} (from ${house.source}) — current Adopt Me house trading value and details.`,
+    title: `${house.name} Value & Trade Guide — AdoptMeHouseTrading.com`,
+    description: metaDesc,
     path: `houses/${house.id}`,
     depth: 1,
     jsonLd: [

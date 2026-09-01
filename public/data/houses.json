@@ -11,7 +11,10 @@
     "availability": "limited",
     "bucksPrice": 5450,
     "floors": 3,
-    "expandable": false
+    "expandable": false,
+    "description": "The Beehive House is a honey-colored three-story structure released as part of the Bee Pass 2026 seasonal event, featuring a hexagonal honeycomb exterior and buzzing garden elements throughout. Its tall, distinctive yellow-and-black palette makes it one of the most recognizable recent limited houses in Adopt Me.",
+    "tradingNotes": "As a 2026 seasonal release, supply is still relatively high among players who purchased the pass — but it will decrease over time as newer events draw attention away. Its unique shape is particularly attractive to nature and bee-themed builders.",
+    "demandLevel": "medium"
   },
   {
     "id": "biodome-home",
@@ -25,7 +28,10 @@
     "availability": "obtainable",
     "bucksPrice": 3500,
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Biodome Home is a domed greenhouse-style house permanently available in the Build House Menu for 3,500 Bucks, featuring a curved glass exterior and an open, garden-ready interior across two floors. Its botanical aesthetic makes it a favorite for eco, nature, and science-lab themed builds.",
+    "tradingNotes": "Because it's always purchasable with Bucks, its base trade value stays modest. However, a creatively decorated botanical or nature-themed build can command notably higher offers than a bare shell.",
+    "demandLevel": "low"
   },
   {
     "id": "bunker-house",
@@ -38,7 +44,10 @@
     "valueUnit": null,
     "availability": "limited",
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Bunker House arrived during the Bunker House Update with a reinforced underground-style exterior and a military-industrial aesthetic that stands completely apart from the game's more colorful housing options. Its two-floor layout and survivalist design attract players who want something darker and more unique.",
+    "tradingNotes": "No longer obtainable through regular gameplay, the Bunker House is trade-only. Well-furnished military or underground bunker builds tend to appeal to a dedicated niche of collectors.",
+    "demandLevel": "medium"
   },
   {
     "id": "castle",
@@ -52,7 +61,10 @@
     "availability": "obtainable",
     "bucksPrice": 6899,
     "floors": 3,
-    "expandable": false
+    "expandable": false,
+    "description": "The Castle is one of the most expensive permanently-buyable houses in Adopt Me at 6,899 Bucks, featuring a classic medieval tower design with crenellated battlements, arched windows, and a regal three-story exterior. Its timeless castle aesthetic makes it a top choice for royal, fantasy, and medieval-themed builds.",
+    "tradingNotes": "Despite being always available to buy, the high Bucks cost keeps it out of most casual players' inventories. A premium-decorated royal or fantasy castle build regularly trades significantly above its base cost.",
+    "demandLevel": "medium"
   },
   {
     "id": "celebrity-mansion",
@@ -65,7 +77,10 @@
     "valueUnit": null,
     "availability": "robux",
     "floors": 3,
-    "expandable": false
+    "expandable": false,
+    "description": "The Celebrity Mansion is a Robux-exclusive three-story house obtained through the Celebrity Mansion Gamepass, featuring a Hollywood-inspired exterior with a rooftop pool area, sweeping staircases, and a glamorous star-worthy layout. Its prestige look signals luxury status in the trading community.",
+    "tradingNotes": "Since it requires Robux to obtain, it's less common than Bucks-buyable houses, which typically gives decorated builds stronger trade leverage. Hollywood, luxury, and celebrity-themed interiors perform especially well.",
+    "demandLevel": "medium"
   },
   {
     "id": "christmas-pudding-house",
@@ -78,7 +93,10 @@
     "valueUnit": null,
     "availability": "limited",
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Christmas Pudding House was released during the Winter 2025 seasonal event, designed to look like a giant traditional Christmas pudding complete with festive frosting details and a holly-and-berry topping across its two floors. Its unmistakably holiday exterior makes it a collector's piece for fans of the winter season.",
+    "tradingNotes": "Obtainable only during Winter 2025, this limited house is now exclusively available through trades. Its niche holiday aesthetic keeps demand steady among collectors and Christmas-themed builders, though it's less versatile than neutral limited houses.",
+    "demandLevel": "low"
   },
   {
     "id": "container-home",
@@ -92,7 +110,10 @@
     "availability": "obtainable",
     "bucksPrice": 1200,
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Container Home is an industrial-chic house styled after stacked shipping containers, available from the Build House Menu for just 1,200 Bucks. Its clean, rectangular silhouette and two-floor layout work extremely well for modern, industrial, and minimalist build aesthetics.",
+    "tradingNotes": "Affordable and widely owned, so bare trade value is low. A creatively decorated industrial loft or modern minimalist build on this house can trade well above its purchase price, especially with matching industrial-themed items.",
+    "demandLevel": "low"
   },
   {
     "id": "cozy-cabin",
@@ -105,7 +126,10 @@
     "valueUnit": null,
     "availability": "robux",
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Cozy Cabin is a Robux-exclusive house bundled with the Cozy Cabin & Snowmobile Gamepass, featuring warm wood-paneled walls, a snowy alpine exterior, and a classic mountain-cabin design across two floors. Its warm, rustic aesthetic has made it a go-to for winter and cozy-home themed builds.",
+    "tradingNotes": "The Robux requirement means it's less commonly owned than Bucks-purchased houses. Festive, cabin, and winter-aesthetic builds attract motivated buyers, particularly in the lead-up to seasonal events.",
+    "demandLevel": "medium"
   },
   {
     "id": "crooked-house",
@@ -118,7 +142,10 @@
     "valueUnit": null,
     "availability": "limited",
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Crooked House was introduced during the Artsy Update with a deliberately tilted, surreal design featuring off-kilter walls, skewed windows, and a whimsical artistic style that defies conventional architecture. Its two-floor layout and uniquely distorted silhouette make it one of the most visually distinctive limited houses in the game.",
+    "tradingNotes": "As an older Artsy Update limited, the Crooked House has had time to become scarce. Its quirky aesthetic appeals to players looking for an unconventional conversation-starter build.",
+    "demandLevel": "medium"
   },
   {
     "id": "donut-shop",
@@ -132,7 +159,10 @@
     "availability": "obtainable",
     "bucksPrice": 1500,
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Donut Shop is a sweet-themed two-story house shaped like a donut shop storefront, available for 1,500 Bucks from the Build House Menu. Its pastel colors and food-themed exterior design make it an ideal base for bakery, café, and dessert-themed builds.",
+    "tradingNotes": "Widely available with Bucks, so bare trade value is modest. Creatively decorated food-themed, candy shop, or café builds can attract buyers looking for a playful, colorful aesthetic.",
+    "demandLevel": "low"
   },
   {
     "id": "dragon-s-castle",
@@ -146,7 +176,10 @@
     "availability": "obtainable",
     "bucksPrice": 4500,
     "floors": 3,
-    "expandable": false
+    "expandable": false,
+    "description": "Dragon's Castle is a dramatic three-story fortress available for 4,500 Bucks, featuring claw-shaped towers, dark stone battlements, and a formidable dragon-inspired design that makes it one of the most striking houses in the Build House Menu. Its large multi-floor layout gives builders an imposing canvas for fantasy and epic adventure themes.",
+    "tradingNotes": "The high buy price reduces casual ownership while keeping it permanently obtainable, creating moderate supply. Dragon-themed builds that match the house's natural aesthetic — especially paired with Dragon and legendary pets — are popular in the trading community.",
+    "demandLevel": "medium"
   },
   {
     "id": "eco-natural-earth-house",
@@ -160,7 +193,10 @@
     "availability": "obtainable",
     "bucksPrice": 2000,
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Eco Natural Earth House is a rounded, organic-shaped house with earthy tones and plant-friendly design elements, available for 2,000 Bucks from the Build House Menu. Its natural, earthy aesthetic suits eco, garden, wildlife sanctuary, and environmental-themed builds.",
+    "tradingNotes": "Fairly affordable and always obtainable, so its base trade value is moderate. Nature-themed builds on this house pair well with wildlife pets and green-living aesthetics, attracting buyers interested in that aesthetic.",
+    "demandLevel": "low"
   },
   {
     "id": "estate",
@@ -174,7 +210,10 @@
     "availability": "obtainable",
     "bucksPrice": 972,
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Estate is a classic country-house style home available for just 972 Bucks — one of the more budget-friendly two-floor options in the Build House Menu. Its clean, understated lines make it a versatile blank canvas suitable for virtually any build theme.",
+    "tradingNotes": "Very common due to its low purchase price, so bare trade value is minimal. However, a highly detailed and themed decorated build can still find buyers who appreciate the Estate's simple, clean architecture as a foundation.",
+    "demandLevel": "low"
   },
   {
     "id": "expandable-dino-house",
@@ -188,7 +227,10 @@
     "availability": "limited",
     "bucksPrice": 800,
     "floors": 1,
-    "expandable": true
+    "expandable": true,
+    "description": "The Expandable Dino House was released during the Fossil Isle 2024 event with a prehistoric exterior featuring fossil patterns, bone-shaped accents, and earthy tones that evoke the Jurassic era. As an expandable house, players can purchase additional rooms to dramatically increase its interior space beyond its single-floor base.",
+    "tradingNotes": "A particularly desirable combination: limited event rarity plus expandable layout versatility. Dinosaur, prehistoric, and fossil-themed builds on this house are highly sought after among collectors and builders alike.",
+    "demandLevel": "high"
   },
   {
     "id": "expandable-friendly-home",
@@ -202,7 +244,10 @@
     "availability": "obtainable",
     "bucksPrice": 675,
     "floors": 1,
-    "expandable": true
+    "expandable": true,
+    "description": "The Expandable Friendly Home is one of the most affordable houses in Adopt Me at just 675 Bucks, featuring a simple pastel-colored design with an expandable layout that grows when additional rooms are purchased. Its flexible interior makes it a popular choice for builders who want maximum customization at minimal buy-in.",
+    "tradingNotes": "The cheapest expandable house in the game means it's widely owned and base trade value is low. However, an impressive fully-expanded and decorated build can trade far above what the bare shell would suggest.",
+    "demandLevel": "low"
   },
   {
     "id": "expandable-hillside-mansion",
@@ -216,7 +261,10 @@
     "availability": "obtainable",
     "bucksPrice": 1200,
     "floors": 1,
-    "expandable": true
+    "expandable": true,
+    "description": "The Expandable Hillside Mansion offers a refined hillside-villa aesthetic at 1,200 Bucks, with elegant architecture and an expandable layout that allows for a dramatically larger interior when additional rooms are purchased. Its design lends itself naturally to luxury resort, countryside, and high-end residential builds.",
+    "tradingNotes": "One of the most builder-friendly houses in the game due to its expandable nature and attractive base design. Well-constructed luxury or resort-themed builds consistently command strong trade value.",
+    "demandLevel": "medium"
   },
   {
     "id": "expandable-luxury-mansion",
@@ -230,7 +278,10 @@
     "availability": "obtainable",
     "bucksPrice": 1600,
     "floors": 1,
-    "expandable": true
+    "expandable": true,
+    "description": "The Expandable Luxury Mansion features a sleek, opulent modern facade with clean lines and an upscale presence, available for 1,600 Bucks with an expandable layout for maximum interior potential. Its premium exterior feel makes it a top choice for players who want their house to look prestigious even before decorating.",
+    "tradingNotes": "Popular with serious builders for the combination of its prestigious appearance and expandable capacity. A fully developed luxury interior build on this house tends to attract high-value trade offers from players seeking premium builds.",
+    "demandLevel": "medium"
   },
   {
     "id": "fairy-house",
@@ -243,7 +294,10 @@
     "valueUnit": null,
     "availability": "limited",
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Fairy House is one of the oldest limited houses in Adopt Me, released during the Fairy Update in 2019 with a magical mushroom-cap design, twinkling lights, and enchanted forest elements that make it instantly recognizable across the trading community. Its two-floor layout and timeless fantasy aesthetic have kept it desirable for over half a decade.",
+    "tradingNotes": "Being one of the oldest limited houses in the game makes the Fairy House genuinely scarce — most original owners no longer actively trade, reducing circulating supply. Fairy-tale, enchanted forest, and magical builds on this house are highly prized.",
+    "demandLevel": "high"
   },
   {
     "id": "family-home",
@@ -257,7 +311,10 @@
     "availability": "robux",
     "bucksPrice": 489,
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Family Home is the classic Adopt Me starter house obtained through the Starter Pack, featuring a traditional two-story suburban layout with a recognizable pastel exterior that most players know from their earliest days in the game. It holds nostalgic significance as the house many players started their Adopt Me journey in.",
+    "tradingNotes": "Extremely common since many players began with the Starter Pack, so bare trade value is minimal. A well-decorated traditional, family home, or cozy suburban build can occasionally attract buyers looking for that classic Adopt Me aesthetic.",
+    "demandLevel": "low"
   },
   {
     "id": "futuristic-house",
@@ -271,7 +328,10 @@
     "availability": "obtainable",
     "bucksPrice": 4000,
     "floors": 3,
-    "expandable": false
+    "expandable": false,
+    "description": "The Futuristic House is a sleek, three-story sci-fi structure with a metallic exterior, angular modern design, and glowing geometric accents, available for 4,000 Bucks from the Build House Menu. Its forward-looking aesthetic is ideal for space-age, cyberpunk, and technology-themed builds.",
+    "tradingNotes": "A high-tier obtainable house with a distinctive look that filters out casual ownership. Space-themed or futuristic builds on this house pair naturally with robot pets, space vehicles, and sci-fi-themed items.",
+    "demandLevel": "medium"
   },
   {
     "id": "gingerbread-house",
@@ -285,7 +345,10 @@
     "availability": "limited",
     "bucksPrice": 1850,
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Gingerbread House was released during Christmas 2019 as a fairytale gingerbread confection — complete with candy cane pillars, frosted roof trim, and gumdrop decorations — making it one of the earlier limited seasonal houses in the game. Its festive, whimsical design has stood the test of time and remains recognizable years later.",
+    "tradingNotes": "One of the older Christmas limited houses, the Gingerbread House has had years to decrease in circulating supply. Holiday collectors and Christmas-themed builders actively seek it, and its rarity has grown steadily since its 2019 release.",
+    "demandLevel": "high"
   },
   {
     "id": "halloween-hotel",
@@ -298,7 +361,10 @@
     "valueUnit": null,
     "availability": "limited",
     "floors": 3,
-    "expandable": false
+    "expandable": false,
+    "description": "The Halloween Hotel arrived in September 2025 as a three-story haunted hotel with gothic architecture, dramatic spire towers, and creepy hotel-lobby elements that give it a distinctly spooky atmosphere. Its large multi-story layout provides plenty of space for elaborate horror-themed room builds.",
+    "tradingNotes": "As a 2025 release, supply is still reasonably available compared to older limiteds, but will decrease over time. Its three-floor hotel layout makes it particularly attractive for horror, gothic, and Halloween-themed build enthusiasts.",
+    "demandLevel": "medium"
   },
   {
     "id": "haunted-house",
@@ -311,7 +377,10 @@
     "valueUnit": null,
     "availability": "limited",
     "floors": 3,
-    "expandable": false
+    "expandable": false,
+    "description": "The Haunted House was released for Halloween 2023 with a creepy Victorian-era exterior featuring dark windows, overgrown details, cobwebs, and ghostly accents spread across three imposing floors. Its large size and iconic haunted-house silhouette make it a fan favorite among horror enthusiasts in the Adopt Me community.",
+    "tradingNotes": "A couple of years removed from its Halloween 2023 release, the Haunted House has settled into moderate scarcity. Halloween and gothic builds on this house are perennially popular, especially as the October trading season approaches each year.",
+    "demandLevel": "high"
   },
   {
     "id": "hollywood-house",
@@ -325,7 +394,10 @@
     "availability": "obtainable",
     "bucksPrice": 4500,
     "floors": 3,
-    "expandable": false
+    "expandable": false,
+    "description": "The Hollywood House is a glamorous three-story mansion with a movie star aesthetic — featuring a star-studded entrance, sweeping architecture, and premium exterior details — available for 4,500 Bucks from the Build House Menu. Its flashy design makes it a natural choice for celebrity, fashion, and entertainment-themed builds.",
+    "tradingNotes": "One of the pricier permanently-obtainable houses, filtering out casual ownership. Luxury entertainment and Hollywood-themed builds perform consistently well in trades, and the house's status-signaling design attracts buyers who want prestige.",
+    "demandLevel": "medium"
   },
   {
     "id": "hospital-home",
@@ -338,7 +410,10 @@
     "valueUnit": null,
     "availability": "robux",
     "floors": 3,
-    "expandable": false
+    "expandable": false,
+    "description": "The Hospital Home is a Robux-exclusive three-story house from the School and Hospital Houses gamepass, designed as a medical facility with a clinical white exterior, red cross emblem, and recognizable hospital aesthetics. Despite its institutional theme, many players repurpose it creatively for roleplay and themed builds.",
+    "tradingNotes": "Robux exclusivity gives it moderate scarcity. Its three-floor layout adds versatility for creative decorators, and it's popular for medical roleplay builds and unique concept builds that subvert the hospital theme.",
+    "demandLevel": "low"
   },
   {
     "id": "ice-cream-house",
@@ -351,7 +426,10 @@
     "valueUnit": null,
     "availability": "limited",
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Ice Cream House was released in February 2025 as a sweet-themed seasonal limited shaped like a giant ice cream sundae, with pastel colors, whipped-cream accents, and playful dessert-themed elements across two floors. Its cheerful, sugary exterior stands out as one of the most charming food-themed houses in the game.",
+    "tradingNotes": "A fairly recent limited with growing scarcity as supply decreases. Its distinctive sweet aesthetic attracts players who want a playful, colorful build, and it pairs naturally with dessert-themed pets and items.",
+    "demandLevel": "medium"
   },
   {
     "id": "igloo-home",
@@ -364,7 +442,10 @@
     "valueUnit": null,
     "availability": "limited",
     "floors": 1,
-    "expandable": false
+    "expandable": false,
+    "description": "The Igloo Home was released during Winter 2022 as a compact, single-floor dome shaped like a traditional Arctic igloo, with icy blue accents, a snow-covered exterior, and a warm interior glow that contrasts its frosty outside. Its small footprint and compact design give it a cozy, intimate quality unlike most houses.",
+    "tradingNotes": "Several years out from its 2022 release, the Igloo Home has become moderately scarce. Its unique compact Arctic design attracts players who want a minimalist, winter-themed build with a distinctive shape.",
+    "demandLevel": "medium"
   },
   {
     "id": "korean-house",
@@ -377,7 +458,10 @@
     "valueUnit": null,
     "availability": "limited",
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Korean House was released for Lunar New Year 2024, inspired by traditional Korean hanok architecture with curved tiled roofs, wooden latticework, courtyard elements, and rich cultural detailing across two floors. Its elegant design is one of the most authentically detailed culturally-inspired houses in Adopt Me.",
+    "tradingNotes": "Seasonal Lunar New Year releases generate consistent demand from collectors who appreciate the cultural theme. Its intricate traditional architecture appeals to players building Asian-inspired or culturally significant spaces.",
+    "demandLevel": "medium"
   },
   {
     "id": "lunar-house",
@@ -390,7 +474,10 @@
     "valueUnit": null,
     "availability": "limited",
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Lunar House was released for Lunar New Year 2021 with an elaborate pagoda-inspired design featuring bright red lanterns, golden accents, and East Asian architectural elements spread across two floors. As one of the earlier Lunar New Year limited houses, it predates its Korean House counterpart by three years.",
+    "tradingNotes": "Older than many limited houses in active circulation, the Lunar House has had significant time to decrease in supply since 2021. Collectors and players building traditional East Asian-inspired spaces frequently seek this house out.",
+    "demandLevel": "high"
   },
   {
     "id": "luxury-apartments",
@@ -404,7 +491,10 @@
     "availability": "obtainable",
     "bucksPrice": 3500,
     "floors": 3,
-    "expandable": false
+    "expandable": false,
+    "description": "The Luxury Apartments is a sleek, modern three-story apartment building available for 3,500 Bucks from the Build House Menu, featuring a contemporary high-rise exterior with large windows and a premium urban aesthetic. Its three floors make it one of the most spacious permanently-buyable houses in the game.",
+    "tradingNotes": "Popular for city-themed and modern builds due to its apartment aesthetic. Despite being always available, its higher Bucks cost means fewer players own it casually, giving a well-decorated build meaningful trade leverage.",
+    "demandLevel": "medium"
   },
   {
     "id": "mansion",
@@ -418,7 +508,10 @@
     "availability": "obtainable",
     "bucksPrice": 1060,
     "floors": 3,
-    "expandable": false
+    "expandable": false,
+    "description": "The Mansion is one of the most iconic and popular houses in Adopt Me — a grand three-story manor available for just 1,060 Bucks, making it exceptional value for a three-floor property. Its large, classic exterior has made it a staple for players who want maximum build space without paying a premium.",
+    "tradingNotes": "Very common given its low cost and three-floor layout, so bare trade value is modest. However, a creatively themed and fully decorated Mansion build consistently attracts strong offers — the space it provides allows for elaborate, impressive designs.",
+    "demandLevel": "low"
   },
   {
     "id": "mermaid-mansion",
@@ -432,7 +525,10 @@
     "availability": "obtainable",
     "bucksPrice": 2800,
     "floors": 3,
-    "expandable": false
+    "expandable": false,
+    "description": "The Mermaid Mansion is an ocean-inspired three-story house with teal shell-shaped turrets, coral accents, pearl details, and an underwater color palette, available for 2,800 Bucks from the Build House Menu. Its distinctive sea creature aesthetic is immediately recognizable and unlike any other house in the game.",
+    "tradingNotes": "Popular among players with ocean-themed pets (turtles, crabs, sharks, sea creatures) and those building aquatic or mermaid-themed spaces. Creatively decorated undersea builds consistently attract motivated traders.",
+    "demandLevel": "medium"
   },
   {
     "id": "millionaire-mansion",
@@ -445,7 +541,10 @@
     "valueUnit": null,
     "availability": "robux",
     "floors": 3,
-    "expandable": false
+    "expandable": false,
+    "description": "The Millionaire Mansion is a prestigious Robux-exclusive three-story estate from the Millionaire Pack gamepass, designed as an ultra-luxury property with gold accents, an opulent exterior, and an architectural presence that signals extreme wealth. It's among the most lavish-looking houses in Adopt Me.",
+    "tradingNotes": "The Robux barrier keeps this mansion uncommon. Its gold-accented prestige exterior and three-floor layout make it attractive for luxury builds, and traders typically expect high-value offers to part with one.",
+    "demandLevel": "medium"
   },
   {
     "id": "modern-mansion",
@@ -458,7 +557,10 @@
     "valueUnit": null,
     "availability": "robux",
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Modern Mansion is a Robux-exclusive house from the Modern Mansion Gamepass featuring a sleek, minimalist two-story design with floor-to-ceiling windows, clean geometric lines, and a contemporary architectural style that feels like a luxury real estate listing. Its understated elegance is a departure from the game's more colorful options.",
+    "tradingNotes": "Less common than Bucks-purchased houses due to the Robux requirement. Its minimal contemporary design translates beautifully to high-end interior design builds, and traders often seek it for sophisticated, modern setups.",
+    "demandLevel": "medium"
   },
   {
     "id": "mountain-house",
@@ -472,7 +574,10 @@
     "availability": "obtainable",
     "bucksPrice": 2000,
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Mountain House is a two-story alpine chalet available for 2,000 Bucks, featuring a steeply pitched roof, exposed timber framing, and a rugged mountain exterior that evokes a ski resort lodge. Its nature-forward aesthetic makes it ideal for outdoor adventure, nature retreat, and winter-themed builds.",
+    "tradingNotes": "Mid-tier obtainable house with a moderate buy-in. Nature and winter-themed builds pair naturally with wolf, arctic fox, and snow-adjacent pets, attracting buyers who want a matching house-and-pet combination.",
+    "demandLevel": "low"
   },
   {
     "id": "party-house",
@@ -486,7 +591,10 @@
     "availability": "obtainable",
     "bucksPrice": 1200,
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Party House is a festive two-story property available for 1,200 Bucks, designed with a celebration theme featuring balloons, colorful streamers, and bright exterior decorations that set an energetic, fun atmosphere. It's the go-to house for birthday party, carnival, and celebration-themed builds.",
+    "tradingNotes": "Affordable and always obtainable, so bare trade value is modest. Creative party, event, or birthday-themed builds attract buyers who want a high-energy, fun aesthetic for their Adopt Me plot.",
+    "demandLevel": "low"
   },
   {
     "id": "pirate-ship-house",
@@ -500,7 +608,10 @@
     "availability": "obtainable",
     "bucksPrice": 2000,
     "floors": 3,
-    "expandable": false
+    "expandable": false,
+    "description": "The Pirate Ship House is a dramatic three-story structure shaped like a full-scale pirate galleon — complete with a wooden hull, billowing sails, cannons, and a crow's nest — available for 2,000 Bucks from the Build House Menu. Its adventurous shape is one of the most unique and recognizable in the entire game.",
+    "tradingNotes": "An unusually shaped house that immediately stands out from standard builds. Players who love adventure, ocean, and pirate themes actively seek out decorated Pirate Ship builds, particularly ones that enhance the ship's natural sailing aesthetic.",
+    "demandLevel": "medium"
   },
   {
     "id": "pizza-place",
@@ -514,7 +625,10 @@
     "availability": "limited",
     "bucksPrice": 500,
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Pizza Place was released during the Own A Shop Update with a classic Italian restaurant exterior featuring red checkered awnings, a pizza slice signage, and two floors of commercial-themed space. It's one of the older shop-style limited houses and carries history from an earlier era of Adopt Me updates.",
+    "tradingNotes": "Released during an older update, the Pizza Place has had time to decrease in supply. Its food-themed, commercial design works for restaurant roleplay and food-themed builds, attracting a dedicated niche of collectors.",
+    "demandLevel": "medium"
   },
   {
     "id": "queenslander-house",
@@ -528,7 +642,10 @@
     "availability": "obtainable",
     "bucksPrice": 1800,
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Queenslander House is modeled after traditional Queensland, Australia timber-frame colonial architecture, with a wrap-around veranda, raised-floor style design, and a tropical-climate aesthetic across two floors. Its distinctive look is unlike most other houses in the Build House Menu.",
+    "tradingNotes": "A mid-tier obtainable house with a recognizable architectural style that attracts players looking for something distinctive. Tropical, coastal, and garden-themed builds perform well on this house.",
+    "demandLevel": "low"
   },
   {
     "id": "racetrack-house",
@@ -542,7 +659,10 @@
     "availability": "obtainable",
     "bucksPrice": 3000,
     "floors": 1,
-    "expandable": false
+    "expandable": false,
+    "description": "The Racetrack House is a sprawling single-floor property built around a miniature racing circuit, available for 3,000 Bucks — unusual in its wide, horizontal layout compared to the game's typically vertical multi-story houses. Its racing theme and track-shaped exterior are completely unique among Adopt Me houses.",
+    "tradingNotes": "Its one-of-a-kind racetrack design makes it a niche but dedicated pick among vehicle and racing enthusiasts. Players with extensive vehicle collections frequently choose this house for its perfect theme-matching exterior.",
+    "demandLevel": "medium"
   },
   {
     "id": "royal-palace",
@@ -556,7 +676,10 @@
     "availability": "obtainable",
     "bucksPrice": 5000,
     "floors": 3,
-    "expandable": false
+    "expandable": false,
+    "description": "The Royal Palace is a majestic three-story palace available for 5,000 Bucks from the Build House Menu, featuring grand symmetrical spires, golden accents, arched windows, and a regal exterior that evokes the grandeur of classical European royalty. It's among the most expensive and visually impressive permanently-obtainable houses.",
+    "tradingNotes": "Its high Bucks cost significantly reduces casual ownership, giving decorated builds more trade leverage. Royal, princess, and high-fantasy builds on the Royal Palace consistently attract premium trade offers from players who want the best-looking castle-type house.",
+    "demandLevel": "medium"
   },
   {
     "id": "ruler-s-castle",
@@ -570,7 +693,10 @@
     "availability": "obtainable",
     "bucksPrice": 4000,
     "floors": 3,
-    "expandable": false
+    "expandable": false,
+    "description": "Ruler's Castle is a formidable three-story fortification available for 4,000 Bucks, featuring thick stone walls, imposing battlements, and a commanding castle design that emphasizes strength and dominance over the Royal Palace's more ornate style. Its darker, more serious aesthetic suits medieval fantasy and conquest-themed builds.",
+    "tradingNotes": "Popular with players going for a rugged, serious castle aesthetic rather than the Royal Palace's more ornate design. Medieval fantasy builds with dragons, dark knights, or legendary pet themes pair naturally with this house.",
+    "demandLevel": "medium"
   },
   {
     "id": "safari-home",
@@ -583,7 +709,10 @@
     "valueUnit": null,
     "availability": "limited",
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Safari Home was released during the Safari Update 2023 with an African savanna-inspired design featuring thatched roofing, warm earthy tones, wooden detail work, and wildlife-themed decorative elements across two floors. It's one of the most geographically and culturally distinctive limited houses in Adopt Me.",
+    "tradingNotes": "A 2023 limited with decreasing supply since its update period ended. Safari, wildlife, and nature conservancy builds on this house are particularly popular among players with matching safari-themed pets.",
+    "demandLevel": "medium"
   },
   {
     "id": "sandbox-island",
@@ -597,7 +726,10 @@
     "availability": "obtainable",
     "bucksPrice": 1200,
     "floors": 1,
-    "expandable": false
+    "expandable": false,
+    "description": "The Sandbox Island is a single-floor island-style property available for 1,200 Bucks, styled as a small tropical island with sandy shores, palm trees, and a relaxed beach atmosphere. Its wide open single-floor layout offers maximum horizontal build space without the constraints of multi-story vertical design.",
+    "tradingNotes": "An affordable beach-themed house with modest base trade value given its buy price. Creative tropical resort, beach party, or island paradise builds attract buyers looking for a vacation-inspired aesthetic.",
+    "demandLevel": "low"
   },
   {
     "id": "scary-house",
@@ -610,7 +742,10 @@
     "valueUnit": null,
     "availability": "limited",
     "floors": 3,
-    "expandable": false
+    "expandable": false,
+    "description": "The Scary House was released during Halloween 2021 as a three-story horror mansion featuring broken windows, a tilted chimney, overgrown vines, and every classic haunted-house element — a timeless spooky design that has aged well in the trading community. Its age gives it more scarcity than more recent Halloween releases.",
+    "tradingNotes": "Older than most Halloween limiteds currently in active circulation, the Scary House has become moderately scarce. Its traditional haunted-house architecture and three-floor layout make it highly valued for horror and gothic builds.",
+    "demandLevel": "high"
   },
   {
     "id": "schoolhouse-home",
@@ -623,7 +758,10 @@
     "valueUnit": null,
     "availability": "robux",
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Schoolhouse Home is a Robux-exclusive two-story house from the School and Hospital Houses gamepass, designed as a classic American schoolhouse with a bell tower, red brick exterior, and traditional educational-building styling. Many players repurpose its distinctive architecture for creative roleplay and community-themed builds.",
+    "tradingNotes": "Robux exclusivity gives it moderate scarcity. Its unique schoolhouse architecture makes it popular for roleplay, learning-center, and community-themed builds — and it's the only school-style house in the game.",
+    "demandLevel": "low"
   },
   {
     "id": "shop-house",
@@ -637,7 +775,10 @@
     "availability": "obtainable",
     "bucksPrice": 1750,
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Shop House is a charming two-story commercial property available for 1,750 Bucks, featuring a classic shopfront facade with display windows, awnings, and a living-space-above-shop layout reminiscent of a small European market building. It's popular for market stall, bakery, and boutique-style builds.",
+    "tradingNotes": "Mid-range obtainable house popular for commercial and roleplay-style builds. Creative bakery, flower shop, or small business setups on this house attract buyers interested in town-square and market aesthetics.",
+    "demandLevel": "low"
   },
   {
     "id": "soccer-stadium",
@@ -650,7 +791,10 @@
     "valueUnit": null,
     "availability": "limited",
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Soccer Stadium was released during the Soccer Update 2024 as the only sports-venue-style house in Adopt Me, featuring a two-floor stadium exterior with green turf elements, grandstand details, and an arena-scale design that's completely unlike anything else in the game. It's a true novelty piece for sports fans.",
+    "tradingNotes": "Its unique sports-venue design — the only stadium house in Adopt Me — gives it a dedicated niche following. Soccer, sports, and competitive-themed builds attract a loyal segment of the trading community.",
+    "demandLevel": "medium"
   },
   {
     "id": "space-fleet-house",
@@ -663,7 +807,10 @@
     "valueUnit": null,
     "availability": "robux",
     "floors": 3,
-    "expandable": false
+    "expandable": false,
+    "description": "The Space Fleet House is a Robux-exclusive three-story property from the Space Bundle Gamepass, featuring a dramatic spacecraft-inspired exterior with metallic paneling, galactic lighting elements, and a futuristic design that stands apart from every other house in the game. It's the most space-themed house available.",
+    "tradingNotes": "Robux exclusivity plus a three-floor layout and a design that pairs naturally with space pets, rocket vehicles, and futuristic items. Space-themed builds on this house are popular among players who have invested in space-related item collections.",
+    "demandLevel": "medium"
   },
   {
     "id": "tiny-home",
@@ -677,7 +824,10 @@
     "availability": "obtainable",
     "bucksPrice": 0,
     "floors": 1,
-    "expandable": false
+    "expandable": false,
+    "description": "The Tiny Home is the default house that every Adopt Me player starts with — a compact, single-floor starter property available at no cost. While modest in size, it's the most recognizable house in the game and carries genuine nostalgic significance as the place where countless players began their Adopt Me journey.",
+    "tradingNotes": "As the free default house, the Tiny Home is the most commonly owned property in Adopt Me and carries essentially no base trade value on its own. However, an exceptionally creative or impressive build within its small footprint can occasionally attract novelty trades.",
+    "demandLevel": "low"
   },
   {
     "id": "toyshop-house",
@@ -690,7 +840,10 @@
     "valueUnit": null,
     "availability": "limited",
     "floors": 2,
-    "expandable": false
+    "expandable": false,
+    "description": "The Toyshop House was released in September 2023 with a charming toy store exterior featuring colorful signage, display window details with toys on show, and a two-floor layout themed around childhood playfulness and whimsy. Its festive, commercial design makes it one of the more cheerful limited houses in circulation.",
+    "tradingNotes": "A 2023 limited with growing scarcity as time passes. Players who want a fun, commercial-themed build or who collect toy-related items from the game frequently seek the Toyshop House in the trading market.",
+    "demandLevel": "medium"
   },
   {
     "id": "treehouse-update",
@@ -704,6 +857,9 @@
     "availability": "obtainable",
     "bucksPrice": 800,
     "floors": 1,
-    "expandable": false
+    "expandable": false,
+    "description": "The Treehouse Update house is a nature-themed single-floor property built to look like a cozy wooden treehouse nestled in the branches of a large tree, available for just 800 Bucks. Its elevated forest setting and warm wooden design make it uniquely charming among the more affordable obtainable houses.",
+    "tradingNotes": "Budget-friendly and always obtainable, so base trade value is modest. The Treehouse's forest and nature theme pairs well with woodland pets — foxes, squirrels, owls — and natural item collections, attracting theme-matching builds.",
+    "demandLevel": "low"
   }
 ]
