@@ -30,6 +30,26 @@
     "valueUnit": null
   },
   {
+    "id": "2026-birthday-butterfly",
+    "category": "adopt_me_pets",
+    "name": "2026 Birthday Butterfly",
+    "rarity": "Uncommon",
+    "source": "Birthday 2026 Event",
+    "image": "/images/adopt_me_pets/2026-Birthday-Butterfly-Uncommon-from-Birthday-2026-Event.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "2d-doggy",
+    "category": "adopt_me_pets",
+    "name": "2D Doggy",
+    "rarity": "Legendary",
+    "source": "2D Box",
+    "image": "/images/adopt_me_pets/2D-Doggy-Legendary-from-2D-Box.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "2d-kitty",
     "category": "adopt_me_pets",
     "name": "2D Kitty",
@@ -1040,6 +1060,16 @@
     "valueUnit": null
   },
   {
+    "id": "cake-friend",
+    "category": "adopt_me_pets",
+    "name": "Cake Friend",
+    "rarity": "Ultra-Rare",
+    "source": "Birthday 2026 Event",
+    "image": "/images/adopt_me_pets/Cake-Friend-Ultra-Rare-from-Birthday-2026-Event.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "california-condor",
     "category": "adopt_me_pets",
     "name": "California Condor",
@@ -1240,6 +1270,16 @@
     "valueUnit": null
   },
   {
+    "id": "chestnut-glyptodon",
+    "category": "adopt_me_pets",
+    "name": "Chestnut Glyptodon",
+    "rarity": "Rare",
+    "source": "Admin Abuse July 2026",
+    "image": "/images/adopt_me_pets/Chestnut-Glyptodon-Rare-from-Admin-Abuse-July-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "chick",
     "category": "adopt_me_pets",
     "name": "Chick",
@@ -1266,6 +1306,16 @@
     "rarity": "Common",
     "source": "Farm Egg",
     "image": "/images/adopt_me_pets/Chicken-Common-from-Farm-Egg.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "chihuahua",
+    "category": "adopt_me_pets",
+    "name": "Chihuahua",
+    "rarity": "Ultra-Rare",
+    "source": "Basic Egg / Crystal Egg",
+    "image": "/images/adopt_me_pets/Chihuahua-Ultra-Rare-from-Basic-Egg.png",
     "value": null,
     "valueUnit": null
   },
@@ -2700,6 +2750,16 @@
     "valueUnit": null
   },
   {
+    "id": "general-sheepdog",
+    "category": "adopt_me_pets",
+    "name": "General Sheepdog",
+    "rarity": "Rare",
+    "source": "Admin Abuse July 2026",
+    "image": "/images/adopt_me_pets/General-Sheepdog-Rare-from-Admin-Abuse-July-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "german-shepherd",
     "category": "adopt_me_pets",
     "name": "German Shepherd",
@@ -4066,6 +4126,16 @@
     "rarity": "Rare",
     "source": "September 2023",
     "image": "/images/adopt_me_pets/Kiwi-Rare-from-September-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "kiwi-kiwi",
+    "category": "adopt_me_pets",
+    "name": "Kiwi Kiwi",
+    "rarity": "Legendary",
+    "source": "Basic Egg / Crystal Egg",
+    "image": "/images/adopt_me_pets/Kiwi-Kiwi-Legendary-from-Basic-Egg.png",
     "value": null,
     "valueUnit": null
   },
@@ -7060,6 +7130,16 @@
     "valueUnit": null
   },
   {
+    "id": "strawberry-tortle",
+    "category": "adopt_me_pets",
+    "name": "Strawberry Tortle",
+    "rarity": "Legendary",
+    "source": "Basic Egg / Crystal Egg",
+    "image": "/images/adopt_me_pets/Strawberry-Tortle-Legendary-from-Basic-Egg.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "striped-eggy",
     "category": "adopt_me_pets",
     "name": "Striped Eggy",
@@ -7516,6 +7596,16 @@
     "rarity": "Rare",
     "source": "Winter 2025",
     "image": "/images/adopt_me_pets/Turtle-Doves-Rare-from-Winter-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "tuxedo-cat",
+    "category": "adopt_me_pets",
+    "name": "Tuxedo Cat",
+    "rarity": "Ultra-Rare",
+    "source": "Pet Shop",
+    "image": "/images/adopt_me_pets/Tuxedo-Cat-Ultra-Rare-from-Pet-Shop.png",
     "value": null,
     "valueUnit": null
   },

@@ -30,6 +30,26 @@
     "valueUnit": null
   },
   {
+    "id": "2026-birthday-butterfly",
+    "category": "adopt_me_pets",
+    "name": "2026 Birthday Butterfly",
+    "rarity": "Uncommon",
+    "source": "Birthday 2026 Event",
+    "image": "/images/adopt_me_pets/2026-Birthday-Butterfly-Uncommon-from-Birthday-2026-Event.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "2d-doggy",
+    "category": "adopt_me_pets",
+    "name": "2D Doggy",
+    "rarity": "Legendary",
+    "source": "2D Box",
+    "image": "/images/adopt_me_pets/2D-Doggy-Legendary-from-2D-Box.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "2d-kitty",
     "category": "adopt_me_pets",
     "name": "2D Kitty",
@@ -920,6 +940,16 @@
     "valueUnit": null
   },
   {
+    "id": "budgie-witch",
+    "category": "adopt_me_pets",
+    "name": "Budgie Witch",
+    "rarity": "Uncommon",
+    "source": "Fairytale Egg",
+    "image": "/images/adopt_me_pets/Budgie-Witch-Uncommon-from-Fairytale-Egg.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "buffalo",
     "category": "adopt_me_pets",
     "name": "Buffalo",
@@ -1026,6 +1056,16 @@
     "rarity": "Legendary",
     "source": "Pride Update 2023 (Robux)",
     "image": "/images/adopt_me_pets/Caelum-Cervi-Legendary-from-Pride-Update-2023-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "cake-friend",
+    "category": "adopt_me_pets",
+    "name": "Cake Friend",
+    "rarity": "Ultra-Rare",
+    "source": "Birthday 2026 Event",
+    "image": "/images/adopt_me_pets/Cake-Friend-Ultra-Rare-from-Birthday-2026-Event.png",
     "value": null,
     "valueUnit": null
   },
@@ -1230,6 +1270,16 @@
     "valueUnit": null
   },
   {
+    "id": "chestnut-glyptodon",
+    "category": "adopt_me_pets",
+    "name": "Chestnut Glyptodon",
+    "rarity": "Rare",
+    "source": "Admin Abuse July 2026",
+    "image": "/images/adopt_me_pets/Chestnut-Glyptodon-Rare-from-Admin-Abuse-July-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "chick",
     "category": "adopt_me_pets",
     "name": "Chick",
@@ -1256,6 +1306,16 @@
     "rarity": "Common",
     "source": "Farm Egg",
     "image": "/images/adopt_me_pets/Chicken-Common-from-Farm-Egg.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "chihuahua",
+    "category": "adopt_me_pets",
+    "name": "Chihuahua",
+    "rarity": "Ultra-Rare",
+    "source": "Basic Egg / Crystal Egg",
+    "image": "/images/adopt_me_pets/Chihuahua-Ultra-Rare-from-Basic-Egg.png",
     "value": null,
     "valueUnit": null
   },
@@ -1430,6 +1490,16 @@
     "valueUnit": null
   },
   {
+    "id": "clumpty",
+    "category": "adopt_me_pets",
+    "name": "Clumpty",
+    "rarity": "Rare",
+    "source": "Fairytale Egg",
+    "image": "/images/adopt_me_pets/Clumpty-Rare-from-Fairytale-Egg.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "cobra",
     "category": "adopt_me_pets",
     "name": "Cobra",
@@ -1556,6 +1626,16 @@
     "rarity": "Common",
     "source": "Nursery",
     "image": "/images/adopt_me_pets/Cracked-Egg-Common-from-Nursery.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "crimson-cape",
+    "category": "adopt_me_pets",
+    "name": "Crimson Cape",
+    "rarity": "Ultra Rare",
+    "source": "Fairytale Egg",
+    "image": "/images/adopt_me_pets/Crimson-Cape-Ultra-Rare-from-Fairytale-Egg.png",
     "value": null,
     "valueUnit": null
   },
@@ -2670,6 +2750,16 @@
     "valueUnit": null
   },
   {
+    "id": "general-sheepdog",
+    "category": "adopt_me_pets",
+    "name": "General Sheepdog",
+    "rarity": "Rare",
+    "source": "Admin Abuse July 2026",
+    "image": "/images/adopt_me_pets/General-Sheepdog-Rare-from-Admin-Abuse-July-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "german-shepherd",
     "category": "adopt_me_pets",
     "name": "German Shepherd",
@@ -3160,6 +3250,16 @@
     "valueUnit": null
   },
   {
+    "id": "granny-wolf",
+    "category": "adopt_me_pets",
+    "name": "Granny Wolf",
+    "rarity": "Rare",
+    "source": "Fairytale Egg",
+    "image": "/images/adopt_me_pets/Granny-Wolf-Rare-from-Fairytale-Egg.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "grave-owl",
     "category": "adopt_me_pets",
     "name": "Grave Owl",
@@ -3566,6 +3666,16 @@
     "rarity": "Ultra Rare",
     "source": "Golden Petunia",
     "image": "/images/adopt_me_pets/Hummingbird-Ultra-Rare-from-Golden-Petunia.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "huntsman-robin",
+    "category": "adopt_me_pets",
+    "name": "Huntsman Robin",
+    "rarity": "Legendary",
+    "source": "Fairytale Egg",
+    "image": "/images/adopt_me_pets/Huntsman-Robin-Legendary-from-Fairytale-Egg.png",
     "value": null,
     "valueUnit": null
   },
@@ -4020,6 +4130,16 @@
     "valueUnit": null
   },
   {
+    "id": "kiwi-kiwi",
+    "category": "adopt_me_pets",
+    "name": "Kiwi Kiwi",
+    "rarity": "Legendary",
+    "source": "Basic Egg / Crystal Egg",
+    "image": "/images/adopt_me_pets/Kiwi-Kiwi-Legendary-from-Basic-Egg.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "koala",
     "category": "adopt_me_pets",
     "name": "Koala",
@@ -4206,6 +4326,16 @@
     "rarity": "Ultra Rare",
     "source": "Ocean Event 2024",
     "image": "/images/adopt_me_pets/Lionfish-Ultra-Rare-from-Ocean-Event-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "little-lamb",
+    "category": "adopt_me_pets",
+    "name": "Little Lamb",
+    "rarity": "Ultra Rare",
+    "source": "Fairytale Egg",
+    "image": "/images/adopt_me_pets/Little-Lamb-Ultra-Rare-from-Fairytale-Egg.png",
     "value": null,
     "valueUnit": null
   },
@@ -4746,6 +4876,16 @@
     "rarity": "Ultra Rare",
     "source": "Winter 2025 (Advent Calendar)",
     "image": "/images/adopt_me_pets/Mrs-Whiskerpips-Ultra-Rare-from-Winter-2025-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "ms-muffet",
+    "category": "adopt_me_pets",
+    "name": "Ms. Muffet",
+    "rarity": "Common",
+    "source": "Fairytale Egg",
+    "image": "/images/adopt_me_pets/Ms-Muffet-Common-from-Fairytale-Egg.png",
     "value": null,
     "valueUnit": null
   },
@@ -5380,6 +5520,16 @@
     "valueUnit": null
   },
   {
+    "id": "pinkypillar",
+    "category": "adopt_me_pets",
+    "name": "Pinkypillar",
+    "rarity": "Common",
+    "source": "Fairytale Egg",
+    "image": "/images/adopt_me_pets/Pinkypillar-Common-from-Fairytale-Egg.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "piranha",
     "category": "adopt_me_pets",
     "name": "Piranha",
@@ -5536,6 +5686,16 @@
     "rarity": "Legendary",
     "source": "Capuchin Boxes",
     "image": "/images/adopt_me_pets/Princess-Capuchin-Monkey-Legendary-from-Capuchin-Boxes.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "princess-mare",
+    "category": "adopt_me_pets",
+    "name": "Princess Mare",
+    "rarity": "Uncommon",
+    "source": "Fairytale Egg",
+    "image": "/images/adopt_me_pets/Princess-Mare-Uncommon-from-Fairytale-Egg.png",
     "value": null,
     "valueUnit": null
   },
@@ -6970,6 +7130,16 @@
     "valueUnit": null
   },
   {
+    "id": "strawberry-tortle",
+    "category": "adopt_me_pets",
+    "name": "Strawberry Tortle",
+    "rarity": "Legendary",
+    "source": "Basic Egg / Crystal Egg",
+    "image": "/images/adopt_me_pets/Strawberry-Tortle-Legendary-from-Basic-Egg.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "striped-eggy",
     "category": "adopt_me_pets",
     "name": "Striped Eggy",
@@ -7250,6 +7420,16 @@
     "valueUnit": null
   },
   {
+    "id": "three-blind-mice",
+    "category": "adopt_me_pets",
+    "name": "Three Blind Mice",
+    "rarity": "Legendary",
+    "source": "Fairytale Egg",
+    "image": "/images/adopt_me_pets/Three-Blind-Mice-Legendary-from-Fairytale-Egg.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "tio-de-nadal",
     "category": "adopt_me_pets",
     "name": "Tio De Nadal",
@@ -7416,6 +7596,16 @@
     "rarity": "Rare",
     "source": "Winter 2025",
     "image": "/images/adopt_me_pets/Turtle-Doves-Rare-from-Winter-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "tuxedo-cat",
+    "category": "adopt_me_pets",
+    "name": "Tuxedo Cat",
+    "rarity": "Ultra-Rare",
+    "source": "Pet Shop",
+    "image": "/images/adopt_me_pets/Tuxedo-Cat-Ultra-Rare-from-Pet-Shop.png",
     "value": null,
     "valueUnit": null
   },
