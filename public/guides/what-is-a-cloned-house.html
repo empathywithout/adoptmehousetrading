@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<title>What Is a Cloned House in Adopt Me? (And What It's Worth) | AdoptMeHouseTrading.com</title>
+<meta name="description" content="Cloned houses look just like originals but trade for much less. Learn what cloning means in Adopt Me, the difference between manual and script cloning, and how build type affects what a house is really worth.">
+<link rel="canonical" href="https://adoptmehousetrading.com/guides/what-is-a-cloned-house.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  .guide-body h2 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 32px 0 8px;
+  }
+  .guide-body h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 22px 0 6px;
+  }
+  .guide-body p {
+    margin: 0 0 16px;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+  .guide-body strong { font-weight: 700; }
+  .guide-body em { font-style: italic; }
+  .guide-body ul, .guide-body ol {
+    margin: 0 0 16px 20px;
+    line-height: 1.75;
+  }
+  .guide-body li { margin-bottom: 6px; }
+  .guide-body blockquote {
+    border-left: 3px solid var(--accent);
+    padding: 8px 16px;
+    margin: 0 0 16px;
+    background: var(--surface);
+    border-radius: 0 8px 8px 0;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .guide-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .guide-meta-divider { color: var(--line); }
+  .guide-toc {
+    background: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 0 0 32px;
+  }
+  .guide-toc h4 {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--muted);
+    margin: 0 0 10px;
+  }
+  .guide-toc ol {
+    margin: 0;
+    padding-left: 18px;
+  }
+  .guide-toc li {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .guide-toc a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .guide-toc a:hover { text-decoration: underline; }
+
+  .build-type-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 20px;
+    font-size: 14px;
+    overflow-x: auto;
+    display: block;
+  }
+  .build-type-table th {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 700;
+    font-family: var(--font-display);
+    white-space: nowrap;
+  }
+  .build-type-table td {
+    border: 1px solid var(--line);
+    padding: 9px 14px;
+  }
+  .build-type-table tr:nth-child(even) td { background: var(--surface); }
+
+  .guide-cta {
+    background: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 40px 0 0;
+    text-align: center;
+  }
+  .guide-cta h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+  .guide-cta p { color: var(--muted); font-size: 14px; margin: 0 0 16px; }
+
+  .tip-box {
+    background: var(--surface);
+    background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+    border: 1.5px solid var(--line);
+    border: 1.5px solid color-mix(in srgb, var(--accent) 30%, var(--line));
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 0 0 20px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+  .tip-box strong { color: var(--accent); }
+
+  .warn-box {
+    background: var(--surface);
+    background: color-mix(in srgb, var(--sign-red, #e54) 8%, var(--surface));
+    border: 1.5px solid var(--line);
+    border: 1.5px solid color-mix(in srgb, var(--sign-red, #e54) 25%, var(--line));
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 0 0 20px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+
+  .build-tier {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .build-tier:last-child { border-bottom: none; }
+  .build-tier-badge {
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    background: var(--surface);
+    border: 1.5px solid var(--line);
+  }
+  .build-tier-content { flex: 1; min-width: 0; }
+  .build-tier-label {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--ink);
+    margin: 0 0 4px;
+  }
+  .build-tier-desc {
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+</style>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "What Is a Cloned House in Adopt Me? (And What It's Worth)",
+  "description": "Cloned houses look just like originals but trade for much less. Learn what cloning means in Adopt Me, the difference between manual and script cloning, and how build type affects a house's real value.",
+  "datePublished": "2026-09-01",
+  "dateModified": "2026-09-01",
+  "author": {"@type": "Organization", "name": "AdoptMeHouseTrading.com"},
+  "publisher": {"@type": "Organization", "name": "AdoptMeHouseTrading.com", "url": "https://adoptmehousetrading.com"},
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://adoptmehousetrading.com/guides/what-is-a-cloned-house.html"}
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://adoptmehousetrading.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://adoptmehousetrading.com/guides/index.html"},
+    {"@type": "ListItem", "position": 3, "name": "What Is a Cloned House in Adopt Me?", "item": "https://adoptmehousetrading.com/guides/what-is-a-cloned-house.html"}
+  ]
+}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-REW2CFBX6H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-REW2CFBX6H');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1156955048210674" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="signpost-mini"></span>
+      AdoptMeHouseTrading
+    </a>
+    <nav>
+      <a href="../listings/index.html">Browse Houses</a>
+      <a href="../commissions/index.html">Find a Builder</a>
+      <a href="../recent-trades.html">Recent Trades</a>
+      <div class="nav-more">
+        <button type="button" class="nav-more-trigger active">More <span class="nav-more-caret"></span></button>
+        <div class="nav-more-dropdown" hidden>
+          <a href="../houses/index.html">Values</a>
+          <a href="../registry/index.html">Build Registry</a>
+          <a href="index.html">Guides</a>
+        </div>
+      </div>
+      <a href="../profile.html">Profile</a>
+    </nav>
+    <div class="nav-actions">
+      <span id="nav-profile-pill"></span>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      <a href="submit.html" class="btn btn-primary">Submit a Guide</a>
+    </div>
+  </div>
+</header>
+<script type="module" src="../js/nav.js"></script>
+
+<section class="wrap" style="padding:32px 0 64px;max-width:780px;">
+  <div class="breadcrumb">
+    <a href="index.html" style="color:var(--accent);text-decoration:none;">Guides</a>
+    &nbsp;/&nbsp;
+    <span class="current">What Is a Cloned House in Adopt Me?</span>
+  </div>
+
+  <div style="margin-top:24px;">
+    <span class="pill" style="margin-bottom:12px;display:inline-block;">Values & Pricing</span>
+    <h1 style="font-family:var(--font-display);font-size:clamp(1.5rem,4vw,2rem);color:var(--ink);margin:6px 0 16px;line-height:1.2;letter-spacing:-0.3px;">What Is a Cloned House in Adopt Me? (And What It's Worth)</h1>
+
+    <div class="guide-meta">
+      <span>By AdoptMeHouseTrading.com</span>
+      <span class="guide-meta-divider">·</span>
+      <span>September 2026</span>
+      <span class="guide-meta-divider">·</span>
+      <span>7 min read</span>
+    </div>
+
+    <div class="guide-toc">
+      <h4>In this guide</h4>
+      <ol>
+        <li><a href="#what-is-cloning">What "cloned" actually means</a></li>
+        <li><a href="#how-cloning-happens">How cloning happens: manual vs. script</a></li>
+        <li><a href="#why-it-matters">Why "not cloned" changes a house's value</a></li>
+        <li><a href="#build-type-spectrum">The build type spectrum explained</a></li>
+        <li><a href="#how-to-verify">How to tell if a house is cloned</a></li>
+        <li><a href="#protect-your-build">How to protect your original build</a></li>
+      </ol>
+    </div>
+
+    <div class="guide-body">
+
+      <h2 id="what-is-cloning">What "Cloned" Actually Means</h2>
+
+      <p>In Adopt Me house trading, <strong>a cloned house is one whose interior build has been intentionally copied from another player's design</strong> — without the builder's permission and often without any credit. The house shell itself is identical to any other of the same type; what's been copied is the creative work inside it: the layout, the furniture choices, the decorating style that someone spent hours building.</p>
+
+      <p>This matters for trading because the Adopt Me community places real value on build originality. A beautifully decorated house doesn't just trade for the base house value — it trades for the house <em>plus</em> a premium for the build quality and design. When that build has been cloned, the person selling it is effectively charging for someone else's creativity. As a result, the community has collectively decided that cloned builds should trade for significantly less than the original — and experienced traders know how to ask.</p>
+
+      <blockquote>"Not cloned, original design, 200k furniture" — this kind of disclosure in a trade post tells buyers exactly what they're evaluating. Sellers who skip it often find that experienced traders assume the worst.</blockquote>
+
+      <p>Cloning became common enough that the r/adoptmehousetrading subreddit had to introduce a rule limiting cloned house posts to once per day, and it spawned an entire vocabulary: "OG build," "inspired by," "comm build," "script cloned" — each term signals something different about where the design came from and what that means for the price.</p>
+
+      <h2 id="how-cloning-happens">How Cloning Happens: Manual vs. Script</h2>
+
+      <p>There are two distinct methods of cloning a house, and they're worth understanding separately because they carry different implications for value and trust.</p>
+
+      <h3>Manual Cloning</h3>
+
+      <p>Manual cloning is exactly what it sounds like: a player watches a YouTube video, TikTok, or live stream of someone's house tour, then spends time recreating that build piece by piece in their own house. They buy the same furniture from the catalog, place it in roughly the same spots, and aim to replicate the aesthetic of the original. The result is imperfect — furniture placement in Adopt Me involves some player judgment — but the overall look can be convincingly similar to the original.</p>
+
+      <p>This happens a lot because popular house builds get recorded and posted publicly. A builder shows off a stunning cottage aesthetic or a themed roleplay space, thousands of people watch it, and some of them decide to build the same thing themselves. From a community standpoint, manual clones are seen as a gray area: building something "inspired by" a design you admired is somewhat forgivable, but selling it at the same price as an original — especially without disclosure — crosses a line.</p>
+
+      <h3>Script Cloning</h3>
+
+      <div class="warn-box">
+        ⚠️ <strong>Script cloning uses third-party exploits</strong> and violates Roblox's Terms of Service. Players caught using exploits risk a permanent account ban. This section exists to help you recognize when a house may have been script-cloned — not as an endorsement of the practice.
+      </div>
+
+      <p>Script cloning goes further. Using Roblox exploits, some players are able to read the exact furniture configuration of a house they're visiting — including precise placement coordinates and item IDs — and then automatically recreate that exact layout in their own house. The result is a nearly pixel-perfect copy of someone else's build, achieved in seconds rather than hours.</p>
+
+      <p>Script-cloned houses are harder to detect by eye because they replicate positioning more exactly than a human manually could. However, there are tells: the original builder's style won't include unique glitch placements or furniture outside the normal grid, and the build won't have any of the imperfections that come from manual decoration. If a build looks <em>too</em> perfect compared to what the seller describes as their own work, that's worth questioning.</p>
+
+      <p>For traders, the key issue with script cloning is that the "builder" did no creative work at all — they essentially photocopied someone else's house and are now trying to sell it at a decorated premium. This is widely considered the most disrespectful form of cloning in the community, and houses suspected of being script-cloned should trade at base house value only.</p>
+
+      <h2 id="why-it-matters">Why "Not Cloned" Changes a House's Value</h2>
+
+      <p>To understand why cloning hits value so hard, it helps to think about what you're actually paying for when you buy a decorated house at a premium price.</p>
+
+      <p>The base house value — what the community agrees an undecorated shell is worth in Ride Potions — reflects rarity, availability, and demand for that house type. A Haunted House is worth more than a Cozy Cabin not because of what's inside them, but because the Haunted House is rarer. That base value is fixed regardless of what's in the house.</p>
+
+      <p>The <em>build premium</em> is the additional value on top — what someone will pay for a house with 50,000 bucks of furniture beautifully arranged inside. This premium exists because the buyer is getting:</p>
+      <ul>
+        <li>The furniture itself (expensive bucks were spent to purchase it)</li>
+        <li>The design work (hours of creative effort)</li>
+        <li>The prestige of owning a genuinely unique or remarkable build</li>
+      </ul>
+
+      <p>When a house is cloned, the furniture cost might be legitimate — maybe they really did buy the same pieces. But they're claiming credit for design work that isn't theirs, and the prestige of "this design is one of a kind" disappears entirely once you know a dozen copies of it exist. The community consensus is that cloned houses should trade for the base house value plus the raw furniture cost, but not for any creative premium beyond that.</p>
+
+      <p>In practice, saying "not cloned, OG builder" in a trade post can meaningfully increase offers. The r/adoptmehousetrading community has made it clear they'll pay a real premium for verified originals — and they know what questions to ask when the claim isn't backed up.</p>
+
+      <h2 id="build-type-spectrum">The Build Type Spectrum Explained</h2>
+
+      <p>Cloning isn't binary. There's a full spectrum of build provenance, and understanding where a house falls on it helps you evaluate what it's actually worth.</p>
+
+      <div style="border:1.5px solid var(--line);border-radius:12px;padding:4px 16px;margin:0 0 20px;">
+        <div class="build-tier">
+          <div class="build-tier-badge">🏆</div>
+          <div class="build-tier-content">
+            <p class="build-tier-label">Original / OG Build</p>
+            <p class="build-tier-desc">The builder designed this themselves from scratch — no reference, no video to copy. They're the source that others may have cloned. Highest premium; the most desirable for serious collectors. Verifiable through the Build Registry or community reputation.</p>
+          </div>
+        </div>
+        <div class="build-tier">
+          <div class="build-tier-badge">🎨</div>
+          <div class="build-tier-content">
+            <p class="build-tier-label">Commissioned Build</p>
+            <p class="build-tier-desc">A professional builder was hired (typically paid in pets) to design a custom house for the commissioner. The commissioner owns the result, but the builder gets credit. Still commands a premium — it's a unique design made for one person, and the commissioner has proof of the arrangement.</p>
+          </div>
+        </div>
+        <div class="build-tier">
+          <div class="build-tier-badge">✏️</div>
+          <div class="build-tier-content">
+            <p class="build-tier-label">Inspired By / Themed</p>
+            <p class="build-tier-desc">The builder was influenced by a style, theme, or aesthetic (e.g., "cottage-core" or "haunted mansion vibes") without directly copying any specific house. Honest sellers disclose this. Moderate premium; still represents real design work even if the concept was externally inspired.</p>
+          </div>
+        </div>
+        <div class="build-tier">
+          <div class="build-tier-badge">📋</div>
+          <div class="build-tier-content">
+            <p class="build-tier-label">Manual Clone</p>
+            <p class="build-tier-desc">The builder watched someone else's house tour and recreated it by hand. Some effort was spent, but the creative work isn't theirs. Should be disclosed. Value is the base house price plus furniture cost only — no creative premium.</p>
+          </div>
+        </div>
+        <div class="build-tier">
+          <div class="build-tier-badge">⚠️</div>
+          <div class="build-tier-content">
+            <p class="build-tier-label">Script Clone</p>
+            <p class="build-tier-desc">The configuration was copied exactly using a Roblox exploit. Zero creative contribution. Community consensus is that these houses should trade at base value only. Sellers who don't disclose this are considered to be acting in bad faith.</p>
+          </div>
+        </div>
+      </div>
+
+      <p>When evaluating a trade, it's completely reasonable to ask the seller directly: "Is this an original build or cloned?" A legitimate seller will have an honest answer. If they dodge the question, treat the house as a clone for pricing purposes.</p>
+
+      <h2 id="how-to-verify">How to Tell If a House Is Cloned</h2>
+
+      <p>Short of checking the Build Registry, there's no guaranteed way to identify a clone — but there are signals to look for.</p>
+
+      <h3>Check the Build Registry first</h3>
+      <p>The <a href="../registry/index.html" style="color:var(--accent);text-decoration:none;font-weight:600;">Build Registry</a> on this site lets builders register their original designs. If the seller claims to be the original builder but the Registry shows a different username registered that design earlier, you have your answer. If the Registry shows nothing, it doesn't prove the house is cloned — registry participation is voluntary — but it removes one way to confirm the seller's claim.</p>
+
+      <div class="tip-box">
+        <strong>Pro tip:</strong> Ask the seller to show you their Adopt Me build history or any screenshots from when they were building. A genuine original builder usually has at least some documentation — a work-in-progress screenshot, an earlier version of the build, or a dated social media post. If they can't produce anything, that's a signal.
+      </div>
+
+      <h3>Search TikTok and YouTube</h3>
+      <p>If you're considering paying a premium for a specific build, search for that house type on TikTok and YouTube before you trade. Search "[house name] adopt me build" and look at the first several results. If you see the exact same interior layout in a video posted by someone other than your seller — especially if that video predates the seller's ownership — you're almost certainly looking at a clone.</p>
+
+      <h3>Ask the seller specific design questions</h3>
+      <p>Someone who built a house themselves will be able to tell you exactly why they made specific choices: why the dresser is facing that way, what inspired the color palette, where they got the idea for that corner detail. A person who copied a build from a video won't have these answers. If answers are vague or generic, weight that in your evaluation.</p>
+
+      <h3>Look for community reputation</h3>
+      <p>Well-known builders in the Adopt Me community often have a recognizable style and a social media presence — TikTok accounts, Reddit post history, Discord server involvement. If the seller's claimed builder is findable and has a history that matches, that's positive evidence. If the "original builder" is untraceable, that's worth noting.</p>
+
+      <h2 id="protect-your-build">How to Protect Your Original Build</h2>
+
+      <p>If you've put real work into a house design and want to be able to prove it's yours — especially before trading it at a premium — there are concrete steps you can take.</p>
+
+      <h3>Register your build</h3>
+      <p>The most important step is to <a href="../registry/index.html" style="color:var(--accent);text-decoration:none;font-weight:600;">register your build</a> here before you show it publicly. A registry entry creates a timestamped record of your username, the house, and your design — giving you something objective to point to when someone tries to claim your design as theirs, or when a buyer asks for proof.</p>
+
+      <div class="tip-box">
+        <strong>Register before you post:</strong> Once your build is public on TikTok or Reddit, people can screenshot and recreate it within hours. Registering first means your timestamp predates any copies.
+      </div>
+
+      <h3>Document your build process</h3>
+      <p>Take screenshots at multiple stages while you're building — an early layout with sparse furniture, a mid-build state, and the finished design. Store these with dates. Even informal documentation like camera roll photos with metadata goes a long way toward establishing that you built this over time, not overnight.</p>
+
+      <h3>Watermark your house tours</h3>
+      <p>If you post a video or screenshots showing your build, include your username visibly. It doesn't prevent script cloning, but it makes it harder for a manual cloner to pass the design off as their own — any buyer who reverse-searches the design will find your name attached to it.</p>
+
+      <h3>Be vocal in the community</h3>
+      <p>If you see your build being sold by someone else, post about it with evidence. The r/adoptmehousetrading community takes build theft seriously and will generally support an original builder who can demonstrate their claim. Documentation you created before the clone appeared is your strongest asset.</p>
+
+    </div><!-- /.guide-body -->
+
+    <div class="guide-cta">
+      <h3>Is your house an original build? Protect it.</h3>
+      <p>Register your design in the Build Registry and get a timestamped record that proves you built first — before someone else claims credit.</p>
+      <a href="../registry/index.html" class="btn btn-primary" style="margin-right:8px;">Register Your Build</a>
+      <a href="../houses/index.html" class="btn" style="border:1.5px solid var(--line);">Check House Values</a>
+    </div>
+
+    <div style="margin-top:48px;border-top:1.5px solid var(--line);padding-top:32px;">
+      <div style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin:0 0 16px;color:var(--ink);">More Guides</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">
+        <a href="how-to-trade-houses.html" style="border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;text-decoration:none;color:inherit;display:block;transition:border-color 0.15s;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:4px;">How-To</div>
+          <div style="font-size:14px;font-weight:600;color:var(--ink);line-height:1.4;">How to Trade Houses in Adopt Me</div>
+        </a>
+        <a href="../registry/index.html" style="border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;text-decoration:none;color:inherit;display:block;transition:border-color 0.15s;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:4px;">Tools</div>
+          <div style="font-size:14px;font-weight:600;color:var(--ink);line-height:1.4;">Build Registry & Verification</div>
+        </a>
+        <a href="index.html" style="border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;text-decoration:none;color:inherit;display:block;transition:border-color 0.15s;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:4px;">Community</div>
+          <div style="font-size:14px;font-weight:600;color:var(--ink);line-height:1.4;">Browse all guides</div>
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community — house values, live trade listings, builder commissions, and a build registry for verifying who built a house first. Not affiliated with, endorsed by, or sponsored by Adopt Me, Uplift Games, or Roblox Corporation.
+    <div style="margin-top:8px;"><a href="../rules.html" style="color:var(--sign-red);">Community Rules</a> · <a href="../privacy.html" style="color:var(--sign-red);">Privacy Policy</a> · <a href="https://www.reddit.com/r/adoptmehousetrading/" style="color:var(--sign-red);" target="_blank" rel="noopener">Reddit</a></div>
+  </div>
+</footer>
+</body>
+</html>

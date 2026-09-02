@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<title>How Adopt Me House Commissions Work: What to Pay, What to Expect, and How to Avoid Getting Ghosted | AdoptMeHouseTrading.com</title>
+<meta name="description" content="Everything you need to know about commissioning a house build in Adopt Me — how to find a builder, what fair pay looks like, how the process works, and how to protect yourself from failed comms.">
+<link rel="canonical" href="https://adoptmehousetrading.com/guides/how-house-commissions-work.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  .guide-body h2 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 32px 0 8px;
+  }
+  .guide-body h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 22px 0 6px;
+  }
+  .guide-body p {
+    margin: 0 0 16px;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+  .guide-body strong { font-weight: 700; }
+  .guide-body em { font-style: italic; }
+  .guide-body ul, .guide-body ol {
+    margin: 0 0 16px 20px;
+    line-height: 1.75;
+  }
+  .guide-body li { margin-bottom: 6px; }
+  .guide-body blockquote {
+    border-left: 3px solid var(--accent);
+    padding: 8px 16px;
+    margin: 0 0 16px;
+    background: var(--surface);
+    border-radius: 0 8px 8px 0;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .guide-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .guide-meta-divider { color: var(--line); }
+  .guide-toc {
+    background: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 0 0 32px;
+  }
+  .guide-toc h4 {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--muted);
+    margin: 0 0 10px;
+  }
+  .guide-toc ol { margin: 0; padding-left: 18px; }
+  .guide-toc li { font-size: 14px; margin-bottom: 4px; }
+  .guide-toc a { color: var(--accent); text-decoration: none; font-weight: 500; }
+  .guide-toc a:hover { text-decoration: underline; }
+
+  .guide-cta {
+    background: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 40px 0 0;
+    text-align: center;
+  }
+  .guide-cta h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+  .guide-cta p { color: var(--muted); font-size: 14px; margin: 0 0 16px; }
+
+  .tip-box {
+    background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+    border: 1.5px solid color-mix(in srgb, var(--accent) 30%, var(--line));
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 0 0 20px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+  .tip-box strong { color: var(--accent); }
+
+  .warn-box {
+    background: color-mix(in srgb, var(--sign-red, #e54) 8%, var(--surface));
+    border: 1.5px solid color-mix(in srgb, var(--sign-red, #e54) 25%, var(--line));
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 0 0 20px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+
+  /* Process steps */
+  .process-steps {
+    counter-reset: step;
+    list-style: none;
+    margin: 0 0 24px;
+    padding: 0;
+  }
+  .process-steps li {
+    counter-increment: step;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    margin: 0;
+  }
+  .process-steps li:last-child { border-bottom: none; }
+  .process-steps li::before {
+    content: counter(step);
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .process-steps li div { flex: 1; min-width: 0; }
+  .process-step-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .process-step-desc {
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* Red flag list */
+  .red-flag-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+  }
+  .red-flag-list li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .red-flag-list li:last-child { border-bottom: none; }
+  .red-flag-list li::before {
+    content: "⚠️";
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+</style>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How Adopt Me House Commissions Work: What to Pay, What to Expect, and How to Avoid Getting Ghosted",
+  "description": "Everything you need to know about commissioning a house build in Adopt Me — how to find a builder, what fair pay looks like, how the process works, and how to protect yourself from failed comms.",
+  "datePublished": "2026-09-01",
+  "dateModified": "2026-09-01",
+  "author": {"@type": "Organization", "name": "AdoptMeHouseTrading.com"},
+  "publisher": {"@type": "Organization", "name": "AdoptMeHouseTrading.com", "url": "https://adoptmehousetrading.com"},
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://adoptmehousetrading.com/guides/how-house-commissions-work.html"}
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://adoptmehousetrading.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://adoptmehousetrading.com/guides/index.html"},
+    {"@type": "ListItem", "position": 3, "name": "How House Commissions Work", "item": "https://adoptmehousetrading.com/guides/how-house-commissions-work.html"}
+  ]
+}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-REW2CFBX6H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-REW2CFBX6H');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1156955048210674" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="signpost-mini"></span>
+      AdoptMeHouseTrading
+    </a>
+    <nav>
+      <a href="../listings/index.html">Browse Houses</a>
+      <a href="../commissions/index.html">Find a Builder</a>
+      <a href="../recent-trades.html">Recent Trades</a>
+      <div class="nav-more">
+        <button type="button" class="nav-more-trigger active">More <span class="nav-more-caret"></span></button>
+        <div class="nav-more-dropdown" hidden>
+          <a href="../houses/index.html">Values</a>
+          <a href="../registry/index.html">Build Registry</a>
+          <a href="index.html">Guides</a>
+        </div>
+      </div>
+      <a href="../profile.html">Profile</a>
+    </nav>
+    <div class="nav-actions">
+      <span id="nav-profile-pill"></span>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      <a href="submit.html" class="btn btn-primary">Submit a Guide</a>
+    </div>
+  </div>
+</header>
+<script type="module" src="../js/nav.js"></script>
+
+<section class="wrap" style="padding:32px 0 64px;max-width:780px;">
+  <div class="breadcrumb">
+    <a href="index.html" style="color:var(--accent);text-decoration:none;">Guides</a>
+    &nbsp;/&nbsp;
+    <span class="current">How House Commissions Work</span>
+  </div>
+
+  <div style="margin-top:24px;">
+    <span class="pill" style="margin-bottom:12px;display:inline-block;">Commissions</span>
+    <h1 style="font-family:var(--font-display);font-size:clamp(1.5rem,4vw,2rem);color:var(--ink);margin:6px 0 16px;line-height:1.2;letter-spacing:-0.3px;">How Adopt Me House Commissions Work: What to Pay, What to Expect, and How to Avoid Getting Ghosted</h1>
+
+    <div class="guide-meta">
+      <span>By AdoptMeHouseTrading.com</span>
+      <span class="guide-meta-divider">·</span>
+      <span>September 2026</span>
+      <span class="guide-meta-divider">·</span>
+      <span>9 min read</span>
+    </div>
+
+    <div class="guide-toc">
+      <h4>In this guide</h4>
+      <ol>
+        <li><a href="#what-is-a-commission">What a commission actually is</a></li>
+        <li><a href="#finding-a-builder">How to find a good builder</a></li>
+        <li><a href="#what-to-pay">What fair pay looks like</a></li>
+        <li><a href="#the-process">How the commission process works</a></li>
+        <li><a href="#for-commissioners">Commissioner tips: how to not get ghosted</a></li>
+        <li><a href="#for-builders">Builder tips: how to protect your work</a></li>
+        <li><a href="#failed-comms">Failed comms: what happens and what to do</a></li>
+      </ol>
+    </div>
+
+    <div class="guide-body">
+
+      <h2 id="what-is-a-commission">What a Commission Actually Is</h2>
+
+      <p>A house commission in Adopt Me is an arrangement where one player (the commissioner) pays another player (the builder) in pets or items to design and build a custom interior for a specific house. The builder uses their own furniture (or sometimes the commissioner provides furniture) to create a unique design that the commissioner then receives — either as the finished house itself or, more commonly, as a design that the commissioner replicates in their own copy of the house.</p>
+
+      <p>Commissions exist because not everyone has the patience, creativity, or time to build a standout house themselves — and because some players have developed genuine skill at interior design and built reputations for it. Commissioning a build is a real economy inside Adopt Me trading, with rates, portfolios, waitlists, and all the usual complications of any service market.</p>
+
+      <p>The core transaction sounds simple — you pay, they build — but the details matter a lot. Who owns the design afterward? What happens if you don't like the result? What if the builder goes offline mid-project? What if you agree on a price but the builder expects something different? This guide answers all of it.</p>
+
+      <h2 id="finding-a-builder">How to Find a Good Builder</h2>
+
+      <p>The best place to find commission builders is wherever the community congregates: r/adoptmehousetrading, the Adopt Me trading Discord servers, and TikTok. Look for players who post portfolio content — videos or images of builds they've completed for previous commissioners. A portfolio tells you more than any claim of skill.</p>
+
+      <h3>What to look for in a builder's portfolio</h3>
+      <ul>
+        <li><strong>Variety:</strong> Can they do multiple themes, or are all their builds the same aesthetic? A builder with range is more likely to execute your vision rather than just their usual style.</li>
+        <li><strong>Consistency:</strong> Are all the builds at a similar quality level, or are there obvious outliers? High variance in portfolio quality suggests inconsistency.</li>
+        <li><strong>Documentation:</strong> Do they show before/after, WIP photos, or the finished product? Builders who document their process tend to be more professional.</li>
+        <li><strong>References:</strong> Have previous commissioners posted about the experience? Even a quick comment thread on a build post tells you whether past clients were happy.</li>
+      </ul>
+
+      <p>You can also find builders directly through this site's <a href="../commissions/index.html" style="color:var(--accent);text-decoration:none;font-weight:600;">Find a Builder</a> page, where community builders list their rates, styles, and availability.</p>
+
+      <h3>The reputation signal</h3>
+      <p>Builder reputation in this community is tracked informally but effectively. If a builder has been around for more than a few months and has multiple completed commissions you can point to, that's meaningful. A new account with no history asking for upfront payment should raise your guard — this is the most common setup for a commission scam.</p>
+
+      <h2 id="what-to-pay">What Fair Pay Looks Like</h2>
+
+      <p>Commission rates in Adopt Me are denominated in pets — usually described in Ride Potion (RP) equivalent. There's no fixed rate card because rates vary by builder reputation, house size, design complexity, and current demand. What follows is a rough orientation based on community norms.</p>
+
+      <h3>Typical rate ranges</h3>
+      <ul>
+        <li><strong>Starter / newer builders:</strong> 0.1–0.5 RP equivalent — a handful of common or uncommon pets. Good for smaller houses or simple themes.</li>
+        <li><strong>Mid-tier builders:</strong> 0.5–2 RP equivalent — rare to ultra-rare pets. Expect a clear portfolio, some references, and a defined process.</li>
+        <li><strong>Well-known or high-demand builders:</strong> 2–5+ RP equivalent — legendary-tier pets or equivalent. These builders often have waitlists and can command premium rates because their name on a build adds value at resale.</li>
+      </ul>
+
+      <p>These are guidelines. A highly sought-after builder can charge above these ranges; a newer builder trying to build their portfolio may work for less. The market rate is whatever the community will pay, and the best signal is asking other commissioners what they've paid recently.</p>
+
+      <h3>Furniture: who pays for it?</h3>
+      <p>This is one of the most important things to clarify upfront. Some arrangements:</p>
+      <ul>
+        <li><strong>Commissioner provides furniture:</strong> You buy the furniture yourself and give it to the builder to arrange. The builder is charging for design and placement only. Cheaper builder fee, but more work on your end.</li>
+        <li><strong>Builder provides furniture, commissioner pays it back:</strong> The builder furnishes the house and includes the furniture cost in what they charge. Common — and means the rate you see may include both labor and materials.</li>
+        <li><strong>Split:</strong> You provide the large or expensive pieces; the builder provides accent furniture. Negotiate clearly.</li>
+      </ul>
+
+      <p>The most common source of commission disputes is a misunderstanding about who pays for furniture. Agree on this in writing (screenshots of the DM conversation) before any work starts.</p>
+
+      <div class="tip-box">
+        <strong>Ask before you agree:</strong> "Does your rate include furniture, or is that separate?" One question prevents the most common commission argument.
+      </div>
+
+      <h2 id="the-process">How the Commission Process Works</h2>
+
+      <p>A well-run commission follows a predictable sequence. Understanding it helps you know what's normal and what's a warning sign.</p>
+
+      <ol class="process-steps">
+        <li>
+          <div>
+            <p class="process-step-title">Brief the builder</p>
+            <p class="process-step-desc">You share your vision: house type, theme, color palette, specific furniture or elements you want included, any references (screenshots, mood boards, TikTok links). The more specific you are, the closer the result will be to what you imagined.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <p class="process-step-title">Agree on terms</p>
+            <p class="process-step-desc">Price, furniture arrangement (who provides what), timeline, and what happens if either party needs to back out. Get this in writing via DM screenshots. If the builder won't discuss terms, that's a red flag.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <p class="process-step-title">Deposit or milestone payment</p>
+            <p class="process-step-desc">Many established builders ask for a portion of the payment upfront — typically 25–50% — before starting. This is normal for experienced builders with a track record. For newer builders with no history, upfront payment carries more risk (see red flags below).</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <p class="process-step-title">Builder works on the design</p>
+            <p class="process-step-desc">The builder designs in their own copy of the house, usually sharing progress screenshots at key stages. You review, give feedback, and approve or request adjustments. Revision rounds vary by builder — clarify how many are included before the build starts.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <p class="process-step-title">Final review and approval</p>
+            <p class="process-step-desc">The builder shares the completed design (screenshots or a house tour). You confirm you're happy with it before the final payment is made.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <p class="process-step-title">Final payment and handoff</p>
+            <p class="process-step-desc">You pay the remaining balance and receive the finished house — either the builder trades you their copy of the house, or they provide the furniture list and placement guide so you can recreate it. Confirm ownership and design rights in this conversation.</p>
+          </div>
+        </li>
+      </ol>
+
+      <h2 id="for-commissioners">Commissioner Tips: How to Not Get Ghosted</h2>
+
+      <p>The most common way commissions fail is the commissioner going silent after the builder has already done work — either because they changed their mind, couldn't afford the agreed price, or just stopped playing. Here's how to set up a commission that finishes.</p>
+
+      <h3>Be specific in your brief</h3>
+      <p>Vague briefs lead to results that don't match what you had in your head. "Something cute" gives a builder almost no direction; "cottage-core with pastel purples and pinks, lots of plants, a reading nook in the corner" gives them something to work with. The clearer your brief, the fewer revision rounds you'll need, and the more likely you'll be happy with what you get.</p>
+
+      <h3>Set a realistic budget before you approach a builder</h3>
+      <p>Decide how much you can pay before the conversation starts, not after you've fallen in love with a builder's portfolio. Commission regret is a real thing — agreeing to a price and then backing out because you realize you can't afford it is exactly the situation that leads to failed comms and a damaged reputation.</p>
+
+      <h3>Stay in communication</h3>
+      <p>If the builder sends you a progress update, respond. If you're going to be away for a few days, say so. Builders who don't hear back after sharing work-in-progress content have no way to know whether you're busy or abandoning the commission — and many will mark the comm as failed after a set waiting period and sell the house themselves. A single message keeps the project alive.</p>
+
+      <h3>Don't change the brief mid-build</h3>
+      <p>Once a builder is halfway through, asking for a complete theme change is unreasonable. Minor adjustments are usually fine; major pivots aren't, unless you've agreed in advance that they're included. If you change direction significantly, expect to renegotiate the rate.</p>
+
+      <h2 id="for-builders">Builder Tips: How to Protect Your Work</h2>
+
+      <p>Builders take on real risk in every commission — they invest time and often money into a design with no guarantee the commissioner will follow through. Protecting that work is about process.</p>
+
+      <h3>Take a deposit first</h3>
+      <p>Never start work without at least a partial payment upfront. A commissioner who won't pay anything before seeing results is a commissioner who has no skin in the game — and therefore nothing stopping them from disappearing once the work is done. A deposit signals genuine intent.</p>
+
+      <h3>Document everything in writing</h3>
+      <p>DM screenshots are your protection. Agree on price, furniture arrangement, revision limits, and timeline in writing. If a commissioner later claims they agreed to something different, your DM record is the evidence. Save it.</p>
+
+      <h3>Set a response deadline</h3>
+      <p>State upfront: "If you don't respond within 48 hours of a progress update, I'll treat the comm as abandoned and sell the house to recover my investment." This sets clear expectations and gives you grounds to act if the commissioner ghosts. Many builders state this in their commission sheets.</p>
+
+      <h3>Register the finished design</h3>
+      <p>Before you trade the house to the commissioner, <a href="../registry/index.html" style="color:var(--accent);text-decoration:none;font-weight:600;">register the build</a> under your username with a note that it was commissioned. This establishes you as the original designer and protects you if the commissioner later tries to claim the design as their own original work.</p>
+
+      <div class="tip-box">
+        <strong>Builder credit matters:</strong> Many builders ask commissioners to credit them in trade posts ("comm by [username]"). This is reasonable and worth agreeing to upfront — it's free advertising for the builder and it increases the commission's credibility and resale value for the commissioner.
+      </div>
+
+      <h2 id="failed-comms">Failed Comms: What Happens and What to Do</h2>
+
+      <p>A failed commission is one where the arrangement broke down before it completed. This covers a range of situations, from a ghosted commissioner to a builder who delivered something completely different from what was agreed. Knowing how the community handles each case helps you navigate them.</p>
+
+      <h3>Commissioner ghosts after work is done</h3>
+
+      <p>This is the most common failure mode. The builder finishes the house, shares it for review, and the commissioner goes silent. After a reasonable waiting period (most builders set 48–72 hours), the builder can treat the commission as failed and sell the house on the open market as a "failed comm."</p>
+
+      <p>Buyers of failed comms should know: the house is a legitimate, custom design — just one that happened to become available. The builder is the original designer and can prove it. The price is typically fair for a commissioned build because the builder wants to recover their investment quickly.</p>
+
+      <h3>Builder ghosts after taking a deposit</h3>
+
+      <div class="warn-box">
+        ⚠️ <strong>This is the most serious form of commission failure</strong> and is considered scamming by the community. If a builder takes your deposit and disappears without delivering any work, post about it on r/adoptmehousetrading with evidence (DM screenshots showing the agreement and payment). The community takes this seriously and will call out repeat offenders.
+      </div>
+
+      <p>Prevention is better than cure here. Stick to builders with verified track records, check for their name in community discussions before paying, and avoid full upfront payment with unknown builders. A 25–50% deposit is reasonable; 100% before a single screenshot is a risk not worth taking unless the builder is extremely well-known.</p>
+
+      <h3>Delivered design doesn't match the brief</h3>
+
+      <p>If the builder delivers something that genuinely doesn't match what you asked for — different theme, different furniture, completely different vibe — that's a legitimate dispute. Start by raising it directly with the builder and giving them a chance to revise. If they refuse or insist the brief was followed, you have a disagreement to resolve.</p>
+
+      <p>Post in the community with both the original brief (screenshot your DM) and the delivered result. Community members will give an honest read on whether the builder followed the brief. If the builder clearly didn't deliver what was agreed, community pressure usually resolves it — no one wants a reputation for not following through.</p>
+
+      <h3>Both parties agree to cancel</h3>
+      <p>Sometimes things just don't work out — schedules change, the commissioner's priorities shift, the builder finds they can't execute the vision. A mutual cancellation where the commissioner gets their deposit back (minus any work already done) is the cleanest resolution. Document the agreement and keep the DM screenshots.</p>
+
+      <blockquote>The commission market runs on trust. Builders who follow through and commissioners who pay what they agreed both build reputations that open more opportunities over time. The community remembers.</blockquote>
+
+    </div><!-- /.guide-body -->
+
+    <div class="guide-cta">
+      <h3>Looking for a builder for your next commission?</h3>
+      <p>Browse community builders on this site — see their styles, rates, and availability all in one place.</p>
+      <a href="../commissions/index.html" class="btn btn-primary" style="margin-right:8px;">Find a Builder</a>
+      <a href="../registry/index.html" class="btn" style="border:1.5px solid var(--line);">Build Registry</a>
+    </div>
+
+    <div style="margin-top:48px;border-top:1.5px solid var(--line);padding-top:32px;">
+      <div style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin:0 0 16px;color:var(--ink);">More Guides</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">
+        <a href="original-vs-cloned-vs-commissioned.html" style="border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;text-decoration:none;color:inherit;display:block;transition:border-color 0.15s;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:4px;">Values & Pricing</div>
+          <div style="font-size:14px;font-weight:600;color:var(--ink);line-height:1.4;">Original, Cloned, or Commissioned?</div>
+        </a>
+        <a href="what-is-a-cloned-house.html" style="border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;text-decoration:none;color:inherit;display:block;transition:border-color 0.15s;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:4px;">Values & Pricing</div>
+          <div style="font-size:14px;font-weight:600;color:var(--ink);line-height:1.4;">What Is a Cloned House?</div>
+        </a>
+        <a href="how-to-trade-houses.html" style="border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;text-decoration:none;color:inherit;display:block;transition:border-color 0.15s;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:4px;">How-To</div>
+          <div style="font-size:14px;font-weight:600;color:var(--ink);line-height:1.4;">How to Trade Houses in Adopt Me</div>
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community — house values, live trade listings, builder commissions, and a build registry for verifying who built a house first. Not affiliated with, endorsed by, or sponsored by Adopt Me, Uplift Games, or Roblox Corporation.
+    <div style="margin-top:8px;"><a href="../rules.html" style="color:var(--sign-red);">Community Rules</a> · <a href="../privacy.html" style="color:var(--sign-red);">Privacy Policy</a> · <a href="https://www.reddit.com/r/adoptmehousetrading/" style="color:var(--sign-red);" target="_blank" rel="noopener">Reddit</a></div>
+  </div>
+</footer>
+</body>
+</html>

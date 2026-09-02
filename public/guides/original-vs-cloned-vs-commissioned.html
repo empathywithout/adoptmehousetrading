@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<title>Original, Cloned, or Commissioned? How Build Type Affects Your Adopt Me House Value | AdoptMeHouseTrading.com</title>
+<meta name="description" content="The same house can be worth very different amounts depending on who built it and how. Learn how original, cloned, and commissioned builds are priced in Adopt Me house trading — and how to disclose yours correctly.">
+<link rel="canonical" href="https://adoptmehousetrading.com/guides/original-vs-cloned-vs-commissioned.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  .guide-body h2 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 32px 0 8px;
+  }
+  .guide-body h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 22px 0 6px;
+  }
+  .guide-body p {
+    margin: 0 0 16px;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+  .guide-body strong { font-weight: 700; }
+  .guide-body em { font-style: italic; }
+  .guide-body ul, .guide-body ol {
+    margin: 0 0 16px 20px;
+    line-height: 1.75;
+  }
+  .guide-body li { margin-bottom: 6px; }
+  .guide-body blockquote {
+    border-left: 3px solid var(--accent);
+    padding: 8px 16px;
+    margin: 0 0 16px;
+    background: var(--surface);
+    border-radius: 0 8px 8px 0;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .guide-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .guide-meta-divider { color: var(--line); }
+  .guide-toc {
+    background: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 0 0 32px;
+  }
+  .guide-toc h4 {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--muted);
+    margin: 0 0 10px;
+  }
+  .guide-toc ol { margin: 0; padding-left: 18px; }
+  .guide-toc li { font-size: 14px; margin-bottom: 4px; }
+  .guide-toc a { color: var(--accent); text-decoration: none; font-weight: 500; }
+  .guide-toc a:hover { text-decoration: underline; }
+
+  .guide-cta {
+    background: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 40px 0 0;
+    text-align: center;
+  }
+  .guide-cta h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+  .guide-cta p { color: var(--muted); font-size: 14px; margin: 0 0 16px; }
+
+  .tip-box {
+    background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+    border: 1.5px solid color-mix(in srgb, var(--accent) 30%, var(--line));
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 0 0 20px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+  .tip-box strong { color: var(--accent); }
+
+  .warn-box {
+    background: color-mix(in srgb, var(--sign-red, #e54) 8%, var(--surface));
+    border: 1.5px solid color-mix(in srgb, var(--sign-red, #e54) 25%, var(--line));
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 0 0 20px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+
+  /* Value comparison cards */
+  .value-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 0 0 24px;
+  }
+  .value-card {
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+    background: var(--surface);
+  }
+  .value-card-label {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .value-card-name {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .value-card-formula {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .value-card-formula strong { color: var(--ink); font-weight: 600; }
+
+  /* Disclosure template box */
+  .disclosure-box {
+    background: var(--surface);
+    border: 1.5px dashed var(--line);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 0 0 20px;
+    font-size: 14px;
+    font-family: monospace;
+    line-height: 1.8;
+    color: var(--ink);
+  }
+  .disclosure-box span { color: var(--muted); }
+</style>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Original, Cloned, or Commissioned? How Build Type Affects Your Adopt Me House Value",
+  "description": "The same house can be worth very different amounts depending on who built it and how. Learn how original, cloned, and commissioned builds are priced in Adopt Me — and how to disclose yours correctly.",
+  "datePublished": "2026-09-01",
+  "dateModified": "2026-09-01",
+  "author": {"@type": "Organization", "name": "AdoptMeHouseTrading.com"},
+  "publisher": {"@type": "Organization", "name": "AdoptMeHouseTrading.com", "url": "https://adoptmehousetrading.com"},
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://adoptmehousetrading.com/guides/original-vs-cloned-vs-commissioned.html"}
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://adoptmehousetrading.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://adoptmehousetrading.com/guides/index.html"},
+    {"@type": "ListItem", "position": 3, "name": "Original, Cloned, or Commissioned?", "item": "https://adoptmehousetrading.com/guides/original-vs-cloned-vs-commissioned.html"}
+  ]
+}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-REW2CFBX6H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-REW2CFBX6H');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1156955048210674" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="signpost-mini"></span>
+      AdoptMeHouseTrading
+    </a>
+    <nav>
+      <a href="../listings/index.html">Browse Houses</a>
+      <a href="../commissions/index.html">Find a Builder</a>
+      <a href="../recent-trades.html">Recent Trades</a>
+      <div class="nav-more">
+        <button type="button" class="nav-more-trigger active">More <span class="nav-more-caret"></span></button>
+        <div class="nav-more-dropdown" hidden>
+          <a href="../houses/index.html">Values</a>
+          <a href="../registry/index.html">Build Registry</a>
+          <a href="index.html">Guides</a>
+        </div>
+      </div>
+      <a href="../profile.html">Profile</a>
+    </nav>
+    <div class="nav-actions">
+      <span id="nav-profile-pill"></span>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      <a href="submit.html" class="btn btn-primary">Submit a Guide</a>
+    </div>
+  </div>
+</header>
+<script type="module" src="../js/nav.js"></script>
+
+<section class="wrap" style="padding:32px 0 64px;max-width:780px;">
+  <div class="breadcrumb">
+    <a href="index.html" style="color:var(--accent);text-decoration:none;">Guides</a>
+    &nbsp;/&nbsp;
+    <span class="current">Original, Cloned, or Commissioned?</span>
+  </div>
+
+  <div style="margin-top:24px;">
+    <span class="pill" style="margin-bottom:12px;display:inline-block;">Values & Pricing</span>
+    <h1 style="font-family:var(--font-display);font-size:clamp(1.5rem,4vw,2rem);color:var(--ink);margin:6px 0 16px;line-height:1.2;letter-spacing:-0.3px;">Original, Cloned, or Commissioned? How Build Type Affects What Your Adopt Me House Is Worth</h1>
+
+    <div class="guide-meta">
+      <span>By AdoptMeHouseTrading.com</span>
+      <span class="guide-meta-divider">·</span>
+      <span>September 2026</span>
+      <span class="guide-meta-divider">·</span>
+      <span>8 min read</span>
+    </div>
+
+    <div class="guide-toc">
+      <h4>In this guide</h4>
+      <ol>
+        <li><a href="#why-build-type-matters">Why build type is a pricing factor</a></li>
+        <li><a href="#original-builds">Original builds: the top of the market</a></li>
+        <li><a href="#commissioned-builds">Commissioned builds: hired creativity</a></li>
+        <li><a href="#cloned-builds">Cloned builds: how the discount works</a></li>
+        <li><a href="#buying-by-type">Buying by build type: what to ask, what to pay</a></li>
+        <li><a href="#selling-by-type">Selling by build type: how to disclose correctly</a></li>
+        <li><a href="#disclosure-templates">Disclosure templates you can copy</a></li>
+      </ol>
+    </div>
+
+    <div class="guide-body">
+
+      <h2 id="why-build-type-matters">Why Build Type Is a Pricing Factor</h2>
+
+      <p>In Adopt Me, two players can own the exact same house — same shell, same furniture, nearly identical appearance — and yet one house is worth meaningfully more than the other. The difference isn't the shell (that's the same) and it isn't even the furniture cost (that could be identical too). It's <strong>who designed the interior and whether that person's creative work is being represented honestly</strong>.</p>
+
+      <p>The Adopt Me trading community has settled on a clear hierarchy of build value that tracks with how much original creative work went into a house. At the top: builds that one person designed themselves from scratch, with no reference. At the bottom: builds copied from someone else without permission or disclosure. Between those extremes sits a range of legitimate arrangements — commissioned designs, builds inspired by a style or theme, iterative redesigns of older work.</p>
+
+      <p>Understanding this hierarchy helps you in two ways. As a buyer, it tells you what questions to ask before paying a premium. As a seller, it tells you exactly how to represent your house honestly — which is both the ethical approach and the one that builds your trading reputation over time.</p>
+
+      <h2 id="original-builds">Original Builds: The Top of the Market</h2>
+
+      <p>An original build is one where the current seller (or someone in the direct chain of ownership they can document) designed the interior from their own imagination — no YouTube tutorial to recreate, no other player's house to copy, no builder hired. They opened the furniture catalog, thought about what they wanted, and made something that hadn't existed before.</p>
+
+      <p>Original builds command the highest premiums because buyers are paying for three things at once:</p>
+      <ul>
+        <li><strong>The furniture cost</strong> — the raw Adopt Me bucks spent on every piece inside</li>
+        <li><strong>The design labor</strong> — the time and creativity of building something distinctive</li>
+        <li><strong>Exclusivity</strong> — there is, by definition, only one original of any design; owning it means owning the source</li>
+      </ul>
+
+      <p>That last point is what the community has agreed to protect. When a design gets cloned, the exclusivity erodes — copies circulate, the "one of a kind" status is gone, and the original's premium partially evaporates. This is why original builders are increasingly protective of their designs and why the community has rallied behind registry tools and the norm of demanding disclosure.</p>
+
+      <h3>What "OG build" actually proves</h3>
+
+      <p>When a seller says "OG build" or "original design," they're making a claim that deserves scrutiny — not because sellers are dishonest, but because it's a high-value claim that's easy to assert and hard to disprove without evidence. The questions to ask:</p>
+      <ul>
+        <li>Is the build registered in the <a href="../registry/index.html" style="color:var(--accent);text-decoration:none;font-weight:600;">Build Registry</a> under their username?</li>
+        <li>Can they show WIP screenshots dated before the house was publicly toured?</li>
+        <li>Do they have a TikTok or social media presence where this build appears under their name?</li>
+        <li>If you search the design on YouTube, does it appear credited to them?</li>
+      </ul>
+
+      <p>An OG builder who has invested real creative energy into a house usually has at least some of this. A lack of any documentation doesn't automatically mean they're lying, but it reduces your ability to verify — and that uncertainty should be factored into what you pay.</p>
+
+      <div class="tip-box">
+        <strong>Registry shortcut:</strong> Check the <a href="../registry/index.html" style="color:var(--accent);text-decoration:none;font-weight:600;">Build Registry</a> before negotiating. If the exact design is registered to a different username and timestamp, the seller's "OG" claim falls apart immediately. If it's registered to the seller, you have objective evidence that strengthens their claim.
+      </div>
+
+      <h2 id="commissioned-builds">Commissioned Builds: Hired Creativity</h2>
+
+      <p>A commissioned build is one where the owner paid a professional builder — typically in pets, though sometimes in items or in-game currency — to design a custom interior for them. The commissioner provided direction ("I want a fairy-garden theme with a purple palette"), and the builder executed it. The result is a unique design created on request.</p>
+
+      <p>Commissioned builds occupy a respectable position in the market, generally just below true originals. Here's why they're still valuable:</p>
+      <ul>
+        <li>The design is custom — made specifically for one person, not copied from anywhere</li>
+        <li>Professional builders in Adopt Me often have developed, recognizable styles; a "comm by [known builder]" carries its own prestige</li>
+        <li>The commissioner usually has documentation: DMs or screenshots from the builder, a record of the pets paid, sometimes a public post on the builder's commission page</li>
+      </ul>
+
+      <p>Where commissioned builds rank below originals is in the "exclusivity" dimension. The commissioner didn't generate the creative vision — the builder did. Some buyers care about this; others don't. The premium for a commissioned build is real, but it's typically smaller than for a verified original.</p>
+
+      <h3>Failed comms: what they are and how they're priced</h3>
+
+      <p>A "failed comm" is a commissioned build the original commissioner never received — either because they ghosted the builder after the work was done, couldn't afford the agreed price, or the deal fell through for some other reason. The builder ends up with a fully custom house design and no buyer, so they sell it on the open market.</p>
+
+      <p>Failed comms are a legitimate category of house and can be excellent value — you're getting a professionally designed, fully custom build at a price the builder needs to recoup quickly. The key disclosures to look for:</p>
+      <ul>
+        <li>Who built it (the builder's username and reputation)</li>
+        <li>Why the commission failed</li>
+        <li>Whether the original commissioner has any claim or objection</li>
+      </ul>
+
+      <p>The last point matters occasionally. If a commissioner paid pets for a design and the builder then sells it out from under them, that's a dispute the community will take sides on. Most reputable builders include a "failed comm" clause in their process — if the commissioner doesn't pay within a time window, the builder can sell the house. If that clause is explicit and documented, the sale is clean.</p>
+
+      <h2 id="cloned-builds">Cloned Builds: How the Discount Works</h2>
+
+      <p>A cloned build is one that was copied from another player's design — either manually (recreated by watching a video or visiting the original in-game) or via script (duplicated exactly using a Roblox exploit). See the <a href="what-is-a-cloned-house.html" style="color:var(--accent);text-decoration:none;font-weight:600;">full guide to cloned houses</a> for more on the mechanics. What matters for pricing is how the discount gets calculated.</p>
+
+      <p>The community's consensus is that a cloned house should trade for:</p>
+
+      <div class="value-cards">
+        <div class="value-card">
+          <div class="value-card-label">What you get</div>
+          <div class="value-card-name">Base house value</div>
+          <div class="value-card-formula">The RP value of the undecorated shell — the same as if it were empty</div>
+        </div>
+        <div class="value-card">
+          <div class="value-card-label">Potentially add</div>
+          <div class="value-card-name">Raw furniture cost</div>
+          <div class="value-card-formula">The <strong>actual bucks spent</strong> on furniture inside — verifiable, not a creative premium</div>
+        </div>
+        <div class="value-card">
+          <div class="value-card-label">You do NOT get</div>
+          <div class="value-card-name">Design premium</div>
+          <div class="value-card-formula">The creative markup that an original or commissioned builder earns — <strong>not yours to claim</strong></div>
+        </div>
+      </div>
+
+      <p>In practice, furniture costs are hard to verify independently — you're relying on the seller's claim about what they spent. Buyers negotiating on a disclosed clone can reasonably ask for some evidence (screenshots of the furniture catalog prices, for example) or simply apply a standard discount on whatever the seller quotes. The key point is that <strong>no creative premium applies</strong>. The design isn't yours; you're selling the shell and the items, nothing more.</p>
+
+      <div class="warn-box">
+        ⚠️ <strong>Selling a cloned house as original is considered fraud in this community.</strong> Experienced traders know what questions to ask, and getting caught misrepresenting a clone as an OG build damages your trading reputation permanently. Disclosure isn't just ethical — it's self-interested.
+      </div>
+
+      <h3>The "I didn't know it was a design" edge case</h3>
+
+      <p>What if you bought a house that looked original, paid a full premium, and later found out the previous owner had cloned it? This happens. The community's view is generally sympathetic to buyers in this situation — you were deceived, not you doing the deceiving. But it does mean you now own a clone, and reselling it as original would pass the deception forward. The right move is to disclose what you know and adjust your asking price accordingly. You can note in the trade post that you bought in good faith and have since discovered the build's provenance.</p>
+
+      <h2 id="buying-by-type">Buying by Build Type: What to Ask, What to Pay</h2>
+
+      <p>The most useful thing you can do before agreeing to a premium is ask the seller a direct question about build type. Most sellers will answer honestly; those who don't are telling you something important.</p>
+
+      <h3>Questions worth asking before trading</h3>
+      <ul>
+        <li>"Is this an original build, commissioned, or cloned?"</li>
+        <li>"Can you show me your WIP screenshots or registration?"</li>
+        <li>"If commissioned — who built it, and do you have a record of the arrangement?"</li>
+        <li>"If original — have you posted this publicly anywhere I can look up?"</li>
+      </ul>
+
+      <p>A seller who gets defensive or evasive about any of these is showing you they don't have clean answers. A seller who responds with links, screenshots, or a Registry entry is showing you exactly the opposite.</p>
+
+      <h3>What each type is worth (rough guide)</h3>
+
+      <p>These are community norms, not official rules. Actual trades land wherever two players agree, but these benchmarks reflect what experienced traders consider fair:</p>
+      <ul>
+        <li><strong>Verified original, no copies known:</strong> Base house value + furniture cost + a creative premium of 20–50% on top, depending on design quality and builder reputation</li>
+        <li><strong>Commissioned by a well-known builder:</strong> Base + furniture + a smaller premium (10–25%) reflecting the builder's reputation and the design's uniqueness</li>
+        <li><strong>Commissioned, unknown builder:</strong> Base + furniture cost; the unique design earns a small premium but builder reputation can't amplify it</li>
+        <li><strong>Disclosed clone:</strong> Base house value + raw furniture cost only; no creative premium</li>
+        <li><strong>Undisclosed or suspected clone:</strong> Treat as a clone; pay base + furniture. If the seller disagrees, walk away</li>
+      </ul>
+
+      <h2 id="selling-by-type">Selling by Build Type: How to Disclose Correctly</h2>
+
+      <p>The Adopt Me house trading community expects sellers to lead with build type information in every trade post. This isn't a legal requirement — it's a community norm that has evolved because deceptive practices were common enough to create real harm. Sellers who disclose clearly and early build better reputations, attract more serious buyers, and tend to get fairer offers because buyers can evaluate without guessing.</p>
+
+      <h3>The components of a good disclosure</h3>
+      <ul>
+        <li><strong>Build type:</strong> original / commissioned / inspired by / cloned</li>
+        <li><strong>Furniture value:</strong> the approximate bucks spent on furniture inside ("~80k furniture")</li>
+        <li><strong>Build registration:</strong> a link to the Build Registry entry if you have one</li>
+        <li><strong>Evidence:</strong> screenshots, WIP photos, a TikTok link, builder credit for comms</li>
+      </ul>
+
+      <p>You don't need to write an essay. A single line in a trade post can cover it: "Original build (registered), ~60k furniture, WIP screenshots available." That line does a lot of work — it signals honesty, sets realistic expectations, and immediately separates your listing from lower-quality alternatives.</p>
+
+      <h2 id="disclosure-templates">Disclosure Templates You Can Copy</h2>
+
+      <p>Copy and adapt these for your own trade posts. Fill in the details in <span style="color:var(--muted);">[brackets]</span>.</p>
+
+      <p><strong>Original build:</strong></p>
+      <div class="disclosure-box">
+        Original build (my own design). [House name], ~[X]k furniture.<br>
+        <span>Registered on AdoptMeHouseTrading.com — link in comments.</span><br>
+        <span>WIP screenshots available on request. LF: [your wants].</span>
+      </div>
+
+      <p><strong>Commissioned build:</strong></p>
+      <div class="disclosure-box">
+        Commissioned build by [builder name / @handle].<br>
+        <span>[House name], ~[X]k furniture. Custom design made for me [month/year].</span><br>
+        <span>Can show DM record of the commission. LF: [your wants].</span>
+      </div>
+
+      <p><strong>Inspired-by / themed build:</strong></p>
+      <div class="disclosure-box">
+        Built by me, [aesthetic/theme]-inspired (not a direct copy of any specific house).<br>
+        <span>[House name], ~[X]k furniture. LF: [your wants].</span>
+      </div>
+
+      <p><strong>Disclosed clone:</strong></p>
+      <div class="disclosure-box">
+        Cloned build — recreated from [original builder]'s design.<br>
+        <span>[House name], ~[X]k furniture spent recreating it.</span><br>
+        <span>Pricing at base house value + furniture only. LF: [your wants].</span>
+      </div>
+
+      <div class="tip-box">
+        <strong>Disclosure builds rep:</strong> Players who consistently disclose correctly appear in the community as trustworthy traders. Over time, your trading history becomes a form of social proof — buyers who've seen your posts before already know you play it straight, which makes future trades easier and faster.
+      </div>
+
+    </div><!-- /.guide-body -->
+
+    <div class="guide-cta">
+      <h3>Selling an original build? Make it official.</h3>
+      <p>Register your design in the Build Registry before you post it publicly — a timestamped entry is the strongest proof of originality you can show a buyer.</p>
+      <a href="../registry/index.html" class="btn btn-primary" style="margin-right:8px;">Register Your Build</a>
+      <a href="../houses/index.html" class="btn" style="border:1.5px solid var(--line);">Check House Values</a>
+    </div>
+
+    <div style="margin-top:48px;border-top:1.5px solid var(--line);padding-top:32px;">
+      <div style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin:0 0 16px;color:var(--ink);">More Guides</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">
+        <a href="what-is-a-cloned-house.html" style="border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;text-decoration:none;color:inherit;display:block;transition:border-color 0.15s;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:4px;">Values & Pricing</div>
+          <div style="font-size:14px;font-weight:600;color:var(--ink);line-height:1.4;">What Is a Cloned House in Adopt Me?</div>
+        </a>
+        <a href="how-house-commissions-work.html" style="border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;text-decoration:none;color:inherit;display:block;transition:border-color 0.15s;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:4px;">Commissions</div>
+          <div style="font-size:14px;font-weight:600;color:var(--ink);line-height:1.4;">How House Commissions Work</div>
+        </a>
+        <a href="how-to-trade-houses.html" style="border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;text-decoration:none;color:inherit;display:block;transition:border-color 0.15s;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:4px;">How-To</div>
+          <div style="font-size:14px;font-weight:600;color:var(--ink);line-height:1.4;">How to Trade Houses in Adopt Me</div>
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community — house values, live trade listings, builder commissions, and a build registry for verifying who built a house first. Not affiliated with, endorsed by, or sponsored by Adopt Me, Uplift Games, or Roblox Corporation.
+    <div style="margin-top:8px;"><a href="../rules.html" style="color:var(--sign-red);">Community Rules</a> · <a href="../privacy.html" style="color:var(--sign-red);">Privacy Policy</a> · <a href="https://www.reddit.com/r/adoptmehousetrading/" style="color:var(--sign-red);" target="_blank" rel="noopener">Reddit</a></div>
+  </div>
+</footer>
+</body>
+</html>
