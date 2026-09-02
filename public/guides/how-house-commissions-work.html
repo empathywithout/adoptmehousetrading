@@ -165,29 +165,6 @@
     line-height: 1.6;
   }
 
-  /* Red flag list */
-  .red-flag-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 20px;
-  }
-  .red-flag-list li {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--line);
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.6;
-    color: var(--ink);
-  }
-  .red-flag-list li:last-child { border-bottom: none; }
-  .red-flag-list li::before {
-    content: "⚠️";
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
 </style>
 <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -207,6 +184,44 @@
     {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://adoptmehousetrading.com/"},
     {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://adoptmehousetrading.com/guides/index.html"},
     {"@type": "ListItem", "position": 3, "name": "How House Commissions Work", "item": "https://adoptmehousetrading.com/guides/how-house-commissions-work.html"}
+  ]
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does an Adopt Me house commission cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Commission prices in Adopt Me vary by the builder's reputation and build complexity. Starter builders typically charge 0.1–0.5 RP (Ride Potions) worth of pets. Mid-tier builders with a portfolio charge 0.5–2 RP. Well-known builders with a strong reputation and waiting list often charge 2–5 RP or more. Always check the builder's current commission sheet for their specific rates."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I find a house builder in Adopt Me?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The main places to find Adopt Me house builders are the r/adoptmehousetrading subreddit, the Adopt Me Trading Discord server, and commission listing pages. Look for builders who post their portfolio, commission sheet, and reviews from past clients. Avoid builders with no posted work or who quote prices without seeing your vision first."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if an Adopt Me house builder ghosts you?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If a builder ghosts after taking payment, document everything: screenshots of DMs, the agreed price, and what was paid. Post a detailed scammer report in the relevant trading community with evidence. Most trading communities maintain scammer lists. This is why paying in stages — partial upfront, remainder on completion — reduces your risk significantly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who owns the design after an Adopt Me house commission?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "By community convention, the commissioner owns the design for trading purposes — it is considered their commissioned build. However, the builder retains credit for the creative work and should be named when selling. Most builders also reserve the right to post the completed build in their portfolio. If exclusivity matters to you, discuss it before commissioning and get the builder's agreement via DM screenshot."
+      }
+    }
   ]
 }</script>
 <!-- Google tag (gtag.js) -->
@@ -289,7 +304,7 @@
 
       <p>Commissions exist because not everyone has the patience, creativity, or time to build a standout house themselves — and because some players have developed genuine skill at interior design and built reputations for it. Commissioning a build is a real economy inside Adopt Me trading, with rates, portfolios, waitlists, and all the usual complications of any service market.</p>
 
-      <p>The core transaction sounds simple — you pay, they build — but the details matter a lot. Who owns the design afterward? What happens if you don't like the result? What if the builder goes offline mid-project? What if you agree on a price but the builder expects something different? This guide answers all of it.</p>
+      <p>You pay in pets or items. The builder designs your house interior. You trade. That's the theory. In practice: who owns the design? What if the builder ghosts? What if the finished build looks nothing like what you discussed? What if you paid half upfront and they disappeared? This guide answers all of it.</p>
 
       <h2 id="finding-a-builder">How to Find a Good Builder</h2>
 
