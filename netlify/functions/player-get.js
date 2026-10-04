@@ -9,7 +9,7 @@
 // already meant to be public trust signal (display name, avatar, trade
 // count), not an open window into someone's account.
 
-import { supabaseAdmin, json, safeHandler } from "./_lib/supabase.js";
+import { supabaseAdmin, json, publicJson, safeHandler } from "./_lib/supabase.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "GET") {
@@ -67,7 +67,7 @@ async function handlerImpl(event) {
 
   const totalHearts = (heartData || []).reduce((sum, b) => sum + (b.save_count || 0), 0);
 
-  return json(200, {
+  return publicJson(200, {
     player: {
       id: profile.id,
       display_name: profile.display_name,
@@ -80,7 +80,7 @@ async function handlerImpl(event) {
       registered_builds: registeredBuilds || 0,
       total_hearts: totalHearts,
     },
-  });
+  }, 120);
 }
 
 export const handler = safeHandler(handlerImpl);

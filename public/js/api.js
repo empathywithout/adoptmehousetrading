@@ -22,6 +22,8 @@ export function saveSession(token, profile) {
 export function clearSession() {
   localStorage.removeItem(TOKEN_KEY);
   localStorage.removeItem(PROFILE_KEY);
+  // Cached notifications belong to the account that just signed out.
+  localStorage.removeItem("amht_notifs_cache");
 }
 
 async function request(path, { method = "GET", body, auth = false } = {}) {

@@ -1,6 +1,6 @@
 // GET ?category=<category>&exclude=<id>&limit=3
 // Returns approved guides, optionally filtered by category, excluding one id
-import { supabaseAdmin, json, safeHandler } from "./_lib/supabase.js";
+import { supabaseAdmin, json, publicJson, safeHandler } from "./_lib/supabase.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "GET") return json(405, { error: "Method not allowed" });
@@ -20,7 +20,7 @@ async function handlerImpl(event) {
 
   const { data, error } = await query;
   if (error) return json(500, { error: error.message });
-  return json(200, { guides: data || [] });
+  return publicJson(200, { guides: data || [] }, 300);
 }
 
 export const handler = safeHandler(handlerImpl);

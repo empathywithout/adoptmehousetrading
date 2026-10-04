@@ -7,7 +7,7 @@
 // trade row stays, so without this a "Stress Test House" trade lands at the
 // top of the public Recent Trades page after every run.
 
-import { supabaseAdmin, json, safeHandler } from "./_lib/supabase.js";
+import { supabaseAdmin, json, publicJson, safeHandler } from "./_lib/supabase.js";
 
 const TEST_NAME_RE = /^(Stress[AB]|Intruder|UploadTest|SmokeTest)_\d+$/;
 const TEST_TITLE_RE = /^(upload )?(stress|smoke) test/i;
@@ -28,7 +28,7 @@ async function handlerImpl(event) {
     .limit(500);
 
   if (error) { console.error(error); return json(500, { error: "Couldn't load trades" }); }
-  if (!trades?.length) return json(200, { trades: [] });
+  if (!trades?.length) return publicJson(200, { trades: [] }, 60);
 
   // Fetch listings
   const listingIds = [...new Set(trades.map(t => t.listing_id))];
@@ -45,7 +45,7 @@ async function handlerImpl(event) {
     ? trades.filter(t => listingMap[t.listing_id]?.house_id === houseId)
     : trades;
 
-  if (!filtered.length) return json(200, { trades: [] });
+  if (!filtered.length) return publicJson(200, { trades: [] }, 60);
 
   // Fetch offers
   const offerIds = [...new Set(filtered.map(t => t.offer_id))];
@@ -95,7 +95,7 @@ async function handlerImpl(event) {
     };
   });
 
-  return json(200, { trades: result });
+  return publicJson(200, { trades: result }, 60);
 }
 
 export const handler = safeHandler(handlerImpl);

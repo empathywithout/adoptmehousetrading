@@ -1,7 +1,7 @@
 // GET ?id=<profile_id>
 // -> { builder } — includes a computed cover_photo, same logic as builders-list.js
 
-import { supabaseAdmin, json, safeHandler } from "./_lib/supabase.js";
+import { supabaseAdmin, json, publicJson, safeHandler } from "./_lib/supabase.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "GET") {
@@ -44,7 +44,7 @@ async function handlerImpl(event) {
   data.original_build_count = (ownEntries || [])
     .filter(e => PRESTIGE_STATUSES.has(e.status)).length;
 
-  return json(200, { builder: data });
+  return publicJson(200, { builder: data }, 120);
 }
 
 export const handler = safeHandler(handlerImpl);

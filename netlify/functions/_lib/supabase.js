@@ -614,14 +614,15 @@ export async function requireProfile(event) {
     try {
       const cached = await redis.get(cacheKey);
       if (cached) {
-        const p = typeof cached === "string" ? JSON.parse(cached) : cached;
-        // Always fetch is_data_team_member fresh — approval must reflect immediately
-        try {
-          const pool = getPool();
-          const r = await pool.query('SELECT is_data_team_member FROM "profiles" WHERE id = $1', [p.id]);
-          if (r.rows[0]) p.is_data_team_member = r.rows[0].is_data_team_member;
-        } catch {}
-        return p;
+        // is_data_team_member is cached with the rest of the profile. It used
+        // to be re-queried from Postgres here on every single authenticated
+        // request so that a Data Team approval showed up instantly. That one
+        // line meant the session cache never actually saved a database round
+        // trip, and authenticated traffic alone kept Neon's compute awake
+        // continuously. The trade is that an approval can take up to the
+        // cache TTL below (5 minutes) to take effect, which is fine for an
+        // action an admin performs a handful of times a week.
+        return typeof cached === "string" ? JSON.parse(cached) : cached;
       }
     } catch (err) {
       console.warn("Session cache read failed (non-fatal):", err.message);
@@ -650,20 +651,12 @@ export async function requireProfile(event) {
 
   if (redis) {
     try {
-      // Exclude is_data_team_member from cache — approval changes must reflect immediately
-      const { is_data_team_member, ...cacheable } = profileData;
-      await redis.set(cacheKey, JSON.stringify(cacheable), { ex: 300 });
+      // The whole profile row, is_data_team_member included. See the cache-hit
+      // path above for why that field is no longer refreshed per request.
+      await redis.set(cacheKey, JSON.stringify(profileData), { ex: 300 });
     } catch (err) {
       console.warn("Session cache write failed (non-fatal):", err.message);
     }
-  }
-
-  // Always fetch is_data_team_member fresh from DB
-  if (profileData && !profileData.is_data_team_member) {
-    try {
-      const { data: fresh } = await db.from("profiles").select("is_data_team_member").eq("id", profileData.id).maybeSingle();
-      if (fresh) profileData.is_data_team_member = fresh.is_data_team_member;
-    } catch {}
   }
 
   db.from("sessions")
@@ -686,6 +679,25 @@ export async function notify(db, profile_id, type, message, link = null) {
   } catch (err) {
     console.error(`notify(${type}) failed (non-fatal):`, err);
   }
+}
+
+// Public, non-personalised reads. The Netlify CDN honours this header, so
+// repeat requests for the same URL are served at the edge and never reach
+// this function or Postgres at all. Measured on the live site: listings-list
+// (which already sets it) serves from the CDN with age>0, while trades-list
+// (which did not) ran a fresh set of queries for every single request.
+//
+// Only ever use this for responses that are identical for every viewer. If a
+// response varies by who is asking, it must stay on json().
+export function publicJson(statusCode, body, maxAge = 60) {
+  return {
+    statusCode,
+    headers: {
+      "Content-Type": "application/json",
+      "Cache-Control": `public, max-age=${maxAge}, stale-while-revalidate=${Math.max(30, Math.round(maxAge / 2))}`,
+    },
+    body: JSON.stringify(body),
+  };
 }
 
 export function json(statusCode, body) {

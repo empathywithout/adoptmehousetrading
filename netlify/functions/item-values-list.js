@@ -5,7 +5,7 @@
 // "activate" this later. It's already live; it just returns an empty array
 // until real corroborated single-item trades exist for that category.
 
-import { supabaseAdmin, json, safeHandler } from "./_lib/supabase.js";
+import { supabaseAdmin, json, publicJson, safeHandler } from "./_lib/supabase.js";
 import { withCache } from "./_lib/cache.js";
 
 async function handlerImpl(event) {
@@ -32,7 +32,7 @@ async function fetchValues(event) {
     return json(500, { error: "Couldn't load item values" });
   }
 
-  return json(200, { values: data || [] });
+  return publicJson(200, { values: data || [] }, 300);
 }
 
 export const handler = safeHandler(handlerImpl);

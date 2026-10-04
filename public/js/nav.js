@@ -123,14 +123,65 @@ if (raw) {
       return `${Math.floor(hours / 24)}d ago`;
     }
 
-    async function loadNotifications() {
+    // notifications-list used to run on every single page view. Measured on
+    // the live site it was the busiest endpoint by far, around 3.7 calls a
+    // minute, and each one was two Postgres queries, which is a large part of
+    // why Neon's compute never got to sleep. The payload only changes when
+    // something actually happens to this user, so a short per-browser cache
+    // removes almost all of those calls. Opening the bell always refetches,
+    // so the list a user actually looks at is never stale.
+    const NOTIF_CACHE_KEY = "amht_notifs_cache";
+    const NOTIF_TTL_MS = 3 * 60 * 1000;
+
+    function readNotifCache() {
+      try {
+        const raw = localStorage.getItem(NOTIF_CACHE_KEY);
+        if (!raw) return null;
+        const c = JSON.parse(raw);
+        if (!c || typeof c.at !== "number" || Date.now() - c.at > NOTIF_TTL_MS) return null;
+        return c.data;
+      } catch {
+        return null;
+      }
+    }
+
+    function writeNotifCache(data) {
+      try {
+        localStorage.setItem(NOTIF_CACHE_KEY, JSON.stringify({ at: Date.now(), data }));
+      } catch {
+        // storage full or blocked — caching is an optimisation, not a feature
+      }
+    }
+
+    function clearNotifCache() {
+      try {
+        localStorage.removeItem(NOTIF_CACHE_KEY);
+      } catch {}
+    }
+
+    async function loadNotifications({ force = false } = {}) {
+      if (!force) {
+        const cached = readNotifCache();
+        if (cached) {
+          renderNotifications(cached);
+          return;
+        }
+      }
       try {
         const res = await fetch("/.netlify/functions/notifications-list", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "Couldn't load");
+        writeNotifCache(data);
+        renderNotifications(data);
+      } catch {
+        bellList.innerHTML = `<p class="hint" style="padding:12px;">Couldn't load notifications.</p>`;
+      }
+    }
 
+    function renderNotifications(data) {
+      try {
         bellBadge.hidden = data.unread_count === 0;
         bellBadge.textContent = data.unread_count > 9 ? "9+" : data.unread_count;
 
@@ -150,6 +201,7 @@ if (raw) {
 
         bellList.querySelectorAll(".nav-bell-item").forEach((item) => {
           item.addEventListener("click", () => {
+            clearNotifCache();
             fetch("/.netlify/functions/notifications-mark-read", {
               method: "POST",
               headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
@@ -165,6 +217,8 @@ if (raw) {
     bellBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       bellDropdown.hidden = !bellDropdown.hidden;
+      // Opening the dropdown is the one moment the list must be current.
+      if (!bellDropdown.hidden) loadNotifications({ force: true });
     });
     document.addEventListener("click", (e) => {
       if (!bellDropdown.hidden && !bellDropdown.contains(e.target) && e.target !== bellBtn) {
@@ -179,7 +233,8 @@ if (raw) {
           headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
           body: JSON.stringify({ all: true }),
         });
-        await loadNotifications();
+        clearNotifCache();
+        await loadNotifications({ force: true });
       } catch {
         // non-critical — leave as-is if this fails
       }

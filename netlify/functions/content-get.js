@@ -1,7 +1,7 @@
 // GET ?id=<submission_id>
 // -> { submission } — only if approved
 
-import { supabaseAdmin, json, safeHandler } from "./_lib/supabase.js";
+import { supabaseAdmin, json, publicJson, safeHandler } from "./_lib/supabase.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "GET") {
@@ -25,7 +25,7 @@ async function handlerImpl(event) {
     return json(404, { error: "Guide not found" });
   }
 
-  return json(200, { submission: data });
+  return publicJson(200, { submission: data }, 300);
 }
 
 export const handler = safeHandler(handlerImpl);

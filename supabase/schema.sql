@@ -22,6 +22,8 @@ create table profiles (
   password_hash text not null,        -- scrypt hash — same slow-hash reasoning as the PIN this
                                        -- replaces, just for a real password now.
   password_salt text not null,
+  pin_hash text,                       -- migration-006, legacy PIN auth, kept for old accounts
+  pin_salt text,
 
   display_name text not null unique,  -- shown publicly everywhere (listing cards, Browse
                                        -- Houses, Recent Trades, builder profiles). The real
@@ -43,6 +45,9 @@ create table profiles (
   -- listing_type.
   is_builder boolean not null default false,
   builder_bio text,
+  builder_avatar_url text,             -- optional custom builder picture, written by
+                                       -- profile-update-builder.js. Also production-only
+                                       -- until migration-027.
   commission_status text not null default 'closed' check (commission_status in ('open', 'closed')),
   portfolio_photos jsonb not null default '[]', -- legacy, no longer written to by the UI —
                                        -- portfolio now comes from build_registry (see below)
@@ -128,7 +133,8 @@ create table listings (
   looking_for jsonb not null default '[]', -- array of category keys wanted in return, e.g. ["adopt_me_pets","toys"]
   status text not null default 'active' check (status in ('active', 'traded', 'removed')),
   created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
+  updated_at timestamptz not null default now(),
+  save_count integer not null default 0   -- migration-027, maintained by listing-save.js
 );
 
 create index listings_status_idx on listings(status);
@@ -329,7 +335,8 @@ create table build_registry (
   house_id text,                      -- optional link to data/houses.json, if known
   possible_duplicate_of uuid references build_registry(id),
   status text not null default 'active' check (status in ('active', 'disputed', 'confirmed_clone', 'confirmed_original', 'removed')),
-  created_at timestamptz not null default now()
+  created_at timestamptz not null default now(),
+  save_count integer not null default 0   -- migration-023, maintained by trigger
 );
 
 create index build_registry_profile_idx on build_registry(profile_id);
@@ -352,6 +359,8 @@ create table build_registry_disputes (
   claimed_original_entry_id uuid references build_registry(id), -- their own earlier entry, if they have one
   rebuttal text,                                -- the accused builder's one response, if they gave one
   rebuttal_at timestamptz,
+  proof_url text,                               -- migration-025: required evidence link on the claim
+  rebuttal_proof_url text,                      -- migration-025: optional evidence link on the rebuttal
   status text not null default 'pending' check (status in ('pending', 'upheld', 'rejected')),
   resolved_at timestamptz,
   created_at timestamptz not null default now()
@@ -438,6 +447,10 @@ create table content_submissions (
   category text not null check (category in ('theme_build', 'budget_build', 'building_technique', 'trading_guide')),
   body text not null,                  -- markdown
   cover_photo text,                    -- Supabase Storage URL, optional
+  photos jsonb not null default '[]',  -- gallery images; read by content-list.js
+                                       -- and content-get.js. Existed only in
+                                       -- production until migration-027 — a
+                                       -- fresh install used to 500 on /guides.
   video_url text,                      -- optional YouTube/Streamable/etc. link (not a raw upload)
   house_id text,                       -- optional: which house type this is about
   related_registry_entry_id uuid references build_registry(id),
@@ -516,3 +529,20 @@ create policy "public can read offers on visible listings" on offers
 
 -- No public select policy on profiles or reports — profile lookups and
 -- moderation happen only through the service-role functions.
+
+-- Listing saves: one save per profile per listing. Mirrors registry_saves.
+-- save_count on listings is maintained by listing-save.js, not a trigger.
+create table if not exists listing_saves (
+  id uuid primary key default gen_random_uuid(),
+  profile_id uuid not null references profiles(id) on delete cascade,
+  listing_id uuid not null references listings(id) on delete cascade,
+  created_at timestamptz not null default now(),
+  constraint listing_saves_unique unique (profile_id, listing_id)
+);
+
+create index if not exists listing_saves_listing_idx on listing_saves(listing_id);
+create index if not exists listing_saves_profile_idx on listing_saves(profile_id);
+
+alter table listing_saves enable row level security;
+create policy "public can count saves via listings" on listing_saves
+  for select using (true);
