@@ -9,6 +9,11 @@
 [functions]
   directory = "netlify/functions"
 
+# Once a day: remind traders who had an offer accepted but haven't
+# confirmed the trade yet (see netlify/functions/trade-confirm-reminders.js).
+[functions."trade-confirm-reminders"]
+  schedule = "@daily"
+
 # Cache static assets — images and data rarely change
 [[headers]]
   for = "/images/*"

@@ -98,7 +98,10 @@ function parseCategory(categoryKey) {
   if (existsSync(existingPath)) {
     const existing = JSON.parse(readFileSync(existingPath, "utf-8"));
     const existingById = Object.fromEntries(existing.map((e) => [e.id, e]));
-    const PRESERVE_FIELDS = ["availability", "bucksPrice", "floors", "expandable", "value", "valueUnit"];
+    // description/tradingNotes/demandLevel are the hand-written per-house copy.
+    // They were missing from this list, so every build (including Netlify's)
+    // stripped them and the live house pages shipped without their unique text.
+    const PRESERVE_FIELDS = ["availability", "bucksPrice", "floors", "expandable", "value", "valueUnit", "description", "tradingNotes", "demandLevel"];
     for (const item of items) {
       const prev = existingById[item.id];
       if (prev) {

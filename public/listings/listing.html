@@ -552,15 +552,19 @@
       (trade.lister_confirmed && trade.__isLister) || (trade.offerer_confirmed && !trade.__isLister)
     );
 
+    const otherConfirmed = trade && (trade.__isLister ? trade.offerer_confirmed : trade.lister_confirmed);
+
     el.innerHTML = `
-      <div style="margin-top:10px;">
+      <div style="margin-top:12px;padding:14px;border:2px solid var(--good);border-radius:12px;background:var(--good-soft);">
         ${
           myConfirmed
-            ? `<p class="hint">You've confirmed this trade. Waiting on the other side.</p>`
-            : `<button class="btn-sm accept" data-confirm="${offerId}">Confirm this trade happened</button>
-               <p class="hint">Optional: attach a screenshot as proof — helps build a real trade-value history for the community.</p>`
+            ? `<p style="margin:0 0 4px;font-weight:800;color:var(--ink);">You confirmed this trade</p>
+               <p class="hint" style="margin:0 0 10px;">Waiting on the other trader to confirm. Once they do, it shows as Verified on Recent Trades.</p>`
+            : `<p style="margin:0 0 4px;font-weight:800;color:var(--ink);">Last step: confirm your trade</p>
+               <p class="hint" style="margin:0 0 10px;">${otherConfirmed ? "The other trader already confirmed. " : ""}After you finish the trade in game, tap the button below. When both of you confirm, the trade shows as Verified on Recent Trades and counts on your profile.</p>
+               <button class="btn btn-primary" data-confirm="${offerId}" style="width:100%;margin-bottom:10px;">Confirm this trade happened</button>`
         }
-        <button class="btn-sm decline" data-cancel="${offerId}" style="margin-top:8px;">Cancel Trade</button>
+        <button class="btn-sm decline" data-cancel="${offerId}">Cancel Trade</button>
       </div>`;
 
     const btn = el.querySelector("[data-confirm]");

@@ -1,13 +1,23 @@
-// GET ?house_id=
+// GET ?house_id=&include_test=1
 // -> { trades: [...] } — corroborated trades only, newest first
+//
+// Trades made by the admin stress/smoke test accounts are hidden unless
+// include_test=1 is passed (the stress test passes it to find its own
+// trade). Those tests remove their listing afterwards but the corroborated
+// trade row stays, so without this a "Stress Test House" trade lands at the
+// top of the public Recent Trades page after every run.
 
 import { supabaseAdmin, json, safeHandler } from "./_lib/supabase.js";
+
+const TEST_NAME_RE = /^(Stress[AB]|Intruder|UploadTest|SmokeTest)_\d+$/;
+const TEST_TITLE_RE = /^(upload )?(stress|smoke) test/i;
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "GET") return json(405, { error: "Method not allowed" });
 
   const db = supabaseAdmin();
   const houseId = event.queryStringParameters?.house_id;
+  const includeTest = event.queryStringParameters?.include_test === "1";
 
   // Fetch corroborated trades
   const { data: trades, error } = await db
@@ -60,7 +70,14 @@ async function handlerImpl(event) {
   const profileMap = {};
   for (const p of profiles || []) profileMap[p.id] = p;
 
-  const result = filtered.map(t => {
+  const isTest = (listing, offer) =>
+    TEST_TITLE_RE.test(listing.title || "") ||
+    TEST_NAME_RE.test(profileMap[listing.profile_id]?.display_name || "") ||
+    TEST_NAME_RE.test(profileMap[offer.offering_profile_id]?.display_name || "");
+
+  const result = filtered
+    .filter(t => includeTest || !isTest(listingMap[t.listing_id] || {}, offerMap[t.offer_id] || {}))
+    .map(t => {
     const listing = listingMap[t.listing_id] || {};
     const offer = offerMap[t.offer_id] || {};
     return {

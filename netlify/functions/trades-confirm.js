@@ -16,6 +16,9 @@ async function handlerImpl(event) {
 
   const profile = await requireProfile(event);
   if (!profile) {
+    // These early exits used to be silent, which made a stretch of zero
+    // confirmations impossible to diagnose from the function log.
+    console.warn("[trades-confirm] rejected: not signed in", { hasAuthHeader: Boolean(event.headers.authorization || event.headers.Authorization) });
     return json(401, { error: "Not signed in" });
   }
 
@@ -40,12 +43,14 @@ async function handlerImpl(event) {
     .maybeSingle();
 
   if (!offer || offer.status !== "accepted") {
+    console.warn("[trades-confirm] rejected: offer not accepted", { offer_id, profile_id: profile.id, found: Boolean(offer), status: offer?.status || null });
     return json(400, { error: "Only accepted offers can be confirmed as completed trades" });
   }
 
   const isLister = offer.listings.profile_id === profile.id;
   const isOfferer = offer.offering_profile_id === profile.id;
   if (!isLister && !isOfferer) {
+    console.warn("[trades-confirm] rejected: not a party", { offer_id, profile_id: profile.id });
     return json(403, { error: "Not a party to this offer" });
   }
 
@@ -143,6 +148,8 @@ async function handlerImpl(event) {
       console.error("item_values recompute failed (non-fatal):", err);
     }
   }
+
+  console.log("[trades-confirm] ok", { offer_id, side: isLister ? "lister" : "offerer", status: data.status });
 
   return json(200, {
     status: data.status,

@@ -78,7 +78,7 @@ async function handlerImpl(event) {
     .eq("listing_id", offer.listings.id)
     .eq("status", "pending");
 
-  await notify(db, offer.offering_profile_id, "offer_accepted", `Your offer on "${offer.listings.title}" was accepted!`, `listings/listing.html?id=${offer.listings.id}`);
+  await notify(db, offer.offering_profile_id, "offer_accepted", `Your offer on "${offer.listings.title}" was accepted! After you trade in game, come back and confirm it so it counts as verified.`, `listings/listing.html?id=${offer.listings.id}`);
 
   return json(200, { offer: data });
 }

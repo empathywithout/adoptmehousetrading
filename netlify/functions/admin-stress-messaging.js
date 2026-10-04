@@ -279,7 +279,7 @@ async function runStressTest(baseUrl, adminPassword) {
 
   await test("trade-confirm: trade shows on /comps", async () => {
     await new Promise(r => setTimeout(r, 300));
-    const { status, data } = await api(baseUrl, "trades-list");
+    const { status, data } = await api(baseUrl, "trades-list?include_test=1");
     assert(status === 200, `Got ${status}`);
     const found = (data.trades || []).some(t => t.offers?.offering_profile_id === profileBId);
     assert(found, "Corroborated trade not showing on trades-list");
