@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Reset Your Password — AdoptMeHouseTrading.com</title>
+<meta name="description" content="Reset your AdoptMeHouseTrading password by verifying your Roblox account.">
+<meta name="robots" content="noindex, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="css/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-REW2CFBX6H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-REW2CFBX6H');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1156955048210674" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="signpost-mini"></span>
+      AdoptMeHouseTrading
+    </a>
+    <nav>
+      <a href="listings/index.html">Browse Houses</a>
+      <a href="commissions/index.html">Find a Builder</a>
+      <a href="recent-trades.html">Recent Trades</a>
+      <div class="nav-more">
+        <button type="button" class="nav-more-trigger">More <span class="nav-more-caret"></span></button>
+        <div class="nav-more-dropdown" hidden>
+          <a href="houses/index.html">Values</a>
+          <a href="registry/index.html">Build Registry</a>
+          <a href="guides/index.html">Guides</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <a href="profile.html">Profile</a>
+    </nav>
+    <div class="nav-actions">
+      <span id="nav-profile-pill"></span>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      <a class="btn btn-primary" href="list-a-house.html" style="padding:10px 20px;font-size:14px;">Add Listing</a>
+    </div>
+  </div>
+</header>
+<script type="module" src="js/nav.js"></script>
+
+<section class="wrap" style="padding:48px 0 80px;max-width:560px;">
+  <h1 style="font-family:var(--font-display);color:var(--pine);">Reset your password</h1>
+  <p class="subtitle" style="margin-bottom:28px;">Prove the Roblox account is yours and you can set a new password. No email needed.</p>
+
+  <div id="error-box" class="error-box" hidden></div>
+
+  <div class="form-card" id="panel-roblox" style="max-width:none;">
+    <div id="roblox-step1">
+      <label for="rbx-input">Your Roblox username</label>
+      <input type="text" id="rbx-input" placeholder="Roblox username" autocomplete="username" maxlength="20">
+      <p class="hint">The username on the Roblox account linked to your profile here.</p>
+      <button class="btn btn-primary" id="rbx-start" style="width:100%;margin-top:14px;">Get my code</button>
+    </div>
+
+    <div id="roblox-step2" hidden>
+      <p style="margin:0 0 6px;font-weight:800;color:var(--ink);">Put this code on your Roblox profile</p>
+      <div id="rbx-code" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:20px;font-weight:800;letter-spacing:1px;background:var(--surface-2);color:var(--ink);padding:14px;border-radius:10px;text-align:center;margin:10px 0 6px;user-select:all;"></div>
+      <button class="btn-sm" id="rbx-copy" style="background:var(--surface-2);color:var(--ink);margin-bottom:14px;">Copy code</button>
+      <ol id="rbx-steps" style="color:var(--muted);font-size:13.5px;line-height:1.7;padding-left:20px;margin:0 0 16px;"></ol>
+      <button class="btn btn-primary" id="rbx-verify" style="width:100%;">Verify</button>
+      <p class="hint" id="rbx-expiry" style="margin-top:10px;"></p>
+    </div>
+  </div>
+
+  <!-- Set a new password -->
+  <div class="form-card" id="panel-password" hidden style="max-width:none;">
+    <span class="card-heading">Choose a new password</span>
+    <label for="pw-input" style="margin-top:10px;">New password</label>
+    <input type="password" id="pw-input" placeholder="At least 8 characters" autocomplete="new-password">
+    <label for="pw-confirm" style="margin-top:10px;">Confirm it</label>
+    <input type="password" id="pw-confirm" placeholder="Type it again" autocomplete="new-password">
+    <button class="btn btn-primary" id="pw-save" style="width:100%;margin-top:14px;">Save and sign in</button>
+  </div>
+
+  <p class="hint" style="margin-top:20px;">Still stuck? <a href="contact.html" style="color:var(--sign-red);">Ask us on Discord</a>.</p>
+</section>
+
+<script type="module">
+  import { saveSession } from "./js/api.js";
+
+  const errorBox = document.getElementById("error-box");
+  const show = (msg) => { errorBox.textContent = msg; errorBox.hidden = !msg; };
+  const robloxPanel = document.getElementById("panel-roblox");
+  const pwPanel = document.getElementById("panel-password");
+
+  async function post(fn, body) {
+    const res = await fetch(`/.netlify/functions/${fn}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || `Something went wrong (${res.status})`);
+    return data;
+  }
+
+  // ── Roblox route ────────────────────────────────────────────────────────
+  let robloxUsername = "";
+
+  document.getElementById("rbx-start").addEventListener("click", async (e) => {
+    const input = document.getElementById("rbx-input").value.trim();
+    if (!input) return show("Enter your Roblox username.");
+    e.target.disabled = true;
+    show("");
+    try {
+      const data = await post("password-reset-start", { identifier: input });
+      robloxUsername = input;
+      document.getElementById("rbx-code").textContent = data.code;
+      document.getElementById("rbx-steps").innerHTML = (data.instructions || [])
+        .map((s) => `<li>${s.replace(/[<>]/g, "")}</li>`).join("");
+      document.getElementById("rbx-expiry").textContent =
+        `This code works for ${data.expires_in_minutes} minutes.`;
+      document.getElementById("roblox-step1").hidden = true;
+      document.getElementById("roblox-step2").hidden = false;
+    } catch (err) {
+      show(err.message);
+    } finally {
+      e.target.disabled = false;
+    }
+  });
+
+  document.getElementById("rbx-copy").addEventListener("click", async (e) => {
+    try {
+      await navigator.clipboard.writeText(document.getElementById("rbx-code").textContent);
+      e.target.textContent = "Copied";
+      setTimeout(() => { e.target.textContent = "Copy code"; }, 1500);
+    } catch {
+      show("Couldn't copy automatically — select the code and copy it.");
+    }
+  });
+
+  document.getElementById("rbx-verify").addEventListener("click", async (e) => {
+    e.target.disabled = true;
+    show("");
+    try {
+      const data = await post("roblox-verify-confirm", { identifier: robloxUsername });
+      grantToken = data.token;
+      robloxPanel.hidden = true;
+      pwPanel.hidden = false;
+    } catch (err) {
+      show(err.message);
+    } finally {
+      e.target.disabled = false;
+    }
+  });
+
+  // ── Set the password ────────────────────────────────────────────────────
+  // Declared before the verify handler above can assign to it. Only ever set
+  // by a successful Roblox verification in this session — deliberately not
+  // readable from the URL, so a grant cannot be handed to someone to paste.
+  let grantToken = "";
+
+  document.getElementById("pw-save").addEventListener("click", async (e) => {
+    const pw = document.getElementById("pw-input").value;
+    const confirm = document.getElementById("pw-confirm").value;
+    if (pw.length < 8) return show("Password must be at least 8 characters.");
+    if (pw !== confirm) return show("Those two passwords don't match.");
+    e.target.disabled = true;
+    show("");
+    try {
+      const data = await post("password-reset-confirm", { token: grantToken, password: pw });
+      if (data.token && data.profile) {
+        saveSession(data.token, data.profile);
+        location.href = "profile.html";
+      } else {
+        show(data.error || "Your password is updated. Sign in with it now.");
+      }
+    } catch (err) {
+      show(err.message);
+      e.target.disabled = false;
+    }
+  });
+</script>
+
+<footer class="site-footer">
+  <div class="wrap">
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community. Not affiliated with, endorsed by, or sponsored by Adopt Me, Uplift Games, or Roblox Corporation.
+  </div>
+</footer>
+</body>
+</html>

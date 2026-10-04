@@ -28,6 +28,14 @@
    parse -> fetch font files) instead of letting the browser's HTML preload
    scanner discover and start the fonts request in parallel immediately. */
 
+/* The hidden attribute must actually hide things.
+   Any rule that sets `display` outranks the browser's built-in
+   `[hidden] { display: none }`, so an element with a display-setting class
+   stayed visible after `el.hidden = true`. That bit the "Show more" buttons
+   (.btn sets display) and the reset page's method picker (.filter-pills sets
+   display: flex), and would quietly bite anything added later. */
+[hidden] { display: none !important; }
+
 :root {
   --ink: #16332B;
   --ink-soft: #3E5D51;

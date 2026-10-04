@@ -134,6 +134,7 @@ create table listings (
   status text not null default 'active' check (status in ('active', 'traded', 'removed')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
+  build_type text,                    -- migration-024: original/speedbuild/cloned/glitch*
   save_count integer not null default 0   -- migration-027, maintained by listing-save.js
 );
 
@@ -336,6 +337,7 @@ create table build_registry (
   possible_duplicate_of uuid references build_registry(id),
   status text not null default 'active' check (status in ('active', 'disputed', 'confirmed_clone', 'confirmed_original', 'removed')),
   created_at timestamptz not null default now(),
+  build_type text,                    -- migration-024: original/speedbuild/cloned/glitch*
   save_count integer not null default 0   -- migration-023, maintained by trigger
 );
 

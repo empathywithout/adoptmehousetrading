@@ -2,16 +2,22 @@
 // body: { title, description, themes, photos, house_id, build_type }
 // -> { entry }
 //
-// Post-first, not pre-approved — live immediately. Runs a lightweight
-// duplicate check (similar title + overlapping theme) against existing
-// active entries and flags the newer one as a possible duplicate of the
-// earliest match — purely informational, never blocks submission. This
-// isn't perceptual image hashing (deliberately out of scope, per the
-// earlier strategy call — that needs real volume to justify the
-// complexity); it's a cheap first pass that catches the obvious cases.
+// Post-first, not pre-approved — live immediately. Runs the duplicate
+// heuristics in _lib/duplicates.js against existing active entries.
+//
+// Re-registering an image THIS submitter already registered is rejected:
+// the earlier entry already carries the claim, so the second one only adds
+// noise (one account had eight entries sharing a single photo). Everything
+// else is flagged for admin review and never blocked — a photo first
+// registered by someone else may be a real ownership dispute, and that is
+// what the dispute system exists for.
+//
+// Still not perceptual hashing: this matches identical stored files, which
+// is the pattern actually present in the data.
 
 import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
 import { invalidate } from "./_lib/cache.js";
+import { findDuplicate } from "./_lib/duplicates.js";
 
 const VALID_THEMES = [
   "cutecore",
@@ -44,10 +50,6 @@ const VALID_THEMES = [
   "holiday_seasonal",
   "custom_theme",
 ];
-
-function normalizeTitle(t) {
-  return String(t).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
-}
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
@@ -96,34 +98,40 @@ async function handlerImpl(event) {
 
   const db = supabaseAdmin();
 
-  // Duplicate heuristic — exact normalized title match only.
-  // Earliest entry wins; later one gets flagged.
-  const normalized = normalizeTitle(title);
+  // Duplicate check. Candidates are ordered oldest-first so the earliest
+  // entry keeps the claim. photos is needed here for image matching, which
+  // makes the rows bigger — acceptable at a few dozen registrations a day,
+  // worth revisiting if the registry grows past a few thousand entries.
   let possibleDuplicateOf = null;
+  let duplicateReason = null;
   try {
-    const { data: candidates } = await db
+    const { data: candidates, error: dupErr } = await db
       .from("build_registry")
-      .select("id, title, created_at, profile_id")
+      .select("id, title, photos, profile_id")
       .eq("status", "active")
       .order("created_at", { ascending: true });
 
-    const list = candidates || [];
+    // A failed query must not silently mean "no duplicates found" — that is
+    // how detection quietly stopped working before.
+    if (dupErr) throw dupErr;
 
-    // Exact normalized title match (case/punctuation insensitive)
-    const titleMatch = list.find((c) =>
-      c.id !== profile.id && normalizeTitle(c.title) === normalized
+    const found = findDuplicate(
+      { title, photos: cleanPhotos, profileId: profile.id },
+      candidates || []
     );
-    if (titleMatch) possibleDuplicateOf = titleMatch.id;
-
-    // Same submitter resubmitting exact same title
-    if (!possibleDuplicateOf) {
-      const selfDupe = list.find(
-        (c) => c.profile_id === profile.id && normalizeTitle(c.title) === normalized
-      );
-      if (selfDupe) possibleDuplicateOf = selfDupe.id;
-    }
+    possibleDuplicateOf = found.duplicateOf;
+    duplicateReason = found.reason;
   } catch (err) {
-    console.error("duplicate-check query failed (non-fatal):", err);
+    console.error("[registry-create] duplicate check failed (non-fatal):", err);
+  }
+
+  if (duplicateReason === "self_photo") {
+    return json(409, {
+      error:
+        "You've already registered this photo on another build. Open that entry to edit it, or remove it first if you want to register it again.",
+      code: "ALREADY_REGISTERED",
+      existing_entry_id: possibleDuplicateOf,
+    });
   }
 
   const { data: entry, error } = await db
