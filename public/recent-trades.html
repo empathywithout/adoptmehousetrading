@@ -67,6 +67,9 @@
     <p class="subtitle">Once accepted offers get confirmed by both sides on a listing page, they'll show up here.</p>
   </div>
   <div id="trades-list" class="trades-grid"></div>
+  <div style="text-align:center;margin-top:24px;">
+    <button class="btn btn-primary" id="trades-more" style="display:none;">Show more trades</button>
+  </div>
 </section>
 
 <footer class="site-footer">
@@ -124,8 +127,19 @@
     });
   });
 
-  function renderTrades() {
+  const PAGE_SIZE = 30;
+  let shown = PAGE_SIZE;
+  const moreBtn = document.getElementById("trades-more");
+  moreBtn.addEventListener("click", () => {
+    shown += PAGE_SIZE;
+    renderTrades(true);
+  });
+
+  function renderTrades(keepPage = false) {
+    if (!keepPage) shown = PAGE_SIZE;
     const filtered = trades.filter((t) => activeFilter === "all" || t.listings?.listing_type === activeFilter || (!t.listings?.listing_type && activeFilter === "house_trade"));
+
+    moreBtn.style.display = (filtered.length <= shown) ? "none" : "";
 
     if (!filtered.length) {
       document.getElementById("empty-state").hidden = trades.length > 0 ? false : false;
@@ -136,6 +150,7 @@
     document.getElementById("empty-state").hidden = true;
 
     list.innerHTML = filtered
+      .slice(0, shown)
       .map((trade) => {
         const listing = trade.listings;
         const house = houseById[listing?.house_id];

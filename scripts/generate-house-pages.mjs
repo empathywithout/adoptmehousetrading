@@ -307,7 +307,7 @@ function buildHomepage() {
 
   try {
     const [{ listings }, houses] = await Promise.all([
-      fetch("/.netlify/functions/listings-list").then((r) => r.json()),
+      fetch("/.netlify/functions/listings-list?limit=24").then((r) => r.json()),
       fetch("data/houses.json").then((r) => r.json()),
     ]);
     const myProfile = (() => { try { return JSON.parse(localStorage.getItem("amht_profile")); } catch { return null; } })();

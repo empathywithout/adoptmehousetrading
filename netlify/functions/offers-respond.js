@@ -71,7 +71,7 @@ async function handlerImpl(event) {
     .single();
   if (error) return json(500, { error: "Couldn't accept offer" });
 
-  await db.from("listings").update({ status: "traded" }).eq("id", offer.listings.id);
+  await db.from("listings").update({ status: "traded", updated_at: new Date().toISOString() }).eq("id", offer.listings.id);
   await db
     .from("offers")
     .update({ status: "declined" })

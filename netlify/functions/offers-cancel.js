@@ -81,7 +81,7 @@ async function handlerImpl(event) {
     return json(500, { error: "Couldn't cancel" });
   }
 
-  await db.from("listings").update({ status: "active" }).eq("id", offer.listings.id);
+  await db.from("listings").update({ status: "active", updated_at: new Date().toISOString() }).eq("id", offer.listings.id);
 
   // Clear any in-progress (unconfirmed) trade record so it doesn't linger
   // if this offer or listing gets acted on again later.

@@ -77,7 +77,11 @@
     <p class="subtitle">Be the first to claim credit for your work.</p>
     <a class="btn btn-primary" href="submit.html">Register a Build</a>
   </div>
+  <p class="hint" id="registry-count" style="margin:0 0 12px;" hidden></p>
   <div class="house-grid" id="registry-grid"></div>
+  <div style="text-align:center;margin-top:24px;">
+    <button class="btn btn-primary" id="registry-more" style="display:none;">Show more builds</button>
+  </div>
 </section>
 
 <footer class="site-footer">
@@ -194,8 +198,20 @@
     }
   });
 
+  // Only PAGE_SIZE cards are put in the page at a time. Filters and sorting
+  // run over every loaded build, so the paging itself hides nothing.
+  const PAGE_SIZE = 30;
+  let shown = PAGE_SIZE;
+  const countEl = document.getElementById("registry-count");
+  const moreBtn = document.getElementById("registry-more");
+  moreBtn.addEventListener("click", () => {
+    shown += PAGE_SIZE;
+    render(true);
+  });
+
   // ── Main render ─────────────────────────────────────────────
-  function render() {
+  function render(keepPage = false) {
+    if (!keepPage) shown = PAGE_SIZE;
     let filtered = activeThemes.size === 0 ? [...entries] : entries.filter(e => (e.themes || []).some(t => activeThemes.has(t)));
     if (activeClone !== "all") {
       filtered = filtered.filter(e => {
@@ -212,13 +228,25 @@
     if (!filtered.length) {
       empty.hidden = false;
       grid.innerHTML = "";
+      countEl.hidden = true;
+      moreBtn.style.display = (true) ? "none" : "";
       return;
     }
     empty.hidden = true;
 
     // Separate originals/active from clones — clones go in their own section below
-    const originals = filtered.filter(e => e.status !== "confirmed_clone");
-    const clones = filtered.filter(e => e.status === "confirmed_clone");
+    const allOriginals = filtered.filter(e => e.status !== "confirmed_clone");
+    const originals = allOriginals.slice(0, shown);
+    const moreToShow = allOriginals.length > shown;
+    // The clones section sits at the very bottom, so hold it back until
+    // every original has been paged in.
+    const clones = moreToShow ? [] : filtered.filter(e => e.status === "confirmed_clone");
+
+    moreBtn.style.display = (!moreToShow) ? "none" : "";
+    countEl.hidden = false;
+    countEl.textContent = filtered.length === entries.length
+      ? `Showing ${originals.length} of ${allOriginals.length} builds`
+      : `Showing ${originals.length} of ${allOriginals.length} matching builds (${entries.length} total)`;
 
     function entryCard(entry) {
       const photo = entry.photos?.[0] || "../images/brand/searchdog.png";

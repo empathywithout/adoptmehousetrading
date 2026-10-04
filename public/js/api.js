@@ -117,6 +117,7 @@ export const api = {
   deleteTradeRecord: (id) => request("trade-record-delete", { method: "POST", body: { id }, auth: true }),
   submitGuide: (payload) => request("content-submit", { method: "POST", body: payload, auth: true }),
   removeRegistryEntry: (entry_id) => request("registry-delete", { method: "POST", body: { entry_id }, auth: true }),
+  renewListing: (listing_id) => request("listings-renew", { method: "POST", body: { listing_id }, auth: true }),
   removeListing: (listing_id) => request("listings-remove", { method: "POST", body: { listing_id }, auth: true }),
   updateListing: (id, body) => request(`listings-update?id=${encodeURIComponent(id)}`, { method: "PUT", body, auth: true }),
 };

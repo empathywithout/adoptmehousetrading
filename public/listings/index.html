@@ -66,7 +66,11 @@
     <p class="subtitle">Be the first to put a house up for trade.</p>
     <a class="btn btn-primary" href="../list-a-house.html">List a House</a>
   </div>
+  <p class="hint" id="listings-count" style="margin:0 0 12px;" hidden></p>
   <div class="house-grid" id="listings-grid"></div>
+  <div style="text-align:center;margin-top:24px;">
+    <button class="btn btn-primary" id="listings-more" style="display:none;">Show more listings</button>
+  </div>
 </section>
 
 <footer class="site-footer">
@@ -171,7 +175,19 @@
     }
   }
 
-  function renderGrid() {
+  // Only PAGE_SIZE cards are put in the page at a time. Filters run over
+  // every loaded listing, so nothing is hidden by the paging itself.
+  const PAGE_SIZE = 30;
+  let shown = PAGE_SIZE;
+  const countEl = document.getElementById("listings-count");
+  const moreBtn = document.getElementById("listings-more");
+  moreBtn.addEventListener("click", () => {
+    shown += PAGE_SIZE;
+    renderGrid(true);
+  });
+
+  function renderGrid(keepPage = false) {
+    if (!keepPage) shown = PAGE_SIZE;
     updateHeading();
 
     const filtered = listings.filter((listing) => {
@@ -189,13 +205,20 @@
       return matchesType && matchesHouse && matchesTheme && matchesSearch && matchesClone && matchesGlitch;
     });
 
+    const visible = filtered.slice(0, shown);
+    moreBtn.style.display = (filtered.length <= shown) ? "none" : "";
+    countEl.hidden = !filtered.length;
+    countEl.textContent = filtered.length === listings.length
+      ? `Showing ${visible.length} of ${filtered.length} listings`
+      : `Showing ${visible.length} of ${filtered.length} matching listings (${listings.length} total)`;
+
     if (!filtered.length) {
       empty.hidden = false;
       grid.innerHTML = "";
     } else {
       empty.hidden = true;
 
-      grid.innerHTML = filtered
+      grid.innerHTML = visible
         .map((listing) => {
           const house = houseById[listing.house_id];
           const photo = listing.photos?.[0] || house?.image || "../images/brand/searchdog.png";

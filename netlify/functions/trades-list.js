@@ -25,7 +25,7 @@ async function handlerImpl(event) {
     .select("id, created_at, listing_id, offer_id, status")
     .eq("status", "corroborated")
     .order("created_at", { ascending: false })
-    .limit(100);
+    .limit(500);
 
   if (error) { console.error(error); return json(500, { error: "Couldn't load trades" }); }
   if (!trades?.length) return json(200, { trades: [] });
