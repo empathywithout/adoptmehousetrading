@@ -46,12 +46,20 @@ export function sharesPhoto(photosA, photosB) {
 //   "photo"       - someone else registered this exact image first. Flagged,
 //                   never blocked: it may be a genuine ownership dispute and
 //                   that is what the dispute system is for.
-//   "title"       - same normalised title. Weakest signal, flag only.
+//   "self_title"  - this submitter already used this title. A repost.
+//
+// Deliberately NOT a signal: the same title used by a DIFFERENT person. A
+// backfill over the live registry showed that rule firing 15 times against
+// 8 real duplicates, entirely on names people pick independently — five
+// separate builders called theirs "Halloween house", three "Cozy apartment",
+// three "Cutecore house". The registry records who built a thing first, and
+// two people choosing an obvious name are not making competing claims. The
+// photo check is what actually catches copying.
 export function findDuplicate({ title, photos, profileId }, candidates) {
   const normalized = normalizeTitle(title);
   let selfPhoto = null;
   let otherPhoto = null;
-  let titleHit = null;
+  let selfTitle = null;
 
   for (const c of candidates || []) {
     if (!selfPhoto && c.profile_id === profileId && sharesPhoto(photos, c.photos)) {
@@ -62,13 +70,18 @@ export function findDuplicate({ title, photos, profileId }, candidates) {
     }
     // An empty normalised title matches every other empty one, which is
     // meaningless — skip rather than group all of them together.
-    if (!titleHit && normalized && normalizeTitle(c.title) === normalized) {
-      titleHit = c;
+    if (
+      !selfTitle &&
+      normalized &&
+      c.profile_id === profileId &&
+      normalizeTitle(c.title) === normalized
+    ) {
+      selfTitle = c;
     }
   }
 
   if (selfPhoto) return { duplicateOf: selfPhoto.id, reason: "self_photo" };
   if (otherPhoto) return { duplicateOf: otherPhoto.id, reason: "photo" };
-  if (titleHit) return { duplicateOf: titleHit.id, reason: "title" };
+  if (selfTitle) return { duplicateOf: selfTitle.id, reason: "self_title" };
   return { duplicateOf: null, reason: null };
 }

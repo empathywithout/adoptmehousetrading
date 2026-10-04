@@ -12,6 +12,9 @@
 // registered by someone else may be a real ownership dispute, and that is
 // what the dispute system exists for.
 //
+// Two different people using the same title is NOT treated as a duplicate.
+// See _lib/duplicates.js for the live numbers behind that.
+//
 // Still not perceptual hashing: this matches identical stored files, which
 // is the pattern actually present in the data.
 
