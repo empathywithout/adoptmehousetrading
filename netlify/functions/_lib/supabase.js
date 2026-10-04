@@ -585,6 +585,21 @@ export function verifySecret(secret, salt, expectedHash) {
   return timingSafeEqual(actual, expected);
 }
 
+// Thrown when a query fails because the database itself is unreachable
+// (Neon suspended, connection refused, timeout) as opposed to the row simply
+// not existing. These two were indistinguishable before: a failed query
+// returned { data: null }, requireProfile read that as "no such session" and
+// the caller answered 401 "Not signed in". During the Sept 22 - Oct 1 Neon
+// outage that signed people out for good, because the profile page treats a
+// 401 as proof the saved token is invalid and clears it.
+export class DbUnavailableError extends Error {
+  constructor(cause) {
+    super("Database unavailable");
+    this.name = "DbUnavailableError";
+    this.cause = cause;
+  }
+}
+
 export async function requireProfile(event) {
   const auth  = event.headers.authorization || event.headers.Authorization || "";
   const token = auth.startsWith("Bearer ") ? auth.slice(7).trim() : null;
@@ -614,20 +629,23 @@ export async function requireProfile(event) {
   }
 
   // Use separate queries instead of join to avoid row_to_json issues
-  const { data: session } = await db
+  const { data: session, error: sessionErr } = await db
     .from("sessions")
     .select("profile_id")
     .eq("token_hash", tokenHash)
     .maybeSingle();
 
+  // Distinguish "the database didn't answer" from "that token isn't a session".
+  if (sessionErr) throw new DbUnavailableError(sessionErr);
   if (!session?.profile_id) return null;
 
-  const { data: profileData } = await db
+  const { data: profileData, error: profileErr } = await db
     .from("profiles")
     .select("*")
     .eq("id", session.profile_id)
     .maybeSingle();
 
+  if (profileErr) throw new DbUnavailableError(profileErr);
   if (!profileData) return null;
 
   if (redis) {
@@ -683,6 +701,15 @@ export function safeHandler(fn) {
     try {
       return await fn(event, context);
     } catch (err) {
+      if (err instanceof DbUnavailableError) {
+        // 503, not 401 and not 500: the client must retry, and must NOT treat
+        // this as a sign that the user's session is invalid.
+        console.error("Database unavailable:", err.cause?.message || err.message);
+        return json(503, {
+          error: "Can't reach the database right now. Your account is fine — try again in a minute.",
+          code: "DB_UNAVAILABLE",
+        });
+      }
       console.error("Unhandled function error:", err);
       const message =
         err?.message?.includes("DATABASE_URL")

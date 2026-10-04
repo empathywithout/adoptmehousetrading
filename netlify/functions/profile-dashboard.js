@@ -9,7 +9,9 @@ async function handlerImpl(event) {
   if (event.httpMethod !== "GET") return json(405, { error: "Method not allowed" });
 
   const profile = await requireProfile(event);
-  if (!profile) return json(401, { error: "Not signed in" });
+  // code is what tells the client this really is an invalid session and the
+  // stored token should be dropped. Without it the client must not clear.
+  if (!profile) return json(401, { error: "Not signed in", code: "INVALID_SESSION" });
 
   const db = supabaseAdmin();
   const ACCEPTED_ISH = ["accepted"];

@@ -33,9 +33,20 @@ async function handlerImpl(event) {
   const isEmail = identifier.includes("@");
 
   // Look up by email or rbx_username depending on identifier format
-  const { data: profile } = isEmail
+  const { data: profile, error: lookupErr } = isEmail
     ? await db.from("profiles").select("*").eq("email", identifier.toLowerCase()).maybeSingle()
     : await db.from("profiles").select("*").eq("rbx_username", identifier).maybeSingle();
+
+  // A failed lookup is not a wrong password. Saying "Incorrect username/email
+  // or password" when the database is simply unreachable is what convinced
+  // people during the outage that they had forgotten their password.
+  if (lookupErr) {
+    console.error("auth-login lookup failed:", lookupErr);
+    return json(503, {
+      error: "Can't reach the database right now. Your account is fine — try again in a minute.",
+      code: "DB_UNAVAILABLE",
+    });
+  }
 
   // Same error for "not found" and "wrong password" — security by ambiguity
   if (!profile || !verifySecret(password, profile.password_salt, profile.password_hash)) {

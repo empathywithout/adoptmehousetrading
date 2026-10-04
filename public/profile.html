@@ -508,8 +508,10 @@
     try {
       dash = await api.dashboard();
     } catch (err) {
-      if (err.status === 401) {
-        // Token is genuinely invalid/expired — fall back to signed-out view.
+      // Only an explicit INVALID_SESSION clears the saved token. A bare 401
+      // used to be enough, which meant any backend failure that surfaced as
+      // 401 signed the user out permanently.
+      if (err.status === 401 && err.code === "INVALID_SESSION") {
         clearSession();
         signedInView.hidden = true;
         signedOutView.hidden = false;
