@@ -1,5 +1,11 @@
-// GET  ?pw=  or header X-Admin-Password  -> dry run, changes nothing
-// POST with X-Admin-Password + { apply: true } -> writes possible_duplicate_of
+// POST with X-Admin-Password:
+//   { apply: false }  -> dry run, changes nothing
+//   { apply: true }   -> writes possible_duplicate_of
+//
+// Driven from the Registry Dupes tab on the admin dashboard, which already
+// holds the password for the session. There is deliberately no ?pw= query
+// parameter: a password in a URL ends up in browser history, server logs and
+// referrer headers.
 //
 // Detection only ever ran at submission time, so every entry registered
 // before the check existed (or while it was failing) was never examined. On
@@ -19,18 +25,14 @@ import { invalidate } from "./_lib/cache.js";
 import { findDuplicate } from "./_lib/duplicates.js";
 
 async function handlerImpl(event) {
-  const pw = event.queryStringParameters?.pw;
-  const authed =
-    requireAdmin(event) || (pw && pw === process.env.ADMIN_PASSWORD);
-  if (!authed) return json(401, { error: "Incorrect admin password" });
+  if (event.httpMethod !== "POST") return json(405, { error: "Method not allowed" });
+  if (!requireAdmin(event)) return json(401, { error: "Incorrect admin password" });
 
   let apply = false;
-  if (event.httpMethod === "POST") {
-    try {
-      apply = JSON.parse(event.body || "{}").apply === true;
-    } catch {
-      return json(400, { error: "Invalid JSON body" });
-    }
+  try {
+    apply = JSON.parse(event.body || "{}").apply === true;
+  } catch {
+    return json(400, { error: "Invalid JSON body" });
   }
 
   const db = supabaseAdmin();

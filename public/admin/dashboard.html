@@ -241,6 +241,18 @@
     </div>
     <div class="tab-panel" id="tab-registry-dupes">
       <p class="section-title">Registry Duplicate Flags</p>
+      <div class="admin-card" style="margin-bottom:18px;">
+        <div style="font-weight:700;margin-bottom:4px;">Rescan the registry</div>
+        <p style="font-size:12px;color:var(--muted);margin:0 0 10px;line-height:1.6;">
+          Re-checks every active entry against the current duplicate rules. New
+          submissions are already checked as they come in, so this is mainly for
+          builds registered before a rule changed. Previewing changes nothing.
+          <br><strong>Note:</strong> a flag you dismissed is stored the same way as
+          one that was never raised, so applying will bring dismissed flags back.
+        </p>
+        <button class="act act-approve" id="rescan-btn">Preview rescan</button>
+        <div id="rescan-result" hidden style="margin-top:12px;"></div>
+      </div>
       <div id="registry-dupes-list"></div>
       <div id="empty-registry-dupes" class="empty-state" hidden><strong>No flagged registry entries.</strong></div>
     </div>
@@ -621,6 +633,76 @@
     document.getElementById("toggle-all-guides").textContent = showAllGuides ? "Pending only" : "Show all statuses";
     await tryLoad();
   });
+
+  // ── Registry rescan ───────────────────────────────────────────────────────
+  // Preview first, apply second. Uses the dashboard's existing password
+  // session, so the admin password never has to be typed anywhere else.
+  async function runBackfill(apply) {
+    const res = await fetch("/.netlify/functions/admin-registry-backfill-dupes", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Admin-Password": getAdminPassword() },
+      body: JSON.stringify({ apply }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || `Rescan failed (${res.status})`);
+    return data;
+  }
+
+  function reasonLabel(key) {
+    return {
+      self_photo: "same person re-registered their own photo",
+      photo: "someone else's photo",
+      self_title: "same person reused their own title",
+    }[key] || key;
+  }
+
+  (function wireRescan() {
+    const btn = document.getElementById("rescan-btn");
+    const out = document.getElementById("rescan-result");
+    if (!btn || !out) return;
+
+    btn.addEventListener("click", async () => {
+      btn.disabled = true;
+      out.hidden = false;
+      out.innerHTML = `<p style="font-size:12px;color:var(--muted);">Scanning...</p>`;
+      try {
+        const d = await runBackfill(false);
+        const reasons = Object.entries(d.by_reason || {})
+          .map(([k, n]) => `<li>${n} &times; ${escapeHtml(reasonLabel(k))}</li>`)
+          .join("");
+        if (!d.would_flag) {
+          out.innerHTML = `<p style="font-size:13px;font-weight:700;color:var(--good);">
+            Nothing to flag. Scanned ${d.scanned} entries, ${d.already_flagged} already flagged.</p>`;
+          return;
+        }
+        out.innerHTML = `
+          <p style="font-size:13px;margin:0 0 6px;">
+            Scanned <strong>${d.scanned}</strong> entries.
+            <strong>${d.would_flag}</strong> would be newly flagged
+            (${d.already_flagged} already are).
+          </p>
+          <ul style="font-size:12px;color:var(--muted);margin:0 0 10px;padding-left:18px;line-height:1.7;">${reasons}</ul>
+          <button class="act act-reject" id="rescan-apply">Apply ${d.would_flag} flag${d.would_flag === 1 ? "" : "s"}</button>`;
+
+        document.getElementById("rescan-apply").addEventListener("click", async (e) => {
+          if (!confirm(`Flag ${d.would_flag} entries as possible duplicates? Nothing is removed — they go into the list below for you to review.`)) return;
+          e.target.disabled = true;
+          try {
+            const applied = await runBackfill(true);
+            out.innerHTML = `<p style="font-size:13px;font-weight:700;color:var(--good);">
+              Flagged ${applied.applied} entries. They're in the list below.</p>`;
+            await tryLoad();
+          } catch (err) {
+            out.innerHTML = `<p style="font-size:13px;color:var(--sign-red);">${escapeHtml(err.message)}</p>`;
+          }
+        });
+      } catch (err) {
+        out.innerHTML = `<p style="font-size:13px;color:var(--sign-red);">${escapeHtml(err.message)}</p>`;
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  })();
 
   function renderRegistryDupes(entries) {
     const container = document.getElementById("registry-dupes-list");
