@@ -30,10 +30,16 @@
   [headers.values]
     Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
 
+# Short cache on shared modules. These are imported by the HTML pages, which
+# are NOT cached for a day, so a long TTL here lets a new page load an old
+# module. That is exactly what happened on the reputation deploy: pages
+# importing loadReputation got a cached api.js without it and every page that
+# imports api.js threw "does not provide an export named". Revalidating
+# quickly means a mismatch lasts a minute, not a day.
 [[headers]]
   for = "/js/*"
   [headers.values]
-    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+    Cache-Control = "public, max-age=60, must-revalidate"
 
 [[redirects]]
   from = "/house/*"
