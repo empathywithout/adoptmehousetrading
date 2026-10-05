@@ -121,6 +121,7 @@
             : p.total_hearts >= 50  ? ' <span style="font-size:11px;font-weight:700;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:1px 8px;color:var(--ink);">🔥 Rising Builder</span>'
             : ""
           }</div></div>` : ""}
+          ${p.commissions_completed > 0 ? `<div class="full-row" style="padding-top:0;"><div class="stat-label">Commissions Completed</div><div class="stat-value">${p.commissions_completed}</div></div>` : ""}
         </div>
         <div class="hero-ctas" style="justify-content:center;margin-top:20px;">
           ${p.is_builder ? `<a class="btn btn-primary" href="commissions/builder.html?id=${p.id}">View Builder Page</a>` : ""}

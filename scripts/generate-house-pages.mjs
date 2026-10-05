@@ -306,9 +306,11 @@ function buildHomepage() {
   }
 
   try {
-    const [{ listings }, houses] = await Promise.all([
+    const { loadReputation, reputationHtml } = await import("./js/api.js");
+    const [{ listings }, houses, reputation] = await Promise.all([
       fetch("/.netlify/functions/listings-list?limit=24").then((r) => r.json()),
       fetch("data/houses.json").then((r) => r.json()),
+      loadReputation(),
     ]);
     const myProfile = (() => { try { return JSON.parse(localStorage.getItem("amht_profile")); } catch { return null; } })();
     const token = localStorage.getItem("amht_token");
@@ -354,6 +356,7 @@ function buildHomepage() {
               <span class="username">\${escapeHtml(username)}</span>
               \${saveBtn}
             </div>
+            \${reputationHtml(reputation[listing.profile_id])}
             \${valueLine}
             \${themeLine}
           </div>

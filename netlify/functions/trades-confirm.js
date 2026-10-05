@@ -8,6 +8,8 @@
 // which is fine — it just doesn't feed the public comps feed.
 
 import { supabaseAdmin, requireProfile, notify, json, safeHandler } from "./_lib/supabase.js";
+import { computeReputationMap } from "./_lib/reputation.js";
+import { kvSet } from "./_lib/cache.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
@@ -91,8 +93,29 @@ async function handlerImpl(event) {
 
   const otherPartyId = isLister ? offer.offering_profile_id : offer.listings.profile_id;
   if (justCorroborated) {
-    await notify(db, offer.listings.profile_id, "trade_corroborated", `Trade for "${offer.listings.title}" is fully confirmed!`, `listings/listing.html?id=${offer.listing_id}`);
-    await notify(db, offer.offering_profile_id, "trade_corroborated", `Trade for "${offer.listings.title}" is fully confirmed!`, `listings/listing.html?id=${offer.listing_id}`);
+    // Recompute now so both notifications can state the new total, and so the
+    // count on everyone's cards is right immediately rather than up to five
+    // minutes later. This is the moment the number changes, so it is the
+    // cheapest possible place to refresh it.
+    let counts = {};
+    try {
+      counts = await computeReputationMap(db);
+      await kvSet("rep:map:v1", counts, 300);
+    } catch (err) {
+      console.error("[trades-confirm] reputation refresh failed (non-fatal):", err.message || err);
+    }
+
+    const earned = (profileId) => {
+      const n = counts?.[profileId]?.t;
+      // A plain confirmation line if the recount didn't land, rather than a
+      // sentence with a hole in it.
+      return n
+        ? `Trade for "${offer.listings.title}" is confirmed by both sides. That's ${n} verified trade${n === 1 ? "" : "s"} on your profile.`
+        : `Trade for "${offer.listings.title}" is confirmed by both sides.`;
+    };
+
+    await notify(db, offer.listings.profile_id, "trade_corroborated", earned(offer.listings.profile_id), `listings/listing.html?id=${offer.listing_id}`);
+    await notify(db, offer.offering_profile_id, "trade_corroborated", earned(offer.offering_profile_id), `listings/listing.html?id=${offer.listing_id}`);
   } else if (data.status === "pending") {
     await notify(db, otherPartyId, "trade_confirm_needed", `${profile.display_name} confirmed the trade for "${offer.listings.title}" — confirm your side too`, `listings/listing.html?id=${offer.listing_id}`);
   }

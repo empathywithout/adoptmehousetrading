@@ -251,3 +251,47 @@ export const THEME_LABELS = {
   gothic_dark:         "Gothic",
 
 };
+
+// ─── Reputation ──────────────────────────────────────────────────────────────
+// One CDN-cached map for the whole site, fetched once per page and shared by
+// every card on it. Confirming a trade, earning a heart and finishing a
+// commission are all work; this is where that work becomes visible.
+
+let _reputationPromise = null;
+
+export function loadReputation() {
+  _reputationPromise ||= fetch("/.netlify/functions/reputation-list")
+    .then((r) => (r.ok ? r.json() : {}))
+    .then((d) => d.reputation || {})
+    // Never let this break a page. No map simply means no badges.
+    .catch(() => ({}));
+  return _reputationPromise;
+}
+
+const plural = (n, word) => `${n} ${word}${n === 1 ? "" : "s"}`;
+
+// Ordered strongest first: a verified trade is the hardest to fake and the
+// most useful thing to know about someone you are about to trade with.
+export function reputationParts(rep) {
+  if (!rep) return [];
+  const parts = [];
+  if (rep.t) parts.push(plural(rep.t, "verified trade"));
+  if (rep.b) parts.push(plural(rep.b, "build"));
+  if (rep.h) parts.push(plural(rep.h, "heart"));
+  if (rep.c) parts.push(plural(rep.c, "commission"));
+  return parts;
+}
+
+// Compact line for a card. Returns "" when there is nothing to say, so a new
+// account shows no badge rather than a row of zeros.
+export function reputationLine(rep, max = 2) {
+  return reputationParts(rep).slice(0, max).join(" · ");
+}
+
+// Ready-to-insert markup, escaped. Same visual weight everywhere it appears.
+export function reputationHtml(rep, max = 2) {
+  const line = reputationLine(rep, max);
+  if (!line) return "";
+  const safe = line.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return `<p class="rep-line">${safe}</p>`;
+}

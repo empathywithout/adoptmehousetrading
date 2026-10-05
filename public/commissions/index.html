@@ -80,15 +80,19 @@
 </footer>
 
 <script type="module">
-  import { THEME_LABELS } from "../js/api.js";
+  import { THEME_LABELS, loadReputation, reputationHtml } from "../js/api.js";
   import { mountPillFilters } from "../js/pill-filters.js";
 
   const grid = document.getElementById("builders-grid");
   const empty = document.getElementById("empty-state");
 
   // Open builders only — closed builders never show on this page
-  let allBuilders = await fetch("/.netlify/functions/builders-list?status=open")
-    .then((r) => r.json()).then((d) => d.builders || []);
+  const [allBuildersRaw, reputation] = await Promise.all([
+    fetch("/.netlify/functions/builders-list?status=open")
+      .then((r) => r.json()).then((d) => d.builders || []),
+    loadReputation(),
+  ]);
+  let allBuilders = allBuildersRaw;
   let activeTheme = "all";
 
   function escapeHtml(str) {
@@ -125,9 +129,10 @@
         .map((b) => {
           const photo = b.cover_photo || "../images/brand/searchdog.png";
           const themesLine = (b.builder_themes || []).map((t) => THEME_LABELS[t] || t).join(", ");
-          const prestigeLine = b.original_saves > 0
-            ? `<p class="lister" style="margin-top:2px;color:var(--accent);font-weight:800;">♥ ${b.original_saves} heart${b.original_saves !== 1 ? "s" : ""} on original builds</p>`
-            : "";
+          // Was hearts only, which was blank for all but two builders. The
+          // shared reputation line leads with verified trades and builds,
+          // which is what someone deciding who to hire actually wants.
+          const prestigeLine = reputationHtml(reputation[b.id], 3);
           return `
           <a class="listing-card" href="builder.html?id=${b.id}">
             <div class="photo"><img src="${photo}" alt="" loading="lazy"></div>

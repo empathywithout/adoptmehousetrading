@@ -10,6 +10,7 @@
 // count), not an open window into someone's account.
 
 import { supabaseAdmin, json, publicJson, safeHandler } from "./_lib/supabase.js";
+import { getReputationFor } from "./_lib/reputation.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "GET") {
@@ -33,39 +34,18 @@ async function handlerImpl(event) {
     return json(404, { error: "Player not found" });
   }
 
-  const { count: asLister } = await db
-    .from("completed_trades")
-    .select("id, listings!inner(profile_id)", { count: "exact", head: true })
-    .eq("status", "corroborated")
-    .eq("listings.profile_id", id);
-
-  const { count: asOfferer } = await db
-    .from("completed_trades")
-    .select("id, offers!inner(offering_profile_id)", { count: "exact", head: true })
-    .eq("status", "corroborated")
-    .eq("offers.offering_profile_id", id);
+  // Trades, builds and hearts come from the shared reputation map. They used
+  // to be counted here with filters like .eq("listings.profile_id", id),
+  // which the query builder renders as a column literally named
+  // "listings.profile_id". That column does not exist, so the query errored
+  // and every public player page reported 0 completed trades.
+  const rep = await getReputationFor(db, id);
 
   const { count: activeListings } = await db
     .from("listings")
     .select("id", { count: "exact", head: true })
     .eq("profile_id", id)
     .eq("status", "active");
-
-  const { count: registeredBuilds } = await db
-    .from("build_registry")
-    .select("id", { count: "exact", head: true })
-    .eq("profile_id", id)
-    .neq("status", "removed");
-
-  // Sum total hearts across all this builder's original builds
-  const { data: heartData } = await db
-    .from("build_registry")
-    .select("save_count")
-    .eq("profile_id", id)
-    .eq("build_type", "original")
-    .neq("status", "removed");
-
-  const totalHearts = (heartData || []).reduce((sum, b) => sum + (b.save_count || 0), 0);
 
   return publicJson(200, {
     player: {
@@ -75,10 +55,11 @@ async function handlerImpl(event) {
       member_since: profile.created_at,
       is_builder: profile.is_builder,
       is_data_team_member: profile.is_data_team_member,
-      completed_trades: (asLister || 0) + (asOfferer || 0),
+      completed_trades: rep?.t || 0,
       active_listings: activeListings || 0,
-      registered_builds: registeredBuilds || 0,
-      total_hearts: totalHearts,
+      registered_builds: rep?.b || 0,
+      total_hearts: rep?.h || 0,
+      commissions_completed: rep?.c || 0,
     },
   }, 120);
 }

@@ -81,7 +81,7 @@
 </footer>
 
 <script type="module">
-  import { THEME_LABELS } from "../js/api.js";
+  import { THEME_LABELS, loadReputation, reputationHtml } from "../js/api.js";
   import { mountPillFilters } from "../js/pill-filters.js";
 
   const grid = document.getElementById("listings-grid");
@@ -90,12 +90,13 @@
   const myProfile = (() => { try { return JSON.parse(localStorage.getItem("amht_profile")); } catch { return null; } })();
   const token = localStorage.getItem("amht_token");
 
-  const [{ listings }, houses, savedData] = await Promise.all([
+  const [{ listings }, houses, savedData, reputation] = await Promise.all([
     fetch("/.netlify/functions/listings-list").then((r) => r.json()),
     fetch("../data/houses.json").then((r) => r.json()),
     token
       ? fetch("/.netlify/functions/listing-saves-me", { headers: { Authorization: `Bearer ${token}` } }).then((r) => r.json()).catch(() => ({}))
       : Promise.resolve({}),
+    loadReputation(),
   ]);
 
   let savedIds = new Set(savedData.saved_ids || []);
@@ -257,6 +258,7 @@
                 <span class="username">${escapeHtml(username)}</span>
                 ${(() => { const s=savedIds.has(listing.id); const sc=listing.save_count||0; return myProfile?.id !== listing.profile_id ? '<button class="' + (s ? 'save-btn saved' : 'save-btn') + '" data-listing-id="' + listing.id + '" title="' + (s ? 'Liked — click to unlike' : 'Like this listing') + '" onclick="event.preventDefault()">' + (s ? 'Liked' : 'Like') + (sc > 0 ? ' ' + sc : '') + '</button>' : (sc > 0 ? '<span style="font-size:11px;font-weight:700;color:var(--muted);">♥ ' + sc + '</span>' : ''); })()}
               </div>
+              ${reputationHtml(reputation[listing.profile_id])}
               ${valueLine}
               ${themeLine}
               <p class="lister" style="margin-top:6px;">${house ? escapeHtml(house.name) : "Unknown house"} ${listing.status === "traded" ? "· Traded" : ""}</p>

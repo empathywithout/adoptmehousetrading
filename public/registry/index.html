@@ -92,7 +92,7 @@
 </footer>
 
 <script type="module">
-  import { api, getToken, THEME_LABELS } from "../js/api.js";
+  import { api, getToken, THEME_LABELS, loadReputation, reputationHtml } from "../js/api.js";
   import { mountPillFilters } from "../js/pill-filters.js";
 
   const grid = document.getElementById("registry-grid");
@@ -111,12 +111,13 @@
 
   // Load entries and user's saved set in parallel
   const token = getToken();
-  const [entriesData, savedData] = await Promise.all([
+  const [entriesData, savedData, reputation] = await Promise.all([
     fetch("/.netlify/functions/registry-list").then(r => r.json()).catch(() => ({})),
     token
       ? fetch("/.netlify/functions/registry-saves-me", { headers: { Authorization: `Bearer ${token}` } })
           .then(r => r.json()).catch(() => ({}))
       : Promise.resolve({}),
+    loadReputation(),
   ]);
 
   let entries = entriesData.entries || [];
@@ -293,6 +294,7 @@
             <span class="username">${escapeHtml(entry.profiles?.display_name || "unknown")}</span>
             ${saveBtn}
           </div>
+          ${reputationHtml(reputation[entry.profile_id])}
           ${themesLine}
           <p class="lister" style="margin-top:auto;padding-top:8px;">Registered ${new Date(entry.created_at).toLocaleDateString()}</p>
         </div>

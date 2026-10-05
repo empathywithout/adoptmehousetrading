@@ -63,7 +63,7 @@
 </footer>
 
 <script type="module">
-  import { api, getStoredProfile, CATEGORY_LABELS, THEME_LABELS, QUICK_REPLIES } from "../js/api.js";
+  import { api, getStoredProfile, CATEGORY_LABELS, THEME_LABELS, QUICK_REPLIES, loadReputation, reputationHtml } from "../js/api.js";
   import { mountChatPanel } from "../js/chat.js";
   import { mountItemPicker } from "../js/item-picker.js";
 
@@ -74,6 +74,12 @@
 
   const VARIANT_LABELS = { regular: "", neon: "Neon", mega_neon: "Mega Neon" };
   const POTION_ABBR = { none: "", ride: "R", fly: "F", fly_ride: "FR" };
+
+  // Must be declared ABOVE the loadListing() call below. Function declarations
+  // hoist but `let` does not initialise until its line runs, so declaring this
+  // further down left it in the temporal dead zone and every listing page
+  // rendered "Couldn't load this listing".
+  let listerReputation = null;
 
   if (!listingId) {
     content.innerHTML = `<div class="form-card"><h1>Listing not found</h1></div>`;
@@ -118,6 +124,9 @@
     let data;
     try {
       data = await fetch(`/.netlify/functions/listings-get?id=${listingId}`).then((r) => r.json());
+      // Who you are about to trade with matters more here than anywhere else
+      // on the site, so the lister's record sits right under their name.
+      listerReputation = (await loadReputation())[data?.listing?.profile_id] || null;
     } catch {
       content.innerHTML = `<div class="form-card"><h1>Couldn't load this listing</h1></div>`;
       return;
@@ -232,6 +241,7 @@
                 ${myProfile && !isOwner ? `<button id="save-listing-btn" class="save-btn ${isSaved ? "saved" : ""}" title="${isSaved ? "Liked — click to unlike" : "Like this listing"}">${isSaved ? "Liked" : "Like"}${listing.save_count > 0 ? " " + listing.save_count : ""}</button>` : (listing.save_count > 0 ? `<span style="font-size:12px;font-weight:700;color:var(--muted);">♥ ${listing.save_count}</span>` : "")}
               </div>
               <div class="trust-sub">${listing.profiles?.rbx_username ? `Lister · Roblox: ${escapeHtml(listing.profiles.rbx_username)}` : "Lister"}</div>
+              ${reputationHtml(listerReputation, 3)}
             </div>
           </div>
 
