@@ -19,6 +19,7 @@
 
 import { supabaseAdmin, json, safeHandler } from "./_lib/supabase.js";
 import { withCache } from "./_lib/cache.js";
+import { isTestRow } from "./_lib/testdata.js";
 
 export const EXPIRE_DAYS = 30;
 const RECENT_TRADED_DAYS = 7;
@@ -96,7 +97,12 @@ async function fetchListings(event) {
     return json(500, { error: "Couldn't load listings" });
   }
 
-  let rows = data || [];
+  // The stress test runs against production and leaves rows behind. One of
+  // its listings was live on Browse. Hidden here rather than deleted, so the
+  // tests keep working and nothing real can be removed by mistake.
+  let rows = (data || []).filter(
+    (l) => !isTestRow({ title: l.title, names: [l.profiles?.display_name] })
+  );
   if (!params.status) {
     rows = rows.filter((l) => l.status !== "traded" || new Date(l.updated_at).getTime() >= tradedCutoff);
   }

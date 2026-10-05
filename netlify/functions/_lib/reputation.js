@@ -15,6 +15,7 @@
 // badge rather than a row of zeros.
 
 import { kvGet, kvSet } from "./cache.js";
+import { isTestDisplayName } from "./testdata.js";
 
 const CACHE_KEY = "rep:map:v1";
 const CACHE_TTL = 300;
@@ -102,6 +103,19 @@ export async function computeReputationMap(db) {
   // Drop anyone with nothing to show.
   for (const [id, row] of Object.entries(map)) {
     if (!row.t && !row.h && !row.b && !row.c) delete map[id];
+  }
+
+  // Drop the stress/smoke test accounts. Their trades were being counted,
+  // which is why the site-wide total read 56 when there are 27 real trades.
+  const ids = Object.keys(map);
+  if (ids.length) {
+    const { data: named } = await db
+      .from("profiles")
+      .select("id, display_name")
+      .in("id", ids);
+    for (const p of named || []) {
+      if (isTestDisplayName(p.display_name)) delete map[p.id];
+    }
   }
 
   return map;

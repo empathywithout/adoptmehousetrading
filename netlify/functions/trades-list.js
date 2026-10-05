@@ -8,9 +8,7 @@
 // top of the public Recent Trades page after every run.
 
 import { supabaseAdmin, json, publicJson, safeHandler } from "./_lib/supabase.js";
-
-const TEST_NAME_RE = /^(Stress[AB]|Intruder|UploadTest|SmokeTest)_\d+$/;
-const TEST_TITLE_RE = /^(upload )?(stress|smoke) test/i;
+import { isTestRow } from "./_lib/testdata.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "GET") return json(405, { error: "Method not allowed" });
@@ -71,9 +69,13 @@ async function handlerImpl(event) {
   for (const p of profiles || []) profileMap[p.id] = p;
 
   const isTest = (listing, offer) =>
-    TEST_TITLE_RE.test(listing.title || "") ||
-    TEST_NAME_RE.test(profileMap[listing.profile_id]?.display_name || "") ||
-    TEST_NAME_RE.test(profileMap[offer.offering_profile_id]?.display_name || "");
+    isTestRow({
+      title: listing.title,
+      names: [
+        profileMap[listing.profile_id]?.display_name,
+        profileMap[offer.offering_profile_id]?.display_name,
+      ],
+    });
 
   const result = filtered
     .filter(t => includeTest || !isTest(listingMap[t.listing_id] || {}, offerMap[t.offer_id] || {}))

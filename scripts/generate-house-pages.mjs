@@ -296,7 +296,7 @@ function buildHomepage() {
 </section>
 
 <script type="module">
-  import { CATEGORY_LABELS, THEME_LABELS } from "./js/api.js?v=2";
+  import { CATEGORY_LABELS, THEME_LABELS } from "./js/api.js?v=3";
   const BADGE_CLASS = { house_trade: "house-trade", looking_for: "looking-for" };
   const BADGE_ICON = { house_trade: "icon-sign", looking_for: "icon-loop", commission: "icon-hammer" };
   const TYPE_LABELS = { house_trade: "For Trade", looking_for: "Looking For" };
@@ -306,7 +306,7 @@ function buildHomepage() {
   }
 
   try {
-    const { loadReputation, reputationHtml } = await import("./js/api.js?v=2");
+    const { loadReputation, reputationHtml } = await import("./js/api.js?v=3");
     const [{ listings }, houses, reputation] = await Promise.all([
       fetch("/.netlify/functions/listings-list?limit=24").then((r) => r.json()),
       fetch("data/houses.json").then((r) => r.json()),

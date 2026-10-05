@@ -270,15 +270,25 @@ export function loadReputation() {
 
 const plural = (n, word) => `${n} ${word}${n === 1 ? "" : "s"}`;
 
+// Minimum before a number is worth showing. A badge almost everyone has
+// tells you nothing about anyone.
+//
+// Measured on the live site: of 362 profiles with any history, 258 have
+// exactly one registered build. "1 build" was therefore the most common
+// badge on Browse and distinguished nobody. Three or more is uncommon
+// enough to mean something. Trades, hearts and commissions are all rare
+// (42, 2 and 2 profiles respectively), so one of those is already a signal.
+const MIN_TO_SHOW = { t: 1, c: 1, h: 1, b: 3 };
+
 // Ordered strongest first: a verified trade is the hardest to fake and the
 // most useful thing to know about someone you are about to trade with.
 export function reputationParts(rep) {
   if (!rep) return [];
   const parts = [];
-  if (rep.t) parts.push(plural(rep.t, "verified trade"));
-  if (rep.b) parts.push(plural(rep.b, "build"));
-  if (rep.h) parts.push(plural(rep.h, "heart"));
-  if (rep.c) parts.push(plural(rep.c, "commission"));
+  if ((rep.t || 0) >= MIN_TO_SHOW.t) parts.push(plural(rep.t, "verified trade"));
+  if ((rep.c || 0) >= MIN_TO_SHOW.c) parts.push(plural(rep.c, "commission"));
+  if ((rep.h || 0) >= MIN_TO_SHOW.h) parts.push(plural(rep.h, "heart"));
+  if ((rep.b || 0) >= MIN_TO_SHOW.b) parts.push(plural(rep.b, "build"));
   return parts;
 }
 
