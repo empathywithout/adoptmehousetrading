@@ -4,25 +4,17 @@
 // Idempotent toggle — same pattern as registry-save.js
 
 import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
-
-const rateLimiter = new Map();
-function checkRateLimit(profileId) {
-  const now = Date.now();
-  const entry = rateLimiter.get(profileId);
-  if (!entry || now > entry.resetAt) {
-    rateLimiter.set(profileId, { count: 1, resetAt: now + 60 * 60 * 1000 });
-    return true;
-  }
-  if (entry.count >= 30) return false;
-  entry.count++;
-  return true;
-}
+import { tooManyAttemptsFailOpen } from "./_lib/reset.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "POST") return json(405, { error: "Method not allowed" });
   const profile = await requireProfile(event);
   if (!profile) return json(401, { error: "Not signed in" });
-  if (!checkRateLimit(profile.id)) return json(429, { error: "Slow down — you've saved a lot of listings recently" });
+  // Shared across invocations; the previous in-memory counter reset on every
+  // cold start and so counted almost nothing.
+  if (await tooManyAttemptsFailOpen(`save:${profile.id}`, 30, 60 * 60)) {
+    return json(429, { error: "Slow down — you've saved a lot of listings recently" });
+  }
 
   let body;
   try { body = JSON.parse(event.body || "{}"); } catch { return json(400, { error: "Invalid JSON" }); }

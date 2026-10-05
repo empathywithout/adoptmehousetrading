@@ -1040,6 +1040,15 @@ textarea { resize: vertical; min-height: 90px; }
 /* Reputation line under a name on cards and profiles. Deliberately quiet:
    it is context while you read the card, not a headline. Rendered only when
    the person has something to show, so it never appears as a row of zeros. */
+/* Watchers on a listing: market signal, deliberately not applause — no heart
+   glyph, so it reads differently from the ♥ counts on builds. */
+.watch-count {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
 .rep-line {
   font-size: 11px;
   font-weight: 600;

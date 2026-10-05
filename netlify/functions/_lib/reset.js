@@ -82,3 +82,15 @@ export async function tooManyAttempts(bucket, limit, windowSeconds) {
   if (n === null) return true;
   return n > limit;
 }
+
+// Same counter, opposite failure mode. tooManyAttempts fails CLOSED because
+// it guards account recovery: if we can't count attempts, we refuse. That is
+// the wrong trade for ordinary features — Upstash's free tier is 10k
+// commands/day and this site has hit caps before, so a closed failure there
+// would mean nobody can save or heart anything until the quota resets.
+// Rate-limiting a heart is worth less than hearts working at all.
+export async function tooManyAttemptsFailOpen(bucket, limit, windowSeconds) {
+  const n = await kvBump(`rl:${bucket}`, windowSeconds);
+  if (n === null) return false;
+  return n > limit;
+}

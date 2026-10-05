@@ -22,8 +22,6 @@ create table profiles (
   password_hash text not null,        -- scrypt hash — same slow-hash reasoning as the PIN this
                                        -- replaces, just for a real password now.
   password_salt text not null,
-  pin_hash text,                       -- migration-006, legacy PIN auth, kept for old accounts
-  pin_salt text,
 
   display_name text not null unique,  -- shown publicly everywhere (listing cards, Browse
                                        -- Houses, Recent Trades, builder profiles). The real
@@ -494,8 +492,29 @@ create index registry_saves_profile_idx on registry_saves(profile_id);
 alter table registry_saves enable row level security;
 create policy "public can count saves" on registry_saves for select using (true);
 
--- save_count on build_registry (kept in sync by trigger in migration-023)
--- already added via: alter table build_registry add column if not exists save_count integer not null default 0;
+-- save_count on build_registry is declared on the table above. The trigger
+-- that keeps it accurate used to live only in migration-023, so a fresh
+-- install from this file got the column but never the trigger: save_count
+-- stayed 0 forever and the registry's "Most Hearted" sort was dead on
+-- arrival. Declared here so a new database behaves like production.
+create or replace function update_registry_save_count()
+returns trigger as $$
+begin
+  if (TG_OP = 'INSERT') then
+    update build_registry set save_count = save_count + 1 where id = NEW.build_registry_id;
+    return NEW;
+  elsif (TG_OP = 'DELETE') then
+    update build_registry set save_count = greatest(0, save_count - 1) where id = OLD.build_registry_id;
+    return OLD;
+  end if;
+  return null;
+end;
+$$ language plpgsql;
+
+drop trigger if exists registry_save_count_trigger on registry_saves;
+create trigger registry_save_count_trigger
+  after insert or delete on registry_saves
+  for each row execute function update_registry_save_count();
 
 create table notifications (
   id uuid primary key default gen_random_uuid(),

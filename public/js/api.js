@@ -305,3 +305,27 @@ export function reputationHtml(rep, max = 2) {
   const safe = line.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   return `<p class="rep-line">${safe}</p>`;
 }
+
+// Signing in lives on profile.html. A signed-out tap on Save/Heart used to
+// POST anyway and alert "Not signed in", which tells people nothing about
+// what to do. Send them to the form instead and bring them back after.
+const RETURN_KEY = "amht_return_to";
+
+export function sendToSignIn() {
+  try {
+    sessionStorage.setItem(RETURN_KEY, location.pathname + location.search);
+  } catch (_) {}
+  const depth = location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
+  location.href = "../".repeat(depth) + "profile.html";
+}
+
+export function consumeReturnTo() {
+  try {
+    const to = sessionStorage.getItem(RETURN_KEY);
+    sessionStorage.removeItem(RETURN_KEY);
+    // Only ever same-origin paths we wrote ourselves.
+    return to && to.startsWith("/") && !to.startsWith("//") ? to : null;
+  } catch (_) {
+    return null;
+  }
+}

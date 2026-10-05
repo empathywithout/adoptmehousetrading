@@ -80,6 +80,33 @@ async function handlerImpl(event) {
 
   await notify(db, offer.offering_profile_id, "offer_accepted", `Your offer on "${offer.listings.title}" was accepted! After you trade in game, come back and confirm it so it counts as verified.`, `listings/listing.html?id=${offer.listings.id}`);
 
+  // Tell everyone watching this house that it's gone. Saving a listing used
+  // to do nothing but add a row to a profile tab, which is no reason to tap
+  // the button; being told what happened to it is the reason.
+  try {
+    const { data: watchers } = await db
+      .from("listing_saves")
+      .select("profile_id")
+      .eq("listing_id", offer.listings.id)
+      .limit(200);
+
+    const seen = new Set([offer.listings.profile_id, offer.offering_profile_id]);
+    for (const w of watchers || []) {
+      if (seen.has(w.profile_id)) continue;
+      seen.add(w.profile_id);
+      await notify(
+        db,
+        w.profile_id,
+        "saved_listing_traded",
+        `"${offer.listings.title}", a house you saved, has been traded.`,
+        `listings/listing.html?id=${offer.listings.id}`
+      );
+    }
+  } catch (err) {
+    // Never let a notification failure undo an accepted offer.
+    console.error("[offers-respond] watcher notifications failed (non-fatal):", err.message || err);
+  }
+
   return json(200, { offer: data });
 }
 

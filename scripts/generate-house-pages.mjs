@@ -296,7 +296,7 @@ function buildHomepage() {
 </section>
 
 <script type="module">
-  import { CATEGORY_LABELS, THEME_LABELS } from "./js/api.js?v=3";
+  import { CATEGORY_LABELS, THEME_LABELS, sendToSignIn } from "./js/api.js?v=4";
   const BADGE_CLASS = { house_trade: "house-trade", looking_for: "looking-for" };
   const BADGE_ICON = { house_trade: "icon-sign", looking_for: "icon-loop", commission: "icon-hammer" };
   const TYPE_LABELS = { house_trade: "For Trade", looking_for: "Looking For" };
@@ -306,7 +306,7 @@ function buildHomepage() {
   }
 
   try {
-    const { loadReputation, reputationHtml } = await import("./js/api.js?v=3");
+    const { loadReputation, reputationHtml } = await import("./js/api.js?v=4");
     const [{ listings }, houses, reputation] = await Promise.all([
       fetch("/.netlify/functions/listings-list?limit=24").then((r) => r.json()),
       fetch("data/houses.json").then((r) => r.json()),
@@ -339,7 +339,7 @@ function buildHomepage() {
           : "";
         const isSaved = savedIds.has(listing.id);
         const saveCls = isSaved ? "save-btn saved" : "save-btn";
-        const saveTitle = isSaved ? "Saved \u2014 click to unsave" : "Save this listing";
+        const saveTitle = isSaved ? "Saved \u2014 click to remove" : "Save this listing to your watchlist";
         const saveTxt = isSaved ? "Saved" : "Save";
         const saveBtn = '<button class=\"' + saveCls + '\" data-listing-id=\"' + listing.id + '\" title=\"' + saveTitle + '\" onclick=\"event.preventDefault()\">' + saveTxt + '</button>';
 
@@ -368,7 +368,7 @@ function buildHomepage() {
         const btn = e.target.closest(".save-btn[data-listing-id]");
         if (!btn) return;
         e.preventDefault();
-        if (!token) { alert("Sign in to save listings."); return; }
+        if (!token) { sendToSignIn(); return; }
         const listingId = btn.dataset.listingId;
         btn.disabled = true;
         try {
@@ -381,7 +381,7 @@ function buildHomepage() {
           if (!res.ok) throw new Error(data.error || "Couldn't save");
           if (data.saved) { savedIds.add(listingId); } else { savedIds.delete(listingId); }
           btn.classList.toggle("saved", data.saved);
-          btn.title = data.saved ? "Saved \u2014 click to unsave" : "Save this listing";
+          btn.title = data.saved ? "Saved \u2014 click to remove" : "Save this listing to your watchlist";
           btn.textContent = data.saved ? "Saved" : "Save";
         } catch (err) { alert(err.message); }
         finally { btn.disabled = false; }

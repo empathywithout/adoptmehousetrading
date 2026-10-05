@@ -65,7 +65,7 @@
   <div id="featured-builds" style="display:none;margin-bottom:28px;">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
       <span style="font-size:18px;">♥</span>
-      <span style="font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);">Most Liked Builds</span>
+      <span style="font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);">Most Hearted Builds</span>
     </div>
     <div id="featured-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;"></div>
   </div>
@@ -92,7 +92,7 @@
 </footer>
 
 <script type="module">
-  import { api, getToken, THEME_LABELS, loadReputation, reputationHtml } from "../js/api.js?v=3";
+  import { api, getToken, THEME_LABELS, loadReputation, reputationHtml, sendToSignIn } from "../js/api.js?v=4";
   import { mountPillFilters } from "../js/pill-filters.js";
 
   const grid = document.getElementById("registry-grid");
@@ -139,7 +139,7 @@
       sort: true,
       sorts: [
         { val: "recent", label: "Most Recent" },
-        { val: "saves",  label: "Most Liked" },
+        { val: "saves",  label: "Most Hearted" },
       ],
       build: true, theme: true,
       themes,
@@ -161,7 +161,7 @@
     e.stopPropagation();
 
     if (!token) {
-      window.location.href = "../profile.html";
+      sendToSignIn();
       return;
     }
 
@@ -189,9 +189,9 @@
       btn.dataset.loading = "";
       btn.style.opacity = "";
       btn.classList.toggle("saved", data.saved);
-      btn.title = data.saved ? "Saved — click to unsave" : "Save this build";
+      btn.title = data.saved ? "Hearted — click to remove" : "Heart this build";
       const sc = data.save_count || 0;
-      btn.textContent = data.saved ? `Liked${sc > 0 ? " " + sc : ""}` : `Like${sc > 0 ? " " + sc : ""}`;
+      btn.textContent = data.saved ? `♥ Hearted${sc > 0 ? " " + sc : ""}` : `♥ Heart${sc > 0 ? " " + sc : ""}`;
     } catch (err) {
       btn.dataset.loading = "";
       btn.style.opacity = "";
@@ -271,9 +271,9 @@
       const isSaved = savedIds.has(entry.id);
       const isOwnBuild = myProfileId && entry.profile_id === myProfileId;
       const saveCount = entry.save_count || 0;
-      const saveLabel = isSaved ? `Liked${saveCount > 0 ? " " + saveCount : ""}` : `Like${saveCount > 0 ? " " + saveCount : ""}`;
+      const saveLabel = isSaved ? `♥ Hearted${saveCount > 0 ? " " + saveCount : ""}` : `♥ Heart${saveCount > 0 ? " " + saveCount : ""}`;
       const saveBtn = !isOwnBuild
-        ? `<button class="save-btn ${isSaved ? "saved" : ""}" data-id="${entry.id}" title="${isSaved ? "Click to unlike" : token ? "Like this build" : "Sign in to like"}">${saveLabel.trim()}</button>`
+        ? `<button class="save-btn ${isSaved ? "saved" : ""}" data-id="${entry.id}" title="${isSaved ? "Hearted — click to remove" : token ? "Heart this build" : "Sign in to heart builds"}">${saveLabel.trim()}</button>`
         : saveCount > 0 ? `<span class="save-count-display">${saveCount}</span>` : "";
       const themesLine = (entry.themes || []).length
         ? `<div class="registry-theme-tags">${(entry.themes || []).map(t => `<span class="registry-theme-tag">${escapeHtml(THEME_LABELS[t] || t)}</span>`).join("")}</div>`
@@ -318,17 +318,17 @@
   renderThemePills();
   render();
 
-  // ── Featured: top 3 most liked builds ──────────────────────
-  const topLiked = [...entries]
+  // ── Featured: top 3 most hearted builds ──────────────────────
+  const topHearted = [...entries]
     .filter(e => (e.save_count || 0) > 0)
     .sort((a, b) => (b.save_count || 0) - (a.save_count || 0))
     .slice(0, 3);
 
-  if (topLiked.length) {
+  if (topHearted.length) {
     const featuredSection = document.getElementById("featured-builds");
     const featuredGrid = document.getElementById("featured-grid");
     featuredSection.style.display = "";
-    featuredGrid.innerHTML = topLiked.map((entry, rank) => {
+    featuredGrid.innerHTML = topHearted.map((entry, rank) => {
       const photo = entry.photos?.[0] || "https://pub-20ee170c554940ac8bfcce8af2da57a8.r2.dev/placeholder-house.jpg";
       const medals = ["🥇", "🥈", "🥉"];
       return `<a href="entry.html?id=${entry.id}" class="listing-card" style="text-decoration:none;">

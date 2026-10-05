@@ -63,7 +63,7 @@
 </footer>
 
 <script type="module">
-  import { api, getStoredProfile, CATEGORY_LABELS, THEME_LABELS, QUICK_REPLIES, loadReputation, reputationHtml } from "../js/api.js?v=3";
+  import { api, getStoredProfile, CATEGORY_LABELS, THEME_LABELS, QUICK_REPLIES, loadReputation, reputationHtml, sendToSignIn } from "../js/api.js?v=4";
   import { mountChatPanel } from "../js/chat.js";
   import { mountItemPicker } from "../js/item-picker.js";
 
@@ -150,7 +150,11 @@
         : Promise.resolve({}),
     ]);
     const house = listing.house_id ? houses.find((h) => h.id === listing.house_id) : null;
-    const isSaved = (savedData.saved_ids || []).includes(listing.id);
+    // `let`, not `const`: the Save click handler below reassigns this. As a
+    // const it threw "Assignment to constant variable" on every click, so the
+    // Save button on a listing page has never actually worked — the error was
+    // swallowed into an alert().
+    let isSaved = (savedData.saved_ids || []).includes(listing.id);
 
     // Progressive enhancement: the static <head> tags are a reasonable
     // generic fallback for crawlers that don't execute JS; once we know
@@ -238,7 +242,7 @@
               <div class="trust-name-row">
                 <span class="name">${escapeHtml(listing.profiles?.display_name || "unknown")}</span>
                 <span style="width:6px;height:6px;border-radius:50%;background:var(--good);"></span>
-                ${myProfile && !isOwner ? `<button id="save-listing-btn" class="save-btn ${isSaved ? "saved" : ""}" title="${isSaved ? "Liked — click to unlike" : "Like this listing"}">${isSaved ? "Liked" : "Like"}${listing.save_count > 0 ? " " + listing.save_count : ""}</button>` : (listing.save_count > 0 ? `<span style="font-size:12px;font-weight:700;color:var(--muted);">♥ ${listing.save_count}</span>` : "")}
+                ${!isOwner ? `<button id="save-listing-btn" class="save-btn ${isSaved ? "saved" : ""}" title="${isSaved ? "Saved — click to remove" : "Save this listing to your watchlist"}">${isSaved ? "Saved" : "Save"}</button>` : ""}<span class="watch-count" ${listing.save_count > 0 ? "" : "hidden"}>${listing.save_count || 0} watching</span>
               </div>
               <div class="trust-sub">${listing.profiles?.rbx_username ? `Lister · Roblox: ${escapeHtml(listing.profiles.rbx_username)}` : "Lister"}</div>
               ${reputationHtml(listerReputation, 3)}
@@ -422,7 +426,7 @@
     document.getElementById("save-listing-btn")?.addEventListener("click", async () => {
       const btn = document.getElementById("save-listing-btn");
       const t = localStorage.getItem("amht_token");
-      if (!t) { alert("Sign in to like listings."); return; }
+      if (!t) { sendToSignIn(); return; }
       btn.disabled = true;
       try {
         const res = await fetch("/.netlify/functions/listing-save", {
@@ -434,10 +438,14 @@
         if (!res.ok) throw new Error(data.error || "Couldn't save");
         isSaved = data.saved;
         btn.classList.toggle("saved", isSaved);
-        const sc = data.save_count || 0;
-        btn.textContent = (isSaved ? "Liked" : "Like") + (sc > 0 ? " " + sc : "");
         btn.textContent = isSaved ? "Saved" : "Save";
-        btn.title = isSaved ? "Liked — click to unlike" : "Like this listing";
+        btn.title = isSaved ? "Saved — click to remove" : "Save this listing to your watchlist";
+        const watchEl = document.querySelector(".watch-count");
+        const sc = data.save_count || 0;
+        if (watchEl) {
+          watchEl.textContent = `${sc} watching`;
+          watchEl.hidden = sc < 1;
+        }
       } catch (err) {
         alert(err.message);
       } finally {

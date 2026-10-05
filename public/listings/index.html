@@ -81,7 +81,7 @@
 </footer>
 
 <script type="module">
-  import { THEME_LABELS, loadReputation, reputationHtml } from "../js/api.js?v=3";
+  import { THEME_LABELS, loadReputation, reputationHtml, sendToSignIn } from "../js/api.js?v=4";
   import { mountPillFilters } from "../js/pill-filters.js";
 
   const grid = document.getElementById("listings-grid");
@@ -256,7 +256,7 @@
               <div class="trust-row">
                 ${listing.profiles?.rbx_avatar_url ? `<img class="trust-row-avatar" src="${listing.profiles.rbx_avatar_url}" alt="">` : `<span class="avatar-initial">${escapeHtml(username[0]?.toUpperCase() || "?")}</span>`}
                 <span class="username">${escapeHtml(username)}</span>
-                ${(() => { const s=savedIds.has(listing.id); const sc=listing.save_count||0; return myProfile?.id !== listing.profile_id ? '<button class="' + (s ? 'save-btn saved' : 'save-btn') + '" data-listing-id="' + listing.id + '" title="' + (s ? 'Liked — click to unlike' : 'Like this listing') + '" onclick="event.preventDefault()">' + (s ? 'Liked' : 'Like') + (sc > 0 ? ' ' + sc : '') + '</button>' : (sc > 0 ? '<span style="font-size:11px;font-weight:700;color:var(--muted);">♥ ' + sc + '</span>' : ''); })()}
+                ${(() => { const s=savedIds.has(listing.id); const sc=listing.save_count||0; const watchers = sc > 0 ? '<span class="watch-count">' + sc + ' watching</span>' : ''; return myProfile?.id !== listing.profile_id ? '<button class="' + (s ? 'save-btn saved' : 'save-btn') + '" data-listing-id="' + listing.id + '" title="' + (s ? 'Saved — click to remove' : 'Save this listing to your watchlist') + '" onclick="event.preventDefault()">' + (s ? 'Saved' : 'Save') + '</button>' + watchers : watchers; })()}
               </div>
               ${reputationHtml(reputation[listing.profile_id])}
               ${valueLine}
@@ -274,7 +274,7 @@
     const btn = e.target.closest(".save-btn[data-listing-id]");
     if (!btn) return;
     e.preventDefault();
-    if (!token) { alert("Sign in to like listings."); return; }
+    if (!token) { sendToSignIn(); return; }
     const listingId = btn.dataset.listingId;
     btn.disabled = true;
     try {
@@ -287,9 +287,8 @@
       if (!res.ok) throw new Error(data.error || "Couldn't save");
       if (data.saved) { savedIds.add(listingId); } else { savedIds.delete(listingId); }
       btn.classList.toggle("saved", data.saved);
-      btn.title = data.saved ? "Liked — click to unlike" : "Like this listing";
-      const sc = data.save_count || 0;
-      btn.textContent = (data.saved ? "Liked" : "Like") + (sc > 0 ? " " + sc : "");
+      btn.title = data.saved ? "Saved — click to remove" : "Save this listing to your watchlist";
+      btn.textContent = data.saved ? "Saved" : "Save";
     } catch (err) { alert(err.message); }
     finally { btn.disabled = false; }
   });

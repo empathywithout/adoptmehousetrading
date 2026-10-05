@@ -10,25 +10,19 @@
 //   - Can't save your own build (checked before DB insert)
 //   - One save per user per entry (DB unique constraint)
 
-import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
+import { supabaseAdmin, requireProfile, notify, json, safeHandler } from "./_lib/supabase.js";
+import { tooManyAttemptsFailOpen } from "./_lib/reset.js";
 
-// Rough rate limit: max 30 saves per hour per profile.
-// Stored in-memory — resets on function cold start, but cold starts happen
-// frequently enough (every few minutes on free tier) that this is a
-// meaningful speedbump without needing Redis.
-const rateLimiter = new Map(); // profile_id -> { count, resetAt }
-
-function checkRateLimit(profileId) {
-  const now = Date.now();
-  const entry = rateLimiter.get(profileId);
-  if (!entry || now > entry.resetAt) {
-    rateLimiter.set(profileId, { count: 1, resetAt: now + 60 * 60 * 1000 });
-    return true;
-  }
-  if (entry.count >= 30) return false;
-  entry.count++;
-  return true;
-}
+// Hearts a builder is told about. Every single one would be spam on a popular
+// build; silence makes the whole feature pointless, which is roughly where
+// this feature has been.
+//
+// Measured on production 2026-10-05, right after repairing the count (the
+// maintaining trigger had never been applied live, so save_count sat at 0 and
+// the "Most Hearted" sort ordered by a constant): 26 hearts across 22 of 504
+// builds, most of those 22 holding exactly one. So the first heart is the
+// common case by a wide margin and is the one most worth sending.
+const HEART_MILESTONES = new Set([1, 2, 3, 5, 10, 25, 50, 100, 250, 500, 1000]);
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "POST") {
@@ -38,8 +32,10 @@ async function handlerImpl(event) {
   const profile = await requireProfile(event);
   if (!profile) return json(401, { error: "Not signed in" });
 
-  if (!checkRateLimit(profile.id)) {
-    return json(429, { error: "Slow down — you've saved a lot of builds recently" });
+  // Was an in-memory Map, which reset on every cold start and therefore
+  // counted almost nothing. Shared across invocations now.
+  if (await tooManyAttemptsFailOpen(`heart:${profile.id}`, 30, 60 * 60)) {
+    return json(429, { error: "Slow down — you've hearted a lot of builds recently" });
   }
 
   let body;
@@ -52,14 +48,14 @@ async function handlerImpl(event) {
   // Fetch the entry to verify it exists and isn't the user's own build
   const { data: entry, error: entryErr } = await db
     .from("build_registry")
-    .select("id, profile_id, save_count, status")
+    .select("id, profile_id, save_count, status, title")
     .eq("id", build_registry_id)
     .neq("status", "removed")
     .maybeSingle();
 
   if (entryErr || !entry) return json(404, { error: "Build not found" });
   if (entry.profile_id === profile.id) {
-    return json(400, { error: "You can't save your own build" });
+    return json(400, { error: "You can't heart your own build" });
   }
 
   // Check if they've already saved it
@@ -99,7 +95,20 @@ async function handlerImpl(event) {
       .select("save_count")
       .eq("id", build_registry_id)
       .maybeSingle();
-    return json(200, { saved: true, save_count: updated?.save_count ?? entry.save_count + 1 });
+    const count = updated?.save_count ?? entry.save_count + 1;
+
+    // The point of the whole feature: the builder finds out. Hearting used to
+    // tell them nothing, which is a fair part of why hearts never caught on.
+    if (HEART_MILESTONES.has(count)) {
+      const title = entry.title || "your build";
+      const message =
+        count === 1
+          ? `Someone hearted your build "${title}".`
+          : `Your build "${title}" now has ${count} hearts.`;
+      await notify(db, entry.profile_id, "build_hearted", message, `registry/entry.html?id=${build_registry_id}`);
+    }
+
+    return json(200, { saved: true, save_count: count });
   }
 }
 
