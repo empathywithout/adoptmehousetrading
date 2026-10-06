@@ -1042,6 +1042,35 @@ textarea { resize: vertical; min-height: 90px; }
    the person has something to show, so it never appears as a row of zeros. */
 /* Watchers on a listing: market signal, deliberately not applause — no heart
    glyph, so it reads differently from the ♥ counts on builds. */
+/* This site's own trade and listing data on a house page. Reads as a record,
+   not a card grid: these are facts about what happened, and a dense readable
+   list suits that better than another row of thumbnails. */
+.site-data-list { list-style: none; padding: 0; margin: 14px 0 10px; display: flex; flex-direction: column; gap: 2px; }
+.site-data-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.site-data-list li:last-child { border-bottom: 0; }
+.site-data-list .sd-main { font-weight: 700; color: var(--ink); text-decoration: none; }
+a.site-data-list .sd-main:hover, .site-data-list a.sd-main:hover { color: var(--accent); text-decoration: underline; }
+.site-data-list .sd-val { font-weight: 700; color: var(--accent); white-space: nowrap; }
+.site-data-list .sd-by,
+.site-data-list .sd-when { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.site-data-list .sd-when { margin-left: auto; }
+.sd-more { margin: 6px 0 0; font-size: 13px; font-weight: 700; }
+.sd-more a { color: var(--accent); text-decoration: none; }
+.sd-more a:hover { text-decoration: underline; }
+
+@media (max-width: 560px) {
+  .site-data-list .sd-when { margin-left: 0; }
+}
+
 .watch-count {
   font-size: 11px;
   font-weight: 700;

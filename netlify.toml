@@ -20,6 +20,12 @@
 [functions."listings-expiry-reminders"]
   schedule = "@daily"
 
+# Once a day: trigger a build so the generated house pages pick up the
+# current listings and verified trades. Needs BUILD_HOOK_URL set; without it
+# the function logs and does nothing. See netlify/functions/rebuild-site.js.
+[functions."rebuild-site"]
+  schedule = "@daily"
+
 # Cache static assets — images and data rarely change
 [[headers]]
   for = "/images/*"

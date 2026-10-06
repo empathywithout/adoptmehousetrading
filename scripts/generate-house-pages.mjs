@@ -7,6 +7,7 @@
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "fs";
 import path from "path";
+import { loadHouseStats } from "./lib/house-stats.mjs";
 
 const DATA_FILE = path.join(process.cwd(), "data", "houses.json");
 const OUT_HOUSES_DIR = path.join(process.cwd(), "public", "houses");
@@ -31,6 +32,61 @@ const SIGNPOST_SVG = `
     <text x="50" y="47" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="700" font-size="11" fill="#FFFFFF">TRADE</text>
   </g>
 </svg>`.trim();
+
+// Matches the labels used across the site. These are in-game currencies,
+// never real money, which is also why none of this is marked up as an Offer.
+const UNIT_LABELS = { shark: "Shark", frost: "Frost", rp: "Ride Pot" };
+
+// This site's own data for one house type. Returns "" when there is nothing
+// to say, so a house nobody has listed or traded looks exactly as it did.
+function siteDataSection(house, stats) {
+  const d = stats?.byHouse?.[house.id];
+  if (!d || (!d.tradeCount && !d.listingCount)) return "";
+
+  const money = (v, u) => (v === null || v === undefined ? null : `${v} ${UNIT_LABELS[u] || u || ""}`.trim());
+  const when = (iso) => {
+    const dt = new Date(iso);
+    return isNaN(dt) ? "" : dt.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  };
+
+  // Verified trades first. Every other Adopt Me value site publishes an
+  // opinion; this is the only section on the page reporting what a house
+  // actually changed hands for, confirmed by both traders afterwards.
+  const tradesHtml = d.trades.length ? `
+  <div class="content-section">
+    <h2>Verified ${escapeHtml(house.name)} Trades</h2>
+    <p>Trades both sides confirmed after the swap happened in game. ${d.tradeCount === 1
+      ? "One has been recorded so far."
+      : `${d.tradeCount} have been recorded so far.`} These are real completed trades, not community estimates.</p>
+    <ul class="site-data-list">
+      ${d.trades.map((t) => `<li>
+        <span class="sd-main">${escapeHtml(t.title || "Untitled build")}</span>
+        ${money(t.value, t.unit) ? `<span class="sd-val">asked ${escapeHtml(money(t.value, t.unit))}</span>` : ""}
+        ${t.lister ? `<span class="sd-by">listed by ${escapeHtml(t.lister)}</span>` : ""}
+        ${t.at ? `<span class="sd-when">${escapeHtml(when(t.at))}</span>` : ""}
+      </li>`).join("")}
+    </ul>
+    <p class="sd-more"><a href="../recent-trades.html">See every verified trade &rarr;</a></p>
+  </div>` : "";
+
+  const listingsHtml = d.listings.length ? `
+  <div class="content-section">
+    <h2>${escapeHtml(house.name)} Builds For Trade Right Now</h2>
+    <p>${d.listingCount === 1
+      ? "One live listing for this house."
+      : `${d.listingCount} live listings for this house.`} Asking values are set by the lister and reflect the build inside, not just the house type.</p>
+    <ul class="site-data-list">
+      ${d.listings.map((l) => `<li>
+        <a class="sd-main" href="../listings/listing.html?id=${encodeURIComponent(l.id)}">${escapeHtml(l.title || "Untitled build")}</a>
+        ${money(l.value, l.unit) ? `<span class="sd-val">${escapeHtml(money(l.value, l.unit))}</span>` : `<span class="sd-val">value open</span>`}
+        ${l.lister ? `<span class="sd-by">by ${escapeHtml(l.lister)}</span>` : ""}
+      </li>`).join("")}
+    </ul>
+    <p class="sd-more"><a href="../listings/index.html">Browse all live listings &rarr;</a></p>
+  </div>` : "";
+
+  return tradesHtml + listingsHtml;
+}
 
 function escapeHtml(str) {
   return String(str)
@@ -111,7 +167,7 @@ function layout({ title, description, path: routePath, depth, body, jsonLd = [],
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="${rootPrefix}css/style.css?v=2">
+<link rel="stylesheet" href="${rootPrefix}css/style.css?v=3">
 ${allJsonLd.map(jsonLdScript).join("\n")}
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-REW2CFBX6H"></script>
@@ -536,7 +592,7 @@ function demandBadge(level) {
   return `<span class="demand-badge demand-${level}">${icon} ${label}</span>`;
 }
 
-function buildHousePage(house) {
+function buildHousePage(house, stats) {
   const priced = house.value !== null;
   const avail = house.availability || "obtainable";
 
@@ -630,6 +686,7 @@ function buildHousePage(house) {
 </div>
 
 <div class="wrap">
+  ${siteDataSection(house, stats)}
   ${house.description ? `
   <div class="content-section">
     <h2>About the ${escapeHtml(house.name)}</h2>
@@ -722,17 +779,28 @@ function buildHousePage(house) {
   });
 }
 
-function main() {
+async function main() {
   mkdirSync(OUT_HOUSES_DIR, { recursive: true });
+
+  // One read for all 54 pages. Returns an empty map rather than throwing when
+  // the database is unreachable or unconfigured, so a Neon blip degrades the
+  // pages instead of failing the deploy.
+  const stats = await loadHouseStats();
 
   writeFileSync(path.join(process.cwd(), "public", "index.html"), buildHomepage());
   writeFileSync(path.join(OUT_HOUSES_DIR, "index.html"), buildBrowsePage());
 
+  let enriched = 0;
   for (const house of houses) {
-    writeFileSync(path.join(OUT_HOUSES_DIR, `${house.id}.html`), buildHousePage(house));
+    const d = stats.byHouse?.[house.id];
+    if (d && (d.tradeCount || d.listingCount)) enriched++;
+    writeFileSync(path.join(OUT_HOUSES_DIR, `${house.id}.html`), buildHousePage(house, stats));
   }
 
-  console.log(`Generated homepage, browse page, and ${houses.length} house detail pages.`);
+  console.log(
+    `Generated homepage, browse page, and ${houses.length} house detail pages` +
+    (stats.ok ? ` (${enriched} with live site data).` : ` (no site data: ${stats.reason}).`)
+  );
 }
 
-main();
+await main();
