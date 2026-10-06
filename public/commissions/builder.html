@@ -6,7 +6,12 @@
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <title>Builder — AdoptMeHouseTrading.com</title>
 <meta name="description" content="A house builder taking commissions on AdoptMeHouseTrading.com — see their portfolio and specialties.">
-<link rel="canonical" href="https://adoptmehousetrading.com/commissions/index.html" id="canonical-link">
+<!-- No canonical here on purpose. This page is one shell serving many
+     records via ?id=, so any fixed href is wrong for all but one of
+     them -- the old tag pointed every record at commissions/ and told
+     Google they were all the same page. With no canonical in the raw
+     HTML, Google uses the request URL, which already includes the id.
+     The script below sets the precise one once the record loads. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -62,7 +67,7 @@
 </footer>
 
 <script type="module">
-  import { api, getStoredProfile, THEME_LABELS, QUICK_REPLIES } from "../js/api.js?v=4";
+  import { api, getStoredProfile, THEME_LABELS, QUICK_REPLIES, setCanonical } from "../js/api.js?v=5";
   import { mountItemPicker } from "../js/item-picker.js";
 
   const params = new URLSearchParams(location.search);
@@ -104,7 +109,7 @@
       "content",
       `${builder.display_name} — house builder on AdoptMeHouseTrading.com${builder.commission_status === "open" ? ", currently open for commissions" : ""}.`
     );
-    document.getElementById("canonical-link")?.setAttribute("href", `https://adoptmehousetrading.com/commissions/builder.html?id=${builder.id}`);
+    setCanonical(`https://adoptmehousetrading.com/commissions/builder.html?id=${builder.id}`);
     const isSelf = myProfile && myProfile.id === builder.id;
     const themesLine = (builder.builder_themes || []).map((t) => THEME_LABELS[t] || t).join(", ");
 

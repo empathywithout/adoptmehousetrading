@@ -339,3 +339,17 @@ export function consumeReturnTo() {
     return null;
   }
 }
+
+// The detail pages (listing, registry entry, builder) deliberately ship no
+// canonical in their raw HTML — one shell serves many records via ?id=, so
+// any fixed href is wrong for all but one of them. That means there is no
+// element to update here, only one to create.
+export function setCanonical(url) {
+  let el = document.querySelector('link[rel="canonical"]');
+  if (!el) {
+    el = document.createElement("link");
+    el.setAttribute("rel", "canonical");
+    document.head.appendChild(el);
+  }
+  el.setAttribute("href", url);
+}

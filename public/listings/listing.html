@@ -6,7 +6,12 @@
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <title>Trade Listing — AdoptMeHouseTrading.com</title>
 <meta name="description" content="A live house-for-trade listing on AdoptMeHouseTrading.com — real offers, real value, real players.">
-<link rel="canonical" href="https://adoptmehousetrading.com/listings/listing.html" id="canonical-link">
+<!-- No canonical here on purpose. This page is one shell serving many
+     records via ?id=, so any fixed href is wrong for all but one of
+     them -- the old tag pointed every record at listings/ and told
+     Google they were all the same page. With no canonical in the raw
+     HTML, Google uses the request URL, which already includes the id.
+     The script below sets the precise one once the record loads. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -63,7 +68,7 @@
 </footer>
 
 <script type="module">
-  import { api, getStoredProfile, CATEGORY_LABELS, THEME_LABELS, QUICK_REPLIES, loadReputation, reputationHtml, sendToSignIn } from "../js/api.js?v=4";
+  import { api, getStoredProfile, CATEGORY_LABELS, THEME_LABELS, QUICK_REPLIES, loadReputation, reputationHtml, sendToSignIn, setCanonical } from "../js/api.js?v=5";
 
   // Matches the Browse cards: a watcher count only earns space once it is
   // telling you something you couldn't guess.
@@ -168,7 +173,7 @@
       "content",
       `${listing.title}${house ? ` (${house.name})` : ""} — a live house trade listing on AdoptMeHouseTrading.com.`
     );
-    document.getElementById("canonical-link")?.setAttribute("href", `https://adoptmehousetrading.com/listings/listing.html?id=${listing.id}`);
+    setCanonical(`https://adoptmehousetrading.com/listings/listing.html?id=${listing.id}`);
 
     const TYPE_LABELS = { house_trade: "For Trade", looking_for: "Looking For", commission: "Commission" };
 
