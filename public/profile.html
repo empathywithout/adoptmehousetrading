@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=2">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-REW2CFBX6H"></script>
 <script>
@@ -456,12 +456,31 @@
     errorBox.hidden = false;
   }
 
-  // Mirrors EXPIRE_DAYS in netlify/functions/listings-list.js. A function
-  // declaration (hoisted) so it is safe to call from any render path.
+  // Mirrors EXPIRE_DAYS in netlify/functions/_lib/listings.js, which is the
+  // single server-side source; a browser page can't import a Netlify
+  // function, so this copy is unavoidable. Function declarations (hoisted)
+  // so they are safe to call from any render path.
+  const EXPIRE_DAYS = 30;
+  const EXPIRY_WARN_DAYS = 3;
+
+  function daysUntilExpiry(listing) {
+    const last = new Date(listing.updated_at || listing.created_at).getTime();
+    return EXPIRE_DAYS - (Date.now() - last) / 86400000;
+  }
+
   function isExpired(listing) {
     if (listing.status !== "active") return false;
-    const last = new Date(listing.updated_at || listing.created_at).getTime();
-    return Date.now() - last > 30 * 86400000;
+    return daysUntilExpiry(listing) <= 0;
+  }
+
+  // The daily expiry reminder tells an owner to renew EXPIRY_WARN_DAYS before
+  // the listing goes, so the button has to be here then. It used to appear
+  // only once the listing had already dropped out of Browse, which is after
+  // the damage is done.
+  function isExpiringSoon(listing) {
+    if (listing.status !== "active") return false;
+    const d = daysUntilExpiry(listing);
+    return d > 0 && d <= EXPIRY_WARN_DAYS;
   }
 
   function escapeHtml(str) {
@@ -618,9 +637,11 @@
             <span class="offer-count">${pendingOffers.length} offer${pendingOffers.length === 1 ? "" : "s"}</span>
           </a>
           ${pendingOffers.length ? `<div class="manage-offers">${offersHtml}</div>` : ""}
-          ${isExpired(listing) ? `<p class="hint" style="margin:0;padding:10px 16px 0;color:var(--accent-dark);font-weight:700;">Hidden from Browse. Listings drop off after 30 days without an update. Renew it to put it back.</p>` : ""}
+          ${isExpired(listing) ? `<p class="hint" style="margin:0;padding:10px 16px 0;color:var(--accent-dark);font-weight:700;">Hidden from Browse. Listings drop off after ${EXPIRE_DAYS} days without an update. Renew it to put it back.</p>` : ""}
+          ${isExpiringSoon(listing) ? `<p class="hint" style="margin:0;padding:10px 16px 0;color:var(--accent-dark);font-weight:700;">Drops out of Browse in ${Math.max(1, Math.ceil(daysUntilExpiry(listing)))} day${Math.max(1, Math.ceil(daysUntilExpiry(listing))) === 1 ? "" : "s"}. Renew it now and it stays listed without a gap.</p>` : ""}
           <div style="padding:10px 16px 14px;display:flex;gap:8px;flex-wrap:wrap;">
             ${isExpired(listing) ? `<button class="btn-sm accept" data-renew-listing="${listing.id}">Renew listing</button>` : ""}
+            ${isExpiringSoon(listing) ? `<button class="btn-sm accept" data-renew-listing="${listing.id}">Renew for another ${EXPIRE_DAYS} days</button>` : ""}
             <a class="btn-sm accept" href="listings/edit.html?id=${listing.id}" style="text-decoration:none;">Edit</a>
             <button class="btn-sm decline" data-remove-listing="${listing.id}">Remove</button>
             ${listing.listing_type !== "looking_for" ? `<button class="btn-sm" style="background:var(--surface-2);color:var(--ink);" data-portfolio-listing='${JSON.stringify({ title: listing.title, photos: listing.photos || [], house_id: listing.house_id || null, themes: listing.themes || [] }).replace(/'/g, "&#39;")}'>→ Register Build</button>` : ""}

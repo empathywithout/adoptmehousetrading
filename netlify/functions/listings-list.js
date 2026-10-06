@@ -20,8 +20,9 @@
 import { supabaseAdmin, json, safeHandler } from "./_lib/supabase.js";
 import { withCache } from "./_lib/cache.js";
 import { isTestRow } from "./_lib/testdata.js";
+import { EXPIRE_DAYS } from "./_lib/listings.js";
 
-export const EXPIRE_DAYS = 30;
+export { EXPIRE_DAYS };
 const RECENT_TRADED_DAYS = 7;
 const MAX_ROWS = 3000;
 

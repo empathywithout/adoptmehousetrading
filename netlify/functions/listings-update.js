@@ -6,7 +6,7 @@
 // are intentionally NOT editable — changing them would invalidate existing
 // offers which were made based on those facts.
 
-import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
+import { supabaseAdmin, requireProfile, notify, json, safeHandler } from "./_lib/supabase.js";
 import { invalidate } from "./_lib/cache.js";
 import { validateVideoUrl } from "./_lib/oembed.js";
 
@@ -58,7 +58,7 @@ async function handlerImpl(event) {
   // Verify ownership and that listing is still active
   const { data: existing, error: fetchErr } = await db
     .from("listings")
-    .select("id, profile_id, status, listing_type, photos")
+    .select("id, profile_id, status, listing_type, photos, title, value_amount, value_unit, looking_for")
     .eq("id", listing_id)
     .maybeSingle();
 
@@ -138,7 +138,91 @@ async function handlerImpl(event) {
   }
 
   await invalidate("listings:list:");
+  await notifyWatchersOfMaterialChange(db, existing, {
+    value_amount: cleanValueAmount,
+    value_unit: cleanValueUnit,
+    looking_for: cleanLookingFor,
+    title: cleanTitle,
+  });
   return json(200, { listing: updated });
+}
+
+// How long to wait before telling the same person about the same listing
+// again. A real price drop next month is worth knowing about; an owner
+// nudging the value five times in an afternoon is not five notifications.
+const EDIT_NOTICE_COOLDOWN_HOURS = 24;
+const EDIT_NOTICE_TYPE = "saved_listing_changed";
+const UNIT_LABELS = { shark: "Shark", frost: "Frost", rp: "Ride Pot" };
+
+function describeValue(amount, unit) {
+  if (amount === null || amount === undefined) return null;
+  const label = UNIT_LABELS[unit] || unit || "";
+  return `${amount}${label ? " " + label : ""}`;
+}
+
+function sameSet(a, b) {
+  const sa = new Set(a || []), sb = new Set(b || []);
+  if (sa.size !== sb.size) return false;
+  for (const v of sa) if (!sb.has(v)) return false;
+  return true;
+}
+
+// Only the edits a watcher would act on. Photos, description, themes and
+// video all change the listing without changing the deal, so they stay
+// silent — a notification for every cosmetic tweak trains people to ignore
+// the bell, which costs more than the notification is worth.
+async function notifyWatchersOfMaterialChange(db, before, after) {
+  try {
+    const valueBefore = describeValue(before.value_amount, before.value_unit);
+    const valueAfter = describeValue(after.value_amount, after.value_unit);
+    const valueChanged = valueBefore !== valueAfter;
+    const wantsChanged = !sameSet(before.looking_for, after.looking_for);
+    if (!valueChanged && !wantsChanged) return;
+
+    const title = after.title || before.title || "A house you saved";
+    const link = `listings/listing.html?id=${before.id}`;
+
+    let message;
+    if (valueChanged && valueAfter && valueBefore) {
+      message = `"${title}", a house you saved, changed its asking value from ${valueBefore} to ${valueAfter}.`;
+    } else if (valueChanged && valueAfter) {
+      message = `"${title}", a house you saved, now lists an asking value of ${valueAfter}.`;
+    } else if (valueChanged) {
+      message = `"${title}", a house you saved, removed its asking value.`;
+    } else {
+      message = `"${title}", a house you saved, changed what it's looking for.`;
+    }
+
+    const { data: watchers } = await db
+      .from("listing_saves")
+      .select("profile_id")
+      .eq("listing_id", before.id)
+      .limit(200);
+    if (!watchers?.length) return;
+
+    // Same suppression shape as trade-confirm-reminders: ask the
+    // notifications table what has already gone out, rather than keeping
+    // state anywhere else.
+    const cutoff = new Date(Date.now() - EDIT_NOTICE_COOLDOWN_HOURS * 3600000).toISOString();
+    const { data: recent } = await db
+      .from("notifications")
+      .select("profile_id")
+      .eq("type", EDIT_NOTICE_TYPE)
+      .eq("link", link)
+      .filter("created_at", ">=", cutoff);
+    const recentlyTold = new Set((recent || []).map((n) => n.profile_id));
+
+    for (const w of watchers) {
+      // The owner is editing their own listing; they know.
+      if (w.profile_id === before.profile_id) continue;
+      if (recentlyTold.has(w.profile_id)) continue;
+      recentlyTold.add(w.profile_id);
+      await notify(db, w.profile_id, EDIT_NOTICE_TYPE, message, link);
+    }
+  } catch (err) {
+    // An edit must never fail because a notification did.
+    console.error("[listings-update] watcher notifications failed (non-fatal):", err.message || err);
+  }
 }
 
 export const handler = safeHandler(handlerImpl);

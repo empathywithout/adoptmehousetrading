@@ -14,6 +14,12 @@
 [functions."trade-confirm-reminders"]
   schedule = "@daily"
 
+# Once a day: warn an owner (and anyone who saved the listing) a few days
+# before it drops out of Browse, while renewing still prevents a gap.
+# See netlify/functions/listings-expiry-reminders.js.
+[functions."listings-expiry-reminders"]
+  schedule = "@daily"
+
 # Cache static assets — images and data rarely change
 [[headers]]
   for = "/images/*"
