@@ -111,7 +111,7 @@ function layout({ title, description, path: routePath, depth, body, jsonLd = [],
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="${rootPrefix}css/style.css">
+<link rel="stylesheet" href="${rootPrefix}css/style.css?v=2">
 ${allJsonLd.map(jsonLdScript).join("\n")}
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-REW2CFBX6H"></script>

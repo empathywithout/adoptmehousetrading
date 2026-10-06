@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
-<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/style.css?v=2">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://adoptmehousetrading.com/"},{"@type":"ListItem","position":2,"name":"Browse Houses","item":"https://adoptmehousetrading.com/listings/index.html"}]}</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-REW2CFBX6H"></script>
@@ -82,6 +82,11 @@
 
 <script type="module">
   import { THEME_LABELS, loadReputation, reputationHtml, sendToSignIn } from "../js/api.js?v=4";
+
+  // Same reasoning as the reputation thresholds: at one or two, a watcher
+  // count is clutter that says nothing. "1 watching" was on every card that
+  // had been saved even once.
+  const MIN_WATCHERS_TO_SHOW = 3;
   import { mountPillFilters } from "../js/pill-filters.js";
 
   const grid = document.getElementById("listings-grid");
@@ -256,7 +261,7 @@
               <div class="trust-row">
                 ${listing.profiles?.rbx_avatar_url ? `<img class="trust-row-avatar" src="${listing.profiles.rbx_avatar_url}" alt="">` : `<span class="avatar-initial">${escapeHtml(username[0]?.toUpperCase() || "?")}</span>`}
                 <span class="username">${escapeHtml(username)}</span>
-                ${(() => { const s=savedIds.has(listing.id); const sc=listing.save_count||0; const watchers = sc > 0 ? '<span class="watch-count">' + sc + ' watching</span>' : ''; return myProfile?.id !== listing.profile_id ? '<button class="' + (s ? 'save-btn saved' : 'save-btn') + '" data-listing-id="' + listing.id + '" title="' + (s ? 'Saved — click to remove' : 'Save this listing to your watchlist') + '" onclick="event.preventDefault()">' + (s ? 'Saved' : 'Save') + '</button>' + watchers : watchers; })()}
+                ${(() => { const s=savedIds.has(listing.id); const sc=listing.save_count||0; const watchers = sc >= MIN_WATCHERS_TO_SHOW ? '<span class="watch-count">' + sc + ' watching</span>' : ''; return myProfile?.id !== listing.profile_id ? '<button class="' + (s ? 'save-btn saved' : 'save-btn') + '" data-listing-id="' + listing.id + '" title="' + (s ? 'Saved — click to remove' : 'Save this listing to your watchlist') + '" onclick="event.preventDefault()">' + (s ? 'Saved' : 'Save') + '</button>' + watchers : watchers; })()}
               </div>
               ${reputationHtml(reputation[listing.profile_id])}
               ${valueLine}

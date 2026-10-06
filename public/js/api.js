@@ -276,9 +276,19 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? "" : "s"}`;
 // Measured on the live site: of 362 profiles with any history, 258 have
 // exactly one registered build. "1 build" was therefore the most common
 // badge on Browse and distinguished nobody. Three or more is uncommon
-// enough to mean something. Trades, hearts and commissions are all rare
-// (42, 2 and 2 profiles respectively), so one of those is already a signal.
-const MIN_TO_SHOW = { t: 1, c: 1, h: 1, b: 3 };
+// enough to mean something.
+//
+// Hearts used to sit here at 1 on the basis that only 2 profiles had any —
+// a number read off a save_count whose maintaining trigger had never been
+// applied, so it was really measuring nothing. With the count repaired
+// there are 26 hearts across 20 builds, which made "1 heart" the new "1
+// build": the commonest line on the page and a weak thing to say about
+// anyone. Same bar as builds now.
+//
+// Verified trades and commissions stay at 1. Both are genuinely rare, and a
+// verified trade is the single most useful fact about someone you are about
+// to trade with, so it earns its place on its own.
+const MIN_TO_SHOW = { t: 1, c: 1, h: 3, b: 3 };
 
 // Ordered strongest first: a verified trade is the hardest to fake and the
 // most useful thing to know about someone you are about to trade with.

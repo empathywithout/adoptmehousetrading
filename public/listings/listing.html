@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
-<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/style.css?v=2">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-REW2CFBX6H"></script>
 <script>
@@ -64,6 +64,10 @@
 
 <script type="module">
   import { api, getStoredProfile, CATEGORY_LABELS, THEME_LABELS, QUICK_REPLIES, loadReputation, reputationHtml, sendToSignIn } from "../js/api.js?v=4";
+
+  // Matches the Browse cards: a watcher count only earns space once it is
+  // telling you something you couldn't guess.
+  const MIN_WATCHERS_TO_SHOW = 3;
   import { mountChatPanel } from "../js/chat.js";
   import { mountItemPicker } from "../js/item-picker.js";
 
@@ -242,7 +246,7 @@
               <div class="trust-name-row">
                 <span class="name">${escapeHtml(listing.profiles?.display_name || "unknown")}</span>
                 <span style="width:6px;height:6px;border-radius:50%;background:var(--good);"></span>
-                ${!isOwner ? `<button id="save-listing-btn" class="save-btn ${isSaved ? "saved" : ""}" title="${isSaved ? "Saved — click to remove" : "Save this listing to your watchlist"}">${isSaved ? "Saved" : "Save"}</button>` : ""}<span class="watch-count" ${listing.save_count > 0 ? "" : "hidden"}>${listing.save_count || 0} watching</span>
+                ${!isOwner ? `<button id="save-listing-btn" class="save-btn ${isSaved ? "saved" : ""}" title="${isSaved ? "Saved — click to remove" : "Save this listing to your watchlist"}">${isSaved ? "Saved" : "Save"}</button>` : ""}<span class="watch-count" ${listing.save_count >= MIN_WATCHERS_TO_SHOW ? "" : "hidden"}>${listing.save_count || 0} watching</span>
               </div>
               <div class="trust-sub">${listing.profiles?.rbx_username ? `Lister · Roblox: ${escapeHtml(listing.profiles.rbx_username)}` : "Lister"}</div>
               ${reputationHtml(listerReputation, 3)}
@@ -444,7 +448,7 @@
         const sc = data.save_count || 0;
         if (watchEl) {
           watchEl.textContent = `${sc} watching`;
-          watchEl.hidden = sc < 1;
+          watchEl.hidden = sc < MIN_WATCHERS_TO_SHOW;
         }
       } catch (err) {
         alert(err.message);
