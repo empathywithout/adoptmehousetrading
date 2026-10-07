@@ -92,7 +92,7 @@
 </footer>
 
 <script type="module">
-  import { api, getToken, THEME_LABELS, loadReputation, reputationHtml, sendToSignIn } from "../js/api.js?v=5";
+  import { api, getToken, THEME_LABELS, loadReputation, reputationHtml, sendToSignIn, avatarImg, cardPhoto } from "../js/api.js?v=7";
   import { mountPillFilters } from "../js/pill-filters.js";
 
   const grid = document.getElementById("registry-grid");
@@ -282,14 +282,14 @@
       return `
       <a class="listing-card" href="entry.html?id=${entry.id}">
         <div class="photo">
-          <img src="${photo}" alt="${escapeHtml(entry.title)}" loading="lazy">
+          <img src="${cardPhoto(photo)}" alt="${escapeHtml(entry.title)}" loading="lazy" decoding="async">
           ${statusTag}
         </div>
         <div class="body">
           <h3>${escapeHtml(entry.title)}</h3>
           <div class="trust-row">
             ${entry.profiles?.rbx_avatar_url
-              ? `<img class="trust-row-avatar" src="${entry.profiles.rbx_avatar_url}" alt="">`
+              ? avatarImg(entry.profiles.rbx_avatar_url, 48, 16, "trust-row-avatar")
               : `<span class="avatar-initial">${escapeHtml((entry.profiles?.display_name || "?")[0].toUpperCase())}</span>`}
             <span class="username">${escapeHtml(entry.profiles?.display_name || "unknown")}</span>
             ${saveBtn}
@@ -333,7 +333,7 @@
       const medals = ["🥇", "🥈", "🥉"];
       return `<a href="entry.html?id=${entry.id}" class="listing-card" style="text-decoration:none;">
         <div class="photo" style="position:relative;">
-          <img src="${escapeHtml(photo)}" alt="${escapeHtml(entry.title)}" loading="lazy">
+          <img src="${escapeHtml(cardPhoto(photo))}" alt="${escapeHtml(entry.title)}" loading="lazy" decoding="async">
           <span style="position:absolute;top:8px;left:8px;font-size:20px;line-height:1;">${medals[rank]}</span>
         </div>
         <div class="body">

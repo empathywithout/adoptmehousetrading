@@ -353,3 +353,83 @@ export function setCanonical(url) {
   }
   el.setAttribute("href", url);
 }
+
+// ── Avatars ──────────────────────────────────────────────────────────────
+// Roblox's CDN encodes the rendered size in the path:
+//   .../30DAY-AvatarHeadshot-<hash>-Png/150/150/AvatarHeadshot/Png/isCircular
+// roblox-lookup.js asks for 150x150 at signup and that URL is stored per
+// profile, so every avatar on the site downloads at 150x150 — including the
+// ~29 on a Browse page that are displayed at 16x16, about 21 KB each.
+//
+// Asking for a smaller one is a string swap on the stored URL, which means no
+// new column, no backfill, and no re-querying Roblox for the 957 profiles
+// that already have a URL. Measured: 150px averages 21 KB, 48px averages
+// about 1 KB.
+//
+// Not every avatar has every size cached — roughly one in six only exists at
+// 150 — so a smaller URL can 404. Hence the fallback below, which quietly
+// restores the original rather than leaving a broken image.
+const AVATAR_SIZE_IN_PATH = /\/\d+\/\d+\//;
+const AVATAR_FALLBACK_ATTR = "avatarFallback";
+
+export function avatarUrl(url, px) {
+  if (!url || typeof url !== "string") return url;
+  return AVATAR_SIZE_IN_PATH.test(url) ? url.replace(AVATAR_SIZE_IN_PATH, `/${px}/${px}/`) : url;
+}
+
+function attr(v) {
+  return String(v ?? "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+// fetchPx: the size to download. boxPx: the size it is displayed at, written
+// as width/height so the browser reserves the space before the image arrives.
+export function avatarImg(url, fetchPx, boxPx, cls = "", alt = "") {
+  if (!url) return "";
+  const small = avatarUrl(url, fetchPx);
+  const needsFallback = small !== url;
+  return `<img class="${attr(cls)}" src="${attr(small)}" width="${boxPx}" height="${boxPx}"`
+    + ` loading="lazy" decoding="async" alt="${attr(alt)}"`
+    + (needsFallback ? ` data-avatar-fallback="${attr(url)}"` : "")
+    + `>`;
+}
+
+// `error` does not bubble, so this listens in the capture phase. One listener
+// covers every avatar on the page, including ones rendered later, and avoids
+// inline onerror handlers.
+if (typeof document !== "undefined") {
+  document.addEventListener("error", (e) => {
+    const el = e.target;
+    if (el?.tagName !== "IMG") return;
+    const fallback = el.dataset?.avatarFallback;
+    if (!fallback) return;
+    delete el.dataset[AVATAR_FALLBACK_ATTR];
+    el.src = fallback;
+  }, true);
+}
+
+// ── Card photos ──────────────────────────────────────────────────────────
+// Uploads land in R2 at up to 1600px and every grid uses that original as its
+// thumbnail. A Browse card's photo slot is 221x138, so even on a 2x screen
+// that is roughly 16x more pixels than the slot can show.
+//
+// Netlify's Image CDN resizes on demand at the edge and negotiates a modern
+// format (avif/webp) per browser. On Pro, transformations are not charged
+// separately — Image CDN usage counts against bandwidth, which is metered per
+// GB. Serving a 440px image instead of a 1600px one therefore REDUCES the
+// metered quantity. Remote sources must be allowlisted in netlify.toml under
+// [images] remote_images.
+//
+// One width for every card on purpose: each distinct transformation is a
+// separate edge-cache entry, so reusing a single size across grids means the
+// first visitor warms the cache for everyone.
+const R2_HOST = "pub-cba78cf9524643c2a7bff415bfed4d9d.r2.dev";
+export const CARD_PHOTO_WIDTH = 440;
+
+export function cardPhoto(url, w = CARD_PHOTO_WIDTH) {
+  if (!url || typeof url !== "string") return url;
+  // Anything not served from our own bucket is left alone: local assets are
+  // already small, and an un-allowlisted remote host would just 404 through
+  // the transformer.
+  if (!url.includes(R2_HOST)) return url;
+  return `/.netlify/images?url=${encodeURIComponent(url)}&w=${w}`;
+}

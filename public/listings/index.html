@@ -81,7 +81,7 @@
 </footer>
 
 <script type="module">
-  import { THEME_LABELS, loadReputation, reputationHtml, sendToSignIn } from "../js/api.js?v=5";
+  import { THEME_LABELS, loadReputation, reputationHtml, sendToSignIn, avatarImg, cardPhoto } from "../js/api.js?v=7";
 
   // Same reasoning as the reputation thresholds: at one or two, a watcher
   // count is clutter that says nothing. "1 watching" was on every card that
@@ -252,14 +252,14 @@
           return `
           <a class="listing-card" href="listing.html?id=${listing.id}">
             <div class="photo">
-              <img src="${photo}" alt="${escapeHtml(listing.title)}" loading="lazy">
+              <img src="${cardPhoto(photo)}" alt="${escapeHtml(listing.title)}" loading="lazy" decoding="async">
               <div class="card-badge ${BADGE_CLASS[listing.listing_type] || "house-trade"}" title="${TYPE_LABELS[listing.listing_type] || "For Trade"}"><div class="${BADGE_ICON[listing.listing_type] || "icon-sign"}"></div></div>
               ${cardTag}
             </div>
             <div class="body">
               <h3>${escapeHtml(listing.title)}</h3>
               <div class="trust-row">
-                ${listing.profiles?.rbx_avatar_url ? `<img class="trust-row-avatar" src="${listing.profiles.rbx_avatar_url}" alt="">` : `<span class="avatar-initial">${escapeHtml(username[0]?.toUpperCase() || "?")}</span>`}
+                ${listing.profiles?.rbx_avatar_url ? avatarImg(listing.profiles.rbx_avatar_url, 48, 16, "trust-row-avatar") : `<span class="avatar-initial">${escapeHtml(username[0]?.toUpperCase() || "?")}</span>`}
                 <span class="username">${escapeHtml(username)}</span>
                 ${(() => { const s=savedIds.has(listing.id); const sc=listing.save_count||0; const watchers = sc >= MIN_WATCHERS_TO_SHOW ? '<span class="watch-count">' + sc + ' watching</span>' : ''; return myProfile?.id !== listing.profile_id ? '<button class="' + (s ? 'save-btn saved' : 'save-btn') + '" data-listing-id="' + listing.id + '" title="' + (s ? 'Saved — click to remove' : 'Save this listing to your watchlist') + '" onclick="event.preventDefault()">' + (s ? 'Saved' : 'Save') + '</button>' + watchers : watchers; })()}
               </div>

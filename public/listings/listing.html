@@ -68,7 +68,7 @@
 </footer>
 
 <script type="module">
-  import { api, getStoredProfile, CATEGORY_LABELS, THEME_LABELS, QUICK_REPLIES, loadReputation, reputationHtml, sendToSignIn, setCanonical } from "../js/api.js?v=5";
+  import { api, getStoredProfile, CATEGORY_LABELS, THEME_LABELS, QUICK_REPLIES, loadReputation, reputationHtml, sendToSignIn, setCanonical, avatarImg } from "../js/api.js?v=7";
 
   // Matches the Browse cards: a watcher count only earns space once it is
   // telling you something you couldn't guess.
@@ -246,7 +246,7 @@
 
         <div class="sidebar-sticky">
           <div class="trust-card">
-            <img class="avatar-lg" src="${listing.profiles?.rbx_avatar_url || ""}" alt="" onerror="this.removeAttribute('src')">
+            ${avatarImg(listing.profiles?.rbx_avatar_url, 100, 44, "avatar-lg")}
             <div>
               <div class="trust-name-row">
                 <span class="name">${escapeHtml(listing.profiles?.display_name || "unknown")}</span>
@@ -515,7 +515,7 @@
         return `
         <div class="offer-card">
           <div class="profile-chip">
-            <img src="${offer.profiles?.rbx_avatar_url || "../images/brand/searchdog.png"}" alt="">
+            ${offer.profiles?.rbx_avatar_url ? avatarImg(offer.profiles.rbx_avatar_url, 60, 30) : `<img src="../images/brand/searchdog.png" width="30" height="30" loading="lazy" decoding="async" alt="">`}
             <span class="name">${escapeHtml(offer.profiles?.display_name || "unknown")}${offer.profiles?.rbx_username ? ` <span style="font-weight:400;color:var(--muted);">(Roblox: ${escapeHtml(offer.profiles.rbx_username)})</span>` : ""}</span>
           </div>
           <div class="items-row">${itemsRowHtml(offer.items)}</div>

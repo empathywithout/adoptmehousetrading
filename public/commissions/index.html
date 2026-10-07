@@ -80,7 +80,7 @@
 </footer>
 
 <script type="module">
-  import { THEME_LABELS, loadReputation, reputationHtml } from "../js/api.js?v=5";
+  import { THEME_LABELS, loadReputation, reputationHtml, cardPhoto } from "../js/api.js?v=7";
   import { mountPillFilters } from "../js/pill-filters.js";
 
   const grid = document.getElementById("builders-grid");
@@ -135,7 +135,7 @@
           const prestigeLine = reputationHtml(reputation[b.id], 3);
           return `
           <a class="listing-card" href="builder.html?id=${b.id}">
-            <div class="photo"><img src="${photo}" alt="" loading="lazy"></div>
+            <div class="photo"><img src="${cardPhoto(photo)}" alt="" loading="lazy" decoding="async"></div>
             <div class="body">
               <h3>${escapeHtml(b.display_name)}</h3>
               <div class="trust-row">

@@ -26,6 +26,12 @@
 [functions."rebuild-site"]
   schedule = "@daily"
 
+# Netlify Image CDN may only fetch remote images from hosts listed here.
+# This is the public R2 bucket that listing and build photos are uploaded to;
+# see cardPhoto() in public/js/api.js.
+[images]
+  remote_images = ["https://pub-cba78cf9524643c2a7bff415bfed4d9d\\.r2\\.dev/.*"]
+
 # Cache static assets — images and data rarely change
 [[headers]]
   for = "/images/*"

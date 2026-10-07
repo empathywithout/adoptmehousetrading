@@ -68,7 +68,7 @@
 </footer>
 
 <script type="module">
-  import { api, getStoredProfile, getToken, THEME_LABELS, sendToSignIn, setCanonical } from "../js/api.js?v=5";
+  import { api, getStoredProfile, getToken, THEME_LABELS, sendToSignIn, setCanonical, avatarImg, cardPhoto } from "../js/api.js?v=7";
 
   const DISPUTE_TYPE_LABELS = {
     i_am_original:      "Claims to be the original creator",
@@ -220,7 +220,7 @@
            ${compare_entries
              .map(
                (c) => `<a class="listing-card" href="entry.html?id=${c.id}">
-                 <div class="photo"><img src="${c.photos?.[0] || "../images/brand/searchdog.png"}" alt="" loading="lazy"></div>
+                 <div class="photo"><img src="${cardPhoto(c.photos?.[0]) || "../images/brand/searchdog.png"}" alt="" loading="lazy" decoding="async"></div>
                  <div class="body">
                    <h3>${escapeHtml(c.title)}</h3>
                    <p class="lister">by ${escapeHtml(c.profiles?.display_name || "unknown")}${c.status !== "active" ? ` · ${c.status.replace("_", " ")}` : ""}</p>
@@ -255,7 +255,7 @@
         </div>
         <div class="sidebar-sticky">
           <div class="trust-card">
-            <img class="avatar-lg" src="${entry.profiles?.rbx_avatar_url || ""}" alt="" onerror="this.removeAttribute('src')">
+            ${avatarImg(entry.profiles?.rbx_avatar_url, 100, 44, "avatar-lg")}
             <div>
               <div class="trust-name-row">
                 <span class="name">${escapeHtml(entry.profiles?.display_name || "unknown")}</span>

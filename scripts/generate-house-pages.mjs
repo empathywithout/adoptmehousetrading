@@ -352,7 +352,7 @@ function buildHomepage() {
 </section>
 
 <script type="module">
-  import { CATEGORY_LABELS, THEME_LABELS, sendToSignIn } from "./js/api.js?v=5";
+  import { CATEGORY_LABELS, THEME_LABELS, sendToSignIn, avatarImg, cardPhoto } from "./js/api.js?v=7";
   const BADGE_CLASS = { house_trade: "house-trade", looking_for: "looking-for" };
   const BADGE_ICON = { house_trade: "icon-sign", looking_for: "icon-loop", commission: "icon-hammer" };
   const TYPE_LABELS = { house_trade: "For Trade", looking_for: "Looking For" };
@@ -362,7 +362,7 @@ function buildHomepage() {
   }
 
   try {
-    const { loadReputation, reputationHtml } = await import("./js/api.js?v=5");
+    const { loadReputation, reputationHtml } = await import("./js/api.js?v=7");
     const [{ listings }, houses, reputation] = await Promise.all([
       fetch("/.netlify/functions/listings-list?limit=24").then((r) => r.json()),
       fetch("data/houses.json").then((r) => r.json()),
@@ -401,14 +401,14 @@ function buildHomepage() {
 
         return \`<a class="listing-card" href="listings/listing.html?id=\${listing.id}">
           <div class="photo">
-            <img src="\${photo}" alt="" loading="lazy">
+            <img src="\${cardPhoto(photo)}" alt="" loading="lazy" decoding="async">
             <div class="card-badge \${BADGE_CLASS[listing.listing_type] || "house-trade"}" title="\${TYPE_LABELS[listing.listing_type] || "For Trade"}"><div class="\${BADGE_ICON[listing.listing_type] || "icon-sign"}"></div></div>
             \${cardTag}
           </div>
           <div class="body">
             <h3>\${escapeHtml(listing.title)}</h3>
             <div class="trust-row">
-              \${listing.profiles?.rbx_avatar_url ? \`<img class="trust-row-avatar" src="\${listing.profiles.rbx_avatar_url}" alt="">\` : \`<span class="avatar-initial">\${escapeHtml(username[0]?.toUpperCase() || "?")}</span>\`}
+              \${listing.profiles?.rbx_avatar_url ? avatarImg(listing.profiles.rbx_avatar_url, 48, 16, "trust-row-avatar") : \`<span class="avatar-initial">\${escapeHtml(username[0]?.toUpperCase() || "?")}</span>\`}
               <span class="username">\${escapeHtml(username)}</span>
               \${saveBtn}
             </div>

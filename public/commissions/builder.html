@@ -67,7 +67,7 @@
 </footer>
 
 <script type="module">
-  import { api, getStoredProfile, THEME_LABELS, QUICK_REPLIES, setCanonical } from "../js/api.js?v=5";
+  import { api, getStoredProfile, THEME_LABELS, QUICK_REPLIES, setCanonical, avatarImg, cardPhoto } from "../js/api.js?v=7";
   import { mountItemPicker } from "../js/item-picker.js";
 
   const params = new URLSearchParams(location.search);
@@ -122,7 +122,7 @@
           ${registryEntries
             .map(
               (e) => `<a class="listing-card" href="../registry/entry.html?id=${e.id}">
-                <div class="photo"><img src="${e.photos?.[0] || "../images/brand/searchdog.png"}" alt="" loading="lazy"></div>
+                <div class="photo"><img src="${cardPhoto(e.photos?.[0]) || "../images/brand/searchdog.png"}" alt="" loading="lazy" decoding="async"></div>
                 <div class="body">
                   <h3>${escapeHtml(e.title)}</h3>
                   <p class="lister">${e.is_community_verified ? "Community Verified" : e.status === "confirmed_original" ? "Confirmed Original" : e.status === "confirmed_clone" ? "Confirmed Clone" : "Registered"}</p>
@@ -141,7 +141,7 @@
           <div class="trust-card" style="margin-bottom:20px;">
             ${
               (builder.builder_avatar_url || builder.rbx_avatar_url)
-                ? `<img class="avatar-lg" src="${builder.builder_avatar_url || builder.rbx_avatar_url}" alt="" style="object-fit:cover;">`
+                ? avatarImg(builder.builder_avatar_url || builder.rbx_avatar_url, 100, 44, "avatar-lg")
                 : `<div class="avatar-lg" style="display:flex;align-items:center;justify-content:center;">${escapeHtml(builder.display_name[0]?.toUpperCase() || "?")}</div>`
             }
             <div>
