@@ -60,7 +60,7 @@
   ]
  },
  "celebrity-mansion": {
-  "status": "robux",
+  "status": "trade_only",
   "released": null,
   "features": [
    "Trees and plants outside",
@@ -70,6 +70,7 @@
   ],
   "confidence": "low",
   "sources": [
+   "https://www.playadopt.me/news/seans-sale-and-item-releaser-notes",
    "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
    "https://adoptme.fandom.com/wiki/Celebrity_Mansion",
    "https://adoptme.fandom.com/wiki/Houses"
@@ -207,7 +208,7 @@
   ]
  },
  "expandable-dino-house": {
-  "status": "unconfirmed",
+  "status": "trade_only",
   "released": "May 3, 2024",
   "features": [
    "Four expansions: Side Extension, Pool Extension, Second Floor, Sunken Basement",
@@ -215,10 +216,10 @@
   ],
   "confidence": "high",
   "sources": [
+   "https://www.playadopt.me/news/seans-sale-and-item-releaser-notes",
    "https://playadopt.me/news/double-bucks-and-aging-expandable-dino-house",
    "https://adoptme.fandom.com/wiki/Expandable_Dino_House",
-   "https://adoptme.fandom.com/wiki/Fossil_Isle_Returns_Bundle",
-   "https://www.ginx.tv/en/adopt-me-dino-house-car"
+   "https://adoptme.fandom.com/wiki/Fossil_Isle_Returns_Bundle"
   ]
  },
  "expandable-friendly-home": {
@@ -378,13 +379,14 @@
   ]
  },
  "hospital-home": {
-  "status": "robux",
+  "status": "trade_only",
   "released": "May 2023",
   "features": [
    "Hospital-themed furniture available: beds, reception desks, cribs"
   ],
   "confidence": "medium",
   "sources": [
+   "https://www.playadopt.me/news/seans-sale-and-item-releaser-notes",
    "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
    "https://adoptme.fandom.com/wiki/Houses",
    "https://progameguides.com/roblox/all-changes-made-with-adopt-mes-hospital-and-school-refresh-update-roblox/"
@@ -512,7 +514,7 @@
   ]
  },
  "modern-mansion": {
-  "status": "robux",
+  "status": "trade_only",
   "released": null,
   "features": [
    "Seven rooms",
@@ -522,6 +524,7 @@
   ],
   "confidence": "medium",
   "sources": [
+   "https://www.playadopt.me/news/seans-sale-and-item-releaser-notes",
    "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
    "https://adoptme.fandom.com/wiki/Modern_Mansion",
    "https://adoptme.fandom.com/wiki/Houses"
@@ -711,13 +714,14 @@
   ]
  },
  "schoolhouse-home": {
-  "status": "robux",
+  "status": "trade_only",
   "released": "May 2023",
   "features": [
    "School-themed furniture available: desks, bookshelves, blackboard"
   ],
   "confidence": "medium",
   "sources": [
+   "https://www.playadopt.me/news/seans-sale-and-item-releaser-notes",
    "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
    "https://adoptme.fandom.com/wiki/Houses",
    "https://progameguides.com/roblox/all-changes-made-with-adopt-mes-hospital-and-school-refresh-update-roblox/"
@@ -737,7 +741,7 @@
   ]
  },
  "soccer-stadium": {
-  "status": "robux",
+  "status": "trade_only",
   "released": "July 2024",
   "features": [
    "Blue exterior walls with glowing blue windows around a central pitch",
@@ -748,10 +752,10 @@
   ],
   "confidence": "medium",
   "sources": [
+   "https://www.playadopt.me/news/seans-sale-and-item-releaser-notes",
    "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
    "https://adoptme.fandom.com/wiki/Soccer_Stadium",
-   "https://adoptme.fandom.com/wiki/Houses",
-   "https://www.ginx.tv/en/?p=65391"
+   "https://adoptme.fandom.com/wiki/Houses"
   ]
  },
  "space-fleet-house": {
@@ -809,6 +813,40 @@
   "sources": [
    "https://adoptme.fandom.com/wiki/Treehouse",
    "https://adoptme.fandom.com/wiki/Houses"
+  ]
+ },
+ "monster-mansion": {
+  "status": "bucks",
+  "released": "September 25, 2026",
+  "features": [
+   "Glowing green windows that look like eyes",
+   "Animated parts on the outside, with a gap of broken planks like a mouth",
+   "Dark metal fence around a grassy yard with a dirt path",
+   "Four levels, with a basement reached by a hatch in the laundry room",
+   "Kitchen comes decorated, and a back room is left empty",
+   "Ten matching furniture pieces sold separately (3,413 Bucks for one of each)"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://www.playadopt.me/news/monster-mansion-notes",
+   "https://adoptme.fandom.com/wiki/Monster_Mansion",
+   "https://bloxodes.com/articles/adopt-me-monster-mansion-update-new-home-skin-and-features-explained"
+  ]
+ },
+ "fairytale-castle": {
+  "status": "bucks",
+  "released": "September 4, 2026",
+  "features": [
+   "Towers with pink roofs, gold trim and orange flags",
+   "Green vines climbing the towers",
+   "Wide white staircase up to the door",
+   "Four stories",
+   "Ten matching furniture pieces sold separately (832 Bucks for one of each)"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://www.playadopt.me/news/fairytale-castle-notes",
+   "https://bloxodes.com/wiki/adopt-me/houses"
   ]
  }
 }

@@ -81,12 +81,11 @@
     "image": "/images/houses/Celebrity-Mansion-Common-from-Celebrity-Mansion-Gamepass-(Robux).png",
     "value": 2.8,
     "valueUnit": "RP",
-    "availability": "robux",
-    "robuxPrice": 800,
+    "availability": "limited",
     "expandable": false,
-    "summary": "Celebrity Mansion is an Adopt Me house sold for 800 Robux as a gamepass, bundled with an SUV. It has a modern balcony and a pool with a secret room.",
-    "description": "The Celebrity Mansion comes from a gamepass that costs 800 Robux. The pass also includes an SUV vehicle, and the house is bundled with it. A release date has not been found. It is sold for Robux, not Bucks.\n\nOutside, you will see trees and plants and a modern balcony. There is also a pool, and the pool has a secret room. The wall of that secret room is covered in Adopt Me posters. Reports disagree on how many floors the house has, so it is best to look for yourself in game.",
-    "tradingNotes": "It was bought with Robux, so it cannot be sold for Bucks, even if you got it by trading. Whether the gamepass is still on sale in the store is not confirmed."
+    "summary": "Celebrity Mansion is an Adopt Me house with a modern balcony and a pool with a secret room. It is no longer sold and can only be traded for.",
+    "description": "The Celebrity Mansion came from a Robux gamepass that also included an SUV vehicle. It was part of Adopt Me's final-chance Robux sale on April 24, 2026 and is no longer sold. You can only get it by trading with another player. A release date has not been found.\n\nOutside, you will see trees and plants and a modern balcony. There is also a pool, and the pool has a secret room. The wall of that secret room is covered in Adopt Me posters. Reports disagree on how many floors the house has, so it is best to look for yourself in game.",
+    "tradingNotes": "It was bought with Robux, so it cannot be sold for Bucks, even if you got it by trading."
   },
   {
     "id": "christmas-pudding-house",
@@ -237,15 +236,14 @@
     "image": "/images/houses/Expandable-Dino-House-Common-from-Fossil-Isle-2024.png",
     "value": 5.6,
     "valueUnit": "RP",
-    "availability": "unconfirmed",
-    "robuxPrice": 800,
+    "availability": "limited",
     "floors": 1,
     "expandable": true,
     "released": "May 3, 2024",
-    "summary": "Expandable Dino House came with the 800 Robux Fossil Isle Returns Bundle in May 2024. It starts with one floor and has four expansions.",
+    "summary": "Expandable Dino House came with the Fossil Isle Returns Bundle in May 2024. It starts with one floor and has four expansions. It is no longer sold.",
     "originLabel": "Fossil Isle Returns Bundle (Robux)",
-    "description": "The Expandable Dino House came with the Fossil Isle Returns Bundle, released on May 3, 2024 during Fossil Isle Excavation. The bundle costs 800 Robux and also includes the Legendary Prehistoric Car. You then buy the expansions with Bucks. It is a Robux purchase, not a Bucks one.\n\nThe base home has one floor. The four expansions are Side Extension, Pool Extension, Second Floor and Sunken Basement. With the second floor and the basement added, the house can reach three levels. No details about its outside look have been found.",
-    "tradingNotes": "The bundle was offered for a limited time, and nothing confirms it is back. One listing shows the house as trade-only, so check in game."
+    "description": "The Expandable Dino House came with the Fossil Isle Returns Bundle, released on May 3, 2024 during Fossil Isle Excavation. The bundle also included the Legendary Prehistoric Car. The bundle was part of Adopt Me's final-chance Robux sale on April 24, 2026 and is no longer sold. You can only get it by trading with another player.\n\nThe base home has one floor. The four expansions are Side Extension, Pool Extension, Second Floor and Sunken Basement. With the second floor and the basement added, the house can reach three levels. No details about its outside look have been found.",
+    "tradingNotes": "It was bought with Robux, so it cannot be sold for Bucks, even if you got it by trading."
   },
   {
     "id": "expandable-friendly-home",
@@ -317,6 +315,25 @@
     "summary": "Fairy House is a mushroom-shaped Adopt Me house added in the May 2019 Fairy Update. It has three rooms and costs 1,100 Bucks in the house shop.",
     "description": "The Fairy House came with the Fairy Update on May 31, 2019. You buy it with 1,100 Bucks in the house shop. Nothing says it was ever retired, though current availability is worth checking in game.\n\nThe house is shaped like a mushroom. The cap takes the color you choose, and leaves and red flowers grow around the stem. Inside there are three rooms, one on the first floor and two on the second. The Fairy Update is where it was added.",
     "tradingNotes": "No trading rules for this house have been found."
+  },
+  {
+    "id": "fairytale-castle",
+    "category": "houses",
+    "name": "Fairytale Castle",
+    "rarity": "Common",
+    "source": "Fairytale Castle Update",
+    "image": "/images/houses/Fairytale-Castle-Common-from-Fairytale-Castle-Update.png",
+    "value": null,
+    "valueUnit": null,
+    "availability": "obtainable",
+    "bucksPrice": 8000,
+    "floors": 4,
+    "expandable": false,
+    "released": "September 4, 2026",
+    "summary": "Fairytale Castle is a four-story Adopt Me house from September 4, 2026. It costs 8,000 Bucks, and ten castle furniture pieces are sold separately.",
+    "originLabel": "Fairytale Castle update (Sept 2026)",
+    "description": "The Fairytale Castle came out in the Fairytale Castle update on September 4, 2026. You buy it with Bucks for 8,000 Bucks. It is a four-story house. The update also added ten matching castle furniture pieces. They are sold separately, and one of each adds up to 832 Bucks.\n\nThe castle has towers with pink roofs and gold trim, topped with orange flags. Green vines climb the towers, and a wide white staircase leads up to the door.",
+    "tradingNotes": "No special trading rules for this house were found. Nothing says it is limited, but check in game to see if it is still for sale."
   },
   {
     "id": "family-home",
@@ -434,12 +451,11 @@
     "image": "/images/houses/Hospital-Home-Common-from-School-and-Hospital-Houses-(Robux).png",
     "value": 1.6,
     "valueUnit": "RP",
-    "availability": "robux",
-    "robuxPrice": 600,
+    "availability": "limited",
     "expandable": false,
     "released": "May 2023",
-    "summary": "The Hospital Home is sold for 600 Robux in the School and Hospital Homes gamepass. It turns a premium plot into a hospital.",
-    "description": "The Hospital Home comes from the School and Hospital Homes gamepass, which costs 600 Robux. One pass covers both houses. It lets you turn a premium plot into a hospital or a schoolhouse. It arrived in the Hospital and School Refresh update on May 18, 2023.\n\nThe update also brought a set of hospital furniture. You can find beds, reception desks and cribs. The Schoolhouse Home is sold together with it in the same pass, so buying one pass gets you both. Check in game to see if the pass is still on sale.",
+    "summary": "Hospital Home came with the School and Hospital Homes pass in May 2023. It is no longer sold and can only be traded for.",
+    "description": "The Hospital Home came from the School and Hospital Homes gamepass, which covered both houses with one purchase. It arrived in the Hospital and School Refresh update on May 18, 2023. The bundle was part of Adopt Me's final-chance Robux sale on April 24, 2026 and is no longer sold. You can only get it by trading with another player.\n\nThe update also brought a set of hospital furniture, including beds, reception desks and cribs. The Schoolhouse Home came in the same pass.",
     "tradingNotes": "It was bought with Robux, so it cannot be sold for Bucks, even if you got it in a trade."
   },
   {
@@ -585,13 +601,31 @@
     "image": "/images/houses/Modern-Mansion-Common-from-Modern-Mansion-Gamepass-(Robux).png",
     "value": 1.2,
     "valueUnit": "RP",
-    "availability": "robux",
-    "robuxPrice": 300,
+    "availability": "limited",
     "floors": 2,
     "expandable": false,
-    "summary": "The Modern Mansion is a two-floor Adopt Me house with seven rooms and an indoor pool room. It is sold for 300 Robux as a gamepass.",
-    "description": "Players get the Modern Mansion through a gamepass that costs 300 Robux. You can also get it by trading. It has two floors.\n\nThere are seven rooms, including bathrooms, with a side doorway. The indoor pool room sits in front of the main doorway. Outside, four trees stand by the mailbox. Three planters with trees sit on the roof.",
-    "tradingNotes": "It was bought with Robux, so it cannot be sold for Bucks, even if you got it in a trade. Reports differ on whether the gamepass is still on sale."
+    "summary": "Modern Mansion is a two-floor Adopt Me house with seven rooms and an indoor pool room. It is no longer sold and can only be traded for.",
+    "description": "The Modern Mansion was a Robux house, sold through a gamepass. It was part of Adopt Me's final-chance Robux sale on April 24, 2026 and is no longer sold. You can only get it by trading with another player. It has two floors.\n\nThere are seven rooms, including bathrooms, with a side doorway. The indoor pool room sits in front of the main doorway. Outside, four trees stand by the mailbox. Three planters with trees sit on the roof.",
+    "tradingNotes": "It was bought with Robux, so it cannot be sold for Bucks, even if you got it in a trade."
+  },
+  {
+    "id": "monster-mansion",
+    "category": "houses",
+    "name": "Monster Mansion",
+    "rarity": "Common",
+    "source": "Monster Mansion Update",
+    "image": "/images/houses/Monster-Mansion-Common-from-Monster-Mansion-Update.png",
+    "value": null,
+    "valueUnit": null,
+    "availability": "obtainable",
+    "bucksPrice": 13000,
+    "floors": 4,
+    "expandable": false,
+    "released": "September 25, 2026",
+    "summary": "Monster Mansion is a four-level haunted Adopt Me house from September 25, 2026. It costs 13,000 Bucks, and its furniture is sold separately.",
+    "originLabel": "Monster Mansion update (Sept 2026)",
+    "description": "The Monster Mansion came out in the Monster Mansion update on September 25, 2026. You buy it with Bucks for 13,000 Bucks, or get it by trading. No furniture comes with it. Ten matching pieces are sold separately, and one of each adds up to 3,413 Bucks.\n\nIt is a haunted house with a purple roof and glowing green windows that look like eyes. Parts of the outside are animated, and a gap of broken planks works as a mouth. Dark metal fencing surrounds a grassy yard with a dirt path, and a glowing green lantern sits in the yard. Inside there are four levels. A hallway leads from the entrance to three rooms, with the stairs on the right. The kitchen is on the left, and a laundry room beyond it has a hatch down to the basement. The living room is on the right, next to an empty back room.",
+    "tradingNotes": "You can also get it by trading. No special trading rules for this house were found."
   },
   {
     "id": "moon-house",
@@ -812,13 +846,12 @@
     "image": "/images/houses/Schoolhouse-Home-Common-from-School-and-Hospital-Houses-(Robux).png",
     "value": 2.4,
     "valueUnit": "RP",
-    "availability": "robux",
-    "robuxPrice": 600,
+    "availability": "limited",
     "expandable": false,
     "released": "May 2023",
-    "summary": "Schoolhouse Home came with the May 18, 2023 Hospital and School Refresh update. You get it with a 600 Robux gamepass shared with the Hospital Home.",
-    "description": "The Schoolhouse Home came with the Hospital and School Refresh update on May 18, 2023. It is sold through the School and Hospital Homes gamepass for 600 Robux. One pass covers both homes.\n\nThe house is listed with 1 floor. School-themed furniture is available, including desks, bookshelves and a blackboard. The school furniture set came with the update. The pass costs 600 Robux and unlocks both the school and the hospital. No Bucks price is listed for it. Check in game to see if the pass is still on sale.",
-    "tradingNotes": "You get this house with Robux, so it cannot be sold for Bucks, even if you got it by trading."
+    "summary": "Schoolhouse Home came with the School and Hospital Homes pass in May 2023. It is no longer sold and can only be traded for.",
+    "description": "The Schoolhouse Home came with the Hospital and School Refresh update on May 18, 2023. It was sold through the School and Hospital Homes gamepass, one pass for both homes. The bundle was part of Adopt Me's final-chance Robux sale on April 24, 2026 and is no longer sold. You can only get it by trading with another player.\n\nThe house is listed with 1 floor. School-themed furniture came with the update, including desks, bookshelves and a blackboard. The Hospital Home came in the same pass.",
+    "tradingNotes": "You got this house with Robux, so it cannot be sold for Bucks, even if you got it by trading."
   },
   {
     "id": "shop-house",
@@ -845,14 +878,13 @@
     "image": "/images/houses/Soccer-Stadium-Common-from-Soccer-Update-2024.png",
     "value": 2.2,
     "valueUnit": "RP",
-    "availability": "robux",
-    "robuxPrice": 550,
+    "availability": "limited",
     "floors": 2,
     "expandable": false,
     "released": "July 2024",
-    "summary": "Soccer Stadium came with the July 2024 Soccer update. It costs 550 Robux, has 2 floors and 7 rooms, and sits around a central pitch.",
-    "description": "Soccer Stadium was added in the Soccer update in July 2024. You buy it with 550 Robux in the shop, or get it by trading.\n\nThe outside has blue walls and glowing blue windows around a central pitch. A white rim holds red, green, yellow and blue flags, and you can change the wall color. There are 2 floors and 7 rooms. Six are on the first floor, linked by 2 hallways, and one hallway has 2 small bathrooms. The last room is on the second floor and looks over the pitch and stadium.",
-    "tradingNotes": "It is bought with Robux, so it cannot be sold for Bucks. Check in game that it is still on sale."
+    "summary": "Soccer Stadium is an Adopt Me house from the July 2024 Soccer update, with 2 floors and 7 rooms. It is no longer sold and can only be traded for.",
+    "description": "Soccer Stadium was added in the Soccer update in July 2024 and was sold for Robux. It was part of Adopt Me's final-chance Robux sale on April 24, 2026 and is no longer sold. You can only get it by trading with another player.\n\nThe outside has blue walls and glowing blue windows around a central pitch. A white rim holds red, green, yellow and blue flags, and you can change the wall color. There are 2 floors and 7 rooms. Six are on the first floor, linked by 2 hallways, and one hallway has 2 small bathrooms. The last room is on the second floor and looks over the pitch and stadium.",
+    "tradingNotes": "It was bought with Robux, so it cannot be sold for Bucks."
   },
   {
     "id": "space-fleet-house",
