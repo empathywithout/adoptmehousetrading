@@ -8,6 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "fs";
 import path from "path";
 import { loadHouseStats } from "./lib/house-stats.mjs";
+import { injectSnapshots } from "./lib/page-snapshots.mjs";
 
 const DATA_FILE = path.join(process.cwd(), "data", "houses.json");
 const OUT_HOUSES_DIR = path.join(process.cwd(), "public", "houses");
@@ -796,6 +797,12 @@ async function main() {
     if (d && (d.tradeCount || d.listingCount)) enriched++;
     writeFileSync(path.join(OUT_HOUSES_DIR, `${house.id}.html`), buildHousePage(house, stats));
   }
+
+  // The Browse and Recent Trades pages fill themselves from a function at
+  // runtime, so a crawler sees an empty shell. This bakes a snapshot of the
+  // same data into their HTML (markers in those files); the pages' own
+  // scripts still replace it with the live version. No-op without data.
+  injectSnapshots(stats, houses);
 
   console.log(
     `Generated homepage, browse page, and ${houses.length} house detail pages` +

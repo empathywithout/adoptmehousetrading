@@ -13,12 +13,17 @@
 // pages render exactly as they did before, just without the extra section.
 
 import { isTestRow } from "../../netlify/functions/_lib/testdata.js";
+import { EXPIRE_DAYS } from "../../netlify/functions/_lib/listings.js";
 
 const MAX_TRADES_PER_HOUSE = 6;
 const MAX_LISTINGS_PER_HOUSE = 6;
+// How many of the newest listings and trades get written into the static
+// Browse and Recent Trades pages (see page-snapshots.mjs).
+const BROWSE_SNAPSHOT_LISTINGS = 24;
+const RECENT_TRADES_SNAPSHOT = 18;
 
 export function emptyStats() {
-  return { byHouse: {}, ok: false, reason: "not loaded" };
+  return { byHouse: {}, browse: null, recentTrades: [], ok: false, reason: "not loaded" };
 }
 
 export async function loadHouseStats() {
@@ -37,6 +42,12 @@ export async function loadHouseStats() {
   }
 
   try {
+    // Same visibility rules as listings-list.js, so a crawler is never shown
+    // a listing that the live Browse page has already hidden: active rows
+    // expire EXPIRE_DAYS after their last create/edit/renewal, and the
+    // deprecated 'commission' listing type never shows publicly.
+    const expireCutoff = new Date(Date.now() - EXPIRE_DAYS * 86400000).toISOString();
+
     const [tradesRes, listingsRes] = await Promise.all([
       db.from("completed_trades")
         .select("id, created_at, listing_id, offer_id, status")
@@ -44,8 +55,10 @@ export async function loadHouseStats() {
         .order("created_at", { ascending: false })
         .limit(500),
       db.from("listings")
-        .select("id, house_id, title, value_amount, value_unit, status, profile_id, photos, updated_at, build_type")
+        .select("id, house_id, title, value_amount, value_unit, status, profile_id, photos, updated_at, build_type, listing_type")
         .eq("status", "active")
+        .neq("listing_type", "commission")
+        .filter("updated_at", ">=", expireCutoff)
         .order("updated_at", { ascending: false })
         .limit(3000),
     ]);
@@ -81,6 +94,8 @@ export async function loadHouseStats() {
     for (const l of tradeListings || []) listingById[l.id] = l;
 
     const byHouse = {};
+    const recentTrades = [];
+    const browseListings = [];
     const bucket = (houseId) => (byHouse[houseId] ||= { trades: [], listings: [], tradeCount: 0, listingCount: 0 });
 
     // Verified trades. This is the content nobody else has: what a house
@@ -91,6 +106,17 @@ export async function loadHouseStats() {
       if (isTestRow({ title: l.title, names: [nameOf[l.profile_id]] })) continue;
       const b = bucket(l.house_id);
       b.tradeCount++;
+      if (recentTrades.length < RECENT_TRADES_SNAPSHOT) {
+        recentTrades.push({
+          id: t.id,
+          at: t.created_at,
+          houseId: l.house_id,
+          title: l.title,
+          value: l.value_amount ?? null,
+          unit: l.value_unit || null,
+          lister: nameOf[l.profile_id] || null,
+        });
+      }
       if (b.trades.length < MAX_TRADES_PER_HOUSE) {
         b.trades.push({
           id: t.id,
@@ -108,6 +134,19 @@ export async function loadHouseStats() {
       if (isTestRow({ title: l.title, names: [nameOf[l.profile_id]] })) continue;
       const b = bucket(l.house_id);
       b.listingCount++;
+      if (browseListings.length < BROWSE_SNAPSHOT_LISTINGS) {
+        browseListings.push({
+          id: l.id,
+          houseId: l.house_id,
+          title: l.title,
+          value: l.value_amount ?? null,
+          unit: l.value_unit || null,
+          lister: nameOf[l.profile_id] || null,
+          photo: Array.isArray(l.photos) ? l.photos[0] || null : null,
+          buildType: l.build_type || null,
+          listingType: l.listing_type || "house_trade",
+        });
+      }
       if (b.listings.length < MAX_LISTINGS_PER_HOUSE) {
         b.listings.push({
           id: l.id,
@@ -123,7 +162,18 @@ export async function loadHouseStats() {
 
     const houses = Object.keys(byHouse).length;
     console.log(`[house-stats] loaded data for ${houses} house type(s): ${trades.length} trade(s), ${activeListings.length} active listing(s)`);
-    return { byHouse, ok: true, reason: null };
+    // Per-house counts for the "browse by house" block on the Browse page.
+    const houseCounts = Object.entries(byHouse)
+      .filter(([, d]) => d.listingCount > 0)
+      .map(([id, d]) => ({ id, count: d.listingCount }))
+      .sort((a, b) => b.count - a.count);
+    const browse = {
+      listings: browseListings,
+      totalActive: houseCounts.reduce((n, h) => n + h.count, 0),
+      houseCounts,
+    };
+
+    return { byHouse, browse, recentTrades, ok: true, reason: null };
   } catch (err) {
     console.warn("[house-stats] unexpected failure, continuing without site data:", err.message);
     return { ...emptyStats(), reason: "exception" };
