@@ -36,6 +36,21 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://adoptmehousetrading.com/guides/expandable-houses.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://adoptmehousetrading.com/guides/house-release-timeline.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://adoptmehousetrading.com/guides/houses-by-price.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://adoptmehousetrading.com/guides/how-house-commissions-work.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -47,6 +62,11 @@
   </url>
   <url>
     <loc>https://adoptmehousetrading.com/guides/original-vs-cloned-vs-commissioned.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://adoptmehousetrading.com/guides/trade-only-houses.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

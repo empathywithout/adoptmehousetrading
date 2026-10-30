@@ -8,7 +8,8 @@
     "copy-data": "mkdir -p public/data && cp data/*.json public/data/",
     "generate": "node scripts/generate-house-pages.mjs",
     "sitemap": "node scripts/generate-sitemap.mjs",
-    "build": "npm run parse && npm run copy-data && npm run generate && npm run sitemap"
+    "build": "npm run parse && npm run copy-data && npm run generate && npm run guides && npm run sitemap",
+    "guides": "node scripts/generate-guides.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1099.0",
