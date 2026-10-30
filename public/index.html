@@ -37,7 +37,7 @@
     <nav>
       <a href="listings/index.html" class="">Browse Houses</a>
       <a href="commissions/index.html" class="">Find a Builder</a>
-      <a href="comps.html" class="">Recent Trades</a>
+      <a href="recent-trades.html" class="">Recent Trades</a>
       <div class="nav-more">
         <button type="button" class="nav-more-trigger ">More <span class="nav-more-caret"></span></button>
         <div class="nav-more-dropdown" hidden>
@@ -57,15 +57,22 @@
 </header>
 <script type="module" src="js/nav.js"></script>
 
+<style>
+.house-card .thumb { position:relative; }
+.card-meta { display:flex; gap:5px; align-items:center; flex-wrap:wrap; margin:3px 0 2px; }
+.info-chips { display:flex; gap:5px; flex-wrap:wrap; margin:4px 0 3px; }
+.info-chip { font-size:11px; font-weight:600; padding:2px 8px; border-radius:20px; background:var(--surface-alt,#f3f4f6); color:var(--ink-soft); border:1px solid var(--line); }
+.info-chip.price-chip { color:var(--accent); border-color:var(--accent); background:var(--accent-soft,#f0f0ff); }
+</style>
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <div class="hero-eyebrow">Adopt Me House Trading</div>
       <h1>Trade Adopt Me Houses.<br>Track Real Values.</h1>
-      <p class="lede" style="margin-left:0;">List your Adopt Me house, get real offers in Pets, Vehicles, Toys, and more from real Roblox players, and check verified trade values — not guesswork — before you commit.</p>
+      <p class="lede" style="margin-left:0;">List your Adopt Me house, get real offers in Pets, Vehicles, Toys, and more from real Roblox players, and see what houses have really traded for, confirmed by both sides, before you commit.</p>
       <div class="hero-ctas" style="justify-content:flex-start;">
         <a class="btn btn-primary" href="listings/index.html">Browse Houses</a>
-        <a class="btn btn-secondary" href="comps.html">See Recent Trades</a>
+        <a class="btn btn-secondary" href="recent-trades.html">See Recent Trades</a>
       </div>
     </div>
     <div class="big-sign-wrap">
@@ -81,6 +88,48 @@
     </div>
   </div>
 </section>
+<section class="wrap" style="padding-top:8px;padding-bottom:0;">
+  <div style="border:1px solid var(--line);border-radius:14px;padding:16px 28px;display:flex;gap:36px;flex-wrap:wrap;background:var(--surface);"><div>
+        <div style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--ink);">55</div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;">Adopt Me houses covered</div>
+      </div><div>
+        <div style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--ink);">23</div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;">bought with Bucks</div>
+      </div><div>
+        <div style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--ink);">4</div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;">bought with Robux</div>
+      </div><div>
+        <div style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--ink);">14</div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;">trade only</div>
+      </div></div>
+</section>
+
+<section class="wrap" style="padding-bottom:0;">
+  <div class="section-head"><h2>How house trading works here</h2><a href="guides/how-to-trade-houses.html">Read the full guide →</a></div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;">
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;">
+        <div style="font-family:var(--font-display);font-weight:800;color:var(--accent);font-size:13px;">STEP 1</div>
+        <div style="font-weight:700;color:var(--ink);margin:4px 0 6px;">List your house</div>
+        <p style="font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0;">Add at least five photos, say which house it is, and mark whether the build is original or cloned. Ask for a value in Shark, Frost or Ride Pot.</p>
+      </div>
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;">
+        <div style="font-family:var(--font-display);font-weight:800;color:var(--accent);font-size:13px;">STEP 2</div>
+        <div style="font-weight:700;color:var(--ink);margin:4px 0 6px;">Get offers</div>
+        <p style="font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0;">Players offer pets, vehicles, toys and more. A house can be traded for anything except another house, and there is no Robux or real money in an offer.</p>
+      </div>
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;">
+        <div style="font-family:var(--font-display);font-weight:800;color:var(--accent);font-size:13px;">STEP 3</div>
+        <div style="font-weight:700;color:var(--ink);margin:4px 0 6px;">Chat with preset messages</div>
+        <p style="font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0;">Trade chat uses ready-made messages only, so nobody has to type personal details to a stranger.</p>
+      </div>
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;">
+        <div style="font-family:var(--font-display);font-weight:800;color:var(--accent);font-size:13px;">STEP 4</div>
+        <div style="font-weight:700;color:var(--ink);margin:4px 0 6px;">Confirm it</div>
+        <p style="font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0;">After the swap in game, both traders confirm it here. Trades confirmed by both sides show up on the Recent Trades page.</p>
+      </div>
+  </div>
+</section>
+
 <section class="wrap">
   <div class="section-head">
     <h2>Recently Added</h2>
@@ -96,32 +145,73 @@
 
 <section class="wrap" style="padding-bottom:0;">
   <div class="section-head">
-    <h2>House Values</h2>
+    <h2>Every Adopt Me house</h2>
     <a href="houses/index.html">See all 55 houses →</a>
   </div>
-  <div style="background:var(--surface);border:1.5px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:0;">
-    <div style="padding:24px 28px 20px;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;">
-      <div style="max-width:520px;">
-        <div style="font-family:var(--font-display);font-size:1.15rem;font-weight:800;color:var(--ink);margin-bottom:8px;">Know the value before you trade</div>
-        <p style="font-size:14px;color:var(--muted);line-height:1.65;margin:0;">Community RP values for all 55 tradeable Adopt Me houses — limited, Robux, and free-to-play. Sort by value or search by name. Updated September 2026.</p>
-      </div>
-      <a href="houses/index.html" class="btn btn-primary" style="flex-shrink:0;align-self:center;">Check House Values</a>
-    </div>
-    <div style="border-top:1px solid var(--line);padding:16px 28px;display:flex;gap:32px;flex-wrap:wrap;">
-      <div>
-        <div style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--ink);">55</div>
-        <div style="font-size:12px;color:var(--muted);font-weight:600;">tradeable houses</div>
-      </div>
-      <div>
-        <div style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--ink);">RP</div>
-        <div style="font-size:12px;color:var(--muted);font-weight:600;">community pricing unit</div>
-      </div>
-      <div>
-        <div style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--ink);">Sept '26</div>
-        <div style="font-size:12px;color:var(--muted);font-weight:600;">last updated</div>
-      </div>
-    </div>
+  <p style="font-size:14px;color:var(--ink-soft);line-height:1.65;max-width:720px;margin:0 0 16px;">55 houses covered, with price, release date, floors and trade status for each. 23 are bought with Bucks, 4 with Robux, and 14 are no longer sold and can only be traded for. Here are the newest.</p>
+  <div class="house-grid" style="padding-bottom:20px;">
+    <a class="house-card" href="houses/monster-mansion.html" data-name="monster mansion" data-source="monster mansion update (sept 2026)" data-avail="obtainable" data-price="13000" data-released="1790308800000">
+  <div class="thumb"><img src="images/houses/Monster-Mansion-Common-from-Monster-Mansion-Update.png" alt="Monster Mansion" loading="lazy" onerror="this.style.opacity='.3'"></div>
+  <div class="info">
+    <h3>Monster Mansion</h3>
+    <div class="card-meta"></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 13,000 Bucks</span><span class="info-chip">🏠 4 floors</span></div>
+    <p class="source"><span class="source-label">From:</span> Monster Mansion update (Sept 2026)</p>
+    <div class="card-value"><span class="unit">Released September 25, 2026</span></div>
   </div>
+</a>
+<a class="house-card" href="houses/fairytale-castle.html" data-name="fairytale castle" data-source="fairytale castle update (sept 2026)" data-avail="obtainable" data-price="8000" data-released="1788494400000">
+  <div class="thumb"><img src="images/houses/Fairytale-Castle-Common-from-Fairytale-Castle-Update.png" alt="Fairytale Castle" loading="lazy" onerror="this.style.opacity='.3'"></div>
+  <div class="info">
+    <h3>Fairytale Castle</h3>
+    <div class="card-meta"></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 8,000 Bucks</span><span class="info-chip">🏠 4 floors</span></div>
+    <p class="source"><span class="source-label">From:</span> Fairytale Castle update (Sept 2026)</p>
+    <div class="card-value"><span class="unit">Released September 4, 2026</span></div>
+  </div>
+</a>
+<a class="house-card" href="houses/beehive-house.html" data-name="beehive house" data-source="pollinator season 2026" data-avail="unconfirmed" data-price="5450" data-released="1782878400000">
+  <div class="thumb"><img src="images/houses/Beehive-House-Common-from-Bee-Pass-2026.webp" alt="Beehive House" loading="lazy" onerror="this.style.opacity='.3'"></div>
+  <div class="info">
+    <h3>Beehive House</h3>
+    <div class="card-meta"></div>
+    <div class="info-chips"><span class="info-chip price-chip">🪙 5,450 Bucks</span><span class="info-chip">🏠 3 floors</span></div>
+    <p class="source"><span class="source-label">From:</span> Pollinator Season 2026</p>
+    <div class="card-value"><span class="unit">Released July 2026</span></div>
+  </div>
+</a>
+<a class="house-card" href="houses/christmas-pudding-house.html" data-name="christmas pudding house" data-source="winter 2025 (event reward)" data-avail="limited" data-price="-1" data-released="1764565200000">
+  <div class="thumb"><img src="images/houses/Christmas-Pudding-House-Common-from-Winter-2025.png" alt="Christmas Pudding House" loading="lazy" onerror="this.style.opacity='.3'"></div>
+  <div class="info">
+    <h3>Christmas Pudding House</h3>
+    <div class="card-meta"></div>
+    <div class="info-chips"><span class="info-chip">🏠 2 floors</span></div>
+    <p class="source"><span class="source-label">From:</span> Winter 2025 (event reward)</p>
+    <div class="card-value"><span class="unit">Released December 2025</span></div>
+  </div>
+</a>
+  </div>
+</section>
+
+<section class="wrap" style="padding-bottom:0;">
+  <div class="section-head"><h2>House news</h2></div>
+  <ul style="list-style:none;padding:0;margin:0 0 20px;max-width:760px;"><li style="padding:14px 0;border-bottom:1px solid var(--line);">
+        <div style="font-size:12px;color:var(--muted);font-weight:600;">Sep 25, 2026</div>
+        <div style="font-weight:700;color:var(--ink);margin:2px 0 4px;">Monster Mansion released</div>
+        <p style="font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0;">The Monster Mansion came out for 13,000 Bucks. It has four levels, and its ten matching furniture pieces are sold separately. <span style="color:var(--muted);">See: <a href="houses/monster-mansion.html" style="color:var(--accent);">Monster Mansion</a>.</span></p>
+      </li><li style="padding:14px 0;border-bottom:1px solid var(--line);">
+        <div style="font-size:12px;color:var(--muted);font-weight:600;">Sep 4, 2026</div>
+        <div style="font-weight:700;color:var(--ink);margin:2px 0 4px;">Fairytale Castle released</div>
+        <p style="font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0;">The Fairytale Castle came out for 8,000 Bucks. It is a four-story house, and its ten matching furniture pieces are sold separately. <span style="color:var(--muted);">See: <a href="houses/fairytale-castle.html" style="color:var(--accent);">Fairytale Castle</a>.</span></p>
+      </li><li style="padding:14px 0;border-bottom:1px solid var(--line);">
+        <div style="font-size:12px;color:var(--muted);font-weight:600;">Jul 24, 2026</div>
+        <div style="font-weight:700;color:var(--ink);margin:2px 0 4px;">Beehive House released</div>
+        <p style="font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0;">The Beehive House arrived with the Pollinator Season update for 5,450 Bucks. It is not a Bee Pass reward. <span style="color:var(--muted);">See: <a href="houses/beehive-house.html" style="color:var(--accent);">Beehive House</a>.</span></p>
+      </li><li style="padding:14px 0;border-bottom:1px solid var(--line);">
+        <div style="font-size:12px;color:var(--muted);font-weight:600;">Apr 24, 2026</div>
+        <div style="font-weight:700;color:var(--ink);margin:2px 0 4px;">Final-chance Robux sale</div>
+        <p style="font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0;">Adopt Me ran a final-chance Robux sale that included the Modern Mansion, Celebrity Mansion, Soccer Stadium, the School and Hospital bundle and the Fossil Isle bundle. Those houses are no longer sold and can only be traded for. <span style="color:var(--muted);">See: <a href="houses/modern-mansion.html" style="color:var(--accent);">Modern Mansion</a>, <a href="houses/celebrity-mansion.html" style="color:var(--accent);">Celebrity Mansion</a>, <a href="houses/soccer-stadium.html" style="color:var(--accent);">Soccer Stadium</a>.</span></p>
+      </li></ul>
 </section>
 
 <section class="wrap" style="padding-top:20px;padding-bottom:60px;">

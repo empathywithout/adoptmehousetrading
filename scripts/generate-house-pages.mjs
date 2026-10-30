@@ -28,6 +28,18 @@ const FACTS_FILE = path.join(process.cwd(), "data", "house-facts.json");
 const houseFacts = existsSync(FACTS_FILE) ? JSON.parse(readFileSync(FACTS_FILE, "utf-8")) : {};
 const FACTS_CHECKED = "October 30, 2026";
 
+// Dated house news (data/house-updates.json), newest first. Used on the homepage.
+const UPDATES_FILE = path.join(process.cwd(), "data", "house-updates.json");
+const houseUpdates = existsSync(UPDATES_FILE)
+  ? JSON.parse(readFileSync(UPDATES_FILE, "utf-8")).sort((a, b) => b.date.localeCompare(a.date))
+  : [];
+
+// "September 25, 2026" / "July 2026" parse; "2018 (one of the original...)" does not. Unparseable is 0.
+function releasedMs(house) {
+  const t = Date.parse(house.released || "");
+  return Number.isNaN(t) ? 0 : t;
+}
+
 // The signature signpost mark — a mailbox post with a swinging "FOR TRADE"
 // sign, echoing the game's own trade mechanic. Reused in nav, hero, and
 // detail badges at different sizes via the wrapping element.
@@ -186,7 +198,7 @@ ${allJsonLd.map(jsonLdScript).join("\n")}
     <nav>
       <a href="${rootPrefix}listings/index.html" class="${routePath.startsWith("listings") ? "active" : ""}">Browse Houses</a>
       <a href="${rootPrefix}commissions/index.html" class="${routePath.startsWith("commissions") ? "active" : ""}">Find a Builder</a>
-      <a href="${rootPrefix}comps.html" class="${routePath === "comps" ? "active" : ""}">Recent Trades</a>
+      <a href="${rootPrefix}recent-trades.html" class="${routePath === "recent-trades" ? "active" : ""}">Recent Trades</a>
       <div class="nav-more">
         <button type="button" class="nav-more-trigger ${routePath.startsWith("houses") || routePath.startsWith("registry") || routePath.startsWith("guides") ? "active" : ""}">More <span class="nav-more-caret"></span></button>
         <div class="nav-more-dropdown" hidden>
@@ -221,7 +233,6 @@ ${body}
 function houseCard(house, context) {
   const linkPrefix = context === "root" ? "houses/" : "";
   const imgPrefix = context === "root" ? "" : "../";
-  const priced = house.value !== null;
   const src = house.originLabel || house.source || "";
 
   // Use availability field if present, otherwise fall back to source heuristic
@@ -255,31 +266,80 @@ function houseCard(house, context) {
   const srcClean = src.replace(/\s*\([\d,]+\s*Bucks\)/i, "").trim();
   const fromLine = srcClean ? `<p class="source"><span class="source-label">From:</span> ${escapeHtml(srcClean)}</p>` : "";
 
-  return `<a class="house-card" href="${linkPrefix}${house.id}.html" data-name="${escapeHtml(house.name.toLowerCase())}" data-source="${escapeHtml(src.toLowerCase())}" data-avail="${avail}" data-value="${house.value !== null ? house.value : -1}">
+  return `<a class="house-card" href="${linkPrefix}${house.id}.html" data-name="${escapeHtml(house.name.toLowerCase())}" data-source="${escapeHtml(src.toLowerCase())}" data-avail="${avail}" data-price="${house.bucksPrice ?? -1}" data-released="${releasedMs(house)}">
   <div class="thumb"><img src="${imgPrefix}${house.image.slice(1)}" alt="${escapeHtml(house.name)}" loading="lazy" onerror="this.style.opacity='.3'">${availTag}</div>
   <div class="info">
     <h3>${escapeHtml(house.name)}</h3>
     <div class="card-meta">${rarityPill}${expandBadge}</div>
     <div class="info-chips">${priceLine}${floorsLine}</div>
     ${fromLine}
-    <div class="card-value">${priced ? `<span class="amount">${house.value}</span><span class="unit">${house.valueUnit}</span>` : `<span class="unit">Value TBD</span>`}</div>
+    ${house.released ? `<div class="card-value"><span class="unit">Released ${escapeHtml(house.released)}</span></div>` : ""}
   </div>
 </a>`;
 }
 
 // ---------- Homepage ----------
 
-function buildHomepage() {
+function buildHomepage(stats) {
+  const houseById = Object.fromEntries(houses.map((h) => [h.id, h]));
+  const esc = escapeHtml;
+
+  // Real numbers when the build could read the database; otherwise only counts that come from the house list.
+  const live = stats?.ok ? Object.values(stats.byHouse) : null;
+  const sum = (key) => live.reduce((n, d) => n + (d[key] || 0), 0);
+  const tile = (value, label) => `<div>
+        <div style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--ink);">${value}</div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;">${label}</div>
+      </div>`;
+  const byStatus = (a) => houses.filter((h) => (h.availability || "obtainable") === a).length;
+  const statTiles = live
+    ? [tile(houses.length, "Adopt Me houses covered"), tile(sum("listingCount"), "live listings right now"),
+       tile(live.filter((d) => d.listingCount > 0).length, "different houses listed"), tile(sum("tradeCount"), "verified trades")].join("")
+    : [tile(houses.length, "Adopt Me houses covered"), tile(byStatus("obtainable"), "bought with Bucks"),
+       tile(byStatus("robux"), "bought with Robux"), tile(byStatus("limited"), "trade only")].join("");
+
+  // Static copy of the newest listings. The script below replaces it with the live, personalised version.
+  const recentSnapshot = (stats?.browse?.listings || []).filter((l) => l.listingType !== "looking_for").slice(0, 8)
+    .map((l) => listingCardHtml(l, {
+      href: `listings/listing.html?id=${encodeURIComponent(l.id)}`,
+      houseName: houseById[l.houseId]?.name, fallbackImage: houseById[l.houseId]?.image,
+    })).join("");
+
+  const newestHouses = [...houses].filter((h) => releasedMs(h)).sort((a, b) => releasedMs(b) - releasedMs(a)).slice(0, 4);
+  const news = houseUpdates.slice(0, 4).map((u) => {
+    const d = new Date(u.date + "T12:00:00Z");
+    const when = d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
+    const links = (u.houses || []).slice(0, 3).map((id) => houseById[id] ? `<a href="houses/${esc(id)}.html" style="color:var(--accent);">${esc(houseById[id].name)}</a>` : "").filter(Boolean).join(", ");
+    return `<li style="padding:14px 0;border-bottom:1px solid var(--line);">
+        <div style="font-size:12px;color:var(--muted);font-weight:600;">${esc(when)}</div>
+        <div style="font-weight:700;color:var(--ink);margin:2px 0 4px;">${esc(u.title)}</div>
+        <p style="font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0;">${esc(u.text)}${links ? ` <span style="color:var(--muted);">See: ${links}.</span>` : ""}</p>
+      </li>`;
+  }).join("");
+
+  const step = (n, title, text) => `<div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;">
+        <div style="font-family:var(--font-display);font-weight:800;color:var(--accent);font-size:13px;">STEP ${n}</div>
+        <div style="font-weight:700;color:var(--ink);margin:4px 0 6px;">${title}</div>
+        <p style="font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0;">${text}</p>
+      </div>`;
+
   const body = `
+<style>
+.house-card .thumb { position:relative; }
+.card-meta { display:flex; gap:5px; align-items:center; flex-wrap:wrap; margin:3px 0 2px; }
+.info-chips { display:flex; gap:5px; flex-wrap:wrap; margin:4px 0 3px; }
+.info-chip { font-size:11px; font-weight:600; padding:2px 8px; border-radius:20px; background:var(--surface-alt,#f3f4f6); color:var(--ink-soft); border:1px solid var(--line); }
+.info-chip.price-chip { color:var(--accent); border-color:var(--accent); background:var(--accent-soft,#f0f0ff); }
+</style>
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <div class="hero-eyebrow">Adopt Me House Trading</div>
       <h1>Trade Adopt Me Houses.<br>Track Real Values.</h1>
-      <p class="lede" style="margin-left:0;">List your Adopt Me house, get real offers in Pets, Vehicles, Toys, and more from real Roblox players, and check verified trade values — not guesswork — before you commit.</p>
+      <p class="lede" style="margin-left:0;">List your Adopt Me house, get real offers in Pets, Vehicles, Toys, and more from real Roblox players, and see what houses have really traded for, confirmed by both sides, before you commit.</p>
       <div class="hero-ctas" style="justify-content:flex-start;">
         <a class="btn btn-primary" href="listings/index.html">Browse Houses</a>
-        <a class="btn btn-secondary" href="comps.html">See Recent Trades</a>
+        <a class="btn btn-secondary" href="recent-trades.html">See Recent Trades</a>
       </div>
     </div>
     <div class="big-sign-wrap">
@@ -295,12 +355,26 @@ function buildHomepage() {
     </div>
   </div>
 </section>
+<section class="wrap" style="padding-top:8px;padding-bottom:0;">
+  <div style="border:1px solid var(--line);border-radius:14px;padding:16px 28px;display:flex;gap:36px;flex-wrap:wrap;background:var(--surface);">${statTiles}</div>
+</section>
+
+<section class="wrap" style="padding-bottom:0;">
+  <div class="section-head"><h2>How house trading works here</h2><a href="guides/how-to-trade-houses.html">Read the full guide →</a></div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;">
+    ${step(1, "List your house", "Add at least five photos, say which house it is, and mark whether the build is original or cloned. Ask for a value in Shark, Frost or Ride Pot.")}
+    ${step(2, "Get offers", "Players offer pets, vehicles, toys and more. A house can be traded for anything except another house, and there is no Robux or real money in an offer.")}
+    ${step(3, "Chat with preset messages", "Trade chat uses ready-made messages only, so nobody has to type personal details to a stranger.")}
+    ${step(4, "Confirm it", "After the swap in game, both traders confirm it here. Trades confirmed by both sides show up on the Recent Trades page.")}
+  </div>
+</section>
+
 <section class="wrap">
   <div class="section-head">
     <h2>Recently Added</h2>
     <a href="listings/index.html">View all listings →</a>
   </div>
-  <div id="recent-listings-grid" class="house-grid"></div>
+  <div id="recent-listings-grid" class="house-grid">${recentSnapshot}</div>
   <div id="recent-listings-empty" class="form-card" hidden>
     <h1>No listings yet</h1>
     <p class="subtitle">Be the first to put a house up for trade.</p>
@@ -310,33 +384,19 @@ function buildHomepage() {
 
 <section class="wrap" style="padding-bottom:0;">
   <div class="section-head">
-    <h2>House Values</h2>
+    <h2>Every Adopt Me house</h2>
     <a href="houses/index.html">See all ${houses.length} houses →</a>
   </div>
-  <div style="background:var(--surface);border:1.5px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:0;">
-    <div style="padding:24px 28px 20px;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;">
-      <div style="max-width:520px;">
-        <div style="font-family:var(--font-display);font-size:1.15rem;font-weight:800;color:var(--ink);margin-bottom:8px;">Know the value before you trade</div>
-        <p style="font-size:14px;color:var(--muted);line-height:1.65;margin:0;">Community RP values for all ${houses.length} tradeable Adopt Me houses — limited, Robux, and free-to-play. Sort by value or search by name. Updated September 2026.</p>
-      </div>
-      <a href="houses/index.html" class="btn btn-primary" style="flex-shrink:0;align-self:center;">Check House Values</a>
-    </div>
-    <div style="border-top:1px solid var(--line);padding:16px 28px;display:flex;gap:32px;flex-wrap:wrap;">
-      <div>
-        <div style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--ink);">${houses.length}</div>
-        <div style="font-size:12px;color:var(--muted);font-weight:600;">tradeable houses</div>
-      </div>
-      <div>
-        <div style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--ink);">RP</div>
-        <div style="font-size:12px;color:var(--muted);font-weight:600;">community pricing unit</div>
-      </div>
-      <div>
-        <div style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--ink);">Sept '26</div>
-        <div style="font-size:12px;color:var(--muted);font-weight:600;">last updated</div>
-      </div>
-    </div>
+  <p style="font-size:14px;color:var(--ink-soft);line-height:1.65;max-width:720px;margin:0 0 16px;">${houses.length} houses covered, with price, release date, floors and trade status for each. ${byStatus("obtainable")} are bought with Bucks, ${byStatus("robux")} with Robux, and ${byStatus("limited")} are no longer sold and can only be traded for. Here are the newest.</p>
+  <div class="house-grid" style="padding-bottom:20px;">
+    ${newestHouses.map((h) => houseCard(h, "root")).join("\n")}
   </div>
 </section>
+
+${news ? `<section class="wrap" style="padding-bottom:0;">
+  <div class="section-head"><h2>House news</h2></div>
+  <ul style="list-style:none;padding:0;margin:0 0 20px;max-width:760px;">${news}</ul>
+</section>` : ""}
 
 <section class="wrap" style="padding-top:20px;padding-bottom:60px;">
   <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 20px;background:var(--surface);border:1px solid var(--line);border-radius:12px;flex-wrap:wrap;">
@@ -486,14 +546,15 @@ function buildBrowsePage() {
     <h1>All Adopt Me Houses (${houses.length})</h1>
     <a href="../listings/index.html">Looking to trade? Browse live listings →</a>
   </div>
-  <p class="hint" style="margin-bottom:8px;">Every house in Adopt Me, with availability status and trade notes. Click any house for full value context, trading tips, and a currency reference guide.</p>
+  <p class="hint" style="margin-bottom:8px;">Every house in Adopt Me, with availability status and trade notes. Click any house for how to get it, what it looks like, and how trading it works.</p>
   <p class="hint" style="margin-bottom:16px;font-size:13px;">Note: house values in Adopt Me are <strong>build-specific</strong> — the same house type can trade for very different amounts depending on decoration quality and theme. <a href="../guides/index.html" style="color:var(--accent);">Read our trading guides</a> to understand how to evaluate a house's real trade value. &nbsp;<span style="display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap;"><span class="avail-tag obtainable" style="position:static;">Obtainable</span> = buyable now &nbsp; <span class="avail-tag robux" style="position:static;">Robux</span> = paid gamepass &nbsp; <span class="avail-tag limited" style="position:static;">Limited</span> = trade only</span></p>
   <div class="values-search-bar">
     <input type="search" id="house-search" placeholder="Search houses..." aria-label="Search houses">
     <select id="house-sort" style="padding:10px 14px;border:1.5px solid var(--line);border-radius:10px;font-size:14px;background:var(--surface);color:var(--ink);cursor:pointer;font-family:var(--font-body);font-weight:600;">
       <option value="alpha">A → Z</option>
-      <option value="value-desc">Value: High → Low</option>
-      <option value="value-asc">Value: Low → High</option>
+      <option value="newest">Newest first</option>
+      <option value="price-asc">Bucks price: Low → High</option>
+      <option value="price-desc">Bucks price: High → Low</option>
     </select>
   </div>
   <div class="filter-tabs" id="filter-tabs">
@@ -524,15 +585,19 @@ function buildBrowsePage() {
 
     // Sort cards
     const sorted = [...cards].sort((a, b) => {
-      if (sortMode === 'value-desc') {
-        const av = parseFloat(a.dataset.value) || 0, bv = parseFloat(b.dataset.value) || 0;
-        return bv - av;
+      if (sortMode === 'newest') {
+        const ar = parseFloat(a.dataset.released) || 0, br = parseFloat(b.dataset.released) || 0;
+        if (!ar && br) return 1;
+        if (!br && ar) return -1;
+        return br - ar;
       }
-      if (sortMode === 'value-asc') {
-        const av = parseFloat(a.dataset.value) || 0, bv = parseFloat(b.dataset.value) || 0;
-        if (av <= 0 && bv > 0) return 1;
-        if (bv <= 0 && av > 0) return -1;
-        return av - bv;
+      if (sortMode === 'price-asc' || sortMode === 'price-desc') {
+        // Houses with no Bucks price (Robux or unconfirmed) always go last.
+        const ap = parseFloat(a.dataset.price), bp = parseFloat(b.dataset.price);
+        const aNo = !(ap >= 0), bNo = !(bp >= 0);
+        if (aNo && !bNo) return 1;
+        if (bNo && !aNo) return -1;
+        return sortMode === 'price-asc' ? ap - bp : bp - ap;
       }
       return (a.dataset.name || '').localeCompare(b.dataset.name || '');
     });
@@ -567,8 +632,8 @@ function buildBrowsePage() {
 </script>`;
 
   return layout({
-    title: `Adopt Me House Values — All ${houses.length} Houses Ranked by Trade Value`,
-    description: `All ${houses.length} tradeable houses in Adopt Me with availability, specs, and trading context. Find out which houses are limited, which are obtainable, and what makes each one worth trading for.`,
+    title: `Adopt Me House Values: All ${houses.length} Houses, Prices and Trade Status`,
+    description: `All ${houses.length} Adopt Me houses with Bucks and Robux prices, release dates, floors and trade status. See which houses you can still buy and which are trade-only.`,
     path: "houses/index",
     depth: 1,
     jsonLd: [breadcrumbJsonLd([{ name: "Home", path: "" }, { name: "Values", path: "houses/index.html" }])],
@@ -698,8 +763,37 @@ function factsFootnote(house) {
   </div>`;
 }
 
+// The box under the house's facts. It used to show a community RP value copied
+// from another site. It now shows only this site's own numbers: the middle
+// asking price from live listings when there are enough, otherwise how many
+// listings there are, and never a made-up figure.
+function siteBox(house, stats) {
+  const d = stats?.byHouse?.[house.id];
+  const num = (n) => (Number.isInteger(n) ? String(n) : String(Math.round(n * 100) / 100));
+  const best = d?.askStats?.[0];
+  let main, sub;
+  if (best) {
+    const unit = UNIT_LABELS[best.unit] || best.unit;
+    main = `${num(best.median)} ${unit}`;
+    sub = `Middle asking price across ${best.n} live ${unit} listings, from ${num(best.min)} to ${num(best.max)}. These are asking prices set by the players listing, not confirmed trade values.`;
+  } else if (d?.listingCount) {
+    main = `${d.listingCount} live ${d.listingCount === 1 ? "listing" : "listings"}`;
+    sub = "Not enough listings in one unit yet to show an asking-price range. A range appears once three or more listings use the same unit.";
+  } else if (stats?.ok) {
+    main = "No listings yet";
+    sub = "Nobody has listed this house here right now. Build quality and theme change what players ask, so check the live listings when one appears.";
+  } else {
+    main = "Live listings";
+    sub = "Build quality and theme change what players ask for the same house. Browse the live listings to see current asking prices.";
+  }
+  return `<div class="value-box">
+      <div class="label">On this site</div>
+      <div class="amount">${escapeHtml(main)}</div>
+      <p class="value-subtext">${escapeHtml(sub)}</p>
+    </div>`;
+}
+
 function buildHousePage(house, stats) {
-  const priced = house.value !== null;
   const avail = house.availability || "obtainable";
 
   // Spec chips
@@ -797,14 +891,7 @@ function buildHousePage(house, stats) {
       ${availChip}
       ${specs.join("")}
     </div>
-    <div class="value-box">
-      <div class="label">Trading Value</div>
-      <div class="amount ${priced ? "" : "unpriced"}">${priced ? `${house.value} ${house.valueUnit}` : "Community value pending"}</div>
-      <p class="value-subtext">${priced
-        ? "Community-observed trade value. Decorated builds may trade higher — check live listings for current offers."
-        : "House values in Adopt Me are build-specific — the same house type can trade for very different amounts depending on decorations, theme quality, and demand. Browse live listings to see what similar builds are actually trading for."}</p>
-      ${priced ? `<p class="value-subtext" style="margin-top:8px;border-top:1px solid var(--line);padding-top:8px;">Source: <a href="https://adoptmetradingvalues.com" target="_blank" rel="noopener" style="color:var(--accent);">adoptmetradingvalues.com</a> community values · Updated Sept 2026</p>` : ""}
-    </div>
+    ${siteBox(house, stats)}
     <a class="btn btn-primary" href="../listings/index.html" style="display:inline-block;text-decoration:none;margin-top:4px;">Browse listings for this house →</a>
   </div>
 </div>
@@ -873,7 +960,7 @@ async function main() {
   // pages instead of failing the deploy.
   const stats = await loadHouseStats();
 
-  writeFileSync(path.join(process.cwd(), "public", "index.html"), buildHomepage());
+  writeFileSync(path.join(process.cwd(), "public", "index.html"), buildHomepage(stats));
   writeFileSync(path.join(OUT_HOUSES_DIR, "index.html"), buildBrowsePage());
 
   let enriched = 0;

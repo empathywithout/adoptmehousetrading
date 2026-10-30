@@ -1,0 +1,67 @@
+[
+ {
+  "date": "2026-09-25",
+  "title": "Monster Mansion released",
+  "text": "The Monster Mansion came out for 13,000 Bucks. It has four levels, and its ten matching furniture pieces are sold separately.",
+  "houses": [
+   "monster-mansion"
+  ]
+ },
+ {
+  "date": "2026-09-04",
+  "title": "Fairytale Castle released",
+  "text": "The Fairytale Castle came out for 8,000 Bucks. It is a four-story house, and its ten matching furniture pieces are sold separately.",
+  "houses": [
+   "fairytale-castle"
+  ]
+ },
+ {
+  "date": "2026-07-24",
+  "title": "Beehive House released",
+  "text": "The Beehive House arrived with the Pollinator Season update for 5,450 Bucks. It is not a Bee Pass reward.",
+  "houses": [
+   "beehive-house"
+  ]
+ },
+ {
+  "date": "2026-04-24",
+  "title": "Final-chance Robux sale",
+  "text": "Adopt Me ran a final-chance Robux sale that included the Modern Mansion, Celebrity Mansion, Soccer Stadium, the School and Hospital bundle and the Fossil Isle bundle. Those houses are no longer sold and can only be traded for.",
+  "houses": [
+   "modern-mansion",
+   "celebrity-mansion",
+   "soccer-stadium",
+   "hospital-home",
+   "schoolhouse-home",
+   "expandable-dino-house"
+  ]
+ },
+ {
+  "date": "2025-12-05",
+  "title": "Christmas Pudding House event reward",
+  "text": "The Christmas Pudding House was a free reward for completing 15 pet needs in the Winter Event. It left the game on January 5, 2026, and can only be traded for now.",
+  "houses": [
+   "christmas-pudding-house"
+  ]
+ },
+ {
+  "date": "2024-06-07",
+  "title": "Last Chance House Sale",
+  "text": "Seven houses went on sale and were removed one per day from June 8 to June 14, 2024: Mansion, Cozy Cabin, Biodome Home, Ruler's Castle, Pirate Ship House, Eco Natural Earth House and Mermaid Mansion.",
+  "houses": [
+   "mansion",
+   "cozy-cabin",
+   "biodome-home",
+   "ruler-s-castle",
+   "pirate-ship-house",
+   "eco-natural-earth-house",
+   "mermaid-mansion"
+  ]
+ },
+ {
+  "date": "2024-05-31",
+  "title": "House trading added",
+  "text": "Adopt Me added house trading on May 31, 2024. A player needs a trade license and at least two houses, and a house can be traded for anything except another house.",
+  "houses": []
+ }
+]

@@ -48,7 +48,7 @@ export function listingCardHtml(l, { href, houseName, fallbackImage, showHouse =
   return `
       <a class="listing-card" href="${escapeHtml(href)}">
         <div class="photo">
-          <img${l.photo ? "" : ' class="fallback"'} src="${escapeHtml(cardPhoto(photo))}" alt="${escapeHtml(l.title || "Adopt Me house listing")}" loading="lazy" decoding="async">
+          <img${l.photo ? "" : ' class="fallback" style="object-fit:contain;padding:10px;box-sizing:border-box;"'} src="${escapeHtml(cardPhoto(photo))}" alt="${escapeHtml(l.title || "Adopt Me house listing")}" loading="lazy" decoding="async">
           <div class="card-badge ${typeClass}" title="${typeLabel}"><div class="${typeIcon}"></div></div>
         </div>
         <div class="body">
@@ -67,7 +67,7 @@ export function tradeCardHtml(t, { fallbackImage }) {
   return `
       <div class="listing-card" style="cursor:default;">
         <div class="photo">
-          <img${t.photo ? "" : ' class="fallback"'} src="${escapeHtml(cardPhoto(photo))}" alt="${escapeHtml(t.title || "Verified Adopt Me house trade")}" loading="lazy" decoding="async">
+          <img${t.photo ? "" : ' class="fallback" style="object-fit:contain;padding:10px;box-sizing:border-box;"'} src="${escapeHtml(cardPhoto(photo))}" alt="${escapeHtml(t.title || "Verified Adopt Me house trade")}" loading="lazy" decoding="async">
           <span class="verified-badge" style="position:absolute;top:8px;left:8px;">Verified</span>
         </div>
         <div class="body">

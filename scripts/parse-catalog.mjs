@@ -105,7 +105,7 @@ function parseCategory(categoryKey) {
     // copy from data/house-facts.json. originLabel exists because "source" is
     // re-derived from the image filename on every build, so a correction to it
     // cannot live there.
-    const PRESERVE_FIELDS = ["availability", "bucksPrice", "robuxPrice", "floors", "expandable", "released", "summary", "originLabel", "value", "valueUnit", "description", "tradingNotes", "demandLevel"];
+    const PRESERVE_FIELDS = ["availability", "bucksPrice", "robuxPrice", "floors", "expandable", "released", "summary", "originLabel", "description", "tradingNotes", "demandLevel"];
     for (const item of items) {
       const prev = existingById[item.id];
       if (prev) {
