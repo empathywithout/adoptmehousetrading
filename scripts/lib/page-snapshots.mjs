@@ -24,6 +24,9 @@ import path from "path";
 
 const R2_HOST = "pub-cba78cf9524643c2a7bff415bfed4d9d.r2.dev"; // mirrors cardPhoto() in public/js/api.js
 const CARD_PHOTO_WIDTH = 440;
+// Real data has ~40 house types with listings. A wall of links looks broken and
+// adds nothing a crawler needs, so only the busiest are shown.
+const MAX_HOUSE_CHIPS = 12;
 const UNIT_LABELS = { shark: "Shark", frost: "Frost", rp: "Ride Pot" };
 
 function escapeHtml(str) {
@@ -85,7 +88,7 @@ export function browseGridHtml(listings, houseById) {
             <div class="body">
               <h3>${escapeHtml(l.title || "Untitled build")}</h3>
               ${v}
-              <p class="lister" style="margin-top:6px;">${house ? escapeHtml(house.name) : "Adopt Me house"}${build ? ` · ${build}` : ""}${l.lister ? ` · listed by ${escapeHtml(l.lister)}` : ""}</p>
+              <p class="lister" style="margin-top:6px;">${house ? escapeHtml(house.name) : "Adopt Me house"}${build ? ` · ${build}` : ""}</p>
             </div>
           </a>`;
     })
@@ -93,18 +96,22 @@ export function browseGridHtml(listings, houseById) {
 }
 
 export function browseHousesHtml(browse, houseById, builtOn) {
-  const rows = browse.houseCounts
-    .filter((h) => houseById[h.id])
-    .map((h) => `<li><a href="../houses/${encodeURIComponent(h.id)}.html">${escapeHtml(houseById[h.id].name)}</a> <span class="hint">(${h.count})</span></li>`)
+  const chip = "display:inline-block;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:600;font-size:13px;text-decoration:none;";
+  const known = browse.houseCounts.filter((h) => houseById[h.id]);
+  const shown = known.slice(0, MAX_HOUSE_CHIPS);
+  const hidden = known.length - shown.length;
+  const chips = shown
+    .map((h) => `<a href="../houses/${encodeURIComponent(h.id)}.html" style="${chip}">${escapeHtml(houseById[h.id].name)} <span style="color:var(--muted);font-weight:500;">${h.count}</span></a>`)
     .join("");
-  if (!rows) return "";
+  if (!chips) return "";
+  // Deliberately quiet: small heading, muted one-line summary, pill links in
+  // the same style as the site's filters. It is there for crawlers and for
+  // people who want a jump-off to a house's value page, not as a feature.
   return `
-<section class="wrap" style="padding:0 0 60px;">
-  <div class="content-section">
-    <h2>Adopt Me Houses With Live Listings</h2>
-    <p>${browse.totalActive === 1 ? "One house is" : `${browse.totalActive} houses are`} listed across ${browse.houseCounts.length} house ${browse.houseCounts.length === 1 ? "type" : "types"} as of ${escapeHtml(builtOn)}. Each house links to its value and trade guide, with trade rules and any verified trades this site has recorded.</p>
-    <ul class="site-data-list">${rows}</ul>
-  </div>
+<section class="wrap" style="padding:0 0 48px;margin-top:-72px;">
+  <h2 style="font-size:16px;margin:0 0 6px;color:var(--ink);">Houses with live listings</h2>
+  <p class="hint" style="margin:0 0 12px;max-width:680px;">${browse.totalActive === 1 ? "One listing" : `${browse.totalActive} listings`} across ${browse.houseCounts.length} house ${browse.houseCounts.length === 1 ? "type" : "types"} as of ${escapeHtml(builtOn)}. Tap a house for its value, trade rules and verified trades.${hidden > 0 ? ` The ${shown.length} with the most listings are shown; the rest are on the <a href="../houses/index.html" style="color:var(--accent);">full house list</a>.` : ""}</p>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;">${chips}</div>
 </section>
 `;
 }
