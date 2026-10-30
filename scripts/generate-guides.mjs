@@ -70,7 +70,9 @@ function buildGuide({ file, title, description, h1, pill, sections, ctaTitle, ct
       { "@type": "ListItem", position: 3, name: h1, item: url } ] },
   ].map((o) => `<script type="application/ld+json">${JSON.stringify(o, null, 2)}</script>`).join("\n");
 
-  let h = template;
+  // The template guide gets share tags from add-social-meta.mjs. Drop them, so
+  // each generated guide ends up with its own and none inherited from the template.
+  let h = template.replace(/<meta (?:property="og:[^"]*"|name="twitter:[^"]*")[^>]*>\s*/g, "");
   const swap = (re, to, label) => { if (!re.test(h)) throw new Error(`guide template changed: could not find ${label}`); h = h.replace(re, () => to); };
 
   swap(/<title>[\s\S]*?<\/title>/, `<title>${esc(title)} | AdoptMeHouseTrading.com</title>`, "title");

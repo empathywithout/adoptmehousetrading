@@ -45,6 +45,38 @@
   ]
  },
  {
+  "date": "2025-09-26",
+  "title": "Halloween Hotel released",
+  "text": "The Halloween Hotel came out for 7,000 Bucks with the Halloween House update. It has three levels: a ground floor, a second floor and a basement.",
+  "houses": [
+   "halloween-hotel"
+  ]
+ },
+ {
+  "date": "2025-05-09",
+  "title": "Moon House released",
+  "text": "The Moon House came out for 4,000 Bucks. It is a single room of rocky terrain with a portal, and a red button inside switches low gravity on and off.",
+  "houses": [
+   "moon-house"
+  ]
+ },
+ {
+  "date": "2025-02-28",
+  "title": "Ice Cream House released",
+  "text": "The Ice Cream House came out for 2,150 Bucks with a set of ice cream furniture. It has two floors.",
+  "houses": [
+   "ice-cream-house"
+  ]
+ },
+ {
+  "date": "2024-07-12",
+  "title": "Soccer Stadium released",
+  "text": "The Soccer Stadium came out in the Soccer update as a Robux house with two floors and seven rooms. It was part of the April 2026 final-chance Robux sale, and can only be traded for now.",
+  "houses": [
+   "soccer-stadium"
+  ]
+ },
+ {
   "date": "2024-06-07",
   "title": "Last Chance House Sale",
   "text": "Seven houses went on sale and were removed one per day from June 8 to June 14, 2024: Mansion, Cozy Cabin, Biodome Home, Ruler's Castle, Pirate Ship House, Eco Natural Earth House and Mermaid Mansion.",
@@ -63,5 +95,39 @@
   "title": "House trading added",
   "text": "Adopt Me added house trading on May 31, 2024. A player needs a trade license and at least two houses, and a house can be traded for anything except another house.",
   "houses": []
+ },
+ {
+  "date": "2024-05-03",
+  "title": "Expandable Dino House released",
+  "text": "The Expandable Dino House came with the Fossil Isle Returns Bundle during Fossil Isle Excavation, along with the Legendary Prehistoric Car. It was part of the April 2026 final-chance Robux sale.",
+  "houses": [
+   "expandable-dino-house"
+  ]
+ },
+ {
+  "date": "2024-02-15",
+  "title": "Korean House released",
+  "text": "The Korean House came out in the second week of the Lunar New Year event for 2,200 Bucks.",
+  "houses": [
+   "korean-house"
+  ]
+ },
+ {
+  "date": "2024-01-11",
+  "title": "Queenslander House released",
+  "text": "The Queenslander House came out for 1,650 Bucks, with a matching furniture pack sold separately.",
+  "houses": [
+   "queenslander-house"
+  ]
+ },
+ {
+  "date": "2023-08-31",
+  "title": "Expandable houses added",
+  "text": "Adopt Me added its first three expandable houses, each with a furniture pack. Expansions are bought separately with Bucks, and future houses may come with the feature.",
+  "houses": [
+   "expandable-friendly-home",
+   "expandable-hillside-mansion",
+   "expandable-luxury-mansion"
+  ]
  }
 ]

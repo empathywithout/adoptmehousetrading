@@ -278,6 +278,38 @@ function houseCard(house, context) {
 </a>`;
 }
 
+// ---------- House news page ----------
+
+function buildNewsPage() {
+  const houseById = Object.fromEntries(houses.map((h) => [h.id, h]));
+  const years = [...new Set(houseUpdates.map((u) => u.date.slice(0, 4)))];
+  const entry = (u) => {
+    const d = new Date(u.date + "T12:00:00Z");
+    const when = d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+    const links = (u.houses || []).filter((id) => houseById[id]).map((id) => `<a href="houses/${escapeHtml(id)}.html" style="color:var(--accent);">${escapeHtml(houseById[id].name)}</a>`).join(", ");
+    return `<li style="padding:16px 0;border-bottom:1px solid var(--line);">
+        <div style="font-size:12px;color:var(--muted);font-weight:600;">${escapeHtml(when)}</div>
+        <h3 style="font-family:var(--font-display);font-size:1.05rem;color:var(--ink);margin:2px 0 6px;">${escapeHtml(u.title)}</h3>
+        <p style="font-size:15px;color:var(--ink-soft);line-height:1.65;margin:0;">${escapeHtml(u.text)}</p>
+        ${links ? `<p style="font-size:13px;color:var(--muted);margin:6px 0 0;">Houses: ${links}</p>` : ""}
+      </li>`;
+  };
+  const body = `
+<section class="wrap" style="padding:40px 24px 70px;max-width:800px;">
+  <h1 style="font-family:var(--font-display);color:var(--ink);margin:0 0 10px;">Adopt Me House News</h1>
+  <p style="font-size:15px;line-height:1.7;color:var(--ink-soft);margin:0 0 6px;">A running list of when Adopt Me added, changed or removed houses. Entries come from Adopt Me's own update posts and help center, and from the Adopt Me Wiki. Last checked ${FACTS_CHECKED}.</p>
+  <p style="font-size:14px;color:var(--muted);margin:0 0 20px;">Looking for a quick list instead? See <a href="guides/trade-only-houses.html" style="color:var(--accent);">which houses are trade-only</a> or <a href="guides/house-release-timeline.html" style="color:var(--accent);">every house by release date</a>.</p>
+  ${years.map((y) => `<h2 style="font-family:var(--font-display);font-size:1.25rem;color:var(--ink);margin:26px 0 0;padding-bottom:6px;border-bottom:2px solid var(--line);">${y}</h2>
+  <ul style="list-style:none;padding:0;margin:0;">${houseUpdates.filter((u) => u.date.startsWith(y)).map(entry).join("")}</ul>`).join("\n  ")}
+</section>`;
+  return layout({
+    title: "Adopt Me House News: New Houses, Prices and Removals",
+    description: "A dated list of every new Adopt Me house, price and removal since 2023, from the official update posts and the Adopt Me Wiki.",
+    path: "house-news", depth: 0, body,
+    jsonLd: [breadcrumbJsonLd([{ name: "Home", path: "" }, { name: "House news", path: "house-news.html" }])],
+  });
+}
+
 // ---------- Homepage ----------
 
 function buildHomepage(stats) {
@@ -394,7 +426,7 @@ function buildHomepage(stats) {
 </section>
 
 ${news ? `<section class="wrap" style="padding-bottom:0;">
-  <div class="section-head"><h2>House news</h2></div>
+  <div class="section-head"><h2>House news</h2><a href="house-news.html">See all news →</a></div>
   <ul style="list-style:none;padding:0;margin:0 0 20px;max-width:760px;">${news}</ul>
 </section>` : ""}
 
@@ -739,6 +771,28 @@ function activitySection(house, stats) {
   </div>`;
 }
 
+// Links from a house page to the guides that cover the same ground, so the
+// guides are reachable from where people actually land. Which ones show
+// depends on the house.
+function relatedGuidesSection(house) {
+  const items = [];
+  if (house.availability === "limited") items.push(["trade-only-houses.html", "Trade-only houses", "Which houses left the game, and when."]);
+  if (house.expandable) items.push(["expandable-houses.html", "Expandable houses", "What every expansion costs in Bucks."]);
+  items.push(["houses-by-price.html", "Houses by price", "Every house with a Bucks price, cheapest first."]);
+  items.push(["house-release-timeline.html", "Houses by release date", "All the houses from newest to oldest."]);
+  items.push(["how-to-trade-houses.html", "How to trade houses", "The official rules and the steps in the game."]);
+  return `
+  <div class="content-section">
+    <h2>Guides that help with this house</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:14px;">
+      ${items.map(([f, t, d]) => `<a href="../guides/${f}" style="display:block;border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;text-decoration:none;color:inherit;background:var(--surface);">
+        <div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px;">${escapeHtml(t)}</div>
+        <div style="font-size:13px;color:var(--ink-soft);line-height:1.5;">${escapeHtml(d)}</div>
+      </a>`).join("\n      ")}
+    </div>
+  </div>`;
+}
+
 function tradingSection(house) {
   if (!house.tradingNotes) return "";
   return `
@@ -822,7 +876,7 @@ function buildHousePage(house, stats) {
 
   const body = `
 <style>
-.house-detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start; padding:40px 0 20px; }
+.house-detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start; padding:40px 24px 20px; }
 @media(max-width:680px){.house-detail-grid{grid-template-columns:1fr;gap:24px;}}
 .house-detail-photo { border-radius:16px; overflow:hidden; background:var(--surface); border:1px solid var(--line); }
 .house-detail-photo img { width:100%; display:block; }
@@ -907,6 +961,7 @@ function buildHousePage(house, stats) {
   ${askStatsSection(house, stats)}
   ${siteDataSection(house, stats)}
   ${tradingSection(house)}
+  ${relatedGuidesSection(house)}
 
   <div class="content-section">
     <div class="cta-strip">
@@ -961,6 +1016,7 @@ async function main() {
   const stats = await loadHouseStats();
 
   writeFileSync(path.join(process.cwd(), "public", "index.html"), buildHomepage(stats));
+  writeFileSync(path.join(process.cwd(), "public", "house-news.html"), buildNewsPage());
   writeFileSync(path.join(OUT_HOUSES_DIR, "index.html"), buildBrowsePage());
 
   let enriched = 0;

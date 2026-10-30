@@ -23,6 +23,7 @@ const staticRoutes = [
   { path: "", priority: "1.0", changefreq: "daily" },
   { path: "listings/index.html", priority: "0.9", changefreq: "hourly" },
   { path: "houses/index.html", priority: "0.8", changefreq: "weekly" },
+  { path: "house-news.html", priority: "0.6", changefreq: "weekly" },
   // The site's own verified trade data — unique content, and it was missing.
   { path: "recent-trades.html", priority: "0.8", changefreq: "daily" },
   { path: "commissions/index.html", priority: "0.7", changefreq: "daily" },
