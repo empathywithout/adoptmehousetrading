@@ -520,6 +520,16 @@
     "valueUnit": null
   },
   {
+    "id": "creepy-clown-car",
+    "category": "vehicles",
+    "name": "Creepy Clown Car",
+    "rarity": "Uncommon",
+    "source": "Halloween 2026",
+    "image": "/images/vehicles/Creepy-Clown-Car-Uncommon-from-Halloween-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "crescent-moon-car",
     "category": "vehicles",
     "name": "Crescent Moon Car",

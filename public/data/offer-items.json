@@ -880,6 +880,36 @@
     "valueUnit": null
   },
   {
+    "id": "bobageist",
+    "category": "adopt_me_pets",
+    "name": "Bobageist",
+    "rarity": "Ultra Rare",
+    "source": "Halloween 2026",
+    "image": "/images/adopt_me_pets/Bobageist-Ultra-Rare-from-Halloween-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bolt",
+    "category": "adopt_me_pets",
+    "name": "Bolt",
+    "rarity": "Uncommon",
+    "source": "Halloween 2026",
+    "image": "/images/adopt_me_pets/Bolt-Uncommon-from-Halloween-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "boohoo",
+    "category": "adopt_me_pets",
+    "name": "Boohoo",
+    "rarity": "Rare",
+    "source": "Halloween 2026",
+    "image": "/images/adopt_me_pets/Boohoo-Rare-from-Halloween-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "border-collie",
     "category": "adopt_me_pets",
     "name": "Border Collie",
@@ -936,6 +966,16 @@
     "rarity": "Ultra Rare",
     "source": "Easter 2022",
     "image": "/images/adopt_me_pets/Brown-Springer-Spaniel-Ultra-Rare-from-Easter-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "bubblegeist",
+    "category": "adopt_me_pets",
+    "name": "Bubblegeist",
+    "rarity": "Legendary",
+    "source": "Halloween 2026",
+    "image": "/images/adopt_me_pets/Bubblegeist-Legendary-from-Halloween-2026.png",
     "value": null,
     "valueUnit": null
   },
@@ -1166,6 +1206,16 @@
     "rarity": "Uncommon",
     "source": "Jungle Egg",
     "image": "/images/adopt_me_pets/Capybara-Uncommon-from-Jungle-Egg.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "caramelgeist",
+    "category": "adopt_me_pets",
+    "name": "Caramelgeist",
+    "rarity": "Uncommon",
+    "source": "Halloween 2026",
+    "image": "/images/adopt_me_pets/Caramelgeist-Uncommon-from-Halloween-2026.png",
     "value": null,
     "valueUnit": null
   },
@@ -1550,6 +1600,16 @@
     "valueUnit": null
   },
   {
+    "id": "copycat",
+    "category": "adopt_me_pets",
+    "name": "Copycat",
+    "rarity": "Legendary",
+    "source": "Halloween 2026 (Robux)",
+    "image": "/images/adopt_me_pets/Copycat-Legendary-from-Halloween-2026-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "corgi",
     "category": "adopt_me_pets",
     "name": "Corgi",
@@ -1566,6 +1626,16 @@
     "rarity": "Legendary",
     "source": "Summer State Fair 2024",
     "image": "/images/adopt_me_pets/Corn-Doggo-Legendary-from-Summer-State-Fair-2024.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "count-slothula",
+    "category": "adopt_me_pets",
+    "name": "Count Slothula",
+    "rarity": "Ultra Rare",
+    "source": "Halloween 2026 (Robux)",
+    "image": "/images/adopt_me_pets/Count-Slothula-Ultra-Rare-from-Halloween-2026-(Robux).png",
     "value": null,
     "valueUnit": null
   },
@@ -3880,6 +3950,16 @@
     "valueUnit": null
   },
   {
+    "id": "jacobin-pigeon",
+    "category": "adopt_me_pets",
+    "name": "Jacobin Pigeon",
+    "rarity": "Common",
+    "source": "Halloween 2026",
+    "image": "/images/adopt_me_pets/Jacobin-Pigeon-Common-from-Halloween-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "japan-egg",
     "category": "adopt_me_pets",
     "name": "Japan Egg",
@@ -3920,6 +4000,16 @@
     "valueUnit": null
   },
   {
+    "id": "jester-dragon",
+    "category": "adopt_me_pets",
+    "name": "Jester Dragon",
+    "rarity": "Legendary",
+    "source": "Halloween 2026 (Robux)",
+    "image": "/images/adopt_me_pets/Jester-Dragon-Legendary-from-Halloween-2026-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "jiggly-jerboa",
     "category": "adopt_me_pets",
     "name": "Jiggly Jerboa",
@@ -3946,6 +4036,16 @@
     "rarity": "Uncommon",
     "source": "Spider Box",
     "image": "/images/adopt_me_pets/Jumping-Spider-Uncommon-from-Spider-Box.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "jumpscare",
+    "category": "adopt_me_pets",
+    "name": "Jumpscare",
+    "rarity": "Rare",
+    "source": "Halloween 2026",
+    "image": "/images/adopt_me_pets/Jumpscare-Rare-from-Halloween-2026.png",
     "value": null,
     "valueUnit": null
   },
@@ -4896,6 +4996,16 @@
     "rarity": "Rare",
     "source": "Halloween 2022",
     "image": "/images/adopt_me_pets/Mule-Rare-from-Halloween-2022.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "mummy-spider",
+    "category": "adopt_me_pets",
+    "name": "Mummy Spider",
+    "rarity": "Rare",
+    "source": "Halloween 2026",
+    "image": "/images/adopt_me_pets/Mummy-Spider-Rare-from-Halloween-2026.png",
     "value": null,
     "valueUnit": null
   },
@@ -6700,6 +6810,16 @@
     "valueUnit": null
   },
   {
+    "id": "shoebill",
+    "category": "adopt_me_pets",
+    "name": "Shoebill",
+    "rarity": "Uncommon",
+    "source": "Halloween 2026",
+    "image": "/images/adopt_me_pets/Shoebill-Uncommon-from-Halloween-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "show-pony",
     "category": "adopt_me_pets",
     "name": "Show Pony",
@@ -6786,6 +6906,16 @@
     "rarity": "Ultra Rare",
     "source": "Halloween 2025",
     "image": "/images/adopt_me_pets/Skelebat-Ultra-Rare-from-Halloween-2025.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "skelicorn",
+    "category": "adopt_me_pets",
+    "name": "Skelicorn",
+    "rarity": "Legendary",
+    "source": "Halloween 2026",
+    "image": "/images/adopt_me_pets/Skelicorn-Legendary-from-Halloween-2026.png",
     "value": null,
     "valueUnit": null
   },
@@ -7086,6 +7216,16 @@
     "rarity": "Common",
     "source": "Ocean Egg",
     "image": "/images/adopt_me_pets/Stingray-Common-from-Ocean-Egg.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "stitches",
+    "category": "adopt_me_pets",
+    "name": "Stitches",
+    "rarity": "Ultra Rare",
+    "source": "Halloween 2026",
+    "image": "/images/adopt_me_pets/Stitches-Ultra-Rare-from-Halloween-2026.png",
     "value": null,
     "valueUnit": null
   },
@@ -8676,6 +8816,16 @@
     "rarity": "Legendary",
     "source": "Summer Festival 2023",
     "image": "/images/vehicles/Crabby-Cruiser-Legendary-from-Summer-Festival-2023.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "creepy-clown-car",
+    "category": "vehicles",
+    "name": "Creepy Clown Car",
+    "rarity": "Uncommon",
+    "source": "Halloween 2026",
+    "image": "/images/vehicles/Creepy-Clown-Car-Uncommon-from-Halloween-2026.png",
     "value": null,
     "valueUnit": null
   },
@@ -21920,6 +22070,16 @@
     "valueUnit": null
   },
   {
+    "id": "ghost-blaster",
+    "category": "pet_wear",
+    "name": "Ghost Blaster",
+    "rarity": "Ultra Rare",
+    "source": "Halloween 2026",
+    "image": "/images/pet_wear/Ghost-Blaster-Ultra-Rare-from-Halloween-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "ghost-hat",
     "category": "pet_wear",
     "name": "Ghost Hat",
@@ -23040,6 +23200,16 @@
     "valueUnit": null
   },
   {
+    "id": "jester-dragon-mask",
+    "category": "pet_wear",
+    "name": "Jester Dragon Mask",
+    "rarity": "Ultra Rare",
+    "source": "Halloween 2026",
+    "image": "/images/pet_wear/Jester-Dragon-Mask-Ultra-Rare-from-Halloween-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "jester-hat",
     "category": "pet_wear",
     "name": "Jester Hat",
@@ -23766,6 +23936,16 @@
     "rarity": "Uncommon",
     "source": "Winter 2023 (Advent Calendar)",
     "image": "/images/pet_wear/Marshmallow-Friend-Uncommon-from-Winter-2023-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "mecha-heart-badge",
+    "category": "pet_wear",
+    "name": "Mecha Heart Badge",
+    "rarity": "Common",
+    "source": "Halloween 2026",
+    "image": "/images/pet_wear/Mecha-Heart-Badge-Common-from-Halloween-2026.png",
     "value": null,
     "valueUnit": null
   },
@@ -26120,6 +26300,16 @@
     "valueUnit": null
   },
   {
+    "id": "spirit-goggles",
+    "category": "pet_wear",
+    "name": "Spirit Goggles",
+    "rarity": "Rare",
+    "source": "Halloween 2026",
+    "image": "/images/pet_wear/Spirit-Goggles-Rare-from-Halloween-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "sports-hat",
     "category": "pet_wear",
     "name": "Sports Hat",
@@ -26336,6 +26526,16 @@
     "rarity": "Common",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Stitched-Up-Beanie-Common-from-Accessory-Chest.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "stitches-neck-ruffle",
+    "category": "pet_wear",
+    "name": "Stitches Neck Ruffle",
+    "rarity": "Rare",
+    "source": "Halloween 2026",
+    "image": "/images/pet_wear/Stitches-Neck-Ruffle-Rare-from-Halloween-2026.png",
     "value": null,
     "valueUnit": null
   },

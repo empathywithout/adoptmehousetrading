@@ -3790,6 +3790,16 @@
     "valueUnit": null
   },
   {
+    "id": "ghost-blaster",
+    "category": "pet_wear",
+    "name": "Ghost Blaster",
+    "rarity": "Ultra Rare",
+    "source": "Halloween 2026",
+    "image": "/images/pet_wear/Ghost-Blaster-Ultra-Rare-from-Halloween-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "ghost-hat",
     "category": "pet_wear",
     "name": "Ghost Hat",
@@ -4910,6 +4920,16 @@
     "valueUnit": null
   },
   {
+    "id": "jester-dragon-mask",
+    "category": "pet_wear",
+    "name": "Jester Dragon Mask",
+    "rarity": "Ultra Rare",
+    "source": "Halloween 2026",
+    "image": "/images/pet_wear/Jester-Dragon-Mask-Ultra-Rare-from-Halloween-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "jester-hat",
     "category": "pet_wear",
     "name": "Jester Hat",
@@ -5636,6 +5656,16 @@
     "rarity": "Uncommon",
     "source": "Winter 2023 (Advent Calendar)",
     "image": "/images/pet_wear/Marshmallow-Friend-Uncommon-from-Winter-2023-(Advent-Calendar).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "mecha-heart-badge",
+    "category": "pet_wear",
+    "name": "Mecha Heart Badge",
+    "rarity": "Common",
+    "source": "Halloween 2026",
+    "image": "/images/pet_wear/Mecha-Heart-Badge-Common-from-Halloween-2026.png",
     "value": null,
     "valueUnit": null
   },
@@ -7990,6 +8020,16 @@
     "valueUnit": null
   },
   {
+    "id": "spirit-goggles",
+    "category": "pet_wear",
+    "name": "Spirit Goggles",
+    "rarity": "Rare",
+    "source": "Halloween 2026",
+    "image": "/images/pet_wear/Spirit-Goggles-Rare-from-Halloween-2026.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "sports-hat",
     "category": "pet_wear",
     "name": "Sports Hat",
@@ -8206,6 +8246,16 @@
     "rarity": "Common",
     "source": "Accessory Chest",
     "image": "/images/pet_wear/Stitched-Up-Beanie-Common-from-Accessory-Chest.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "stitches-neck-ruffle",
+    "category": "pet_wear",
+    "name": "Stitches Neck Ruffle",
+    "rarity": "Rare",
+    "source": "Halloween 2026",
+    "image": "/images/pet_wear/Stitches-Neck-Ruffle-Rare-from-Halloween-2026.png",
     "value": null,
     "valueUnit": null
   },
