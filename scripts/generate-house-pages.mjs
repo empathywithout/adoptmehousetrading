@@ -9,6 +9,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from "fs";
 import path from "path";
 import { loadHouseStats } from "./lib/house-stats.mjs";
 import { injectSnapshots } from "./lib/page-snapshots.mjs";
+import { listingCardHtml, tradeCardHtml } from "./lib/cards.mjs";
 
 const DATA_FILE = path.join(process.cwd(), "data", "houses.json");
 const OUT_HOUSES_DIR = path.join(process.cwd(), "public", "houses");
@@ -47,15 +48,12 @@ const UNIT_LABELS = { shark: "Shark", frost: "Frost", rp: "Ride Pot" };
 
 // This site's own data for one house type. Returns "" when there is nothing
 // to say, so a house nobody has listed or traded looks exactly as it did.
+// Cards reuse the Browse page's styles (see scripts/lib/cards.mjs).
 function siteDataSection(house, stats) {
   const d = stats?.byHouse?.[house.id];
   if (!d || (!d.tradeCount && !d.listingCount)) return "";
 
-  const money = (v, u) => (v === null || v === undefined ? null : `${v} ${UNIT_LABELS[u] || u || ""}`.trim());
-  const when = (iso) => {
-    const dt = new Date(iso);
-    return isNaN(dt) ? "" : dt.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-  };
+  const fallbackImage = house.image;
 
   // Verified trades first. Every other Adopt Me value site publishes an
   // opinion; this is the only section on the page reporting what a house
@@ -63,18 +61,10 @@ function siteDataSection(house, stats) {
   const tradesHtml = d.trades.length ? `
   <div class="content-section">
     <h2>Verified ${escapeHtml(house.name)} Trades</h2>
-    <p>Trades both sides confirmed after the swap happened in game. ${d.tradeCount === 1
-      ? "One has been recorded so far."
-      : `${d.tradeCount} have been recorded so far.`} These are real completed trades, not community estimates.</p>
-    <ul class="site-data-list">
-      ${d.trades.map((t) => `<li>
-        <span class="sd-main">${escapeHtml(t.title || "Untitled build")}</span>
-        ${money(t.value, t.unit) ? `<span class="sd-val">asked ${escapeHtml(money(t.value, t.unit))}</span>` : ""}
-        ${t.lister ? `<span class="sd-by">listed by ${escapeHtml(t.lister)}</span>` : ""}
-        ${t.at ? `<span class="sd-when">${escapeHtml(when(t.at))}</span>` : ""}
-      </li>`).join("")}
-    </ul>
-    <p class="sd-more"><a href="../recent-trades.html">See every verified trade &rarr;</a></p>
+    <p>${d.tradeCount === 1 ? "One swap has" : `${d.tradeCount} swaps have`} been confirmed by both traders after it happened in game. These are real completed trades, not estimates.</p>
+    <div class="house-grid sd-grid" style="margin-top:16px;">${d.trades.map((t) => tradeCardHtml(t, { fallbackImage })).join("")}
+    </div>
+    <p class="sd-more" style="margin-top:14px;"><a href="../recent-trades.html">See every verified trade &rarr;</a></p>
   </div>` : "";
 
   const listingsHtml = d.listings.length ? `
@@ -82,15 +72,13 @@ function siteDataSection(house, stats) {
     <h2>${escapeHtml(house.name)} Builds For Trade Right Now</h2>
     <p>${d.listingCount === 1
       ? "One live listing for this house."
-      : `${d.listingCount} live listings for this house.`} Asking values are set by the lister and reflect the build inside, not just the house type.</p>
-    <ul class="site-data-list">
-      ${d.listings.map((l) => `<li>
-        <a class="sd-main" href="../listings/listing.html?id=${encodeURIComponent(l.id)}">${escapeHtml(l.title || "Untitled build")}</a>
-        ${money(l.value, l.unit) ? `<span class="sd-val">${escapeHtml(money(l.value, l.unit))}</span>` : `<span class="sd-val">value open</span>`}
-        ${l.lister ? `<span class="sd-by">by ${escapeHtml(l.lister)}</span>` : ""}
-      </li>`).join("")}
-    </ul>
-    <p class="sd-more"><a href="../listings/index.html">Browse all live listings &rarr;</a></p>
+      : `${d.listingCount} live listings for this house${d.listingCount > d.listings.length ? `, newest ${d.listings.length} shown` : ""}.`} Asking values are set by the lister and reflect the build inside, not just the house type.</p>
+    <div class="house-grid sd-grid" style="margin-top:16px;">${d.listings.map((l) => listingCardHtml(l, {
+      href: `../listings/listing.html?id=${encodeURIComponent(l.id)}`,
+      showHouse: false, fallbackImage,
+    })).join("")}
+    </div>
+    <p class="sd-more" style="margin-top:14px;"><a href="../listings/index.html">Browse all live listings &rarr;</a></p>
   </div>` : "";
 
   return tradesHtml + listingsHtml;
@@ -759,6 +747,9 @@ function buildHousePage(house, stats) {
 .cta-strip p { font-size:14px; color:var(--ink); margin:0; flex:1; }
 .cta-strip a { font-size:13px; font-weight:700; color:var(--accent); white-space:nowrap; text-decoration:none; padding:8px 16px; background:var(--accent); color:#fff; border-radius:8px; }
 .factors-list { list-style:none; padding:0; margin:12px 0; display:flex; flex-direction:column; gap:8px; }
+.sd-grid { padding-bottom:0; }
+.sd-grid .listing-card .body { min-height:130px; }
+.sd-grid .photo img.fallback { object-fit:contain; padding:10px; box-sizing:border-box; }
 .house-card .thumb { position:relative; }
 .avail-tag { position:absolute; top:8px; left:8px; font-size:10px; font-weight:700; padding:2px 7px; border-radius:20px; letter-spacing:.4px; text-transform:uppercase; white-space:nowrap; }
 .avail-tag.limited { background:#f0483e; color:#fff; }

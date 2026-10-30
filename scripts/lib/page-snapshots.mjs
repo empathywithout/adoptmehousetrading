@@ -22,28 +22,11 @@
 import { readFileSync, writeFileSync, existsSync } from "fs";
 import path from "path";
 
-const R2_HOST = "pub-cba78cf9524643c2a7bff415bfed4d9d.r2.dev"; // mirrors cardPhoto() in public/js/api.js
-const CARD_PHOTO_WIDTH = 440;
+import { escapeHtml, cardPhoto, UNIT_LABELS } from "./cards.mjs";
+
 // Real data has ~40 house types with listings. A wall of links looks broken and
 // adds nothing a crawler needs, so only the busiest are shown.
 const MAX_HOUSE_CHIPS = 12;
-const UNIT_LABELS = { shark: "Shark", frost: "Frost", rp: "Ride Pot" };
-
-function escapeHtml(str) {
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
-// Mirrors cardPhoto() in public/js/api.js: photos from our own bucket go
-// through the Netlify image CDN at card width, anything else is left alone.
-function cardPhoto(url) {
-  if (!url || typeof url !== "string") return url;
-  if (!url.includes(R2_HOST)) return url;
-  return `/.netlify/images?url=${encodeURIComponent(url)}&w=${CARD_PHOTO_WIDTH}`;
-}
 
 function money(v, u) {
   if (v === null || v === undefined) return null;

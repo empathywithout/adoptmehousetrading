@@ -77,7 +77,7 @@ export async function loadHouseStats() {
     // have to be fetched by id rather than reused from the active set.
     const tradeListingIds = [...new Set(trades.map((t) => t.listing_id).filter(Boolean))];
     const { data: tradeListings } = tradeListingIds.length
-      ? await db.from("listings").select("id, house_id, title, value_amount, value_unit, profile_id").in("id", tradeListingIds)
+      ? await db.from("listings").select("id, house_id, title, value_amount, value_unit, profile_id, photos").in("id", tradeListingIds)
       : { data: [] };
 
     const profileIds = [...new Set([
@@ -127,6 +127,7 @@ export async function loadHouseStats() {
           value: l.value_amount ?? null,
           unit: l.value_unit || null,
           lister: nameOf[l.profile_id] || null,
+          photo: Array.isArray(l.photos) ? l.photos[0] || null : null,
         });
       }
     }
