@@ -23,6 +23,13 @@ const BROWSE_SNAPSHOT_LISTINGS = 24;
 const RECENT_TRADES_SNAPSHOT = 18;
 // A range from one or two listings is an anecdote, not a range.
 export const MIN_ASKS_FOR_RANGE = 3;
+// "Most wanted" badge: the house must be one of the TOP_WANTED_HOUSES with the
+// most wanted signals (people looking for it plus watchers on its listings),
+// and have at least MIN_WANTED_FOR_BADGE of them, so a quiet site never
+// hands out a badge by default.
+const TOP_WANTED_HOUSES = 5;
+const MIN_WANTED_FOR_BADGE = 5;
+const RECENT_TRADE_DAYS = 90;
 
 export function emptyStats() {
   return { byHouse: {}, browse: null, recentTrades: [], ok: false, reason: "not loaded" };
@@ -57,7 +64,7 @@ export async function loadHouseStats() {
         .order("created_at", { ascending: false })
         .limit(500),
       db.from("listings")
-        .select("id, house_id, title, value_amount, value_unit, status, profile_id, photos, updated_at, build_type, listing_type")
+        .select("id, house_id, title, value_amount, value_unit, status, profile_id, photos, updated_at, build_type, listing_type, save_count")
         .eq("status", "active")
         .neq("listing_type", "commission")
         .filter("updated_at", ">=", expireCutoff)
@@ -98,7 +105,7 @@ export async function loadHouseStats() {
     const byHouse = {};
     const recentTrades = [];
     const browseListings = [];
-    const bucket = (houseId) => (byHouse[houseId] ||= { trades: [], listings: [], tradeCount: 0, listingCount: 0, asks: {} });
+    const bucket = (houseId) => (byHouse[houseId] ||= { trades: [], listings: [], tradeCount: 0, recentTradeCount: 0, listingCount: 0, lookingFor: 0, saves: 0, asks: {} });
 
     // Verified trades. This is the content nobody else has: what a house
     // actually changed hands for, confirmed by both sides.
@@ -108,6 +115,7 @@ export async function loadHouseStats() {
       if (isTestRow({ title: l.title, names: [nameOf[l.profile_id]] })) continue;
       const b = bucket(l.house_id);
       b.tradeCount++;
+      if (t.created_at && Date.now() - new Date(t.created_at).getTime() <= RECENT_TRADE_DAYS * 86400000) b.recentTradeCount++;
       if (recentTrades.length < RECENT_TRADES_SNAPSHOT) {
         recentTrades.push({
           id: t.id,
@@ -137,6 +145,10 @@ export async function loadHouseStats() {
       if (isTestRow({ title: l.title, names: [nameOf[l.profile_id]] })) continue;
       const b = bucket(l.house_id);
       b.listingCount++;
+      // Demand signals, all from this site's own activity: someone posting
+      // that they are looking for this house, and people saving its listings.
+      if (l.listing_type === "looking_for") b.lookingFor++;
+      b.saves += Number(l.save_count) || 0;
       // Asking prices, kept per unit. Shark, Frost and Ride Pot are never
       // converted into each other (there is no reliable rate), so each unit
       // gets its own list and its own summary.
@@ -171,6 +183,18 @@ export async function loadHouseStats() {
 
     const houses = Object.keys(byHouse).length;
     console.log(`[house-stats] loaded data for ${houses} house type(s): ${trades.length} trade(s), ${activeListings.length} active listing(s)`);
+    // Which houses people want most. Wanted = looking-for posts + listing saves.
+    for (const d of Object.values(byHouse)) {
+      d.wanted = d.lookingFor + d.saves;
+      d.forTradeCount = d.listingCount - d.lookingFor;
+      d.mostWanted = false;
+    }
+    Object.values(byHouse)
+      .filter((d) => d.wanted >= MIN_WANTED_FOR_BADGE)
+      .sort((x, y) => y.wanted - x.wanted)
+      .slice(0, TOP_WANTED_HOUSES)
+      .forEach((d) => { d.mostWanted = true; });
+
     // Turn the raw asking prices into a small summary per house and unit. Fewer
     // than MIN_ASKS_FOR_RANGE listings is too thin to call a range, so those
     // units are left out and the page just does not show the table.

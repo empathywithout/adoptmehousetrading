@@ -585,14 +585,6 @@ function availLabel(avail) {
   return "Bucks";
 }
 
-function demandBadge(level) {
-  if (!level) return "";
-  const map = { high: ["🔥", "High demand"], medium: ["📈", "Moderate demand"], low: ["➖", "Lower demand"] };
-  const [icon, label] = map[level] || ["", level];
-  return `<span class="demand-badge demand-${level}">${icon} ${label}</span>`;
-}
-
-
 // ---- House-specific sections (built from data/house-facts.json + live stats) ----
 
 const SOURCE_LABELS = [
@@ -655,6 +647,30 @@ function askStatsSection(house, stats) {
       <tbody>${rows}</tbody>
     </table>
     <p class="hint">Updated each time the site rebuilds, about once a day.</p>
+  </div>`;
+}
+
+// What people are doing with this house on this site: real counts from live
+// listings, saves and confirmed trades. Replaces the old hand-typed "demand"
+// label. Tiles with a zero are left out, and with nothing to show the whole
+// section is omitted, so a quiet house never gets an invented rating.
+function activitySection(house, stats) {
+  const d = stats?.byHouse?.[house.id];
+  if (!d) return "";
+  const tiles = [
+    d.lookingFor > 0 && ["Looking for it", `${d.lookingFor} ${d.lookingFor === 1 ? "person" : "people"}`],
+    d.saves > 0 && ["Watching listings", `${d.saves} ${d.saves === 1 ? "save" : "saves"}`],
+    d.tradeCount > 0 && ["Verified trades", d.recentTradeCount > 0 && d.recentTradeCount !== d.tradeCount ? `${d.tradeCount} (${d.recentTradeCount} in 90 days)` : String(d.tradeCount)],
+    d.forTradeCount > 0 && ["Live listings", String(d.forTradeCount)],
+  ].filter(Boolean);
+  if (!tiles.length) return "";
+  return `
+  <div class="content-section">
+    <h2>Activity for the ${escapeHtml(house.name)} on this site</h2>
+    <p>What players are doing with this house here right now. These counts come from live listings, saves and confirmed trades, and update about once a day.</p>
+    <div class="spec-grid">
+      ${tiles.map(([label, val]) => `<div class="spec-item"><span class="spec-label">${escapeHtml(label)}</span><span class="spec-val">${escapeHtml(val)}</span></div>`).join("\n      ")}
+    </div>
   </div>`;
 }
 
@@ -724,6 +740,7 @@ function buildHousePage(house, stats) {
 .avail-pill.obtainable { background:#dcfce7; color:#15803d; }
 .avail-pill.unconfirmed { background:#ede9fe; color:#6d28d9; }
 .demand-badge { font-size:12px; font-weight:600; padding:3px 10px; border-radius:20px; background:var(--surface-alt,#f3f4f6); color:var(--ink-soft); border:1px solid var(--line); }
+.demand-badge.wanted { background:var(--accent-soft,#fbeae7); color:var(--accent-dark,#c93a2e); border-color:var(--accent); }
 .value-box { background:var(--surface); border:1.5px solid var(--line); border-radius:12px; padding:16px 20px; margin:16px 0; }
 .value-box .label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:var(--ink-soft); margin-bottom:4px; }
 .value-box .amount { font-family:'Baloo 2',sans-serif; font-size:22px; font-weight:800; color:var(--accent); }
@@ -772,6 +789,7 @@ function buildHousePage(house, stats) {
   <div class="house-detail-meta">
     <div class="meta-pills">
       <span class="avail-pill ${avail}">${availLabel(avail)}</span>
+      ${stats?.byHouse?.[house.id]?.mostWanted ? `<span class="demand-badge wanted" title="One of the five houses people look for and watch most on this site">Most wanted on this site</span>` : ""}
     </div>
     <h1>${escapeHtml(house.name)}</h1>
     <div class="spec-grid">
@@ -798,6 +816,7 @@ function buildHousePage(house, stats) {
     ${paragraphs(house.description)}
   </div>` : ""}
   ${featuresSection(house)}
+  ${activitySection(house, stats)}
   ${askStatsSection(house, stats)}
   ${siteDataSection(house, stats)}
   ${tradingSection(house)}
