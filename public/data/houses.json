@@ -8,13 +8,15 @@
     "image": "/images/houses/Beehive-House-Common-from-Bee-Pass-2026.webp",
     "value": 0.8,
     "valueUnit": "RP",
-    "availability": "limited",
+    "availability": "unconfirmed",
     "bucksPrice": 5450,
     "floors": 3,
     "expandable": false,
-    "description": "The Beehive House is a honey-colored three-story structure released as part of the Bee Pass 2026 seasonal event, featuring a hexagonal honeycomb exterior and buzzing garden elements throughout. Its tall, distinctive yellow-and-black palette makes it one of the most recognizable recent limited houses in Adopt Me.",
-    "tradingNotes": "As a 2026 seasonal release, supply is still relatively high among players who purchased the pass — but it will decrease over time as newer events draw attention away. Its unique shape is particularly attractive to nature and bee-themed builders.",
-    "demandLevel": "medium"
+    "released": "July 2026",
+    "summary": "Beehive House is a Bucks house from the July 2026 Pollinator Season update, themed around Queen Bee's hive. It costs 5,450 Bucks in the house shop.",
+    "originLabel": "Pollinator Season 2026",
+    "description": "The Beehive House arrived in July 2026 with the Pollinator Season update. You buy it in the in-game house shop for 5,450 Bucks. It came out on the same day as the free Bee Pass, but it is not a Bee Pass reward and it is not tied to the pass.\n\nThe theme is Queen Bee's hive. One listing gives the house three floors. The Bee Pass has honey-themed furniture rewards across its 13 levels, but those are not sold as a house set. No furniture set made just for this house has been found.",
+    "tradingNotes": "No special trading rules are listed for this house. Current availability should be checked in game."
   },
   {
     "id": "biodome-home",
@@ -25,13 +27,14 @@
     "image": "/images/houses/Biodome-Home-Common-from-House.png",
     "value": 2,
     "valueUnit": "RP",
-    "availability": "obtainable",
-    "bucksPrice": 3500,
+    "availability": "limited",
+    "bucksPrice": 2750,
     "floors": 2,
     "expandable": false,
-    "description": "The Biodome Home is a domed greenhouse-style house permanently available in the Build House Menu for 3,500 Bucks, featuring a curved glass exterior and an open, garden-ready interior across two floors. Its botanical aesthetic makes it a favorite for eco, nature, and science-lab themed builds.",
-    "tradingNotes": "Because it's always purchasable with Bucks, its base trade value stays modest. However, a creatively decorated botanical or nature-themed build can command notably higher offers than a bare shell.",
-    "demandLevel": "low"
+    "released": "July 28, 2022",
+    "summary": "Biodome Home is a retired Adopt Me house from July 2022 with a sealed dome, plants and a pond inside. It was removed in 2024 and is trade-only now.",
+    "description": "Biodome Home was released on July 28, 2022. Back then you bought it in the house shop for 2,750 Bucks. It was removed on June 10, 2024, so the shop no longer sells it. Today the only way to get one is from another player. The house is now retired. It first came out in 2022.\n\nThe outside has a sealed, dome-style look. Inside you find green plant life and a small pond. A wooden house sits in the interior. The house has two floors. It has five rooms, plus a balcony.",
+    "tradingNotes": "It is no longer sold and can only be obtained by trading with another player."
   },
   {
     "id": "bunker-house",
@@ -42,12 +45,15 @@
     "image": "/images/houses/Bunker-House-Common-from-Bunker-House-Update.png",
     "value": 0.08,
     "valueUnit": "RP",
-    "availability": "limited",
-    "floors": 2,
+    "availability": "unconfirmed",
+    "bucksPrice": 750,
+    "floors": 1,
     "expandable": false,
-    "description": "The Bunker House arrived during the Bunker House Update with a reinforced underground-style exterior and a military-industrial aesthetic that stands completely apart from the game's more colorful housing options. Its two-floor layout and survivalist design attract players who want something darker and more unique.",
-    "tradingNotes": "No longer obtainable through regular gameplay, the Bunker House is trade-only. Well-furnished military or underground bunker builds tend to appeal to a dedicated niche of collectors.",
-    "demandLevel": "medium"
+    "released": "January 26, 2023",
+    "summary": "Bunker House is a one-story gray Adopt Me house with seven rooms and a long hallway. It was released in January 2023 and costs 750 Bucks.",
+    "originLabel": "House shop (Bucks)",
+    "description": "Released on January 26, 2023, the Bunker House came out alongside the Toxic Barrel. You buy it with 750 Bucks in the house shop. The exact name of that update is not confirmed. It is listed as a Bucks purchase with no retirement noted.\n\nFrom the street it is gray, with darker gray edges. The door is light gray with a large frame, and there is one glowing yellow window. Inside, a long hallway with doors on it ends at two large fans. The house has just one story. It has seven rooms in total.",
+    "tradingNotes": "It can also be obtained through trading. No other trading rules are listed, and current availability should be checked in game."
   },
   {
     "id": "castle",
@@ -59,12 +65,12 @@
     "value": 0.2,
     "valueUnit": "RP",
     "availability": "obtainable",
-    "bucksPrice": 6899,
+    "bucksPrice": 1499,
     "floors": 3,
     "expandable": false,
-    "description": "The Castle is one of the most expensive permanently-buyable houses in Adopt Me at 6,899 Bucks, featuring a classic medieval tower design with crenellated battlements, arched windows, and a regal three-story exterior. Its timeless castle aesthetic makes it a top choice for royal, fantasy, and medieval-themed builds.",
-    "tradingNotes": "Despite being always available to buy, the high Bucks cost keeps it out of most casual players' inventories. A premium-decorated royal or fantasy castle build regularly trades significantly above its base cost.",
-    "demandLevel": "medium"
+    "summary": "The Castle is a three-floor Adopt Me house with two tall towers and a secret room. Buy it for 1,499 Bucks through the Change Home menu.",
+    "description": "You can buy the Castle for 1,499 Bucks through the Change Home menu. A release date has not been found. It is listed as available to buy, and no removal has been noted.\n\nTwo tall towers stand out front, with small yellow windows, and a large tree grows outside. The tower tops and banners can be recolored. Inside there are three floors and nine small rooms. Each floor has a main room, a small bedroom and a bathroom. One floor hides a secret room, which you reach by gliding through a wall corner.",
+    "tradingNotes": "The Castle is still listed as a Bucks purchase, so you can also get it from the shop instead of trading for it."
   },
   {
     "id": "celebrity-mansion",
@@ -76,11 +82,11 @@
     "value": 2.8,
     "valueUnit": "RP",
     "availability": "robux",
-    "floors": 3,
+    "robuxPrice": 800,
     "expandable": false,
-    "description": "The Celebrity Mansion is a Robux-exclusive three-story house obtained through the Celebrity Mansion Gamepass, featuring a Hollywood-inspired exterior with a rooftop pool area, sweeping staircases, and a glamorous star-worthy layout. Its prestige look signals luxury status in the trading community.",
-    "tradingNotes": "Since it requires Robux to obtain, it's less common than Bucks-buyable houses, which typically gives decorated builds stronger trade leverage. Hollywood, luxury, and celebrity-themed interiors perform especially well.",
-    "demandLevel": "medium"
+    "summary": "Celebrity Mansion is an Adopt Me house sold for 800 Robux as a gamepass, bundled with an SUV. It has a modern balcony and a pool with a secret room.",
+    "description": "The Celebrity Mansion comes from a gamepass that costs 800 Robux. The pass also includes an SUV vehicle, and the house is bundled with it. A release date has not been found. It is sold for Robux, not Bucks.\n\nOutside, you will see trees and plants and a modern balcony. There is also a pool, and the pool has a secret room. The wall of that secret room is covered in Adopt Me posters. Reports disagree on how many floors the house has, so it is best to look for yourself in game.",
+    "tradingNotes": "It was bought with Robux, so it cannot be sold for Bucks, even if you got it by trading. Whether the gamepass is still on sale in the store is not confirmed."
   },
   {
     "id": "christmas-pudding-house",
@@ -94,9 +100,11 @@
     "availability": "limited",
     "floors": 2,
     "expandable": false,
-    "description": "The Christmas Pudding House was released during the Winter 2025 seasonal event, designed to look like a giant traditional Christmas pudding complete with festive frosting details and a holly-and-berry topping across its two floors. Its unmistakably holiday exterior makes it a collector's piece for fans of the winter season.",
-    "tradingNotes": "Obtainable only during Winter 2025, this limited house is now exclusively available through trades. Its niche holiday aesthetic keeps demand steady among collectors and Christmas-themed builders, though it's less versatile than neutral limited houses.",
-    "demandLevel": "low"
+    "released": "December 2025",
+    "summary": "Christmas Pudding House was a free Winter Event 2025 reward for 15 pet needs. It left the game in January 2026 and is trade-only now.",
+    "originLabel": "Winter 2025 (event reward)",
+    "description": "The Christmas Pudding House was a free reward in the Winter Event in December 2025. You earned it by completing 15 pet needs. The house left the game on January 5, 2026, when the event ended. It is no longer sold and can only be obtained by trading with another player.\n\nThe house is a mound with white icing, holly, a chimney and a wreath on the door. Its color can be customized. It has two floors. Downstairs are the main room, a kitchen and a bathroom. Upstairs are a hallway, two bedrooms and a second bathroom. Candy canes, lights and other decorations unlocked at higher pet need totals.",
+    "tradingNotes": "It was tradable from January 13, 2026. The quests restarted during the event, so players could earn more than one copy."
   },
   {
     "id": "container-home",
@@ -108,12 +116,13 @@
     "value": 0.24,
     "valueUnit": "RP",
     "availability": "obtainable",
-    "bucksPrice": 1200,
-    "floors": 2,
+    "bucksPrice": 1800,
+    "floors": 3,
     "expandable": false,
-    "description": "The Container Home is an industrial-chic house styled after stacked shipping containers, available from the Build House Menu for just 1,200 Bucks. Its clean, rectangular silhouette and two-floor layout work extremely well for modern, industrial, and minimalist build aesthetics.",
-    "tradingNotes": "Affordable and widely owned, so bare trade value is low. A creatively decorated industrial loft or modern minimalist build on this house can trade well above its purchase price, especially with matching industrial-themed items.",
-    "demandLevel": "low"
+    "released": "April 2, 2021",
+    "summary": "Container Home is a three-story Adopt Me house with solar panels and two balconies. It was added on April 2, 2021 and costs 1,800 Bucks.",
+    "description": "Container Home was added on April 2, 2021. To get it, open the Mailbox, pick Change Home, then Add New. It costs 1,800 Bucks. It is listed as available to buy, and no removal has been noted. It is bought with Bucks, not Robux.\n\nThere are two solar panels outside, silver-framed windows and two brown-railed balconies. The upper balcony has trees. You can change the exterior color. Inside are three stories, five spacious rooms with high ceilings, and three staircases. Every room comes with default furniture, and no separate furniture set has been found.",
+    "tradingNotes": "It is still bought with Bucks, so the shop is another way to get it besides trading."
   },
   {
     "id": "cozy-cabin",
@@ -124,12 +133,13 @@
     "image": "/images/houses/Cozy-Cabin-Common-from-Cozy-Cabin-&-Snowmobile-Gamepass-(Robux).png",
     "value": 6.8,
     "valueUnit": "RP",
-    "availability": "robux",
+    "availability": "limited",
     "floors": 2,
     "expandable": false,
-    "description": "The Cozy Cabin is a Robux-exclusive house bundled with the Cozy Cabin & Snowmobile Gamepass, featuring warm wood-paneled walls, a snowy alpine exterior, and a classic mountain-cabin design across two floors. Its warm, rustic aesthetic has made it a go-to for winter and cozy-home themed builds.",
-    "tradingNotes": "The Robux requirement means it's less commonly owned than Bucks-purchased houses. Festive, cabin, and winter-aesthetic builds attract motivated buyers, particularly in the lead-up to seasonal events.",
-    "demandLevel": "medium"
+    "released": "January 2022",
+    "summary": "Cozy Cabin is a two-story Adopt Me house that came with a snowmobile gamepass in January 2022. It was removed in June 2024 and is trade-only now.",
+    "description": "The Cozy Cabin was sold as the Cozy Cabin and Snowmobile gamepass, which also gave you the Snowmobile, a legendary vehicle. It was listed as released on January 6, 2022. Sales stopped on June 9, 2024. Since then it can only be obtained by trading with another player.\n\nIt is a brown cabin with a curved roof. Snow covers the bushes and trees around it. Two curved windows glow, and a small brown arch sits over the door. The chimney always has smoke rising from it. The house has two stories. The gamepass bundled it with the Snowmobile.",
+    "tradingNotes": "It was a Robux purchase, so it cannot be sold for Bucks, even if you got it by trading. It is no longer sold."
   },
   {
     "id": "crooked-house",
@@ -140,12 +150,14 @@
     "image": "/images/houses/Crooked-House-Common-from-Artsy-Update.png",
     "value": 0.24,
     "valueUnit": "RP",
-    "availability": "limited",
+    "availability": "unconfirmed",
+    "bucksPrice": 2000,
     "floors": 2,
     "expandable": false,
-    "description": "The Crooked House was introduced during the Artsy Update with a deliberately tilted, surreal design featuring off-kilter walls, skewed windows, and a whimsical artistic style that defies conventional architecture. Its two-floor layout and uniquely distorted silhouette make it one of the most visually distinctive limited houses in the game.",
-    "tradingNotes": "As an older Artsy Update limited, the Crooked House has had time to become scarce. Its quirky aesthetic appeals to players looking for an unconventional conversation-starter build.",
-    "demandLevel": "medium"
+    "released": "July 8, 2021",
+    "summary": "Crooked House is a two-story Adopt Me house with a blue curved roof and a picket fence. It came with the Artsy update and costs 2,000 Bucks.",
+    "description": "The Crooked House was added in the Artsy furniture update on July 8, 2021. You buy it with 2,000 Bucks in the house shop. Nothing says it was ever retired, though current availability is worth checking in game.\n\nThe big curved roof is blue, with a smaller roof above the upper area. A large black chimney rises from it. Gray stones sit around the door and the base. A white picket fence closes in a yard with two tall green trees. The windows glow yellow, and the house leans slightly to the right. It has two stories. Changing its color only changes the roof.",
+    "tradingNotes": "It can also be obtained through trading. No other trading rules are listed."
   },
   {
     "id": "donut-shop",
@@ -157,12 +169,12 @@
     "value": 0.2,
     "valueUnit": "RP",
     "availability": "obtainable",
-    "bucksPrice": 1500,
+    "bucksPrice": 1299,
     "floors": 2,
     "expandable": false,
-    "description": "The Donut Shop is a sweet-themed two-story house shaped like a donut shop storefront, available for 1,500 Bucks from the Build House Menu. Its pastel colors and food-themed exterior design make it an ideal base for bakery, café, and dessert-themed builds.",
-    "tradingNotes": "Widely available with Bucks, so bare trade value is modest. Creatively decorated food-themed, candy shop, or café builds can attract buyers looking for a playful, colorful aesthetic.",
-    "demandLevel": "low"
+    "summary": "Donut Shop is an Adopt Me house with a big donut on the roof. It costs 1,299 Bucks through the Change Home menu, and you can recolor the icing.",
+    "description": "You can buy the Donut Shop with 1,299 Bucks through the Change Home menu. A release date has not been found. It is listed as available to buy, and no removal has been noted.\n\nA large donut sits on the roof, held up by columns. There are two yellow windows and trees around the house. You can customize the icing color, the roof stripes, the walls and the floor. Inside, three rooms are linked by a small hallway. The house comes furnished by default, and no separate furniture set has been found.",
+    "tradingNotes": "It is a Bucks house that is still listed as buyable, so the shop is another way to get it besides trading."
   },
   {
     "id": "dragon-s-castle",
@@ -174,12 +186,12 @@
     "value": 0.6,
     "valueUnit": "RP",
     "availability": "obtainable",
-    "bucksPrice": 4500,
-    "floors": 3,
+    "bucksPrice": 3000,
+    "floors": 2,
     "expandable": false,
-    "description": "Dragon's Castle is a dramatic three-story fortress available for 4,500 Bucks, featuring claw-shaped towers, dark stone battlements, and a formidable dragon-inspired design that makes it one of the most striking houses in the Build House Menu. Its large multi-floor layout gives builders an imposing canvas for fantasy and epic adventure themes.",
-    "tradingNotes": "The high buy price reduces casual ownership while keeping it permanently obtainable, creating moderate supply. Dragon-themed builds that match the house's natural aesthetic — especially paired with Dragon and legendary pets — are popular in the trading community.",
-    "demandLevel": "medium"
+    "summary": "Dragon's Castle is a two-floor Adopt Me house shaped like a castle with a windmill and a rooftop dragon. It costs 3,000 Bucks.",
+    "description": "Dragon's Castle costs 3,000 Bucks and is bought through the Change Home menu. A release date has not been found. It is listed as available to buy, and no removal has been noted. It is a Bucks house, not a Robux one.\n\nThe house is shaped like a castle, with a windmill attached to it. A dragon structure sits on the roof, and its head follows the player. A door leads out to a balcony. Inside there are two floors and four rooms in total. No furniture set for this house has been found.",
+    "tradingNotes": "It is still listed as a Bucks purchase, so you can get it from the shop instead of trading for it."
   },
   {
     "id": "eco-natural-earth-house",
@@ -190,13 +202,14 @@
     "image": "/images/houses/Eco-Natural-Earth-House-Common-from-Build-House-Menu.png",
     "value": 5,
     "valueUnit": "RP",
-    "availability": "obtainable",
-    "bucksPrice": 2000,
-    "floors": 2,
+    "availability": "limited",
+    "floors": 3,
     "expandable": false,
-    "description": "The Eco Natural Earth House is a rounded, organic-shaped house with earthy tones and plant-friendly design elements, available for 2,000 Bucks from the Build House Menu. Its natural, earthy aesthetic suits eco, garden, wildlife sanctuary, and environmental-themed builds.",
-    "tradingNotes": "Fairly affordable and always obtainable, so its base trade value is moderate. Nature-themed builds on this house pair well with wildlife pets and green-living aesthetics, attracting buyers interested in that aesthetic.",
-    "demandLevel": "low"
+    "released": "September 2021",
+    "summary": "Eco Natural Earth House is a retired Adopt Me premium house from the September 2021 Eco update. It left the shop in June 2024 and is trade-only.",
+    "originLabel": "Eco Update 2021 (Robux)",
+    "description": "The Eco Natural Earth House came out in September 2021 with the Eco update. It was a premium house, bought with Robux from the in-game shop, where it sat on a purple cart. It was removed from sale on June 13, 2024.\n\nIt has three floors. Details about the outside and the furniture have not been confirmed, so none are listed here. Prices reported for it differ, so no price is given either.",
+    "tradingNotes": "It is no longer sold and can only be obtained by trading with another player. It was a Robux house, so it cannot be sold for Bucks."
   },
   {
     "id": "estate",
@@ -211,9 +224,9 @@
     "bucksPrice": 972,
     "floors": 2,
     "expandable": false,
-    "description": "The Estate is a classic country-house style home available for just 972 Bucks — one of the more budget-friendly two-floor options in the Build House Menu. Its clean, understated lines make it a versatile blank canvas suitable for virtually any build theme.",
-    "tradingNotes": "Very common due to its low purchase price, so bare trade value is minimal. However, a highly detailed and themed decorated build can still find buyers who appreciate the Estate's simple, clean architecture as a foundation.",
-    "demandLevel": "low"
+    "summary": "Estate is a two-floor, six-room Adopt Me house with four trees and a central door. You buy it for 972 Bucks through the Change Home menu.",
+    "description": "The Estate costs 972 Bucks and is bought through the Change Home menu. A release date has not been found. It is listed as available, and no removal has been noted.\n\nFour trees and two bushes grow outside, and the door is in the middle. There are windows on the bottom, the top and the attic. The house has two floors and six rooms. The ground floor has three rooms, a staircase, and a dining room that leads to the kitchen. Upstairs there is a bedroom with a bed and a crib, plus a bathroom.",
+    "tradingNotes": "It is still listed as a Bucks purchase, so you can also get it from the shop instead of trading."
   },
   {
     "id": "expandable-dino-house",
@@ -224,13 +237,15 @@
     "image": "/images/houses/Expandable-Dino-House-Common-from-Fossil-Isle-2024.png",
     "value": 5.6,
     "valueUnit": "RP",
-    "availability": "limited",
-    "bucksPrice": 800,
+    "availability": "unconfirmed",
+    "robuxPrice": 800,
     "floors": 1,
     "expandable": true,
-    "description": "The Expandable Dino House was released during the Fossil Isle 2024 event with a prehistoric exterior featuring fossil patterns, bone-shaped accents, and earthy tones that evoke the Jurassic era. As an expandable house, players can purchase additional rooms to dramatically increase its interior space beyond its single-floor base.",
-    "tradingNotes": "A particularly desirable combination: limited event rarity plus expandable layout versatility. Dinosaur, prehistoric, and fossil-themed builds on this house are highly sought after among collectors and builders alike.",
-    "demandLevel": "high"
+    "released": "May 3, 2024",
+    "summary": "Expandable Dino House came with the 800 Robux Fossil Isle Returns Bundle in May 2024. It starts with one floor and has four expansions.",
+    "originLabel": "Fossil Isle Returns Bundle (Robux)",
+    "description": "The Expandable Dino House came with the Fossil Isle Returns Bundle, released on May 3, 2024 during Fossil Isle Excavation. The bundle costs 800 Robux and also includes the Legendary Prehistoric Car. You then buy the expansions with Bucks. It is a Robux purchase, not a Bucks one.\n\nThe base home has one floor. The four expansions are Side Extension, Pool Extension, Second Floor and Sunken Basement. With the second floor and the basement added, the house can reach three levels. No details about its outside look have been found.",
+    "tradingNotes": "The bundle was offered for a limited time, and nothing confirms it is back. One listing shows the house as trade-only, so check in game."
   },
   {
     "id": "expandable-friendly-home",
@@ -245,9 +260,10 @@
     "bucksPrice": 675,
     "floors": 1,
     "expandable": true,
-    "description": "The Expandable Friendly Home is one of the most affordable houses in Adopt Me at just 675 Bucks, featuring a simple pastel-colored design with an expandable layout that grows when additional rooms are purchased. Its flexible interior makes it a popular choice for builders who want maximum customization at minimal buy-in.",
-    "tradingNotes": "The cheapest expandable house in the game means it's widely owned and base trade value is low. However, an impressive fully-expanded and decorated build can trade far above what the bare shell would suggest.",
-    "demandLevel": "low"
+    "released": "August 2023",
+    "summary": "Expandable Friendly Home is a one-level Adopt Me house with a chimney and a fireplace lounge. It costs 675 Bucks and can grow with expansions.",
+    "description": "The Expandable Friendly Home was added in the Expandable Houses update in August 2023. You buy it with 675 Bucks through the Change Home menu, and the expansions are bought separately. A Friendly furniture pack came out in the same update.\n\nOutside there is a chimney, a black roof, a driveway and trees. The lounge has a TV and a fireplace, and the default floors are gray with beige walls. The base house has one level and four rooms. Expansions add a second floor (6 rooms), a basement (4), a rear (3) and a side (4). You can add or remove them anytime.",
+    "tradingNotes": "It is still listed as a Bucks purchase, so you can also get it from the shop instead of trading."
   },
   {
     "id": "expandable-hillside-mansion",
@@ -259,12 +275,13 @@
     "value": 0.2,
     "valueUnit": "RP",
     "availability": "obtainable",
-    "bucksPrice": 1200,
+    "bucksPrice": 1500,
     "floors": 1,
     "expandable": true,
-    "description": "The Expandable Hillside Mansion offers a refined hillside-villa aesthetic at 1,200 Bucks, with elegant architecture and an expandable layout that allows for a dramatically larger interior when additional rooms are purchased. Its design lends itself naturally to luxury resort, countryside, and high-end residential builds.",
-    "tradingNotes": "One of the most builder-friendly houses in the game due to its expandable nature and attractive base design. Well-constructed luxury or resort-themed builds consistently command strong trade value.",
-    "demandLevel": "medium"
+    "released": "August 2023",
+    "summary": "Expandable Hillside Mansion is an Adopt Me house that starts on one floor and grows to eight rooms. It costs 1,500 Bucks, with expansions sold separately.",
+    "description": "The Expandable Hillside Mansion came with the Expandable Houses update in August 2023. You buy it with 1,500 Bucks through the Change Home menu, and the expansions cost extra. A Hillside furniture pack was added in the same update.\n\nThe base house has one floor. Fully expanded, it has two stories plus a basement, and eight rooms. At that size you get ten windows, two doors, a staircase and three trees. The exterior paint and the staircase can be recolored. One of the expansions adds a pool in the basement.",
+    "tradingNotes": "It is still listed as a Bucks purchase, so you can also get it from the shop instead of trading."
   },
   {
     "id": "expandable-luxury-mansion",
@@ -275,13 +292,14 @@
     "image": "/images/houses/Expandable-Luxury-Mansion-Common-from-Build-House-Menu.png",
     "value": 2.2,
     "valueUnit": "RP",
-    "availability": "obtainable",
-    "bucksPrice": 1600,
+    "availability": "robux",
     "floors": 1,
     "expandable": true,
-    "description": "The Expandable Luxury Mansion features a sleek, opulent modern facade with clean lines and an upscale presence, available for 1,600 Bucks with an expandable layout for maximum interior potential. Its premium exterior feel makes it a top choice for players who want their house to look prestigious even before decorating.",
-    "tradingNotes": "Popular with serious builders for the combination of its prestigious appearance and expandable capacity. A fully developed luxury interior build on this house tends to attract high-value trade offers from players seeking premium builds.",
-    "demandLevel": "medium"
+    "released": "August 2023",
+    "summary": "Expandable Luxury Mansion is a Robux house from the 2023 Expandable Houses update. It has a pool, a cinema room and four expansions.",
+    "originLabel": "Expandable Houses Update (Robux)",
+    "description": "The Expandable Luxury Mansion is one of three expandable homes added in 2023. You buy it with Robux, not Bucks. Reports differ on the exact release day in August 2023, and it can also be obtained by trading. It appears to still be available, but that is not confirmed in game.\n\nIt starts with one floor. The expansions add a pool on the main floor and a cinema room. They also add two rooms on the second floor, one east and one west, and a basement. There are four purchasable expansions in all, and the exterior is customizable.",
+    "tradingNotes": "It was bought with Robux, so it cannot be sold for Bucks, even if you got it by trading."
   },
   {
     "id": "fairy-house",
@@ -292,12 +310,13 @@
     "image": "/images/houses/Fairy-House-Common-from-Fairy-Update-2019.png",
     "value": 0.18,
     "valueUnit": "RP",
-    "availability": "limited",
-    "floors": 2,
+    "availability": "unconfirmed",
+    "bucksPrice": 1100,
     "expandable": false,
-    "description": "The Fairy House is one of the oldest limited houses in Adopt Me, released during the Fairy Update in 2019 with a magical mushroom-cap design, twinkling lights, and enchanted forest elements that make it instantly recognizable across the trading community. Its two-floor layout and timeless fantasy aesthetic have kept it desirable for over half a decade.",
-    "tradingNotes": "Being one of the oldest limited houses in the game makes the Fairy House genuinely scarce — most original owners no longer actively trade, reducing circulating supply. Fairy-tale, enchanted forest, and magical builds on this house are highly prized.",
-    "demandLevel": "high"
+    "released": "May 31, 2019",
+    "summary": "Fairy House is a mushroom-shaped Adopt Me house added in the May 2019 Fairy Update. It has three rooms and costs 1,100 Bucks in the house shop.",
+    "description": "The Fairy House came with the Fairy Update on May 31, 2019. You buy it with 1,100 Bucks in the house shop. Nothing says it was ever retired, though current availability is worth checking in game.\n\nThe house is shaped like a mushroom. The cap takes the color you choose, and leaves and red flowers grow around the stem. Inside there are three rooms, one on the first floor and two on the second. The Fairy Update is where it was added.",
+    "tradingNotes": "No trading rules for this house have been found."
   },
   {
     "id": "family-home",
@@ -308,13 +327,15 @@
     "image": "/images/houses/Family-Home-Common-from-Starter-Pack.png",
     "value": 0.05,
     "valueUnit": "RP",
-    "availability": "robux",
+    "availability": "obtainable",
     "bucksPrice": 489,
     "floors": 2,
     "expandable": false,
-    "description": "The Family Home is the classic Adopt Me starter house obtained through the Starter Pack, featuring a traditional two-story suburban layout with a recognizable pastel exterior that most players know from their earliest days in the game. It holds nostalgic significance as the house many players started their Adopt Me journey in.",
-    "tradingNotes": "Extremely common since many players began with the Starter Pack, so bare trade value is minimal. A well-decorated traditional, family home, or cozy suburban build can occasionally attract buyers looking for that classic Adopt Me aesthetic.",
-    "demandLevel": "low"
+    "released": "2018 (one of the original houses)",
+    "summary": "The Family Home is a two-floor Adopt Me house from 2018. Buy it for 489 Bucks or get it with the Starter Pack. See the rooms and outside details.",
+    "originLabel": "Starter Pack / Bucks",
+    "description": "The Family Home is one of the first five houses in Adopt Me, along with the Tiny Home, Estate, Mansion and Party House. It came out in 2018. You can buy it for 489 Bucks. It also comes with the Starter Pack, which is a Robux gamepass. It is the only house you can get both ways.\n\nIt has two floors and five rooms. The kitchen, bathroom and main room are downstairs. The bedroom items are upstairs. Outside you will see a chimney, a roof window and a small side window. It is one of the smallest houses, and it has no parties. The Estate is the larger version.",
+    "tradingNotes": "You can buy it with Bucks, so it is a normal Bucks house. It is not the default starter house. That one is the Tiny Home."
   },
   {
     "id": "futuristic-house",
@@ -326,12 +347,12 @@
     "value": 0.36,
     "valueUnit": "RP",
     "availability": "obtainable",
-    "bucksPrice": 4000,
-    "floors": 3,
+    "bucksPrice": 2500,
+    "floors": 2,
     "expandable": false,
-    "description": "The Futuristic House is a sleek, three-story sci-fi structure with a metallic exterior, angular modern design, and glowing geometric accents, available for 4,000 Bucks from the Build House Menu. Its forward-looking aesthetic is ideal for space-age, cyberpunk, and technology-themed builds.",
-    "tradingNotes": "A high-tier obtainable house with a distinctive look that filters out casual ownership. Space-themed or futuristic builds on this house pair naturally with robot pets, space vehicles, and sci-fi-themed items.",
-    "demandLevel": "medium"
+    "summary": "The Futuristic House costs 2,500 Bucks in Adopt Me. It has two floors, an indoor pool and a balcony. You can also get it by trading with players.",
+    "description": "Buy the Futuristic House with Bucks. It costs 2,500. You can also get it by trading with another player. It comes with free furniture inside, like lamps, couches, a TV, beds and cribs.\n\nThe house has two floors and five rooms. Those are two bedrooms, a bathroom, a kitchen and a living room. There is an indoor pool to the right of the entrance. A balcony with clear railings sits above the front door. Outside, a wooden shelter for vehicles has lights and vines. You cannot change the color of the outside.",
+    "tradingNotes": "It is bought with Bucks and is not marked as removed from the shop. It can also be picked up in a trade."
   },
   {
     "id": "gingerbread-house",
@@ -342,13 +363,14 @@
     "image": "/images/houses/Gingerbread-House-Common-from-Christmas-2019.png",
     "value": 0.24,
     "valueUnit": "RP",
-    "availability": "limited",
+    "availability": "unconfirmed",
     "bucksPrice": 1850,
     "floors": 2,
     "expandable": false,
-    "description": "The Gingerbread House was released during Christmas 2019 as a fairytale gingerbread confection — complete with candy cane pillars, frosted roof trim, and gumdrop decorations — making it one of the earlier limited seasonal houses in the game. Its festive, whimsical design has stood the test of time and remains recognizable years later.",
-    "tradingNotes": "One of the older Christmas limited houses, the Gingerbread House has had years to decrease in circulating supply. Holiday collectors and Christmas-themed builders actively seek it, and its rarity has grown steadily since its 2019 release.",
-    "demandLevel": "high"
+    "released": "December 2019",
+    "summary": "The Gingerbread House is a two-floor Adopt Me house from the 2019 Christmas update. It costs 1,850 Bucks and you can change its outside color.",
+    "description": "The Gingerbread House was added in the 2019 Christmas update, in December 2019. You buy it with Bucks in the house shop. The price is 1,850 Bucks. It has two floors, so there is room to move around inside.\n\nInside you will find one kitchen, one bathroom, two bedrooms and an entrance area. The inside nearly matches the Modern Mansion. You can change the color of the outside. The layout does not change with it. You pick the outside color, and the rooms stay the same. It has a kitchen and a bathroom, so the basics are covered.",
+    "tradingNotes": "It was a Christmas update house, and it is sold for Bucks. Check in game to see if it is still for sale."
   },
   {
     "id": "halloween-hotel",
@@ -359,12 +381,14 @@
     "image": "/images/houses/Halloween-Hotel-Common-from-September-2025.png",
     "value": 1,
     "valueUnit": "RP",
-    "availability": "limited",
+    "availability": "unconfirmed",
+    "bucksPrice": 7000,
     "floors": 3,
     "expandable": false,
-    "description": "The Halloween Hotel arrived in September 2025 as a three-story haunted hotel with gothic architecture, dramatic spire towers, and creepy hotel-lobby elements that give it a distinctly spooky atmosphere. Its large multi-story layout provides plenty of space for elaborate horror-themed room builds.",
-    "tradingNotes": "As a 2025 release, supply is still reasonably available compared to older limiteds, but will decrease over time. Its three-floor hotel layout makes it particularly attractive for horror, gothic, and Halloween-themed build enthusiasts.",
-    "demandLevel": "medium"
+    "released": "September 26, 2025",
+    "summary": "The Halloween Hotel came out on September 26, 2025. It has three levels and costs 7,000 Bucks in the Adopt Me house shop.",
+    "description": "Released September 26, 2025, the Halloween Hotel came with that year's Halloween update. You can buy it in the house shop for 7,000 Bucks. You can also get it by trading.\n\nIt has three levels: a ground floor, a second floor and a basement. The ground floor has an entrance hall, a lobby, a front desk and two elevators. Only the second elevator works. The second floor has a hallway with three rooms you can enter. Each has a different bathroom. Some areas are boarded off. The basement has a main room, a smaller room and a sealed door. The brick outside has green wings, a dark green roof, a chimney and spider webbing. You can change the brick color.",
+    "tradingNotes": "It can be bought with Bucks or obtained through trading. Check in game to see if it is still for sale."
   },
   {
     "id": "haunted-house",
@@ -375,12 +399,14 @@
     "image": "/images/houses/Haunted-House-Common-from-Halloween-2023.png",
     "value": 0.24,
     "valueUnit": "RP",
-    "availability": "limited",
-    "floors": 3,
+    "availability": "unconfirmed",
+    "bucksPrice": 1950,
+    "floors": 2,
     "expandable": false,
-    "description": "The Haunted House was released for Halloween 2023 with a creepy Victorian-era exterior featuring dark windows, overgrown details, cobwebs, and ghostly accents spread across three imposing floors. Its large size and iconic haunted-house silhouette make it a fan favorite among horror enthusiasts in the Adopt Me community.",
-    "tradingNotes": "A couple of years removed from its Halloween 2023 release, the Haunted House has settled into moderate scarcity. Halloween and gothic builds on this house are perennially popular, especially as the October trading season approaches each year.",
-    "demandLevel": "high"
+    "released": "October 12, 2023",
+    "summary": "The Haunted House is a mahogany-colored Adopt Me mansion with two floors and thirteen rooms. Buy it for 1,950 Bucks or get it by trading.",
+    "description": "Look for the Haunted House in the Home shop. It costs 1,950 Bucks. It was added on October 12, 2023, in the second week of the 2023 Halloween event. You can also get it by trading.\n\nThis is a mahogany-colored mansion with two floors. There are thirteen rooms, six on the first floor and seven on the second. Outside, it has entrance steps and spikes along the roofline. Three windows glow purple. The other windows are boarded up or dark. You can change the wall color. The inside looks like the Cozy Cabin.",
+    "tradingNotes": "Nothing marks it as limited or removed. It is sold for Bucks, and you can also get it in a trade. Check in game to see if it is still for sale."
   },
   {
     "id": "hollywood-house",
@@ -395,9 +421,9 @@
     "bucksPrice": 4500,
     "floors": 3,
     "expandable": false,
-    "description": "The Hollywood House is a glamorous three-story mansion with a movie star aesthetic — featuring a star-studded entrance, sweeping architecture, and premium exterior details — available for 4,500 Bucks from the Build House Menu. Its flashy design makes it a natural choice for celebrity, fashion, and entertainment-themed builds.",
-    "tradingNotes": "One of the pricier permanently-obtainable houses, filtering out casual ownership. Luxury entertainment and Hollywood-themed builds perform consistently well in trades, and the house's status-signaling design attracts buyers who want prestige.",
-    "demandLevel": "medium"
+    "summary": "The Hollywood House is a three-floor Adopt Me house with a theater and a red carpet entrance. Buy it with Bucks for 4,500.",
+    "description": "If you want a house with its own theater, the Hollywood House has one. You buy it with Bucks, and it costs 4,500 Bucks. It has three floors.\n\nOutside, a red carpet runs all the way to the door, and four trees stand nearby. There is also a billboard-style sign out front, and you can customize it. Inside there are four large rooms and a theater with seating.",
+    "tradingNotes": "It is sold for Bucks and is not marked as removed from the shop. No special trade rule for this house was found."
   },
   {
     "id": "hospital-home",
@@ -409,11 +435,12 @@
     "value": 1.6,
     "valueUnit": "RP",
     "availability": "robux",
-    "floors": 3,
+    "robuxPrice": 600,
     "expandable": false,
-    "description": "The Hospital Home is a Robux-exclusive three-story house from the School and Hospital Houses gamepass, designed as a medical facility with a clinical white exterior, red cross emblem, and recognizable hospital aesthetics. Despite its institutional theme, many players repurpose it creatively for roleplay and themed builds.",
-    "tradingNotes": "Robux exclusivity gives it moderate scarcity. Its three-floor layout adds versatility for creative decorators, and it's popular for medical roleplay builds and unique concept builds that subvert the hospital theme.",
-    "demandLevel": "low"
+    "released": "May 2023",
+    "summary": "The Hospital Home is sold for 600 Robux in the School and Hospital Homes gamepass. It turns a premium plot into a hospital.",
+    "description": "The Hospital Home comes from the School and Hospital Homes gamepass, which costs 600 Robux. One pass covers both houses. It lets you turn a premium plot into a hospital or a schoolhouse. It arrived in the Hospital and School Refresh update on May 18, 2023.\n\nThe update also brought a set of hospital furniture. You can find beds, reception desks and cribs. The Schoolhouse Home is sold together with it in the same pass, so buying one pass gets you both. Check in game to see if the pass is still on sale.",
+    "tradingNotes": "It was bought with Robux, so it cannot be sold for Bucks, even if you got it in a trade."
   },
   {
     "id": "ice-cream-house",
@@ -424,12 +451,14 @@
     "image": "/images/houses/Ice-Cream-House-Common-from-February-2025.png",
     "value": 0.48,
     "valueUnit": "RP",
-    "availability": "limited",
+    "availability": "unconfirmed",
+    "bucksPrice": 2150,
     "floors": 2,
     "expandable": false,
-    "description": "The Ice Cream House was released in February 2025 as a sweet-themed seasonal limited shaped like a giant ice cream sundae, with pastel colors, whipped-cream accents, and playful dessert-themed elements across two floors. Its cheerful, sugary exterior stands out as one of the most charming food-themed houses in the game.",
-    "tradingNotes": "A fairly recent limited with growing scarcity as supply decreases. Its distinctive sweet aesthetic attracts players who want a playful, colorful build, and it pairs naturally with dessert-themed pets and items.",
-    "demandLevel": "medium"
+    "released": "February 28, 2025",
+    "summary": "The Ice Cream House has two floors, an ice cream bar and a yellow, brown and pink outside. It came out on February 28, 2025 for 2,150 Bucks.",
+    "description": "The Ice Cream House was released on February 28, 2025. You buy it in the Home shop for 2,150 Bucks, or you can get it by trading.\n\nThe outside is yellow, brown and pink. The top has ice cream scoops, cherries and sprinkles. Two clouds and some ice cream bars sit beside it. You can recolor the pink parts, except the ground mounds, which stay pink. Floor 1 has a big dining area and an ice cream bar with three rooms behind it. Floor 2 has another dining area with a room at each end. Ice cream furniture items include a Cone Vender, a Cup Vender and a Cherry Topping.",
+    "tradingNotes": "Nothing marks it as limited or retired. Check in game to see if it is still for sale."
   },
   {
     "id": "igloo-home",
@@ -440,12 +469,14 @@
     "image": "/images/houses/Igloo-Home-Common-from-Winter-2022.png",
     "value": 0.6,
     "valueUnit": "RP",
-    "availability": "limited",
+    "availability": "unconfirmed",
+    "bucksPrice": 2999,
     "floors": 1,
     "expandable": false,
-    "description": "The Igloo Home was released during Winter 2022 as a compact, single-floor dome shaped like a traditional Arctic igloo, with icy blue accents, a snow-covered exterior, and a warm interior glow that contrasts its frosty outside. Its small footprint and compact design give it a cozy, intimate quality unlike most houses.",
-    "tradingNotes": "Several years out from its 2022 release, the Igloo Home has become moderately scarce. Its unique compact Arctic design attracts players who want a minimalist, winter-themed build with a distinctive shape.",
-    "demandLevel": "medium"
+    "released": "December 15, 2022",
+    "summary": "The Igloo Home is a one-floor Adopt Me house with nine rooms. It was added in the Winter Event 2022 and costs 2,999 Bucks.",
+    "description": "Added on December 15, 2022, the Igloo Home was part of week 3 of the Winter Event. It costs 2,999 Bucks in the Home shop. You can also get it by trading. It has one floor.\n\nIt is a round, light-blue dome made with darker bricks. Snow sits on top, and the small entrance is built from large blue bricks. Outside there is a small green tree, some snowballs and snowmen. Inside, it has nine rooms.",
+    "tradingNotes": "Nothing marks it as limited or retired. It is a Bucks house that can also be traded. Check in game to see if it is still for sale."
   },
   {
     "id": "korean-house",
@@ -456,12 +487,14 @@
     "image": "/images/houses/Korean-House-Common-from-Lunar-New-Year-2024.png",
     "value": 0.28,
     "valueUnit": "RP",
-    "availability": "limited",
-    "floors": 2,
+    "availability": "unconfirmed",
+    "bucksPrice": 2200,
+    "floors": 1,
     "expandable": false,
-    "description": "The Korean House was released for Lunar New Year 2024, inspired by traditional Korean hanok architecture with curved tiled roofs, wooden latticework, courtyard elements, and rich cultural detailing across two floors. Its elegant design is one of the most authentically detailed culturally-inspired houses in Adopt Me.",
-    "tradingNotes": "Seasonal Lunar New Year releases generate consistent demand from collectors who appreciate the cultural theme. Its intricate traditional architecture appeals to players building Asian-inspired or culturally significant spaces.",
-    "demandLevel": "medium"
+    "released": "February 15, 2024",
+    "summary": "The Korean House has nine rooms and a red-carpet staircase to its front door. It came out on February 15, 2024 and costs 2,200 Bucks.",
+    "description": "The Korean House arrived on February 15, 2024, in week 2 of the Lunar New Year Event. You can buy it in the Home shop for 2,200 Bucks, or get it by trading.\n\nIt is inspired by traditional Korean buildings. The outside is grey, orange, red and beige. It has four bright windows and two trees on each side. A staircase with a bright red carpet leads to a brown front door. You can change the roof color. The outside looks like two stories, but the inside has nine rooms. Reports differ on how to count its floors.",
+    "tradingNotes": "Nothing marks it as limited or retired. It is sold for Bucks and can also be traded. Check in game to see if it is still for sale."
   },
   {
     "id": "lunar-house",
@@ -472,12 +505,13 @@
     "image": "/images/houses/Lunar-House-Common-from-Lunar-New-Year-2021.png",
     "value": 0.24,
     "valueUnit": "RP",
-    "availability": "limited",
-    "floors": 2,
+    "availability": "unconfirmed",
+    "bucksPrice": 2000,
     "expandable": false,
-    "description": "The Lunar House was released for Lunar New Year 2021 with an elaborate pagoda-inspired design featuring bright red lanterns, golden accents, and East Asian architectural elements spread across two floors. As one of the earlier Lunar New Year limited houses, it predates its Korean House counterpart by three years.",
-    "tradingNotes": "Older than many limited houses in active circulation, the Lunar House has had significant time to decrease in supply since 2021. Collectors and players building traditional East Asian-inspired spaces frequently seek this house out.",
-    "demandLevel": "high"
+    "released": "Lunar New Year 2021",
+    "summary": "The Lunar House is a red Adopt Me house with a gold-trimmed yellow roof and red lanterns. It came with Lunar New Year 2021 and costs 2,000 Bucks.",
+    "description": "The Lunar House came with the Lunar New Year update in 2021. It costs 2,000 Bucks in Adopt Me. You can also get it by trading. That same update added Lunar New Year furniture, but the specific items are not known. It is a Bucks house, so you do not need Robux to get it.\n\nThe outside is red with a yellow roof trimmed in gold. The windows glow warm and have red patterns on them. Several red lanterns hang from the balcony. The floor count and the room layout for this house are not known, so neither is listed here.",
+    "tradingNotes": "Nothing marks it as limited or retired. It can be bought with Bucks or traded for. Check in game to see if it is still for sale."
   },
   {
     "id": "luxury-apartments",
@@ -489,12 +523,11 @@
     "value": 1,
     "valueUnit": "RP",
     "availability": "obtainable",
-    "bucksPrice": 3500,
-    "floors": 3,
+    "bucksPrice": 8000,
     "expandable": false,
-    "description": "The Luxury Apartments is a sleek, modern three-story apartment building available for 3,500 Bucks from the Build House Menu, featuring a contemporary high-rise exterior with large windows and a premium urban aesthetic. Its three floors make it one of the most spacious permanently-buyable houses in the game.",
-    "tradingNotes": "Popular for city-themed and modern builds due to its apartment aesthetic. Despite being always available, its higher Bucks cost means fewer players own it casually, giving a well-decorated build meaningful trade leverage.",
-    "demandLevel": "medium"
+    "summary": "Luxury Apartments is the largest house in Adopt Me, with 22 rooms and a balcony on every floor. You buy it with Bucks for 8,000.",
+    "description": "Luxury Apartments is described as the largest house in Adopt Me. You buy it with Bucks, and it costs 8,000 Bucks. No release date was found for it.\n\nIt has 22 rooms, and every floor has its own balcony. The number of floors is not known, so check the house in game to count them.",
+    "tradingNotes": "It is sold for Bucks and is not marked as removed from the shop. No special trade rule for this house was found."
   },
   {
     "id": "mansion",
@@ -505,13 +538,11 @@
     "image": "/images/houses/Mansion-Common-from-Build-House-Menu.png",
     "value": 0.28,
     "valueUnit": "RP",
-    "availability": "obtainable",
-    "bucksPrice": 1060,
-    "floors": 3,
+    "availability": "limited",
     "expandable": false,
-    "description": "The Mansion is one of the most iconic and popular houses in Adopt Me — a grand three-story manor available for just 1,060 Bucks, making it exceptional value for a three-floor property. Its large, classic exterior has made it a staple for players who want maximum build space without paying a premium.",
-    "tradingNotes": "Very common given its low cost and three-floor layout, so bare trade value is modest. However, a creatively themed and fully decorated Mansion build consistently attracts strong offers — the space it provides allows for elaborate, impressive designs.",
-    "demandLevel": "low"
+    "summary": "The Mansion is a retired Adopt Me house with seven rooms, removed June 8, 2024. You can only get it by trading with another player.",
+    "description": "You cannot buy the Mansion anymore. It was removed from the game on June 8, 2024, after the Last Chance House Sale. Now the only way to get it is by trading with another player. It is an upgraded version of the Estate.\n\nOutside, there is a front garden with bushes and small trees. The roof is black, and the front has many windows. Inside there are seven rooms. They are two bedrooms, a bathroom, a kitchen, a living room and one large room with no decorations. Reports differ on how many floors it has.",
+    "tradingNotes": "The Mansion is trade-only now. It is no longer sold, and it can only be obtained by trading with another player."
   },
   {
     "id": "mermaid-mansion",
@@ -522,13 +553,12 @@
     "image": "/images/houses/Mermaid-Mansion-Common-from-Build-House-Menu.png",
     "value": 2.2,
     "valueUnit": "RP",
-    "availability": "obtainable",
-    "bucksPrice": 2800,
-    "floors": 3,
+    "availability": "limited",
     "expandable": false,
-    "description": "The Mermaid Mansion is an ocean-inspired three-story house with teal shell-shaped turrets, coral accents, pearl details, and an underwater color palette, available for 2,800 Bucks from the Build House Menu. Its distinctive sea creature aesthetic is immediately recognizable and unlike any other house in the game.",
-    "tradingNotes": "Popular among players with ocean-themed pets (turtles, crabs, sharks, sea creatures) and those building aquatic or mermaid-themed spaces. Creatively decorated undersea builds consistently attract motivated traders.",
-    "demandLevel": "medium"
+    "summary": "The Mermaid Mansion was a limited Robux house, removed June 14, 2024. It has four rooms and a central pool, and is now trade-only.",
+    "originLabel": "Robux (no longer sold)",
+    "description": "The Mermaid Mansion started as a limited Robux purchase. It was the last house in the Last Chance House Sale and was removed on June 14, 2024. It is no longer sold. You can only get it by trading with another player.\n\nA bubble surrounds the house. Clams with pearls sit outside, and the shell color follows your house color. Inside there are four rooms around a central pool. Sea-themed furniture is included with the house. The number of floors is not known. Because the shell color follows the house color, changing your house color changes the shells too. There are four rooms in total.",
+    "tradingNotes": "It is trade-only. Because it was bought with Robux, it cannot be sold for Bucks, even if you got it in a trade."
   },
   {
     "id": "millionaire-mansion",
@@ -542,9 +572,9 @@
     "availability": "robux",
     "floors": 3,
     "expandable": false,
-    "description": "The Millionaire Mansion is a prestigious Robux-exclusive three-story estate from the Millionaire Pack gamepass, designed as an ultra-luxury property with gold accents, an opulent exterior, and an architectural presence that signals extreme wealth. It's among the most lavish-looking houses in Adopt Me.",
-    "tradingNotes": "The Robux barrier keeps this mansion uncommon. Its gold-accented prestige exterior and three-floor layout make it attractive for luxury builds, and traders typically expect high-value offers to part with one.",
-    "demandLevel": "medium"
+    "summary": "The Millionaire Mansion comes in the Millionaire Pack gamepass with a Luxury Car. It has three floors, a driveway and spotlights.",
+    "description": "You get the Millionaire Mansion from the Millionaire Pack gamepass, which is bought with Robux. The pack also includes a Luxury Car. The house has three floors. Reports on the current price differ, so check the pass page for it. It is not sold with Bucks.\n\nThere is a driveway for parking vehicles. Spotlights sit on top of the house. A couple of trees grow near the top, and five more stand on the ground. The Luxury Car that comes in the pack is bundled with the house. The Luxury Car cannot be traded.",
+    "tradingNotes": "It came from Robux, so it cannot be sold for Bucks, even if you got it in a trade. The Luxury Car in the pack cannot be traded."
   },
   {
     "id": "modern-mansion",
@@ -556,11 +586,12 @@
     "value": 1.2,
     "valueUnit": "RP",
     "availability": "robux",
+    "robuxPrice": 300,
     "floors": 2,
     "expandable": false,
-    "description": "The Modern Mansion is a Robux-exclusive house from the Modern Mansion Gamepass featuring a sleek, minimalist two-story design with floor-to-ceiling windows, clean geometric lines, and a contemporary architectural style that feels like a luxury real estate listing. Its understated elegance is a departure from the game's more colorful options.",
-    "tradingNotes": "Less common than Bucks-purchased houses due to the Robux requirement. Its minimal contemporary design translates beautifully to high-end interior design builds, and traders often seek it for sophisticated, modern setups.",
-    "demandLevel": "medium"
+    "summary": "The Modern Mansion is a two-floor Adopt Me house with seven rooms and an indoor pool room. It is sold for 300 Robux as a gamepass.",
+    "description": "Players get the Modern Mansion through a gamepass that costs 300 Robux. You can also get it by trading. It has two floors.\n\nThere are seven rooms, including bathrooms, with a side doorway. The indoor pool room sits in front of the main doorway. Outside, four trees stand by the mailbox. Three planters with trees sit on the roof.",
+    "tradingNotes": "It was bought with Robux, so it cannot be sold for Bucks, even if you got it in a trade. Reports differ on whether the gamepass is still on sale."
   },
   {
     "id": "moon-house",
@@ -571,13 +602,14 @@
     "image": "/images/houses/Moon-House-Common-from-May-2025.webp",
     "value": 0.5,
     "valueUnit": "RP",
-    "availability": "obtainable",
+    "availability": "unconfirmed",
     "bucksPrice": 4000,
     "floors": 1,
     "expandable": false,
-    "description": "The Moon House is a space-themed single-story house added on May 9, 2025, featuring a lunar landscape exterior complete with rocky crater terrain, a glowing portal entrance, and low-gravity interior design details. Its out-of-this-world aesthetic makes it a standout pick for space, sci-fi, and celestial-themed builds.",
-    "tradingNotes": "Permanently available for 4,000 Bucks, the Moon House is a mid-range option with a distinctive space theme that sets it apart from most other permanent houses. Its unique aesthetic draws interest from players building space stations, alien worlds, and cosmic retreats.",
-    "demandLevel": "medium"
+    "released": "May 9, 2025",
+    "summary": "The Moon House is a one-floor Adopt Me house with a low gravity button and a portal. It came out May 9, 2025 and costs 4,000 Bucks.",
+    "description": "The Moon House was released on May 9, 2025. You can buy it with Bucks for 4000, or get it by trading.\n\nOutside, light-gray rocky ground is ringed by caution tape, with a small sign nearby. A large dark-gray portal frame has stairs up to a portal. You can change the portal color. Asteroids and three colored planets float around. Inside is one room of dark-gray rocky terrain with the same portal. A red button near the portal turns low gravity on and off. Items from the Moon furniture pack decorate the house.",
+    "tradingNotes": "Nothing marks it as limited or retired. Check in game to see if it is still for sale."
   },
   {
     "id": "mountain-house",
@@ -589,12 +621,14 @@
     "value": 0.6,
     "valueUnit": "RP",
     "availability": "obtainable",
-    "bucksPrice": 2000,
-    "floors": 2,
+    "bucksPrice": 3000,
+    "floors": 1,
     "expandable": false,
-    "description": "The Mountain House is a two-story alpine chalet available for 2,000 Bucks, featuring a steeply pitched roof, exposed timber framing, and a rugged mountain exterior that evokes a ski resort lodge. Its nature-forward aesthetic makes it ideal for outdoor adventure, nature retreat, and winter-themed builds.",
-    "tradingNotes": "Mid-tier obtainable house with a moderate buy-in. Nature and winter-themed builds pair naturally with wolf, arctic fox, and snow-adjacent pets, attracting buyers who want a matching house-and-pet combination.",
-    "demandLevel": "low"
+    "released": "February 23, 2023",
+    "summary": "The Mountain House has a multi-level mountain inside, with a large bridge and working lifts. It was added February 23, 2023 for 3,000 Bucks.",
+    "originLabel": "House shop (Bucks)",
+    "description": "Added on February 23, 2023, the Mountain House costs 3,000 Bucks. You can also get it by trading. Castle-themed house decor came out at the same time. Reports differ on its floor count, so no number is given here.\n\nThe inside is a mountain with many levels. A large bridge crosses it, and there are working lifts that go between the levels. No room count is known, so none is given.",
+    "tradingNotes": "It is sold for Bucks and is not marked as removed from the shop. No special trade rule for this house was found."
   },
   {
     "id": "party-house",
@@ -606,12 +640,13 @@
     "value": 0.6,
     "valueUnit": "RP",
     "availability": "obtainable",
-    "bucksPrice": 1200,
+    "bucksPrice": 3575,
     "floors": 2,
     "expandable": false,
-    "description": "The Party House is a festive two-story property available for 1,200 Bucks, designed with a celebration theme featuring balloons, colorful streamers, and bright exterior decorations that set an energetic, fun atmosphere. It's the go-to house for birthday party, carnival, and celebration-themed builds.",
-    "tradingNotes": "Affordable and always obtainable, so bare trade value is modest. Creative party, event, or birthday-themed builds attract buyers who want a high-energy, fun aesthetic for their Adopt Me plot.",
-    "demandLevel": "low"
+    "summary": "Party House in Adopt Me costs 3,575 Bucks. It has 2 floors with a kitchen, one bedroom and one bathroom, and a heavily decorated outside.",
+    "originLabel": "House shop (Bucks)",
+    "description": "You can buy the Party House with Bucks. It costs 3,575 Bucks. It is one of the first houses added to Adopt Me, though the exact release date is not known.\n\nThe outside is heavily decorated, and there are lights on the deck. Inside, you get 2 floors. There is a kitchen, one bathroom and one bedroom. The floors come empty, so you start with no furniture at all and add your own.",
+    "tradingNotes": "You buy this one with Bucks. It comes with no furniture, since the floors come empty."
   },
   {
     "id": "pirate-ship-house",
@@ -622,13 +657,13 @@
     "image": "/images/houses/Pirate-Ship-House-Common-from-Build-House-Menu.png",
     "value": 0.2,
     "valueUnit": "RP",
-    "availability": "obtainable",
-    "bucksPrice": 2000,
-    "floors": 3,
+    "availability": "limited",
+    "bucksPrice": 1600,
     "expandable": false,
-    "description": "The Pirate Ship House is a dramatic three-story structure shaped like a full-scale pirate galleon — complete with a wooden hull, billowing sails, cannons, and a crow's nest — available for 2,000 Bucks from the Build House Menu. Its adventurous shape is one of the most unique and recognizable in the entire game.",
-    "tradingNotes": "An unusually shaped house that immediately stands out from standard builds. Players who love adventure, ocean, and pirate themes actively seek out decorated Pirate Ship builds, particularly ones that enhance the ship's natural sailing aesthetic.",
-    "demandLevel": "medium"
+    "released": "April 2020",
+    "summary": "Pirate Ship House came in the April 2020 Pirate Update. It was sold for 1,600 Bucks until June 12, 2024, and now it is trade-only.",
+    "description": "Pirate Ship House arrived in April 2020 with the Pirate Update. It used to cost 1,600 Bucks in the Build House menu. It was taken off sale on June 12, 2024, so now you can only get it by trading with another player.\n\nThe outside looks like a ship. It has a blue hull, brown wood and two white sails. One sail can show your Roblox avatar head. Reports also mention two palm trees outside. Inside, the main living room has a staircase up to a second-floor hallway with several rooms. Some pirate furniture comes free with the house.",
+    "tradingNotes": "This house is no longer sold. It can only be obtained by trading with another player. Furniture inside goes with the house but has no Bucks value on resale."
   },
   {
     "id": "pizza-place",
@@ -639,13 +674,13 @@
     "image": "/images/houses/Pizza-Place-Common-from-Own-A-Shop-Update.png",
     "value": 0.05,
     "valueUnit": "RP",
-    "availability": "limited",
+    "availability": "obtainable",
     "bucksPrice": 500,
     "floors": 2,
     "expandable": false,
-    "description": "The Pizza Place was released during the Own A Shop Update with a classic Italian restaurant exterior featuring red checkered awnings, a pizza slice signage, and two floors of commercial-themed space. It's one of the older shop-style limited houses and carries history from an earlier era of Adopt Me updates.",
-    "tradingNotes": "Released during an older update, the Pizza Place has had time to decrease in supply. Its food-themed, commercial design works for restaurant roleplay and food-themed builds, attracting a dedicated niche of collectors.",
-    "demandLevel": "medium"
+    "summary": "Pizza Place is a restaurant-style Adopt Me house from the Own a Shop update. It costs 500 Bucks and has 2 floors and a pizza kitchen.",
+    "description": "Looking for a house that works like a restaurant? Pizza Place was introduced in the Own a Shop update. You buy it with Bucks, and it costs 500 Bucks.\n\nIt has 2 floors. Inside you will find a kitchen with pizza-making counters, a bathroom and two extra rooms. Outside there is an awning, a wooden bench, a bay window and two small trees by the door. A small circle over the door shows your Roblox avatar face, and only the Pirate Ship House shares that. You can change the outside color, which comes with white accents.",
+    "tradingNotes": "You buy this one with Bucks. Its default interior has a register, booth, table, crates and kitchen gear."
   },
   {
     "id": "queenslander-house",
@@ -657,12 +692,13 @@
     "value": 0.24,
     "valueUnit": "RP",
     "availability": "obtainable",
-    "bucksPrice": 1800,
-    "floors": 2,
+    "bucksPrice": 1650,
+    "floors": 1,
     "expandable": false,
-    "description": "The Queenslander House is modeled after traditional Queensland, Australia timber-frame colonial architecture, with a wrap-around veranda, raised-floor style design, and a tropical-climate aesthetic across two floors. Its distinctive look is unlike most other houses in the Build House Menu.",
-    "tradingNotes": "A mid-tier obtainable house with a recognizable architectural style that attracts players looking for something distinctive. Tropical, coastal, and garden-themed builds perform well on this house.",
-    "demandLevel": "low"
+    "released": "January 11, 2024",
+    "summary": "Queenslander House arrived in the January 11, 2024 Adopt Me update. You can buy it for 1,650 Bucks or get it through house trading.",
+    "description": "The Queenslander House is from the Adopt Me update of January 11, 2024. It costs 1,650 Bucks. You can also get it through house trading.\n\nThe layout is open-concept, with plenty of natural light. A matching Queenslander furniture pack came out at the same time, with items priced from 8 to 225 Bucks. Reports differ on how many rooms the house has, so it is worth a look in game.",
+    "tradingNotes": "Last time it was checked, this house was still sold for Bucks and had not been removed. You can also get it by trading."
   },
   {
     "id": "racetrack-house",
@@ -674,12 +710,12 @@
     "value": 0.28,
     "valueUnit": "RP",
     "availability": "obtainable",
-    "bucksPrice": 3000,
-    "floors": 1,
+    "bucksPrice": 2200,
     "expandable": false,
-    "description": "The Racetrack House is a sprawling single-floor property built around a miniature racing circuit, available for 3,000 Bucks — unusual in its wide, horizontal layout compared to the game's typically vertical multi-story houses. Its racing theme and track-shaped exterior are completely unique among Adopt Me houses.",
-    "tradingNotes": "Its one-of-a-kind racetrack design makes it a niche but dedicated pick among vehicle and racing enthusiasts. Players with extensive vehicle collections frequently choose this house for its perfect theme-matching exterior.",
-    "demandLevel": "medium"
+    "released": "August 2023",
+    "summary": "Racetrack House was added in August 2023 and costs 2,200 Bucks. It has a tire-shaped arch outside and a wide green space with a track inside.",
+    "description": "Racetrack House was added in August 2023. You buy it with Bucks for 2,200 Bucks, or get it through house trading. Premade raceways are separate purchases.\n\nOutside, a large black tire-shaped arch with blue edges frames a glowing yellow entrance. There is a track with checkered flags and three small go-karts. Your house color changes the tunnel under the arch. Inside is a wide green space with trees and mountains, and vehicles can be driven in there. The premade raceways are Simple at 1,900 Bucks, Skillful at 2,100 Bucks and Complex at 2,700 Bucks.",
+    "tradingNotes": "You buy this one with Bucks, and it was not listed as removed when last checked. The raceways are sold on their own and do not come with the house."
   },
   {
     "id": "royal-palace",
@@ -691,12 +727,13 @@
     "value": 0.4,
     "valueUnit": "RP",
     "availability": "obtainable",
-    "bucksPrice": 5000,
-    "floors": 3,
+    "bucksPrice": 2750,
+    "floors": 2,
     "expandable": false,
-    "description": "The Royal Palace is a majestic three-story palace available for 5,000 Bucks from the Build House Menu, featuring grand symmetrical spires, golden accents, arched windows, and a regal exterior that evokes the grandeur of classical European royalty. It's among the most expensive and visually impressive permanently-obtainable houses.",
-    "tradingNotes": "Its high Bucks cost significantly reduces casual ownership, giving decorated builds more trade leverage. Royal, princess, and high-fantasy builds on the Royal Palace consistently attract premium trade offers from players who want the best-looking castle-type house.",
-    "demandLevel": "medium"
+    "released": "August 2022",
+    "summary": "Royal Palace is a 2-floor Adopt Me house from August 2022. It costs 2,750 Bucks and has five rounded towers and paw-print flags on the roof.",
+    "description": "Royal Palace came out in August 2022. It costs 2,750 Bucks, and you can also get it through house trading.\n\nThe house has 2 floors. A front porch sits up three steps, with double rounded doors. Above it is a triangular gable with a golden half-circle detail, and an upper balcony with circular-framed doors and windows. The roof has five rounded towers and three flying paw-print flags. Two pillars and small potted trees stand by the front. Only a Bucks price is listed for this house, and no furniture set is listed with it.",
+    "tradingNotes": "This house is sold for Bucks and was not listed as removed when last checked."
   },
   {
     "id": "ruler-s-castle",
@@ -707,13 +744,13 @@
     "image": "/images/houses/Ruler's-Castle-Common-from-Build-House-Menu.png",
     "value": 1.4,
     "valueUnit": "RP",
-    "availability": "obtainable",
-    "bucksPrice": 4000,
-    "floors": 3,
+    "availability": "limited",
+    "bucksPrice": 6899,
+    "floors": 2,
     "expandable": false,
-    "description": "Ruler's Castle is a formidable three-story fortification available for 4,000 Bucks, featuring thick stone walls, imposing battlements, and a commanding castle design that emphasizes strength and dominance over the Royal Palace's more ornate style. Its darker, more serious aesthetic suits medieval fantasy and conquest-themed builds.",
-    "tradingNotes": "Popular with players going for a rugged, serious castle aesthetic rather than the Royal Palace's more ornate design. Medieval fantasy builds with dragons, dark knights, or legendary pet themes pair naturally with this house.",
-    "demandLevel": "medium"
+    "summary": "Ruler's Castle was sold for 6,899 Bucks until June 11, 2024. It has 2 floors and nine rooms, and now it is only available by trading.",
+    "description": "Ruler's Castle used to be sold for 6,899 Bucks. It was removed from sale on June 11, 2024. Today it is no longer sold, and you can only get it by trading with another player.\n\nThe house has 2 floors and nine rooms. There are four bedrooms, a kitchen, a bathroom, a dining room and a throne room. The inside is mostly furnished. The outside is lightly decorated, with a white pearl on top, similar to Sky Castle. Players can stand on the pearl. A smaller related house called the Castle also exists.",
+    "tradingNotes": "This house is trade-only now. Furniture inside goes with it but has no Bucks value."
   },
   {
     "id": "safari-home",
@@ -724,12 +761,13 @@
     "image": "/images/houses/Safari-Home-Common-from-Safari-Update-2023.png",
     "value": 0.28,
     "valueUnit": "RP",
-    "availability": "limited",
-    "floors": 2,
+    "availability": "unconfirmed",
+    "bucksPrice": 2100,
     "expandable": false,
-    "description": "The Safari Home was released during the Safari Update 2023 with an African savanna-inspired design featuring thatched roofing, warm earthy tones, wooden detail work, and wildlife-themed decorative elements across two floors. It's one of the most geographically and culturally distinctive limited houses in Adopt Me.",
-    "tradingNotes": "A 2023 limited with decreasing supply since its update period ended. Safari, wildlife, and nature conservancy builds on this house are particularly popular among players with matching safari-themed pets.",
-    "demandLevel": "medium"
+    "released": "July 20, 2023",
+    "summary": "Safari Home came out on July 20, 2023 during the Safari Zone event. It costs 2,100 Bucks and is a tower built on wooden log supports.",
+    "description": "Safari Home was released on July 20, 2023, in week 2 of the Safari Zone event. You can buy it with Bucks for 2,100 Bucks, or get it by trading. Safari-themed furniture came out with it.\n\nThe house is a tower on wooden log supports. The walls and floors are beige. Fences and bushes surround it, and the entrance has a stone frame. The first-floor windows are round. On the second floor there is a fireplace with animated smoke. Wooden ladders connect the floors. The furniture prices are not listed.",
+    "tradingNotes": "Nothing says whether this house has been retired or has returned, so check current availability in game. You can also get it by trading."
   },
   {
     "id": "sandbox-island",
@@ -741,12 +779,11 @@
     "value": 0.36,
     "valueUnit": "RP",
     "availability": "obtainable",
-    "bucksPrice": 1200,
-    "floors": 1,
     "expandable": false,
-    "description": "The Sandbox Island is a single-floor island-style property available for 1,200 Bucks, styled as a small tropical island with sandy shores, palm trees, and a relaxed beach atmosphere. Its wide open single-floor layout offers maximum horizontal build space without the constraints of multi-story vertical design.",
-    "tradingNotes": "An affordable beach-themed house with modest base trade value given its buy price. Creative tropical resort, beach party, or island paradise builds attract buyers looking for a vacation-inspired aesthetic.",
-    "demandLevel": "low"
+    "released": "February 2022",
+    "summary": "Sandbox Island is the largest Adopt Me house, an island-style beach space with a stone portal. It was released in February 2022.",
+    "description": "Sandbox Island was released in February 2022, alongside the Taxi Bundle gamepass. You buy it with Bucks, or get it through house trading.\n\nThis is an island-style space, not an indoor house, and it is currently the largest house. A gray stone portal flanked by three palm trees, with a yellow glow, leads to the beach. The inside has a large beach with water, palm trees and wooden steps. It is the only house where vehicles can be spawned inside, but vehicles cannot pass through the portal. Racetrack custom tracks can be built here.",
+    "tradingNotes": "Reports differ on the Bucks price, so check it in game. It was not listed as removed when last checked."
   },
   {
     "id": "scary-house",
@@ -757,12 +794,14 @@
     "image": "/images/houses/Scary-House-Common-from-Halloween-2021.png",
     "value": 0.24,
     "valueUnit": "RP",
-    "availability": "limited",
-    "floors": 3,
+    "availability": "unconfirmed",
+    "bucksPrice": 1800,
+    "floors": 4,
     "expandable": false,
-    "description": "The Scary House was released during Halloween 2021 as a three-story horror mansion featuring broken windows, a tilted chimney, overgrown vines, and every classic haunted-house element — a timeless spooky design that has aged well in the trading community. Its age gives it more scarcity than more recent Halloween releases.",
-    "tradingNotes": "Older than most Halloween limiteds currently in active circulation, the Scary House has become moderately scarce. Its traditional haunted-house architecture and three-floor layout make it highly valued for horror and gothic builds.",
-    "demandLevel": "high"
+    "released": "November 11, 2021",
+    "summary": "Scary House was the first Halloween-themed Adopt Me house, added November 11, 2021. It costs 1,800 Bucks and has 4 levels.",
+    "description": "As the first Halloween-themed house in Adopt Me, Scary House arrived on November 11, 2021, during the Halloween Event. It costs 1,800 Bucks. You can also get it by trading.\n\nIt has 4 levels: a basement, a ground floor, a first floor and a small attic. A short hallway on the ground floor leads to worn stairs. Outside you will see wooden panels, three glowing windows with a glow you can recolor, three tall trees at the back, a small raven on the front porch and two hanging lanterns. There are four rooms, not counting the large main areas.",
+    "tradingNotes": "Nothing says this house is limited or retired, but current availability should be checked in game. It can be obtained by trading."
   },
   {
     "id": "schoolhouse-home",
@@ -774,11 +813,12 @@
     "value": 2.4,
     "valueUnit": "RP",
     "availability": "robux",
-    "floors": 2,
+    "robuxPrice": 600,
     "expandable": false,
-    "description": "The Schoolhouse Home is a Robux-exclusive two-story house from the School and Hospital Houses gamepass, designed as a classic American schoolhouse with a bell tower, red brick exterior, and traditional educational-building styling. Many players repurpose its distinctive architecture for creative roleplay and community-themed builds.",
-    "tradingNotes": "Robux exclusivity gives it moderate scarcity. Its unique schoolhouse architecture makes it popular for roleplay, learning-center, and community-themed builds — and it's the only school-style house in the game.",
-    "demandLevel": "low"
+    "released": "May 2023",
+    "summary": "Schoolhouse Home came with the May 18, 2023 Hospital and School Refresh update. You get it with a 600 Robux gamepass shared with the Hospital Home.",
+    "description": "The Schoolhouse Home came with the Hospital and School Refresh update on May 18, 2023. It is sold through the School and Hospital Homes gamepass for 600 Robux. One pass covers both homes.\n\nThe house is listed with 1 floor. School-themed furniture is available, including desks, bookshelves and a blackboard. The school furniture set came with the update. The pass costs 600 Robux and unlocks both the school and the hospital. No Bucks price is listed for it. Check in game to see if the pass is still on sale.",
+    "tradingNotes": "You get this house with Robux, so it cannot be sold for Bucks, even if you got it by trading."
   },
   {
     "id": "shop-house",
@@ -791,11 +831,10 @@
     "valueUnit": "RP",
     "availability": "obtainable",
     "bucksPrice": 1750,
-    "floors": 2,
     "expandable": false,
-    "description": "The Shop House is a charming two-story commercial property available for 1,750 Bucks, featuring a classic shopfront facade with display windows, awnings, and a living-space-above-shop layout reminiscent of a small European market building. It's popular for market stall, bakery, and boutique-style builds.",
-    "tradingNotes": "Mid-range obtainable house popular for commercial and roleplay-style builds. Creative bakery, flower shop, or small business setups on this house attract buyers interested in town-square and market aesthetics.",
-    "demandLevel": "low"
+    "summary": "Shop House is an Adopt Me house with 4 rooms set up as a shop. It costs 1,750 Bucks and has a logo you can swap to any item icon.",
+    "description": "Shop House is bought with Bucks for 1,750 Bucks. You can also get it through house trading. No release date is on record.\n\nIt has 4 rooms and is set up as a shop. The building logo can be swapped to any item icon in your inventory. Only the Hollywood House has a similar customizable sign. Outside, two small trees stand by the door and a bench sits in front of the window. Floors are not stated for this house, and no furniture is listed with it.",
+    "tradingNotes": "This house is sold for Bucks and was not listed as removed when last checked."
   },
   {
     "id": "soccer-stadium",
@@ -806,12 +845,14 @@
     "image": "/images/houses/Soccer-Stadium-Common-from-Soccer-Update-2024.png",
     "value": 2.2,
     "valueUnit": "RP",
-    "availability": "limited",
+    "availability": "robux",
+    "robuxPrice": 550,
     "floors": 2,
     "expandable": false,
-    "description": "The Soccer Stadium was released during the Soccer Update 2024 as the only sports-venue-style house in Adopt Me, featuring a two-floor stadium exterior with green turf elements, grandstand details, and an arena-scale design that's completely unlike anything else in the game. It's a true novelty piece for sports fans.",
-    "tradingNotes": "Its unique sports-venue design — the only stadium house in Adopt Me — gives it a dedicated niche following. Soccer, sports, and competitive-themed builds attract a loyal segment of the trading community.",
-    "demandLevel": "medium"
+    "released": "July 2024",
+    "summary": "Soccer Stadium came with the July 2024 Soccer update. It costs 550 Robux, has 2 floors and 7 rooms, and sits around a central pitch.",
+    "description": "Soccer Stadium was added in the Soccer update in July 2024. You buy it with 550 Robux in the shop, or get it by trading.\n\nThe outside has blue walls and glowing blue windows around a central pitch. A white rim holds red, green, yellow and blue flags, and you can change the wall color. There are 2 floors and 7 rooms. Six are on the first floor, linked by 2 hallways, and one hallway has 2 small bathrooms. The last room is on the second floor and looks over the pitch and stadium.",
+    "tradingNotes": "It is bought with Robux, so it cannot be sold for Bucks. Check in game that it is still on sale."
   },
   {
     "id": "space-fleet-house",
@@ -823,11 +864,13 @@
     "value": 3.6,
     "valueUnit": "RP",
     "availability": "robux",
+    "robuxPrice": 1060,
     "floors": 3,
     "expandable": false,
-    "description": "The Space Fleet House is a Robux-exclusive three-story property from the Space Bundle Gamepass, featuring a dramatic spacecraft-inspired exterior with metallic paneling, galactic lighting elements, and a futuristic design that stands apart from every other house in the game. It's the most space-themed house available.",
-    "tradingNotes": "Robux exclusivity plus a three-floor layout and a design that pairs naturally with space pets, rocket vehicles, and futuristic items. Space-themed builds on this house are popular among players who have invested in space-related item collections.",
-    "demandLevel": "medium"
+    "released": "June 30, 2022",
+    "summary": "Space Fleet House was released June 30, 2022. It has 3 floors and comes from the Space Bundle gamepass, which costs 1,060 Robux.",
+    "description": "Space Fleet House was released on June 30, 2022. It is sold through the Space Bundle gamepass for 1,060 Robux. The bundle also includes the Capricorn legendary pet. No Bucks price is listed for the house.\n\nThe house has 3 floors. There is an anti-gravity button on the second floor that makes players jump very high. The house color option changes the first-floor edges, the second floor and the walls around the second-floor window.",
+    "tradingNotes": "It is a gamepass house, so it cannot be sold for Bucks. You can also get it by trading. Check in game that the bundle is still on sale."
   },
   {
     "id": "tiny-home",
@@ -840,11 +883,11 @@
     "valueUnit": "RP",
     "availability": "obtainable",
     "bucksPrice": 0,
-    "floors": 1,
     "expandable": false,
-    "description": "The Tiny Home is the default house that every Adopt Me player starts with — a compact, single-floor starter property available at no cost. While modest in size, it's the most recognizable house in the game and carries genuine nostalgic significance as the place where countless players began their Adopt Me journey.",
-    "tradingNotes": "As the free default house, the Tiny Home is the most commonly owned property in Adopt Me and carries essentially no base trade value on its own. However, an exceptionally creative or impressive build within its small footprint can occasionally attract novelty trades.",
-    "demandLevel": "low"
+    "released": "2018 (one of the original houses)",
+    "summary": "Tiny Home is the free starting house in Adopt Me, one of the original five from around July 2018. Extra copies cost 240 Bucks.",
+    "description": "Every new player gets the Tiny Home for free. It is one of the original five houses, from around July 2018. You can buy extra copies for 240 Bucks, or get them by trading.\n\nIt is the smallest and cheapest house. Inside there are 3 rooms: a main room, a small bedroom and a small bathroom. Outside you will see one door, a chimney and a window beside the door. The main room and the bedroom each have 2 windows. You cannot hold parties here. The house was enlarged after the Friendship Bar update.",
+    "tradingNotes": "Tiny Home is the free starting house, so a player who only owns it needs a second house before they can trade it. Extra copies can be bought for 240 Bucks."
   },
   {
     "id": "toyshop-house",
@@ -855,12 +898,13 @@
     "image": "/images/houses/Toyshop-House-Common-from-September-2023.png",
     "value": 3.2,
     "valueUnit": "RP",
-    "availability": "limited",
+    "availability": "robux",
     "floors": 2,
     "expandable": false,
-    "description": "The Toyshop House was released in September 2023 with a charming toy store exterior featuring colorful signage, display window details with toys on show, and a two-floor layout themed around childhood playfulness and whimsy. Its festive, commercial design makes it one of the more cheerful limited houses in circulation.",
-    "tradingNotes": "A 2023 limited with growing scarcity as time passes. Players who want a fun, commercial-themed build or who collect toy-related items from the game frequently seek the Toyshop House in the trading market.",
-    "demandLevel": "medium"
+    "released": "September 2023",
+    "summary": "Toyshop House came in the September 2023 Aviator Kiwi and Toy Shop update. It has 2 floors and 9 rooms, and you buy it with Robux.",
+    "description": "Toyshop House came in the Aviator Kiwi and Toy Shop update in September 2023. You buy it with Robux, or get it by trading. The Kiwi, Red Scarf and a toyshop furniture set came out at the same time.\n\nThe house has 2 floors and 9 rooms. Six are on the first floor, joined by a narrow hallway. Three are on the second floor, joined by a small balcony. The walls are brown and peach with red and blue accents, including the roof. The windows are curved and yellow. Two small red gifts with glowing yellow bows sit outside.",
+    "tradingNotes": "It is bought with Robux, so it cannot be resold for Bucks. Reports differ on the Robux price, so check it in game."
   },
   {
     "id": "treehouse-update",
@@ -875,8 +919,8 @@
     "bucksPrice": 800,
     "floors": 1,
     "expandable": false,
-    "description": "The Treehouse Update house is a nature-themed single-floor property built to look like a cozy wooden treehouse nestled in the branches of a large tree, available for just 800 Bucks. Its elevated forest setting and warm wooden design make it uniquely charming among the more affordable obtainable houses.",
-    "tradingNotes": "Budget-friendly and always obtainable, so base trade value is modest. The Treehouse's forest and nature theme pairs well with woodland pets — foxes, squirrels, owls — and natural item collections, attracting theme-matching builds.",
-    "demandLevel": "low"
+    "summary": "Treehouse Update is a 1-floor Adopt Me house set between two trees. It costs 800 Bucks and has a staircase that wraps around the trees.",
+    "description": "The Treehouse Update house was added in the Treehouse update. You buy it from the house shop for 800 Bucks, and you can also get it by trading.\n\nIt has 1 floor and 3 rooms: a living room with a kitchen and lounge area, a bedroom and a bathroom. The house is set between two trees, with a staircase wrapping around them. You can change the outside color. It has front windows and two small roof windows. No furniture bundle is listed, only the default furnishings. You buy it from the house shop with Bucks, not Robux.",
+    "tradingNotes": "This house is sold for Bucks. Its exact current availability was not independently confirmed, so check in game."
   }
 ]

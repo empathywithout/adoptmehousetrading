@@ -1,0 +1,814 @@
+{
+ "beehive-house": {
+  "status": "unconfirmed",
+  "released": "July 2026",
+  "features": [
+   "Themed around Queen Bee's hive"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://www.u7buy.com/blog/adopt-me-bee-pass-guide/",
+   "https://allthings.how/?p=85497",
+   "https://bloxodes.com/wiki/adopt-me/houses"
+  ]
+ },
+ "biodome-home": {
+  "status": "trade_only",
+  "released": "July 28, 2022",
+  "features": [
+   "Sealed dome-style exterior",
+   "Green plant life and a small pond inside",
+   "A wooden house in the interior"
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Biodome_Home",
+   "https://adoptme.fandom.com/wiki/Houses"
+  ]
+ },
+ "bunker-house": {
+  "status": "unconfirmed",
+  "released": "January 26, 2023",
+  "features": [
+   "Gray exterior with darker gray edges",
+   "Light gray front door with a large frame",
+   "One glowing yellow window",
+   "Long interior hallway with doors, ending at two large fans"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Bunker_House",
+   "https://adoptme.fandom.com/wiki/Houses"
+  ]
+ },
+ "castle": {
+  "status": "bucks",
+  "released": null,
+  "features": [
+   "Large tree outside",
+   "Two tall towers with small yellow windows",
+   "Recolorable tower tops and banners",
+   "Secret room reachable by gliding through a wall corner on one floor"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Castle",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://bloxodes.com/wiki/adopt-me/houses"
+  ]
+ },
+ "celebrity-mansion": {
+  "status": "robux",
+  "released": null,
+  "features": [
+   "Trees and plants outside",
+   "Modern balcony",
+   "Pool with a secret room",
+   "Secret room wall covered in Adopt Me posters"
+  ],
+  "confidence": "low",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Celebrity_Mansion",
+   "https://adoptme.fandom.com/wiki/Houses"
+  ]
+ },
+ "christmas-pudding-house": {
+  "status": "trade_only",
+  "released": "December 2025",
+  "features": [
+   "White icing, holly, chimney, wreath on door",
+   "Exterior decorations unlock at 45, 105, 165, 225, 300, 375 and 450 total pet needs (candy canes, garlands, lights, snowy trees, snowman, red sleigh)",
+   "Final milestone adds a blue aura on top and rewards the Tree Sasquatch pet",
+   "Quests restarted after finishing, so extra copies could be earned during the event"
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Christmas_Pudding_House",
+   "https://adoptme.fandom.com/wiki/Winter_Event_(2025)",
+   "https://bloxodes.com/wiki/adopt-me/houses"
+  ]
+ },
+ "container-home": {
+  "status": "bucks",
+  "released": "April 2, 2021",
+  "features": [
+   "Two solar panels",
+   "Silver-framed windows",
+   "Two brown-railed balconies, upper one with trees",
+   "Customizable exterior color",
+   "Default furniture in each room"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Container_Home",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://bloxodes.com/wiki/adopt-me/houses"
+  ]
+ },
+ "cozy-cabin": {
+  "status": "trade_only",
+  "released": "January 2022",
+  "features": [
+   "Brown cabin with curved roof",
+   "Snow-covered bushes and trees",
+   "Two glowing curved windows",
+   "Small brown arch over door",
+   "Chimney with constant smoke animation"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Cozy_Cabin",
+   "https://adoptme.fandom.com/wiki/Cozy_Cabin_%26_Snowmobile",
+   "https://adoptme.fandom.com/wiki/Houses"
+  ]
+ },
+ "crooked-house": {
+  "status": "unconfirmed",
+  "released": "July 8, 2021",
+  "features": [
+   "Large blue curved main roof, small roof above upper area",
+   "Large black chimney",
+   "Gray stones around door and base",
+   "White picket fence enclosing a yard with two tall green trees",
+   "Glowing yellow windows"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Crooked_House",
+   "https://adoptme.fandom.com/wiki/Houses"
+  ]
+ },
+ "donut-shop": {
+  "status": "bucks",
+  "released": null,
+  "features": [
+   "Large donut on roof held up by columns",
+   "Two yellow windows, trees around",
+   "Customizable icing color, roof stripes, walls, floor"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Donut_Shop",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://bloxodes.com/wiki/adopt-me/houses"
+  ]
+ },
+ "dragon-s-castle": {
+  "status": "bucks",
+  "released": null,
+  "features": [
+   "Castle shape with attached windmill",
+   "Dragon structure on roof whose head follows the player",
+   "Door to a balcony"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Dragon%27s_Castle",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://bloxodes.com/wiki/adopt-me/houses"
+  ]
+ },
+ "eco-natural-earth-house": {
+  "status": "trade_only",
+  "released": "September 2021",
+  "features": [
+   "Premium (Robux) house"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://progameguides.com/roblox/how-to-get-the-new-premium-eco-house-in-roblox-adopt-me",
+   "https://bloxodes.com/wiki/adopt-me/houses"
+  ]
+ },
+ "estate": {
+  "status": "bucks",
+  "released": null,
+  "features": [
+   "Four trees and two bushes outside",
+   "Central door; windows on bottom, top, attic",
+   "Ground floor: three rooms, staircase, dining room to kitchen",
+   "Upstairs bedroom with bed and crib, bathroom"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Estate",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://bloxodes.com/wiki/adopt-me/houses"
+  ]
+ },
+ "expandable-dino-house": {
+  "status": "unconfirmed",
+  "released": "May 3, 2024",
+  "features": [
+   "Four expansions: Side Extension, Pool Extension, Second Floor, Sunken Basement",
+   "Sold with the Prehistoric Car"
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://playadopt.me/news/double-bucks-and-aging-expandable-dino-house",
+   "https://adoptme.fandom.com/wiki/Expandable_Dino_House",
+   "https://adoptme.fandom.com/wiki/Fossil_Isle_Returns_Bundle",
+   "https://www.ginx.tv/en/adopt-me-dino-house-car"
+  ]
+ },
+ "expandable-friendly-home": {
+  "status": "bucks",
+  "released": "August 2023",
+  "features": [
+   "Chimney, black roof, driveway, trees",
+   "Lounge with TV and fireplace",
+   "Gray floors, beige walls by default",
+   "Exterior customization from outside"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Expandable_Friendly_Home",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://progameguides.com/roblox/all-changes-made-with-adopt-mes-expandable-houses-update-roblox/"
+  ]
+ },
+ "expandable-hillside-mansion": {
+  "status": "bucks",
+  "released": "August 2023",
+  "features": [
+   "Fully expanded: ten windows, two doors, staircase, three trees",
+   "Recolorable exterior paint and staircase",
+   "Basement pool expansion"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Expandable_Hillside_Mansion",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://progameguides.com/roblox/all-changes-made-with-adopt-mes-expandable-houses-update-roblox/"
+  ]
+ },
+ "expandable-luxury-mansion": {
+  "status": "robux",
+  "released": "August 2023",
+  "features": [
+   "Main floor pool",
+   "Cinema room",
+   "Four purchasable expansions",
+   "Exterior customizable"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Expandable_Luxury_Mansion",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://progameguides.com/roblox/all-changes-made-with-adopt-mes-expandable-houses-update-roblox/"
+  ]
+ },
+ "fairy-house": {
+  "status": "unconfirmed",
+  "released": "May 31, 2019",
+  "features": [
+   "Mushroom-shaped house",
+   "Cap color follows the player's color choice",
+   "Leaves and red flowers around the stem"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Fairy_House",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://bloxodes.com/wiki/adopt-me/houses"
+  ]
+ },
+ "family-home": {
+  "status": "bucks",
+  "released": "2018 (one of the original houses)",
+  "features": [
+   "Small side window, roof window, chimney"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Family_Home",
+   "https://adoptme.fandom.com/wiki/Starter_Pack",
+   "https://adoptme.fandom.com/wiki/Houses"
+  ]
+ },
+ "futuristic-house": {
+  "status": "bucks",
+  "released": null,
+  "features": [
+   "Indoor pool",
+   "Balcony with transparent railings",
+   "Wooden vehicle shelter with lights and vines",
+   "Color not customizable"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Futuristic_House",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://bloxodes.com/wiki/adopt-me/houses"
+  ]
+ },
+ "gingerbread-house": {
+  "status": "unconfirmed",
+  "released": "December 2019",
+  "features": [
+   "Exterior color customizable"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Gingerbread_House",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://adoptme.fandom.com/wiki/Christmas_Event_(2019)"
+  ]
+ },
+ "halloween-hotel": {
+  "status": "unconfirmed",
+  "released": "September 26, 2025",
+  "features": [
+   "Color-customizable brick exterior",
+   "Green side wings, dark green roof, chimney",
+   "Spider webbing",
+   "Lobby with front desk and elevators"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Halloween_Hotel",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://bloxodes.com/wiki/adopt-me/houses"
+  ]
+ },
+ "haunted-house": {
+  "status": "unconfirmed",
+  "released": "October 12, 2023",
+  "features": [
+   "Two-story mahogany-colored mansion",
+   "Entrance steps and roofline spikes",
+   "Three purple-glowing windows; other windows boarded or dark",
+   "Wall color can be changed",
+   "Interior resembles the Cozy Cabin"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Haunted_House",
+   "https://adoptme.fandom.com/wiki/Houses"
+  ]
+ },
+ "hollywood-house": {
+  "status": "bucks",
+  "released": null,
+  "features": [
+   "Customizable billboard-style sign outside",
+   "Theater room",
+   "Red carpet entrance"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Hollywood_House",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://bloxodes.com/wiki/adopt-me/houses"
+  ]
+ },
+ "hospital-home": {
+  "status": "robux",
+  "released": "May 2023",
+  "features": [
+   "Hospital-themed furniture available: beds, reception desks, cribs"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://progameguides.com/roblox/all-changes-made-with-adopt-mes-hospital-and-school-refresh-update-roblox/"
+  ]
+ },
+ "ice-cream-house": {
+  "status": "unconfirmed",
+  "released": "February 28, 2025",
+  "features": [
+   "Yellow, brown and pink exterior topped with ice cream scoops, cherries and sprinkles",
+   "Two clouds and ice cream bars beside the house",
+   "Pink exterior areas recolorable except the ground mounds (default pink)"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Ice_Cream_House",
+   "https://adoptme.fandom.com/wiki/Houses"
+  ]
+ },
+ "igloo-home": {
+  "status": "unconfirmed",
+  "released": "December 15, 2022",
+  "features": [
+   "Round light-blue dome with darker bricks",
+   "Small entrance of large blue bricks",
+   "Snow on top",
+   "Outside: small green tree, snowballs and snowmen"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Igloo_Home",
+   "https://adoptme.fandom.com/wiki/Houses"
+  ]
+ },
+ "korean-house": {
+  "status": "unconfirmed",
+  "released": "February 15, 2024",
+  "features": [
+   "Inspired by traditional Korean buildings",
+   "Grey, orange, red and beige exterior",
+   "Four bright windows, two trees each side",
+   "Staircase with bright red carpet to a brown front door",
+   "Roof color can be changed"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Korean_House",
+   "https://adoptme.fandom.com/wiki/Houses"
+  ]
+ },
+ "lunar-house": {
+  "status": "unconfirmed",
+  "released": "Lunar New Year 2021",
+  "features": [
+   "Red exterior with gold-trimmed yellow roof",
+   "Warm glowing windows with red patterns",
+   "Several red lanterns hanging from the balcony"
+  ],
+  "confidence": "low",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Lunar_House",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://progameguides.com/roblox/adopt-me-lunar-new-year-update-2021-pets-details/"
+  ]
+ },
+ "luxury-apartments": {
+  "status": "bucks",
+  "released": null,
+  "features": [
+   "22 rooms",
+   "Balcony on each floor"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://bloxodes.com/wiki/adopt-me/houses"
+  ]
+ },
+ "mansion": {
+  "status": "trade_only",
+  "released": null,
+  "features": [
+   "Front garden with bushes and small trees",
+   "Black roof",
+   "Many front-facing windows"
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Mansion",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://www.ginx.tv/en/?p=60321"
+  ]
+ },
+ "mermaid-mansion": {
+  "status": "trade_only",
+  "released": null,
+  "features": [
+   "Bubble around the house",
+   "Clams with pearls outside",
+   "Shell color follows house color",
+   "Central pool"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Mermaid_Mansion",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://www.ginx.tv/en/?p=60321"
+  ]
+ },
+ "millionaire-mansion": {
+  "status": "robux",
+  "released": null,
+  "features": [
+   "Driveway for parking vehicles",
+   "Spotlights on top",
+   "A couple of trees near the top and 5 on the ground"
+  ],
+  "confidence": "low",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Millionaire_Mansion",
+   "https://adoptme.fandom.com/wiki/Houses"
+  ]
+ },
+ "modern-mansion": {
+  "status": "robux",
+  "released": null,
+  "features": [
+   "Seven rooms",
+   "Indoor pool room",
+   "Four trees by mailbox",
+   "Three planters with trees on roof"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Modern_Mansion",
+   "https://adoptme.fandom.com/wiki/Houses"
+  ]
+ },
+ "moon-house": {
+  "status": "unconfirmed",
+  "released": "May 9, 2025",
+  "features": [
+   "Red button near interior portal toggles low gravity",
+   "Portal color customizable",
+   "Decorated with Moon furniture pack items (trees/plant structures, craters, geysers, asteroids, planets)"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Moon_House",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://www.sportskeeda.com/roblox-news/adopt-me-moon-update-patch-notes"
+  ]
+ },
+ "mountain-house": {
+  "status": "bucks",
+  "released": "February 23, 2023",
+  "features": [
+   "Multi-level mountain interior",
+   "Large bridge",
+   "Working lifts"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Mountain_House",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://bloxodes.com/wiki/adopt-me/houses"
+  ]
+ },
+ "party-house": {
+  "status": "bucks",
+  "released": null,
+  "features": [
+   "Heavily decorated exterior",
+   "Lights on the deck"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Party_House",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://bloxodes.com/wiki/adopt-me/houses"
+  ]
+ },
+ "pirate-ship-house": {
+  "status": "trade_only",
+  "released": "April 2020",
+  "features": [
+   "Ship-style exterior with blue hull, brown wood and two white sails",
+   "One sail can display the owner's Roblox avatar head",
+   "Wiki Houses page also mentions two palm trees outside"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Pirate_Ship_House",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://www.ginx.tv/en/?p=60321"
+  ]
+ },
+ "pizza-place": {
+  "status": "bucks",
+  "released": null,
+  "features": [
+   "Awning, wooden bench, bay window, two small trees by the door",
+   "Small circle over the door showing owner's Roblox avatar face (shared only with Pirate Ship House)",
+   "Exterior color changeable with white accents",
+   "Kitchen with pizza-making counters"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Pizza_Place",
+   "https://adoptme.fandom.com/wiki/Houses"
+  ]
+ },
+ "queenslander-house": {
+  "status": "bucks",
+  "released": "January 11, 2024",
+  "features": [
+   "Open-concept layout with plenty of natural light"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Queenslander_House",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://progameguides.com/roblox/all-changes-made-with-adopt-mes-queenslander-house-update-roblox/"
+  ]
+ },
+ "racetrack-house": {
+  "status": "bucks",
+  "released": "August 2023",
+  "features": [
+   "Exterior: large black tire-shaped arch with blue edges and glowing yellow entrance; track with checkered flags and three small go-karts",
+   "House color changes the tunnel under the arch",
+   "Interior: wide green space with trees and mountains"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Racetrack_House",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://progameguides.com/roblox/all-changes-made-with-adopt-mes-racetrack-house-update-roblox/"
+  ]
+ },
+ "royal-palace": {
+  "status": "bucks",
+  "released": "August 2022",
+  "features": [
+   "Front porch up three steps with double rounded doors",
+   "Triangular gable with golden half-circle detail",
+   "Upper balcony with circular-framed doors and windows",
+   "Five rounded towers on the roof, three flying paw-print flags",
+   "Two pillars and small potted trees by front"
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Royal_Palace",
+   "https://adoptme.fandom.com/wiki/Houses"
+  ]
+ },
+ "ruler-s-castle": {
+  "status": "trade_only",
+  "released": null,
+  "features": [
+   "Lightly decorated exterior with a white pearl on top similar to Sky Castle",
+   "Players can stand on the pearl",
+   "A smaller related house called the Castle exists"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Ruler%27s_Castle",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://www.ginx.tv/en/?p=60321"
+  ]
+ },
+ "safari-home": {
+  "status": "unconfirmed",
+  "released": "July 20, 2023",
+  "features": [
+   "Three-story tower on wooden log supports",
+   "Beige walls and floors",
+   "Fences and bushes around, stone-framed entrance",
+   "Round first-floor windows",
+   "Second-floor fireplace with animated smoke"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Safari_Home",
+   "https://adoptme.fandom.com/wiki/Safari_Zone",
+   "https://adoptme.fandom.com/wiki/Houses"
+  ]
+ },
+ "sandbox-island": {
+  "status": "bucks",
+  "released": "February 2022",
+  "features": [
+   "Gray stone portal flanked by three palm trees with a yellow glow",
+   "Interior is a large beach with water, palm trees and wooden steps"
+  ],
+  "confidence": "low",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Sandbox_Island",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://progameguides.com/roblox/all-changes-made-with-adopt-mes-racetrack-house-update-roblox/"
+  ]
+ },
+ "scary-house": {
+  "status": "unconfirmed",
+  "released": "November 11, 2021",
+  "features": [
+   "First Halloween-themed house in Adopt Me",
+   "Three glowing windows with recolorable glow",
+   "Wooden panels outside",
+   "Three tall trees at back",
+   "Small raven on front porch",
+   "Two hanging lanterns",
+   "Design resembles the building in the 2021 Halloween Event main area"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Scary_House",
+   "https://adoptme.fandom.com/wiki/Houses"
+  ]
+ },
+ "schoolhouse-home": {
+  "status": "robux",
+  "released": "May 2023",
+  "features": [
+   "School-themed furniture available: desks, bookshelves, blackboard"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://progameguides.com/roblox/all-changes-made-with-adopt-mes-hospital-and-school-refresh-update-roblox/"
+  ]
+ },
+ "shop-house": {
+  "status": "bucks",
+  "released": null,
+  "features": [
+   "Building logo can be swapped to any item icon in your inventory (only the Hollywood House has a comparable customizable sign)",
+   "Two small trees by the door and a bench in front of the window"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Shop_House",
+   "https://adoptme.fandom.com/wiki/Houses"
+  ]
+ },
+ "soccer-stadium": {
+  "status": "robux",
+  "released": "July 2024",
+  "features": [
+   "Blue exterior walls with glowing blue windows around a central pitch",
+   "White rim holding red, green, yellow and blue flags",
+   "Exterior wall color can be changed",
+   "Large crowd space and private viewing box (per launch coverage)",
+   "Second-floor room overlooking pitch and stadium"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Soccer_Stadium",
+   "https://adoptme.fandom.com/wiki/Houses",
+   "https://www.ginx.tv/en/?p=65391"
+  ]
+ },
+ "space-fleet-house": {
+  "status": "robux",
+  "released": "June 30, 2022",
+  "features": [
+   "Anti-gravity button on second floor makes players jump very high",
+   "House color option affects first-floor edges, second floor and walls around second-floor window"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Space_Fleet_House",
+   "https://adoptme.fandom.com/wiki/Houses"
+  ]
+ },
+ "tiny-home": {
+  "status": "bucks",
+  "released": "2018 (one of the original houses)",
+  "features": [
+   "One outside door, chimney, window beside the door",
+   "Two windows each in main room and bedroom"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Tiny_Home",
+   "https://adoptme.fandom.com/wiki/Houses"
+  ]
+ },
+ "toyshop-house": {
+  "status": "robux",
+  "released": "September 2023",
+  "features": [
+   "Brown and peach walls with red and blue accents including the roof",
+   "Curved yellow windows",
+   "Two small red gifts with glowing yellow bows on the exterior"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://support.playadopt.me/support/solutions/articles/153000194030-house-trading-faq",
+   "https://adoptme.fandom.com/wiki/Toyshop_House",
+   "https://adoptme.fandom.com/wiki/Houses"
+  ]
+ },
+ "treehouse-update": {
+  "status": "bucks",
+  "released": null,
+  "features": [
+   "Set between two trees with a staircase wrapping around them",
+   "Exterior color customizable",
+   "Front windows and two small roof windows"
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://adoptme.fandom.com/wiki/Treehouse",
+   "https://adoptme.fandom.com/wiki/Houses"
+  ]
+ }
+}

@@ -21,6 +21,8 @@ const MAX_LISTINGS_PER_HOUSE = 6;
 // Browse and Recent Trades pages (see page-snapshots.mjs).
 const BROWSE_SNAPSHOT_LISTINGS = 24;
 const RECENT_TRADES_SNAPSHOT = 18;
+// A range from one or two listings is an anecdote, not a range.
+export const MIN_ASKS_FOR_RANGE = 3;
 
 export function emptyStats() {
   return { byHouse: {}, browse: null, recentTrades: [], ok: false, reason: "not loaded" };
@@ -96,7 +98,7 @@ export async function loadHouseStats() {
     const byHouse = {};
     const recentTrades = [];
     const browseListings = [];
-    const bucket = (houseId) => (byHouse[houseId] ||= { trades: [], listings: [], tradeCount: 0, listingCount: 0 });
+    const bucket = (houseId) => (byHouse[houseId] ||= { trades: [], listings: [], tradeCount: 0, listingCount: 0, asks: {} });
 
     // Verified trades. This is the content nobody else has: what a house
     // actually changed hands for, confirmed by both sides.
@@ -134,6 +136,12 @@ export async function loadHouseStats() {
       if (isTestRow({ title: l.title, names: [nameOf[l.profile_id]] })) continue;
       const b = bucket(l.house_id);
       b.listingCount++;
+      // Asking prices, kept per unit. Shark, Frost and Ride Pot are never
+      // converted into each other (there is no reliable rate), so each unit
+      // gets its own list and its own summary.
+      if (l.value_amount !== null && l.value_amount !== undefined && l.value_unit && Number.isFinite(Number(l.value_amount))) {
+        (b.asks[l.value_unit] ||= []).push(Number(l.value_amount));
+      }
       if (browseListings.length < BROWSE_SNAPSHOT_LISTINGS) {
         browseListings.push({
           id: l.id,
@@ -162,6 +170,22 @@ export async function loadHouseStats() {
 
     const houses = Object.keys(byHouse).length;
     console.log(`[house-stats] loaded data for ${houses} house type(s): ${trades.length} trade(s), ${activeListings.length} active listing(s)`);
+    // Turn the raw asking prices into a small summary per house and unit. Fewer
+    // than MIN_ASKS_FOR_RANGE listings is too thin to call a range, so those
+    // units are left out and the page just does not show the table.
+    for (const d of Object.values(byHouse)) {
+      d.askStats = Object.entries(d.asks)
+        .filter(([, vals]) => vals.length >= MIN_ASKS_FOR_RANGE)
+        .map(([unit, vals]) => {
+          const v = [...vals].sort((x, y) => x - y);
+          const mid = Math.floor(v.length / 2);
+          const median = v.length % 2 ? v[mid] : (v[mid - 1] + v[mid]) / 2;
+          return { unit, n: v.length, min: v[0], median, max: v[v.length - 1] };
+        })
+        .sort((x, y) => y.n - x.n);
+      delete d.asks;
+    }
+
     // Per-house counts for the "browse by house" block on the Browse page.
     const houseCounts = Object.entries(byHouse)
       .filter(([, d]) => d.listingCount > 0)
