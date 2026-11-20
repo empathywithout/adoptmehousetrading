@@ -2270,6 +2270,16 @@
     "valueUnit": null
   },
   {
+    "id": "electric-hornet",
+    "category": "adopt_me_pets",
+    "name": "Electric Hornet",
+    "rarity": "Ultra Rare",
+    "source": "Lightning Dimension",
+    "image": "/images/adopt_me_pets/Electric-Hornet-Ultra-Rare-from-Lightning-Dimension.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "elephant",
     "category": "adopt_me_pets",
     "name": "Elephant",
@@ -2546,6 +2556,16 @@
     "rarity": "Ultra Rare",
     "source": "Safari Egg",
     "image": "/images/adopt_me_pets/Flamingo-Ultra-Rare-from-Safari-Egg.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "flash-weasel",
+    "category": "adopt_me_pets",
+    "name": "Flash Weasel",
+    "rarity": "Legendary",
+    "source": "Lightning Dimension",
+    "image": "/images/adopt_me_pets/Flash-Weasel-Legendary-from-Lightning-Dimension.png",
     "value": null,
     "valueUnit": null
   },
@@ -3466,6 +3486,16 @@
     "rarity": "Legendary",
     "source": "Lunar New Year 2025 (Robux)",
     "image": "/images/adopt_me_pets/Haetae-Legendary-from-Lunar-New-Year-2025-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "haetyphoon",
+    "category": "adopt_me_pets",
+    "name": "Haetyphoon",
+    "rarity": "Legendary",
+    "source": "Lightning Dimension",
+    "image": "/images/adopt_me_pets/Haetyphoon-Legendary-from-Lightning-Dimension.png",
     "value": null,
     "valueUnit": null
   },
@@ -5910,6 +5940,16 @@
     "valueUnit": null
   },
   {
+    "id": "pupcicle",
+    "category": "adopt_me_pets",
+    "name": "Pupcicle",
+    "rarity": "Ultra Rare",
+    "source": "Slushie Party 2026 (Robux)",
+    "image": "/images/adopt_me_pets/Pupcicle-Ultra-Rare-from-Slushie-Party-2026-(Robux).png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "puptune",
     "category": "adopt_me_pets",
     "name": "Puptune",
@@ -7566,6 +7606,16 @@
     "rarity": "Legendary",
     "source": "Fairytale Egg",
     "image": "/images/adopt_me_pets/Three-Blind-Mice-Legendary-from-Fairytale-Egg.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "thunderfisher",
+    "category": "adopt_me_pets",
+    "name": "Thunderfisher",
+    "rarity": "Rare",
+    "source": "Lightning Dimension",
+    "image": "/images/adopt_me_pets/Thunderfisher-Rare-from-Lightning-Dimension.png",
     "value": null,
     "valueUnit": null
   },
