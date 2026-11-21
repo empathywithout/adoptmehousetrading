@@ -146,6 +146,7 @@
 
 <script type="module">
   import { api, getToken, THEME_LABELS, loadReputation, reputationHtml, sendToSignIn, avatarImg, cardPhoto } from "../js/api.js?v=7";
+  import { heartButtonHtml, heartTallyHtml, mountHearts, esc } from "../js/cards.js?v=1";
   import { mountPillFilters } from "../js/pill-filters.js";
 
   const grid = document.getElementById("registry-grid");
@@ -206,50 +207,15 @@
     });
   }
 
-  // ── Save button handler (delegated) ─────────────────────────
-  grid.addEventListener("click", async (e) => {
-    const btn = e.target.closest(".save-btn");
-    if (!btn || btn.dataset.loading) return;
-    e.preventDefault(); // don't navigate to the entry
-    e.stopPropagation();
-
-    if (!token) {
-      sendToSignIn();
-      return;
-    }
-
-    const entryId = btn.dataset.id;
-    btn.dataset.loading = "1";
-    btn.style.opacity = "0.5";
-    try {
-      const res = await fetch("/.netlify/functions/registry-save", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ build_registry_id: entryId }),
-      });
-      const data = await res.json();
-      if (!res.ok) { alert(data.error || "Couldn't save"); return; }
-      // Update local state
-      if (data.saved) {
-        savedIds.add(entryId);
-      } else {
-        savedIds.delete(entryId);
-      }
-      // Update the entry's count in local data
-      const entry = entries.find(e => e.id === entryId);
-      if (entry) entry.save_count = data.save_count;
-      // Re-render just this card's save btn without a full re-render
-      btn.dataset.loading = "";
-      btn.style.opacity = "";
-      btn.classList.toggle("saved", data.saved);
-      btn.title = data.saved ? "Hearted — click to remove" : "Heart this build";
-      const sc = data.save_count || 0;
-      btn.textContent = data.saved ? `♥ Hearted${sc > 0 ? " " + sc : ""}` : `♥ Heart${sc > 0 ? " " + sc : ""}`;
-    } catch (err) {
-      btn.dataset.loading = "";
-      btn.style.opacity = "";
-      alert("Something went wrong");
-    }
+  // ── Hearts: shared handler (js/cards.js) ───────────────────
+  // Local state is kept in step so re-rendering after a filter or sort shows
+  // the right heart and count.
+  mountHearts(grid, {
+    onChange: (id, saved, count) => {
+      if (saved) savedIds.add(id); else savedIds.delete(id);
+      const entry = entries.find((e) => e.id === id);
+      if (entry) entry.save_count = count;
+    },
   });
 
   // Only PAGE_SIZE cards are put in the page at a time. Filters and sorting
@@ -321,37 +287,34 @@
         : entry.build_type === "cloned"
         ? `<div class="card-tag cloned">Cloned</div>`
         : `<div class="card-tag" style="background:var(--good);color:var(--white);">Original</div>`;
-      const isSaved = savedIds.has(entry.id);
       const isOwnBuild = myProfileId && entry.profile_id === myProfileId;
-      const saveCount = entry.save_count || 0;
-      const saveLabel = isSaved ? `♥ Hearted${saveCount > 0 ? " " + saveCount : ""}` : `♥ Heart${saveCount > 0 ? " " + saveCount : ""}`;
-      const saveBtn = !isOwnBuild
-        ? `<button class="save-btn ${isSaved ? "saved" : ""}" data-id="${entry.id}" title="${isSaved ? "Hearted — click to remove" : token ? "Heart this build" : "Sign in to heart builds"}">${saveLabel.trim()}</button>`
-        : saveCount > 0 ? `<span class="save-count-display">${saveCount}</span>` : "";
+      const heart = isOwnBuild
+        ? heartTallyHtml(entry.save_count || 0)
+        : heartButtonHtml({ kind: "registry", id: entry.id, saved: savedIds.has(entry.id), count: entry.save_count || 0 });
       const themesLine = (entry.themes || []).length
         ? `<div class="registry-theme-tags">${(entry.themes || []).map(t => `<span class="registry-theme-tag">${escapeHtml(THEME_LABELS[t] || t)}</span>`).join("")}</div>`
         : "";
 
       return `
-      <a class="listing-card" href="entry.html?id=${entry.id}">
+      <article class="listing-card is-linked">
         <div class="photo">
-          <img src="${cardPhoto(photo)}" alt="${escapeHtml(entry.title)}" loading="lazy" decoding="async">
+          <img src="${cardPhoto(photo)}" alt="" loading="lazy" decoding="async">
           ${statusTag}
+          ${heart}
         </div>
         <div class="body">
-          <h3>${escapeHtml(entry.title)}</h3>
+          <h3><a class="lcard-link" href="entry.html?id=${esc(entry.id)}">${escapeHtml(entry.title)}</a></h3>
           <div class="trust-row">
             ${entry.profiles?.rbx_avatar_url
               ? avatarImg(entry.profiles.rbx_avatar_url, 48, 16, "trust-row-avatar")
               : `<span class="avatar-initial">${escapeHtml((entry.profiles?.display_name || "?")[0].toUpperCase())}</span>`}
             <span class="username">${escapeHtml(entry.profiles?.display_name || "unknown")}</span>
-            ${saveBtn}
           </div>
           ${reputationHtml(reputation[entry.profile_id])}
           ${themesLine}
           <p class="lister" style="margin-top:auto;padding-top:8px;">Registered ${new Date(entry.created_at).toLocaleDateString()}</p>
         </div>
-      </a>`;
+      </article>`;
     }
 
     const originalsHtml = originals.map(entryCard).join("");
@@ -393,7 +356,7 @@
           <h3 style="font-size:13px;">${escapeHtml(entry.title)}</h3>
           <div class="trust-row" style="justify-content:space-between;">
             <span class="username">${escapeHtml(entry.profiles?.display_name || "unknown")}</span>
-            <span style="font-size:13px;font-weight:800;color:var(--accent);">♥ ${entry.save_count}</span>
+            <span style="display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:800;color:#E11D5C;"><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" style="fill:currentColor;"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"></path></svg>${entry.save_count}<span class="visually-hidden"> hearts</span></span>
           </div>
         </div>
       </a>`;

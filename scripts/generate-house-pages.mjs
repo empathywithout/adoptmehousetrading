@@ -85,11 +85,17 @@ function siteDataSection(house, stats) {
     <p>${d.listingCount === 1
       ? "One live listing for this house."
       : `${d.listingCount} live listings for this house${d.listingCount > d.listings.length ? `, newest ${d.listings.length} shown` : ""}.`} Asking values are set by the lister and reflect the build inside, not just the house type.</p>
-    <div class="house-grid sd-grid" style="margin-top:16px;">${d.listings.map((l) => listingCardHtml(l, {
+    <div class="house-grid sd-grid" id="house-listings-grid" style="margin-top:16px;">${d.listings.map((l) => listingCardHtml(l, {
       href: `../listings/listing.html?id=${encodeURIComponent(l.id)}`,
       showHouse: false, fallbackImage,
     })).join("")}
     </div>
+    <script type="module">
+      import { mountHearts, markSavedHearts } from "../js/cards.js?v=1";
+      const grid = document.getElementById("house-listings-grid");
+      mountHearts(grid);
+      markSavedHearts(grid);
+    </script>
     <p class="sd-more" style="margin-top:14px;"><a href="../listings/index.html">Browse all live listings &rarr;</a></p>
   </div>` : "";
 
@@ -441,17 +447,10 @@ ${news ? `<section class="wrap" style="padding-bottom:0;">
 </section>
 
 <script type="module">
-  import { CATEGORY_LABELS, THEME_LABELS, sendToSignIn, avatarImg, cardPhoto } from "./js/api.js?v=7";
-  const BADGE_CLASS = { house_trade: "house-trade", looking_for: "looking-for" };
-  const BADGE_ICON = { house_trade: "icon-sign", looking_for: "icon-loop", commission: "icon-hammer" };
-  const TYPE_LABELS = { house_trade: "For Trade", looking_for: "Looking For" };
-
-  function escapeHtml(str) {
-    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
+  import { loadReputation } from "./js/api.js?v=7";
+  import { listingCardHtml, mountHearts } from "./js/cards.js?v=1";
 
   try {
-    const { loadReputation, reputationHtml } = await import("./js/api.js?v=7");
     const [{ listings }, houses, reputation] = await Promise.all([
       fetch("/.netlify/functions/listings-list?limit=24").then((r) => r.json()),
       fetch("data/houses.json").then((r) => r.json()),
@@ -469,68 +468,15 @@ ${news ? `<section class="wrap" style="padding-bottom:0;">
     if (!listings || !listings.length) {
       document.getElementById("recent-listings-empty").hidden = false;
     } else {
-      grid.innerHTML = listings.filter(l => l.listing_type !== "looking_for").slice(0, 8).map((listing) => {
-        const house = houseById[listing.house_id];
-        const photo = listing.photos?.[0] || house?.image || "images/brand/searchdog.png";
-        const username = listing.profiles?.display_name || "unknown";
-        const cardTag = listing.listing_type === "house_trade" && listing.is_cloned !== null
-          ? \`<div class="card-tag \${listing.is_cloned ? "cloned" : ""}">\${listing.is_cloned ? "Cloned" : "Original"}</div>\`
-          : "";
-        const valueLine = listing.value_amount !== null && listing.value_amount !== undefined
-          ? \`<div class="card-value"><span class="amount">\${listing.value_amount}</span><span class="unit">\${listing.value_unit || ""}</span></div>\`
-          : \`<div class="card-value"><span class="unit">value TBD</span></div>\`;
-        const themeLine = listing.themes?.length
-          ? \`<p class="lister" style="margin-top:2px;">\${listing.themes.map((t) => THEME_LABELS[t] || t).join(", ")}</p>\`
-          : "";
-        const isSaved = savedIds.has(listing.id);
-        const saveCls = isSaved ? "save-btn saved" : "save-btn";
-        const saveTitle = isSaved ? "Saved \u2014 click to remove" : "Save this listing to your watchlist";
-        const saveTxt = isSaved ? "Saved" : "Save";
-        const saveBtn = '<button class=\"' + saveCls + '\" data-listing-id=\"' + listing.id + '\" title=\"' + saveTitle + '\" onclick=\"event.preventDefault()\">' + saveTxt + '</button>';
-
-        return \`<a class="listing-card" href="listings/listing.html?id=\${listing.id}">
-          <div class="photo">
-            <img src="\${cardPhoto(photo)}" alt="" loading="lazy" decoding="async">
-            <div class="card-badge \${BADGE_CLASS[listing.listing_type] || "house-trade"}" title="\${TYPE_LABELS[listing.listing_type] || "For Trade"}"><div class="\${BADGE_ICON[listing.listing_type] || "icon-sign"}"></div></div>
-            \${cardTag}
-          </div>
-          <div class="body">
-            <h3>\${escapeHtml(listing.title)}</h3>
-            <div class="trust-row">
-              \${listing.profiles?.rbx_avatar_url ? avatarImg(listing.profiles.rbx_avatar_url, 48, 16, "trust-row-avatar") : \`<span class="avatar-initial">\${escapeHtml(username[0]?.toUpperCase() || "?")}</span>\`}
-              <span class="username">\${escapeHtml(username)}</span>
-              \${saveBtn}
-            </div>
-            \${reputationHtml(reputation[listing.profile_id])}
-            \${valueLine}
-            \${themeLine}
-          </div>
-        </a>\`;
-      }).join("");
-
-      // Save handler
-      document.getElementById("recent-listings-grid").addEventListener("click", async (e) => {
-        const btn = e.target.closest(".save-btn[data-listing-id]");
-        if (!btn) return;
-        e.preventDefault();
-        if (!token) { sendToSignIn(); return; }
-        const listingId = btn.dataset.listingId;
-        btn.disabled = true;
-        try {
-          const res = await fetch("/.netlify/functions/listing-save", {
-            method: "POST",
-            headers: { "Content-Type": "application/json", Authorization: \`Bearer \${token}\` },
-            body: JSON.stringify({ listing_id: listingId }),
-          });
-          const data = await res.json();
-          if (!res.ok) throw new Error(data.error || "Couldn't save");
-          if (data.saved) { savedIds.add(listingId); } else { savedIds.delete(listingId); }
-          btn.classList.toggle("saved", data.saved);
-          btn.title = data.saved ? "Saved \u2014 click to remove" : "Save this listing to your watchlist";
-          btn.textContent = data.saved ? "Saved" : "Save";
-        } catch (err) { alert(err.message); }
-        finally { btn.disabled = false; }
-      });
+      grid.innerHTML = listings.filter(l => l.listing_type !== "looking_for").slice(0, 8).map((listing) => listingCardHtml(listing, {
+        href: \`listings/listing.html?id=\${listing.id}\`,
+        house: houseById[listing.house_id],
+        fallbackImage: "images/brand/searchdog.png",
+        reputation: reputation[listing.profile_id],
+        saved: savedIds.has(listing.id),
+        isOwn: myProfile?.id === listing.profile_id,
+      })).join("");
+      mountHearts(grid);
     }
   } catch (err) {
     document.getElementById("recent-listings-empty").hidden = false;

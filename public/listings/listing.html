@@ -78,10 +78,7 @@
 
 <script type="module">
   import { api, getStoredProfile, CATEGORY_LABELS, THEME_LABELS, QUICK_REPLIES, loadReputation, reputationHtml, sendToSignIn, setCanonical, avatarImg } from "../js/api.js?v=7";
-
-  // Matches the Browse cards: a watcher count only earns space once it is
-  // telling you something you couldn't guess.
-  const MIN_WATCHERS_TO_SHOW = 3;
+  import { heartButtonHtml, heartTallyHtml, mountHearts } from "../js/cards.js?v=1";
   import { mountChatPanel } from "../js/chat.js";
   import { mountItemPicker } from "../js/item-picker.js";
 
@@ -260,7 +257,9 @@
               <div class="trust-name-row">
                 <span class="name">${escapeHtml(listing.profiles?.display_name || "unknown")}</span>
                 <span style="width:6px;height:6px;border-radius:50%;background:var(--good);"></span>
-                ${!isOwner ? `<button id="save-listing-btn" class="save-btn ${isSaved ? "saved" : ""}" title="${isSaved ? "Saved — click to remove" : "Save this listing to your watchlist"}">${isSaved ? "Saved" : "Save"}</button>` : ""}<span class="watch-count" ${listing.save_count >= MIN_WATCHERS_TO_SHOW ? "" : "hidden"}>${listing.save_count || 0} watching</span>
+                <span id="listing-heart" style="margin-left:auto;display:inline-flex;">${!isOwner
+                  ? heartButtonHtml({ kind: "listing", id: listing.id, saved: isSaved, count: listing.save_count || 0, withText: true })
+                  : heartTallyHtml(listing.save_count || 0).replace('class="heart-btn heart-static"', 'class="heart-btn heart-static heart-inline"')}</span>
               </div>
               <div class="trust-sub">${listing.profiles?.rbx_username ? `Lister · Roblox: ${escapeHtml(listing.profiles.rbx_username)}` : "Lister"}</div>
               ${reputationHtml(listerReputation, 3)}
@@ -440,35 +439,9 @@
       }
     }
 
-    // Save listing
-    document.getElementById("save-listing-btn")?.addEventListener("click", async () => {
-      const btn = document.getElementById("save-listing-btn");
-      const t = localStorage.getItem("amht_token");
-      if (!t) { sendToSignIn(); return; }
-      btn.disabled = true;
-      try {
-        const res = await fetch("/.netlify/functions/listing-save", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Authorization: `Bearer ${t}` },
-          body: JSON.stringify({ listing_id: listing.id }),
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || "Couldn't save");
-        isSaved = data.saved;
-        btn.classList.toggle("saved", isSaved);
-        btn.textContent = isSaved ? "Saved" : "Save";
-        btn.title = isSaved ? "Saved — click to remove" : "Save this listing to your watchlist";
-        const watchEl = document.querySelector(".watch-count");
-        const sc = data.save_count || 0;
-        if (watchEl) {
-          watchEl.textContent = `${sc} watching`;
-          watchEl.hidden = sc < MIN_WATCHERS_TO_SHOW;
-        }
-      } catch (err) {
-        alert(err.message);
-      } finally {
-        btn.disabled = false;
-      }
+    // Save heart: shared handler (js/cards.js).
+    mountHearts(document.getElementById("listing-heart"), {
+      onChange: (_id, saved) => { isSaved = saved; },
     });
 
     // Report modal

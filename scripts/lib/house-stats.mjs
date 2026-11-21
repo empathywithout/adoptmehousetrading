@@ -64,7 +64,7 @@ export async function loadHouseStats() {
         .order("created_at", { ascending: false })
         .limit(500),
       db.from("listings")
-        .select("id, house_id, title, value_amount, value_unit, status, profile_id, photos, updated_at, build_type, listing_type, save_count")
+        .select("id, house_id, title, value_amount, value_unit, status, profile_id, photos, updated_at, build_type, listing_type, save_count, themes")
         .eq("status", "active")
         .neq("listing_type", "commission")
         .filter("updated_at", ">=", expireCutoff)
@@ -166,6 +166,8 @@ export async function loadHouseStats() {
           photo: Array.isArray(l.photos) ? l.photos[0] || null : null,
           buildType: l.build_type || null,
           listingType: l.listing_type || "house_trade",
+          saveCount: Number(l.save_count) || 0,
+          themes: Array.isArray(l.themes) ? l.themes : [],
         });
       }
       if (b.listings.length < MAX_LISTINGS_PER_HOUSE) {
@@ -177,6 +179,9 @@ export async function loadHouseStats() {
           lister: nameOf[l.profile_id] || null,
           photo: Array.isArray(l.photos) ? l.photos[0] || null : null,
           buildType: l.build_type || null,
+          listingType: l.listing_type || "house_trade",
+          saveCount: Number(l.save_count) || 0,
+          themes: Array.isArray(l.themes) ? l.themes : [],
         });
       }
     }

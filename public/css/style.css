@@ -3038,3 +3038,302 @@ a.site-data-list .sd-main:hover, .site-data-list a.sd-main:hover { color: var(--
   margin: 0 2px;
   flex-shrink: 0;
 }
+
+/* ---------- Listing card v2 (.lcard) + save heart (.heart-btn) ----------
+   Built by public/js/cards.js and, for the static pages, scripts/lib/cards.mjs.
+   A new class rather than a change to .listing-card, which the registry and
+   Find a Builder cards still use. The card is an <article>: the title link's
+   ::after covers the whole card, so it is one click target, and the heart is a
+   real button next to the link rather than inside it. */
+
+.lcard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  color: var(--ink);
+  transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
+}
+.lcard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(20, 22, 26, 0.10);
+  border-color: var(--ink-soft);
+}
+/* Ring the card only when its link is reached by keyboard, not after a
+   mouse click on the heart. */
+.lcard:has(.lcard-link:focus-visible) { outline: 3px solid var(--accent); outline-offset: 2px; }
+.lcard.is-traded .lcard-photo img { filter: grayscale(0.6); opacity: 0.85; }
+
+.lcard-photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--paper);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.lcard-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lcard-photo img.is-fallback { object-fit: contain; padding: 12px; box-sizing: border-box; }
+
+.lcard-build {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: calc(100% - 110px);
+  padding: 4px 10px 4px 8px;
+  border-radius: 999px;
+  background: rgba(10, 12, 11, 0.72);
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+.lcard-build::before {
+  content: "";
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--build-dot, #9AA3A0);
+}
+.lcard-build--original { --build-dot: #4CC283; }
+.lcard-build--cloned { --build-dot: #F59E5B; }
+.lcard-build--speedbuild { --build-dot: #F5B93F; }
+.lcard-build--glitch { --build-dot: #B49CFF; }
+.lcard-build--looking { --build-dot: #7CC4FF; }
+
+.lcard-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  padding: 14px 16px 16px;
+}
+.lcard-house {
+  margin: 0;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lcard-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 20px;
+  line-height: 1.15;
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lcard-link { color: inherit; text-decoration: none; }
+.lcard-link::after { content: ""; position: absolute; inset: 0; z-index: 0; }
+.lcard-link:focus-visible { outline: none; }
+
+.lcard-value { margin: 0; display: flex; align-items: baseline; gap: 5px; }
+.lcard-value .amount {
+  font-family: var(--font-display);
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.lcard-value .unit { font-size: 13px; font-weight: 500; color: var(--ink-soft); }
+.lcard-value.is-open { font-size: 13px; line-height: 24px; font-weight: 500; color: var(--muted); }
+
+.lcard-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.lcard-chip {
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.lcard-foot {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.lcard-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.lcard-initial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-2);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 600;
+}
+.lcard-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lcard-rep {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #237A4B;
+  white-space: nowrap;
+}
+.lcard-rep svg { fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+[data-theme="dark"] .lcard-rep { color: #4CC283; }
+
+/* The save heart. Pink rather than the sign-red accent so it never reads as
+   a price or a warning. #E11D5C on white is 4.9:1. */
+.heart-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 36px;
+  min-width: 36px;
+  padding: 0 11px;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 999px;
+  background: #FFFFFF;
+  color: #E11D5C;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.30);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+/* Extends the tap area to 44px without changing how it looks. */
+.heart-btn::before { content: ""; position: absolute; inset: -4px; }
+.heart-btn .heart-icon { fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linejoin: round; flex-shrink: 0; }
+.heart-btn:hover { transform: scale(1.08); }
+.heart-btn:active { transform: scale(0.92); }
+.heart-btn:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.heart-btn.is-saved { background: #E11D5C; color: #FFFFFF; }
+.heart-btn.is-saved .heart-icon { fill: currentColor; }
+.heart-btn[aria-busy="true"] { cursor: progress; }
+.heart-btn .heart-count[hidden] { display: none; }
+
+/* Detail pages: the heart sits in the page, not on a photo, with a word. */
+.heart-btn.heart-inline {
+  position: relative;
+  top: auto;
+  right: auto;
+  height: 40px;
+  padding: 0 16px 0 14px;
+  border: 1.5px solid #F3B7C9;
+  box-shadow: none;
+}
+.heart-btn.heart-inline.is-saved { border-color: #E11D5C; }
+[data-theme="dark"] .heart-btn.heart-inline:not(.is-saved) { background: transparent; color: #FF6B95; border-color: #6B2A3E; }
+
+/* Your own listing or build: the tally, not a button. */
+.heart-btn.heart-static { cursor: default; pointer-events: none; background: rgba(255, 255, 255, 0.92); }
+.heart-btn.heart-static .heart-icon { fill: currentColor; }
+
+.heart-btn.heart-pop { animation: heart-pop 0.38s cubic-bezier(0.3, 1.6, 0.5, 1); }
+.heart-btn.heart-pop::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 999px;
+  border: 2px solid #E11D5C;
+  animation: heart-burst 0.45s ease-out forwards;
+  pointer-events: none;
+}
+@keyframes heart-pop { 0% { transform: scale(1); } 35% { transform: scale(1.3); } 100% { transform: scale(1); } }
+@keyframes heart-burst { 0% { opacity: 0.9; transform: scale(0.7); } 100% { opacity: 0; transform: scale(1.5); } }
+@media (prefers-reduced-motion: reduce) {
+  .heart-btn, .lcard { transition: none; }
+  .heart-btn.heart-pop, .heart-btn.heart-pop::after { animation: none; }
+}
+
+.heart-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  z-index: 1000;
+  max-width: calc(100vw - 32px);
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* Cards that keep the older .listing-card look but get the new heart (the
+   registry): the title link covers the card the same way. */
+.listing-card.is-linked, .house-card.is-linked { position: relative; }
+.listing-card.is-linked h3 a, .house-card.is-linked h3 a { color: inherit; text-decoration: none; }
+.listing-card.is-linked:has(.lcard-link:focus-visible), .house-card.is-linked:has(.lcard-link:focus-visible) { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* Phones: two cards per row, so everything tightens a little. */
+@media (max-width: 520px) {
+  .lcard-body { padding: 10px 11px 12px; gap: 6px; }
+  .lcard-title { font-size: 16px; }
+  .lcard-value .amount { font-size: 20px; }
+  .lcard-house { font-size: 10.5px; }
+  .lcard-chip { font-size: 11px; padding: 2px 7px; }
+  .lcard-chip:nth-child(n+2) { display: none; }
+  .lcard-build { top: 7px; left: 7px; font-size: 11px; padding: 3px 8px 3px 6px; max-width: calc(100% - 80px); }
+  .heart-btn:not(.heart-inline) { top: 6px; right: 6px; height: 32px; min-width: 32px; padding: 0 9px; font-size: 13px; }
+  .lcard-rep { display: none; }
+}
+/* Registry cards: the status tag moves left so the heart can take top-right. */
+.listing-card.is-linked .card-tag { right: auto; left: 8px; }
+
+/* Text for screen readers only. */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

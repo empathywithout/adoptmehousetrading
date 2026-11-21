@@ -92,12 +92,9 @@
 </footer>
 
 <script type="module">
-  import { THEME_LABELS, loadReputation, reputationHtml, sendToSignIn, avatarImg, cardPhoto } from "../js/api.js?v=7";
+  import { THEME_LABELS, loadReputation } from "../js/api.js?v=7";
+  import { listingCardHtml, mountHearts } from "../js/cards.js?v=1";
 
-  // Same reasoning as the reputation thresholds: at one or two, a watcher
-  // count is clutter that says nothing. "1 watching" was on every card that
-  // had been saved even once.
-  const MIN_WATCHERS_TO_SHOW = 3;
   import { mountPillFilters } from "../js/pill-filters.js";
 
   const grid = document.getElementById("listings-grid");
@@ -236,77 +233,26 @@
       empty.hidden = true;
 
       grid.innerHTML = visible
-        .map((listing) => {
-          const house = houseById[listing.house_id];
-          const photo = listing.photos?.[0] || house?.image || "../images/brand/searchdog.png";
-          const username = listing.profiles?.display_name || "unknown";
-
-          const cardTag = listing.listing_type === "house_trade"
-            ? listing.build_type === "glitch_original" || listing.build_type === "glitch_cloned"
-              ? `<div class="card-tag" style="background:#7c3aed;color:#fff;">Glitch${listing.build_type === "glitch_cloned" ? " (Cloned)" : ""}</div>`
-              : listing.build_type === "speedbuild"
-              ? `<div class="card-tag" style="background:var(--butter);color:var(--ink);">Speedbuild</div>`
-              : listing.is_cloned !== null
-              ? `<div class="card-tag ${listing.is_cloned ? "cloned" : ""}">${listing.is_cloned ? "Cloned" : "Original"}</div>`
-              : ""
-            : "";
-
-          const valueLine =
-            listing.value_amount !== null && listing.value_amount !== undefined
-              ? `<div class="card-value"><span class="amount">${listing.value_amount}</span><span class="unit">${listing.value_unit || ""}</span></div>`
-              : `<div class="card-value"><span class="unit">value TBD</span></div>`;
-
-          const themeLine = listing.themes?.length
-            ? `<p class="lister" style="margin-top:2px;">${listing.themes.map((t) => THEME_LABELS[t] || t).join(", ")}</p>`
-            : "";
-
-          return `
-          <a class="listing-card" href="listing.html?id=${listing.id}">
-            <div class="photo">
-              <img src="${cardPhoto(photo)}" alt="${escapeHtml(listing.title)}" loading="lazy" decoding="async">
-              <div class="card-badge ${BADGE_CLASS[listing.listing_type] || "house-trade"}" title="${TYPE_LABELS[listing.listing_type] || "For Trade"}"><div class="${BADGE_ICON[listing.listing_type] || "icon-sign"}"></div></div>
-              ${cardTag}
-            </div>
-            <div class="body">
-              <h3>${escapeHtml(listing.title)}</h3>
-              <div class="trust-row">
-                ${listing.profiles?.rbx_avatar_url ? avatarImg(listing.profiles.rbx_avatar_url, 48, 16, "trust-row-avatar") : `<span class="avatar-initial">${escapeHtml(username[0]?.toUpperCase() || "?")}</span>`}
-                <span class="username">${escapeHtml(username)}</span>
-                ${(() => { const s=savedIds.has(listing.id); const sc=listing.save_count||0; const watchers = sc >= MIN_WATCHERS_TO_SHOW ? '<span class="watch-count">' + sc + ' watching</span>' : ''; return myProfile?.id !== listing.profile_id ? '<button class="' + (s ? 'save-btn saved' : 'save-btn') + '" data-listing-id="' + listing.id + '" title="' + (s ? 'Saved — click to remove' : 'Save this listing to your watchlist') + '" onclick="event.preventDefault()">' + (s ? 'Saved' : 'Save') + '</button>' + watchers : watchers; })()}
-              </div>
-              ${reputationHtml(reputation[listing.profile_id])}
-              ${valueLine}
-              ${themeLine}
-              <p class="lister" style="margin-top:6px;">${house ? escapeHtml(house.name) : "Unknown house"} ${listing.status === "traded" ? "· Traded" : ""}</p>
-            </div>
-          </a>`;
-        })
+        .map((listing) => listingCardHtml(listing, {
+          href: `listing.html?id=${listing.id}`,
+          house: houseById[listing.house_id],
+          fallbackImage: "../images/brand/searchdog.png",
+          reputation: reputation[listing.profile_id],
+          saved: savedIds.has(listing.id),
+          isOwn: myProfile?.id === listing.profile_id,
+        }))
         .join("");
 
     }
   }
-  // Delegated save handler
-  document.getElementById("listings-grid").addEventListener("click", async (e) => {
-    const btn = e.target.closest(".save-btn[data-listing-id]");
-    if (!btn) return;
-    e.preventDefault();
-    if (!token) { sendToSignIn(); return; }
-    const listingId = btn.dataset.listingId;
-    btn.disabled = true;
-    try {
-      const res = await fetch("/.netlify/functions/listing-save", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ listing_id: listingId }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Couldn't save");
-      if (data.saved) { savedIds.add(listingId); } else { savedIds.delete(listingId); }
-      btn.classList.toggle("saved", data.saved);
-      btn.title = data.saved ? "Saved — click to remove" : "Save this listing to your watchlist";
-      btn.textContent = data.saved ? "Saved" : "Save";
-    } catch (err) { alert(err.message); }
-    finally { btn.disabled = false; }
+  // Hearts: one shared handler (js/cards.js). Keep local state in step so a
+  // re-render after filtering shows the right heart and count.
+  mountHearts(document.getElementById("listings-grid"), {
+    onChange: (id, saved, count) => {
+      if (saved) savedIds.add(id); else savedIds.delete(id);
+      const l = listings.find((x) => x.id === id);
+      if (l) l.save_count = count;
+    },
   });
 
   renderHouseFilterRow();

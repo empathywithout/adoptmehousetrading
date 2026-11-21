@@ -11,7 +11,7 @@ async function handlerImpl(event) {
   const db = supabaseAdmin();
   const { data, error } = await db
     .from("listing_saves")
-    .select("listing_id, listings(id, title, house_id, photos, value_amount, value_unit, status, listing_type, themes)")
+    .select("listing_id, listings(id, title, house_id, photos, value_amount, value_unit, status, listing_type, themes, save_count, build_type, is_cloned)")
     .eq("profile_id", profile.id)
     .order("created_at", { ascending: false });
 

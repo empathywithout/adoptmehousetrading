@@ -22,7 +22,7 @@
 import { readFileSync, writeFileSync, existsSync } from "fs";
 import path from "path";
 
-import { escapeHtml, cardPhoto, UNIT_LABELS } from "./cards.mjs";
+import { escapeHtml, cardPhoto, UNIT_LABELS, listingCardHtml } from "./cards.mjs";
 
 // Real data has ~40 house types with listings. A wall of links looks broken and
 // adds nothing a crawler needs, so only the busiest are shown.
@@ -49,32 +49,13 @@ export function replaceBetween(html, name, content) {
 // ---- Browse page ----------------------------------------------------------
 
 export function browseGridHtml(listings, houseById) {
+  // Same card as the live grid that replaces it on load, so nothing jumps.
   return listings
-    .map((l) => {
-      const house = houseById[l.houseId];
-      const photo = l.photo || house?.image || "../images/brand/searchdog.png";
-      const typeClass = l.listingType === "looking_for" ? "looking-for" : "house-trade";
-      const typeIcon = l.listingType === "looking_for" ? "icon-loop" : "icon-sign";
-      const typeLabel = l.listingType === "looking_for" ? "Looking For" : "For Trade";
-      const v = l.value !== null && l.value !== undefined
-        ? `<div class="card-value"><span class="amount">${escapeHtml(l.value)}</span><span class="unit">${escapeHtml(l.unit || "")}</span></div>`
-        : `<div class="card-value"><span class="unit">value TBD</span></div>`;
-      const build = l.buildType === "speedbuild" ? "Speedbuild"
-        : l.buildType === "original" ? "Original"
-        : l.buildType === "cloned" ? "Cloned" : "";
-      return `
-          <a class="listing-card" href="listing.html?id=${encodeURIComponent(l.id)}">
-            <div class="photo">
-              <img src="${escapeHtml(cardPhoto(photo))}" alt="${escapeHtml(l.title || "Adopt Me house listing")}" loading="lazy" decoding="async">
-              <div class="card-badge ${typeClass}" title="${typeLabel}"><div class="${typeIcon}"></div></div>
-            </div>
-            <div class="body">
-              <h3>${escapeHtml(l.title || "Untitled build")}</h3>
-              ${v}
-              <p class="lister" style="margin-top:6px;">${house ? escapeHtml(house.name) : "Adopt Me house"}${build ? ` · ${build}` : ""}</p>
-            </div>
-          </a>`;
-    })
+    .map((l) => listingCardHtml(l, {
+      href: `listing.html?id=${encodeURIComponent(l.id)}`,
+      houseName: houseById[l.houseId]?.name,
+      fallbackImage: houseById[l.houseId]?.image || "../images/brand/searchdog.png",
+    }))
     .join("");
 }
 

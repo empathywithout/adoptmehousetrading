@@ -397,6 +397,7 @@
 
 <script type="module">
   import { api, getStoredProfile, saveSession, clearSession, consumeReturnTo, CATEGORY_LABELS, THEME_LABELS, avatarImg, cardPhoto } from "./js/api.js?v=7";
+  import { listingCardHtml, mountHearts, heartButtonHtml, esc } from "./js/cards.js?v=1";
   import { mountChatPanel } from "./js/chat.js";
   import { mountItemPicker } from "./js/item-picker.js";
 
@@ -992,16 +993,17 @@
         listingsGrid.innerHTML = "";
       } else {
         listingsEmpty.hidden = true;
-        listingsGrid.innerHTML = listings.map((l) => {
-          const photo = l.photos?.[0] || "";
-          return `<a class="listing-card" href="listings/listing.html?id=${l.id}" style="text-decoration:none;">
-            <div class="photo"><img src="${cardPhoto(photo)}" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
-            <div class="body">
-              <h3>${escapeHtml(l.title)}</h3>
-              <p class="hint" style="margin:4px 0 0;">${l.value_amount ? `${l.value_amount} ${l.value_unit || ""}` : "Value not set"}</p>
-            </div>
-          </a>`;
-        }).join("");
+        const houses = await fetch("data/houses.json").then((r) => r.json()).catch(() => []);
+        const houseById = Object.fromEntries((Array.isArray(houses) ? houses : []).map((h) => [h.id, h]));
+        // Everything here is saved, so every heart starts filled. Un-hearting
+        // leaves the card in place (so a mis-tap is easy to undo) until reload.
+        listingsGrid.innerHTML = listings.map((l) => listingCardHtml(l, {
+          href: `listings/listing.html?id=${l.id}`,
+          house: houseById[l.house_id],
+          fallbackImage: "images/brand/searchdog.png",
+          saved: true,
+        })).join("");
+        mountHearts(listingsGrid);
       }
     } catch {
       listingsGrid.innerHTML = `<p class="hint" style="color:var(--accent);">Couldn't load saved listings.</p>`;
@@ -1049,15 +1051,17 @@
         const photo = entry.photos?.[0] || "images/brand/searchdog.png";
         const builderName = entry.profiles?.display_name || "unknown";
         return `
-        <a class="house-card" href="registry/entry.html?id=${entry.id}" style="text-decoration:none;">
-          <div class="thumb"><img src="${escapeHtml(photo)}" alt="${escapeHtml(entry.title)}" loading="lazy"></div>
-          <div class="info">
-            <h3>${escapeHtml(entry.title)}</h3>
-            <p class="source">by ${escapeHtml(builderName)}</p>
-            <p class="source">♥ ${entry.save_count || 0} likes</p>
+        <article class="house-card is-linked">
+          <div class="thumb" style="position:relative;"><img src="${escapeHtml(photo)}" alt="" loading="lazy">
+            ${heartButtonHtml({ kind: "registry", id: entry.id, saved: true, count: entry.save_count || 0 })}
           </div>
-        </a>`;
+          <div class="info">
+            <h3><a class="lcard-link" href="registry/entry.html?id=${esc(entry.id)}">${escapeHtml(entry.title)}</a></h3>
+            <p class="source">by ${escapeHtml(builderName)}</p>
+          </div>
+        </article>`;
       }).join("");
+      mountHearts(grid);
     } catch (err) {
       grid.innerHTML = `<p class="hint" style="color:var(--accent);">Couldn't load saved builds.</p>`;
     }
