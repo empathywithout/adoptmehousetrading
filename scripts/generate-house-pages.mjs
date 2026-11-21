@@ -211,6 +211,7 @@ ${allJsonLd.map(jsonLdScript).join("\n")}
           <a href="${rootPrefix}houses/index.html">Values</a>
           <a href="${rootPrefix}registry/index.html">Build Registry</a>
           <a href="${rootPrefix}guides/index.html">Guides</a>
+          <a href="https://discord.gg/tnXAGRNNjQ" target="_blank" rel="noopener">Discord</a>
         </div>
       </div>
       <a href="${rootPrefix}profile.html" class="${routePath === "profile" ? "active" : ""}">Profile</a>
@@ -227,7 +228,7 @@ ${body}
 <footer class="site-footer">
   <div class="wrap">
     AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community — house values, live trade listings, builder commissions, and a build registry for verifying who built a house first. Not affiliated with, endorsed by, or sponsored by Adopt Me, Uplift Games, or Roblox Corporation.
-    <div style="margin-top:8px;"><a href="${rootPrefix}rules.html" style="color:var(--sign-red);">Community Rules</a> · <a href="${rootPrefix}privacy.html" style="color:var(--sign-red);">Privacy Policy</a> · <a href="https://www.reddit.com/r/adoptmehousetrading/" style="color:var(--sign-red);" target="_blank" rel="noopener">Reddit</a></div>
+    <div style="margin-top:8px;"><a href="${rootPrefix}rules.html" style="color:var(--sign-red);">Community Rules</a> · <a href="${rootPrefix}privacy.html" style="color:var(--sign-red);">Privacy Policy</a> · <a href="https://www.reddit.com/r/adoptmehousetrading/" style="color:var(--sign-red);" target="_blank" rel="noopener">Reddit</a> · <a href="https://discord.gg/tnXAGRNNjQ" style="color:var(--sign-red);" target="_blank" rel="noopener">Discord</a></div>
   </div>
 </footer>
 </body>
@@ -417,6 +418,17 @@ function buildHomepage(stats) {
     <h2 class="form-card-title">No listings yet</h2>
     <p class="subtitle">Be the first to put a house up for trade.</p>
     <a class="btn btn-primary" href="list-a-house.html">List a House</a>
+  </div>
+</section>
+
+<section class="wrap" style="padding:28px 0 0;">
+  <div class="discord-cta">
+    <span class="discord-cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path><path d="M8.5 11h.01M12 11h.01M15.5 11h.01"></path></svg></span>
+    <div class="discord-cta-text">
+      <h2>Join the community on Discord</h2>
+      <p>Find builders taking commissions, ask what a house is worth, and see new builds as they go up.</p>
+    </div>
+    <a class="btn btn-primary" href="https://discord.gg/tnXAGRNNjQ" target="_blank" rel="noopener">Join our Discord</a>
   </div>
 </section>
 
