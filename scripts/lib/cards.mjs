@@ -66,7 +66,7 @@ export function listingCardHtml(l, { href, houseName, fallbackImage, showHouse =
   return `
       <article class="lcard">
         <div class="lcard-photo">
-          <img src="${escapeHtml(cardPhoto(photo))}" alt="" loading="lazy" decoding="async"${l.photo ? "" : ' class="is-fallback"'}>
+          <img src="${escapeHtml(cardPhoto(photo))}" alt="${escapeHtml(`${(l.title || "").trim() || "Adopt Me house build"}${houseName ? `, ${houseName} build in Adopt Me` : ", Adopt Me build"}`)}" loading="lazy" decoding="async"${l.photo ? "" : ' class="is-fallback"'}>
           ${label ? `<span class="lcard-build lcard-build--${label[1]}">${label[0]}</span>` : ""}
           <button type="button" class="heart-btn" data-heart-kind="listing" data-heart-id="${escapeHtml(l.id)}" aria-pressed="false" aria-label="${heartLabel}" title="${heartLabel}"><svg class="heart-icon" aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><path d="${HEART_PATH}"></path></svg><span class="heart-count"${count ? "" : " hidden"}>${count}</span></button>
         </div>
@@ -95,7 +95,7 @@ export function tradeCardHtml(t, { fallbackImage }) {
   return `
       <article class="lcard is-static">
         <div class="lcard-photo">
-          <img src="${escapeHtml(cardPhoto(photo))}" alt="" loading="lazy" decoding="async"${t.photo ? "" : ' class="is-fallback"'}>
+          <img src="${escapeHtml(cardPhoto(photo))}" alt="${escapeHtml(`${(t.title || "").trim() || "Adopt Me house"}, traded on AdoptMeHouseTrading`)}" loading="lazy" decoding="async"${t.photo ? "" : ' class="is-fallback"'}>
           <span class="lcard-build lcard-build--verified">Verified trade</span>
         </div>
         <div class="lcard-body">

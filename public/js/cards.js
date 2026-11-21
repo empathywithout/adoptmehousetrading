@@ -184,6 +184,14 @@ export async function markSavedHearts(root) {
   }
 }
 
+// Photo alt text: what the build is and which house, for image search and
+// for anyone who can't see the photo. The fallback image gets the same text,
+// since it still stands for that listing.
+function photoAlt(title, houseName) {
+  const t = String(title || "").trim() || "Adopt Me house build";
+  return houseName ? `${t}, ${houseName} build in Adopt Me` : `${t}, Adopt Me build`;
+}
+
 function initialOf(name) {
   return esc((String(name || "?").trim()[0] || "?").toUpperCase());
 }
@@ -212,7 +220,7 @@ export function listingCardHtml(listing, { href, house, fallbackImage, reputatio
   return `
   <article class="lcard${traded ? " is-traded" : ""}">
     <div class="lcard-photo">
-      ${photo ? `<img src="${esc(cardPhoto(photo))}" alt="" loading="lazy" decoding="async"${listing.photos?.[0] ? "" : ' class="is-fallback"'}>` : ""}
+      ${photo ? `<img src="${esc(cardPhoto(photo))}" alt="${esc(photoAlt(listing.title, house?.name))}" loading="lazy" decoding="async"${listing.photos?.[0] ? "" : ' class="is-fallback"'}>` : ""}
       ${label ? `<span class="lcard-build lcard-build--${label.cls}">${esc(label.text)}</span>` : ""}
       ${isOwn ? heartTallyHtml(count) : heartButtonHtml({ kind: "listing", id: listing.id, saved, count })}
     </div>
@@ -289,7 +297,7 @@ export function buildCardHtml(entry, { href, houseName, heart = "button", saved 
   return `
   <article class="lcard">
     <div class="lcard-photo">
-      ${photo ? `<img src="${esc(cardPhoto(photo))}" alt="" loading="lazy" decoding="async"${entry.photos?.[0] ? "" : ' class="is-fallback"'}>` : ""}
+      ${photo ? `<img src="${esc(cardPhoto(photo))}" alt="${esc(photoAlt(entry.title, houseName))}" loading="lazy" decoding="async"${entry.photos?.[0] ? "" : ' class="is-fallback"'}>` : ""}
       ${lab ? `<span class="lcard-build lcard-build--${lab.cls}">${esc(lab.text)}</span>` : ""}
       ${heartHtml}
     </div>
@@ -315,7 +323,7 @@ export function builderCardHtml(b, { href, reputation, fallbackImage = "" } = {}
   return `
   <article class="lcard">
     <div class="lcard-photo">
-      ${photo ? `<img src="${esc(cardPhoto(photo))}" alt="" loading="lazy" decoding="async"${b.cover_photo ? "" : ' class="is-fallback"'}>` : ""}
+      ${photo ? `<img src="${esc(cardPhoto(photo))}" alt="${b.cover_photo ? esc(`An Adopt Me build by ${b.display_name || "this builder"}`) : ""}" loading="lazy" decoding="async"${b.cover_photo ? "" : ' class="is-fallback"'}>` : ""}
       <span class="lcard-build lcard-build--${open ? "verified" : "closed"}">${open ? "Open for commissions" : "Commissions closed"}</span>
     </div>
     <div class="lcard-body">

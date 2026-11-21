@@ -747,7 +747,7 @@ async function init() {
     const container = getEl("house-photo-previews");
     container.innerHTML = housePhotos.map((p, i) => `
       <div style="position:relative;width:72px;height:72px;flex-shrink:0;">
-        <img src="${p.previewUrl}" style="width:72px;height:72px;object-fit:cover;border-radius:8px;border:1.5px solid var(--line);">
+        <img alt="" src="${p.previewUrl}" style="width:72px;height:72px;object-fit:cover;border-radius:8px;border:1.5px solid var(--line);">
         <button data-remove-photo="${i}" style="position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;border:none;background:var(--accent);color:#fff;font-size:11px;font-weight:700;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">×</button>
       </div>`).join("");
     container.querySelectorAll("[data-remove-photo]").forEach(btn => {

@@ -87,7 +87,7 @@ function siteDataSection(house, stats) {
       : `${d.listingCount} live listings for this house${d.listingCount > d.listings.length ? `, newest ${d.listings.length} shown` : ""}.`} Asking values are set by the lister and reflect the build inside, not just the house type.</p>
     <div class="house-grid sd-grid" id="house-listings-grid" style="margin-top:16px;">${d.listings.map((l) => listingCardHtml(l, {
       href: `../listings/listing.html?id=${encodeURIComponent(l.id)}`,
-      showHouse: false, fallbackImage,
+      showHouse: false, houseName: house.name, fallbackImage,
     })).join("")}
     </div>
     <script type="module">
@@ -414,7 +414,7 @@ function buildHomepage(stats) {
   </div>
   <div id="recent-listings-grid" class="house-grid">${recentSnapshot}</div>
   <div id="recent-listings-empty" class="form-card" hidden>
-    <h1>No listings yet</h1>
+    <h2 class="form-card-title">No listings yet</h2>
     <p class="subtitle">Be the first to put a house up for trade.</p>
     <a class="btn btn-primary" href="list-a-house.html">List a House</a>
   </div>

@@ -32,6 +32,7 @@
 <meta name="twitter:title" content="Recent Adopt Me Trades — Verified House Trading Values">
 <meta name="twitter:description" content="Real, verified Adopt Me house trades confirmed by both sides — see actual confirmed trade values instead of guesswork or opinion-based value lists.">
 <meta name="twitter:image" content="https://adoptmehousetrading.com/images/brand/og-default.png">
+<link rel="canonical" href="https://adoptmehousetrading.com/recent-trades.html">
 </head>
 <body>
 <header class="site-nav">
@@ -207,12 +208,12 @@
             <!-- Lister/offerer -->
             <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:8px;">
               <div style="display:flex;align-items:center;gap:5px;">
-                ${listing?.profiles?.rbx_avatar_url ? `<img src="${listing.profiles.rbx_avatar_url}" style="width:20px;height:20px;border-radius:50%;object-fit:cover;">` : `<span class="avatar-initial" style="width:20px;height:20px;font-size:9px;">${escapeHtml(seller[0]?.toUpperCase() || "?")}</span>`}
+                ${listing?.profiles?.rbx_avatar_url ? `<img alt="" src="${listing.profiles.rbx_avatar_url}" style="width:20px;height:20px;border-radius:50%;object-fit:cover;">` : `<span class="avatar-initial" style="width:20px;height:20px;font-size:9px;">${escapeHtml(seller[0]?.toUpperCase() || "?")}</span>`}
                 <span style="font-size:11px;font-weight:600;color:var(--ink);">${escapeHtml(seller)}</span>
                 <span style="font-size:10px;color:var(--muted);">lister</span>
               </div>
               <div style="display:flex;align-items:center;gap:5px;">
-                ${trade.offers?.profiles?.rbx_avatar_url ? `<img src="${trade.offers.profiles.rbx_avatar_url}" style="width:20px;height:20px;border-radius:50%;object-fit:cover;">` : `<span class="avatar-initial" style="width:20px;height:20px;font-size:9px;">${escapeHtml(buyer[0]?.toUpperCase() || "?")}</span>`}
+                ${trade.offers?.profiles?.rbx_avatar_url ? `<img alt="" src="${trade.offers.profiles.rbx_avatar_url}" style="width:20px;height:20px;border-radius:50%;object-fit:cover;">` : `<span class="avatar-initial" style="width:20px;height:20px;font-size:9px;">${escapeHtml(buyer[0]?.toUpperCase() || "?")}</span>`}
                 <span style="font-size:11px;font-weight:600;color:var(--ink);">${escapeHtml(buyer)}</span>
                 <span style="font-size:10px;color:var(--muted);">offerer</span>
               </div>
@@ -318,12 +319,12 @@
           ` : ""}
           <div style="margin-top:auto;border-top:1px solid rgba(255,255,255,0.08);padding-top:14px;display:flex;flex-direction:column;gap:10px;">
             <div style="display:flex;align-items:center;gap:9px;">
-              ${listing.profiles?.rbx_avatar_url ? `<img src="${listing.profiles.rbx_avatar_url}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;">` : `<div style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;">${escapeHtml(seller[0]?.toUpperCase() || "?")}</div>`}
+              ${listing.profiles?.rbx_avatar_url ? `<img alt="" src="${listing.profiles.rbx_avatar_url}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;">` : `<div style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;">${escapeHtml(seller[0]?.toUpperCase() || "?")}</div>`}
               <span style="font-weight:600;font-size:13px;color:#fff;">${escapeHtml(seller)}</span>
               <span style="color:rgba(255,255,255,0.35);font-size:11px;">lister</span>
             </div>
             <div style="display:flex;align-items:center;gap:9px;">
-              ${offer.profiles?.rbx_avatar_url ? `<img src="${offer.profiles.rbx_avatar_url}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;">` : `<div style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;">${escapeHtml(buyer[0]?.toUpperCase() || "?")}</div>`}
+              ${offer.profiles?.rbx_avatar_url ? `<img alt="" src="${offer.profiles.rbx_avatar_url}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;">` : `<div style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;">${escapeHtml(buyer[0]?.toUpperCase() || "?")}</div>`}
               <span style="font-weight:600;font-size:13px;color:#fff;">${escapeHtml(buyer)}</span>
               <span style="color:rgba(255,255,255,0.35);font-size:11px;">offerer</span>
             </div>
