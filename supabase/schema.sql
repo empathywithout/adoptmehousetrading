@@ -133,12 +133,17 @@ create table listings (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   build_type text,                    -- migration-024: original/speedbuild/cloned/glitch*
-  save_count integer not null default 0   -- migration-027, maintained by listing-save.js
+  save_count integer not null default 0,  -- migration-027, maintained by listing-save.js
+  discord_handled_at timestamptz          -- migration-029: when discord-post-listings dealt with
+                                          -- this listing (posted it, or skipped it as removed or
+                                          -- test data). NULL = not handled yet.
 );
 
 create index listings_status_idx on listings(status);
 create index listings_house_id_idx on listings(house_id);
 create index listings_type_idx on listings(listing_type);
+-- migration-029: the Discord job only ever looks at unhandled rows.
+create index listings_discord_pending_idx on listings(created_at) where discord_handled_at is null;
 
 create table offers (
   id uuid primary key default gen_random_uuid(),
