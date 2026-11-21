@@ -68,13 +68,15 @@
    already reads these tokens, so this is the only override block needed
    rather than touching individual rules. */
 [data-theme="dark"] {
-  --ink: #EAF2EE;
-  --ink-soft: #C3D3CC;
-  --muted: #8FA69C;
-  --paper: #0F1D18;
-  --surface: #16261F;
-  --surface-2: #1F332A;
-  --line: #2A3E34;
+  /* Neutral charcoal rather than green-tinted: the green-on-green dark mode
+     was reported as tiring to look at. Green stays for success states. */
+  --ink: #ECEFEE;
+  --ink-soft: #C9D1CE;
+  --muted: #9AA3A0;
+  --paper: #121514;
+  --surface: #1B1F1E;
+  --surface-2: #252B29;
+  --line: #2E3432;
   --accent: #E8584A;        /* toned down from #FF6B5B — still warm red but not neon-hot */
   --accent-dark: #C93A2E;
   --accent-soft: #3A211E;
@@ -83,12 +85,12 @@
   --good-soft: #0E2A1B;     /* was #16332B which = light mode ink — actual dark green tint */
   --white: #FFFFFF;
 
-  --pine: #EAF2EE;
-  --pine-dark: #0F1D18;
-  --mint: #16261F;
+  --pine: #ECEFEE;
+  --pine-dark: #121514;
+  --mint: #1B1F1E;
   --sign-red: #E8584A;
   --sign-red-dark: #C93A2E;
-  --charcoal: #EAF2EE;
+  --charcoal: #ECEFEE;
 }
 
 * { box-sizing: border-box; }
