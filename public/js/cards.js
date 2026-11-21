@@ -232,3 +232,103 @@ export function listingCardHtml(listing, { href, house, fallbackImage, reputatio
     </div>
   </article>`;
 }
+
+// ─── Build registry cards ────────────────────────────────────────────────────
+// Same .lcard look as listings. The label follows the registry's own rules:
+// an admin ruling first, then community-verified, then what the builder
+// declared when registering.
+export function registryLabel(entry) {
+  if (entry.status === "disputed") return { text: "Disputed", cls: "disputed" };
+  if (entry.status === "confirmed_clone") return { text: "Confirmed clone", cls: "cloned" };
+  if (entry.status === "confirmed_original") return { text: "Verified original", cls: "verified" };
+  if (entry.is_community_verified) return { text: "Verified", cls: "verified" };
+  switch (entry.build_type) {
+    case "speedbuild": return { text: "Speedbuild", cls: "speedbuild" };
+    case "glitch_original": return { text: "Glitch", cls: "glitch" };
+    case "glitch_cloned": return { text: "Glitch (Cloned)", cls: "glitch" };
+    case "cloned": return { text: "Cloned", cls: "cloned" };
+  }
+  return { text: "Original", cls: "original" };
+}
+
+function shortDate(iso) {
+  const d = new Date(iso);
+  return isNaN(d) ? "" : d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+}
+
+function makerFoot(profile, reputation, repMax = 1) {
+  const name = profile?.display_name;
+  if (!name) return "";
+  const rep = reputation ? reputationLine(reputation, repMax) : "";
+  return `
+      <div class="lcard-foot">
+        ${profile.rbx_avatar_url ? avatarImg(profile.rbx_avatar_url, 48, 24, "lcard-avatar") : `<span class="lcard-avatar lcard-initial" aria-hidden="true">${initialOf(name)}</span>`}
+        <span class="lcard-name">${esc(name)}</span>
+        ${rep ? `<span class="lcard-rep"><svg aria-hidden="true" viewBox="0 0 24 24" width="13" height="13"><path d="M20 6 9 17l-5-5"></path></svg>${esc(rep)}</span>` : ""}
+      </div>`;
+}
+
+// One registered build. Options:
+//   href         where the card links
+//   houseName    the house it was built on, if known
+//   heart        "button" (default), "tally" (your own build) or "none"
+//   saved        whether the viewer has hearted it
+//   reputation   the builder's reputation object
+//   showMaker    false where every card is the same builder (a portfolio)
+//   label        replace the status label, e.g. a ranking
+export function buildCardHtml(entry, { href, houseName, heart = "button", saved = false, reputation, showMaker = true, label, fallbackImage = "" } = {}) {
+  const photo = entry.photos?.[0] || fallbackImage;
+  const lab = label || registryLabel(entry);
+  const count = entry.save_count || 0;
+  const themes = (entry.themes || []).map((t) => THEME_LABELS[t] || t);
+  const chips = themes.length > 2 ? [themes[0], themes[1], `+${themes.length - 2}`] : themes;
+  const eyebrow = houseName || (entry.created_at ? `Registered ${shortDate(entry.created_at)}` : "");
+  const heartHtml = heart === "button"
+    ? heartButtonHtml({ kind: "registry", id: entry.id, saved, count })
+    : heart === "tally" ? heartTallyHtml(count) : "";
+  return `
+  <article class="lcard">
+    <div class="lcard-photo">
+      ${photo ? `<img src="${esc(cardPhoto(photo))}" alt="" loading="lazy" decoding="async"${entry.photos?.[0] ? "" : ' class="is-fallback"'}>` : ""}
+      ${lab ? `<span class="lcard-build lcard-build--${lab.cls}">${esc(lab.text)}</span>` : ""}
+      ${heartHtml}
+    </div>
+    <div class="lcard-body">
+      ${eyebrow ? `<p class="lcard-house">${esc(eyebrow)}</p>` : ""}
+      <h3 class="lcard-title"><a class="lcard-link" href="${esc(href)}">${esc(entry.title || "Untitled build")}</a></h3>
+      ${chips.length ? `<div class="lcard-chips">${chips.map((c) => `<span class="lcard-chip">${esc(c)}</span>`).join("")}</div>` : ""}
+      ${showMaker ? makerFoot(entry.profiles, reputation) : ""}
+    </div>
+  </article>`;
+}
+
+// ─── Find a Builder cards ────────────────────────────────────────────────────
+// A builder rather than a build: the photo is their featured (or latest)
+// build, the title is their name, and the footer is their track record.
+export function builderCardHtml(b, { href, reputation, fallbackImage = "" } = {}) {
+  const photo = b.cover_photo || fallbackImage;
+  const open = b.commission_status === "open";
+  const themes = (b.builder_themes || []).map((t) => THEME_LABELS[t] || t);
+  const chips = themes.length > 3 ? [themes[0], themes[1], themes[2], `+${themes.length - 3}`] : themes;
+  const rep = reputation ? reputationLine(reputation, 3) : "";
+  const avatar = b.builder_avatar_url || b.rbx_avatar_url;
+  return `
+  <article class="lcard">
+    <div class="lcard-photo">
+      ${photo ? `<img src="${esc(cardPhoto(photo))}" alt="" loading="lazy" decoding="async"${b.cover_photo ? "" : ' class="is-fallback"'}>` : ""}
+      <span class="lcard-build lcard-build--${open ? "verified" : "closed"}">${open ? "Open for commissions" : "Commissions closed"}</span>
+    </div>
+    <div class="lcard-body">
+      <p class="lcard-house">Builder</p>
+      <h3 class="lcard-title"><a class="lcard-link" href="${esc(href)}">${esc(b.display_name || "Builder")}</a></h3>
+      ${b.builder_bio ? `<p class="lcard-bio">${esc(b.builder_bio)}</p>` : ""}
+      ${chips.length ? `<div class="lcard-chips">${chips.map((c) => `<span class="lcard-chip">${esc(c)}</span>`).join("")}</div>` : ""}
+      <div class="lcard-foot">
+        ${avatar ? avatarImg(avatar, 48, 24, "lcard-avatar") : `<span class="lcard-avatar lcard-initial" aria-hidden="true">${initialOf(b.display_name)}</span>`}
+        ${rep
+          ? `<span class="lcard-rep lcard-rep-keep" style="margin-left:0;"><svg aria-hidden="true" viewBox="0 0 24 24" width="13" height="13"><path d="M20 6 9 17l-5-5"></path></svg>${esc(rep)}</span>`
+          : `<span class="lcard-name" style="color:var(--muted);">New builder</span>`}
+      </div>
+    </div>
+  </article>`;
+}

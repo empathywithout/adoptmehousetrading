@@ -146,7 +146,7 @@
 
 <script type="module">
   import { api, getToken, THEME_LABELS, loadReputation, reputationHtml, sendToSignIn, avatarImg, cardPhoto } from "../js/api.js?v=7";
-  import { heartButtonHtml, heartTallyHtml, mountHearts, esc } from "../js/cards.js?v=1";
+  import { buildCardHtml, mountHearts } from "../js/cards.js?v=1";
   import { mountPillFilters } from "../js/pill-filters.js";
 
   const grid = document.getElementById("registry-grid");
@@ -165,14 +165,16 @@
 
   // Load entries and user's saved set in parallel
   const token = getToken();
-  const [entriesData, savedData, reputation] = await Promise.all([
+  const [entriesData, savedData, reputation, houses] = await Promise.all([
     fetch("/.netlify/functions/registry-list").then(r => r.json()).catch(() => ({})),
     token
       ? fetch("/.netlify/functions/registry-saves-me", { headers: { Authorization: `Bearer ${token}` } })
           .then(r => r.json()).catch(() => ({}))
       : Promise.resolve({}),
     loadReputation(),
+    fetch("../data/houses.json").then(r => r.json()).catch(() => []),
   ]);
+  const houseById = Object.fromEntries((Array.isArray(houses) ? houses : []).map((h) => [h.id, h]));
 
   let entries = entriesData.entries || [];
   savedIds = new Set(savedData.saved_ids || []);
@@ -269,52 +271,15 @@
       : `Showing ${originals.length} of ${allOriginals.length} matching builds (${entries.length} total)`;
 
     function entryCard(entry) {
-      const photo = entry.photos?.[0] || "../images/brand/searchdog.png";
-      // Status tag: admin-verified outcome takes priority; fall back to submitter-declared build_type
-      const statusTag = entry.status === "disputed"
-        ? `<div class="card-tag">Disputed</div>`
-        : entry.status === "confirmed_clone"
-        ? `<div class="card-tag cloned">Confirmed Clone</div>`
-        : entry.status === "confirmed_original"
-        ? `<div class="card-tag" style="background:var(--good);color:var(--white);">Verified Original</div>`
-        : entry.is_community_verified
-        ? `<div class="card-tag">Verified</div>`
-        // Submitter-declared build type when no admin ruling yet
-        : entry.build_type === "speedbuild"
-        ? `<div class="card-tag" style="background:var(--butter);color:var(--ink);">Speedbuild</div>`
-        : entry.build_type === "glitch_original" || entry.build_type === "glitch_cloned"
-        ? `<div class="card-tag" style="background:#7c3aed;color:#fff;">Glitch${entry.build_type === "glitch_cloned" ? " (Cloned)" : ""}</div>`
-        : entry.build_type === "cloned"
-        ? `<div class="card-tag cloned">Cloned</div>`
-        : `<div class="card-tag" style="background:var(--good);color:var(--white);">Original</div>`;
       const isOwnBuild = myProfileId && entry.profile_id === myProfileId;
-      const heart = isOwnBuild
-        ? heartTallyHtml(entry.save_count || 0)
-        : heartButtonHtml({ kind: "registry", id: entry.id, saved: savedIds.has(entry.id), count: entry.save_count || 0 });
-      const themesLine = (entry.themes || []).length
-        ? `<div class="registry-theme-tags">${(entry.themes || []).map(t => `<span class="registry-theme-tag">${escapeHtml(THEME_LABELS[t] || t)}</span>`).join("")}</div>`
-        : "";
-
-      return `
-      <article class="listing-card is-linked">
-        <div class="photo">
-          <img src="${cardPhoto(photo)}" alt="" loading="lazy" decoding="async">
-          ${statusTag}
-          ${heart}
-        </div>
-        <div class="body">
-          <h3><a class="lcard-link" href="entry.html?id=${esc(entry.id)}">${escapeHtml(entry.title)}</a></h3>
-          <div class="trust-row">
-            ${entry.profiles?.rbx_avatar_url
-              ? avatarImg(entry.profiles.rbx_avatar_url, 48, 16, "trust-row-avatar")
-              : `<span class="avatar-initial">${escapeHtml((entry.profiles?.display_name || "?")[0].toUpperCase())}</span>`}
-            <span class="username">${escapeHtml(entry.profiles?.display_name || "unknown")}</span>
-          </div>
-          ${reputationHtml(reputation[entry.profile_id])}
-          ${themesLine}
-          <p class="lister" style="margin-top:auto;padding-top:8px;">Registered ${new Date(entry.created_at).toLocaleDateString()}</p>
-        </div>
-      </article>`;
+      return buildCardHtml(entry, {
+        href: `entry.html?id=${entry.id}`,
+        fallbackImage: "../images/brand/searchdog.png",
+        houseName: houseById[entry.house_id]?.name,
+        heart: isOwnBuild ? "tally" : "button",
+        saved: savedIds.has(entry.id),
+        reputation: reputation[entry.profile_id],
+      });
     }
 
     const originalsHtml = originals.map(entryCard).join("");
@@ -344,23 +309,23 @@
     const featuredSection = document.getElementById("featured-builds");
     const featuredGrid = document.getElementById("featured-grid");
     featuredSection.style.display = "";
-    featuredGrid.innerHTML = topHearted.map((entry, rank) => {
-      const photo = entry.photos?.[0] || "https://pub-20ee170c554940ac8bfcce8af2da57a8.r2.dev/placeholder-house.jpg";
-      const medals = ["🥇", "🥈", "🥉"];
-      return `<a href="entry.html?id=${entry.id}" class="listing-card" style="text-decoration:none;">
-        <div class="photo" style="position:relative;">
-          <img src="${escapeHtml(cardPhoto(photo))}" alt="${escapeHtml(entry.title)}" loading="lazy" decoding="async">
-          <span style="position:absolute;top:8px;left:8px;font-size:20px;line-height:1;">${medals[rank]}</span>
-        </div>
-        <div class="body">
-          <h3 style="font-size:13px;">${escapeHtml(entry.title)}</h3>
-          <div class="trust-row" style="justify-content:space-between;">
-            <span class="username">${escapeHtml(entry.profiles?.display_name || "unknown")}</span>
-            <span style="display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:800;color:#E11D5C;"><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" style="fill:currentColor;"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"></path></svg>${entry.save_count}<span class="visually-hidden"> hearts</span></span>
-          </div>
-        </div>
-      </a>`;
-    }).join("");
+    const ranks = ["#1 hearted", "#2 hearted", "#3 hearted"];
+    featuredGrid.innerHTML = topHearted.map((entry, rank) => buildCardHtml(entry, {
+      href: `entry.html?id=${entry.id}`,
+      fallbackImage: "../images/brand/searchdog.png",
+      houseName: houseById[entry.house_id]?.name,
+      heart: myProfileId && entry.profile_id === myProfileId ? "tally" : "button",
+      saved: savedIds.has(entry.id),
+      reputation: reputation[entry.profile_id],
+      label: { text: ranks[rank], cls: "rank" },
+    })).join("");
+    mountHearts(featuredGrid, {
+      onChange: (id, saved, count) => {
+        if (saved) savedIds.add(id); else savedIds.delete(id);
+        const entry = entries.find((e) => e.id === id);
+        if (entry) entry.save_count = count;
+      },
+    });
   }
 
   if (entries.length) {

@@ -139,6 +139,7 @@
 
 <script type="module">
   import { THEME_LABELS, loadReputation, reputationHtml, cardPhoto } from "../js/api.js?v=7";
+  import { builderCardHtml } from "../js/cards.js?v=1";
   import { mountPillFilters } from "../js/pill-filters.js";
 
   const grid = document.getElementById("builders-grid");
@@ -184,27 +185,11 @@
     } else {
       empty.hidden = true;
       grid.innerHTML = filtered
-        .map((b) => {
-          const photo = b.cover_photo || "../images/brand/searchdog.png";
-          const themesLine = (b.builder_themes || []).map((t) => THEME_LABELS[t] || t).join(", ");
-          // Was hearts only, which was blank for all but two builders. The
-          // shared reputation line leads with verified trades and builds,
-          // which is what someone deciding who to hire actually wants.
-          const prestigeLine = reputationHtml(reputation[b.id], 3);
-          return `
-          <a class="listing-card" href="builder.html?id=${b.id}">
-            <div class="photo"><img src="${cardPhoto(photo)}" alt="" loading="lazy" decoding="async"></div>
-            <div class="body">
-              <h3>${escapeHtml(b.display_name)}</h3>
-              <div class="trust-row">
-                ${(b.builder_avatar_url || b.rbx_avatar_url) ? `<img src="${b.builder_avatar_url || b.rbx_avatar_url}" alt="" class="avatar-initial" style="object-fit:cover;">` : `<span class="avatar-initial">${escapeHtml(b.display_name[0]?.toUpperCase() || "?")}</span>`}
-                <span class="username">Open for commissions</span>
-              </div>
-              ${themesLine ? `<p class="lister" style="margin-top:2px;">${escapeHtml(themesLine)}</p>` : ""}
-              ${prestigeLine}
-            </div>
-          </a>`;
-        })
+        .map((b) => builderCardHtml(b, {
+          href: `builder.html?id=${b.id}`,
+          reputation: reputation[b.id],
+          fallbackImage: "../images/brand/searchdog.png",
+        }))
         .join("");
     }
   }

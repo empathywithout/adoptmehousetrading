@@ -90,19 +90,25 @@ export function listingCardHtml(l, { href, houseName, fallbackImage, showHouse =
 // the trade itself has no page of its own.
 export function tradeCardHtml(t, { fallbackImage }) {
   const photo = t.photo || fallbackImage || "/images/brand/searchdog.png";
-  const meta = [t.lister ? `listed by ${t.lister}` : null, t.at ? dateText(t.at) : null].filter(Boolean).join(" · ");
+  const hasValue = t.value !== null && t.value !== undefined;
+  const when = t.at ? dateText(t.at) : "";
   return `
-      <div class="listing-card" style="cursor:default;">
-        <div class="photo">
-          <img${t.photo ? "" : ' class="fallback" style="object-fit:contain;padding:10px;box-sizing:border-box;"'} src="${escapeHtml(cardPhoto(photo))}" alt="${escapeHtml(t.title || "Verified Adopt Me house trade")}" loading="lazy" decoding="async">
-          <span class="verified-badge" style="position:absolute;top:8px;left:8px;">Verified</span>
+      <article class="lcard is-static">
+        <div class="lcard-photo">
+          <img src="${escapeHtml(cardPhoto(photo))}" alt="" loading="lazy" decoding="async"${t.photo ? "" : ' class="is-fallback"'}>
+          <span class="lcard-build lcard-build--verified">Verified trade</span>
         </div>
-        <div class="body">
-          <h3>${escapeHtml(t.title || "Untitled build")}</h3>
-          ${t.value !== null && t.value !== undefined
-            ? `<div class="card-value"><span class="unit" style="margin-right:4px;">asked</span><span class="amount">${escapeHtml(t.value)}</span><span class="unit">${escapeHtml(UNIT_LABELS[t.unit] || t.unit || "")}</span></div>`
-            : `<div class="card-value"><span class="unit">asking price not recorded</span></div>`}
-          ${meta ? `<p class="lister" style="margin-top:6px;">${escapeHtml(meta)}</p>` : ""}
+        <div class="lcard-body">
+          ${when ? `<p class="lcard-house">Traded ${escapeHtml(when)}</p>` : ""}
+          <h3 class="lcard-title">${escapeHtml(t.title || "Untitled build")}</h3>
+          ${hasValue
+            ? `<p class="lcard-value"><span class="unit">Asked</span><span class="amount">${escapeHtml(t.value)}</span><span class="unit">${escapeHtml(UNIT_LABELS[t.unit] || t.unit || "")}</span></p>`
+            : `<p class="lcard-value is-open">Asking price not recorded</p>`}
+          ${t.lister ? `
+          <div class="lcard-foot">
+            <span class="lcard-avatar lcard-initial" aria-hidden="true">${escapeHtml((String(t.lister).trim()[0] || "?").toUpperCase())}</span>
+            <span class="lcard-name">${escapeHtml(t.lister)}</span>
+          </div>` : ""}
         </div>
-      </div>`;
+      </article>`;
 }

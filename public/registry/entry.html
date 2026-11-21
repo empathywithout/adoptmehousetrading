@@ -78,7 +78,7 @@
 
 <script type="module">
   import { api, getStoredProfile, getToken, THEME_LABELS, sendToSignIn, setCanonical, avatarImg, cardPhoto } from "../js/api.js?v=7";
-  import { heartButtonHtml, heartTallyHtml, mountHearts } from "../js/cards.js?v=1";
+  import { heartButtonHtml, heartTallyHtml, mountHearts, buildCardHtml } from "../js/cards.js?v=1";
 
   const DISPUTE_TYPE_LABELS = {
     i_am_original:      "Claims to be the original creator",
@@ -226,17 +226,14 @@
     const compareHtml = compare_entries.length
       ? `<div class="section-head" style="margin-top:28px;"><h2 style="font-size:18px;">Other Registered Builds on This House</h2></div>
          <p class="hint" style="margin-bottom:12px;">Compare side by side — this is how clones actually get spotted, since we don't do image matching.</p>
-         <div class="house-grid">
+         <div class="house-grid" id="compare-grid">
            ${compare_entries
-             .map(
-               (c) => `<a class="listing-card" href="entry.html?id=${c.id}">
-                 <div class="photo"><img src="${cardPhoto(c.photos?.[0]) || "../images/brand/searchdog.png"}" alt="" loading="lazy" decoding="async"></div>
-                 <div class="body">
-                   <h3>${escapeHtml(c.title)}</h3>
-                   <p class="lister">by ${escapeHtml(c.profiles?.display_name || "unknown")}${c.status !== "active" ? ` · ${c.status.replace("_", " ")}` : ""}</p>
-                 </div>
-               </a>`
-             )
+             .map((c) => buildCardHtml(c, {
+               href: `entry.html?id=${c.id}`,
+               fallbackImage: "../images/brand/searchdog.png",
+               heart: myProfile && c.profile_id === myProfile.id ? "tally" : "button",
+               saved: !!window._entrySavedIds?.has(c.id),
+             }))
              .join("")}
          </div>`
       : "";
@@ -367,6 +364,11 @@
         setTimeout(() => mountEditPanel(entry), 300);
       }
     }
+
+    // Hearts on the comparison cards.
+    mountHearts(document.getElementById("compare-grid"), {
+      onChange: (id, saved) => { if (saved) window._entrySavedIds?.add(id); else window._entrySavedIds?.delete(id); },
+    });
 
     // Heart: shared handler (js/cards.js). After hearting, nudge people to
     // share the build so the builder gets more hearts.

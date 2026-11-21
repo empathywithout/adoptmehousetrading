@@ -3088,7 +3088,7 @@ a.site-data-list .sd-main:hover, .site-data-list a.sd-main:hover { color: var(--
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  max-width: calc(100% - 110px);
+  max-width: calc(100% - 20px);
   padding: 4px 10px 4px 8px;
   border-radius: 999px;
   background: rgba(10, 12, 11, 0.72);
@@ -3322,7 +3322,8 @@ a.site-data-list .sd-main:hover, .site-data-list a.sd-main:hover { color: var(--
   .lcard-house { font-size: 10.5px; }
   .lcard-chip { font-size: 11px; padding: 2px 7px; }
   .lcard-chip:nth-child(n+2) { display: none; }
-  .lcard-build { top: 7px; left: 7px; font-size: 11px; padding: 3px 8px 3px 6px; max-width: calc(100% - 80px); }
+  .lcard-build { top: 7px; left: 7px; font-size: 11px; padding: 3px 8px 3px 6px; max-width: calc(100% - 14px); }
+  .lcard-photo:has(.heart-btn) .lcard-build { max-width: calc(100% - 76px); }
   .heart-btn:not(.heart-inline) { top: 6px; right: 6px; height: 32px; min-width: 32px; padding: 0 9px; font-size: 13px; }
   .lcard-rep { display: none; }
 }
@@ -3338,4 +3339,34 @@ a.site-data-list .sd-main:hover, .site-data-list a.sd-main:hover { color: var(--
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* Leave room for the heart only when there is one. */
+.lcard-photo:has(.heart-btn) .lcard-build { max-width: calc(100% - 100px); }
+
+/* Card labels used by registry and builder cards. */
+.lcard-build--verified { --build-dot: #4CC283; }
+.lcard-build--disputed { --build-dot: #FF6B6B; }
+.lcard-build--closed { --build-dot: #9AA3A0; }
+.lcard-build--rank { --build-dot: #F5B93F; }
+
+/* A builder's bio: two lines at most on the card. */
+.lcard-bio {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* A card with no page to open (verified trades): no lift on hover. */
+.lcard.is-static:hover { transform: none; box-shadow: none; border-color: var(--line); }
+
+@media (max-width: 520px) {
+  .lcard-bio { font-size: 12px; }
+  /* On a builder card the track record IS the footer; keep it on phones. */
+  .lcard-rep.lcard-rep-keep { display: inline-flex; white-space: normal; flex-shrink: 1; min-width: 0; line-height: 1.3; }
 }
