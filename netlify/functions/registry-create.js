@@ -22,7 +22,8 @@
 
 import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
 import { invalidate } from "./_lib/cache.js";
-import { findDuplicate } from "./_lib/duplicates.js";
+import { findDuplicate, findRepost, normalizeTitle } from "./_lib/duplicates.js";
+import { fingerprintPhotos, ensureEntryHashes, isComplete } from "./_lib/photo-fingerprint.js";
 import { cleanCategory } from "./_lib/build-categories.js";
 
 const VALID_THEMES = [
@@ -111,20 +112,22 @@ async function handlerImpl(event) {
   // worth revisiting if the registry grows past a few thousand entries.
   let possibleDuplicateOf = null;
   let duplicateReason = null;
+  let candidates = [];
   try {
-    const { data: candidates, error: dupErr } = await db
+    const { data, error: dupErr } = await db
       .from("build_registry")
-      .select("id, title, photos, profile_id")
+      .select("id, title, photos, photo_hashes, profile_id")
       .eq("status", "active")
       .order("created_at", { ascending: true });
 
     // A failed query must not silently mean "no duplicates found" — that is
     // how detection quietly stopped working before.
     if (dupErr) throw dupErr;
+    candidates = data || [];
 
     const found = findDuplicate(
       { title, photos: cleanPhotos, profileId: profile.id },
-      candidates || []
+      candidates
     );
     possibleDuplicateOf = found.duplicateOf;
     duplicateReason = found.reason;
@@ -141,6 +144,36 @@ async function handlerImpl(event) {
     });
   }
 
+  // Same build registered again under the same title with re-uploaded copies
+  // of the same photos (new URLs, so the check above can't see it). Blocked
+  // the same way. Only this person's same-title entries are compared, so it
+  // costs one fingerprint pass over the new photos plus, the first time, the
+  // older entry's. Failures fall through to a normal registration.
+  let photoHashes = null;
+  try {
+    const deadline = Date.now() + 6000;
+    const hashes = await fingerprintPhotos(cleanPhotos, { deadline });
+    if (isComplete(hashes, cleanPhotos)) {
+      photoHashes = hashes;
+      const normalized = normalizeTitle(title);
+      const sameTitle = candidates.filter(
+        (c) => c.profile_id === profile.id && normalized && normalizeTitle(c.title) === normalized
+      );
+      for (const c of sameTitle) await ensureEntryHashes(db, c, { deadline });
+      const repost = findRepost({ title, profileId: profile.id, hashes }, sameTitle);
+      if (repost) {
+        return json(409, {
+          error:
+            "You've already registered this build with these photos. Open that entry to edit it, or remove it first if you want to register it again.",
+          code: "ALREADY_REGISTERED",
+          existing_entry_id: repost.id,
+        });
+      }
+    }
+  } catch (err) {
+    console.error("[registry-create] repost check failed (non-fatal):", err);
+  }
+
   const { data: entry, error } = await db
     .from("build_registry")
     .insert({
@@ -154,6 +187,7 @@ async function handlerImpl(event) {
       house_id: cleanCat === "house" ? house_id || null : null,
       build_type: cleanBuildType,
       possible_duplicate_of: possibleDuplicateOf,
+      photo_hashes: photoHashes,
     })
     .select()
     .single();

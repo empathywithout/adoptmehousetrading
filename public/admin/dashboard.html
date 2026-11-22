@@ -253,6 +253,18 @@
         <button class="act act-approve" id="rescan-btn">Preview rescan</button>
         <div id="rescan-result" hidden style="margin-top:12px;"></div>
       </div>
+      <div class="admin-card" style="margin-bottom:18px;">
+        <div style="font-weight:700;margin-bottom:4px;">Remove exact reposts</div>
+        <p style="font-size:12px;color:var(--muted);margin:0 0 10px;line-height:1.6;">
+          Finds builds the same person registered again under the same title,
+          where every photo is a copy of one on their earlier entry. The newer
+          copy is marked removed and the original keeps its date and hearts.
+          Also clears flags whose original has since been removed. New reposts
+          are already blocked when someone submits. Previewing changes nothing.
+        </p>
+        <button class="act act-approve" id="reposts-btn">Preview reposts</button>
+        <div id="reposts-result" hidden style="margin-top:12px;"></div>
+      </div>
       <div id="registry-dupes-list"></div>
       <div id="empty-registry-dupes" class="empty-state" hidden><strong>No flagged registry entries.</strong></div>
     </div>
@@ -698,6 +710,82 @@
         });
       } catch (err) {
         out.innerHTML = `<p style="font-size:13px;color:var(--sign-red);">${escapeHtml(err.message)}</p>`;
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  })();
+
+  // ── Exact reposts ─────────────────────────────────────────────────────────
+  // The first run fingerprints a few hundred photos, more than one function
+  // call can do, so keep calling while the server says it isn't finished.
+  async function runReposts(apply, onProgress) {
+    for (let attempt = 0; attempt < 40; attempt++) {
+      const res = await fetch("/.netlify/functions/admin-registry-reposts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Admin-Password": getAdminPassword() },
+        body: JSON.stringify({ apply }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || `Repost scan failed (${res.status})`);
+      if (!data.incomplete) return data;
+      onProgress?.(data);
+    }
+    throw new Error("Still fingerprinting photos after 40 passes. Try again in a minute.");
+  }
+
+  (function wireReposts() {
+    const btn = document.getElementById("reposts-btn");
+    const out = document.getElementById("reposts-result");
+    if (!btn || !out) return;
+    const note = (msg, color = "var(--muted)") =>
+      `<p style="font-size:12px;color:${color};margin:0;">${msg}</p>`;
+    const progress = (d) => {
+      out.innerHTML = note(`Fingerprinting photos... ${d.fingerprinted} of ${d.to_fingerprint} entries done.`);
+    };
+
+    btn.addEventListener("click", async () => {
+      btn.disabled = true;
+      out.hidden = false;
+      out.innerHTML = note("Scanning...");
+      try {
+        const d = await runReposts(false, progress);
+        const nR = d.reposts.length, nS = d.stale.length;
+        const unreadable = d.unreadable
+          ? `<p style="font-size:12px;color:var(--muted);margin:6px 0 0;">${d.unreadable} entr${d.unreadable === 1 ? "y has" : "ies have"} photos that couldn't be read, so ${d.unreadable === 1 ? "it was" : "they were"} skipped.</p>`
+          : "";
+        if (!nR && !nS) {
+          out.innerHTML = `<p style="font-size:13px;font-weight:700;color:var(--good);margin:0;">No reposts or stale flags. Scanned ${d.scanned} entries.</p>${unreadable}`;
+          return;
+        }
+        const rows = d.reposts.map((r) => `
+          <li style="display:flex;gap:10px;align-items:center;margin-bottom:6px;">
+            ${r.photo ? `<img src="${escapeHtml(r.photo)}" alt="" style="width:44px;height:32px;object-fit:cover;border-radius:5px;flex-shrink:0;">` : ""}
+            <span><a href="../registry/entry.html?id=${r.id}" target="_blank" style="color:inherit;">${escapeHtml(r.title)}</a>
+            <span style="color:var(--muted);">by ${escapeHtml(r.by || "unknown")} · ${new Date(r.created_at).toLocaleDateString()},
+            copy of <a href="../registry/entry.html?id=${r.original_id}" target="_blank" style="color:var(--accent);">${new Date(r.original_created_at).toLocaleDateString()} entry</a></span></span>
+          </li>`).join("");
+        const staleRows = d.stale.map((e) => `<li>${escapeHtml(e.title)} <span style="color:var(--muted);">by ${escapeHtml(e.by || "unknown")}</span></li>`).join("");
+        out.innerHTML = `
+          ${nR ? `<p style="font-size:13px;margin:0 0 6px;"><strong>${nR}</strong> repost${nR === 1 ? "" : "s"} to remove:</p>
+          <ul style="font-size:12px;list-style:none;margin:0 0 10px;padding:0;line-height:1.5;">${rows}</ul>` : ""}
+          ${nS ? `<p style="font-size:13px;margin:0 0 6px;"><strong>${nS}</strong> stale flag${nS === 1 ? "" : "s"} to clear (original was removed):</p>
+          <ul style="font-size:12px;margin:0 0 10px;padding-left:18px;line-height:1.6;">${staleRows}</ul>` : ""}
+          <button class="act act-reject" id="reposts-apply">Remove ${nR} and clear ${nS}</button>${unreadable}`;
+
+        document.getElementById("reposts-apply").addEventListener("click", async (e) => {
+          if (!confirm(`Mark ${nR} repost${nR === 1 ? "" : "s"} as removed and clear ${nS} stale flag${nS === 1 ? "" : "s"}? Removed entries stay in the database and the originals are untouched.`)) return;
+          e.target.disabled = true;
+          try {
+            const done = await runReposts(true, progress);
+            out.innerHTML = `<p style="font-size:13px;font-weight:700;color:var(--good);margin:0;">Removed ${done.removed} repost${done.removed === 1 ? "" : "s"} and cleared ${done.cleared} stale flag${done.cleared === 1 ? "" : "s"}.</p>`;
+            await tryLoad();
+          } catch (err) {
+            out.innerHTML = note(escapeHtml(err.message), "var(--sign-red)");
+          }
+        });
+      } catch (err) {
+        out.innerHTML = note(escapeHtml(err.message), "var(--sign-red)");
       } finally {
         btn.disabled = false;
       }

@@ -4,6 +4,8 @@
 // admin-registry-backfill-dupes.js (over the existing rows) can never drift
 // apart — they were going to be two copies of the same rules otherwise.
 
+import { allPhotosFoundIn } from "./photo-fingerprint.js";
+
 // Title normalisation, unicode-aware.
 //
 // The previous version was `.toLowerCase().replace(/[^a-z0-9]+/g, " ")`,
@@ -84,4 +86,29 @@ export function findDuplicate({ title, photos, profileId }, candidates) {
   if (otherPhoto) return { duplicateOf: otherPhoto.id, reason: "photo" };
   if (selfTitle) return { duplicateOf: selfTitle.id, reason: "self_title" };
   return { duplicateOf: null, reason: null };
+}
+
+// Exact reposts: the same person registering the same build again under the
+// same title, with every photo a re-upload of one already on their earlier
+// entry. Re-uploading gives each photo a new URL, so sharesPhoto() can't see
+// these; the photo fingerprints in photo-fingerprint.js can.
+//
+// The description is deliberately ignored. On the live registry 17 of the 30
+// flagged entries were reposts like this, and in 12 of them the person had
+// edited or cleared the description while reposting.
+//
+// Anything short of this (a new title, an extra photo, someone else's entry)
+// is not a repost and stays a flag for a person to review.
+//
+// candidates: same person's active entries, oldest first, each with
+// photo_hashes. Returns the earliest matching entry, or null.
+export function findRepost({ title, profileId, hashes }, candidates) {
+  const normalized = normalizeTitle(title);
+  if (!normalized) return null;
+  for (const c of candidates || []) {
+    if (c.profile_id !== profileId) continue;
+    if (normalizeTitle(c.title) !== normalized) continue;
+    if (allPhotosFoundIn(hashes, c.photo_hashes)) return c;
+  }
+  return null;
 }

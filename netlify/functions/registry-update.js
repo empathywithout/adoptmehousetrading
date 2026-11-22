@@ -44,7 +44,7 @@ async function handlerImpl(event) {
   const db = supabaseAdmin();
   const { data: existing, error: fetchErr } = await db
     .from("build_registry")
-    .select("id, profile_id, status")
+    .select("id, profile_id, status, photos")
     .eq("id", id)
     .single();
 
@@ -97,6 +97,9 @@ async function handlerImpl(event) {
       photos: cleanPhotos,
       themes: cleanThemes,
       included_items: cleanIncludedItems,
+      // Photo fingerprints (repost detection) describe the old photos once
+      // they change; clear them so they're recomputed when next needed.
+      ...(JSON.stringify(cleanPhotos) !== JSON.stringify(existing.photos || []) ? { photo_hashes: null } : {}),
     })
     .eq("id", id)
     .select()

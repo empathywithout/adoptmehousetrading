@@ -350,7 +350,9 @@ create table build_registry (
   status text not null default 'active' check (status in ('active', 'disputed', 'confirmed_clone', 'confirmed_original', 'removed')),
   created_at timestamptz not null default now(),
   build_type text,                    -- migration-024: original/speedbuild/cloned/glitch*
-  save_count integer not null default 0   -- migration-023, maintained by trigger
+  save_count integer not null default 0,  -- migration-023, maintained by trigger
+  photo_hashes jsonb                      -- migration-030: visual fingerprint per photo, same order
+                                          -- as photos; NULL until computed (repost detection)
 );
 
 create index build_registry_profile_idx on build_registry(profile_id);
