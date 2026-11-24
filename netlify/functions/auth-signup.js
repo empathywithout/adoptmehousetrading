@@ -55,7 +55,9 @@ async function handlerImpl(event) {
       ? db.from("profiles").select("id").eq("email", cleanEmail).maybeSingle()
       : Promise.resolve({ data: null }),
     db.from("profiles").select("id").eq("display_name", cleanDisplayName).maybeSingle(),
-    db.from("profiles").select("id").eq("rbx_username", rbx_username).maybeSingle(),
+    // Ignoring case, same as login (see _lib/profile-lookup.js), so one Roblox
+    // account can't end up with two profiles that differ only in capitals.
+    db.from("profiles").select("id").eqIgnoreCase("rbx_username", rbx_username).limit(1),
   ]);
 
   if (emailCheck.data) {
@@ -64,7 +66,7 @@ async function handlerImpl(event) {
   if (nameCheck.data) {
     return json(409, { error: "That display name is taken — try another" });
   }
-  if (rbxCheck.data) {
+  if (rbxCheck.data?.length) {
     return json(409, { error: "That Roblox username is already linked to an account — try logging in instead" });
   }
 

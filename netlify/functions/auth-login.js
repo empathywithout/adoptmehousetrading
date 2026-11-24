@@ -13,6 +13,7 @@
 // sending { email } still work since email always contains '@').
 
 import { supabaseAdmin, newSessionToken, hashToken, verifySecret, json, safeHandler } from "./_lib/supabase.js";
+import { findProfileByRobloxName } from "./_lib/profile-lookup.js";
 
 async function handlerImpl(event) {
   if (event.httpMethod !== "POST") return json(405, { error: "Method not allowed" });
@@ -33,9 +34,14 @@ async function handlerImpl(event) {
   const isEmail = identifier.includes("@");
 
   // Look up by email or rbx_username depending on identifier format
-  const { data: profile, error: lookupErr } = isEmail
-    ? await db.from("profiles").select("*").eq("email", identifier.toLowerCase()).maybeSingle()
-    : await db.from("profiles").select("*").eq("rbx_username", identifier).maybeSingle();
+  // Roblox usernames are matched ignoring case; see _lib/profile-lookup.js.
+  let profile, lookupErr;
+  if (isEmail) {
+    ({ data: profile, error: lookupErr } = await db
+      .from("profiles").select("*").eq("email", identifier.toLowerCase()).maybeSingle());
+  } else {
+    ({ profile, error: lookupErr } = await findProfileByRobloxName(db, identifier));
+  }
 
   // A failed lookup is not a wrong password. Saying "Incorrect username/email
   // or password" when the database is simply unreachable is what convinced

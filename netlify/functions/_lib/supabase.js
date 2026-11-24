@@ -12,6 +12,7 @@
  *   .upsert(obj, { onConflict })
  *   .delete()
  *   .eq(col, val)
+ *   .eqIgnoreCase(col, val)       lower(col) = lower($1), exact (no wildcards)
  *   .neq(col, val)
  *   .in(col, arr)
  *   .is(col, val)                 null / not-null checks
@@ -334,6 +335,13 @@ class QueryBuilder {
 
   eq(col, val) {
     this._wheres.push({ sql: `"${this._table}"."${col}" = $__`, val });
+    return this;
+  }
+
+  // Exact match ignoring case. Not ilike: ilike treats _ and % as wildcards,
+  // and underscores are common in Roblox usernames.
+  eqIgnoreCase(col, val) {
+    this._wheres.push({ sql: `lower("${this._table}"."${col}") = lower($__)`, val });
     return this;
   }
 

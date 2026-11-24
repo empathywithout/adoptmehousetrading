@@ -14,6 +14,7 @@
 // discover which Roblox players have accounts here.
 
 import { supabaseAdmin, json, safeHandler } from "./_lib/supabase.js";
+import { findProfileByRobloxName } from "./_lib/profile-lookup.js";
 import {
   newRobloxCode,
   storeRobloxCode,
@@ -42,11 +43,9 @@ async function handlerImpl(event) {
   }
 
   const db = supabaseAdmin();
-  const { data: profile, error } = await db
-    .from("profiles")
-    .select("id, rbx_username")
-    .eq("rbx_username", identifier)
-    .maybeSingle();
+  // Ignoring case: an exact match here silently stored no code for anyone
+  // who typed their name in different capitals, so verify could never pass.
+  const { profile, error } = await findProfileByRobloxName(db, identifier, "id, rbx_username");
 
   if (error) {
     console.error("[password-reset-start] profile lookup failed:", error);
