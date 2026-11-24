@@ -95,11 +95,14 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // allowed_mentions is empty so nothing in a user's text can ping @everyone,
 // a role or a person. One retry on a rate limit, using Discord's own wait.
 export async function sendWebhook(url, embeds, { fetchImpl = fetch } = {}) {
-  const body = JSON.stringify({
-    username: "AdoptMeHouseTrading",
-    embeds,
-    allowed_mentions: { parse: [] },
-  });
+  return postWebhook(url, { username: "AdoptMeHouseTrading", embeds }, { fetchImpl });
+}
+
+// Any webhook message: { content?, embeds?, username? }. Mentions are always
+// switched off, so nothing posted this way can ping @everyone or a role, even
+// if the text happens to contain one.
+export async function postWebhook(url, payload, { fetchImpl = fetch } = {}) {
+  const body = JSON.stringify({ ...payload, allowed_mentions: { parse: [] } });
 
   for (let attempt = 0; attempt < 2; attempt++) {
     const res = await fetchImpl(`${url}?wait=true`, {

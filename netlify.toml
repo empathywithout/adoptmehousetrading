@@ -32,6 +32,13 @@
 [functions."discord-post-listings"]
   schedule = "*/30 * * * *"
 
+# Every 15 minutes: Adopt Me event reminders (2D Tuesday, Update Day, Admin
+# Abuse) and new PlayAdoptMe videos into the Discord's adopt-me-news channel.
+# Needs DISCORD_NEWS_WEBHOOK set; without it the function logs and does
+# nothing. See netlify/functions/discord-adopt-me-news.js.
+[functions."discord-adopt-me-news"]
+  schedule = "*/15 * * * *"
+
 # Netlify Image CDN may only fetch remote images from hosts listed here.
 # This is the public R2 bucket that listing and build photos are uploaded to;
 # see cardPhoto() in public/js/api.js.
