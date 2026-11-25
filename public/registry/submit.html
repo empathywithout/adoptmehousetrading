@@ -40,7 +40,7 @@
       AdoptMeHouseTrading
     </a>
     <nav>
-      <a href="../listings/index.html">Browse Houses</a>
+      <a href="../listings/index.html">Browse</a>
       <a href="../commissions/index.html">Find a Builder</a>
       <a href="../recent-trades.html">Recent Trades</a>
       <div class="nav-more">
@@ -79,7 +79,7 @@
 
     <label class="field-label" style="margin-top:0;">What did you build?</label>
     <div class="segmented" id="category-toggle" style="width:fit-content;max-width:100%;overflow-x:auto;"></div>
-    <p class="hint" id="category-hint" style="margin-bottom:20px;">A full house build</p>
+    <p class="hint" id="category-hint" style="margin-bottom:20px;">Pick one first.</p>
 
     <label class="field-label" style="margin-top:0;" for="title">Build title</label>
     <input type="text" id="title" placeholder="e.g. Ivory Pagoda" maxlength="120">
@@ -173,7 +173,8 @@
   // What kind of build (migration-031). ?category=plushie preselects it.
   let activeCategory = (() => {
     const k = new URLSearchParams(location.search).get("category");
-    return BUILD_CATEGORIES.some((c) => c.key === k) ? k : "house";
+    // null until picked, so nothing is registered as a house by default.
+    return BUILD_CATEGORIES.some((c) => c.key === k) ? k : null;
   })();
 
   function renderCategoryToggle() {
@@ -189,7 +190,7 @@
   }
 
   function onCategoryChange() {
-    document.getElementById("category-hint").textContent = buildCategory(activeCategory).hint;
+    document.getElementById("category-hint").textContent = activeCategory ? buildCategory(activeCategory).hint : "Pick one first.";
     // Only houses are built on a house type.
     document.getElementById("house-field").hidden = activeCategory !== "house";
   }
@@ -408,6 +409,12 @@
     const photos = uploadedPhotos.filter(Boolean);
     const included_items = itemsPicker ? itemsPicker.getSelected() : [];
 
+    if (!activeCategory) {
+      errorBox.textContent = "Pick what you built: a house, plushie, furniture or wall art.";
+      errorBox.hidden = false;
+      errorBox.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
     if (!title) {
       errorBox.textContent = "Give your build a title.";
       errorBox.hidden = false;

@@ -40,7 +40,7 @@
       AdoptMeHouseTrading
     </a>
     <nav>
-      <a href="listings/index.html">Browse Houses</a>
+      <a href="listings/index.html">Browse</a>
       <a href="commissions/index.html">Find a Builder</a>      <a href="recent-trades.html">Recent Trades</a>
       <div class="nav-more">
         <button type="button" class="nav-more-trigger">More <span class="nav-more-caret"></span></button>
@@ -81,8 +81,11 @@
 
     <label class="field-label" style="margin-top:0;">What are you listing?</label>
     <div class="segmented" id="category-toggle" style="width:fit-content;max-width:100%;overflow-x:auto;"></div>
-    <p class="hint" id="category-hint" style="margin-bottom:24px;">A full house build</p>
+    <p class="hint" id="category-hint" style="margin-bottom:24px;">Pick one to get started.</p>
 
+    <!-- Hidden until a category is picked, so a plushie can't slip through
+         as the default "house" by someone scrolling past the first question. -->
+    <div id="after-category" hidden>
     <label class="field-label" style="margin-top:0;">Listing Type</label>
     <div class="type-card-grid" id="type-card-grid"></div>
     <p class="hint" id="type-hint" style="margin-bottom:28px;">Trading a house you own for other items.</p>
@@ -208,6 +211,7 @@
         <button id="no-register-btn" class="btn" style="font-size:13px;padding:8px 16px;background:var(--surface-2);color:var(--ink);">No thanks, view listing</button>
       </div>
     </div>
+    </div>
   </div>
 
 </section>
@@ -231,9 +235,10 @@
   let selectedHouseId = null;
   let activeType = "house_trade";
   // What kind of build (migration-031). ?category=plushie preselects it.
+  // null until the lister picks one (or ?category= arrives with the link).
   let activeCategory = (() => {
     const k = new URLSearchParams(location.search).get("category");
-    return BUILD_CATEGORIES.some((c) => c.key === k) ? k : "house";
+    return BUILD_CATEGORIES.some((c) => c.key === k) ? k : null;
   })();
   const isHouse = () => activeCategory === "house";
   // Matches listings-create.js: a house needs several angles, a plushie or a
@@ -339,9 +344,12 @@
 
     const cat = buildCategory(activeCategory);
     const noun = isHouse() ? "house" : cat.label.toLowerCase();
-    document.getElementById("category-hint").textContent = cat.hint;
+    document.getElementById("after-category").hidden = !activeCategory;
+    document.getElementById("category-hint").textContent = activeCategory ? cat.hint : "Pick one to get started.";
     document.getElementById("type-hint").textContent = TYPE_DEFS.find((t) => t.id === activeType).tip.replace(/\bhouse\b/g, noun);
-    document.getElementById("form-heading").textContent = `List ${isHouse() ? "a House" : cat.label === "Furniture" || cat.label === "Wall Art" ? cat.label : "a " + cat.label}`;
+    document.getElementById("form-heading").textContent = !activeCategory
+      ? "Create a Listing"
+      : `List ${isHouse() ? "a House" : cat.label === "Furniture" || cat.label === "Wall Art" ? cat.label : "a " + cat.label}`;
     document.getElementById("title-label").textContent = isHouse() ? "House Title" : "Title";
     document.getElementById("form-intro").textContent =
       `Post your ${noun} for trade, or a looking-for request. Real photos and an accurate value help you get real offers fast.`;

@@ -3531,3 +3531,11 @@ a.nav-bell { text-decoration: none; display: inline-flex; align-items: center; }
     background: none; border: none; color: var(--ink-soft); cursor: pointer;
   }
 }
+
+/* Homepage strip pointing to the non-house build categories. */
+.more-builds { display: flex; align-items: center; justify-content: space-between; gap: 14px 24px; flex-wrap: wrap; border: 1px dashed var(--line); border-radius: 14px; padding: 14px 20px; }
+.more-builds strong { color: var(--ink); margin-right: 6px; }
+.more-builds span { color: var(--ink-soft); font-size: 14.5px; }
+.more-builds-links { display: flex; gap: 8px; flex-wrap: wrap; }
+.more-builds-links a { padding: 7px 14px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 700; font-size: 13.5px; text-decoration: none; }
+.more-builds-links a:hover { background: var(--accent); color: var(--white); }

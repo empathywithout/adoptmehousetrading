@@ -202,7 +202,7 @@ ${allJsonLd.map(jsonLdScript).join("\n")}
       AdoptMeHouseTrading
     </a>
     <nav>
-      <a href="${rootPrefix}listings/index.html" class="${routePath.startsWith("listings") ? "active" : ""}">Browse Houses</a>
+      <a href="${rootPrefix}listings/index.html" class="${routePath.startsWith("listings") ? "active" : ""}">Browse</a>
       <a href="${rootPrefix}commissions/index.html" class="${routePath.startsWith("commissions") ? "active" : ""}">Find a Builder</a>
       <a href="${rootPrefix}recent-trades.html" class="${routePath === "recent-trades" ? "active" : ""}">Recent Trades</a>
       <div class="nav-more">
@@ -398,10 +398,24 @@ function buildHomepage(stats) {
   <div style="border:1px solid var(--line);border-radius:14px;padding:16px 28px;display:flex;gap:36px;flex-wrap:wrap;background:var(--surface);">${statTiles}</div>
 </section>
 
+<section class="wrap" style="padding-top:14px;padding-bottom:0;">
+  <div class="more-builds">
+    <div>
+      <strong>Not just houses.</strong>
+      <span>Trade the plushies, furniture sets and wall art you build too.</span>
+    </div>
+    <div class="more-builds-links">
+      <a href="listings/index.html?category=plushie">Plushies</a>
+      <a href="listings/index.html?category=furniture">Furniture</a>
+      <a href="listings/index.html?category=wall_art">Wall Art</a>
+    </div>
+  </div>
+</section>
+
 <section class="wrap" style="padding-bottom:0;">
   <div class="section-head"><h2>How house trading works here</h2><a href="guides/how-to-trade-houses.html">Read the full guide →</a></div>
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;">
-    ${step(1, "List your house", "Add at least five photos, say which house it is, and mark whether the build is original or cloned. Ask for a value in Shark, Frost or Ride Pot.")}
+    ${step(1, "List your house", "Add at least three photos, say which house it is, and mark whether the build is original or cloned. Ask for a value in Shark, Frost or Ride Pot.")}
     ${step(2, "Get offers", "Players offer pets, vehicles, toys and more. A house can be traded for anything except another house, and there is no Robux or real money in an offer.")}
     ${step(3, "Chat with preset messages", "Trade chat uses ready-made messages only, so nobody has to type personal details to a stranger.")}
     ${step(4, "Confirm it", "After the swap in game, both traders confirm it here. Trades confirmed by both sides show up on the Recent Trades page.")}
