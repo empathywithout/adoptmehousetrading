@@ -3405,3 +3405,15 @@ a.site-data-list .sd-main:hover, .site-data-list a.sd-main:hover { color: var(--
 .discord-cta .btn { flex-shrink: 0; }
 .discord-note { margin: 12px 0 0; font-size: 13.5px; color: var(--ink-soft); }
 .discord-note a { color: var(--accent); font-weight: 600; }
+
+/* Build category tabs (Browse, registry). Reuses .detail-tabs; scrolls
+   sideways on narrow phones instead of wrapping. */
+.build-cat-tabs { overflow-x: auto; scrollbar-width: none; margin-bottom: 18px; }
+.build-cat-tabs::-webkit-scrollbar { display: none; }
+.build-cat-tabs .tab { white-space: nowrap; margin-right: 14px; }
+.build-cat-tabs .tab-count { font-size: 12px; font-weight: 600; color: var(--muted); margin-left: 2px; }
+#category-toggle button { white-space: nowrap; }
+@media (max-width: 520px) {
+  .build-cat-tabs .tab { margin-right: 8px; font-size: 13.5px; }
+  .build-cat-tabs .tab-count { font-size: 11px; }
+}

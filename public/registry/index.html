@@ -68,7 +68,7 @@
 <section class="wrap" style="padding: 40px 0 80px;">
   <div class="section-head">
     <h1>Adopt Me Build Registry — Protect Your Original Builds</h1>
-    <a href="submit.html">+ Register a build</a>
+    <a href="submit.html" id="register-link">+ Register a build</a>
   </div>
   <p class="hint" style="margin-bottom:20px;max-width:640px;">
     Builders spend thousands of Bucks and hours crafting unique houses, only to have cloners copy the design and sell it as their own. When the same build floods the market, original builders lose credit and traders get scammed paying original prices for dupes. The Build Registry is a public, timestamped record of who built what first. Register your build in seconds — if someone disputes your claim, the timestamp wins, but real proof of ownership like early screenshots or videos can override it. Builds go Verified after 30 days with no dispute, or get officially marked Original or Cloned after a real review. Know what you're trading for. Builders get the credit they're owed.
@@ -82,12 +82,13 @@
     <div id="featured-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;"></div>
   </div>
 
+  <div class="detail-tabs build-cat-tabs" id="category-tabs" role="tablist" aria-label="Build type"></div>
   <div id="pf-container"></div>
 
   <div id="empty-state" class="form-card" hidden>
     <span class="card-heading">No builds registered yet</span>
     <p class="subtitle">Be the first to claim credit for your work.</p>
-    <a class="btn btn-primary" href="submit.html">Register a Build</a>
+    <a class="btn btn-primary" href="submit.html" id="empty-cta">Register a Build</a>
     <p class="discord-note">Builders share their work in <a href="https://discord.gg/tnXAGRNNjQ" target="_blank" rel="noopener">our Discord</a> too.</p>
   </div>
   <p class="hint" id="registry-count" style="margin:0 0 12px;" hidden></p>
@@ -148,8 +149,8 @@
 </footer>
 
 <script type="module">
-  import { api, getToken, THEME_LABELS, loadReputation, reputationHtml, sendToSignIn, avatarImg, cardPhoto } from "../js/api.js?v=7";
-  import { buildCardHtml, mountHearts } from "../js/cards.js?v=1";
+  import { api, getToken, THEME_LABELS, loadReputation, reputationHtml, sendToSignIn, avatarImg, cardPhoto } from "../js/api.js?v=8";
+  import { buildCardHtml, mountHearts, categoryTabsHtml, categoryFromUrl } from "../js/cards.js?v=2";
   import { mountPillFilters } from "../js/pill-filters.js";
 
   const grid = document.getElementById("registry-grid");
@@ -159,6 +160,9 @@
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
+  // Houses, plushies, furniture or wall art (migration-031).
+  let activeCategory = categoryFromUrl();
+  const catOf = (e) => e.category || "house";
   let activeSort = "recent"; // "recent" | "saves"
   let activeThemes = new Set();
   let activeClone = "all";
@@ -237,7 +241,11 @@
   // ── Main render ─────────────────────────────────────────────
   function render(keepPage = false) {
     if (!keepPage) shown = PAGE_SIZE;
-    let filtered = activeThemes.size === 0 ? [...entries] : entries.filter(e => (e.themes || []).some(t => activeThemes.has(t)));
+    const inCategory = entries.filter((e) => catOf(e) === activeCategory);
+    const regHref = activeCategory === "house" ? "submit.html" : `submit.html?category=${activeCategory}`;
+    document.getElementById("register-link").href = regHref;
+    document.getElementById("empty-cta").href = regHref;
+    let filtered = activeThemes.size === 0 ? [...inCategory] : inCategory.filter(e => (e.themes || []).some(t => activeThemes.has(t)));
     if (activeClone !== "all") {
       filtered = filtered.filter(e => {
         if (activeClone === "original") return e.build_type === "original" || (!e.build_type && !e.is_cloned);
@@ -269,9 +277,9 @@
 
     moreBtn.style.display = (!moreToShow) ? "none" : "";
     countEl.hidden = false;
-    countEl.textContent = filtered.length === entries.length
+    countEl.textContent = filtered.length === inCategory.length
       ? `Showing ${originals.length} of ${allOriginals.length} builds`
-      : `Showing ${originals.length} of ${allOriginals.length} matching builds (${entries.length} total)`;
+      : `Showing ${originals.length} of ${allOriginals.length} matching builds (${inCategory.length} total)`;
 
     function entryCard(entry) {
       const isOwnBuild = myProfileId && entry.profile_id === myProfileId;
@@ -299,6 +307,23 @@
     grid.innerHTML = originalsHtml + clonesHtml;
   }
 
+  function renderCategoryTabs() {
+    const counts = {};
+    for (const e of entries) counts[catOf(e)] = (counts[catOf(e)] || 0) + 1;
+    const el = document.getElementById("category-tabs");
+    el.innerHTML = categoryTabsHtml(activeCategory, counts);
+    el.querySelectorAll(".tab").forEach((b) => b.addEventListener("click", () => {
+      activeCategory = b.dataset.category;
+      const url = new URL(location.href);
+      if (activeCategory === "house") url.searchParams.delete("category");
+      else url.searchParams.set("category", activeCategory);
+      history.replaceState(null, "", url);
+      renderCategoryTabs();
+      render();
+    }));
+  }
+
+  renderCategoryTabs();
   renderThemePills();
   render();
 

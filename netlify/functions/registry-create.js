@@ -1,5 +1,7 @@
 // POST, Authorization: Bearer <token>
-// body: { title, description, themes, photos, house_id, build_type }
+// body: { category, title, description, themes, photos, house_id, build_type }
+// category: house (default) | plushie | furniture | wall_art. house_id is
+// only kept for houses.
 // -> { entry }
 //
 // Post-first, not pre-approved — live immediately. Runs the duplicate
@@ -21,6 +23,7 @@
 import { supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
 import { invalidate } from "./_lib/cache.js";
 import { findDuplicate } from "./_lib/duplicates.js";
+import { cleanCategory } from "./_lib/build-categories.js";
 
 const VALID_THEMES = [
   "cutecore",
@@ -71,7 +74,8 @@ async function handlerImpl(event) {
     return json(400, { error: "Invalid JSON body" });
   }
 
-  const { title, description, themes, photos, house_id, included_items, build_type } = body;
+  const { category, title, description, themes, photos, house_id, included_items, build_type } = body;
+  const cleanCat = cleanCategory(category);
 
   if (!title?.trim()) {
     return json(400, { error: "Give your build a title" });
@@ -146,7 +150,8 @@ async function handlerImpl(event) {
       photos: cleanPhotos,
       themes: cleanThemes,
       included_items: cleanIncludedItems,
-      house_id: house_id || null,
+      category: cleanCat,
+      house_id: cleanCat === "house" ? house_id || null : null,
       build_type: cleanBuildType,
       possible_duplicate_of: possibleDuplicateOf,
     })

@@ -78,8 +78,8 @@
 </footer>
 
 <script type="module">
-  import { api, getStoredProfile, CATEGORY_LABELS, THEME_LABELS, QUICK_REPLIES, loadReputation, reputationHtml, sendToSignIn, setCanonical, avatarImg } from "../js/api.js?v=7";
-  import { heartButtonHtml, heartTallyHtml, mountHearts } from "../js/cards.js?v=1";
+  import { api, getStoredProfile, CATEGORY_LABELS, THEME_LABELS, QUICK_REPLIES, buildCategory, loadReputation, reputationHtml, sendToSignIn, setCanonical, avatarImg } from "../js/api.js?v=8";
+  import { heartButtonHtml, heartTallyHtml, mountHearts } from "../js/cards.js?v=2";
   import { mountChatPanel } from "../js/chat.js";
   import { mountItemPicker } from "../js/item-picker.js";
 
@@ -166,6 +166,11 @@
         : Promise.resolve({}),
     ]);
     const house = listing.house_id ? houses.find((h) => h.id === listing.house_id) : null;
+    // Plushie, furniture and wall art listings (migration-031) have no house.
+    const cat = buildCategory(listing.category);
+    const isHouse = cat.key === "house";
+    const noun = isHouse ? "house" : cat.label.toLowerCase();
+    const browseHref = isHouse ? "index.html" : `index.html?category=${cat.key}`;
     // `let`, not `const`: the Save click handler below reassigns this. As a
     // const it threw "Assignment to constant variable" on every click, so the
     // Save button on a listing page has never actually worked — the error was
@@ -178,7 +183,7 @@
     document.title = `${listing.title} — AdoptMeHouseTrading.com`;
     document.querySelector('meta[name="description"]')?.setAttribute(
       "content",
-      `${listing.title}${house ? ` (${house.name})` : ""} — a live house trade listing on AdoptMeHouseTrading.com.`
+      `${listing.title}${house ? ` (${house.name})` : ""} — a live ${noun} trade listing on AdoptMeHouseTrading.com.`
     );
     setCanonical(`https://adoptmehousetrading.com/listings/listing.html?id=${listing.id}`);
 
@@ -206,7 +211,7 @@
       .join("");
 
     content.innerHTML = `
-      <div class="breadcrumb">Browse Houses &nbsp;/&nbsp; <span class="current">${escapeHtml(listing.title)}</span></div>
+      <div class="breadcrumb"><a href="${browseHref}" style="color:inherit;">Browse ${escapeHtml(cat.plural)}</a> &nbsp;/&nbsp; <span class="current">${escapeHtml(listing.title)}</span></div>
 
       <div class="detail-grid">
         <div>
@@ -231,7 +236,7 @@
           }
 
           <div class="meta-row" style="margin-top:12px;">
-            ${house ? `<span class="pill">House: ${escapeHtml(house.name)}</span>` : ""}
+            ${house ? `<span class="pill">House: ${escapeHtml(house.name)}</span>` : !isHouse ? `<span class="pill">${escapeHtml(cat.label)}</span>` : ""}
             ${lookingForHtml ? `<span class="pill">${listing.listing_type === "looking_for" ? "Offering:" : "Looking for:"}</span>${lookingForHtml}` : ""}
             ${themeHtml}
           </div>
@@ -302,13 +307,13 @@
           ${
             listing.status === "active" && !isOwner
               ? `<div class="cta-box" id="offer-cta">
-                  <h3>${listing.listing_type === "commission" ? "Request a Commission" : listing.listing_type === "looking_for" ? "I Have This House" : "Make an Offer"}</h3>
+                  <h3>${listing.listing_type === "commission" ? "Request a Commission" : listing.listing_type === "looking_for" ? `I Have This ${isHouse ? "House" : cat.label}` : "Make an Offer"}</h3>
                   <p>${
                     listing.listing_type === "commission"
                       ? "Describe the house you'd like built and what you'll pay for it."
                       : listing.listing_type === "looking_for"
-                      ? "Let them know you own this house and what you'd want in return."
-                      : "Build an offer from Pets, Vehicles, Toys and more to trade for this house."
+                      ? `Let them know you own this ${noun} and what you'd want in return.`
+                      : `Build an offer from Pets, Vehicles, Toys and more to trade for this ${noun}.`
                   }</p>
                   <button class="btn btn-primary" id="scroll-to-offer-btn">${listing.listing_type === "commission" ? "Send a Request" : "Make an Offer"}</button>
                   <p style="margin:14px 0 0;font-size:12px;color:var(--muted);text-align:center;">Not sure what to offer? <a href="../guides/index.html" style="color:var(--accent);text-decoration:none;font-weight:600;">Read our trading guides →</a></p>
@@ -352,7 +357,7 @@
                   listing.listing_type === "commission"
                     ? "Describe the house you want built..."
                     : listing.listing_type === "looking_for"
-                    ? "Let them know you have this house and what you'd want for it"
+                    ? `Let them know you have this ${noun} and what you'd want for it`
                     : "Anything you want the lister to know"
                 }"></textarea>
                 <div class="hero-ctas" style="justify-content:flex-start;margin-top:18px;">
@@ -368,7 +373,7 @@
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
       const valueText = listing.value_amount != null ? `${listing.value_amount} ${listing.value_unit || ""}` : "value TBD";
-      metaDesc.setAttribute("content", `${listing.title} — Adopt Me house trade listing, asking ${valueText}. Browse offers or make one on AdoptMeHouseTrading.com.`);
+      metaDesc.setAttribute("content", `${listing.title} — Adopt Me ${noun} trade listing, asking ${valueText}. Browse offers or make one on AdoptMeHouseTrading.com.`);
     }
     const breadcrumbScript = document.createElement("script");
     breadcrumbScript.type = "application/ld+json";
@@ -377,7 +382,7 @@
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: "https://adoptmehousetrading.com/" },
-        { "@type": "ListItem", position: 2, name: "Browse Houses", item: "https://adoptmehousetrading.com/listings/index.html" },
+        { "@type": "ListItem", position: 2, name: `Browse ${cat.plural}`, item: `https://adoptmehousetrading.com/listings/${browseHref}` },
         { "@type": "ListItem", position: 3, name: listing.title, item: `https://adoptmehousetrading.com/listings/listing.html?id=${listing.id}` },
       ],
     });
@@ -401,7 +406,7 @@
         "Adopt Me house trading",
         listing.house_id,
         ...(listing.themes || []).map(t => t.replace(/_/g, " ")),
-        listing.listing_type === "looking_for" ? "looking for house" : "house for trade",
+        listing.listing_type === "looking_for" ? `looking for ${noun}` : `${noun} for trade`,
       ].filter(Boolean).join(", "),
     });
     document.head.appendChild(listingSchema);
@@ -426,6 +431,7 @@
         title: listing.title,
         photos: listing.photos || [],
         house_id: listing.house_id || null,
+        category: listing.category || "house",
         themes: listing.themes || [],
       }));
       location.href = "../registry/submit.html";

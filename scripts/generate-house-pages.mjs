@@ -91,7 +91,7 @@ function siteDataSection(house, stats) {
     })).join("")}
     </div>
     <script type="module">
-      import { mountHearts, markSavedHearts } from "../js/cards.js?v=1";
+      import { mountHearts, markSavedHearts } from "../js/cards.js?v=2";
       const grid = document.getElementById("house-listings-grid");
       mountHearts(grid);
       markSavedHearts(grid);
@@ -459,8 +459,8 @@ ${news ? `<section class="wrap" style="padding-bottom:0;">
 </section>
 
 <script type="module">
-  import { loadReputation } from "./js/api.js?v=7";
-  import { listingCardHtml, mountHearts } from "./js/cards.js?v=1";
+  import { loadReputation } from "./js/api.js?v=8";
+  import { listingCardHtml, mountHearts } from "./js/cards.js?v=2";
 
   try {
     const [{ listings }, houses, reputation] = await Promise.all([

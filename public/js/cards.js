@@ -16,11 +16,11 @@
 //   * heartButtonHtml() + mountHearts() are the one save/heart control for
 //     listings and registry builds, on cards and on detail pages.
 //
-// Imported as "./cards.js?v=1"; it imports api.js with the same ?v= the pages
+// Imported as "./cards.js?v=2"; it imports api.js with the same ?v= the pages
 // use, so the browser shares one copy of api.js. Bump both when either changes
 // its exports (see the /js/* cache note in netlify.toml).
 
-import { THEME_LABELS, cardPhoto, avatarImg, sendToSignIn, reputationLine } from "./api.js?v=7";
+import { THEME_LABELS, BUILD_CATEGORIES, buildCategory, cardPhoto, avatarImg, sendToSignIn, reputationLine } from "./api.js?v=8";
 
 export const UNIT_LABELS = { shark: "Shark", frost: "Frost", rp: "Ride Pot" };
 
@@ -187,6 +187,11 @@ export async function markSavedHearts(root) {
 // Photo alt text: what the build is and which house, for image search and
 // for anyone who can't see the photo. The fallback image gets the same text,
 // since it still stands for that listing.
+// Non-house builds have no house; their category stands in for it.
+function categoryName(item) {
+  return item?.category && item.category !== "house" ? buildCategory(item.category).label : "";
+}
+
 function photoAlt(title, houseName) {
   const t = String(title || "").trim() || "Adopt Me house build";
   return houseName ? `${t}, ${houseName} build in Adopt Me` : `${t}, Adopt Me build`;
@@ -215,12 +220,13 @@ export function listingCardHtml(listing, { href, house, fallbackImage, reputatio
   const chips = themes.length > 2 ? [themes[0], themes[1], `+${themes.length - 2}`] : themes;
   const name = listing.profiles?.display_name;
   const rep = reputation ? reputationLine(reputation, 1) : "";
-  const houseLine = [showHouse ? (house?.name || "") : "", traded ? "Traded" : ""].filter(Boolean).join(" · ");
+  const where = house?.name || categoryName(listing);
+  const houseLine = [showHouse ? where : "", traded ? "Traded" : ""].filter(Boolean).join(" · ");
 
   return `
   <article class="lcard${traded ? " is-traded" : ""}">
     <div class="lcard-photo">
-      ${photo ? `<img src="${esc(cardPhoto(photo))}" alt="${esc(photoAlt(listing.title, house?.name))}" loading="lazy" decoding="async"${listing.photos?.[0] ? "" : ' class="is-fallback"'}>` : ""}
+      ${photo ? `<img src="${esc(cardPhoto(photo))}" alt="${esc(photoAlt(listing.title, where))}" loading="lazy" decoding="async"${listing.photos?.[0] ? "" : ' class="is-fallback"'}>` : ""}
       ${label ? `<span class="lcard-build lcard-build--${label.cls}">${esc(label.text)}</span>` : ""}
       ${isOwn ? heartTallyHtml(count) : heartButtonHtml({ kind: "listing", id: listing.id, saved, count })}
     </div>
@@ -290,14 +296,15 @@ export function buildCardHtml(entry, { href, houseName, heart = "button", saved 
   const count = entry.save_count || 0;
   const themes = (entry.themes || []).map((t) => THEME_LABELS[t] || t);
   const chips = themes.length > 2 ? [themes[0], themes[1], `+${themes.length - 2}`] : themes;
-  const eyebrow = houseName || (entry.created_at ? `Registered ${shortDate(entry.created_at)}` : "");
+  const where = houseName || categoryName(entry);
+  const eyebrow = where || (entry.created_at ? `Registered ${shortDate(entry.created_at)}` : "");
   const heartHtml = heart === "button"
     ? heartButtonHtml({ kind: "registry", id: entry.id, saved, count })
     : heart === "tally" ? heartTallyHtml(count) : "";
   return `
   <article class="lcard">
     <div class="lcard-photo">
-      ${photo ? `<img src="${esc(cardPhoto(photo))}" alt="${esc(photoAlt(entry.title, houseName))}" loading="lazy" decoding="async"${entry.photos?.[0] ? "" : ' class="is-fallback"'}>` : ""}
+      ${photo ? `<img src="${esc(cardPhoto(photo))}" alt="${esc(photoAlt(entry.title, where))}" loading="lazy" decoding="async"${entry.photos?.[0] ? "" : ' class="is-fallback"'}>` : ""}
       ${lab ? `<span class="lcard-build lcard-build--${lab.cls}">${esc(lab.text)}</span>` : ""}
       ${heartHtml}
     </div>
@@ -339,4 +346,20 @@ export function builderCardHtml(b, { href, reputation, fallbackImage = "" } = {}
       </div>
     </div>
   </article>`;
+}
+
+// Category tabs for Browse and the registry: Houses, Plushies, Furniture,
+// Wall Art. counts is { key: n }; a tab with nothing in it still shows, so
+// people can see the category exists and be the first to post one.
+export function categoryTabsHtml(active, counts = {}) {
+  return BUILD_CATEGORIES.map((c) => `
+    <button type="button" class="tab${c.key === active ? " active" : ""}" data-category="${c.key}" role="tab" aria-selected="${c.key === active}">
+      ${esc(c.plural)}${counts[c.key] ? ` <span class="tab-count">${counts[c.key]}</span>` : ""}
+    </button>`).join("");
+}
+
+// The category asked for in the URL (?category=plushie), else houses.
+export function categoryFromUrl() {
+  const key = new URLSearchParams(location.search).get("category");
+  return BUILD_CATEGORIES.some((c) => c.key === key) ? key : "house";
 }

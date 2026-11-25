@@ -1,10 +1,14 @@
 // POST, Authorization: Bearer <token>
-// body: { house_id, title, description, photos: [url], looking_for: [category] }
+// body: { category, house_id, title, description, photos: [url], looking_for: [category] }
+//
+// category: house (default) | plushie | furniture | wall_art. house_id is
+// required for houses and ignored for everything else.
 // -> { listing }
 
 import {  supabaseAdmin, requireProfile, json, safeHandler } from "./_lib/supabase.js";
 import { invalidate } from "./_lib/cache.js";
 import { validateVideoUrl } from "./_lib/oembed.js";
+import { cleanCategory } from "./_lib/build-categories.js";
 
 const VALID_CATEGORIES = [
   "adopt_me_pets",
@@ -68,6 +72,7 @@ async function handlerImpl(event) {
   }
 
   const {
+    category,
     listing_type,
     house_id,
     title,
@@ -86,8 +91,11 @@ async function handlerImpl(event) {
   } = body;
 
   const cleanType = VALID_LISTING_TYPES.includes(listing_type) ? listing_type : "house_trade";
+  const cleanCat = cleanCategory(category);
+  const isHouse = cleanCat === "house";
+  const cleanHouseId = isHouse ? house_id : null;
 
-  if (!house_id) {
+  if (isHouse && !house_id) {
     return json(400, { error: "house_id is required" });
   }
   if (!title) {
@@ -102,8 +110,10 @@ async function handlerImpl(event) {
 
   // A "looking_for" post doesn't have a house to photograph — the minimum
   // only applies where a real house/example build is actually being shown.
-  if (cleanType !== "looking_for" && cleanPhotos.length < 3) {
-    return json(400, { error: "At least 3 photos are required" });
+  // A plushie or a wall piece can be shown in one shot; a house can't.
+  const minPhotos = isHouse ? 3 : 1;
+  if (cleanType !== "looking_for" && cleanPhotos.length < minPhotos) {
+    return json(400, { error: minPhotos === 1 ? "At least 1 photo is required" : `At least ${minPhotos} photos are required` });
   }
 
   const cleanVideoUrl = video_url && /^https?:\/\//.test(video_url) ? String(video_url).slice(0, 500) : null;
@@ -152,18 +162,22 @@ async function handlerImpl(event) {
 
   const db = supabaseAdmin();
 
-  // Prevent duplicate active listings: same user + same house + same listing type
-  const { data: existing } = await db
-    .from("listings")
-    .select("id")
-    .eq("profile_id", profile.id)
-    .eq("house_id", house_id)
-    .eq("listing_type", cleanType)
-    .eq("status", "active")
-    .maybeSingle();
+  // Prevent duplicate active listings: same user + same house + same listing
+  // type. Houses only: someone can reasonably have several plushies up at
+  // once, and there's no house to compare them by.
+  if (isHouse) {
+    const { data: existing } = await db
+      .from("listings")
+      .select("id")
+      .eq("profile_id", profile.id)
+      .eq("house_id", house_id)
+      .eq("listing_type", cleanType)
+      .eq("status", "active")
+      .limit(1);
 
-  if (existing) {
-    return json(409, { error: "You already have an active listing for this house. Edit or remove it before posting a new one." });
+    if (existing?.length) {
+      return json(409, { error: "You already have an active listing for this house. Edit or remove it before posting a new one." });
+    }
   }
 
   const { data, error } = await db
@@ -171,7 +185,8 @@ async function handlerImpl(event) {
     .insert({
       profile_id: profile.id,
       listing_type: cleanType,
-      house_id,
+      category: cleanCat,
+      house_id: cleanHouseId,
       is_cloned: cleanIsCloned,
       build_type: cleanBuildType,
       value_amount: cleanValueAmount,

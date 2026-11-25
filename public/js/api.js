@@ -208,6 +208,23 @@ export const CATEGORY_LABELS = {
   foods: "Food",
 };
 
+// What kind of build a listing or registry entry is (migration-031). Houses
+// were the only kind before. Mirrored in netlify/functions/_lib/build-categories.js
+// and the database check constraints; keep all three in step.
+//   label   singular, on cards and listing pages
+//   plural  tab and filter names
+//   hint    the broader meaning, under the picker
+export const BUILD_CATEGORIES = [
+  { key: "house",     label: "House",     plural: "Houses",    hint: "A full house build" },
+  { key: "plushie",   label: "Plushie",   plural: "Plushies",  hint: "Plushies and sculptures" },
+  { key: "furniture", label: "Furniture", plural: "Furniture", hint: "Furniture and decor sets" },
+  { key: "wall_art",  label: "Wall Art",  plural: "Wall Art",  hint: "Pixel art and wall art" },
+];
+
+export function buildCategory(key) {
+  return BUILD_CATEGORIES.find((c) => c.key === (key || "house")) || BUILD_CATEGORIES[0];
+}
+
 export const GUIDE_CATEGORY_LABELS = {
   theme_build:        "Theme Build Guide",
   budget_build:       "Budget / Challenge Build",

@@ -77,9 +77,14 @@
     <div id="error" class="error-box" hidden></div>
     <div id="success" class="success-box" hidden></div>
 
+    <label class="field-label" style="margin-top:0;">What did you build?</label>
+    <div class="segmented" id="category-toggle" style="width:fit-content;max-width:100%;overflow-x:auto;"></div>
+    <p class="hint" id="category-hint" style="margin-bottom:20px;">A full house build</p>
+
     <label class="field-label" style="margin-top:0;" for="title">Build title</label>
     <input type="text" id="title" placeholder="e.g. Ivory Pagoda" maxlength="120">
 
+    <div id="house-field">
     <label class="field-label">House type (optional)</label>
     <p class="hint" style="margin-top:-4px;margin-bottom:8px;">Which house is this build on, if it's tied to one specific type?</p>
     <div class="house-picker" id="house-picker">
@@ -92,6 +97,7 @@
         <input type="search" id="house-search" placeholder="Search houses...">
         <div id="house-picker-list"></div>
       </div>
+    </div>
     </div>
 
     <label class="field-label" for="description">Description</label>
@@ -155,7 +161,7 @@
 </footer>
 
 <script type="module">
-  import { api, getStoredProfile, THEME_LABELS, HOUSE_PLACEHOLDER_ICON } from "../js/api.js?v=7";
+  import { api, getStoredProfile, THEME_LABELS, HOUSE_PLACEHOLDER_ICON, BUILD_CATEGORIES, buildCategory } from "../js/api.js?v=8";
   import { mountItemPicker } from "../js/item-picker.js";
 
   const profile = getStoredProfile();
@@ -164,6 +170,29 @@
   let selectedHouseId = null;
   let itemsPicker = null;
   let buildTypeVal = "original";
+  // What kind of build (migration-031). ?category=plushie preselects it.
+  let activeCategory = (() => {
+    const k = new URLSearchParams(location.search).get("category");
+    return BUILD_CATEGORIES.some((c) => c.key === k) ? k : "house";
+  })();
+
+  function renderCategoryToggle() {
+    const el = document.getElementById("category-toggle");
+    el.innerHTML = BUILD_CATEGORIES.map((c) =>
+      `<button type="button" data-val="${c.key}" class="${c.key === activeCategory ? "active accent" : ""}">${escapeHtml(c.label)}</button>`
+    ).join("");
+    el.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => {
+      activeCategory = b.dataset.val;
+      el.querySelectorAll("button").forEach((x) => x.classList.toggle("active", x === b));
+      onCategoryChange();
+    }));
+  }
+
+  function onCategoryChange() {
+    document.getElementById("category-hint").textContent = buildCategory(activeCategory).hint;
+    // Only houses are built on a house type.
+    document.getElementById("house-field").hidden = activeCategory !== "house";
+  }
 
   if (!profile) {
     document.getElementById("need-profile").hidden = false;
@@ -208,6 +237,7 @@
       document.getElementById("title").value = prefill.title || "";
       (prefill.photos || []).forEach((url) => uploadedPhotos.push(url));
       selectedHouseId = prefill.house_id || null;
+      if (BUILD_CATEGORIES.some((c) => c.key === prefill.category)) activeCategory = prefill.category;
       (prefill.themes || []).forEach((theme) => {
         const cb = themesGrid.querySelector(`input[value="${theme}"]`);
         if (cb) cb.checked = true;
@@ -218,6 +248,9 @@
       prefillNote.textContent = "Pre-filled from your listing — review everything before submitting, especially the photos and themes.";
       document.getElementById("title").insertAdjacentElement("beforebegin", prefillNote);
     }
+
+    renderCategoryToggle();
+    onCategoryChange();
 
     // Photo slots don't depend on house data — render them immediately so a
     // slow/failed houses.json fetch can never block photo uploads from
@@ -391,7 +424,7 @@
       const baseBuildType = buildTypeVal;
       const finalBuildType = isGlitch && (baseBuildType === "original" || baseBuildType === "cloned")
         ? "glitch_" + baseBuildType : baseBuildType;
-      const { entry } = await api.registerBuild({ title, description, themes, photos, house_id: selectedHouseId, included_items, build_type: finalBuildType });
+      const { entry } = await api.registerBuild({ category: activeCategory, title, description, themes, photos, house_id: activeCategory === "house" ? selectedHouseId : null, included_items, build_type: finalBuildType });
       successBox.textContent = "Build registered! Redirecting...";
       successBox.hidden = false;
       setTimeout(() => {

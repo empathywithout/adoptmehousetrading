@@ -32,16 +32,21 @@ async function handlerImpl(event) {
   const listingIds = [...new Set(trades.map(t => t.listing_id))];
   const { data: listings } = await db
     .from("listings")
-    .select("id, house_id, title, value_amount, value_unit, is_cloned, profile_id, photos")
+    .select("id, category, house_id, title, value_amount, value_unit, is_cloned, profile_id, photos")
     .in("id", listingIds);
 
   const listingMap = {};
   for (const l of listings || []) listingMap[l.id] = l;
 
+  // Recent Trades and the house pages are house values, so trades of
+  // plushies, furniture and wall art (migration-031) are left out. Rows from
+  // before categories existed have no category and are houses.
+  const isHouseTrade = (t) => (listingMap[t.listing_id]?.category || "house") === "house";
+
   // Filter by house_id if provided
-  const filtered = houseId
+  const filtered = (houseId
     ? trades.filter(t => listingMap[t.listing_id]?.house_id === houseId)
-    : trades;
+    : trades).filter(isHouseTrade);
 
   if (!filtered.length) return publicJson(200, { trades: [] }, 60);
 

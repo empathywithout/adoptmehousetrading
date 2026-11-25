@@ -18,7 +18,7 @@ async function handlerImpl(event) {
     return json(405, { error: "Method not allowed" });
   }
 
-  const cacheKey = (e) => `registry:list:v2:${new URLSearchParams(e.queryStringParameters || {}).toString()}`;
+  const cacheKey = (e) => `registry:list:v3:${new URLSearchParams(e.queryStringParameters || {}).toString()}`;
   return withCache(cacheKey, 60, fetchRegistry, event);
 }
 
@@ -36,6 +36,7 @@ async function fetchRegistry(event) {
     .limit(MAX_ROWS);
 
   if (params.house_id)    query = query.eq("house_id", params.house_id);
+  if (params.category)    query = query.eq("category", params.category);
   if (params.profile_id)  query = query.eq("profile_id", params.profile_id);
   // Filter themes in the DB instead of fetching every row and slicing in JS
   if (params.theme)       query = query.contains("themes", [params.theme]);
@@ -55,10 +56,14 @@ async function fetchRegistry(event) {
   const entries = data.map((e) => {
     const ageDays = (Date.now() - new Date(e.created_at).getTime()) / 86400000;
     const is_community_verified = e.status === "active" && !disputedSet.has(e.id) && ageDays >= VERIFY_AFTER_DAYS;
-    if (!light) return { ...e, is_community_verified };
-    const { description, included_items, photos, ...rest } = e;
+    // Rows from before migration-031 have no category: they are all houses.
+    const category = e.category || "house";
+    if (!light) return { ...e, category, is_community_verified };
+    // photo_hashes (migration-030) are for duplicate checks, not for browsers.
+    const { description, included_items, photos, photo_hashes, ...rest } = e;
     return {
       ...rest,
+      category,
       // Cover photo only, kept as an array so `photos?.[0]` callers work.
       photos: Array.isArray(photos) && photos.length ? [photos[0]] : [],
       is_community_verified,

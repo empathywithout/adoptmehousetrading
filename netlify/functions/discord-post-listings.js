@@ -19,8 +19,11 @@
 // is looked at twice. It is set only after Discord accepts the message, so a
 // failed send is retried on the next run.
 //
-// Needs DISCORD_LISTINGS_WEBHOOK set to the channel's webhook URL. Without it
-// this logs and does nothing, the same as rebuild-site without its hook.
+// Each build category posts to its own channel (WEBHOOK_ENVS below). Houses
+// use DISCORD_LISTINGS_WEBHOOK; without it this logs and does nothing, the
+// same as rebuild-site without its hook. A category whose webhook isn't set
+// is left unhandled rather than marked done, so setting the variable later
+// still posts anything from the last MAX_AGE_HOURS.
 
 import { supabaseAdmin } from "./_lib/supabase.js";
 import { isTestRow } from "./_lib/testdata.js";
@@ -33,6 +36,25 @@ import {
 } from "./_lib/discord.js";
 
 const WEBHOOK_ENV = "DISCORD_LISTINGS_WEBHOOK";
+// One channel per build category. Keys must match _lib/build-categories.js.
+const WEBHOOK_ENVS = {
+  house: WEBHOOK_ENV,
+  plushie: "DISCORD_PLUSHIES_WEBHOOK",
+  furniture: "DISCORD_FURNITURE_WEBHOOK",
+  wall_art: "DISCORD_WALL_ART_WEBHOOK",
+};
+
+// Webhook for a category, or null if it isn't set or doesn't look like one.
+function webhookFor(category) {
+  const name = WEBHOOK_ENVS[category] || WEBHOOK_ENV;
+  const url = process.env[name];
+  if (!url) return null;
+  if (!isDiscordWebhookUrl(url)) {
+    console.error(`[discord-post-listings] ${name} does not look like a Discord webhook URL, refusing to post to it.`);
+    return null;
+  }
+  return url;
+}
 const POST_DELAY_MINUTES = 30;
 const MAX_AGE_HOURS = 48;
 // One run posts at most this many. Anything left over goes out next run, so a
@@ -84,7 +106,7 @@ export const handler = async () => {
 
   const { data: rows, error } = await db
     .from("listings")
-    .select("id, title, house_id, listing_type, value_amount, value_unit, photos, status, created_at, profiles(display_name)")
+    .select("id, title, category, house_id, listing_type, value_amount, value_unit, photos, status, created_at, profiles(display_name)")
     .is("discord_handled_at", null)
     .filter("created_at", ">=", oldest)
     .filter("created_at", "<=", newest)
@@ -110,20 +132,36 @@ export const handler = async () => {
   }
   await markHandled(db, skip);
 
-  const houseNames = toPost.length ? await loadHouseNames() : {};
+  const houseNames = toPost.some((l) => (l.category || "house") === "house") ? await loadHouseNames() : {};
   let posted = 0;
+  let waiting = 0;
 
-  // Oldest first, so the channel reads in the order listings went up. Stop at
-  // the first failed message: everything after it stays unhandled and goes out
-  // in order next run.
-  for (const batch of chunk(toPost, MAX_EMBEDS_PER_MESSAGE)) {
-    const embeds = batch.map((l) => buildListingEmbed(l, { siteUrl: SITE_URL, houseNames }));
-    const ok = await sendWebhook(webhook, embeds);
-    if (!ok) break;
-    await markHandled(db, batch.map((l) => l.id));
-    posted += batch.length;
+  // Split by channel, keeping order within each.
+  const byCategory = new Map();
+  for (const l of toPost) {
+    const cat = l.category || "house";
+    if (!byCategory.has(cat)) byCategory.set(cat, []);
+    byCategory.get(cat).push(l);
   }
 
-  console.log(`[discord-post-listings] posted ${posted}, skipped ${skip.length}, left for next run ${toPost.length - posted}`);
+  for (const [cat, list] of byCategory) {
+    const url = webhookFor(cat);
+    if (!url) {
+      waiting += list.length;
+      continue;
+    }
+    // Oldest first, so the channel reads in the order listings went up. Stop
+    // at the first failed message: everything after it stays unhandled and
+    // goes out in order next run.
+    for (const batch of chunk(list, MAX_EMBEDS_PER_MESSAGE)) {
+      const embeds = batch.map((l) => buildListingEmbed(l, { siteUrl: SITE_URL, houseNames }));
+      const ok = await sendWebhook(url, embeds);
+      if (!ok) break;
+      await markHandled(db, batch.map((l) => l.id));
+      posted += batch.length;
+    }
+  }
+
+  console.log(`[discord-post-listings] posted ${posted}, skipped ${skip.length}, waiting on a webhook ${waiting}, left for next run ${toPost.length - posted - waiting}`);
   return { statusCode: 200, body: String(posted) };
 };

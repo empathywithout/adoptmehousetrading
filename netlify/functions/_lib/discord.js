@@ -7,6 +7,8 @@
 // Kept separate from the job that uses it so the message-building parts are
 // plain functions that can be tested without a database or a network.
 
+import { CATEGORY_LABELS } from "./build-categories.js";
+
 const WEBHOOK_RE = /^https:\/\/(?:ptb\.|canary\.)?discord(?:app)?\.com\/api\/webhooks\/\d+\/[\w-]+$/;
 
 export function isDiscordWebhookUrl(url) {
@@ -56,7 +58,12 @@ export function formatValue(amount, unit) {
 // One listing -> one Discord embed. Never includes the Roblox username: that
 // is private on this site and only revealed to an accepted trade partner.
 export function buildListingEmbed(listing, { siteUrl, houseNames = {} }) {
-  const houseName = houseNames[listing.house_id] || prettifyHouseId(listing.house_id);
+  // Non-house builds (migration-031) have no house; name the category instead.
+  const category = listing.category || "house";
+  const houseName =
+    category === "house"
+      ? houseNames[listing.house_id] || prettifyHouseId(listing.house_id)
+      : CATEGORY_LABELS[category] || prettifyHouseId(category);
   const isLookingFor = listing.listing_type === "looking_for";
   const value = formatValue(listing.value_amount, listing.value_unit);
 

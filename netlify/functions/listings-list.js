@@ -1,4 +1,4 @@
-// GET ?house_id=&status=&listing_type=&limit=
+// GET ?house_id=&category=&status=&listing_type=&limit=
 // -> { listings: [...], total } — each with profile.display_name attached
 //
 // Returns every matching listing as a LIGHT row (cover photo only, no
@@ -31,7 +31,7 @@ async function handlerImpl(event) {
     return json(405, { error: "Method not allowed" });
   }
 
-  const cacheKey = (e) => `listings:list:v2:${new URLSearchParams(e.queryStringParameters || {}).toString()}`;
+  const cacheKey = (e) => `listings:list:v3:${new URLSearchParams(e.queryStringParameters || {}).toString()}`;
   return withCache(cacheKey, 60, fetchListings, event);
 }
 
@@ -40,6 +40,8 @@ function lightRow(l) {
     id: l.id,
     profile_id: l.profile_id,
     listing_type: l.listing_type,
+    // Rows from before migration-031 have no category: they are all houses.
+    category: l.category || "house",
     house_id: l.house_id,
     title: l.title,
     // Cover photo only, kept as an array so existing `photos?.[0]` callers work.
@@ -89,6 +91,10 @@ async function fetchListings(event) {
 
   if (params.listing_type) {
     query = query.eq("listing_type", params.listing_type);
+  }
+
+  if (params.category) {
+    query = query.eq("category", params.category);
   }
 
   const { data, error } = await query;

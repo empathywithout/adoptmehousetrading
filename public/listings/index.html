@@ -67,15 +67,16 @@
 <section class="wrap" style="padding: 40px 0 80px;">
   <div class="section-head">
     <h1 id="listings-heading">Browse Adopt Me House Trading Listings</h1>
-    <a href="../list-a-house.html">+ List your house</a>
+    <a href="../list-a-house.html" id="list-link">+ List your house</a>
   </div>
-  <p class="hint" style="margin-top:-6px;margin-bottom:20px;max-width:680px;">Real houses listed by real Adopt Me players — filter by house type, theme, and whether you're offering a trade or looking for a specific house. Every listing shows the lister's asking value in Shark, Frost, or Ride Pot, so you know what to offer before you commit.</p>
+  <div class="detail-tabs build-cat-tabs" id="category-tabs" role="tablist" aria-label="Build type"></div>
+  <p class="hint" id="listings-intro" style="margin-top:-6px;margin-bottom:20px;max-width:680px;">Real houses listed by real Adopt Me players — filter by house type, theme, and whether you're offering a trade or looking for a specific house. Every listing shows the lister's asking value in Shark, Frost, or Ride Pot, so you know what to offer before you commit.</p>
   <div class="house-filter-row" id="house-filter-row"></div>
   <div id="pf-container"></div>
   <div id="empty-state" class="form-card" hidden>
     <span class="card-heading">No listings yet</span>
-    <p class="subtitle">Be the first to put a house up for trade.</p>
-    <a class="btn btn-primary" href="../list-a-house.html">List a House</a>
+    <p class="subtitle" id="empty-sub">Be the first to put a house up for trade.</p>
+    <a class="btn btn-primary" href="../list-a-house.html" id="empty-cta">List a House</a>
     <p class="discord-note">Can't find the house you want? <a href="https://discord.gg/tnXAGRNNjQ" target="_blank" rel="noopener">Ask in our Discord</a>, where people post trades every day.</p>
   </div>
   <p class="hint" id="listings-count" style="margin:0 0 12px;" hidden></p>
@@ -94,8 +95,8 @@
 </footer>
 
 <script type="module">
-  import { THEME_LABELS, loadReputation } from "../js/api.js?v=7";
-  import { listingCardHtml, mountHearts } from "../js/cards.js?v=1";
+  import { THEME_LABELS, loadReputation, buildCategory } from "../js/api.js?v=8";
+  import { listingCardHtml, mountHearts, categoryTabsHtml, categoryFromUrl } from "../js/cards.js?v=2";
 
   import { mountPillFilters } from "../js/pill-filters.js";
 
@@ -121,6 +122,29 @@
   const BADGE_CLASS = { house_trade: "house-trade", looking_for: "looking-for" };
   const BADGE_ICON = { house_trade: "icon-sign", looking_for: "icon-loop", commission: "icon-hammer" };
 
+  // Houses, plushies, furniture or wall art (migration-031). Rows from
+  // before categories existed come back as "house".
+  let activeCategory = categoryFromUrl();
+  const catOf = (l) => l.category || "house";
+
+  function renderCategoryTabs() {
+    const counts = {};
+    for (const l of listings) counts[catOf(l)] = (counts[catOf(l)] || 0) + 1;
+    const el = document.getElementById("category-tabs");
+    el.innerHTML = categoryTabsHtml(activeCategory, counts);
+    el.querySelectorAll(".tab").forEach((b) => b.addEventListener("click", () => {
+      activeCategory = b.dataset.category;
+      activeHouseId = "all";
+      const url = new URL(location.href);
+      if (activeCategory === "house") url.searchParams.delete("category");
+      else url.searchParams.set("category", activeCategory);
+      history.replaceState(null, "", url);
+      renderCategoryTabs();
+      renderHouseFilterRow();
+      renderGrid();
+    }));
+  }
+
   let activeFilter = "all";
   let activeHouseId = "all";
   let activeThemes = new Set(); // multi-select
@@ -136,9 +160,11 @@
   // sparser than a mockup's sample data, so showing every house type
   // regardless of whether anyone's listed one would mostly be empty filters.
   function renderHouseFilterRow() {
-    const houseIdsInUse = [...new Set(listings.map((l) => l.house_id).filter(Boolean))];
+    const houseIdsInUse = [...new Set(listings.filter((l) => catOf(l) === "house").map((l) => l.house_id).filter(Boolean))];
     const houseFilterEl = document.getElementById("house-filter-row");
 
+    houseFilterEl.hidden = activeCategory !== "house";
+    if (activeCategory !== "house") return;
     if (!houseIdsInUse.length) {
       houseFilterEl.hidden = true;
       return;
@@ -183,7 +209,25 @@
 
   function updateHeading() {
     const heading = document.getElementById("listings-heading");
-    if (activeHouseId === "all") {
+    const cat = buildCategory(activeCategory);
+    const isHouse = activeCategory === "house";
+    const listHref = isHouse ? "../list-a-house.html" : `../list-a-house.html?category=${activeCategory}`;
+    document.getElementById("list-link").href = listHref;
+    const aNoun = cat.key === "plushie" ? "a plushie" : cat.label.toLowerCase();
+    document.getElementById("list-link").textContent = isHouse ? "+ List your house" : `+ List ${aNoun}`;
+    const intro = document.getElementById("listings-intro");
+    intro.dataset.house ??= intro.textContent;
+    intro.textContent = isHouse
+      ? intro.dataset.house
+      : `${cat.hint} made by real Adopt Me players. Filter by theme and build style, and every listing shows the asking value in Shark, Frost or Ride Pot.`;
+    document.getElementById("empty-cta").href = listHref;
+    document.getElementById("empty-cta").textContent = isHouse ? "List a House" : `List ${cat.label}`;
+    document.getElementById("empty-sub").textContent = isHouse
+      ? "Be the first to put a house up for trade."
+      : `No ${cat.plural.toLowerCase()} up yet. Be the first to list one.`;
+    if (!isHouse) {
+      heading.textContent = `Browse Adopt Me ${cat.label} Trading Listings`;
+    } else if (activeHouseId === "all") {
       heading.textContent = "Browse Adopt Me House Trading Listings";
     } else {
       const house = houseById[activeHouseId];
@@ -206,7 +250,8 @@
     if (!keepPage) shown = PAGE_SIZE;
     updateHeading();
 
-    const filtered = listings.filter((listing) => {
+    const inCategory = listings.filter((l) => catOf(l) === activeCategory);
+    const filtered = inCategory.filter((listing) => {
       const matchesType = activeFilter === "all" || listing.listing_type === activeFilter;
       const matchesHouse = activeHouseId === "all" || listing.house_id === activeHouseId;
       const matchesTheme = activeThemes.size === 0 || (listing.themes || []).some(t => activeThemes.has(t));
@@ -224,9 +269,9 @@
     const visible = filtered.slice(0, shown);
     moreBtn.style.display = (filtered.length <= shown) ? "none" : "";
     countEl.hidden = !filtered.length;
-    countEl.textContent = filtered.length === listings.length
+    countEl.textContent = filtered.length === inCategory.length
       ? `Showing ${visible.length} of ${filtered.length} listings`
-      : `Showing ${visible.length} of ${filtered.length} matching listings (${listings.length} total)`;
+      : `Showing ${visible.length} of ${filtered.length} matching listings (${inCategory.length} total)`;
 
     if (!filtered.length) {
       empty.hidden = false;
@@ -257,6 +302,7 @@
     },
   });
 
+  renderCategoryTabs();
   renderHouseFilterRow();
   renderThemeFilterRow();
 
@@ -268,7 +314,7 @@
     itemListScript.textContent = JSON.stringify({
       "@context": "https://schema.org",
       "@type": "ItemList",
-      itemListElement: listings.slice(0, 30).map((l, i) => ({
+      itemListElement: listings.filter((l) => catOf(l) === "house").slice(0, 30).map((l, i) => ({
         "@type": "ListItem",
         position: i + 1,
         name: l.title,

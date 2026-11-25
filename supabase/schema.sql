@@ -89,7 +89,12 @@ create table listings (
   -- with listing_type='commission' are simply excluded from all public
   -- browse views going forward rather than migrated/deleted.)
 
-  house_id text not null,             -- id from data/houses.json
+  category text not null default 'house'
+    check (category in ('house', 'plushie', 'furniture', 'wall_art')),
+                                       -- migration-031: what kind of build. Mirrored in
+                                       -- _lib/build-categories.js and js/api.js BUILD_CATEGORIES.
+  house_id text,                      -- id from data/houses.json; required for houses only
+                                       -- (listings_house_required_for_houses below)
   is_cloned boolean,                  -- true/false for house_trade listings; null when N/A —
                                        -- mirrors the community's own "100% original" vs
                                        -- "cloned/70%+ similar" distinction, which matters a
@@ -134,10 +139,12 @@ create table listings (
   updated_at timestamptz not null default now(),
   build_type text,                    -- migration-024: original/speedbuild/cloned/glitch*
   save_count integer not null default 0,  -- migration-027, maintained by listing-save.js
-  discord_handled_at timestamptz          -- migration-029: when discord-post-listings dealt with
+  discord_handled_at timestamptz,         -- migration-029: when discord-post-listings dealt with
                                           -- this listing (posted it, or skipped it as removed or
                                           -- test data). NULL = not handled yet.
+  constraint listings_house_required_for_houses check (category <> 'house' or house_id is not null)
 );
+create index listings_category_idx on listings(category);
 
 create index listings_status_idx on listings(status);
 create index listings_house_id_idx on listings(house_id);
@@ -336,7 +343,9 @@ create table build_registry (
                                        -- included_items, since builders often want credit
                                        -- for a build's furniture/pet staging too, not just
                                        -- the house shell
-  house_id text,                      -- optional link to data/houses.json, if known
+  house_id text,                      -- optional link to data/houses.json, if known (houses only)
+  category text not null default 'house'
+    check (category in ('house', 'plushie', 'furniture', 'wall_art')), -- migration-031
   possible_duplicate_of uuid references build_registry(id),
   status text not null default 'active' check (status in ('active', 'disputed', 'confirmed_clone', 'confirmed_original', 'removed')),
   created_at timestamptz not null default now(),
@@ -346,6 +355,7 @@ create table build_registry (
 
 create index build_registry_profile_idx on build_registry(profile_id);
 create index build_registry_status_idx on build_registry(status);
+create index build_registry_category_idx on build_registry(category);
 
 alter table build_registry enable row level security;
 create policy "public can read build registry entries" on build_registry

@@ -186,7 +186,7 @@
 </footer>
 
 <script type="module">
-  import { api, getStoredProfile, THEME_LABELS, CATEGORY_LABELS } from "../js/api.js?v=7";
+  import { api, getStoredProfile, THEME_LABELS, CATEGORY_LABELS, buildCategory } from "../js/api.js?v=8";
   import { mountItemPicker } from "../js/item-picker.js";
   import { attachUnicodeEditor } from "../js/unicode-editor.js";
   attachUnicodeEditor(document.getElementById('edit-description'));
@@ -252,9 +252,12 @@
     }
 
     // Populate read-only header
-    document.getElementById("listing-house-name").textContent = listing.house_id || "Unknown house";
+    // Non-house builds (migration-031) show their category instead.
+    const cat = buildCategory(listing.category);
+    document.getElementById("listing-house-name").textContent =
+      cat.key === "house" ? listing.house_id || "Unknown house" : cat.label;
     document.getElementById("listing-type-label").textContent =
-      listing.listing_type === "looking_for" ? "Looking For" : "House Trade";
+      listing.listing_type === "looking_for" ? "Looking For" : cat.key === "house" ? "House Trade" : "For Trade";
     const badge = document.getElementById("listing-type-badge");
     badge.className = `card-badge ${listing.listing_type === "looking_for" ? "looking-for" : "house-trade"}`;
     badge.innerHTML = `<div class="${listing.listing_type === "looking_for" ? "icon-loop" : "icon-sign"}"></div>`;

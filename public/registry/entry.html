@@ -78,8 +78,8 @@
 </footer>
 
 <script type="module">
-  import { api, getStoredProfile, getToken, THEME_LABELS, sendToSignIn, setCanonical, avatarImg, cardPhoto } from "../js/api.js?v=7";
-  import { heartButtonHtml, heartTallyHtml, mountHearts, buildCardHtml } from "../js/cards.js?v=1";
+  import { api, getStoredProfile, getToken, THEME_LABELS, sendToSignIn, setCanonical, avatarImg, cardPhoto, buildCategory } from "../js/api.js?v=8";
+  import { heartButtonHtml, heartTallyHtml, mountHearts, buildCardHtml } from "../js/cards.js?v=2";
 
   const DISPUTE_TYPE_LABELS = {
     i_am_original:      "Claims to be the original creator",
@@ -157,6 +157,8 @@
     setCanonical(`https://adoptmehousetrading.com/registry/entry.html?id=${entry.id}`);
     const isSelf = myProfile && myProfile.id === entry.profile_id;
     const themesLine = (entry.themes || []).map((t) => THEME_LABELS[t] || t).join(", ");
+    // Non-house builds (migration-031) say what they are.
+    const entryCat = buildCategory(entry.category);
     const pendingDisputeCount = disputes.filter((d) => d.status === "pending").length;
 
     const photosHtml = buildSlideshow(entry.photos || [], escapeHtml(entry.title));
@@ -250,6 +252,7 @@
           ${duplicateNotice}
           <div style="max-width:720px;">${photosHtml}</div>
           ${entry.description ? `<p style="margin-top:16px;">${escapeHtml(entry.description)}</p>` : ""}
+          ${entryCat.key !== "house" ? `<div class="meta-row" style="margin-top:12px;"><span class="pill">${escapeHtml(entryCat.label)}</span></div>` : ""}
           ${themesLine ? `<div class="meta-row" style="margin-top:12px;"><span class="pill">Themes:</span>${(entry.themes || []).map((t) => `<span class="pill">${THEME_LABELS[t] || t}</span>`).join("")}</div>` : ""}
           <div class="meta-row" style="margin-top:8px;">${buildTypeBadge}</div>
           ${
