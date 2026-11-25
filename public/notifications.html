@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Notifications — AdoptMeHouseTrading.com</title>
+<meta name="description" content="Your notifications on AdoptMeHouseTrading.com.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="css/style.css?v=4">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-REW2CFBX6H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-REW2CFBX6H');
+</script>
+</head>
+<body>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="signpost-mini"></span>
+      AdoptMeHouseTrading
+    </a>
+    <nav>
+      <a href="listings/index.html">Browse Houses</a>
+      <a href="commissions/index.html">Find a Builder</a>
+      <a href="recent-trades.html">Recent Trades</a>
+      <div class="nav-more">
+        <button type="button" class="nav-more-trigger">More <span class="nav-more-caret"></span></button>
+        <div class="nav-more-dropdown" hidden>
+          <a href="houses/index.html">Values</a>
+          <a href="registry/index.html">Build Registry</a>
+          <a href="guides/index.html">Guides</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="https://discord.gg/tnXAGRNNjQ" target="_blank" rel="noopener">Discord</a>
+        </div>
+      </div>
+      <a href="profile.html">Profile</a>
+    </nav>
+    <div class="nav-actions">
+      <span id="nav-profile-pill"></span>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      <a class="btn btn-primary" href="list-a-house.html" style="padding:10px 20px;font-size:14px;">Add Listing</a>
+    </div>
+  </div>
+</header>
+<script type="module" src="js/nav.js"></script>
+
+<section class="wrap page-narrow" style="padding:40px 0 80px;">
+  <div class="section-head">
+    <h1>Notifications</h1>
+    <button type="button" class="btn-sm" id="mark-all" hidden>Mark all read</button>
+  </div>
+  <div class="detail-tabs build-cat-tabs" id="notif-filter" role="tablist">
+    <button type="button" class="tab active" data-filter="all">All</button>
+    <button type="button" class="tab" data-filter="unread">Unread <span class="tab-count" id="unread-count"></span></button>
+  </div>
+  <div class="form-card" id="signed-out" hidden>
+    <h2 class="form-card-title">Sign in to see your notifications</h2>
+    <a class="btn btn-primary" href="profile.html">Sign in</a>
+  </div>
+  <div id="notif-list" class="notif-list"><p class="hint">Loading...</p></div>
+</section>
+
+<script type="module">
+  import { getToken } from "./js/api.js?v=8";
+
+  const token = getToken();
+  const listEl = document.getElementById("notif-list");
+  const markAllBtn = document.getElementById("mark-all");
+  let notifications = [];
+  let filter = "all";
+
+  const ICONS = {
+    offer: "🔁", offer_received: "🔁", offer_accepted: "🤝", offer_declined: "✖️",
+    chat_message: "💬", commission: "🔨", trade: "✅", save: "♥", registry: "📋",
+  };
+  function iconFor(type) {
+    const key = Object.keys(ICONS).find((k) => String(type || "").startsWith(k));
+    return key ? ICONS[key] : "🔔";
+  }
+  function escapeHtml(str) {
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  function timeAgo(iso) {
+    const mins = Math.floor((Date.now() - new Date(iso).getTime()) / 60000);
+    if (mins < 1) return "just now";
+    if (mins < 60) return `${mins}m ago`;
+    const hours = Math.floor(mins / 60);
+    if (hours < 24) return `${hours}h ago`;
+    const days = Math.floor(hours / 24);
+    if (days < 7) return `${days}d ago`;
+    return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  }
+  // Keep the nav badge and its cache in step with what's shown here.
+  function syncBadge() {
+    const unread = notifications.filter((n) => !n.read).length;
+    try { localStorage.removeItem("amht_notifs_cache"); } catch {}
+    window.dispatchEvent(new CustomEvent("amht:notifications", { detail: { unread_count: unread } }));
+    document.getElementById("unread-count").textContent = unread || "";
+    markAllBtn.hidden = unread === 0;
+  }
+  function markRead(ids) {
+    return fetch("/.netlify/functions/notifications-mark-read", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+      body: JSON.stringify(ids === "all" ? { all: true } : { notification_id: ids }),
+    }).catch(() => {});
+  }
+
+  function render() {
+    const shown = filter === "unread" ? notifications.filter((n) => !n.read) : notifications;
+    if (!shown.length) {
+      listEl.innerHTML = `<div class="notif-empty"><p class="hint">${filter === "unread" ? "You're all caught up." : "No notifications yet. Offers, trade messages and hearts on your builds show up here."}</p></div>`;
+      return;
+    }
+    listEl.innerHTML = shown.map((n) => `
+      <a class="notif-item${n.read ? "" : " unread"}" href="${escapeHtml(n.link || "profile.html")}" data-id="${n.id}">
+        <span class="notif-icon" aria-hidden="true">${iconFor(n.type)}</span>
+        <span class="notif-body">
+          <span class="notif-text">${escapeHtml(n.message)}</span>
+          <span class="notif-time">${timeAgo(n.created_at)}</span>
+        </span>
+        ${n.read ? "" : `<span class="notif-dot" aria-label="Unread"></span>`}
+      </a>`).join("");
+  }
+
+  listEl.addEventListener("click", (e) => {
+    const a = e.target.closest(".notif-item");
+    if (!a) return;
+    const n = notifications.find((x) => x.id === a.dataset.id);
+    if (n && !n.read) {
+      n.read = true;
+      syncBadge();
+      // keepalive so the request survives the navigation to the link
+      fetch("/.netlify/functions/notifications-mark-read", {
+        method: "POST", keepalive: true,
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ notification_id: n.id }),
+      }).catch(() => {});
+    }
+  });
+
+  document.getElementById("notif-filter").addEventListener("click", (e) => {
+    const b = e.target.closest(".tab");
+    if (!b) return;
+    filter = b.dataset.filter;
+    document.querySelectorAll("#notif-filter .tab").forEach((t) => t.classList.toggle("active", t === b));
+    render();
+  });
+
+  markAllBtn.addEventListener("click", async () => {
+    markAllBtn.disabled = true;
+    await markRead("all");
+    notifications.forEach((n) => (n.read = true));
+    markAllBtn.disabled = false;
+    syncBadge();
+    render();
+  });
+
+  if (!token) {
+    document.getElementById("signed-out").hidden = false;
+    listEl.hidden = true;
+    document.getElementById("notif-filter").hidden = true;
+  } else {
+    try {
+      const res = await fetch("/.netlify/functions/notifications-list?limit=100", { headers: { Authorization: `Bearer ${token}` } });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Couldn't load notifications");
+      notifications = data.notifications || [];
+      syncBadge();
+      render();
+    } catch (err) {
+      listEl.innerHTML = `<p class="hint">${escapeHtml(err.message)}</p>`;
+    }
+  }
+</script>
+<footer class="site-footer">
+  <div class="wrap">
+    AdoptMeHouseTrading.com is a fan-made resource for Roblox's Adopt Me! house trading community. Not affiliated with, endorsed by, or sponsored by Adopt Me, Uplift Games, or Roblox Corporation.
+    <div style="margin-top:8px;"><a href="rules.html" style="color:var(--sign-red);">Community Rules</a> · <a href="privacy.html" style="color:var(--sign-red);">Privacy Policy</a> · <a href="https://www.reddit.com/r/adoptmehousetrading/" style="color:var(--sign-red);" target="_blank" rel="noopener">Reddit</a> · <a href="https://discord.gg/tnXAGRNNjQ" style="color:var(--sign-red);" target="_blank" rel="noopener">Discord</a></div>
+  </div>
+</footer>
+</body>
+</html>

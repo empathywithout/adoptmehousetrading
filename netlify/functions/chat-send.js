@@ -98,7 +98,7 @@ async function handlerImpl(event) {
     return json(500, { error: "Couldn't send message" });
   }
 
-  await notify(db, otherPartyId, "chat_message", `${profile.display_name} sent you a trade chat message`, context_type === "offer" ? "profile.html" : "profile.html");
+  await notify(db, otherPartyId, "chat_message", `${profile.display_name} sent you a trade chat message`, `messages.html?type=${context_type}&id=${context_id}`);
 
   return json(200, { message });
 }

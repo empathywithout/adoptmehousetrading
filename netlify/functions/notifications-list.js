@@ -20,7 +20,9 @@ async function handlerImpl(event) {
     .select("*")
     .eq("profile_id", profile.id)
     .order("created_at", { ascending: false })
-    .limit(30);
+    // The bell badge needs only the recent ones; the Notifications page
+    // (notifications.html) asks for more with ?limit=.
+    .limit(Math.min(200, Math.max(1, parseInt(event.queryStringParameters?.limit, 10) || 30)));
 
   if (error) {
     console.error(error);
