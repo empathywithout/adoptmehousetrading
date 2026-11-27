@@ -3720,6 +3720,16 @@
     "valueUnit": null
   },
   {
+    "id": "hooray",
+    "category": "adopt_me_pets",
+    "name": "Hooray",
+    "rarity": "Ultra Rare",
+    "source": "Crystal Egg and Basic Egg",
+    "image": "/images/adopt_me_pets/Hooray-Ultra-Rare-from-Crystal-Egg-and-Basic-Egg.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
     "id": "hopbop",
     "category": "adopt_me_pets",
     "name": "Hopbop",
@@ -7616,6 +7626,16 @@
     "rarity": "Rare",
     "source": "Lightning Dimension",
     "image": "/images/adopt_me_pets/Thunderfisher-Rare-from-Lightning-Dimension.png",
+    "value": null,
+    "valueUnit": null
+  },
+  {
+    "id": "tilcayo",
+    "category": "adopt_me_pets",
+    "name": "Tilcayo",
+    "rarity": "Legendary",
+    "source": "Gemstone Egg",
+    "image": "/images/adopt_me_pets/Tilcayo-Legendary-from-Gemstone-Egg.png",
     "value": null,
     "valueUnit": null
   },
