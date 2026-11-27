@@ -211,6 +211,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://adoptmehousetrading.com/houses/gingerbread-mansion.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://adoptmehousetrading.com/houses/halloween-hotel.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>

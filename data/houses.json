@@ -390,6 +390,25 @@
     "tradingNotes": "It was a Christmas update house, and it is sold for Bucks. Check in game to see if it is still for sale."
   },
   {
+    "id": "gingerbread-mansion",
+    "category": "houses",
+    "name": "Gingerbread Mansion",
+    "rarity": "Common",
+    "source": "Gingerbread Mansion Update",
+    "image": "/images/houses/Gingerbread-Mansion-Common-from-Gingerbread-Mansion-Update.webp",
+    "value": null,
+    "valueUnit": null,
+    "availability": "obtainable",
+    "bucksPrice": 10000,
+    "floors": 2,
+    "expandable": false,
+    "released": "November 27, 2026",
+    "summary": "Gingerbread Mansion is a two-story winter Adopt Me house from November 27, 2026. It costs 10,000 Bucks, and 14 gingerbread furniture items are sold separately.",
+    "originLabel": "Gingerbread Mansion update (Nov 2026)",
+    "description": "The Gingerbread Mansion came out in the Gingerbread Mansion update on November 27, 2026, as the new winter house. You buy it with Bucks for 10,000 Bucks, or get it by trading. For one day only, November 27 to 28, it was also part of the Home for the Holidays bundle. The update added 14 matching gingerbread furniture and decor items. They are sold separately, and one of each adds up to 1,600 Bucks.\n\nIt is not the same house as the older Gingerbread House from Christmas 2019, which is much smaller and costs 1,850 Bucks.\n\nThe outside is a tall brown gingerbread house with icing on the roof, chimneys, balcony and windows, and you can change the icing color. Gumdrops sit on the roof, candy cane pillars hold up the balcony, and a brick path runs through a snowy front yard to a wreath-covered double door. Inside there are two floors built around an open courtyard in the middle of the ground floor. The kitchen and living room come decorated, and the other ground floor rooms are mostly empty. Upstairs, a U-shaped hallway leads to six rooms, including a decorated bedroom and bathroom.",
+    "tradingNotes": "You can also get it by trading. No special trading rules for this house were found. Nothing says it is limited, but check in game to see if it is still for sale."
+  },
+  {
     "id": "halloween-hotel",
     "category": "houses",
     "name": "Halloween Hotel",

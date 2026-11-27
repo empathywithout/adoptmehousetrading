@@ -1,5 +1,13 @@
 [
  {
+  "date": "2026-11-27",
+  "title": "Gingerbread Mansion released",
+  "text": "The Gingerbread Mansion came out for 10,000 Bucks. It has two floors around an open courtyard, and its 14 matching gingerbread items are sold separately.",
+  "houses": [
+   "gingerbread-mansion"
+  ]
+ },
+ {
   "date": "2026-09-25",
   "title": "Monster Mansion released",
   "text": "The Monster Mansion came out for 13,000 Bucks. It has four levels, and its ten matching furniture pieces are sold separately.",
